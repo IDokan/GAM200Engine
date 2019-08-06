@@ -11,6 +11,7 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #include "Engine.hpp"
 #include "Application.hpp"
+#include "Input.hpp"
 
 Application* app_ = nullptr;
 

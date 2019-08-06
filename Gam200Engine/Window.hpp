@@ -23,6 +23,8 @@ public:
     bool CreateWindow() noexcept;
     void PollEvent() noexcept;
     void SwapBackBuffer() const noexcept;
+    void ToggleFullscreen() noexcept;
+    bool IsFullscreen() noexcept;
 
 private:
     std::unique_ptr<PlatformWindow> platformWindow{};

@@ -10,6 +10,15 @@ Creation Date: 08.05.2019
     Source file for making window
 ******************************************************************************/
 #include "PlatformWindow.hpp"
+#include "Input.hpp"
+
+namespace
+{
+    void KeyCallBack(GLFWwindow *window, int key, int scancode, int action, int mods)
+    {
+        input.SetKeyboardInput(key, action);
+    }
+}
 
 bool PlatformWindow::CreateWindow() noexcept
 {
@@ -26,16 +35,16 @@ bool PlatformWindow::CreateWindow() noexcept
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_SAMPLES, 4);
     
-    window = glfwCreateWindow(1280, 1080, "engine", nullptr, nullptr);
+    window = glfwCreateWindow(1600, 900, "engine", nullptr, nullptr);
 
     if (!window)
     {
         return false;
     }
-
-    glfwSwapInterval(true);
     glfwMakeContextCurrent(window);
-    
+    glfwSetKeyCallback(window, KeyCallBack);
+    glfwSwapInterval(true);
+
     return true;
 }
 
@@ -47,4 +56,28 @@ void PlatformWindow::PollEvent() noexcept
 void PlatformWindow::SwapBackBuffer() noexcept
 {
     glfwSwapBuffers(window);
+}
+
+bool PlatformWindow::IsFullscreen() noexcept
+{
+    return glfwGetWindowMonitor(window);
+}
+
+void PlatformWindow::ToggleFullscreen() noexcept
+{
+    if (!IsFullscreen())
+    {
+        const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+       
+        glfwGetWindowPos(window, &xPos, &yPos);
+        glfwGetWindowSize(window, &xSize, &ySize);
+        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
+        glViewport(0, 0, mode->width, mode->height);
+    }
+    else
+    {
+        glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0);
+        glViewport(0, 0, xSize, ySize);
+    }
 }

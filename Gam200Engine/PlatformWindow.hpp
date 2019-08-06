@@ -14,13 +14,18 @@ Creation Date: 08.05.2019
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
 
+
 class PlatformWindow
 {
 public:
     bool CreateWindow() noexcept;
     void PollEvent() noexcept;
     void SwapBackBuffer() noexcept;
+    void ToggleFullscreen() noexcept;
+    bool IsFullscreen() noexcept;
 
 private:
     GLFWwindow* window;
+    int xPos, yPos;
+    int xSize, ySize;
 };
