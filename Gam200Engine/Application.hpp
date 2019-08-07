@@ -12,6 +12,7 @@ Creation Date: 08.05.2019
 #pragma once
 #include "Window.hpp"
 
+
 class Application
 {
 public:
@@ -19,6 +20,7 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
+    Math::vector2 GetWindowSize;
 
 private:
     Application() = default;

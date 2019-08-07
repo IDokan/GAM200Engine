@@ -13,6 +13,8 @@ Creation Date: 08.06.2019
 #include "Input.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "PlatformWindow.hpp"
+#include "Application.hpp"
 
 Input input;
 
@@ -62,4 +64,18 @@ bool Input::IsKeyPressed(int key)
 bool Input::IsKeyReleased(int key)
 {
     return keyReleased[key];
+}
+
+Math::vector2 Input::GetMousePos()
+{
+    return mousePosistion;
+}
+
+void Input::SetMousePos(float xPos, float yPos)
+{
+        float x = Application::GetApplication()->GetWindowSize.x;
+        float y = Application::GetApplication()->GetWindowSize.y;
+
+        mousePosistion.x = -(x / 2.0f - xPos);
+        mousePosistion.y = y / 2.0f - yPos;
 }

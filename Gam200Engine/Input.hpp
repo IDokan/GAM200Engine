@@ -22,10 +22,13 @@ public:
     void Init();
     void TriggeredReset();
     void SetKeyboardInput(int key, int action);
+    void SetMousePos(float xPos, float yPos);
 
     bool IsKeyTriggered(int key);
     bool IsKeyPressed(int key);
     bool IsKeyReleased(int key);
+
+    Math::vector2 GetMousePos();
 
 
 private:

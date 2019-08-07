@@ -22,6 +22,7 @@ Application* Application::GetApplication()
 void Application::Init()
 {
     window.CreateWindow();
+    GetWindowSize = window.WindowSize();
 }
 
 void Application::Update(float dt)

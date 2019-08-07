@@ -12,6 +12,7 @@ Creation Date: 08.05.2019
 #include "Engine.hpp"
 #include "Application.hpp"
 #include "Input.hpp"
+#include <iostream>
 
 Application* app_ = nullptr;
 
@@ -28,6 +29,7 @@ void Engine::Update()
     dt = static_cast<float>(timer.GetElapsedSeconds());
     timer.Reset();
     app_->Update(dt);
+    std::cout << input.GetMousePos().x << "," << input.GetMousePos().y << std::endl;
 }
 
 void Engine::Clear()

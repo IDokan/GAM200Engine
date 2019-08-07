@@ -14,18 +14,31 @@ Creation Date: 08.05.2019
 
 namespace
 {
-    void KeyCallBack(GLFWwindow *window, int key, int scancode, int action, int mods)
+    void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
     {
         input.SetKeyboardInput(key, action);
     }
+    void MousePositionCallback(GLFWwindow* window, double xPos, double yPos)
+    {
+        input.SetMousePos(xPos, yPos);
+    }
+    //void WindowSizeCallback(GLFWwindow *window, int width,int height)
+    //{
+    //    xSize = width;
+    //    ySize = height;
+    //}
 }
 
 bool PlatformWindow::CreateWindow() noexcept
 {
+
     if (!glfwInit())
     {
         return false;
     }
+
+    xPos = 100;
+    yPos = 100;
 
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
@@ -35,14 +48,17 @@ bool PlatformWindow::CreateWindow() noexcept
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_SAMPLES, 4);
     
-    window = glfwCreateWindow(1600, 900, "engine", nullptr, nullptr);
+    window = glfwCreateWindow(xSize, ySize, "engine", nullptr, nullptr);
+    glfwSetWindowPos(window, xPos, yPos);
 
     if (!window)
     {
         return false;
     }
     glfwMakeContextCurrent(window);
-    glfwSetKeyCallback(window, KeyCallBack);
+    glfwSetKeyCallback(window, KeyCallback);
+    glfwSetCursorPosCallback(window, MousePositionCallback);
+    //glfwSetWindowSizeCallback(window, WindowSizeCallback);
     glfwSwapInterval(true);
 
     return true;
@@ -74,10 +90,19 @@ void PlatformWindow::ToggleFullscreen() noexcept
         glfwGetWindowSize(window, &xSize, &ySize);
         glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
         glViewport(0, 0, mode->width, mode->height);
+        windowSize.width = mode->width;
+        windowSize.height = mode->height;
     }
     else
     {
         glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0);
         glViewport(0, 0, xSize, ySize);
+        windowSize.width = xSize;
+        windowSize.height = ySize;
     }
+}
+
+Math::vector2 PlatformWindow::GetPlatformWindowSize() noexcept
+{
+    return windowSize;
 }
