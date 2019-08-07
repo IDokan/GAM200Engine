@@ -44,5 +44,8 @@
     <ClInclude Include="Angle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MathLibrary.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

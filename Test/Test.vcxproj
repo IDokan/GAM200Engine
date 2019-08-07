@@ -166,6 +166,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gam200Engine\Gam200Engine.vcxproj">
+      <Project>{68b5bab0-908a-4a27-a080-6e50386b66ea}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Math\Math.vcxproj">
       <Project>{0033f166-a304-4a9d-8e62-8ef2d2d74368}</Project>
     </ProjectReference>

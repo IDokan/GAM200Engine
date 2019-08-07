@@ -80,6 +80,7 @@ namespace Math
         return{ v.x / divisor, v.y / divisor };
     }
 
+
     [[nodiscard]] bool operator==(const vector2& v1, const vector2& v2) noexcept
     {
         if ((std::numeric_limits<float>::epsilon() >= std::abs(v1.x - v2.x)) &&
@@ -90,7 +91,6 @@ namespace Math
         else
             return false;
     }
-
 
     [[nodiscard]] bool operator!=(const vector2& v1, const vector2& v2) noexcept
     {
@@ -110,12 +110,15 @@ namespace Math
         return dotProduct2;
     }
 
+    //============================Perpendicular===========================
     vector2 perpendicular_to(vector2 a) noexcept
     {
         vector2 perpendicularVector(-a.y, a.x);
         return perpendicularVector;
     }
 
+
+    //===========================Scale=================================
     [[nodiscard]] float magnitude_squared(vector2 a) noexcept
     {
         float squared_magnitude = a.x * a.x + a.y * a.y;
@@ -135,7 +138,7 @@ namespace Math
         return normalize;
     }
 
-
+    //===========================Distance===============================
     [[nodiscard]] float distance_between_squared(vector2 a, vector2 b) noexcept
     {
         float distanceSquared = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
@@ -150,13 +153,12 @@ namespace Math
         return distance;
     }
 
-
+    //===========================Angle=================================
     [[nodiscard]] float angle_between(vector2 a, vector2 b) noexcept
     {
         float angleBetween = acos(dot(a, b) / (magnitude(a) * magnitude(b)));
         return angleBetween;
     }
-
 
     vector2 rotate_by(float angle_in_radians, vector2 v) noexcept
     {

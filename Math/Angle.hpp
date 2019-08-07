@@ -1,4 +1,3 @@
-
 /*------------------------------------------------------------------------
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -12,7 +11,8 @@ Created: 08/05/2019
 
 #pragma once
 #define _USE_MATH_DEFINES
-#include<cmath>
+//just math.h header
+#include <corecrt_math_defines.h>
 
 namespace Math
 {
@@ -21,7 +21,10 @@ namespace Math
     constexpr float HALF_PI = PI / 2.0f;
     constexpr float QUARTER_PI = PI / 4.0f;
 
-    constexpr float radian(float angle_in_degrees) { return angle_in_degrees * PI / 180.0f; }
-    constexpr float degrees(float angle_in_radian) { return angle_in_radian * 180.0f / PI; }
+    //================Convert Degree to Radian================
+    constexpr float Radian(float angle_in_degrees) { return angle_in_degrees * PI / 180.0f; }
+
+    //================Convert Radian to Degree================
+    constexpr float Degrees(float angle_in_radian) { return angle_in_radian * 180.0f / PI; }
 
 }

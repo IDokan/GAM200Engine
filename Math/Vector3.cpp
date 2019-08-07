@@ -16,11 +16,12 @@ Created: 08/05/2019
 
 namespace Math
 {
+    //==========================Constructor===============================
     vector3::vector3() noexcept : x(0.0f), y(0.0f), z(0.0f) {}
     vector3::vector3(float repeated_float) noexcept : x(repeated_float), y(repeated_float), z(repeated_float) {}
     vector3::vector3(float fx, float fy, float fz) noexcept : x(fx), y(fy), z(fz) {}
 
-
+    //=========================Operator Override============================
     void operator+=(vector3& v, const vector3& adding_vector) noexcept
     {
         v.x += adding_vector.x;
@@ -107,6 +108,8 @@ namespace Math
             return false;
     }
 
+
+    //==========================Dot Product ==============================
     [[nodiscard]] float dot(vector3 a, vector3 b) noexcept
     {
         float dotProduct3(a.x * b.x + a.y * b.y + a.z * b.z);
@@ -119,6 +122,8 @@ namespace Math
         return crossVector;
     }
 
+
+    //===========================Scale=================================
     [[nodiscard]] float magnitude_squared(vector3 a) noexcept
     {
         float squared_magnitude = a.x * a.x + a.y * a.y + a.z * a.z;
@@ -138,6 +143,7 @@ namespace Math
         return normalize;
     }
 
+    //===========================Distance===============================
     [[nodiscard]] float distance_between_squared(vector3 a, vector3 b) noexcept
     {
         float squaredDistance = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z);
@@ -151,12 +157,14 @@ namespace Math
         return distance;
     }
 
+    //===========================Angle=================================
     [[nodiscard]] float angle_between(vector3 a, vector3 b) noexcept
     {
         float angleBetween = acos(dot(a, b) / (magnitude(a) * magnitude(b)));
         return angleBetween;
     }
 
+    //====================<< Operator Override=============================
     std::ostream &operator<<(std::ostream &p_Stream, const vector3 &p_Vector) {
         p_Stream << "[Vector3] (" << p_Vector.x << ", " << p_Vector.y << ", " << p_Vector.z << ")";
         return p_Stream;

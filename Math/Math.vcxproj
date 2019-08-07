@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Angle.hpp" />
+    <ClInclude Include="MathLibrary.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
