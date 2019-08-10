@@ -25,7 +25,18 @@ namespace Graphics
     {
         set_clear_color(Color4f{0, 255});
         glCheck(glEnable(GL_DEPTH_TEST));
+		auto tmp = glGetError();
+		if (tmp != GL_NO_ERROR)
+		{
+			std::cout << "Error!\n";
+			return;
+		}
         glCheck(glEnable(GL_BLEND));
+		if (tmp != GL_NO_ERROR)
+		{
+			std::cout << "Error!\n";
+			return;
+		}
         glCheck(glBlendEquation(GL_FUNC_ADD));
         glCheck(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
         enable_multiple_sampling(true);

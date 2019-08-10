@@ -11,6 +11,7 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #pragma once
 #include "Window.hpp"
+#include "Demo.hpp"
 
 class Application
 {
@@ -25,4 +26,6 @@ private:
     float fpsEllapsedTime = 0.f;
     int fpsFrames = 0;
     Window window;
+
+	Demo demo;
 };

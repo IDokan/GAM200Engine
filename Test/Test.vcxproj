@@ -73,22 +73,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(SolutionDir)Gam200Engine;$(ExecutablePath)</ExecutablePath>
-    <ReferencePath>$(SolutionDir)Gam200Engine;$(ReferencePath)</ReferencePath>
+    <ReferencePath>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\glew\lib\$(PlatformTarget);$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(SolutionDir)Gam200Engine;$(ExecutablePath)</ExecutablePath>
-    <ReferencePath>$(SolutionDir)Gam200Engine;$(ReferencePath)</ReferencePath>
+    <ReferencePath>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\glew\lib\$(PlatformTarget);$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <ExecutablePath>$(SolutionDir)Gam200Engine;$(ExecutablePath)</ExecutablePath>
-    <ReferencePath>$(SolutionDir)Gam200Engine;$(ReferencePath)</ReferencePath>
+    <ReferencePath>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\glew\lib\$(PlatformTarget);$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExecutablePath>$(SolutionDir)Gam200Engine;$(ExecutablePath)</ExecutablePath>
-    <ReferencePath>$(SolutionDir)Gam200Engine;$(ReferencePath)</ReferencePath>
+    <ReferencePath>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\glew\lib\$(PlatformTarget);$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,12 +102,13 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,12 +119,13 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,7 +138,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -140,6 +146,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +159,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gam200Engine;$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -160,6 +167,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

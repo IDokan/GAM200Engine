@@ -10,6 +10,7 @@ Creation Date: 08.05.2019
     Source file for the make window
 ******************************************************************************/
 #include "Application.hpp"
+#include "Graphics/GL.hpp"
 
 Application* Application::GetApplication()
 {
@@ -20,6 +21,10 @@ Application* Application::GetApplication()
 void Application::Init()
 {
     window.CreateWindow();
+
+	Graphics::GL::setup();
+
+	demo.Init();
 }
 
 void Application::Update(float dt)
@@ -31,6 +36,9 @@ void Application::Update(float dt)
         fpsEllapsedTime = 0;
         fpsFrames = 0;
     }
+
+	demo.Draw();
+
     window.PollEvent();
     window.SwapBackBuffer();
 }
