@@ -31,14 +31,16 @@ namespace Math
 
             float elements[4];
         };
-
+    //==========================Constructor===============================
         vector4() noexcept;
         explicit vector4(float repeated_float) noexcept;
-        vector4(float fx, float fy, float fz) noexcept;
+        vector4(float fx, float fy, float fz, float fw) noexcept;
     };
 
+    //=========================Check vector is 4D============================
     static_assert(sizeof(vector4) == sizeof(float) * 4, "vector4 should only be three floats");
 
+    //=========================Operator Override============================
     void operator+=(vector4& v, const vector4& adding_vector) noexcept;
     void operator-=(vector4& v, const vector4& subtracting_vector) noexcept;
     void operator*=(vector4& v, float scale) noexcept;
@@ -57,14 +59,20 @@ namespace Math
 
     //==========================Dot Product ==============================
     [[nodiscard]] float dot(vector4 a, vector4 b) noexcept;
-    vector4             cross(vector4 a, vector4 b) noexcept;
+
+    //===========================Scale=================================
     [[nodiscard]] float magnitude_squared(vector4 a) noexcept;
     [[nodiscard]] float magnitude(vector4 a) noexcept;
     vector4             normalize(vector4 a) noexcept;
+
+    //===========================Distance===============================
     [[nodiscard]] float distance_between_squared(vector4 a, vector4 b) noexcept;
     [[nodiscard]] float distance_between(vector4 a, vector4 b) noexcept;
+
+    //===========================Angle=================================
     [[nodiscard]] float angle_between(vector4 a, vector4 b) noexcept;
 
+    //====================<< Operator Override=============================
     std::ostream &operator<<(std::ostream &p_Stream, const vector4 &p_Vector);
 }
 #pragma warning(pop)

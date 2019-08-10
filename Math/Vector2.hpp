@@ -41,12 +41,8 @@ namespace Math
         vector2(float fx, float fy) noexcept;
     };
 
-
-
-    //============================================================
+    //=========================Check vector is 2D===================
     static_assert(sizeof(vector2) == sizeof(float) * 2, "vector2 should only be two floats");
-
-
 
     //=========================Operator Override============================
     void operator+=(vector2& v, const vector2& adding_vector) noexcept;
@@ -61,8 +57,6 @@ namespace Math
     vector2 operator*(const vector2& v, float scale) noexcept;
     vector2 operator*(float scale, const vector2& v) noexcept;
     vector2 operator/(const vector2& v, float divisor) noexcept;
-
-    //===============================================================
 
     [[nodiscard]] bool operator==(const vector2& v1, const vector2& v2) noexcept;
     [[nodiscard]] bool operator!=(const vector2& v1, const vector2& v2) noexcept;
@@ -88,7 +82,7 @@ namespace Math
     [[nodiscard]] float angle_between(vector2 a, vector2 b) noexcept;
     vector2             rotate_by(float angle_in_radians, vector2 v) noexcept;
 
-    //=========================================<< Operator Override=======================================
+    //====================<< Operator Override=============================
     std::ostream &operator<<(std::ostream &p_Stream, const vector2 &p_Vector);
 
 
