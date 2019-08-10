@@ -100,6 +100,7 @@ bool Graphics::Shader::LoadFromSource(const std::string& vertex_shader_source_co
 
 		delete[] errorLog;
 		glCheck(glDeleteProgram(program));
+		Delete();
 
 		glCheck(glDeleteShader(vertexShader));
 		glCheck(glDeleteShader(fragmentShader));
@@ -139,12 +140,23 @@ void Graphics::Shader::SendUniformVariable(const std::string& variable_name, Col
 
 void Graphics::Shader::Delete() noexcept
 {
+	// Error prone
+	if (handleToShader == 0)
+	{
+		return;
+	}
 	glCheck(glDeleteProgram(handleToShader));
+	handleToShader = 0;
+	uniformNameToLocation.clear();
 }
 
 void Graphics::Shader::Select(const Shader& shader) noexcept
 {
-	glCheck(glUseProgram(shader.GetShaderHandler()));
+	auto program = shader.GetShaderHandler();
+	if (program)
+	{
+		glCheck(glUseProgram(program));
+	}
 }
 
 void Graphics::Shader::SelectNothing() noexcept

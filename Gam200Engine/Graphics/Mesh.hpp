@@ -1,0 +1,65 @@
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   Mesh.hpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+Creation Date: 08.10.2019
+
+	Header file for Mesh
+******************************************************************************/
+#pragma once
+#include <Graphics/Color4ub.hpp>
+#include <Vector2.hpp>
+#include <cstddef>
+#include <vector>
+
+namespace Graphics
+{
+    enum class [[nodiscard]] PointListPattern
+    {
+        Lines, LineStrip, LineLoop, Triangles, TriangleStrip, TriangleFan
+    };
+
+    class [[nodiscard]] Mesh
+    {
+    public:
+        std::size_t GetPointCount() const noexcept;
+        Math::vector2     GetPoint(std::size_t index) const noexcept;
+        Graphics::Color4ub    GetColor(std::size_t index = 0) const noexcept;
+        Math::vector2     GetTextureCoordinate(std::size_t index) const noexcept;
+
+        PointListPattern GetPointListPattern() const noexcept;
+        void             SetPointListType(PointListPattern type) noexcept;
+
+        void AddColor(Graphics::Color4ub color) noexcept;
+        void AddPoint(Math::vector2 point) noexcept;
+        void AddTextureCoordinate(Math::vector2 texture_coordinate) noexcept;
+
+        void ClearColors() noexcept;
+        bool HasMoreThanOneColor() const noexcept;
+
+        void ClearTextureCoordinates() noexcept;
+        void ClearPoints() noexcept;
+        void Clear() noexcept;
+
+    private:
+        std::vector<Math::vector2>  points{};
+        std::vector<Graphics::Color4ub> colors{};
+        std::vector<Math::vector2>  textureCoordinates{};
+        PointListPattern      pointListType = PointListPattern::Lines;
+    };
+
+    namespace MESH
+    {
+        Mesh create_circle(float radius = 1, Graphics::Color4ub color = Graphics::Color4ub{255}, std::size_t point_count = 30) noexcept;
+        Mesh create_wire_circle(float radius = 1, Graphics::Color4ub color = Graphics::Color4ub{255},
+                                std::size_t point_count = 30) noexcept;
+        Mesh create_box(float dimension = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
+        Mesh create_rectangle(float width = 1, float height = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
+        Mesh create_wire_rectangle(float width = 1, float height = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
+        Mesh create_wire_box(float dimension = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
+        Mesh create_line(Math::vector2 a = {0, 0}, Math::vector2 b = {1, 0}, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
+    }
+}
