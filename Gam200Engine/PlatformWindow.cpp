@@ -61,6 +61,8 @@ bool PlatformWindow::CreateWindow() noexcept
     //glfwSetWindowSizeCallback(window, WindowSizeCallback);
     glfwSwapInterval(true);
 
+	glewInit();
+
     return true;
 }
 

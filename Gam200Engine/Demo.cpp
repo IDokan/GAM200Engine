@@ -14,13 +14,16 @@ Creation Date: 08.10.2019
 #include <Graphics/Color4ub.hpp>
 #include <Graphics/Mesh.hpp>
 #include <Graphics/GL.hpp>
+#include <matrix3.hpp>
 
 void Demo::Init()
 {
+
 	using namespace Graphics;
 	testMaterial.shader = &Graphics::SHADER::solid_color();
 	// send uniform matrix variable named "to_ndc"
-	testMaterial.color4fUniforms["color"] = to_color4f(Color4ub{ 165 });
+	testMaterial.color4fUniforms["color"] = to_color4f(Color4ub{ 255, 0, 0 });
+	testMaterial.matrix3Uniforms["to_ndc"] = Math::MATRIX3::build_scale(2.f / 1920, 2.f / 1080);
 
 	VertexLayoutDescription testLayout = SHADER::solid_color_vertex_layout();
 
