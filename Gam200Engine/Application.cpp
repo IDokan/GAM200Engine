@@ -10,6 +10,8 @@ Creation Date: 08.05.2019
     Source file for the make window
 ******************************************************************************/
 #include "Application.hpp"
+#include "Input.hpp"
+#include <iostream>
 #include "Graphics/GL.hpp"
 
 Application* Application::GetApplication()
@@ -21,6 +23,7 @@ Application* Application::GetApplication()
 void Application::Init()
 {
     window.CreateWindow();
+    GetWindowSize = window.WindowSize();
 
 	Graphics::GL::setup();
 
@@ -29,6 +32,8 @@ void Application::Init()
 
 void Application::Update(float dt)
 {
+    input.TriggeredReset();
+
     fpsEllapsedTime += dt;
     ++fpsFrames;
     if (fpsEllapsedTime >= 1.0f)
@@ -41,6 +46,15 @@ void Application::Update(float dt)
 
     window.PollEvent();
     window.SwapBackBuffer();
+
+    if (input.IsKeyTriggered(GLFW_KEY_A))
+    {
+        std::cout << "a" << std::endl;
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_F))
+    {
+        window.ToggleFullscreen();
+    }
 }
 
 void Application::Clear()

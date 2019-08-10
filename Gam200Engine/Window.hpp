@@ -11,6 +11,7 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #pragma once
 #include <memory>
+#include "Vector2.hpp"
 
 class PlatformWindow;
 
@@ -23,6 +24,14 @@ public:
     bool CreateWindow() noexcept;
     void PollEvent() noexcept;
     void SwapBackBuffer() const noexcept;
+    void ToggleFullscreen() noexcept;
+    bool IsFullscreen() noexcept;
+    Math::vector2 WindowSize() noexcept;
+
+    Window(const Window&) = delete;
+    Window& operator=(const Window&) = delete;
+    Window(Window&&) = delete;
+    Window& operator=(Window&&) = delete;
 
 private:
     std::unique_ptr<PlatformWindow> platformWindow{};

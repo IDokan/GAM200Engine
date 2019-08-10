@@ -13,6 +13,7 @@ Creation Date: 08.05.2019
 
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
+#include "Vector2.hpp"
 
 class PlatformWindow
 {
@@ -20,7 +21,14 @@ public:
     bool CreateWindow() noexcept;
     void PollEvent() noexcept;
     void SwapBackBuffer() noexcept;
+    void ToggleFullscreen() noexcept;
+    bool IsFullscreen() noexcept;
+    Math::vector2 GetPlatformWindowSize() noexcept;
 
 private:
     GLFWwindow* window;
+    int xPos, yPos;
+    int xSize = 1600;
+    int ySize = 900;
+    Math::vector2 windowSize{ xSize, ySize };
 };

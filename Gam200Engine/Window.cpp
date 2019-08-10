@@ -30,3 +30,19 @@ void Window::SwapBackBuffer() const noexcept
 {
     platformWindow->SwapBackBuffer();
 }
+
+bool Window::IsFullscreen() noexcept
+{
+    return platformWindow->IsFullscreen();
+}
+
+
+void Window::ToggleFullscreen() noexcept
+{
+    platformWindow->ToggleFullscreen();
+}
+
+Math::vector2 Window::WindowSize() noexcept
+{
+    return platformWindow->GetPlatformWindowSize();
+}
