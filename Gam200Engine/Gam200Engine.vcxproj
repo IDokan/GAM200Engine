@@ -172,6 +172,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Component\Component.hpp" />
+    <ClInclude Include="Component\GraphicComponent.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Graphics\Color4f.hpp" />
@@ -187,12 +189,16 @@
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
     <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Object\Object.hpp" />
+    <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\GraphicComponent.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\Colors.cpp" />
@@ -205,6 +211,8 @@
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
