@@ -26,7 +26,7 @@ public:
     void SwapBackBuffer() const noexcept;
     void ToggleFullscreen() noexcept;
     bool IsFullscreen() noexcept;
-    Math::vector2 WindowSize() noexcept;
+     vector2 WindowSize() noexcept;
 
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;

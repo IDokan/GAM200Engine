@@ -14,8 +14,6 @@ Created: 08/05/2019
 #pragma warning(disable : 4201) // warning C4201 : nonstandard extension used : nameless struct / union
 #include <ostream>
 
-namespace Math
-{
     struct[[nodiscard]] vector3
     {
         union {
@@ -78,5 +76,4 @@ namespace Math
 
     //====================<< Operator Override=============================
     std::ostream &operator<<(std::ostream &p_Stream, const vector3 &p_Vector);
-}
 #pragma warning(pop)

@@ -42,7 +42,7 @@ void Window::ToggleFullscreen() noexcept
     platformWindow->ToggleFullscreen();
 }
 
-Math::vector2 Window::WindowSize() noexcept
+ vector2 Window::WindowSize() noexcept
 {
     return platformWindow->GetPlatformWindowSize();
 }

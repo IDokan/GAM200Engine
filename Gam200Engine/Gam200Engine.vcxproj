@@ -176,6 +176,8 @@
     <ClInclude Include="Component\GraphicComponent.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="Graphics\Camera.hpp" />
+    <ClInclude Include="Graphics\CameraView.hpp" />
     <ClInclude Include="Graphics\Color4f.hpp" />
     <ClInclude Include="Graphics\Color4ub.hpp" />
     <ClInclude Include="Graphics\GL.hpp" />
@@ -201,6 +203,8 @@
     <ClCompile Include="Component\GraphicComponent.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="Graphics\CameraView.cpp" />
     <ClCompile Include="Graphics\Colors.cpp" />
     <ClCompile Include="Graphics\GL.cpp" />
     <ClCompile Include="Graphics\glCheck.cpp" />

@@ -21,7 +21,7 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
-    Math::vector2 GetWindowSize;
+     vector2 GetWindowSize;
 
 private:
     Application() = default;

@@ -93,6 +93,12 @@
     <ClInclude Include="Object\Transform.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Camera.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\CameraView.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -151,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="Object\Transform.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Camera.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\CameraView.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

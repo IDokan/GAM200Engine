@@ -66,7 +66,7 @@ bool Input::IsKeyReleased(int key)
     return keyReleased[key];
 }
 
-Math::vector2 Input::GetMousePos()
+ vector2 Input::GetMousePos()
 {
     return mousePosistion;
 }

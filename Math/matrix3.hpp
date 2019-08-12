@@ -7,8 +7,7 @@
 #include "Vector3.hpp"
 #pragma warning(push)
 #pragma warning(disable : 4201) // warning C4201 : nonstandard extension used : nameless struct / union
-namespace Math
-{
+
     /**
      * \brief Column first 3x3 matrix class
      */
@@ -53,6 +52,5 @@ namespace Math
         matrix3 build_translation(float translate_x, float translate_y) noexcept;
         matrix3 build_translation(const vector2& translation) noexcept;
     }
-}
 
 #pragma warning(pop)

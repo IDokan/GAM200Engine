@@ -28,7 +28,7 @@ public:
     bool IsKeyPressed(int key);
     bool IsKeyReleased(int key);
 
-    Math::vector2 GetMousePos();
+     vector2 GetMousePos();
 
 
 private:
@@ -36,7 +36,7 @@ private:
     std::bitset<GLFW_KEY_LAST> keyPressed;
     std::bitset<GLFW_KEY_LAST> keyReleased;
 
-    Math::vector2 mousePosistion{};
+     vector2 mousePosistion{};
 
     double xOffeset = 0.0f;
     double yOffeset = 0.0f;

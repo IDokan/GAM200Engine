@@ -23,12 +23,12 @@ public:
     void SwapBackBuffer() noexcept;
     void ToggleFullscreen() noexcept;
     bool IsFullscreen() noexcept;
-    Math::vector2 GetPlatformWindowSize() noexcept;
+     vector2 GetPlatformWindowSize() noexcept;
 
 private:
     GLFWwindow* window;
     int xPos, yPos;
     int xSize = 1600;
     int ySize = 900;
-    Math::vector2 windowSize{ xSize, ySize };
+     vector2 windowSize{ xSize, ySize };
 };

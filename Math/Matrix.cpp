@@ -11,7 +11,6 @@ Created: 08/05/2019
 
 #include "Matrix.hpp"
 
-namespace Math {
     //=============================================Constructor============================================
     Matrix::Matrix() {
         for (int i = 0; i < 4 * 4; i++) {
@@ -101,7 +100,7 @@ namespace Math {
     Matrix Matrix::Perspective(float p_FieldOfView, float p_AspectRatio, float p_Near, float p_Far) {
         Matrix Result(1.0f);
 
-        float ValueQ = 1.0f / tan(Radian(0.5f * p_FieldOfView));
+        float ValueQ = 1.0f / tan(MATH::Radian(0.5f * p_FieldOfView));
         float ValueA = ValueQ / p_AspectRatio;
         float ValueB = (p_Near + p_Far) / (p_Near - p_Far);
         float ValueC = (2.0f * p_Near * p_Far) / (p_Near - p_Far);
@@ -120,7 +119,7 @@ namespace Math {
         float ValueX = p_Axis.x;
         float ValueY = p_Axis.y;
         float ValueZ = p_Axis.z;
-        float ValueRadian = Radian(p_Angle);
+        float ValueRadian = MATH::Radian(p_Angle);
         float ValueSine = sin(ValueRadian);
         float ValueCosine = cos(ValueRadian);
         float OneMinusCosine = 1.0f - ValueCosine;
@@ -156,4 +155,3 @@ namespace Math {
         Result.Elements[2 + 2 * 4] = p_Scale.z;
         return Result;
     }
-}

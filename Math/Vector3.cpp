@@ -14,8 +14,6 @@ Created: 08/05/2019
 #include <cassert>
 #include <limits>
 
-namespace Math
-{
     //==========================Constructor===============================
     vector3::vector3() noexcept : x(0.0f), y(0.0f), z(0.0f) {}
     vector3::vector3(float repeated_float) noexcept : x(repeated_float), y(repeated_float), z(repeated_float) {}
@@ -170,5 +168,3 @@ namespace Math
         return p_Stream;
     }
 
-
-}
