@@ -23,12 +23,17 @@ public:
     void SwapBackBuffer() noexcept;
     void ToggleFullscreen() noexcept;
     bool IsFullscreen() noexcept;
+    void TurnOnMonitorVerticalSynchronization(bool enable) noexcept;
+    bool IsMonitorVerticalSynchronizationOn() noexcept;
     Math::vector2 GetPlatformWindowSize() noexcept;
 
 private:
     GLFWwindow* window;
+    
     int xPos, yPos;
     int xSize = 1600;
     int ySize = 900;
-    Math::vector2 windowSize{ xSize, ySize };
+    bool isVsyncOn;
+
+    Math::vector2 windowSize{ static_cast<float>(xSize), static_cast<float>(ySize) };
 };

@@ -39,7 +39,6 @@ public:
 
     Math::vector2 GetMousePos();
 
-
 private:
     std::bitset<GLFW_KEY_LAST> keyTriggered;
     std::bitset<GLFW_KEY_LAST> keyPressed;

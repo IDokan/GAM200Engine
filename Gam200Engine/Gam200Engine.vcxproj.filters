@@ -16,6 +16,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{380422ed-50d3-4eb1-bb2c-783be82dc10d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{d369dc30-63bf-4e69-9084-7b0700647e36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -25,12 +28,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformWindow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input.hpp">
@@ -75,18 +72,18 @@
     <ClInclude Include="Graphics\Vertices.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Window.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformWindow.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
@@ -121,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="Graphics\Vertices.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformWindow.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

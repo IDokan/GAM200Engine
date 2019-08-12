@@ -26,6 +26,8 @@ public:
     void SwapBackBuffer() const noexcept;
     void ToggleFullscreen() noexcept;
     bool IsFullscreen() noexcept;
+    void TurnOnMonitorVerticalSynchronization(bool enable) noexcept;
+    bool IsMonitorVerticalSynchronizationOn() noexcept;
     Math::vector2 WindowSize() noexcept;
 
     Window(const Window&) = delete;

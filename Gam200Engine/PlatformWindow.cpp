@@ -20,9 +20,9 @@ namespace
     }
     void MousePositionCallback(GLFWwindow* window, double xPos, double yPos)
     {
-        input.SetMousePos(xPos, yPos);
+        input.SetMousePos(static_cast<float>(xPos), static_cast<float>(yPos));
     }
-    void MouseButtonCallBack(GLFWwindow* window, int button, int action, int mod)
+    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mod)
     {
         input.SetMouseButtonInput(button, action);
     }
@@ -44,7 +44,7 @@ bool PlatformWindow::CreateWindow() noexcept
     {
         return false;
     }
-
+    
     xPos = 100;
     yPos = 100;
 
@@ -66,12 +66,12 @@ bool PlatformWindow::CreateWindow() noexcept
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, KeyCallback);
     glfwSetCursorPosCallback(window, MousePositionCallback);
-    glfwSetMouseButtonCallback(window, MouseButtonCallBack);
+    glfwSetMouseButtonCallback(window, MouseButtonCallback);
     glfwSetScrollCallback(window, MouseWheelScroll);
     //glfwSetWindowSizeCallback(window, WindowSizeCallback);
     glfwSwapInterval(true);
 
-	glewInit();
+    glewInit();
 
     return true;
 }
@@ -91,6 +91,17 @@ bool PlatformWindow::IsFullscreen() noexcept
     return glfwGetWindowMonitor(window);
 }
 
+void PlatformWindow::TurnOnMonitorVerticalSynchronization(bool enable) noexcept
+{
+    isVsyncOn = enable;
+    glfwSwapInterval(enable);
+}
+
+bool PlatformWindow::IsMonitorVerticalSynchronizationOn() noexcept
+{
+    return isVsyncOn;
+}
+
 void PlatformWindow::ToggleFullscreen() noexcept
 {
     if (!IsFullscreen())
@@ -102,15 +113,15 @@ void PlatformWindow::ToggleFullscreen() noexcept
         glfwGetWindowSize(window, &xSize, &ySize);
         glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
         glViewport(0, 0, mode->width, mode->height);
-        windowSize.width = mode->width;
-        windowSize.height = mode->height;
+        windowSize.width = static_cast<float>(mode->width);
+        windowSize.height = static_cast<float>(mode->height);
     }
     else
     {
         glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0);
         glViewport(0, 0, xSize, ySize);
-        windowSize.width = xSize;
-        windowSize.height = ySize;
+        windowSize.width = static_cast<float>(xSize);
+        windowSize.height = static_cast<float>(ySize);
     }
 }
 

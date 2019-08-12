@@ -23,6 +23,7 @@ Application* Application::GetApplication()
 void Application::Init()
 {
     window.CreateWindow();
+    window.TurnOnMonitorVerticalSynchronization(true);
     GetWindowSize = window.WindowSize();
 
 	Graphics::GL::setup();
@@ -38,26 +39,44 @@ void Application::Update(float dt)
     ++fpsFrames;
     if (fpsEllapsedTime >= 1.0f)
     {
+        std::cout << fpsFrames << std::endl;
         fpsEllapsedTime = 0;
         fpsFrames = 0;
     }
 
 	demo.Draw();
-
     window.PollEvent();
     window.SwapBackBuffer();
 
+    GetApplication()->Input();
+    GetApplication()->InputTest();
+}
+
+void Application::Input()
+{
+    if (input.IsKeyTriggered(GLFW_KEY_V))
+    {
+        window.TurnOnMonitorVerticalSynchronization(!window.IsMonitorVerticalSynchronizationOn());
+    }  
+    if (input.IsKeyTriggered(GLFW_KEY_F))
+    {
+        window.ToggleFullscreen();
+    }  
+}
+
+void Application::InputTest()
+{
     if (input.IsKeyTriggered(GLFW_KEY_A))
     {
         std::cout << "a" << std::endl;
     }
-    if (input.IsKeyTriggered(GLFW_KEY_F))
-    {
-        window.ToggleFullscreen();
-    }
     if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
     {
-        std::cout << "mouse button triggered" << std::endl;
+        std::cout << "left mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+    {
+        std::cout << "right mouse button triggered" << std::endl;
     }
     if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
     {
@@ -68,3 +87,4 @@ void Application::Update(float dt)
 void Application::Clear()
 {
 }
+

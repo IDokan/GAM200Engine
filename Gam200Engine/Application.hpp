@@ -21,6 +21,8 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
+    void Input();
+    void InputTest();
     Math::vector2 GetWindowSize;
 
 private:
