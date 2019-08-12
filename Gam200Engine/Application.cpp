@@ -55,6 +55,14 @@ void Application::Update(float dt)
     {
         window.ToggleFullscreen();
     }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
+    {
+        std::cout << "mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+    {
+        std::cout << "mouse button double clicked" << std::endl;
+    }
 }
 
 void Application::Clear()

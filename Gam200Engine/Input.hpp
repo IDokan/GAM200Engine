@@ -23,10 +23,19 @@ public:
     void TriggeredReset();
     void SetKeyboardInput(int key, int action);
     void SetMousePos(float xPos, float yPos);
+    void SetMouseButtonInput(int button, int action);
+    void SetMouseWheel(double x, double y);
 
     bool IsKeyTriggered(int key);
     bool IsKeyPressed(int key);
     bool IsKeyReleased(int key);
+
+    bool IsMouseButtonTriggered(int button);
+    bool IsMouseButtonPressed(int button);
+    bool IsMouseButtonReleased(int button);
+    bool IsMouseDoubleClicked(int button);
+
+    double MouseWheelScroll();
 
     Math::vector2 GetMousePos();
 
@@ -36,10 +45,15 @@ private:
     std::bitset<GLFW_KEY_LAST> keyPressed;
     std::bitset<GLFW_KEY_LAST> keyReleased;
 
+    std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonTriggered;
+    std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonPressed;
+    std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonReleased;
+    std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonDoubleClicked;
+
     Math::vector2 mousePosistion{};
 
-    double xOffeset = 0.0f;
-    double yOffeset = 0.0f;
+    double xOffset;
+    double yOffset;
 };
 
 extern Input input;

@@ -22,6 +22,14 @@ namespace
     {
         input.SetMousePos(xPos, yPos);
     }
+    void MouseButtonCallBack(GLFWwindow* window, int button, int action, int mod)
+    {
+        input.SetMouseButtonInput(button, action);
+    }
+    void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
+    {
+        input.SetMouseWheel(x_offset, y_offset);
+    }
     //void WindowSizeCallback(GLFWwindow *window, int width,int height)
     //{
     //    xSize = width;
@@ -58,6 +66,8 @@ bool PlatformWindow::CreateWindow() noexcept
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, KeyCallback);
     glfwSetCursorPosCallback(window, MousePositionCallback);
+    glfwSetMouseButtonCallback(window, MouseButtonCallBack);
+    glfwSetScrollCallback(window, MouseWheelScroll);
     //glfwSetWindowSizeCallback(window, WindowSizeCallback);
     glfwSwapInterval(true);
 
