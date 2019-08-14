@@ -36,10 +36,14 @@ Creation Date: 08.12.2019
         const Transform* GetParent() const noexcept;
         void             SetParent(const Transform* transform_parent) noexcept;
 
+		bool GetIsChanged(void) noexcept;
+
     private:
          vector2          translation{};
          vector2          scale{1.0f, 1.0f};
         float            rotation = 0.0f;
         float            depth    = 0.0f;
         const Transform* parent   = nullptr;
+
+		bool isChanged;
     };

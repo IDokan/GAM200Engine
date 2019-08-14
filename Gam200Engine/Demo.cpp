@@ -21,7 +21,7 @@ void Demo::Init()
 
 	using namespace Graphics;
 	testMaterial.shader = &Graphics::SHADER::interpolated_colors();
-	// send uniform matrix variable named "to_ndc"
+	// send uniform matrix variable named "to_ndc"	// Should change arbitrary value into variable
 	testMaterial.matrix3Uniforms["to_ndc"] =  MATRIX3::build_scale(2.f / 1920, 2.f / 1080);
 
 	VertexLayoutDescription testLayout = SHADER::interpolated_colors_vertex_layout();

@@ -81,12 +81,6 @@
     <ClInclude Include="Graphics\Vertices.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Component.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\GraphicComponent.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Object.hpp">
       <Filter>Object</Filter>
     </ClInclude>
@@ -98,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="Graphics\CameraView.hpp">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Component.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +149,6 @@
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\GraphicComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Object.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -163,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Graphics\CameraView.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
