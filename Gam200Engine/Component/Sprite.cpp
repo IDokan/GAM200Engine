@@ -16,6 +16,7 @@ Creation Date: 08.14.2019
 #include "Sprite.hpp"
 #include <Object/Transform.hpp>
 #include <Graphics/StockShaders.hpp>
+#include <GL/glew.h>
 
 // Helper function to update mesh
 void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
@@ -50,7 +51,7 @@ Sprite::~Sprite()
 {
 }
 
-void Sprite::Init()
+void Sprite::Init(Object* obj)
 {
 	Transform transform;
 	
@@ -73,7 +74,7 @@ void Sprite::Init()
 	vertices.InitializeWithMeshAndLayout(mesh, Graphics::SHADER::textured_vertex_layout());
 }
 
-void Sprite::Update()
+void Sprite::Update(float dt)
 {
 	Transform transform;
 

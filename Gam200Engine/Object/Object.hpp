@@ -47,9 +47,9 @@ public:
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
 
-    void SetTranslation(Math::vector2 pos);
+    void SetTranslation(vector2 pos);
     void SetRotation(float angle);
-    void SetScale(Math::vector2 scale);
+    void SetScale(vector2 scale);
     void SetScale(float scale);
     void SetDepth(float depth);
 

@@ -27,8 +27,8 @@ public:
 	Sprite();
 	virtual ~Sprite();
 
-	virtual void Init() override;
-	virtual void Update() override;
+	virtual void Init(Object*) override;
+	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
 	void SetColor(const Graphics::Color4f& color) noexcept;

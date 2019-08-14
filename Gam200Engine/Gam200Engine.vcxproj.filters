@@ -158,9 +158,6 @@
     <ClCompile Include="Graphics\Vertices.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Component.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Object.cpp">
       <Filter>Object</Filter>
     </ClCompile>
