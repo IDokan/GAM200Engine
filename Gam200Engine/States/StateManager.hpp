@@ -9,19 +9,26 @@ Creation Date: 08.12.2019
 
     Header file for the Application.cpp
 ******************************************************************************/
+
 #pragma once
 
-class Object;
+#include "State.hpp"
+#include <unordered_map>
+#include <memory>
 
-class Component
+class StateManager
 {
 public:
-	Component();
-	virtual ~Component();
+    static StateManager *GetStateManager();
+    void Init();
+    void Update(float dt);
+    void Clear();
+    void AddStates(std::string name, State *state);
 
-public:
-	virtual void Init(Object*) = 0;
-	virtual void Update(float dt) = 0;
-	virtual void Clear() = 0;
+    bool is_restart = false;
+     
+private:
+    static StateManager* state_manager;
+    std::unordered_map < std::string, std::shared_ptr<State> > states;
+    State *currentState = nullptr;
 };
-

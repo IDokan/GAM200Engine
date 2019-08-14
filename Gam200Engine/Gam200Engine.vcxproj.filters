@@ -22,6 +22,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{3343e3a4-98e8-4a57-b0fc-943e483c2250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{b94cff96-a033-48bd-9881-e5c70608e2e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -93,6 +96,15 @@
     <ClInclude Include="Object\Transform.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="States\State.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\StateManager.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ObjectManager.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -140,9 +152,6 @@
     <ClCompile Include="Graphics\Vertices.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Component.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Component\GraphicComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -150,6 +159,12 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Object\Transform.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="States\StateManager.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ObjectManager.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
