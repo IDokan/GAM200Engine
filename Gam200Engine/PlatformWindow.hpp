@@ -25,7 +25,7 @@ public:
     bool IsFullscreen() noexcept;
     void TurnOnMonitorVerticalSynchronization(bool enable) noexcept;
     bool IsMonitorVerticalSynchronizationOn() noexcept;
-    Math::vector2 GetPlatformWindowSize() noexcept;
+     vector2 GetPlatformWindowSize() noexcept;
 
 private:
     GLFWwindow* window;
@@ -34,6 +34,6 @@ private:
     int xSize = 1600;
     int ySize = 900;
     bool isVsyncOn;
+     vector2 windowSize{ xSize, ySize };
 
-    Math::vector2 windowSize{ static_cast<float>(xSize), static_cast<float>(ySize) };
 };

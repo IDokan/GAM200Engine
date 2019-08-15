@@ -172,8 +172,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Component\Component.hpp" />
+    <ClInclude Include="Component\Sprite.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="Graphics\Camera.hpp" />
+    <ClInclude Include="Graphics\CameraView.hpp" />
     <ClInclude Include="Graphics\Color4f.hpp" />
     <ClInclude Include="Graphics\Color4ub.hpp" />
     <ClInclude Include="Graphics\GL.hpp" />
@@ -187,14 +191,22 @@
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
     <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Object\Object.hpp" />
+    <ClInclude Include="Object\ObjectManager.hpp" />
+    <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
+    <ClInclude Include="States\State.hpp" />
+    <ClInclude Include="States\StateManager.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="Graphics\CameraView.cpp" />
     <ClCompile Include="Graphics\Colors.cpp" />
     <ClCompile Include="Graphics\GL.cpp" />
     <ClCompile Include="Graphics\glCheck.cpp" />
@@ -205,7 +217,11 @@
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Object\ObjectManager.cpp" />
+    <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
+    <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -136,7 +136,7 @@ double Input::MouseWheelScroll()
     return yOffset;
 }
 
-Math::vector2 Input::GetMousePos()
+ vector2 Input::GetMousePos()
 {
     return mousePosistion;
 }

@@ -30,26 +30,24 @@ public:
     bool IsKeyPressed(int key);
     bool IsKeyReleased(int key);
 
-    bool IsMouseButtonTriggered(int button);
+     vector2 GetMousePos();
+    double MouseWheelScroll();
     bool IsMouseButtonPressed(int button);
+    bool IsMouseButtonTriggered(int button);
     bool IsMouseButtonReleased(int button);
     bool IsMouseDoubleClicked(int button);
-
-    double MouseWheelScroll();
-
-    Math::vector2 GetMousePos();
 
 private:
     std::bitset<GLFW_KEY_LAST> keyTriggered;
     std::bitset<GLFW_KEY_LAST> keyPressed;
     std::bitset<GLFW_KEY_LAST> keyReleased;
 
+     vector2 mousePosistion{};
     std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonTriggered;
     std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonPressed;
     std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonReleased;
     std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonDoubleClicked;
 
-    Math::vector2 mousePosistion{};
 
     double xOffset;
     double yOffset;

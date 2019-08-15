@@ -125,7 +125,7 @@ void PlatformWindow::ToggleFullscreen() noexcept
     }
 }
 
-Math::vector2 PlatformWindow::GetPlatformWindowSize() noexcept
+ vector2 PlatformWindow::GetPlatformWindowSize() noexcept
 {
     return windowSize;
 }

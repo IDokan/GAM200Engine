@@ -26,16 +26,16 @@ namespace Graphics
     {
     public:
         std::size_t GetPointCount() const noexcept;
-        Math::vector2     GetPoint(std::size_t index) const noexcept;
+         vector2     GetPoint(std::size_t index) const noexcept;
         Graphics::Color4ub    GetColor(std::size_t index = 0) const noexcept;
-        Math::vector2     GetTextureCoordinate(std::size_t index) const noexcept;
+         vector2     GetTextureCoordinate(std::size_t index) const noexcept;
 
         PointListPattern GetPointListPattern() const noexcept;
         void             SetPointListType(PointListPattern type) noexcept;
 
         void AddColor(Graphics::Color4ub color) noexcept;
-        void AddPoint(Math::vector2 point) noexcept;
-        void AddTextureCoordinate(Math::vector2 texture_coordinate) noexcept;
+        void AddPoint( vector2 point) noexcept;
+        void AddTextureCoordinate( vector2 texture_coordinate) noexcept;
 
         void ClearColors() noexcept;
         bool HasMoreThanOneColor() const noexcept;
@@ -45,9 +45,9 @@ namespace Graphics
         void Clear() noexcept;
 
     private:
-        std::vector<Math::vector2>  points{};
+        std::vector< vector2>  points{};
         std::vector<Graphics::Color4ub> colors{};
-        std::vector<Math::vector2>  textureCoordinates{};
+        std::vector< vector2>  textureCoordinates{};
         PointListPattern      pointListType = PointListPattern::Lines;
     };
 
@@ -60,6 +60,6 @@ namespace Graphics
         Mesh create_rectangle(float width = 1, float height = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
         Mesh create_wire_rectangle(float width = 1, float height = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
         Mesh create_wire_box(float dimension = 1, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
-        Mesh create_line(Math::vector2 a = {0, 0}, Math::vector2 b = {1, 0}, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
+        Mesh create_line( vector2 a = {0, 0},  vector2 b = {1, 0}, Graphics::Color4ub color = Graphics::Color4ub{255}) noexcept;
     }
 }
