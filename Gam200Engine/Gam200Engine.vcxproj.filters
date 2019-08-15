@@ -28,6 +28,9 @@
     <Filter Include="States">
       <UniqueIdentifier>{b94cff96-a033-48bd-9881-e5c70608e2e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{e2defed7-0a7d-4b06-8f54-af494cc8ecd5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -114,6 +117,9 @@
     <ClInclude Include="Object\ObjectManager.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -181,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Component\Sprite.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

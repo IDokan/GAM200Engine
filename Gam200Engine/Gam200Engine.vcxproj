@@ -194,6 +194,7 @@
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
+    <ClInclude Include="Physics.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
@@ -220,6 +221,7 @@
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="Window.cpp" />

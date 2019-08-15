@@ -35,5 +35,4 @@ private:
     int ySize = 900;
     bool isVsyncOn;
      vector2 windowSize{ xSize, ySize };
-
 };

@@ -11,6 +11,7 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #include "PlatformWindow.hpp"
 #include "Input.hpp"
+#include <Graphics/glCheck.hpp>
 
 namespace
 {
@@ -48,42 +49,42 @@ bool PlatformWindow::CreateWindow() noexcept
     xPos = 100;
     yPos = 100;
 
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_SAMPLES, 4);
+    glCheck(glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE));
+    glCheck(glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE));
+    glCheck(glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3));
+    glCheck(glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3));
+    glCheck(glfwWindowHint(GLFW_DEPTH_BITS, 24));
+    glCheck(glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE));
+    glCheck(glfwWindowHint(GLFW_SAMPLES, 4));
     
     window = glfwCreateWindow(xSize, ySize, "engine", nullptr, nullptr);
-    glfwSetWindowPos(window, xPos, yPos);
+    glCheck(glfwSetWindowPos(window, xPos, yPos));
 
     if (!window)
     {
         return false;
     }
-    glfwMakeContextCurrent(window);
-    glfwSetKeyCallback(window, KeyCallback);
-    glfwSetCursorPosCallback(window, MousePositionCallback);
-    glfwSetMouseButtonCallback(window, MouseButtonCallback);
-    glfwSetScrollCallback(window, MouseWheelScroll);
+    glCheck(glfwMakeContextCurrent(window));
+    glCheck(glfwSetKeyCallback(window, KeyCallback));
+    glCheck(glfwSetCursorPosCallback(window, MousePositionCallback));
+    glCheck(glfwSetMouseButtonCallback(window, MouseButtonCallback));
+    glCheck(glfwSetScrollCallback(window, MouseWheelScroll));
     //glfwSetWindowSizeCallback(window, WindowSizeCallback);
-    glfwSwapInterval(true);
+    glCheck(glfwSwapInterval(true));
 
-    glewInit();
+    glCheck(glewInit());
 
     return true;
 }
 
 void PlatformWindow::PollEvent() noexcept
 {
-    glfwPollEvents();
+    glCheck(glfwPollEvents());
 }
 
 void PlatformWindow::SwapBackBuffer() noexcept
 {
-    glfwSwapBuffers(window);
+    glCheck(glfwSwapBuffers(window));
 }
 
 bool PlatformWindow::IsFullscreen() noexcept
@@ -94,7 +95,7 @@ bool PlatformWindow::IsFullscreen() noexcept
 void PlatformWindow::TurnOnMonitorVerticalSynchronization(bool enable) noexcept
 {
     isVsyncOn = enable;
-    glfwSwapInterval(enable);
+    glCheck(glfwSwapInterval(enable));
 }
 
 bool PlatformWindow::IsMonitorVerticalSynchronizationOn() noexcept
@@ -109,17 +110,17 @@ void PlatformWindow::ToggleFullscreen() noexcept
         const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         GLFWmonitor* monitor = glfwGetPrimaryMonitor();
        
-        glfwGetWindowPos(window, &xPos, &yPos);
-        glfwGetWindowSize(window, &xSize, &ySize);
-        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
-        glViewport(0, 0, mode->width, mode->height);
-        windowSize.width = static_cast<float>(mode->width);
-        windowSize.height = static_cast<float>(mode->height);
+        glCheck(glfwGetWindowPos(window, &xPos, &yPos));
+        glCheck(glfwGetWindowSize(window, &xSize, &ySize));
+        glCheck(glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0));
+        glCheck(glViewport(0, 0, mode->width, mode->height));
+        glCheck(windowSize.width = static_cast<float>(mode->width));
+        glCheck(windowSize.height = static_cast<float>(mode->height));
     }
     else
     {
-        glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0);
-        glViewport(0, 0, xSize, ySize);
+        glCheck(glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0));
+        glCheck(glViewport(0, 0, xSize, ySize));
         windowSize.width = static_cast<float>(xSize);
         windowSize.height = static_cast<float>(ySize);
     }
