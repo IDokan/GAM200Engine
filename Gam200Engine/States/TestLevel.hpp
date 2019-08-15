@@ -12,6 +12,8 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 #pragma once
 
+class Object;
+
 class TestLevel : public State
 {
 public:
@@ -23,5 +25,5 @@ public:
 	virtual void Unload() override;
 
 private:
-
+	Object obj;
 };

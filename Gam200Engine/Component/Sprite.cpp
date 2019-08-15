@@ -11,14 +11,12 @@ Creation Date: 08.14.2019
 ******************************************************************************/
 #include <Component/Component.hpp>
 #include <Graphics/Mesh.hpp>
-#include <Graphics/Vertices.hpp>
-#include <Graphics/Material.hpp>
 #include "Sprite.hpp"
 #include <Object/Transform.hpp>
 #include <Graphics/StockShaders.hpp>
 #include <GL/glew.h>
 #include <Object/Object.hpp>
-#include <Graphics/Texture.hpp>
+#include "Graphics/GL.hpp"
 
 // Helper function to update mesh
 void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
@@ -48,11 +46,6 @@ Sprite::Sprite(Object* obj) noexcept
 	mesh.Clear();
 }
 
-
-Sprite::~Sprite() noexcept
-{
-}
-
 void Sprite::Init()
 {
 	const Transform transform = owner->GetTransform();
@@ -72,10 +65,12 @@ void Sprite::Init()
 	mesh.AddTextureCoordinate(vector2{ 1.f, 0.f });
 	mesh.AddTextureCoordinate(vector2{ 0.f});
 
+	//SetImage("texture/rect.png");
+
 	vertices.InitializeWithMeshAndLayout(mesh, Graphics::SHADER::textured_vertex_layout());
 }
 
-void Sprite::Update(float dt)
+void Sprite::Update(float /*dt*/)
 {
 	Transform transform = owner->GetTransform();
 
@@ -85,6 +80,11 @@ void Sprite::Update(float dt)
 
 		vertices.UpdateVerticesFromMesh(mesh);
 	}
+
+	// TODO: Should Change where Draw
+	//Graphics::GL::begin_drawing();
+	//Graphics::GL::draw(vertices, material);
+	//Graphics::GL::end_drawing();
 }
 
 void Sprite::Clear()
@@ -96,3 +96,10 @@ void Sprite::SetColor(const Graphics::Color4f& color) noexcept
 {
 	material.color4fUniforms["color"] = color;
 }
+
+//void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
+//{
+//	texture.LoadFromPNG(filepath);
+//	Graphics::texture_uniform container{ &texture, 0 };
+//	material.textureUniforms["texture_to_sample"] = container;
+//}

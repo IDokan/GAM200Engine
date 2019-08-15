@@ -111,6 +111,9 @@
     <ClInclude Include="Object\ObjectManager.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="States\TestLevel.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="States\TestLevel.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

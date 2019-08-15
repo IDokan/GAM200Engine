@@ -10,7 +10,8 @@ Creation Date: 08.14.2019
 	Header file for Graphic Component
 ******************************************************************************/
 #pragma once
-
+#include <Graphics/Vertices.hpp>
+#include <Graphics/Material.hpp>
 class Component;
 
 namespace Graphics
@@ -24,6 +25,8 @@ class Sprite :
 	public Component
 {
 public:
+
+
 	Sprite(Object*) noexcept;
 	virtual ~Sprite() noexcept = default;
 
@@ -32,6 +35,7 @@ public:
 	virtual void Clear() override;
 
 	void SetColor(const Graphics::Color4f& color) noexcept;
+	//void SetImage(const std::filesystem::path&) noexcept;
 
 private:
 	Graphics::Mesh mesh;

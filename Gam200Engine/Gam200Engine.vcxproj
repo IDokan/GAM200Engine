@@ -197,6 +197,7 @@
     <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
+    <ClInclude Include="States\TestLevel.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
@@ -223,6 +224,7 @@
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
+    <ClCompile Include="States\TestLevel.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
