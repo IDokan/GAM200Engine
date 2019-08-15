@@ -22,13 +22,13 @@ Object::~Object()
 
 void Object::AddComponent(Component * comp)
 {
-    comp->Init(this);
+    comp->Init();
     component.push_back(comp);
 }
 
 void Object::DeleteComponent(Component * comp)
 {
-    auto tmp = std::find(component.begin(), component.end(), comp);
+	const auto tmp = std::find(component.begin(), component.end(), comp);
     if (tmp == component.end()) {
         return;
     }

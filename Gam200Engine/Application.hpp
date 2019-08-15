@@ -29,5 +29,6 @@ private:
     int fpsFrames = 0;
     Window window;
 
+	// Should be deleted after finishing implementing state manager
 	Demo demo;
 };

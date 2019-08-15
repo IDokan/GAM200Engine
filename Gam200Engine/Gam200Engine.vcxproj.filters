@@ -179,6 +179,9 @@
     <ClCompile Include="Component\Sprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">

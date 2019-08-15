@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />

@@ -17,6 +17,8 @@ Creation Date: 08.14.2019
 #include <Object/Transform.hpp>
 #include <Graphics/StockShaders.hpp>
 #include <GL/glew.h>
+#include <Object/Object.hpp>
+#include <Graphics/Texture.hpp>
 
 // Helper function to update mesh
 void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
@@ -32,7 +34,7 @@ void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
 		vector3{-0.5f, -0.5f, 0.f}
 	};
 
-	matrix3 tmp = transform.GetModelToWorld();
+	const matrix3 tmp = transform.GetModelToWorld();
 	for (int i = 0; i < rectSize; i++)
 	{
 		rectangle[i] = tmp * rectangle[i];
@@ -40,30 +42,29 @@ void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
 	}
 }
 
-Sprite::Sprite()
-	:color(Graphics::Color4f{1.f})
+Sprite::Sprite(Object* obj) noexcept
+	: Component(obj)
 {
 	mesh.Clear();
 }
 
 
-Sprite::~Sprite()
+Sprite::~Sprite() noexcept
 {
 }
 
-void Sprite::Init(Object* obj)
+void Sprite::Init()
 {
-	Transform transform;
-	
+	const Transform transform = owner->GetTransform();
 	material.shader = &Graphics::SHADER::textured();
 	material.matrix3Uniforms["to_ndc"] = MATRIX3::build_scale(2.f / 1920.f, 2.f / 1080.f);
 	material.floatUniforms["to_depth"] = transform.CalculateWorldDepth();
 
 	mesh.SetPointListType(Graphics::PointListPattern::TriangleFan);
-
+	
 	UpdateMeshPoint(transform, mesh);
 
-	material.color4fUniforms["color"] = color;
+	material.color4fUniforms["color"] = Graphics::Color4f{1.f};
 
 	// TODO: To Modify for animation or special shader
 	mesh.AddTextureCoordinate(vector2{ 0.f, 1.f });
@@ -76,7 +77,7 @@ void Sprite::Init(Object* obj)
 
 void Sprite::Update(float dt)
 {
-	Transform transform;
+	Transform transform = owner->GetTransform();
 
 	if (transform.GetIsChanged())
 	{
@@ -88,6 +89,7 @@ void Sprite::Update(float dt)
 
 void Sprite::Clear()
 {
+	mesh.Clear();
 }
 
 void Sprite::SetColor(const Graphics::Color4f& color) noexcept

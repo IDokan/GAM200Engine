@@ -24,20 +24,17 @@ class Sprite :
 	public Component
 {
 public:
-	Sprite();
-	virtual ~Sprite();
+	Sprite(Object*) noexcept;
+	virtual ~Sprite() noexcept = default;
 
-	virtual void Init(Object*) override;
+	virtual void Init() override;
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
 	void SetColor(const Graphics::Color4f& color) noexcept;
 
 private:
-	Graphics::Color4f color;
-
 	Graphics::Mesh mesh;
 	Graphics::Vertices vertices;
 	Graphics::material material;
 };
-
