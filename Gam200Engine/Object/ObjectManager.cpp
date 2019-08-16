@@ -23,13 +23,10 @@ ObjectManager::~ObjectManager()
 {
 }
 
-ObjectManager * ObjectManager::GetObjectManager()
+ObjectManager& ObjectManager::GetObjectManager()
 {
-    if (obj_manager == nullptr) 
-    {
-        obj_manager = new ObjectManager;
-    }
-    return obj_manager;
+    static ObjectManager *obj_manager = new ObjectManager();
+    return *obj_manager;
 }
 
 void ObjectManager::Init()

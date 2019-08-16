@@ -15,9 +15,10 @@ Creation Date: 08.12.2019
 
 StateManager* StateManager::state_manager = nullptr;
 
-StateManager * StateManager::GetStateManager()
+StateManager & StateManager::GetStateManager()
 {
-    return state_manager;
+    static StateManager* state_manager = new StateManager();
+    return *state_manager;
 }
 
 void StateManager::Init()
