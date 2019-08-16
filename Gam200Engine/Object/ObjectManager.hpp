@@ -20,7 +20,7 @@ class ObjectManager
 public:
     ~ObjectManager();
 
-    static ObjectManager& GetObjectManager();
+    static ObjectManager* GetObjectManager();
 
     void Init();
     void Update(float dt);

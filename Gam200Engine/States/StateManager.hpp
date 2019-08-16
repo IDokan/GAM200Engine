@@ -19,7 +19,7 @@ Creation Date: 08.12.2019
 class StateManager
 {
 public:
-    static StateManager &GetStateManager();
+    static StateManager *GetStateManager();
     void Init();
     void Update(float dt);
     void Clear();

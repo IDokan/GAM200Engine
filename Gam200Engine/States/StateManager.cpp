@@ -13,12 +13,11 @@ Creation Date: 08.12.2019
 #include "StateManager.hpp"
 #include <iostream>
 
-StateManager* StateManager::state_manager = nullptr;
 
-StateManager & StateManager::GetStateManager()
+StateManager * StateManager::GetStateManager()
 {
     static StateManager* state_manager = new StateManager();
-    return *state_manager;
+    return state_manager;
 }
 
 void StateManager::Init()
