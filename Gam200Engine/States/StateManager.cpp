@@ -40,7 +40,7 @@ void StateManager::Update(float dt)
     }
     else
     {
-        std::cout << "Resume!\n";
+        //std::cout << "Resume!\n";
     }
 
 }

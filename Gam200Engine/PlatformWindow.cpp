@@ -114,8 +114,8 @@ void PlatformWindow::ToggleFullscreen() noexcept
         glCheck(glfwGetWindowSize(window, &xSize, &ySize));
         glCheck(glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0));
         glCheck(glViewport(0, 0, mode->width, mode->height));
-        glCheck(windowSize.width = static_cast<float>(mode->width));
-        glCheck(windowSize.height = static_cast<float>(mode->height));
+        windowSize.width = static_cast<float>(mode->width);
+        windowSize.height = static_cast<float>(mode->height);
     }
     else
     {

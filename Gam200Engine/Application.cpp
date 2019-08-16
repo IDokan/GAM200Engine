@@ -72,9 +72,13 @@ void Application::Input()
 
 void Application::InputTest()
 {
-    if (input.IsKeyTriggered(GLFW_KEY_A))
+    if (input.IsKeyPressed (GLFW_KEY_A))
     {
-        std::cout << "a" << std::endl;
+        std::cout << "A triggered" << std::endl;
+    }
+    if (input.IsKeyReleased(GLFW_KEY_A))
+    {
+        std::cout << "A released" << std::endl;
     }
     if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
     {
@@ -83,6 +87,10 @@ void Application::InputTest()
     if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
     {
         std::cout << "right mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_MIDDLE))
+    {
+        std::cout << "middle mouse button triggered" << std::endl;
     }
     if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
     {
