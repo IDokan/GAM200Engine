@@ -21,7 +21,9 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
-    Math::vector2 GetWindowSize;
+    void InputTest();
+    void Input();
+     vector2 GetWindowSize;
 
 private:
     Application() = default;
@@ -29,5 +31,6 @@ private:
     int fpsFrames = 0;
     Window window;
 
+	// Should be deleted after finishing implementing state manager
 	Demo demo;
 };

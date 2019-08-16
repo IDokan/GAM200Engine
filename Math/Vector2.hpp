@@ -15,8 +15,6 @@ Created: 08/05/2019
 #include <ostream>
 
 
-namespace Math
-{
     struct[[nodiscard]] vector2
     {
         union {
@@ -86,6 +84,5 @@ namespace Math
     std::ostream &operator<<(std::ostream &p_Stream, const vector2 &p_Vector);
 
 
-}
 
 #pragma warning(pop)

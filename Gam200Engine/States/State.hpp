@@ -21,7 +21,8 @@ enum class GameStates
 class State
 {
 public:
-    virtual void Load() = 0;
+	virtual ~State() = default;
+	virtual void Load() = 0;
     virtual void Update(float dt) = 0;
     virtual void Unload() = 0;
 

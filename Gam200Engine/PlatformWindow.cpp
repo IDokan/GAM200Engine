@@ -11,6 +11,8 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #include "PlatformWindow.hpp"
 #include "Input.hpp"
+#include <Graphics/glCheck.hpp>
+#include <Graphics/GL.hpp>
 
 namespace
 {
@@ -20,13 +22,20 @@ namespace
     }
     void MousePositionCallback(GLFWwindow* window, double xPos, double yPos)
     {
-        input.SetMousePos(xPos, yPos);
+        input.SetMousePos(static_cast<float>(xPos), static_cast<float>(yPos));
     }
-    //void WindowSizeCallback(GLFWwindow *window, int width,int height)
-    //{
-    //    xSize = width;
-    //    ySize = height;
-    //}
+    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mod)
+    {
+        input.SetMouseButtonInput(button, action);
+    }
+    void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
+    {
+        input.SetMouseWheel(x_offset, y_offset);
+    }
+    void WindowSizeCallback(GLFWwindow *window, int width,int height)
+    {
+        Graphics::GL::set_display_area(width, height);
+    }
 }
 
 bool PlatformWindow::CreateWindow() noexcept
@@ -36,7 +45,7 @@ bool PlatformWindow::CreateWindow() noexcept
     {
         return false;
     }
-
+    
     xPos = 100;
     yPos = 100;
 
@@ -58,27 +67,40 @@ bool PlatformWindow::CreateWindow() noexcept
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, KeyCallback);
     glfwSetCursorPosCallback(window, MousePositionCallback);
-    //glfwSetWindowSizeCallback(window, WindowSizeCallback);
+    glfwSetMouseButtonCallback(window, MouseButtonCallback);
+    glfwSetScrollCallback(window, MouseWheelScroll);
+    glfwSetWindowSizeCallback(window, WindowSizeCallback);
     glfwSwapInterval(true);
 
-	glewInit();
+    glewInit();
 
     return true;
 }
 
 void PlatformWindow::PollEvent() noexcept
 {
-    glfwPollEvents();
+    glCheck(glfwPollEvents());
 }
 
 void PlatformWindow::SwapBackBuffer() noexcept
 {
-    glfwSwapBuffers(window);
+    glCheck(glfwSwapBuffers(window));
 }
 
 bool PlatformWindow::IsFullscreen() noexcept
 {
     return glfwGetWindowMonitor(window);
+}
+
+void PlatformWindow::TurnOnMonitorVerticalSynchronization(bool enable) noexcept
+{
+    isVsyncOn = enable;
+    glCheck(glfwSwapInterval(enable));
+}
+
+bool PlatformWindow::IsMonitorVerticalSynchronizationOn() noexcept
+{
+    return isVsyncOn;
 }
 
 void PlatformWindow::ToggleFullscreen() noexcept
@@ -88,23 +110,23 @@ void PlatformWindow::ToggleFullscreen() noexcept
         const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         GLFWmonitor* monitor = glfwGetPrimaryMonitor();
        
-        glfwGetWindowPos(window, &xPos, &yPos);
-        glfwGetWindowSize(window, &xSize, &ySize);
-        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
-        glViewport(0, 0, mode->width, mode->height);
-        windowSize.width = mode->width;
-        windowSize.height = mode->height;
+        glCheck(glfwGetWindowPos(window, &xPos, &yPos));
+        glCheck(glfwGetWindowSize(window, &xSize, &ySize));
+        glCheck(glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0));
+        glCheck(glViewport(0, 0, mode->width, mode->height));
+        glCheck(windowSize.width = static_cast<float>(mode->width));
+        glCheck(windowSize.height = static_cast<float>(mode->height));
     }
     else
     {
-        glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0);
-        glViewport(0, 0, xSize, ySize);
-        windowSize.width = xSize;
-        windowSize.height = ySize;
+        glCheck(glfwSetWindowMonitor(window, nullptr, xPos, yPos, xSize, ySize, 0));
+        glCheck(glViewport(0, 0, xSize, ySize));
+        windowSize.width = static_cast<float>(xSize);
+        windowSize.height = static_cast<float>(ySize);
     }
 }
 
-Math::vector2 PlatformWindow::GetPlatformWindowSize() noexcept
+ vector2 PlatformWindow::GetPlatformWindowSize() noexcept
 {
     return windowSize;
 }

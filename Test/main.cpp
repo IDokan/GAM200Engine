@@ -6,7 +6,7 @@ int main()
 
     engine.Init();
 
-    while (!engine.IsRunning())
+    while (!engine.GetIsRunnig())
     {
         engine.Update();
     }

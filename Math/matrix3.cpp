@@ -15,8 +15,6 @@
 #include <cmath> // for std::cos(), std::sin()
 #include "Angle.hpp"    // for PI, HALF_PI
 
-namespace Math
-{
     matrix3::matrix3() noexcept : column0(0), column1(0), column2(0) {}
 
     matrix3::matrix3(vector3 first_column, vector3 second_column, vector3 third_column) noexcept
@@ -87,24 +85,24 @@ namespace Math
         {
             return build_identity();
         }
-        else if (angle_in_radians <= HALF_PI + std::numeric_limits<float>::epsilon() && 
-                    angle_in_radians >= HALF_PI - std::numeric_limits<float>::epsilon())
+        else if (angle_in_radians <= MATH::HALF_PI + std::numeric_limits<float>::epsilon() && 
+                    angle_in_radians >= MATH::HALF_PI - std::numeric_limits<float>::epsilon())
         {
             return matrix3(
 				0, 1, 0, 
 				-1, 0, 0, 
 				0, 0, 1);
         }
-        else if (angle_in_radians <= PI + std::numeric_limits<float>::epsilon() &&
-                    angle_in_radians >= PI - std::numeric_limits<float>::epsilon())
+        else if (angle_in_radians <= MATH::PI + std::numeric_limits<float>::epsilon() &&
+                    angle_in_radians >= MATH::PI - std::numeric_limits<float>::epsilon())
         {
             return matrix3(
 				-1, 0, 0, 
 				0, -1, 0, 
 				0, 0, 1);
         }
-        else if (angle_in_radians <= PI + HALF_PI + std::numeric_limits<float>::epsilon() &&
-                    angle_in_radians >= PI + HALF_PI - std::numeric_limits<float>::epsilon())
+        else if (angle_in_radians <= MATH::PI + MATH::HALF_PI + std::numeric_limits<float>::epsilon() &&
+                    angle_in_radians >= MATH::PI + MATH::HALF_PI - std::numeric_limits<float>::epsilon())
         {
             return matrix3(
 				0, -1, 0, 
@@ -154,4 +152,3 @@ namespace Math
     {
         return MATRIX3::build_translation(translation.x, translation.y);
     }
-}

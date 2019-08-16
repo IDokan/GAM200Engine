@@ -19,27 +19,27 @@ namespace Graphics
     {
         float x = width / 2.f;
         float y = height / 2.f;
-        mesh.AddPoint(Math::vector2{-x, -y});
-        mesh.AddPoint(Math::vector2{-x, y});
-        mesh.AddPoint(Math::vector2{x, y});
-        mesh.AddPoint(Math::vector2{x, -y});
+        mesh.AddPoint( vector2{-x, -y});
+        mesh.AddPoint( vector2{-x, y});
+        mesh.AddPoint( vector2{x, y});
+        mesh.AddPoint( vector2{x, -y});
     };
 
     void AddBoxPoint(Graphics::Mesh& mesh, float dimension)
     {
         float point = dimension / 2.f;
-        mesh.AddPoint(Math::vector2{-point});
-        mesh.AddPoint(Math::vector2{-point, point});
-        mesh.AddPoint(Math::vector2{point});
-        mesh.AddPoint(Math::vector2{point, -point});
+        mesh.AddPoint( vector2{-point});
+        mesh.AddPoint( vector2{-point, point});
+        mesh.AddPoint( vector2{point});
+        mesh.AddPoint( vector2{point, -point});
     };
 
     void AddTexturePoint(Graphics::Mesh& mesh)
     {
-        mesh.AddTextureCoordinate(Math::vector2{0.f, 1.f});
-        mesh.AddTextureCoordinate(Math::vector2{0.f});
-        mesh.AddTextureCoordinate(Math::vector2{1.f, 0.f});
-        mesh.AddTextureCoordinate(Math::vector2{1.f});
+        mesh.AddTextureCoordinate( vector2{0.f, 1.f});
+        mesh.AddTextureCoordinate( vector2{0.f});
+        mesh.AddTextureCoordinate( vector2{1.f, 0.f});
+        mesh.AddTextureCoordinate( vector2{1.f});
     }
 
     namespace MESH
@@ -51,7 +51,7 @@ namespace Graphics
         return points.size();
     }
 
-    Math::vector2 Graphics::Mesh::GetPoint(std::size_t index) const noexcept
+     vector2 Graphics::Mesh::GetPoint(std::size_t index) const noexcept
     {
         return points.at(index);
     }
@@ -67,11 +67,11 @@ namespace Graphics
         }
         return colors.at(index);
     }
-    Math::vector2 Graphics::Mesh::GetTextureCoordinate(std::size_t index) const noexcept
+     vector2 Graphics::Mesh::GetTextureCoordinate(std::size_t index) const noexcept
     {
         if (textureCoordinates.empty())
         {
-            return Math::vector2{0.f};
+            return  vector2{0.f};
         }
         else if (index >= textureCoordinates.size())
         {
@@ -87,10 +87,10 @@ namespace Graphics
     void             Graphics::Mesh::AddColor(Color4ub color) noexcept
     { colors.push_back(color);
     }
-    void Graphics::Mesh::AddPoint(Math::vector2 point) noexcept
+    void Graphics::Mesh::AddPoint( vector2 point) noexcept
     { points.push_back(point);
     }
-    void Graphics::Mesh::AddTextureCoordinate(Math::vector2 texture_coordinate) noexcept
+    void Graphics::Mesh::AddTextureCoordinate( vector2 texture_coordinate) noexcept
     {
         textureCoordinates.push_back(texture_coordinate);
     }
@@ -123,14 +123,14 @@ namespace Graphics
         circle.SetPointListType(PointListPattern::TriangleFan);
         circle.AddColor(color);
 
-         circle.AddPoint(Math::vector2{0.f});
+         circle.AddPoint( vector2{0.f});
 
-        float temp = Math::TWO_PI / point_count;
+        float temp = MATH::TWO_PI / point_count;
 
         for (std::size_t count = 0; count <= point_count; ++count)
         {
             circle.AddPoint(
-                Math::vector2{radius * cos((temp * count) - Math::HALF_PI), radius * sin((temp * count) - Math::HALF_PI)});
+                 vector2{radius * cos((temp * count) - MATH::HALF_PI), radius * sin((temp * count) - MATH::HALF_PI)});
         }
 
         return circle;
@@ -141,12 +141,12 @@ namespace Graphics
         circle.SetPointListType(PointListPattern::LineLoop);
         circle.AddColor(color);
 
-        float temp = Math::TWO_PI / point_count;
+        float temp = MATH::TWO_PI / point_count;
 
         for (std::size_t count = 0; count < point_count; ++count)
         {
             circle.AddPoint(
-                Math::vector2{radius * cos((temp * count) - Math::HALF_PI), radius * sin((temp * count) - Math::HALF_PI)});
+                 vector2{radius * cos((temp * count) - MATH::HALF_PI), radius * sin((temp * count) - MATH::HALF_PI)});
         }
 
         return circle;
@@ -181,7 +181,7 @@ namespace Graphics
     {
         return create_wire_rectangle(dimension, dimension, color);
     }
-    Mesh MESH::create_line(Math::vector2 a, Math::vector2 b, Color4ub color) noexcept
+    Mesh MESH::create_line( vector2 a,  vector2 b, Color4ub color) noexcept
     { 
         Mesh line;
         line.SetPointListType(PointListPattern::Lines);

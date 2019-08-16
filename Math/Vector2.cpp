@@ -14,8 +14,6 @@ Created: 08/05/2019
 #include <limits>
 
 
-namespace Math
-{
     //==========================Constructor===============================
     vector2::vector2() noexcept : x(0.0f), y(0.0f) {}
     vector2::vector2(float repeated_float) noexcept : x(repeated_float), y(repeated_float) {}
@@ -177,5 +175,3 @@ namespace Math
         return p_Stream;
     }
 
-
-}

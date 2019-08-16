@@ -16,6 +16,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{380422ed-50d3-4eb1-bb2c-783be82dc10d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{d369dc30-63bf-4e69-9084-7b0700647e36}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{b1f85b36-f078-40c2-89ba-bf61aacf8003}</UniqueIdentifier>
     </Filter>
@@ -24,6 +27,9 @@
     </Filter>
     <Filter Include="States">
       <UniqueIdentifier>{b94cff96-a033-48bd-9881-e5c70608e2e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{e2defed7-0a7d-4b06-8f54-af494cc8ecd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,12 +40,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformWindow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input.hpp">
@@ -84,17 +84,29 @@
     <ClInclude Include="Graphics\Vertices.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Component.hpp">
-      <Filter>Component</Filter>
+    <ClInclude Include="Window.hpp">
+      <Filter>Window</Filter>
     </ClInclude>
-    <ClInclude Include="Component\GraphicComponent.hpp">
-      <Filter>Component</Filter>
+    <ClInclude Include="PlatformWindow.hpp">
+      <Filter>Window</Filter>
     </ClInclude>
     <ClInclude Include="Object\Object.hpp">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\Transform.hpp">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Camera.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\CameraView.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Component.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="States\State.hpp">
       <Filter>States</Filter>
@@ -105,18 +117,18 @@
     <ClInclude Include="Object\ObjectManager.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\TestLevel.hpp">
+    <ClInclude Include="Physics.hpp">
+    </ClInclude>
+      <Filter>Physics</Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
@@ -152,8 +164,11 @@
     <ClCompile Include="Graphics\Vertices.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Component\GraphicComponent.cpp">
-      <Filter>Component</Filter>
+    <ClCompile Include="Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformWindow.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
     <ClCompile Include="Object\Object.cpp">
       <Filter>Object</Filter>
@@ -166,6 +181,24 @@
     </ClCompile>
     <ClCompile Include="Object\ObjectManager.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Camera.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\CameraView.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\TestLevel.cpp">
+      <Filter>Component</Filter>
+    <ClCompile Include="Component\Component.cpp">
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

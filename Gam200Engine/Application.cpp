@@ -13,6 +13,7 @@ Creation Date: 08.05.2019
 #include "Input.hpp"
 #include <iostream>
 #include "Graphics/GL.hpp"
+#include "States/StateManager.hpp"
 
 Application* Application::GetApplication()
 {
@@ -23,10 +24,15 @@ Application* Application::GetApplication()
 void Application::Init()
 {
     window.CreateWindow();
+    window.TurnOnMonitorVerticalSynchronization(true);
     GetWindowSize = window.WindowSize();
+   
+    input.Init();
 
 	Graphics::GL::setup();
 
+	StateManager::GetStateManager()->Init();
+	//StateManager::GetStateManager()->AddStates("testLevel")
 	demo.Init();
 }
 
@@ -38,25 +44,54 @@ void Application::Update(float dt)
     ++fpsFrames;
     if (fpsEllapsedTime >= 1.0f)
     {
+        std::cout << fpsFrames << std::endl;
         fpsEllapsedTime = 0;
         fpsFrames = 0;
     }
 
-	demo.Draw();
+	StateManager::GetStateManager()->Update(dt);
 
     window.PollEvent();
     window.SwapBackBuffer();
 
+    GetApplication()->Input();
+    GetApplication()->InputTest();
+}
+
+void Application::Input()
+{
+    if (input.IsKeyTriggered(GLFW_KEY_V))
+    {
+        window.TurnOnMonitorVerticalSynchronization(!window.IsMonitorVerticalSynchronizationOn());
+    }  
+    if (input.IsKeyTriggered(GLFW_KEY_F))
+    {
+        window.ToggleFullscreen();
+    }  
+}
+
+void Application::InputTest()
+{
     if (input.IsKeyTriggered(GLFW_KEY_A))
     {
         std::cout << "a" << std::endl;
     }
-    if (input.IsKeyTriggered(GLFW_KEY_F))
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
     {
-        window.ToggleFullscreen();
+        std::cout << "left mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+    {
+        std::cout << "right mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+    {
+        std::cout << "mouse button double clicked" << std::endl;
     }
 }
 
 void Application::Clear()
 {
+	StateManager::GetStateManager()->Clear();
 }
+

@@ -1,16 +1,22 @@
-/*  1. Sinil.gang
- *  2. Camera Programming Assignment
- *  3. CS230
- *  4. Spring 2019
- */
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   Transform.cpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+Creation Date: 08.12.2019
+
+	Source file for Object's Transform
+******************************************************************************/
 
 #include "Transform.hpp"
-//#include <Graphics/Camera.hpp>
+#include <Graphics/Camera.hpp>
 #include <Graphics/Material.hpp>
 
-    Math::matrix3 Transform::GetModelToWorld() const noexcept
+     matrix3 Transform::GetModelToWorld() const noexcept
     {
-        Math::matrix3 currMatrix = Math::MATRIX3::build_translation(translation) * Math::MATRIX3::build_rotation(rotation) * Math::MATRIX3::build_scale(scale);
+         matrix3 currMatrix =  MATRIX3::build_translation(translation) *  MATRIX3::build_rotation(rotation) *  MATRIX3::build_scale(scale);
         
         if (parent == nullptr)
         {
@@ -19,19 +25,18 @@
 
         return parent->GetModelToWorld() * currMatrix;
     }
-
-    // It should be changed
-    Math::matrix3 Transform::GetWorldToModel() const noexcept
+	 
+     matrix3 Transform::GetWorldToModel() const noexcept
     {
-        Math::matrix3 currMatrix = Math::MATRIX3::build_scale(Math::vector2{1.f / scale.x, 1.f / scale.y}) *
-                             Math::MATRIX3::build_rotation(-rotation) * Math::MATRIX3::build_translation(-translation);
+         matrix3 currMatrix =  MATRIX3::build_scale( vector2{1.f / scale.x, 1.f / scale.y}) *
+                              MATRIX3::build_rotation(-rotation) *  MATRIX3::build_translation(-translation);
 
         if (parent == nullptr)
         {
             return currMatrix;
         }
 
-        return parent->GetWorldToModel() * currMatrix;
+        return currMatrix * parent->GetWorldToModel();
     }
 
     float Transform::CalculateWorldDepth() const noexcept
@@ -45,20 +50,47 @@
 
     float Transform::GetDepth() const noexcept { return depth; }
 
-    void Transform::SetDepth(float new_depth) noexcept { depth = new_depth; }
+    void Transform::SetDepth(float new_depth) noexcept
+     {
+	     depth = new_depth;
+		 isChanged = true;
+     }
 
-Math::vector2 Transform::GetTranslation() const noexcept { return translation; }
+ vector2 Transform::GetTranslation() const noexcept { return translation; }
 
-    void Transform::SetTranslation(const Math::vector2& new_translation) noexcept { translation = new_translation; }
+    void Transform::SetTranslation(const  vector2& new_translation) noexcept
+     {
+	     translation = new_translation;
+		 isChanged = true;
+     }
 
-Math::vector2 Transform::GetScale() const noexcept { return scale; }
+ vector2 Transform::GetScale() const noexcept { return scale; }
 
-    void Transform::SetScale(const Math::vector2& new_scale) noexcept { scale = new_scale; }
+    void Transform::SetScale(const  vector2& new_scale) noexcept
+     {
+	     scale = new_scale;
+		 isChanged = true;
+     }
 
     float Transform::GetRotation() const noexcept { return rotation; }
 
-    void Transform::SetRotation(float new_rotation) noexcept { rotation = new_rotation; }
+    void Transform::SetRotation(float new_rotation) noexcept
+     {
+	     rotation = new_rotation;
+		 isChanged = true;
+     }
 
     const Transform* Transform::GetParent() const noexcept { return parent; }
 
-    void Transform::SetParent(const Transform* transform_parent) noexcept { parent = transform_parent; }
+    void Transform::SetParent(const Transform* transform_parent) noexcept
+     {
+	     parent = transform_parent;
+		 isChanged = true;
+     }
+
+bool Transform::GetIsChanged() noexcept
+{
+	const auto value = isChanged;
+	isChanged = false;
+	return value;
+}

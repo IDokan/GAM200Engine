@@ -7,10 +7,10 @@ Purpose: Math
 Project: Gam200 Project
 Author: Hyerin Jung
 Created: 08/05/2019
-------------------------------------------------------------------------*/#pragma once
+------------------------------------------------------------------------*/
+#pragma once
 #include "MathLibrary.hpp"
 
-namespace Math {
     struct Matrix {
         //===========================================Union For Memory=========================================
         union {
@@ -50,4 +50,3 @@ namespace Math {
         //=================================================Scale==============================================
         static Matrix Scale(const vector3 &p_Scale);
     };
-}
