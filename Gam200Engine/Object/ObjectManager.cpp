@@ -13,20 +13,15 @@ Creation Date: 08.12.2019
 #include "States/StateManager.hpp"
 #include <iostream>
 
-ObjectManager* ObjectManager::obj_manager = nullptr;
-
-ObjectManager::ObjectManager()
-{
-}
 
 ObjectManager::~ObjectManager()
 {
 }
 
-ObjectManager& ObjectManager::GetObjectManager()
+ObjectManager* ObjectManager::GetObjectManager()
 {
     static ObjectManager *obj_manager = new ObjectManager();
-    return *obj_manager;
+    return obj_manager;
 }
 
 void ObjectManager::Init()
@@ -65,7 +60,6 @@ void ObjectManager::Clear()
     delete_obj.clear();
 
     delete GetObjectManager();
-    obj_manager = nullptr;
 }
 
 void ObjectManager::AddObject(Object * obj)
