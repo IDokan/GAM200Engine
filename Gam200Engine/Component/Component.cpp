@@ -4,27 +4,14 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   Application.hpp
 Author
-        dbsqhd106@gmail.com
-Creation Date: 08.12.2019
+		Kang rtd99062@gmail.com
+Creation Date: 08.15.2019 (Liberation Day! :)
 
-    Header file for the Application.cpp
+	Source file for the Component.cpp
 ******************************************************************************/
-#pragma once
+#include "Component.hpp"
 
-class Object;
-
-class Component
+Component::Component(Object* obj) noexcept
+	:owner(obj)
 {
-public:
-	explicit Component(Object*) noexcept;
-	virtual ~Component() noexcept;
-
-public:
-	virtual void Init() = 0;
-	virtual void Update(float dt) = 0;
-	virtual void Clear() = 0;
-
-protected:
-	Object* owner;
-};
-
+}

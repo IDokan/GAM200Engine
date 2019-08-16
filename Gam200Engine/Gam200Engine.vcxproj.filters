@@ -117,9 +117,12 @@
     <ClInclude Include="Object\ObjectManager.hpp">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Physics.hpp">
-      <Filter>Physics</Filter>
+      <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="States\TestLevel.hpp">
+    <ClInclude Include="Physics.hpp">
+    </ClInclude>
+      <Filter>Physics</Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -190,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>Physics</Filter>
+    </ClCompile>
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\TestLevel.cpp">
+      <Filter>Component</Filter>
+    <ClCompile Include="Component\Component.cpp">
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

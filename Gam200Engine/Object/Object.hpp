@@ -31,7 +31,7 @@ public:
     {
         return is_dead;
     }
-    Transform GetTransform() 
+    Transform GetTransform() const
     {
         return transform;
     }

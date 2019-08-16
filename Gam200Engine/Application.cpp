@@ -13,6 +13,7 @@ Creation Date: 08.05.2019
 #include "Input.hpp"
 #include <iostream>
 #include "Graphics/GL.hpp"
+#include "States/StateManager.hpp"
 
 Application* Application::GetApplication()
 {
@@ -28,6 +29,8 @@ void Application::Init()
 
 	Graphics::GL::setup();
 
+	StateManager::GetStateManager()->Init();
+	//StateManager::GetStateManager()->AddStates("testLevel")
 	demo.Init();
 }
 
@@ -44,7 +47,8 @@ void Application::Update(float dt)
         fpsFrames = 0;
     }
 
-	demo.Draw();
+	StateManager::GetStateManager()->Update(dt);
+
     window.PollEvent();
     window.SwapBackBuffer();
 
@@ -86,5 +90,6 @@ void Application::InputTest()
 
 void Application::Clear()
 {
+	StateManager::GetStateManager()->Clear();
 }
 
