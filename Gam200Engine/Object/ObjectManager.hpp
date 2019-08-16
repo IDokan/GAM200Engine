@@ -20,7 +20,7 @@ class ObjectManager
 public:
     ~ObjectManager();
 
-    static ObjectManager* GetObjectManager();
+    static ObjectManager& GetObjectManager();
 
     void Init();
     void Update(float dt);
@@ -33,9 +33,6 @@ public:
 
 private:
     ObjectManager() {};
-    static ObjectManager* obj_manager;
-
-    // Tile, many objects -> vector
     // Puzzle, Casual -> map (easy to get specific object)
     std::vector<std::shared_ptr<Object>> objects{};
     //std::unordered_map<std::string, std::unique_ptr<Object>> objectsMap;

@@ -19,7 +19,7 @@ Creation Date: 08.12.2019
 class StateManager
 {
 public:
-    static StateManager *GetStateManager();
+    static StateManager &GetStateManager();
     void Init();
     void Update(float dt);
     void Clear();
@@ -29,7 +29,6 @@ public:
      
 private:
     StateManager(){};
-    static StateManager* state_manager;
     std::unordered_map < std::string, std::shared_ptr<State> > states;
     State *currentState = nullptr;
 };
