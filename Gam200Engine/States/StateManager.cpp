@@ -17,6 +17,9 @@ StateManager* StateManager::state_manager = nullptr;
 
 StateManager * StateManager::GetStateManager()
 {
+    if (state_manager == nullptr) {
+        state_manager = new StateManager();
+    }
     return state_manager;
 }
 

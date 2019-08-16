@@ -32,7 +32,7 @@ public:
     std::vector<std::shared_ptr<Object>>& GetObjectManagerContainer() { return objects; }
 
 private:
-    ObjectManager();
+    ObjectManager() {};
     static ObjectManager* obj_manager;
 
     // Tile, many objects -> vector

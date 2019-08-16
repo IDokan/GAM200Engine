@@ -28,6 +28,7 @@ public:
     bool is_restart = false;
      
 private:
+    StateManager(){};
     static StateManager* state_manager;
     std::unordered_map < std::string, std::shared_ptr<State> > states;
     State *currentState = nullptr;
