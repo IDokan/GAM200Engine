@@ -26,6 +26,8 @@ void Application::Init()
     window.CreateWindow();
     window.TurnOnMonitorVerticalSynchronization(true);
     GetWindowSize = window.WindowSize();
+   
+    input.Init();
 
 	Graphics::GL::setup();
 

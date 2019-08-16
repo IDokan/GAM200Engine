@@ -11,6 +11,9 @@ Creation Date: 08.14.2019
 ******************************************************************************/
 #include <Component/Component.hpp>
 #include <Graphics/Mesh.hpp>
+#include <Graphics/Vertices.hpp>
+#include <Graphics/Material.hpp>
+#include <Graphics/Texture.hpp>
 #include "Sprite.hpp"
 #include <Object/Transform.hpp>
 #include <Graphics/StockShaders.hpp>
@@ -41,33 +44,34 @@ void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
 }
 
 Sprite::Sprite(Object* obj) noexcept
-	: Component(obj)
+	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
+		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>())
 {
-	mesh.Clear();
+	mesh->Clear();
 }
 
 void Sprite::Init()
 {
 	const Transform transform = owner->GetTransform();
-	material.shader = &Graphics::SHADER::textured();
-	material.matrix3Uniforms["to_ndc"] = MATRIX3::build_scale(2.f / 1920.f, 2.f / 1080.f);
-	material.floatUniforms["to_depth"] = transform.CalculateWorldDepth();
+	material->shader = &Graphics::SHADER::textured();
+	material->matrix3Uniforms["to_ndc"] = MATRIX3::build_scale(2.f / 1920.f, 2.f / 1080.f);
+	material->floatUniforms["to_depth"] = transform.CalculateWorldDepth();
 
-	mesh.SetPointListType(Graphics::PointListPattern::TriangleFan);
+	mesh->SetPointListType(Graphics::PointListPattern::TriangleFan);
 	
-	UpdateMeshPoint(transform, mesh);
+	UpdateMeshPoint(transform, *mesh.get());
 
-	material.color4fUniforms["color"] = Graphics::Color4f{1.f};
+	material->color4fUniforms["color"] = Graphics::Color4f{1.f};
 
 	// TODO: To Modify for animation or special shader
-	mesh.AddTextureCoordinate(vector2{ 0.f, 1.f });
-	mesh.AddTextureCoordinate(vector2{ 1.f });
-	mesh.AddTextureCoordinate(vector2{ 1.f, 0.f });
-	mesh.AddTextureCoordinate(vector2{ 0.f});
+	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
+	mesh->AddTextureCoordinate(vector2{ 1.f });
+	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
+	mesh->AddTextureCoordinate(vector2{ 0.f});
 
-	//SetImage("texture/rect.png");
+	SetImage("texture/rect.png");
 
-	vertices.InitializeWithMeshAndLayout(mesh, Graphics::SHADER::textured_vertex_layout());
+	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
 void Sprite::Update(float /*dt*/)
@@ -76,30 +80,30 @@ void Sprite::Update(float /*dt*/)
 
 	if (transform.GetIsChanged())
 	{
-		UpdateMeshPoint(transform, mesh);
+		UpdateMeshPoint(transform, *mesh.get());
 
-		vertices.UpdateVerticesFromMesh(mesh);
+		vertices->UpdateVerticesFromMesh(*mesh.get());
 	}
 
 	// TODO: Should Change where Draw
-	//Graphics::GL::begin_drawing();
-	//Graphics::GL::draw(vertices, material);
-	//Graphics::GL::end_drawing();
+	Graphics::GL::begin_drawing();
+	Graphics::GL::draw(*vertices.get(), *material.get());
+	Graphics::GL::end_drawing();
 }
 
 void Sprite::Clear()
 {
-	mesh.Clear();
+	mesh->Clear();
 }
 
 void Sprite::SetColor(const Graphics::Color4f& color) noexcept
 {
-	material.color4fUniforms["color"] = color;
+	material->color4fUniforms["color"] = color;
 }
 
-//void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
-//{
-//	texture.LoadFromPNG(filepath);
-//	Graphics::texture_uniform container{ &texture, 0 };
-//	material.textureUniforms["texture_to_sample"] = container;
-//}
+void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
+{
+	texture->LoadFromPNG(filepath);
+	const Graphics::texture_uniform container{ texture.get(), 0 };
+	material->textureUniforms["texture_to_sample"] = container;
+}

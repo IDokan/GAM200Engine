@@ -11,13 +11,18 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #include <Component/Component.hpp>
+#include <Object/Transform.hpp>
+#include <Object/Object.hpp>
 #include "Vector2.hpp"
 #include "Physics.hpp"
 #include "matrix3.hpp"
 
-void Physics::Init(Object* obj)
-{
+Physics::Physics(Object * obj) : Component(obj) {}
 
+void Physics::Init()
+{
+    force.x = 0.f;
+    force.y = 0.f;
 }
 
 void Physics::Update(float dt)
@@ -26,6 +31,9 @@ void Physics::Update(float dt)
     matrix3 gra = MATRIX3::build_translation(gravity);
     matrix3 total = vel * gra;
     vector2 vectorTranslation = GetTranslation(total);
+    vectorTranslation += force;
+
+    owner->SetTranslation(vectorTranslation);
 }
 
 void Physics::Clear()
@@ -58,6 +66,17 @@ void Physics::SetGravity(float x, float y)
 bool Physics::IsCollideWith(Object * object)
 {
     return false;
+}
+
+void Physics::AddForce(vector2 force)
+{
+    this->force = force;
+}
+
+void Physics::AddForce(float x, float y)
+{
+    force.x = x;
+    force.y = y;
 }
 
 vector2 Physics::GetTranslation(matrix3 matrix3)

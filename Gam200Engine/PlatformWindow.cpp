@@ -12,6 +12,7 @@ Creation Date: 08.05.2019
 #include "PlatformWindow.hpp"
 #include "Input.hpp"
 #include <Graphics/glCheck.hpp>
+#include <Graphics/GL.hpp>
 
 namespace
 {
@@ -31,11 +32,10 @@ namespace
     {
         input.SetMouseWheel(x_offset, y_offset);
     }
-    //void WindowSizeCallback(GLFWwindow *window, int width,int height)
-    //{
-    //    xSize = width;
-    //    ySize = height;
-    //}
+    void WindowSizeCallback(GLFWwindow *window, int width,int height)
+    {
+        Graphics::GL::set_display_area(width, height);
+    }
 }
 
 bool PlatformWindow::CreateWindow() noexcept
@@ -49,30 +49,30 @@ bool PlatformWindow::CreateWindow() noexcept
     xPos = 100;
     yPos = 100;
 
-    glCheck(glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE));
-    glCheck(glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE));
-    glCheck(glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3));
-    glCheck(glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3));
-    glCheck(glfwWindowHint(GLFW_DEPTH_BITS, 24));
-    glCheck(glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE));
-    glCheck(glfwWindowHint(GLFW_SAMPLES, 4));
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
     
     window = glfwCreateWindow(xSize, ySize, "engine", nullptr, nullptr);
-    glCheck(glfwSetWindowPos(window, xPos, yPos));
+    glfwSetWindowPos(window, xPos, yPos);
 
     if (!window)
     {
         return false;
     }
-    glCheck(glfwMakeContextCurrent(window));
-    glCheck(glfwSetKeyCallback(window, KeyCallback));
-    glCheck(glfwSetCursorPosCallback(window, MousePositionCallback));
-    glCheck(glfwSetMouseButtonCallback(window, MouseButtonCallback));
-    glCheck(glfwSetScrollCallback(window, MouseWheelScroll));
-    //glfwSetWindowSizeCallback(window, WindowSizeCallback);
-    glCheck(glfwSwapInterval(true));
+    glfwMakeContextCurrent(window);
+    glfwSetKeyCallback(window, KeyCallback);
+    glfwSetCursorPosCallback(window, MousePositionCallback);
+    glfwSetMouseButtonCallback(window, MouseButtonCallback);
+    glfwSetScrollCallback(window, MouseWheelScroll);
+    glfwSetWindowSizeCallback(window, WindowSizeCallback);
+    glfwSwapInterval(true);
 
-    glCheck(glewInit());
+    glewInit();
 
     return true;
 }

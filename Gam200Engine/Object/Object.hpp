@@ -35,6 +35,10 @@ public:
     {
         return transform;
     }
+    vector2 GetPosition() const 
+    {
+        return transform.GetTranslation();
+    }
     std::vector<Component*> GetComponentContainer() 
     {
         return component;

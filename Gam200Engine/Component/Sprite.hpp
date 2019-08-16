@@ -10,8 +10,7 @@ Creation Date: 08.14.2019
 	Header file for Graphic Component
 ******************************************************************************/
 #pragma once
-#include <Graphics/Vertices.hpp>
-#include <Graphics/Material.hpp>
+#include <filesystem>
 class Component;
 
 namespace Graphics
@@ -19,6 +18,7 @@ namespace Graphics
 	class Mesh;
 	class Vertices;
 	struct material;
+	class Texture;
 }
 
 class Sprite :
@@ -35,10 +35,11 @@ public:
 	virtual void Clear() override;
 
 	void SetColor(const Graphics::Color4f& color) noexcept;
-	//void SetImage(const std::filesystem::path&) noexcept;
+	void SetImage(const std::filesystem::path&) noexcept;
 
 private:
-	Graphics::Mesh mesh;
-	Graphics::Vertices vertices;
-	Graphics::material material;
+	std::shared_ptr<Graphics::Mesh> mesh;
+	std::shared_ptr<Graphics::Vertices> vertices;
+	std::shared_ptr<Graphics::material> material;
+	std::shared_ptr<Graphics::Texture> texture;
 };
