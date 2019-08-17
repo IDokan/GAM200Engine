@@ -11,8 +11,8 @@ Creation Date: 08.15.2019
 	Header file for First Level to Test Sprite Component
 ******************************************************************************/
 #pragma once
-
-class Object;
+#include <States/State.hpp>
+#include <Object/Object.hpp>
 
 class TestLevel : public State
 {

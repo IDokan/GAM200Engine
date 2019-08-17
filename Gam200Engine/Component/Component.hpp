@@ -17,7 +17,7 @@ class Component
 {
 public:
 	explicit Component(Object*) noexcept;
-	virtual ~Component() noexcept;
+	virtual ~Component() noexcept = default;
 
 public:
 	virtual void Init() = 0;

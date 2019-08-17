@@ -10,8 +10,6 @@ Creation Date: 08.15.2019
 
 	Source file for First Level to Test Sprite Component
 ******************************************************************************/
-#include <States/State.hpp>
-#include <Object/Object.hpp>
 #include "TestLevel.hpp"
 #include <Component/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
@@ -26,7 +24,6 @@ void TestLevel::Load()
 
 void TestLevel::Update(float /*dt*/)
 {
-
 }
 
 void TestLevel::Unload()

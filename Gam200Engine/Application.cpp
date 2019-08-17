@@ -14,6 +14,7 @@ Creation Date: 08.05.2019
 #include <iostream>
 #include "Graphics/GL.hpp"
 #include "States/StateManager.hpp"
+#include "Object/ObjectManager.hpp"
 
 Application* Application::GetApplication()
 {
@@ -32,8 +33,9 @@ void Application::Init()
 	Graphics::GL::setup();
 
 	StateManager::GetStateManager()->Init();
-	//StateManager::GetStateManager()->AddStates("testLevel")
-	demo.Init();
+	ObjectManager::GetObjectManager()->Init();
+
+	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(&testLevel));
 }
 
 void Application::Update(float dt)
@@ -50,6 +52,7 @@ void Application::Update(float dt)
     }
 
 	StateManager::GetStateManager()->Update(dt);
+	ObjectManager::GetObjectManager()->Update(dt);
 
     window.PollEvent();
     window.SwapBackBuffer();
@@ -101,5 +104,6 @@ void Application::InputTest()
 void Application::Clear()
 {
 	StateManager::GetStateManager()->Clear();
+	ObjectManager::GetObjectManager()->Clear();
 }
 

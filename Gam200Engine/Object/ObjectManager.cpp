@@ -30,7 +30,7 @@ void ObjectManager::Init()
 
 void ObjectManager::Update(float dt)
 {
-    if (StateManager::GetStateManager()->is_restart) {
+    if (!StateManager::GetStateManager()->is_restart) {
         
         delete_obj.clear();
         for (const auto &obj : objects) {
