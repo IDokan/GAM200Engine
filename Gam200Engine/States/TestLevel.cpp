@@ -13,6 +13,7 @@ Creation Date: 08.15.2019
 #include "TestLevel.hpp"
 #include <Component/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
+#include "Input.hpp"
 
 void TestLevel::Load()
 {
@@ -24,6 +25,19 @@ void TestLevel::Load()
 
 void TestLevel::Update(float /*dt*/)
 {
+	if (input.IsKeyTriggered(GLFW_KEY_A))
+	{
+		if (flag)
+		{
+			obj.GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+			flag = !flag;
+		}
+		else
+		{
+			obj.GetComponentByTemplate<Sprite>()->SetImage("../texture/rect.png");
+			flag = !flag;
+		}
+	}
 }
 
 void TestLevel::Unload()

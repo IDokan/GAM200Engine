@@ -26,4 +26,5 @@ public:
 
 private:
 	Object obj;
+	bool flag = false;
 };

@@ -51,14 +51,13 @@ void Application::Update(float dt)
         fpsFrames = 0;
     }
 
-	StateManager::GetStateManager()->Update(dt);
-	ObjectManager::GetObjectManager()->Update(dt);
-
     window.PollEvent();
     window.SwapBackBuffer();
 
+	StateManager::GetStateManager()->Update(dt);
+	ObjectManager::GetObjectManager()->Update(dt);
+
     GetApplication()->Input();
-    GetApplication()->InputTest();
 }
 
 void Application::Input()
