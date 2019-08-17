@@ -17,7 +17,7 @@ Creation Date: 08.15.2019
 void TestLevel::Load()
 {
 	obj.SetTranslation(vector2{ 0.f });
-	obj.SetScale(vector2{ 2.f });
+	obj.SetScale(vector2{ 200.f });
 	obj.AddComponent(new Sprite(&obj));
 	ObjectManager::GetObjectManager()->AddObject(&obj);
 }

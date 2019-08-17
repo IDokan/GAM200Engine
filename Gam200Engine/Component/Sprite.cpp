@@ -70,8 +70,7 @@ void Sprite::Init()
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
 	mesh->AddTextureCoordinate(vector2{ 0.f});
 
-	SetImage("rect.png");
-
+	SetImage("../texture/rect.png");
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
@@ -106,10 +105,8 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 {
 	if (texture->LoadFromPNG(filepath))
 	{
-		
-	;
-	const Graphics::texture_uniform container{ texture.get(), 0 };
-	material->textureUniforms["texture_to_sample"] = container;
+		const Graphics::texture_uniform container{ texture.get(), 0 };
+		material->textureUniforms["texture_to_sample"] = container;
 	}
 	else
 	{
