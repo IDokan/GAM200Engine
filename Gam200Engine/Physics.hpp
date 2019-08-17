@@ -20,7 +20,7 @@ class Physics : public Component
 {
 public:
     Physics(Object* obj);
-
+    ~Physics();
     virtual void Init() override;
     virtual void Update(float dt) override;
     virtual void Clear() override;

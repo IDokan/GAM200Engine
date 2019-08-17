@@ -11,8 +11,7 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #pragma once
 #include "Window.hpp"
-#include "Demo.hpp"
-
+#include <States/TestLevel.hpp>
 
 class Application
 {
@@ -31,6 +30,5 @@ private:
     int fpsFrames = 0;
     Window window;
 
-	// Should be deleted after finishing implementing state manager
-	Demo demo;
+	TestLevel testLevel;
 };

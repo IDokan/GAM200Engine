@@ -14,6 +14,7 @@ Creation Date: 08.05.2019
 #include <iostream>
 #include "Graphics/GL.hpp"
 #include "States/StateManager.hpp"
+#include "Object/ObjectManager.hpp"
 
 Application* Application::GetApplication()
 {
@@ -32,8 +33,9 @@ void Application::Init()
 	Graphics::GL::setup();
 
 	StateManager::GetStateManager()->Init();
-	//StateManager::GetStateManager()->AddStates("testLevel")
-	demo.Init();
+	ObjectManager::GetObjectManager()->Init();
+
+	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(&testLevel));
 }
 
 void Application::Update(float dt)
@@ -50,6 +52,7 @@ void Application::Update(float dt)
     }
 
 	StateManager::GetStateManager()->Update(dt);
+	ObjectManager::GetObjectManager()->Update(dt);
 
     window.PollEvent();
     window.SwapBackBuffer();
@@ -72,9 +75,13 @@ void Application::Input()
 
 void Application::InputTest()
 {
-    if (input.IsKeyTriggered(GLFW_KEY_A))
+    if (input.IsKeyPressed (GLFW_KEY_A))
     {
-        std::cout << "a" << std::endl;
+        std::cout << "A triggered" << std::endl;
+    }
+    if (input.IsKeyReleased(GLFW_KEY_A))
+    {
+        std::cout << "A released" << std::endl;
     }
     if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
     {
@@ -83,6 +90,10 @@ void Application::InputTest()
     if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
     {
         std::cout << "right mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_MIDDLE))
+    {
+        std::cout << "middle mouse button triggered" << std::endl;
     }
     if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
     {
@@ -93,5 +104,6 @@ void Application::InputTest()
 void Application::Clear()
 {
 	StateManager::GetStateManager()->Clear();
+	ObjectManager::GetObjectManager()->Clear();
 }
 

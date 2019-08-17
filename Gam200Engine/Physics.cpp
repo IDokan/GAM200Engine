@@ -11,13 +11,18 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #include <Component/Component.hpp>
-#include <Object/Transform.hpp>
 #include <Object/Object.hpp>
 #include "Vector2.hpp"
 #include "Physics.hpp"
 #include "matrix3.hpp"
 
-Physics::Physics(Object * obj) : Component(obj) {}
+Physics::Physics(Object * obj) : Component(obj) 
+{
+}
+
+Physics::~Physics()
+{
+}
 
 void Physics::Init()
 {
@@ -30,6 +35,7 @@ void Physics::Update(float dt)
     matrix3 vel = MATRIX3::build_translation(velocity);
     matrix3 gra = MATRIX3::build_translation(gravity);
     matrix3 total = vel * gra;
+
     vector2 vectorTranslation = GetTranslation(total);
     vectorTranslation += force;
 
@@ -38,7 +44,6 @@ void Physics::Update(float dt)
 
 void Physics::Clear()
 {
-
 }
 
 void Physics::SetVelocity(vector2 velocity)

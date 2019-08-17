@@ -28,7 +28,7 @@ void StateManager::Init()
 
 void StateManager::Update(float dt)
 {
-    if (is_restart) 
+    if (!is_restart) 
     {
         currentState->Update(dt);
         if (currentState->isNextLevel()) {
@@ -40,7 +40,7 @@ void StateManager::Update(float dt)
     }
     else
     {
-        std::cout << "Resume!\n";
+        //std::cout << "Resume!\n";
     }
 
 }
@@ -55,7 +55,9 @@ void StateManager::AddStates(std::string name, State * state)
 {
     auto tmp = std::make_pair(name, state);
     if (currentState == nullptr) {
-        if (state->GetStateInfo() == GameStates::Menu ) {
+        // Why does it be right logic? I should double check
+    	// if (state->GetStateInfo() == GameStates::Menu ) 
+		{
             currentState = state;
             currentState->Load();
         }
