@@ -11,15 +11,17 @@ Creation Date: 08.06.2019
     Source file for getting keyboard input
 ******************************************************************************/
 #include "Input.hpp"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "PlatformWindow.hpp"
 #include "Application.hpp"
+#include <chrono>
 
 Input input;
 
 void Input::Init()
 {
+    xOffset = 0.0;
+    yOffset = 0.0;
+
     keyPressed.reset();
     keyReleased.reset();
     keyTriggered.reset();
@@ -28,6 +30,8 @@ void Input::Init()
 void Input::TriggeredReset()
 {
     keyTriggered.reset();
+    mouseButtonDoubleClicked.reset();
+    mouseButtonTriggered.reset();
 }
 
 void Input::SetKeyboardInput(int key, int action)
@@ -48,7 +52,48 @@ void Input::SetKeyboardInput(int key, int action)
             keyReleased.set(key);
             break;
         }
+        default:
+            break;
     }
+}
+
+void Input::SetMouseButtonInput(int button, int action)
+{
+    switch (action)
+    {
+    case GLFW_PRESS:
+        mouseButtonPressed.set(button);
+        mouseButtonReleased.reset(button);
+        mouseButtonTriggered.set(button);
+        break;
+    case GLFW_RELEASE:
+    {
+        static auto before = std::chrono::system_clock::now();
+        auto now = std::chrono::system_clock::now();
+        double diffMs = std::chrono::duration<double, std::milli>(now - before).count();
+        before = now;
+        if (diffMs > 10 && diffMs < 200)
+        {
+            mouseButtonDoubleClicked.set(button);
+        }
+        else
+        {
+            mouseButtonDoubleClicked.reset(button);
+        }
+        mouseButtonPressed.reset(button);
+        mouseButtonReleased.set(button);
+        mouseButtonTriggered.reset(button);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void Input::SetMouseWheel(double x, double y)
+{
+    xOffset = x;
+    yOffset = y;
 }
 
 bool Input::IsKeyTriggered(int key)
@@ -64,6 +109,31 @@ bool Input::IsKeyPressed(int key)
 bool Input::IsKeyReleased(int key)
 {
     return keyReleased[key];
+}
+
+bool Input::IsMouseButtonTriggered(int button)
+{
+    return mouseButtonTriggered[button];
+}
+
+bool Input::IsMouseButtonPressed(int button)
+{
+    return mouseButtonPressed[button];
+}
+
+bool Input::IsMouseButtonReleased(int button)
+{
+    return mouseButtonReleased[button];
+}
+
+bool Input::IsMouseDoubleClicked(int button)
+{
+    return mouseButtonDoubleClicked[button];
+}
+
+double Input::MouseWheelScroll()
+{
+    return yOffset;
 }
 
  vector2 Input::GetMousePos()

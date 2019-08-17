@@ -26,6 +26,11 @@ void Engine::Init()
 
 void Engine::Update()
 {
+    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+    {
+        app_->GetApplication()->Clear();
+        isRunning = true;
+    }
     dt = static_cast<float>(timer.GetElapsedSeconds());
     timer.Reset();
     app_->Update(dt);

@@ -21,6 +21,8 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
+    void InputTest();
+    void Input();
      vector2 GetWindowSize;
 
 private:

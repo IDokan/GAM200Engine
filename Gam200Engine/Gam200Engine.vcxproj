@@ -96,7 +96,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\dll\$(PlatformTarget);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -114,7 +114,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\dll\$(PlatformTarget);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\dll\$(PlatformTarget);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -156,7 +156,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\dll\$(PlatformTarget);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -194,6 +194,7 @@
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
+    <ClInclude Include="Physics.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />

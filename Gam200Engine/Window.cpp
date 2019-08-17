@@ -36,6 +36,15 @@ bool Window::IsFullscreen() noexcept
     return platformWindow->IsFullscreen();
 }
 
+void Window::TurnOnMonitorVerticalSynchronization(bool enable) noexcept
+{
+    platformWindow->TurnOnMonitorVerticalSynchronization(enable);
+}
+
+bool Window::IsMonitorVerticalSynchronizationOn() noexcept
+{
+    return platformWindow->IsMonitorVerticalSynchronizationOn();
+}
 
 void Window::ToggleFullscreen() noexcept
 {

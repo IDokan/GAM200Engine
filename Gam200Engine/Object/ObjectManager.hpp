@@ -32,10 +32,7 @@ public:
     std::vector<std::shared_ptr<Object>>& GetObjectManagerContainer() { return objects; }
 
 private:
-    ObjectManager();
-    static ObjectManager* obj_manager;
-
-    // Tile, many objects -> vector
+    ObjectManager() {};
     // Puzzle, Casual -> map (easy to get specific object)
     std::vector<std::shared_ptr<Object>> objects{};
     //std::unordered_map<std::string, std::unique_ptr<Object>> objectsMap;
