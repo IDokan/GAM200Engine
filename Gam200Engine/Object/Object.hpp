@@ -53,6 +53,8 @@ public:
     void SetScale(float scale);
     void SetDepth(float depth);
 
+    vector2 GetTranslation();
+    vector2 GetScale();
 private:
     Transform transform;
     std::vector<Component*> component;

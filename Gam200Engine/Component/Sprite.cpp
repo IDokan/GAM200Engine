@@ -30,10 +30,10 @@ void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
 	const int rectSize = 4;
 	
 	vector3 rectangle[rectSize] = {
-		vector3{-0.5f, 0.5f, 0.f},
-		vector3{0.5f, 0.5f, 0.f},
-		vector3{0.5f, -0.5f, 0.f},
-		vector3{-0.5f, -0.5f, 0.f}
+		vector3{-0.5f, 0.5f, 1.f},
+		vector3{0.5f, 0.5f, 1.f},
+		vector3{0.5f, -0.5f, 1.f},
+		vector3{-0.5f, -0.5f, 1.f}
 	};
 
 	const matrix3 tmp = transform.GetModelToWorld();

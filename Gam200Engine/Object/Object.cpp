@@ -59,3 +59,13 @@ void Object::SetDepth(float depth)
 {
     transform.SetDepth(depth);
 }
+
+vector2 Object::GetTranslation()
+{
+    return transform.GetTranslation();
+}
+
+vector2 Object::GetScale()
+{
+    return transform.GetScale();
+}

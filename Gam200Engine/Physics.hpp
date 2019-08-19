@@ -33,10 +33,15 @@ public:
     void AddForce(vector2 force);
     void AddForce(float x, float y);
     
+    vector2 GetGravity()
+    {
+        return gravity;
+    }
     vector2 GetTranslation(matrix3 matrix);
 
 private:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};
+    vector2 vectorTranslation{};
 };
