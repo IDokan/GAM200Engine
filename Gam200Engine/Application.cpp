@@ -54,8 +54,10 @@ void Application::Update(float dt)
     window.PollEvent();
     window.SwapBackBuffer();
 
-	StateManager::GetStateManager()->Update(dt);
+	const auto& stateManager = StateManager::GetStateManager();
+	stateManager->Update(dt);
 	ObjectManager::GetObjectManager()->Update(dt);
+	stateManager->Draw();
 
     GetApplication()->Input();
 }

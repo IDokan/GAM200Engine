@@ -64,3 +64,9 @@ void StateManager::AddStates(std::string name, State * state)
     }
     states.insert(tmp);
 }
+
+// Helper function to get a Draw from each State
+void StateManager::Draw() const noexcept
+{
+	currentState->Draw();
+}

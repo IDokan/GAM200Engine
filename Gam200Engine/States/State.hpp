@@ -26,6 +26,8 @@ public:
     virtual void Update(float dt) = 0;
     virtual void Unload() = 0;
 
+	virtual void Draw() const noexcept = 0;
+
 public:
     void LevelChangeTo(std::string name)
     {

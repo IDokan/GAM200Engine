@@ -21,6 +21,7 @@ Creation Date: 08.14.2019
 #include <Object/Object.hpp>
 #include "Graphics/GL.hpp"
 #include <iostream>
+#include "Application.hpp"
 
 // Helper function to update mesh
 void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
@@ -55,14 +56,16 @@ void Sprite::Init()
 {
 	const Transform transform = owner->GetTransform();
 	material->shader = &Graphics::SHADER::textured();
-	material->matrix3Uniforms["to_ndc"] = MATRIX3::build_scale(2.f / 1920.f, 2.f / 1080.f);
-	material->floatUniforms["to_depth"] = transform.CalculateWorldDepth();
+	const auto& windowSize = Application::GetApplication()->GetWindowSize;
+	// TODO: What if window size is changed?
+	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = MATRIX3::build_scale(2.f / windowSize.x, 2.f / windowSize.y);
+	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = transform.CalculateWorldDepth();
 
 	mesh->SetPointListType(Graphics::PointListPattern::TriangleFan);
 	
 	UpdateMeshPoint(transform, *mesh.get());
 
-	material->color4fUniforms["color"] = Graphics::Color4f{1.f};
+	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = Graphics::Color4f{1.f};
 
 	// TODO: To Modify for animation or special shader
 	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
@@ -84,11 +87,6 @@ void Sprite::Update(float /*dt*/)
 
 		vertices->UpdateVerticesFromMesh(*mesh.get());
 	}
-
-	// TODO: Should Change where Draw
-	Graphics::GL::begin_drawing();
-	Graphics::GL::draw(*vertices.get(), *material.get());
-	Graphics::GL::end_drawing();
 }
 
 void Sprite::Clear()
@@ -98,18 +96,29 @@ void Sprite::Clear()
 
 void Sprite::SetColor(const Graphics::Color4f& color) noexcept
 {
-	material->color4fUniforms["color"] = color;
+	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = color;
 }
 
+// TODO: In order to improve engine, I should make a sprite storage to get a already loaded image file.
 void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 {
 	if (texture->LoadFromPNG(filepath))
 	{
 		const Graphics::texture_uniform container{ texture.get(), 0 };
-		material->textureUniforms["texture_to_sample"] = container;
+		material->textureUniforms[Graphics::SHADER::Uniform_Texture] = container;
 	}
 	else
 	{
 		std::cout << "Image Loading Failed!\n";
 	}
+}
+
+Graphics::Vertices* Sprite::GetVertices() const noexcept
+{
+	return vertices.get();
+}
+
+Graphics::material* Sprite::GetMaterial() const noexcept
+{
+	return material.get();
 }

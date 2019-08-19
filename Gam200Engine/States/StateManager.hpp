@@ -25,6 +25,8 @@ public:
     void Clear();
     void AddStates(std::string name, State *state);
 
+	void Draw() const noexcept;
+
     bool is_restart = false;
      
 private:

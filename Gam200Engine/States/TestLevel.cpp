@@ -15,6 +15,7 @@ Creation Date: 08.15.2019
 #include "Physics.hpp"
 #include <Object/ObjectManager.hpp>
 #include "Input.hpp"
+#include <Graphics/GL.hpp>
 
 void TestLevel::Load()
 {
@@ -25,6 +26,11 @@ void TestLevel::Load()
     obj.GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
     //obj.GetComponentByTemplate<Physics>()->SetVelocity(5.f, 0.f);
 	ObjectManager::GetObjectManager()->AddObject(&obj);
+	obj2.SetTranslation(vector2{ 200.f });
+	obj2.SetScale(vector2{ 250.f });
+	obj2.AddComponent(new Sprite(&obj2));
+	obj2.GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.f, 0.f });
+	ObjectManager::GetObjectManager()->AddObject(&obj2);
 }
 
 void TestLevel::Update(float dt)
@@ -47,4 +53,21 @@ void TestLevel::Update(float dt)
 
 void TestLevel::Unload()
 {
+	ObjectManager::GetObjectManager()->Clear();
+}
+
+void TestLevel::Draw() const noexcept
+{
+	Graphics::GL::begin_drawing();
+
+	for (const auto & obj: ObjectManager::GetObjectManager()->GetObjectManagerContainer())
+	{
+		// I know there is efficient grammar in c++11
+		if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
+		{
+			Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+		}
+	}
+
+	Graphics::GL::end_drawing();
 }
