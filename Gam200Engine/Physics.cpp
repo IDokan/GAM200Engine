@@ -46,9 +46,9 @@ void Physics::Clear()
 {
 }
 
-void Physics::SetVelocity(vector2 velocity)
+void Physics::SetVelocity(vector2 vel)
 {
-    this->velocity = velocity;
+    this->velocity = vel;
 }
 
 void Physics::SetVelocity(float x, float y)
@@ -57,9 +57,9 @@ void Physics::SetVelocity(float x, float y)
     this->velocity.y = y;
 }
 
-void Physics::SetGravity(vector2 gravity)
+void Physics::SetGravity(vector2 gra)
 {
-    this->gravity = gravity;
+    this->gravity = gra;
 }
 
 void Physics::SetGravity(float x, float y)
@@ -73,9 +73,9 @@ bool Physics::IsCollideWith(Object * object)
     return false;
 }
 
-void Physics::AddForce(vector2 force)
+void Physics::AddForce(vector2 frc)
 {
-    this->force = force;
+    this->force = frc;
 }
 
 void Physics::AddForce(float x, float y)

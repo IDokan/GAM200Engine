@@ -9,6 +9,8 @@ Creation Date: 08.05.2019
 
     Source file for making window
 ******************************************************************************/
+#define UNUSED
+
 #include "PlatformWindow.hpp"
 #include "Input.hpp"
 #include <Graphics/glCheck.hpp>
@@ -16,23 +18,24 @@ Creation Date: 08.05.2019
 
 namespace
 {
-    void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+    void KeyCallback(GLFWwindow *, int key, int scancode, int action, int)
     {
+        UNUSED(scancode);
         input.SetKeyboardInput(key, action);
     }
-    void MousePositionCallback(GLFWwindow* window, double xPos, double yPos)
+    void MousePositionCallback(GLFWwindow* , double xPos, double yPos)
     {
         input.SetMousePos(static_cast<float>(xPos), static_cast<float>(yPos));
     }
-    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mod)
+    void MouseButtonCallback(GLFWwindow* , int button, int action, int )
     {
         input.SetMouseButtonInput(button, action);
     }
-    void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
+    void MouseWheelScroll(GLFWwindow* , double x_offset, double y_offset)
     {
         input.SetMouseWheel(x_offset, y_offset);
     }
-    void WindowSizeCallback(GLFWwindow *window, int width,int height)
+    void WindowSizeCallback(GLFWwindow *, int width,int height)
     {
         Graphics::GL::set_display_area(width, height);
     }

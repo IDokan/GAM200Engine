@@ -34,5 +34,5 @@ private:
     int xSize = 1600;
     int ySize = 900;
     bool isVsyncOn;
-     vector2 windowSize{ xSize, ySize };
+     vector2 windowSize{ static_cast<float>(xSize), static_cast<float>(ySize) };
 };
