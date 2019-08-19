@@ -36,7 +36,7 @@ void Demo::Init()
 	testVertices.InitializeWithMeshAndLayout(triangle, testLayout);
 }
 
-void Demo::Update(float dt)
+void Demo::Update(float /*dt*/)
 {
 }
 

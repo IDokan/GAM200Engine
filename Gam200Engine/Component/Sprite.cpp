@@ -20,6 +20,7 @@ Creation Date: 08.14.2019
 #include <GL/glew.h>
 #include <Object/Object.hpp>
 #include "Graphics/GL.hpp"
+#include <iostream>
 
 // Helper function to update mesh
 void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
@@ -69,8 +70,7 @@ void Sprite::Init()
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
 	mesh->AddTextureCoordinate(vector2{ 0.f});
 
-	SetImage("texture/rect.png");
-
+	SetImage("../texture/rect.png");
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
@@ -103,7 +103,13 @@ void Sprite::SetColor(const Graphics::Color4f& color) noexcept
 
 void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 {
-	texture->LoadFromPNG(filepath);
-	const Graphics::texture_uniform container{ texture.get(), 0 };
-	material->textureUniforms["texture_to_sample"] = container;
+	if (texture->LoadFromPNG(filepath))
+	{
+		const Graphics::texture_uniform container{ texture.get(), 0 };
+		material->textureUniforms["texture_to_sample"] = container;
+	}
+	else
+	{
+		std::cout << "Image Loading Failed!\n";
+	}
 }

@@ -30,7 +30,7 @@ void ObjectManager::Init()
 
 void ObjectManager::Update(float dt)
 {
-    if (StateManager::GetStateManager()->is_restart) {
+    if (!StateManager::GetStateManager()->is_restart) {
         
         delete_obj.clear();
         for (const auto &obj : objects) {
@@ -58,12 +58,11 @@ void ObjectManager::Clear()
     delete_obj.clear();
 
     delete GetObjectManager();
-   // obj_manager = nullptr;
 }
 
 void ObjectManager::AddObject(Object * obj)
 {
-    //¿Ö °ýÈ£¾È¿¡ Shared_ptrÀ» ½á¾ßÇÏ´Â°ÅÁö?
+    //ï¿½ï¿½ ï¿½ï¿½È£ï¿½È¿ï¿½ Shared_ptrï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ï¿½ï¿½?
     objects.push_back(std::shared_ptr<Object>(obj));
 }
 
