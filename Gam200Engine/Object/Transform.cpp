@@ -14,79 +14,79 @@ Creation Date: 08.12.2019
 #include <Graphics/Camera.hpp>
 #include <Graphics/Material.hpp>
 
-     matrix3 Transform::GetModelToWorld() const noexcept
-    {
-         matrix3 currMatrix =  MATRIX3::build_translation(translation) *  MATRIX3::build_rotation(rotation) *  MATRIX3::build_scale(scale);
-        
-        if (parent == nullptr)
-        {
-            return currMatrix;
-        }
+matrix3 Transform::GetModelToWorld() const noexcept
+{
+	matrix3 currMatrix = MATRIX3::build_translation(translation) *  MATRIX3::build_rotation(rotation) *  MATRIX3::build_scale(scale);
 
-        return parent->GetModelToWorld() * currMatrix;
-    }
-	 
-     matrix3 Transform::GetWorldToModel() const noexcept
-    {
-         matrix3 currMatrix =  MATRIX3::build_scale( vector2{1.f / scale.x, 1.f / scale.y}) *
-                              MATRIX3::build_rotation(-rotation) *  MATRIX3::build_translation(-translation);
+	if (parent == nullptr)
+	{
+		return currMatrix;
+	}
 
-        if (parent == nullptr)
-        {
-            return currMatrix;
-        }
+	return parent->GetModelToWorld() * currMatrix;
+}
 
-        return currMatrix * parent->GetWorldToModel();
-    }
+matrix3 Transform::GetWorldToModel() const noexcept
+{
+	matrix3 currMatrix = MATRIX3::build_scale(vector2{ 1.f / scale.x, 1.f / scale.y }) *
+		MATRIX3::build_rotation(-rotation) *  MATRIX3::build_translation(-translation);
 
-    float Transform::CalculateWorldDepth() const noexcept
-    {
-        if (parent == nullptr)
-        {
-            return GetDepth();
-        }
-        return GetDepth() + parent->CalculateWorldDepth();
-    }
+	if (parent == nullptr)
+	{
+		return currMatrix;
+	}
 
-    float Transform::GetDepth() const noexcept { return depth; }
+	return currMatrix * parent->GetWorldToModel();
+}
 
-    void Transform::SetDepth(float new_depth) noexcept
-     {
-	     depth = new_depth;
-		 isChanged = true;
-     }
+float Transform::CalculateWorldDepth() const noexcept
+{
+	if (parent == nullptr)
+	{
+		return GetDepth();
+	}
+	return GetDepth() + parent->CalculateWorldDepth();
+}
 
- vector2 Transform::GetTranslation() const noexcept { return translation; }
+float Transform::GetDepth() const noexcept { return depth; }
 
-    void Transform::SetTranslation(const  vector2& new_translation) noexcept
-     {
-	     translation = new_translation;
-		 isChanged = true;
-     }
+void Transform::SetDepth(float new_depth) noexcept
+{
+	depth = new_depth;
+	isChanged = true;
+}
 
- vector2 Transform::GetScale() const noexcept { return scale; }
+vector2 Transform::GetTranslation() const noexcept { return translation; }
 
-    void Transform::SetScale(const  vector2& new_scale) noexcept
-     {
-	     scale = new_scale;
-		 isChanged = true;
-     }
+void Transform::SetTranslation(const  vector2& new_translation) noexcept
+{
+	translation = new_translation;
+	isChanged = true;
+}
 
-    float Transform::GetRotation() const noexcept { return rotation; }
+vector2 Transform::GetScale() const noexcept { return scale; }
 
-    void Transform::SetRotation(float new_rotation) noexcept
-     {
-	     rotation = new_rotation;
-		 isChanged = true;
-     }
+void Transform::SetScale(const  vector2& new_scale) noexcept
+{
+	scale = new_scale;
+	isChanged = true;
+}
 
-    const Transform* Transform::GetParent() const noexcept { return parent; }
+float Transform::GetRotation() const noexcept { return rotation; }
 
-    void Transform::SetParent(const Transform* transform_parent) noexcept
-     {
-	     parent = transform_parent;
-		 isChanged = true;
-     }
+void Transform::SetRotation(float new_rotation) noexcept
+{
+	rotation = new_rotation;
+	isChanged = true;
+}
+
+const Transform* Transform::GetParent() const noexcept { return parent; }
+
+void Transform::SetParent(const Transform* transform_parent) noexcept
+{
+	parent = transform_parent;
+	isChanged = true;
+}
 
 bool Transform::GetIsChanged() noexcept
 {

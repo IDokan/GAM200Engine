@@ -45,7 +45,6 @@ Creation Date: 08.12.2019
 //
 
 
-    // Is it acceptable??
     matrix3 CalculateMatrix(const CameraView& camera, const vector2& displaySize)
     {
         matrix3 translateMatrix = MATRIX3::build_identity();

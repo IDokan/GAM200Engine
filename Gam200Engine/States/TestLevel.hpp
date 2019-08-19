@@ -24,7 +24,10 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Unload() override;
 
+	void Draw() const noexcept override;
+
 private:
 	Object obj;
+	Object obj2;
 	bool flag = false;
 };
