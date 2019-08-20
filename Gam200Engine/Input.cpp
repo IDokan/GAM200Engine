@@ -23,7 +23,7 @@ void Input::Init()
     yOffset = 0.0;
 
     keyPressed.reset();
-    keyReleased.reset();
+    keyReleased.set();
     keyTriggered.reset();
 }
 

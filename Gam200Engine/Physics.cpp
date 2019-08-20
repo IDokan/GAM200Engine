@@ -32,10 +32,10 @@ void Physics::Init()
 }
 
 void Physics::Update(float dt)
-{
+    {
     if (gravity.y <= 10.f && gravity.y != 0) // 종단속도
     {
-        gravity.y += -dt * 3.f;
+        gravity.y += -dt * 30.f;
     }
 
     matrix3 vel = MATRIX3::build_translation(velocity);
@@ -75,15 +75,15 @@ void Physics::SetGravity(float x, float y)
 
 bool Physics::IsCollideWith(Object * object)
 {
-    float objectLeft = object->GetTranslation().width - object->GetScale().width / 2;
-    float objectRight = object->GetTranslation().width + object->GetScale().width / 2;
-    float objectBottom = object->GetTranslation().height - object->GetScale().height / 2;
-    float objectTop = object->GetTranslation().height + object->GetScale().height / 2;
+    float objectLeft = object->GetTranslation().width - (object->GetScale().width / 2);
+    float objectRight = object->GetTranslation().width + (object->GetScale().width / 2);
+    float objectBottom = object->GetTranslation().height - (object->GetScale().height / 2);
+    float objectTop = object->GetTranslation().height + (object->GetScale().height / 2);
 
-    float ownerLeft = owner->GetTranslation().width - owner->GetScale().width / 2;
-    float ownerRight = owner->GetTranslation().width + owner->GetScale().width / 2;
-    float ownerBottom = owner->GetTranslation().height - owner->GetScale().height / 2;
-    float ownerTop = owner->GetTranslation().height + owner->GetScale().height / 2;
+    float ownerLeft = owner->GetTranslation().width - (owner->GetScale().width / 2);
+    float ownerRight = owner->GetTranslation().width + (owner->GetScale().width / 2);
+    float ownerBottom = owner->GetTranslation().height - (owner->GetScale().height / 2);
+    float ownerTop = owner->GetTranslation().height + (owner->GetScale().height / 2);
 
     if (objectRight >= ownerLeft && objectLeft <= ownerRight && objectTop >= ownerBottom && objectBottom <= ownerTop)
     {

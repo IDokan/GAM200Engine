@@ -78,11 +78,15 @@ void Application::InputTest()
 {
     if (input.IsKeyPressed (GLFW_KEY_A))
     {
-        std::cout << "A triggered" << std::endl;
+        std::cout << "A" << std::endl;
     }
-    if (input.IsKeyReleased(GLFW_KEY_A))
+    if (input.IsKeyPressed(GLFW_KEY_B))
     {
-        std::cout << "A released" << std::endl;
+        std::cout << "B" << std::endl;
+    }
+    if (input.IsKeyReleased(GLFW_KEY_B))
+    {
+        std::cout << "B" << std::endl;
     }
     if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
     {
