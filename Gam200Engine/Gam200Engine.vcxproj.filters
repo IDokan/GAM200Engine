@@ -62,6 +62,27 @@
     <ClCompile Include="Graphics\Vertices.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\ImGui\imgui.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImGui\imgui_demo.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImGui\imgui_draw.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImGui\imgui_widgets.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImGui\imgui_impl_opengl3.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImGui\main.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImGui\imgui_impl_glfw.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -138,11 +159,32 @@
     <ClInclude Include="Graphics\Vertices.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imconfig.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imgui.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imgui_internal.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imstb_rectpack.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imstb_textedit.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imstb_truetype.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imgui_impl_opengl3.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\imgui_impl_glfw.h">
+      <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Component">
-      <UniqueIdentifier>{9d239c88-b28a-48b6-b1b5-2b65e7656637}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphics">
       <UniqueIdentifier>{6af8e593-6c39-46a3-9125-ea31e0f42db7}</UniqueIdentifier>
     </Filter>
@@ -151,6 +193,12 @@
     </Filter>
     <Filter Include="States">
       <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{9d239c88-b28a-48b6-b1b5-2b65e7656637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\ImGui">
+      <UniqueIdentifier>{a7684bdb-7afc-4f97-921a-b8c9261a5ff6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

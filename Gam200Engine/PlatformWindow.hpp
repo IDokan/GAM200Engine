@@ -27,7 +27,11 @@ public:
     bool IsMonitorVerticalSynchronizationOn() noexcept;
      vector2 GetPlatformWindowSize() noexcept;
 
+	 void ClearWindow() const noexcept;
+
 private:
+	void InitImGui(void) const noexcept;
+
     GLFWwindow* window;
     
     int xPos, yPos;
