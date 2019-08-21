@@ -23,28 +23,6 @@ Creation Date: 08.14.2019
 #include <iostream>
 #include "Application.hpp"
 
-// Helper function to update mesh
-void UpdateMeshPoint(const Transform& transform, Graphics::Mesh& mesh) noexcept
-{
-	mesh.ClearPoints();
-
-	const int rectSize = 4;
-	
-	vector3 rectangle[rectSize] = {
-		vector3{-0.5f, 0.5f, 1.f},
-		vector3{0.5f, 0.5f, 1.f},
-		vector3{0.5f, -0.5f, 1.f},
-		vector3{-0.5f, -0.5f, 1.f}
-	};
-
-	const matrix3 tmp = transform.GetModelToWorld();
-	for (int i = 0; i < rectSize; i++)
-	{
-		rectangle[i] = tmp * rectangle[i];
-		mesh.AddPoint(vector2{ rectangle[i].x, rectangle[i].y });
-	}
-}
-
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>())
@@ -54,16 +32,18 @@ Sprite::Sprite(Object* obj) noexcept
 
 void Sprite::Init()
 {
-	const Transform transform = owner->GetTransform();
 	material->shader = &Graphics::SHADER::textured();
 	const auto& windowSize = Application::GetApplication()->GetWindowSize;
 	// TODO: What if window size is changed?
 	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = MATRIX3::build_scale(2.f / windowSize.x, 2.f / windowSize.y);
-	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = transform.CalculateWorldDepth();
+
 
 	mesh->SetPointListType(Graphics::PointListPattern::TriangleFan);
-	
-	UpdateMeshPoint(transform, *mesh.get());
+
+	mesh.get()->AddPoint(vector2{ -0.5f, 0.5f });
+	mesh.get()->AddPoint(vector2{0.5f });
+	mesh.get()->AddPoint(vector2{ 0.5f, -0.5f });
+	mesh.get()->AddPoint(vector2{ -0.5f });
 
 	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = Graphics::Color4f{1.f};
 
@@ -79,14 +59,6 @@ void Sprite::Init()
 
 void Sprite::Update(float /*dt*/)
 {
-	Transform transform = owner->GetTransform();
-
-	if (transform.GetIsChanged())
-	{
-		UpdateMeshPoint(transform, *mesh.get());
-
-		vertices->UpdateVerticesFromMesh(*mesh.get());
-	}
 }
 
 void Sprite::Clear()
@@ -113,9 +85,10 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 	}
 }
 
-void Sprite::SetNDCMatrix(const matrix3& toNDC) noexcept
+void Sprite::UpdateUniforms(const matrix3& toNDC, float depth) noexcept
 {
 	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = toNDC;
+	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
 }
 
 Graphics::Vertices* Sprite::GetVertices() const noexcept
