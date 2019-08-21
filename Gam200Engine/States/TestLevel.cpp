@@ -67,7 +67,7 @@ void TestLevel::Update(float dt)
 	// Code for test Camera stuff
 	if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		cameraManager.MoveRight(dt, 1);
+		cameraManager.MoveRight(dt, 200);
 	}
 }
 
