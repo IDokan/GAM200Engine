@@ -85,7 +85,9 @@ void TestLevel::Draw() const noexcept
 		// I know there is efficient grammar in c++11
 		if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 		{
-			sprite->SetNDCMatrix(cameraManager.GetWorldToNDCTransform());
+			// is it located in a right place?
+			sprite->UpdateUniforms(cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld(), 
+				obj.get()->GetTransform().CalculateWorldDepth());
 			Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
 		}
 	}
