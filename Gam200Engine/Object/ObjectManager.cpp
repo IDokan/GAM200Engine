@@ -62,7 +62,6 @@ void ObjectManager::Clear()
 
 void ObjectManager::AddObject(Object * obj)
 {
-    //�� ��ȣ�ȿ� Shared_ptr�� ����ϴ°���?
     objects.push_back(std::shared_ptr<Object>(obj));
 }
 

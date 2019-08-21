@@ -18,6 +18,7 @@ Creation Date: 08.12.2019
     public:
         void            SetViewSize(vector2 pixel_size) noexcept;
         void            SetViewSize(int new_pixel_width, int new_pixel_height) noexcept;
+		vector2 GetViewSize() const noexcept { return displaySize; }
         void            SetZoom(float new_zoom) noexcept;
         constexpr float GetZoom() const noexcept { return zoom; }
         matrix3         GetCameraToNDCTransform() const noexcept { return cameraToNDC; }

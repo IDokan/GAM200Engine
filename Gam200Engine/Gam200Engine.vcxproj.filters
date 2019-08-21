@@ -83,6 +83,9 @@
     <ClCompile Include="Graphics\ImGui\imgui_impl_glfw.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\CameraManager.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\ImGui\imgui_impl_glfw.h">
       <Filter>Graphics\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\CameraManager.hpp">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
