@@ -47,7 +47,9 @@ void StateManager::Update(float dt)
 
 void StateManager::Clear()
 {
+	currentState->Unload();
     currentState = nullptr;
+
     states.clear();
 }
 

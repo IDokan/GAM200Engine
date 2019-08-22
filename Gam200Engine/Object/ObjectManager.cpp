@@ -56,8 +56,6 @@ void ObjectManager::Clear()
 {
     objects.clear();
     delete_obj.clear();
-
-    delete GetObjectManager();
 }
 
 void ObjectManager::AddObject(Object * obj)

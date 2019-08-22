@@ -53,7 +53,6 @@ float Transform::GetDepth() const noexcept { return depth; }
 void Transform::SetDepth(float new_depth) noexcept
 {
 	depth = new_depth;
-	isChanged = true;
 }
 
 vector2 Transform::GetTranslation() const noexcept { return translation; }
@@ -61,7 +60,6 @@ vector2 Transform::GetTranslation() const noexcept { return translation; }
 void Transform::SetTranslation(const  vector2& new_translation) noexcept
 {
 	translation = new_translation;
-	isChanged = true;
 }
 
 vector2 Transform::GetScale() const noexcept { return scale; }
@@ -69,7 +67,6 @@ vector2 Transform::GetScale() const noexcept { return scale; }
 void Transform::SetScale(const  vector2& new_scale) noexcept
 {
 	scale = new_scale;
-	isChanged = true;
 }
 
 float Transform::GetRotation() const noexcept { return rotation; }
@@ -77,7 +74,6 @@ float Transform::GetRotation() const noexcept { return rotation; }
 void Transform::SetRotation(float new_rotation) noexcept
 {
 	rotation = new_rotation;
-	isChanged = true;
 }
 
 const Transform* Transform::GetParent() const noexcept { return parent; }
@@ -85,12 +81,4 @@ const Transform* Transform::GetParent() const noexcept { return parent; }
 void Transform::SetParent(const Transform* transform_parent) noexcept
 {
 	parent = transform_parent;
-	isChanged = true;
-}
-
-bool Transform::GetIsChanged() noexcept
-{
-	const auto value = isChanged;
-	isChanged = false;
-	return value;
 }
