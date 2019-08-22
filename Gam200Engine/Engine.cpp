@@ -13,6 +13,8 @@ Creation Date: 08.05.2019
 #include "Application.hpp"
 #include "Input.hpp"
 #include <iostream>
+#include <Object/ObjectManager.hpp>
+#include <States/StateManager.hpp>
 
 Application* app_ = nullptr;
 
@@ -38,4 +40,7 @@ void Engine::Update()
 
 void Engine::Clear()
 {
+	delete Application::GetApplication();
+	delete ObjectManager::GetObjectManager();
+	delete StateManager::GetStateManager();
 }

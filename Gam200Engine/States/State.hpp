@@ -18,7 +18,7 @@ enum class GameStates
     Menu, Game, Credit, None
 };
 
-class State
+class State abstract
 {
 public:
 	virtual ~State() = default;

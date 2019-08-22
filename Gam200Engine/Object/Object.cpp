@@ -18,6 +18,10 @@ Object::Object()
 
 Object::~Object()
 {
+	for (auto& comp : component)
+	{
+		delete comp;
+	}
 }
 
 void Object::AddComponent(Component * comp)

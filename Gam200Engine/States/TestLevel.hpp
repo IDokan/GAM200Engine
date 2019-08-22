@@ -15,11 +15,14 @@ Creation Date: 08.15.2019
 #include <Object/Object.hpp>
 #include <Graphics/CameraManager.hpp>
 
-class TestLevel : public State
+class TestLevel final : public State
 {
 public:
 	TestLevel() = default;
-	~TestLevel() = default;
+
+	virtual ~TestLevel()
+	{
+	};
 
 	virtual void Load() override;
 	virtual void Update(float dt) override;
@@ -30,7 +33,7 @@ public:
 private:
 	Graphics::CameraManager cameraManager;
 
-	Object object1;
-	Object object2;
+	Object* object1;
+	Object* object2;
 	bool flag = false;
 };

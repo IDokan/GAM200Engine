@@ -40,7 +40,7 @@ void Application::Init()
 	StateManager::GetStateManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
-	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(&testLevel));
+	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(new TestLevel()));
 }
 
 void Application::Update(float dt)
@@ -129,8 +129,8 @@ void Application::InputTest()
 
 void Application::Clear()
 {
-	StateManager::GetStateManager()->Clear();
 	ObjectManager::GetObjectManager()->Clear();
+	StateManager::GetStateManager()->Clear();
 
 
 	// ImGui Clear

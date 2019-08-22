@@ -20,18 +20,20 @@ Creation Date: 08.15.2019
 
 void TestLevel::Load()
 {
-	object1.SetTranslation(vector2{ 0.f });
-	object1.SetScale(vector2{ 200.f });
-	object1.AddComponent(new Sprite(&object1));
-	object1.AddComponent(new Physics(&object1));
+	object1 = new Object();
+	object1->SetTranslation(vector2{ 0.f });
+	object1->SetScale(vector2{ 200.f });
+	object1->AddComponent(new Sprite(object1));
+	object1->AddComponent(new Physics(object1));
     //obj.GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
-	ObjectManager::GetObjectManager()->AddObject(&object1);
+	ObjectManager::GetObjectManager()->AddObject(object1);
 
-	object2.SetTranslation(vector2{ 250.f });
-	object2.SetScale(vector2{ 250.f });
-	object2.AddComponent(new Sprite(&object2));
-	object2.GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
-	ObjectManager::GetObjectManager()->AddObject(&object2);
+	object2 = new Object();
+	object2->SetTranslation(vector2{ 250.f });
+	object2->SetScale(vector2{ 250.f });
+	object2->AddComponent(new Sprite(object2));
+	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
+	ObjectManager::GetObjectManager()->AddObject(object2);
 
 	cameraManager.Init();
 }
@@ -39,41 +41,45 @@ void TestLevel::Load()
 void TestLevel::Update(float dt)
 {
 	// Code for test Physics thing by Woo
-    if (object1.GetComponentByTemplate<Physics>()->IsCollideWith(&object2) == true)
+    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
     {
         std::cout << "colliding!!" << std::endl;
     }
     if (input.IsKeyPressed(GLFW_KEY_W))
     {
-		object1.GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
     }
     if (input.IsKeyPressed(GLFW_KEY_A))
     {
-		object1.GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
     }
     if (input.IsKeyPressed(GLFW_KEY_S))
     {
-		object1.GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
     }
     if (input.IsKeyPressed(GLFW_KEY_D))
     {
-		object1.GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
     }
     if (input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_D) && input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_S))
     {
-		object1.GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
     }
 
 	// Code for test Camera stuff
 	if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		cameraManager.MoveRight(dt, 200);
+		cameraManager.MoveRight(dt, 150);
+	}
+
+	if (input.IsKeyTriggered(GLFW_KEY_Q))
+	{
+		object1->DeleteComponent(object1->GetComponentByTemplate<Physics>());
 	}
 }
 
 void TestLevel::Unload()
 {
-	ObjectManager::GetObjectManager()->Clear();
 }
 
 void TestLevel::Draw() const noexcept
@@ -85,7 +91,9 @@ void TestLevel::Draw() const noexcept
 		// I know there is efficient grammar in c++11
 		if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 		{
-			sprite->SetNDCMatrix(cameraManager.GetWorldToNDCTransform());
+			// is it located in a right place?
+			sprite->UpdateUniforms(cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld(), 
+				obj.get()->GetTransform().CalculateWorldDepth());
 			Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
 		}
 	}

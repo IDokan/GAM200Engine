@@ -96,7 +96,7 @@ void Graphics::CameraManager::SetFrameOfReference(CameraView::FrameOfReference f
 
 matrix3 Graphics::CameraManager::GetWorldToNDCTransform() const noexcept
 {
-	return  selectedCamera->cameraView.GetCameraToNDCTransform()*
+	return selectedCamera->cameraView.GetCameraToNDCTransform() * 
 		selectedCamera->camera.WorldToCamera();
 }
 
