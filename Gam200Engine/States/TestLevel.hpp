@@ -13,6 +13,7 @@ Creation Date: 08.15.2019
 #pragma once
 #include <States/State.hpp>
 #include <Object/Object.hpp>
+#include <Graphics/CameraManager.hpp>
 
 class TestLevel : public State
 {
@@ -27,7 +28,9 @@ public:
 	void Draw() const noexcept override;
 
 private:
-	Object obj;
-	Object obj2;
+	Graphics::CameraManager cameraManager;
+
+	Object object1;
+	Object object2;
 	bool flag = false;
 };

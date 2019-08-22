@@ -12,6 +12,7 @@ Creation Date: 08.05.2019
 #pragma once
 #include "Window.hpp"
 #include <States/TestLevel.hpp>
+#include <Graphics/Color4f.hpp>
 
 class Application
 {
@@ -31,4 +32,10 @@ private:
     Window window;
 
 	TestLevel testLevel;
+
+	// Our state
+	bool show_demo_window = true;
+	bool show_another_window = false;
+	Graphics::Color4f clear_color = Graphics::Color4f{ 0.45f, 0.55f, 0.60f, 1.00f };
+
 };

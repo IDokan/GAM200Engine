@@ -34,6 +34,7 @@ public:
 
 	void SetColor(const Graphics::Color4f& color) noexcept;
 	void SetImage(const std::filesystem::path&) noexcept;
+	void SetNDCMatrix(const matrix3&) noexcept;
 
 	Graphics::Vertices* GetVertices() const noexcept;
 	Graphics::material* GetMaterial() const noexcept;

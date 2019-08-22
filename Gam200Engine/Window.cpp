@@ -41,6 +41,11 @@ void Window::TurnOnMonitorVerticalSynchronization(bool enable) noexcept
     platformWindow->TurnOnMonitorVerticalSynchronization(enable);
 }
 
+void Window::ClearWindow() const noexcept
+{
+	platformWindow->ClearWindow();
+}
+
 bool Window::IsMonitorVerticalSynchronizationOn() noexcept
 {
     return platformWindow->IsMonitorVerticalSynchronizationOn();

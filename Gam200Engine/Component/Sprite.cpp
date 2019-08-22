@@ -113,6 +113,11 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 	}
 }
 
+void Sprite::SetNDCMatrix(const matrix3& toNDC) noexcept
+{
+	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = toNDC;
+}
+
 Graphics::Vertices* Sprite::GetVertices() const noexcept
 {
 	return vertices.get();
