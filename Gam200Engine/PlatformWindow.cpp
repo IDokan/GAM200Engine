@@ -146,8 +146,8 @@ void PlatformWindow::ToggleFullscreen() noexcept
  */
 void PlatformWindow::ClearWindow() const noexcept
 {
-	glCheck(glfwDestroyWindow(window));
-	glCheck(glfwTerminate());
+	glfwDestroyWindow(window);
+	glfwTerminate();
 }
 
 /**

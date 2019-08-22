@@ -12,6 +12,7 @@ Creation Date: 08.21.2019
 
 #include "CameraManager.hpp"
 #include <Application.hpp>
+#include <Input.hpp>
 
 Graphics::CameraManager::CameraManager()
 {
@@ -108,5 +109,39 @@ void Graphics::CameraManager::MoveUp(float dt, float distance) noexcept
 void Graphics::CameraManager::MoveRight(float dt, float distance) noexcept
 {
 	selectedCamera->camera.MoveRight(dt * distance);
+}
+
+void Graphics::CameraManager::CameraMove(const float& zoomSize) noexcept
+{
+	// Camera Movement
+	if(input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		input.SetPresentMousePosition(input.GetMousePosition());
+	}
+	if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		const vector2& mousePosition = input.GetMousePosition();
+		const vector2& presentMousePosition = input.GetPresentMousePosition();
+
+		selectedCamera->camera.SetCenter(
+			selectedCamera->camera.GetCenter() + (presentMousePosition - mousePosition)
+		);
+
+		input.SetPresentMousePosition(mousePosition);
+	}
+
+	// Camera Zoom In and Out
+	if (input.MouseWheelScroll() > 0)
+	{
+		selectedCamera->cameraView.SetZoom(
+			selectedCamera->cameraView.GetZoom() * zoomSize
+		);
+	}
+	if (input.MouseWheelScroll() < 0)
+	{
+		selectedCamera->cameraView.SetZoom(
+			selectedCamera->cameraView.GetZoom() / zoomSize
+		);
+	}
 }
 

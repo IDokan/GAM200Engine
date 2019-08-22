@@ -66,16 +66,7 @@ void TestLevel::Update(float dt)
 		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
     }
 
-	// Code for test Camera stuff
-	if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-	{
-		cameraManager.MoveRight(dt, 150);
-	}
-
-	if (input.IsKeyTriggered(GLFW_KEY_Q))
-	{
-		object1->DeleteComponent(object1->GetComponentByTemplate<Physics>());
-	}
+	cameraManager.CameraMove(1.1f);
 }
 
 void TestLevel::Unload()

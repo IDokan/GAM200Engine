@@ -32,6 +32,9 @@ void Input::TriggeredReset()
     keyTriggered.reset();
     mouseButtonDoubleClicked.reset();
     mouseButtonTriggered.reset();
+
+	xOffset = 0;
+	yOffset = 0;
 }
 
 void Input::SetKeyboardInput(int key, int action)
@@ -111,6 +114,21 @@ bool Input::IsKeyReleased(int key)
     return keyReleased[key];
 }
 
+vector2 Input::GetPresentMousePosition() const noexcept
+{
+	return presentMousePosition;
+}
+
+void Input::SetPresentMousePosition(const vector2& mousePosition) noexcept
+{
+	presentMousePosition = mousePosition;
+}
+
+vector2 Input::GetMousePosition() const noexcept
+{
+	return mousePosition;
+}
+
 bool Input::IsMouseButtonTriggered(int button)
 {
     return mouseButtonTriggered[button];
@@ -136,16 +154,11 @@ double Input::MouseWheelScroll()
     return yOffset;
 }
 
- vector2 Input::GetMousePos()
-{
-    return mousePosistion;
-}
-
 void Input::SetMousePos(float xPos, float yPos)
 {
         float x = Application::GetApplication()->GetWindowSize.x;
         float y = Application::GetApplication()->GetWindowSize.y;
 
-        mousePosistion.x = -(x / 2.0f - xPos);
-        mousePosistion.y = y / 2.0f - yPos;
+        mousePosition.x = -(x / 2.0f - xPos);
+        mousePosition.y = y / 2.0f - yPos;
 }

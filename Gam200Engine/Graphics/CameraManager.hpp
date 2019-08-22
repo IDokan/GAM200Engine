@@ -47,6 +47,8 @@ namespace Graphics
 		void MoveUp(float dt, float distance) noexcept;
 		void MoveRight(float dt, float distance) noexcept;
 
+		void CameraMove(const float& zoomSize) noexcept;
+
 	private:
 		struct CameraSet
 		{
