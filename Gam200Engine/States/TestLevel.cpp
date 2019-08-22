@@ -25,6 +25,7 @@ void TestLevel::Load()
 	obj.AddComponent(new Sprite(&obj));
     obj.AddComponent(new Physics(&obj));
     //obj.GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+    //obj.GetComponentByTemplate<Physics>()->SetVelocity(0.f, -1.f);
 	ObjectManager::GetObjectManager()->AddObject(&obj);
 
 	obj2.SetTranslation(vector2{ 250.f });
@@ -36,7 +37,6 @@ void TestLevel::Load()
 
 void TestLevel::Update(float dt)
 {
-    //obj.GetComponentByTemplate<Physics>()->Update(dt); 업데이트를 굳이 넣어줄 이유가 없네 objectmanager에서 component 업데이트 해주니까? 여기서 업데이트 넣어주면 업데이트가 두번 되는거 겠지? 내가 이해한게 맞나 모르겠따
     if (obj.GetComponentByTemplate<Physics>()->IsCollideWith(&obj2) == true)
     {
         std::cout << "colliding!!" << std::endl;

@@ -26,13 +26,12 @@ Physics::~Physics()
 
 void Physics::Init()
 {
-    vectorTranslation = { 0.f, 0.f };
-    force.x = 0.f;
-    force.y = 0.f; 
+
+
 }
 
 void Physics::Update(float dt)
-    {
+{
     if (gravity.y <= 10.f && gravity.y != 0) // 종단속도
     {
         gravity.y += -dt * 30.f;

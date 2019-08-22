@@ -32,11 +32,7 @@ public:
     bool IsCollideWith(Object* object);
     void AddForce(vector2 force);
     void AddForce(float x, float y);
-    
-    vector2 GetGravity()
-    {
-        return gravity;
-    }
+
     vector2 GetTranslation(matrix3 matrix);
 
 private:
