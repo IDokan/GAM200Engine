@@ -15,9 +15,7 @@ Creation Date: 08.05.2019
 #include "Input.hpp"
 #include <Graphics/glCheck.hpp>
 #include <Graphics/GL.hpp>
-#include <Graphics/ImGui/imgui.h>
-#include <Graphics/ImGui/imgui_impl_glfw.h>
-#include <Graphics/ImGui/imgui_impl_opengl3.h>
+#include <Graphics/ImGui/MyImGui.hpp>
 
 namespace
 {
@@ -80,7 +78,7 @@ bool PlatformWindow::CreateWindow() noexcept
 
     glewInit();
 
-	InitImGui();
+	MyImGui::InitImGui(window);
 
     return true;
 }
@@ -148,22 +146,4 @@ void PlatformWindow::ClearWindow() const noexcept
 {
 	glfwDestroyWindow(window);
 	glfwTerminate();
-}
-
-/**
- * \brief 
- * To Init ImGui based on Cherno
- * URL: https://bit.ly/2TMRlCo
- * 
- * \Author
- * sinil.Kang		rtd99062@gmail.com
- */
-void PlatformWindow::InitImGui() const noexcept
-{
-	// ImGui init for test
-	// I'm not sure it should be deleted or maintained in later..
-	ImGui::CreateContext();
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
 }
