@@ -89,7 +89,6 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Message.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -196,7 +195,6 @@
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
       <Filter>Graphics\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Message.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

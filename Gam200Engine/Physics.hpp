@@ -44,4 +44,5 @@ private:
     vector2 direction{};
     vector2 force{};
     vector2 vectorTranslation{};
+    bool IsSetPhysics;
 };

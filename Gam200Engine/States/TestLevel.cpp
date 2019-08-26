@@ -21,11 +21,11 @@ Creation Date: 08.15.2019
 void TestLevel::Load()
 {
 	object1 = new Object();
-	object1->SetTranslation(vector2{ 0.f });
+	object1->SetTranslation(vector2{ 100.f,100.f });
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-    //object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+    object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
 	ObjectManager::GetObjectManager()->AddObject(object1);
 
 	object2 = new Object();

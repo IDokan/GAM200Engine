@@ -31,6 +31,11 @@ void Physics::Init()
 
 void Physics::Update(float dt)
 {
+    matrix3 vel = MATRIX3::build_translation(velocity);
+    matrix3 dir = MATRIX3::build_translation(direction);
+    matrix3 gra = MATRIX3::build_translation(gravity);
+    matrix3 total = vel * dir * gra;
+
     if (gravity.y >= -50.f && gravity.y != 0) // 종단속도
     {
         gravity.y += -dt * 10.f;
@@ -40,16 +45,11 @@ void Physics::Update(float dt)
     {
         if (force.y <= 20.f)
         {
-            force.y += 10+dt;
+            force.y += 180*dt;
         }
     }
 
-    matrix3 vel = MATRIX3::build_translation(velocity);
-    matrix3 gra = MATRIX3::build_translation(gravity);
-    matrix3 total = vel * gra;
-
     vectorTranslation += GetTranslation(total);
-    vectorTranslation += direction;
     vectorTranslation += force;
 
     owner->SetTranslation(vectorTranslation);
