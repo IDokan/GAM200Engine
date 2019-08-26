@@ -11,6 +11,7 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #include <Component/Component.hpp>
+#include <iostream>
 #include <Object/Object.hpp>
 #include "Vector2.hpp"
 #include "Physics.hpp"
@@ -26,15 +27,21 @@ Physics::~Physics()
 
 void Physics::Init()
 {
-
-
 }
 
 void Physics::Update(float dt)
 {
-    if (gravity.y <= 10.f && gravity.y != 0) // 종단속도
+    if (gravity.y >= -50.f && gravity.y != 0) // 종단속도
     {
-        gravity.y += -dt * 30.f;
+        gravity.y += -dt * 10.f;
+    }
+
+    if (force.x != 0 || force.y != 0)
+    {
+        if (force.y <= 20.f)
+        {
+            force.y += 10+dt;
+        }
     }
 
     matrix3 vel = MATRIX3::build_translation(velocity);
@@ -42,7 +49,9 @@ void Physics::Update(float dt)
     matrix3 total = vel * gra;
 
     vectorTranslation += GetTranslation(total);
+    vectorTranslation += direction;
     vectorTranslation += force;
+
     owner->SetTranslation(vectorTranslation);
 }
 
@@ -94,15 +103,26 @@ bool Physics::IsCollideWith(Object * object)
     }
 }
 
+void Physics::SetDirection(vector2 dir)
+{
+    this->direction = dir;
+}
+
+void Physics::SetDirection(float x, float y)
+{
+    direction.x = x;
+    direction.y = y;
+}
+
 void Physics::AddForce(vector2 frc)
 {
-    this->force = frc;
+    force += frc;
 }
 
 void Physics::AddForce(float x, float y)
 {
-    force.x = x;
-    force.y = y;
+    force.x += x;
+    force.y += y;
 }
 
 vector2 Physics::GetTranslation(matrix3 matrix3)

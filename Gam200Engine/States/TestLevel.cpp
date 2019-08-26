@@ -25,7 +25,7 @@ void TestLevel::Load()
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-    //obj.GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+    //object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
 	ObjectManager::GetObjectManager()->AddObject(object1);
 
 	object2 = new Object();
@@ -51,7 +51,7 @@ void TestLevel::Update(float dt)
     }
     if (input.IsKeyPressed(GLFW_KEY_A))
     {
-		object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		object1->GetComponentByTemplate<Physics>()->SetDirection(-3.f, 0.f);
     }
     if (input.IsKeyPressed(GLFW_KEY_S))
     {
@@ -59,11 +59,19 @@ void TestLevel::Update(float dt)
     }
     if (input.IsKeyPressed(GLFW_KEY_D))
     {
-		object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+		object1->GetComponentByTemplate<Physics>()->SetDirection(3.f, 0.f);
     }
-    if (input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_D) && input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_S))
+    if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_S))
     {
-		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+    }
+    if (input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_D) )
+    {
+		object1->GetComponentByTemplate<Physics>()->SetDirection(0.f, 0.f);
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_SPACE))
+    {
+        object1->GetComponentByTemplate<Physics>()->AddForce(0.f, 0.1f);
     }
 
 	cameraManager.CameraMove(1.1f);

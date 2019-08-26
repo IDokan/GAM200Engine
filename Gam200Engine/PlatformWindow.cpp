@@ -130,6 +130,7 @@ void PlatformWindow::ToggleFullscreen() noexcept
         windowSize.width = static_cast<float>(xSize);
         windowSize.height = static_cast<float>(ySize);
     }
+    glCheck(glfwSwapInterval(true));
 }
 
  vector2 PlatformWindow::GetPlatformWindowSize() noexcept
