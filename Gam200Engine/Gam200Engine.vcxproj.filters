@@ -86,6 +86,9 @@
     <ClCompile Include="Graphics\CameraManager.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
+      <Filter>Graphics\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\CameraManager.hpp">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
+      <Filter>Graphics\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

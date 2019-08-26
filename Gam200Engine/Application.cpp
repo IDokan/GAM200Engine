@@ -16,6 +16,8 @@ Creation Date: 08.05.2019
 #include "States/StateManager.hpp"
 #include "Object/ObjectManager.hpp"
 
+#include <Graphics/ImGui/MyImGui.hpp>
+
 #include <Graphics/ImGui/imgui.h>
 #include <Graphics/ImGui/imgui_impl_opengl3.h>
 #include "Graphics/ImGui/imgui_impl_glfw.h"
@@ -58,13 +60,6 @@ void Application::Update(float dt)
 
     window.PollEvent();
 
-	// I'm not sure it is right place or not
-	// One Possibility:
-	// put it after /*renderer.Clear();*/
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-
 	const auto& stateManager = StateManager::GetStateManager();
 	stateManager->Update(dt);
 	ObjectManager::GetObjectManager()->Update(dt);
@@ -72,13 +67,11 @@ void Application::Update(float dt)
 
     GetApplication()->Input();
 
-	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
+	// I'm not sure it is right place or not
+	// One Possibility:
+	// put it after /*renderer.Clear();*/
+	MyImGui::UpdateImGui(show_demo_window);
 
-	// Rendering
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	// Change Order of calling function : SwapBuffer 
 	window.SwapBackBuffer();
 }
@@ -134,9 +127,7 @@ void Application::Clear()
 
 
 	// ImGui Clear
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	MyImGui::ClearImGui();
 
 	window.ClearWindow();
 }
