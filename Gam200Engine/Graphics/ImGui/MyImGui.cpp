@@ -14,56 +14,85 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui_impl_opengl3.h>
 #include <Graphics/ImGui/imgui_impl_glfw.h>
 #include <Application.hpp>
+#include <Object/ObjectManager.hpp>
 
 namespace MyImGui
 {
+	
 	void InitImGui(GLFWwindow* window) noexcept
 	{
 		ImGui::CreateContext();
+		// Set Multi-Viewports Enable.
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
 	void UpdateImGui(bool isShowWindow) noexcept
 	{
-		// Old & Easy version to only use pop up the ImGui window
-		//ImGui_ImplOpenGL3_NewFrame();
-		//ImGui_ImplGlfw_NewFrame();
-		//ImGui::NewFrame();
-
-		//if (isShowWindow)
-		//	ImGui::ShowDemoWindow(&isShowWindow);
-
-		//// Rendering
-		//ImGui::Render();
-		//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
-	// Our state
-		static bool show_demo_window = true;
-		static bool show_another_window = false;
-		static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-				// Start the Dear ImGui frame
+		// Start the Dear ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
+		if (isShowWindow)
+			ImGui::ShowDemoWindow(&isShowWindow);
+
+		static float f = 0.f;
+		static int counter = 0;
+		// 2. Let's make my own window with ImGui Tutorial!
+		ImGui::Begin("Scene");
+
+		int objectCnt = 1;
+		ObjectManager* objManager = ObjectManager::GetObjectManager();
+		//for(const std::shared_ptr<Object> object : objManager->GetObjectManagerContainer())
+		{
+			const std::shared_ptr<Object> object = objManager->GetObjectManagerContainer().at(0);
+			Object* obj = object.get();
+			if (ImGui::CollapsingHeader("Object %d"))
+			{
+				static vector2 test{ obj->GetTranslation() };
+				vector2 translation = obj->GetTranslation();
+				vector2 scale = obj->GetScale();
+				ImGui::Text((obj->GetDead()) ? "true" : "false");
+				ImGui::InputFloat("X Position", &test.x);
+				ImGui::InputFloat("Y Position", &test.y, 0.1f, 1.f);
+				obj->SetTranslation(test);
+			}
+		}
+
+		ImGui::Text("Hello Jaemin!");
+		ImGui::SliderFloat("Float Test", &f, -10.f, 20.f);
+		if (ImGui::Button("Counter Increase Button"))
+		{
+			counter++;
+		}
+		ImGui::SameLine();
+		ImGui::Text("counter = %d", counter);
+		
+		ImGui::End();
 
 
-		ImGuiIO& io = ImGui::GetIO();
-		auto* app = Application::GetApplication();
-		io.DisplaySize = ImVec2(app->GetWindowSize.x, app->GetWindowSize.y);
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+		ImGuiIO& io = ImGui::GetIO();
 		// Update and Render additional Platform Windows
-		// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+		// (Platform functions may change the currentOpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
 		//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
