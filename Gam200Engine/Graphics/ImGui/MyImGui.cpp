@@ -58,13 +58,28 @@ namespace MyImGui
 
 		int objectCnt = 1;
 		ObjectManager* objManager = ObjectManager::GetObjectManager();
+		static vector2 test{};
 		//for(const std::shared_ptr<Object> object : objManager->GetObjectManagerContainer())
 		{
 			const std::shared_ptr<Object> object = objManager->GetObjectManagerContainer().at(0);
 			Object* obj = object.get();
 			if (ImGui::CollapsingHeader("Object %d"))
 			{
-				static vector2 test{ obj->GetTranslation() };
+				test = obj->GetTranslation();
+				vector2 translation = obj->GetTranslation();
+				vector2 scale = obj->GetScale();
+				ImGui::Text((obj->GetDead()) ? "true" : "false");
+				ImGui::InputFloat("X Position", &test.x);
+				ImGui::InputFloat("Y Position", &test.y, 0.1f, 1.f);
+				obj->SetTranslation(test);
+			}
+		}
+		{
+			const std::shared_ptr<Object> object = objManager->GetObjectManagerContainer().at(1);
+			Object* obj = object.get();
+			if (ImGui::CollapsingHeader("Object"))
+			{
+				test = obj->GetTranslation();
 				vector2 translation = obj->GetTranslation();
 				vector2 scale = obj->GetScale();
 				ImGui::Text((obj->GetDead()) ? "true" : "false");
