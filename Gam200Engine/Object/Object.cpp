@@ -64,6 +64,16 @@ void Object::SetDepth(float depth)
     transform.SetDepth(depth);
 }
 
+void Object::SetObjectName(std::string name)
+{
+    objectName = name;
+}
+
+std::string Object::GetObjectName()
+{
+    return objectName;
+}
+
 vector2 Object::GetTranslation()
 {
     return transform.GetTranslation();

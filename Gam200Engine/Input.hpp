@@ -51,7 +51,6 @@ private:
     std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonReleased;
     std::bitset<GLFW_MOUSE_BUTTON_LAST> mouseButtonDoubleClicked;
 
-
     double xOffset = 0.0;
     double yOffset = 0.0;
 };

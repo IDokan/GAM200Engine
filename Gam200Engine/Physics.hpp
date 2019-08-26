@@ -30,7 +30,10 @@ public:
     void SetGravity(vector2 gravity);
     void SetGravity(float x, float y);
     bool IsCollideWith(Object* object);
-    void AddForce(vector2 force);
+    void SetDirection(vector2 dir);
+    void SetDirection(float x, float y);
+
+    void AddForce(vector2 frc);
     void AddForce(float x, float y);
 
     vector2 GetTranslation(matrix3 matrix);
@@ -38,6 +41,7 @@ public:
 private:
     vector2 velocity{};
     vector2 gravity{};
+    vector2 direction{};
     vector2 force{};
     vector2 vectorTranslation{};
 };

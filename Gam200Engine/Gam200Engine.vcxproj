@@ -201,6 +201,7 @@
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
     <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Message.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
@@ -244,6 +245,7 @@
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Message.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Transform.cpp" />

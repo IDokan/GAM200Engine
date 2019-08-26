@@ -52,10 +52,14 @@ public:
     void SetScale(vector2 scale);
     void SetScale(float scale);
     void SetDepth(float depth);
+    void SetObjectName(std::string name); // Woo
+    std::string GetObjectName(); // Woo
 
-    vector2 GetTranslation();
-    vector2 GetScale();
+    vector2 GetTranslation(); // Woo
+    vector2 GetScale(); // Woo
+
 private:
+    std::string objectName;
     Transform transform;
     std::vector<Component*> component;
     bool is_dead = false;
