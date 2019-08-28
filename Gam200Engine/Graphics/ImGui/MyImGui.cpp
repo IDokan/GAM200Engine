@@ -83,7 +83,7 @@ namespace MyImGui
 			ImGui::DragFloat("Translation Y", &translation.y);
 			ImGui::DragFloat("Scale X", &scale.x);
 			ImGui::DragFloat("Scale Y", &scale.y);
-			ImGui::DragFloat("Rotation", &rotation);
+			ImGui::DragFloat("Rotation", &rotation, 0.005f);
 
 			obj->SetTranslation(translation);
 			obj->SetScale(scale);
@@ -103,11 +103,11 @@ namespace MyImGui
 				static int* cnt = 0;
 				if(ImGui::Button("Button"))
 				{
-					cnt++;
+					sprite->SetImage("../texture/rect.png");
 				}
 				unsigned int* textureID = sprite->GetRefTextureHandle();
-				ImGui::Text("%d", cnt);
-				ImGui::Image((cnt), ImVec2(128, 128));
+				ImGui::Text("%d", textureID);
+				ImGui::Image((textureID), ImVec2(128, 128));
 			}
 		}
 		else

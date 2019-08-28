@@ -15,18 +15,40 @@ Creation Date: 08.10.2019
 #include <GL/glew.h>
 #include <cassert>
 #include <filesystem>
+#include <unordered_map>
+
+namespace
+{
+	static std::unordered_map<std::string, Graphics::Texture*> imageStorage;
+}
 
 namespace Graphics
 {
     bool Texture::LoadFromPNG(const std::filesystem::path& file_path) noexcept
     {
-        Image image;
+		bool returnValue;
+		Image image;
+		if (imageStorage.find(file_path.string()) == imageStorage.end())
+		{
+			if (image.LoadFromPNG(file_path) == false)
+			{
+				return false;
+			}
 
-        if(image.LoadFromPNG(file_path) == false)
-        {
-            return false;
+			returnValue = LoadFromImage(image);
+
+			imageStorage.insert_or_assign(file_path.string(), this);
 		}
-        return LoadFromImage(image);
+		else
+		{
+			Texture* loadedTexture = imageStorage.at(file_path.string());
+			textureHandle = loadedTexture->textureHandle;
+			width = loadedTexture->width;
+			height = loadedTexture->height;
+			returnValue = true;
+		}
+
+        return returnValue;
     }
 
     bool Texture::LoadFromImage(const Image& image) noexcept
