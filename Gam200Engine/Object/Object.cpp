@@ -83,3 +83,8 @@ vector2 Object::GetScale()
 {
     return transform.GetScale();
 }
+
+float Object::GetRotation() const noexcept
+{
+	return transform.GetRotation();
+}

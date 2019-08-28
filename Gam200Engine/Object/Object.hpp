@@ -57,6 +57,7 @@ public:
 
     vector2 GetTranslation(); // Woo
     vector2 GetScale(); // Woo
+	float GetRotation() const noexcept; // Sinil
 
 private:
     std::string objectName;

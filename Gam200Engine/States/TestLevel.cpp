@@ -21,7 +21,8 @@ Creation Date: 08.15.2019
 void TestLevel::Load()
 {
 	object1 = new Object();
-	object1->SetTranslation(vector2{ 150.f,150.f });
+	object1->SetObjectName("Object1");
+	object1->SetTranslation(vector2{ 0.f });
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
@@ -30,6 +31,7 @@ void TestLevel::Load()
 	ObjectManager::GetObjectManager()->AddObject(object1);
 
 	object2 = new Object();
+	object2->SetObjectName("Object2");
 	object2->SetTranslation(vector2{ 250.f });
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));

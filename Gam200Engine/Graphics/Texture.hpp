@@ -26,6 +26,7 @@ namespace Graphics
         void DeleteTexture() noexcept;
 
         unsigned int GetTextureHandle() const noexcept { return textureHandle; }
+		unsigned int* GetRefTextureHandle() noexcept { return &textureHandle; }
         int          GetWidth() const noexcept { return width; }
         int          GetHeight() const noexcept { return height; }
 

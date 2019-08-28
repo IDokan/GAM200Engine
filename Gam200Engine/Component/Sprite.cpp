@@ -25,7 +25,8 @@ Creation Date: 08.14.2019
 
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
-		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>())
+		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
+		imageFilePath("../texture/rect.png")
 {
 	mesh->Clear();
 }
@@ -53,7 +54,7 @@ void Sprite::Init()
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
 	mesh->AddTextureCoordinate(vector2{ 0.f});
 
-	SetImage("../texture/rect.png");
+	SetImage(imageFilePath);
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
@@ -76,6 +77,7 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 {
 	if (texture->LoadFromPNG(filepath))
 	{
+		imageFilePath = filepath.string();
 		const Graphics::texture_uniform container{ texture.get(), 0 };
 		material->textureUniforms[Graphics::SHADER::Uniform_Texture] = container;
 	}
@@ -99,4 +101,24 @@ Graphics::Vertices* Sprite::GetVertices() const noexcept
 Graphics::material* Sprite::GetMaterial() const noexcept
 {
 	return material.get();
+}
+
+const Graphics::Color4f& Sprite::GetColor() const noexcept
+{
+	return material->color4fUniforms[Graphics::SHADER::Uniform_Color];
+}
+
+const std::string& Sprite::GetImagePath() const noexcept
+{
+	return imageFilePath;
+}
+
+unsigned Sprite::GetTextureHandle() const noexcept
+{
+	return texture->GetTextureHandle();
+}
+
+unsigned* Sprite::GetRefTextureHandle() noexcept
+{
+	return texture->GetRefTextureHandle();
 }

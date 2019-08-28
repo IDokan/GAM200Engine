@@ -39,9 +39,15 @@ public:
 	Graphics::Vertices* GetVertices() const noexcept;
 	Graphics::material* GetMaterial() const noexcept;
 
+	const Graphics::Color4f& GetColor() const noexcept;
+	const std::string& GetImagePath() const noexcept;
+	unsigned int GetTextureHandle() const noexcept;
+	unsigned int* GetRefTextureHandle() noexcept;
+
 private:
 	std::shared_ptr<Graphics::Mesh> mesh;
 	std::shared_ptr<Graphics::Vertices> vertices;
 	std::shared_ptr<Graphics::material> material;
 	std::shared_ptr<Graphics::Texture> texture;
+	std::string imageFilePath;
 };

@@ -15,6 +15,7 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui_impl_glfw.h>
 #include <Application.hpp>
 #include <Object/ObjectManager.hpp>
+#include <Component/Sprite.hpp>
 
 namespace MyImGui
 {
@@ -51,38 +52,68 @@ namespace MyImGui
 		if (isShowWindow)
 			ImGui::ShowDemoWindow(&isShowWindow);
 
-		static float f = 0.f;
-		static int counter = 0;
 		// 2. Let's make my own window with ImGui Tutorial!
 		ImGui::Begin("Scene");
-
-		int objectCnt = 1;
-		ObjectManager* objManager = ObjectManager::GetObjectManager();
-		//for(const std::shared_ptr<Object> object : objManager->GetObjectManagerContainer())
+		static int selected = -1;
+		auto& objContainer = ObjectManager::GetObjectManager()->GetObjectManagerContainer();
+		for(int i = 0; i < objContainer.size(); ++i)
 		{
-			const std::shared_ptr<Object> object = objManager->GetObjectManagerContainer().at(0);
-			Object* obj = object.get();
-			if (ImGui::CollapsingHeader("Object %d"))
+			if(ImGui::Selectable(objContainer.at(i)->GetObjectName().c_str(), selected == i))
 			{
-				static vector2 test{ obj->GetTranslation() };
-				vector2 translation = obj->GetTranslation();
-				vector2 scale = obj->GetScale();
-				ImGui::Text((obj->GetDead()) ? "true" : "false");
-				ImGui::InputFloat("X Position", &test.x);
-				ImGui::InputFloat("Y Position", &test.y, 0.1f, 1.f);
-				obj->SetTranslation(test);
+				selected = i;
 			}
 		}
+		ImGui::End();
 
-		ImGui::Text("Hello Jaemin!");
-		ImGui::SliderFloat("Float Test", &f, -10.f, 20.f);
-		if (ImGui::Button("Counter Increase Button"))
+		ImGui::Begin("Property");
+		if (selected >= 0 && selected < objContainer.size())
 		{
-			counter++;
+			Object* obj = objContainer.at(selected).get();
+			ImGui::Text(obj->GetObjectName().c_str());
+			ImGui::Spacing();
+
+			ImGui::Text("Transform");
+			static vector2 translation{}, scale{};
+			static float rotation;
+			translation = obj->GetTranslation();
+			rotation = obj->GetRotation();
+			scale = obj->GetScale();
+
+			ImGui::DragFloat("Translation X", &translation.x);
+			ImGui::DragFloat("Translation Y", &translation.y);
+			ImGui::DragFloat("Scale X", &scale.x);
+			ImGui::DragFloat("Scale Y", &scale.y);
+			ImGui::DragFloat("Rotation", &rotation);
+
+			obj->SetTranslation(translation);
+			obj->SetScale(scale);
+			obj->SetRotation(rotation);
+
+			// TODO: Make Object Controller followed Component
+			if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>())
+			{
+				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::Spacing();
+				Graphics::Color4f color = sprite->GetColor();
+				ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
+				sprite->SetColor(color);
+				
+				ImGui::Spacing();
+				static int* cnt = 0;
+				if(ImGui::Button("Button"))
+				{
+					cnt++;
+				}
+				unsigned int* textureID = sprite->GetRefTextureHandle();
+				ImGui::Text("%d", cnt);
+				ImGui::Image((cnt), ImVec2(128, 128));
+			}
 		}
-		ImGui::SameLine();
-		ImGui::Text("counter = %d", counter);
-		
+		else
+		{
+			ImGui::Text("Select object in Scene window!");
+		}
 		ImGui::End();
 
 
