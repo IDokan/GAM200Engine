@@ -10,11 +10,10 @@ Creation Date: 08.15.2019
     Source file for Physics
 ******************************************************************************/
 
-#include <Component/Component.hpp>
-#include <iostream>
-#include <Object/Object.hpp>
 #include "Vector2.hpp"
-#include "Physics.hpp"
+#include <Component/Component.hpp>
+#include <Component/Physics.hpp>
+#include <Object/Object.hpp>
 #include "matrix3.hpp"
 
 Physics::Physics(Object * obj) : Component(obj) 
@@ -27,6 +26,7 @@ Physics::~Physics()
 
 void Physics::Init()
 {
+    position = owner->GetTranslation();
 }
 
 void Physics::Update(float dt)
@@ -48,11 +48,11 @@ void Physics::Update(float dt)
             force.y += 180*dt;
         }
     }
-
     vectorTranslation += GetTranslation(total);
     vectorTranslation += force;
-
-    owner->SetTranslation(vectorTranslation);
+    position = owner->GetTranslation();
+    position = position + vectorTranslation;
+    owner->SetTranslation(position);
 }
 
 void Physics::Clear()

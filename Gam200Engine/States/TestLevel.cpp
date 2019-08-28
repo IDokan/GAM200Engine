@@ -13,7 +13,7 @@ Creation Date: 08.15.2019
 #include <iostream>
 #include "TestLevel.hpp"
 #include <Component/Sprite.hpp>
-#include <Physics.hpp>
+#include <Component/Physics.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
@@ -21,11 +21,12 @@ Creation Date: 08.15.2019
 void TestLevel::Load()
 {
 	object1 = new Object();
-	object1->SetTranslation(vector2{ 100.f,100.f });
+	object1->SetTranslation(vector2{ 150.f,150.f });
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-    object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+    //object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+    //object1->GetComponentByTemplate<Physics>()->SetPosition(vector2(300.f, 300.f));
 	ObjectManager::GetObjectManager()->AddObject(object1);
 
 	object2 = new Object();
@@ -73,7 +74,6 @@ void TestLevel::Update(float dt)
     {
         object1->GetComponentByTemplate<Physics>()->AddForce(0.f, 0.1f);
     }
-
 	cameraManager.CameraMove(1.1f);
 }
 
