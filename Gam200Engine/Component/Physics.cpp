@@ -48,7 +48,7 @@ void Physics::Update(float dt)
             force.y += 180*dt;
         }
     }
-    vectorTranslation += GetTranslation(total);
+    vectorTranslation = GetTranslation(total);
     vectorTranslation += force;
     position = owner->GetTranslation();
     position = position + vectorTranslation;
@@ -83,24 +83,35 @@ void Physics::SetGravity(float x, float y)
 
 bool Physics::IsCollideWith(Object * object)
 {
-    float objectLeft = object->GetTranslation().width - (object->GetScale().width / 2);
-    float objectRight = object->GetTranslation().width + (object->GetScale().width / 2);
-    float objectBottom = object->GetTranslation().height - (object->GetScale().height / 2);
-    float objectTop = object->GetTranslation().height + (object->GetScale().height / 2);
-
-    float ownerLeft = owner->GetTranslation().width - (owner->GetScale().width / 2);
-    float ownerRight = owner->GetTranslation().width + (owner->GetScale().width / 2);
-    float ownerBottom = owner->GetTranslation().height - (owner->GetScale().height / 2);
-    float ownerTop = owner->GetTranslation().height + (owner->GetScale().height / 2);
-
-    if (objectRight >= ownerLeft && objectLeft <= ownerRight && objectTop >= ownerBottom && objectBottom <= ownerTop)
+    if (owner->GetObjectType() == object->GetObjectType())
     {
-        return true;
+        if (owner->GetObjectType() == Object::ObjectType::RECTANGLE)
+        {
+            float objectLeft = object->GetTranslation().width - (object->GetScale().width / 2);
+            float objectRight = object->GetTranslation().width + (object->GetScale().width / 2);
+            float objectBottom = object->GetTranslation().height - (object->GetScale().height / 2);
+            float objectTop = object->GetTranslation().height + (object->GetScale().height / 2);
+
+            float ownerLeft = owner->GetTranslation().width - (owner->GetScale().width / 2);
+            float ownerRight = owner->GetTranslation().width + (owner->GetScale().width / 2);
+            float ownerBottom = owner->GetTranslation().height - (owner->GetScale().height / 2);
+            float ownerTop = owner->GetTranslation().height + (owner->GetScale().height / 2);
+
+            if (objectRight >= ownerLeft && objectLeft <= ownerRight && objectTop >= ownerBottom && objectBottom <= ownerTop)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (owner->GetObjectType() == Object::ObjectType::CIRCLE)
+        {
+
+        }
     }
-    else
-    {
-        return false;
-    }
+   
 }
 
 void Physics::SetDirection(vector2 dir)

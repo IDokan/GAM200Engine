@@ -23,6 +23,19 @@ public:
     Object();
 
 public:
+    enum  class ObjectType
+    {
+        CIRCLE,
+        RECTANGLE,
+    };
+    void SetObjectType(ObjectType objType) //Woo
+    {
+        objectType = objType;
+    }
+    ObjectType GetObjectType() //Woo
+    {
+        return objectType;
+    }
     void SetDead(bool condition) 
     {
         is_dead = condition;
@@ -39,7 +52,6 @@ public:
     {
         return component;
     }
-
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate()const;
 
@@ -63,6 +75,7 @@ private:
     std::string objectName;
     Transform transform;
     std::vector<Component*> component;
+    ObjectType objectType;
     bool is_dead = false;
 };
 
