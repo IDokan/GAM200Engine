@@ -92,9 +92,22 @@ namespace MyImGui
 			// TODO: Make Object Controller followed Component
 			if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>())
 			{
+				ImGui::Spacing();
 				ImGui::Separator();
+				ImGui::Spacing();
 				Graphics::Color4f color = sprite->GetColor();
-				//ImGui::ColorEdit4("Color", )
+				ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
+				sprite->SetColor(color);
+				
+				ImGui::Spacing();
+				static int* cnt = 0;
+				if(ImGui::Button("Button"))
+				{
+					cnt++;
+				}
+				unsigned int* textureID = sprite->GetRefTextureHandle();
+				ImGui::Text("%d", cnt);
+				ImGui::Image((cnt), ImVec2(128, 128));
 			}
 		}
 		else

@@ -41,6 +41,8 @@ public:
 
 	const Graphics::Color4f& GetColor() const noexcept;
 	const std::string& GetImagePath() const noexcept;
+	unsigned int GetTextureHandle() const noexcept;
+	unsigned int* GetRefTextureHandle() noexcept;
 
 private:
 	std::shared_ptr<Graphics::Mesh> mesh;

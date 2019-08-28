@@ -112,3 +112,13 @@ const std::string& Sprite::GetImagePath() const noexcept
 {
 	return imageFilePath;
 }
+
+unsigned Sprite::GetTextureHandle() const noexcept
+{
+	return texture->GetTextureHandle();
+}
+
+unsigned* Sprite::GetRefTextureHandle() noexcept
+{
+	return texture->GetRefTextureHandle();
+}
