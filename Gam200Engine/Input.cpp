@@ -119,9 +119,9 @@ vector2 Input::GetPresentMousePosition() const noexcept
 	return presentMousePosition;
 }
 
-void Input::SetPresentMousePosition(const vector2& mousePosition) noexcept
+void Input::SetPresentMousePosition(const vector2& mousePos) noexcept
 {
-	presentMousePosition = mousePosition;
+	presentMousePosition = mousePos;
 }
 
 vector2 Input::GetMousePosition() const noexcept

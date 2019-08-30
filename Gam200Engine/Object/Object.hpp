@@ -72,9 +72,9 @@ public:
 	float GetRotation() const noexcept; // Sinil
 
 private:
-    std::string objectName;
     Transform transform;
     std::vector<Component*> component;
+    std::string objectName;
     ObjectType objectType;
     bool is_dead = false;
 };

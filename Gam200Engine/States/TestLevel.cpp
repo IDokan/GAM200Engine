@@ -27,7 +27,7 @@ void TestLevel::Load()
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
     object1->SetObjectType(Object::ObjectType::RECTANGLE);
-    object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+    //object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
 	ObjectManager::GetObjectManager()->AddObject(object1);
 
 	object2 = new Object();
@@ -36,7 +36,7 @@ void TestLevel::Load()
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
-    object2->SetObjectType(Object::ObjectType::RECTANGLE);
+    object2->SetObjectType(Object::ObjectType::CIRCLE);
 	ObjectManager::GetObjectManager()->AddObject(object2);
 
 	cameraManager.Init();

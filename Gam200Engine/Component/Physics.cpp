@@ -15,6 +15,7 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Object/Object.hpp>
 #include "matrix3.hpp"
+#include <cmath>
 
 Physics::Physics(Object * obj) : Component(obj) 
 {
@@ -45,7 +46,7 @@ void Physics::Update(float dt)
     {
         if (force.y <= 20.f)
         {
-            force.y += 180*dt;
+            force.y += 5+dt;
         }
     }
     vectorTranslation = GetTranslation(total);
@@ -87,15 +88,15 @@ bool Physics::IsCollideWith(Object * object)
     {
         if (owner->GetObjectType() == Object::ObjectType::RECTANGLE)
         {
-            float objectLeft = object->GetTranslation().width - (object->GetScale().width / 2);
-            float objectRight = object->GetTranslation().width + (object->GetScale().width / 2);
-            float objectBottom = object->GetTranslation().height - (object->GetScale().height / 2);
-            float objectTop = object->GetTranslation().height + (object->GetScale().height / 2);
+            float objectLeft = object->GetTranslation().x - (object->GetScale().width / 2);
+            float objectRight = object->GetTranslation().x + (object->GetScale().width / 2);
+            float objectBottom = object->GetTranslation().y - (object->GetScale().height / 2);
+            float objectTop = object->GetTranslation().y + (object->GetScale().height / 2);
 
-            float ownerLeft = owner->GetTranslation().width - (owner->GetScale().width / 2);
-            float ownerRight = owner->GetTranslation().width + (owner->GetScale().width / 2);
-            float ownerBottom = owner->GetTranslation().height - (owner->GetScale().height / 2);
-            float ownerTop = owner->GetTranslation().height + (owner->GetScale().height / 2);
+            float ownerLeft = owner->GetTranslation().x - (owner->GetScale().width / 2);
+            float ownerRight = owner->GetTranslation().x + (owner->GetScale().width / 2);
+            float ownerBottom = owner->GetTranslation().y - (owner->GetScale().height / 2);
+            float ownerTop = owner->GetTranslation().y + (owner->GetScale().height / 2);
 
             if (objectRight >= ownerLeft && objectLeft <= ownerRight && objectTop >= ownerBottom && objectBottom <= ownerTop)
             {
@@ -108,10 +109,254 @@ bool Physics::IsCollideWith(Object * object)
         }
         else if (owner->GetObjectType() == Object::ObjectType::CIRCLE)
         {
+            float xDistance = object->GetTranslation().x - owner->GetTranslation().x;
+            float yDistance = object->GetTranslation().y - owner->GetTranslation().y;
+            float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
+            if (distance < (object->GetScale().x / 2) + (owner->GetScale().x / 2))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
-   
+    else
+    {
+        if (owner->GetObjectType() == Object::ObjectType::RECTANGLE)
+        {
+            float rectangleLeft = owner->GetTranslation().x - (owner->GetScale().width / 2);
+            float rectangleRight = owner->GetTranslation().x + (owner->GetScale().width / 2);
+            float rectangleBottom = owner->GetTranslation().y - (owner->GetScale().height / 2);
+            float rectangleTop = owner->GetTranslation().y + (owner->GetScale().height / 2);
+            float circleX = object->GetTranslation().x;
+            float circleY = object->GetTranslation().y;
+            float circleRadius = object->GetScale().x / 2;
+
+            if (circleX >= rectangleLeft && circleX <= rectangleRight && circleY >= rectangleBottom && circleY <= rectangleTop)
+            {
+                return true;
+            }
+            else if (circleX <= rectangleLeft)
+            {
+                if (circleY <= rectangleTop && circleY >= rectangleBottom)
+                {
+                    float distance = std::abs(circleX - rectangleLeft);
+                   
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY >= rectangleTop)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+                    
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY <= rectangleBottom)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+                    
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+            else if (circleY >= rectangleTop)
+            {
+                if (circleX >= rectangleLeft && circleX <= rectangleRight)
+                {
+                    float distance = std::abs(circleY - rectangleTop);
+                   
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX <= rectangleLeft)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+                    
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX >= rectangleRight)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+                    
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+            else if (circleX >= rectangleRight)
+            {
+                if (circleY >= rectangleBottom && circleY <= rectangleTop)
+                {
+                    float distance = std::abs(circleX - rectangleRight);
+                    
+                    return distance <= circleRadius ?  true :  false;
+                }
+                else if (circleY <= rectangleBottom)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+                    
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY >= rectangleTop)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+                    
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+            else if (circleY <= rectangleBottom)
+            {
+                if (circleX >= rectangleLeft && circleX <= rectangleRight)
+                {
+                    float distance = std::abs(circleY - rectangleBottom);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX <= rectangleLeft)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true: false;
+                }
+                else if (circleX >= rectangleRight)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+        }
+        if (owner->GetObjectType() == Object::ObjectType::CIRCLE)
+        {
+            float rectangleLeft = object->GetTranslation().x - (owner->GetScale().width / 2);
+            float rectangleRight = object->GetTranslation().x + (owner->GetScale().width / 2);
+            float rectangleBottom = object->GetTranslation().y - (owner->GetScale().height / 2);
+            float rectangleTop = object->GetTranslation().y + (owner->GetScale().height / 2);
+            float circleX = owner->GetTranslation().x;
+            float circleY = owner->GetTranslation().y;
+            float circleRadius = owner->GetScale().x / 2;
+           
+            if (circleX >= rectangleLeft && circleX <= rectangleRight && circleY >= rectangleBottom && circleY <= rectangleTop)
+            {
+                return true;
+            }
+            else if (circleX <= rectangleLeft)
+            {
+                if (circleY <= rectangleTop && circleY >= rectangleBottom)
+                {
+                    float distance = std::abs(circleX - rectangleLeft);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY >= rectangleTop)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY <= rectangleBottom)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+            else if (circleY >= rectangleTop)
+            {
+                if (circleX >= rectangleLeft && circleX <= rectangleRight)
+                {
+                    float distance = std::abs(circleY - rectangleTop);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX <= rectangleLeft)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX >= rectangleRight)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+            else if (circleX >= rectangleRight)
+            {
+                if (circleY >= rectangleBottom && circleY <= rectangleTop)
+                {
+                    float distance = std::abs(circleX - rectangleRight);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY <= rectangleBottom)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleY >= rectangleTop)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleTop;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+            else if (circleY <= rectangleBottom)
+            {
+                if (circleX >= rectangleLeft && circleX <= rectangleRight)
+                {
+                    float distance = std::abs(circleY - rectangleBottom);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX <= rectangleLeft)
+                {
+                    float xDistance = circleX - rectangleLeft;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+                else if (circleX >= rectangleRight)
+                {
+                    float xDistance = circleX - rectangleRight;
+                    float yDistance = circleY - rectangleBottom;
+                    float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                    return distance <= circleRadius ? true : false;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 void Physics::SetDirection(vector2 dir)
