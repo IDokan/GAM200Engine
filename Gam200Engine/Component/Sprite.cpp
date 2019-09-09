@@ -26,7 +26,7 @@ Creation Date: 08.14.2019
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../texture/rect.png")
+		imageFilePath("../texture/rect.png"), isAnimated(false), frame(1), speed(60.f), index(0.f)
 {
 	mesh->Clear();
 }
@@ -56,10 +56,18 @@ void Sprite::Init()
 
 	SetImage(imageFilePath);
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
+
+	// Animation Stuffs
+	material->floatUniforms[Graphics::SHADER::Uniform_Frame] = frame;
 }
 
-void Sprite::Update(float /*dt*/)
+void Sprite::Update(float dt)
 {
+	if (isAnimated)
+	{
+		index += dt * speed;
+
+	}
 }
 
 void Sprite::Clear()
@@ -78,8 +86,10 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 	if (texture->LoadFromPNG(filepath))
 	{
 		imageFilePath = filepath.string();
-		const Graphics::texture_uniform container{ texture.get(), 0 };
+		Graphics::Texture* txt = texture.get();
+		const Graphics::texture_uniform container{ txt, 0 };
 		material->textureUniforms[Graphics::SHADER::Uniform_Texture] = container;
+		material->vector2Uniforms[Graphics::SHADER::Uniform_ImageSize] = vector2{ txt->GetWidth(), txt->GetHeight() };
 	}
 	else
 	{
@@ -121,4 +131,34 @@ unsigned Sprite::GetTextureHandle() const noexcept
 unsigned* Sprite::GetRefTextureHandle() noexcept
 {
 	return texture->GetRefTextureHandle();
+}
+
+bool Sprite::IsAnimated() const noexcept
+{
+	return isAnimated;
+}
+
+void Sprite::SetIsAnimated(bool is_animated) noexcept
+{
+	material->shader = (isAnimated = is_animated) ? &Graphics::SHADER::animated() : &Graphics::SHADER::textured();
+}
+
+int Sprite::GetFrame() const noexcept
+{
+	return frame;
+}
+
+void Sprite::SetFrame(int frame) noexcept
+{
+	material->floatUniforms[Graphics::SHADER::Uniform_Frame] = this->frame = frame;
+}
+
+float Sprite::GetSpeed() const noexcept
+{
+	return speed;
+}
+
+void Sprite::SetSpeed(float speed) noexcept
+{
+	this->speed = speed;
 }

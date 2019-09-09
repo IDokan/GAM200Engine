@@ -31,10 +31,11 @@ public:
 	virtual void Init() override;
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
+	void UpdateUniforms(const matrix3& toNDC, float depth) noexcept;
 
+	public:		// Getter & Setter
 	void SetColor(const Graphics::Color4f& color) noexcept;
 	void SetImage(const std::filesystem::path&) noexcept;
-	void UpdateUniforms(const matrix3& toNDC, float depth) noexcept;
 
 	Graphics::Vertices* GetVertices() const noexcept;
 	Graphics::material* GetMaterial() const noexcept;
@@ -43,6 +44,15 @@ public:
 	const std::string& GetImagePath() const noexcept;
 	unsigned int GetTextureHandle() const noexcept;
 	unsigned int* GetRefTextureHandle() noexcept;
+	
+	bool IsAnimated() const noexcept;
+	void SetIsAnimated(bool is_animated) noexcept;
+
+	int GetFrame() const noexcept;
+	void SetFrame(int frame) noexcept;
+
+	float GetSpeed() const noexcept;
+	void SetSpeed(float speed) noexcept;
 
 private:
 	std::shared_ptr<Graphics::Mesh> mesh;
@@ -50,4 +60,9 @@ private:
 	std::shared_ptr<Graphics::material> material;
 	std::shared_ptr<Graphics::Texture> texture;
 	std::string imageFilePath;
+
+	bool isAnimated;
+	int frame;
+	float speed;
+	float index;
 };

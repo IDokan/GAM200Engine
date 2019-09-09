@@ -50,10 +50,18 @@ namespace Graphics
         {
             material.shader->SendUniformVariable(element.first, element.second);
         }
+		for (const auto& element : material.intUniform)
+		{
+			material.shader->SendUniformVariable(element.first, element.second);
+		}
         for (const auto& element : material.floatUniforms)
         {
             material.shader->SendUniformVariable(element.first, element.second);
         }
+		for (const auto& element : material.vector2Uniforms)
+		{
+			material.shader->SendUniformVariable(element.first, element.second);
+		}
         for (const auto & element : material.textureUniforms)
         {
             Texture::SelectTextureForSlot(*element.second.texture, element.second.textureSlot);

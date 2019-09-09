@@ -59,11 +59,28 @@ namespace Graphics
          */
         Shader&                        textured() noexcept;
         const VertexLayoutDescription& textured_vertex_layout() noexcept;
+		/**
+		 * \brief uniform input:
+		 * to_ndc            : mat3      - To transform the mesh's local positions into Normalized Device Coordinates.
+		 * depth             : float     - Used to define the meshes depth. Assumed to be in the range of [-1,1)
+		 * color             : vec4      - The color used to multiply the texture with to create simple color variations
+		 * texture_to_sample : sampler2D - The texture to be applied to the mesh
+		 * Assumes a Vertex structure of:
+		 * struct Vertex{
+		 *  vector2 position;
+		 *  vector2 texture_coordinate;
+		 * };
+		 * \return Globally accessible Shader for drawing meshes with an animation.
+		 */
+		Shader&                        animated() noexcept;
 
         constexpr const char* Uniform_ToNDC   = "to_ndc";
         constexpr const char* Uniform_Depth   = "depth";
         constexpr const char* Uniform_Color   = "color";
         constexpr const char* Uniform_Texture = "texture_to_sample";
+		constexpr const char* Uniform_Frame = "frame";
+		constexpr const char* Uniform_Index = "index";
+		constexpr const char* Uniform_ImageSize = "image_size";
     };
 }
 

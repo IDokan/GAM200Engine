@@ -15,6 +15,7 @@ Creation Date: 08.10.2019
 #include <map>
 #include <string>
 #include "matrix3.hpp"
+#include <Vector2.hpp>
 
 namespace Graphics
 {
@@ -31,7 +32,9 @@ namespace Graphics
         Shader*                                shader = nullptr;
         std::map<std::string,  matrix3>         matrix3Uniforms{};
         std::map<std::string, Color4f>         color4fUniforms{};
+		std::map<std::string, int>					intUniform{};
         std::map<std::string, float>           floatUniforms{};
+		std::map<std::string, vector2>			vector2Uniforms{};
         std::map<std::string, texture_uniform> textureUniforms{};
     };
 }
