@@ -55,6 +55,8 @@ public:
 	void SetSpeed(float speed) noexcept;
 
 private:
+	void SendIndex() const noexcept;
+
 	std::shared_ptr<Graphics::Mesh> mesh;
 	std::shared_ptr<Graphics::Vertices> vertices;
 	std::shared_ptr<Graphics::material> material;

@@ -19,7 +19,13 @@ Creation Date: 08.10.2019
 
 namespace
 {
-	static std::unordered_map<std::string, Graphics::Texture*> imageStorage;
+	struct transTexture
+	{
+		unsigned int t;
+		int w;
+		int h;
+	};
+	static std::unordered_map<std::string, transTexture> imageStorage;
 }
 
 namespace Graphics
@@ -28,7 +34,7 @@ namespace Graphics
     {
 		bool returnValue;
 		Image image;
-		if (imageStorage.find(file_path.string()) == imageStorage.end())
+		//if (imageStorage.find(file_path.string()) == imageStorage.end())
 		{
 			if (image.LoadFromPNG(file_path) == false)
 			{
@@ -37,21 +43,21 @@ namespace Graphics
 
 			returnValue = LoadFromImage(image);
 
-			imageStorage.insert_or_assign(file_path.string(), this);
+			imageStorage.insert_or_assign(file_path.string(), transTexture{textureHandle, width, height});
 		}
-		else
-		{
-			Texture* loadedTexture = imageStorage.at(file_path.string());
-			textureHandle = loadedTexture->textureHandle;
-			width = loadedTexture->width;
-			height = loadedTexture->height;
-			returnValue = true;
-		}
+		//else
+		//{
+		//	transTexture loadedTexture = imageStorage.at(file_path.string());
+		//	textureHandle = loadedTexture.t;
+		//	width = loadedTexture.w;
+		//	height = loadedTexture.h;
+		//	returnValue = true;
+		//}
 
         return returnValue;
     }
 
-    bool Texture::LoadFromImage(const Image& image) noexcept
+    bool Texture:: LoadFromImage(const Image& image) noexcept
     {
         return LoadFromMemory(image.GetWidth(), image.GetHeight(), image.GetPixelsPointer());
     }
@@ -81,7 +87,7 @@ namespace Graphics
         glCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
         glCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
         glCheck(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, colors));
-        
+    	
         return !glGetError();
     }
 

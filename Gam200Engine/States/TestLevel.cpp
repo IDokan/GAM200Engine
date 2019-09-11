@@ -20,22 +20,27 @@ Creation Date: 08.15.2019
 
 void TestLevel::Load()
 {
+	object2 = new Object();
+	object2->SetObjectName("Object2");
+	object2->SetTranslation(vector2{ 250.f });
+	object2->SetScale(vector2{ 250.f });
+	object2->AddComponent(new Sprite(object2));
+	//object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
+	object2->SetDepth(0.5f);
+	ObjectManager::GetObjectManager()->AddObject(object2);
+
+
 	object1 = new Object();
 	object1->SetObjectName("Object1");
 	object1->SetTranslation(vector2{ 0.f });
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-    //object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
+	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+	object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+	object1->GetComponentByTemplate<Sprite>()->SetFrame(10);
+	//object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
 	ObjectManager::GetObjectManager()->AddObject(object1);
-
-	object2 = new Object();
-	object2->SetObjectName("Object2");
-	object2->SetTranslation(vector2{ 250.f });
-	object2->SetScale(vector2{ 250.f });
-	object2->AddComponent(new Sprite(object2));
-	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
-	ObjectManager::GetObjectManager()->AddObject(object2);
 
 	cameraManager.Init();
 }
@@ -75,6 +80,16 @@ void TestLevel::Update(float dt)
     {
         object1->GetComponentByTemplate<Physics>()->AddForce(0.f, 0.1f);
     }
+	if (input.IsKeyTriggered(GLFW_KEY_Q))
+	{
+		object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/rect.png");
+		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/rect.png");
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_C))
+	{
+		object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+	}
 
 	cameraManager.CameraMove(1.1f);
 }

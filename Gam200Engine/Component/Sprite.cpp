@@ -23,10 +23,13 @@ Creation Date: 08.14.2019
 #include <iostream>
 #include "Application.hpp"
 
+#pragma warning (push)
+#pragma warning (disable : 4458)
+
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../texture/rect.png"), isAnimated(false), frame(1), speed(60.f), index(0.f)
+		imageFilePath("../texture/rect.png"), isAnimated(false), frame(1), speed(1.f), index(0.f)
 {
 	mesh->Clear();
 }
@@ -58,7 +61,7 @@ void Sprite::Init()
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 
 	// Animation Stuffs
-	material->floatUniforms[Graphics::SHADER::Uniform_Frame] = frame;
+	material->intUniform[Graphics::SHADER::Uniform_Frame] = frame;
 }
 
 void Sprite::Update(float dt)
@@ -66,7 +69,7 @@ void Sprite::Update(float dt)
 	if (isAnimated)
 	{
 		index += dt * speed;
-
+		SendIndex();
 	}
 }
 
@@ -89,7 +92,7 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 		Graphics::Texture* txt = texture.get();
 		const Graphics::texture_uniform container{ txt, 0 };
 		material->textureUniforms[Graphics::SHADER::Uniform_Texture] = container;
-		material->vector2Uniforms[Graphics::SHADER::Uniform_ImageSize] = vector2{ txt->GetWidth(), txt->GetHeight() };
+		material->vector2Uniforms[Graphics::SHADER::Uniform_ImageSize] = vector2{ float(txt->GetWidth()), float(txt->GetHeight()) };
 	}
 	else
 	{
@@ -140,7 +143,8 @@ bool Sprite::IsAnimated() const noexcept
 
 void Sprite::SetIsAnimated(bool is_animated) noexcept
 {
-	material->shader = (isAnimated = is_animated) ? &Graphics::SHADER::animated() : &Graphics::SHADER::textured();
+	isAnimated = is_animated;
+	material->shader = (isAnimated) ? &Graphics::SHADER::animated() : &Graphics::SHADER::textured();
 }
 
 int Sprite::GetFrame() const noexcept
@@ -150,7 +154,7 @@ int Sprite::GetFrame() const noexcept
 
 void Sprite::SetFrame(int frame) noexcept
 {
-	material->floatUniforms[Graphics::SHADER::Uniform_Frame] = this->frame = frame;
+	material->intUniform[Graphics::SHADER::Uniform_Frame] = this->frame = frame;
 }
 
 float Sprite::GetSpeed() const noexcept
@@ -162,3 +166,9 @@ void Sprite::SetSpeed(float speed) noexcept
 {
 	this->speed = speed;
 }
+
+void Sprite::SendIndex() const noexcept
+{
+	material->intUniform[Graphics::SHADER::Uniform_Index] = ceil(int(index) % frame);
+}
+#pragma warning (pop)
