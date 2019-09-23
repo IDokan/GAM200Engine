@@ -20,14 +20,18 @@ Creation Date: 08.15.2019
 
 void TestLevel::Load()
 {
+	// Set Layer
+	auto objManager = ObjectManager::GetObjectManager();
+	objManager->AddLayer("Stage");
+	
 	object2 = new Object();
 	object2->SetObjectName("Object2");
 	object2->SetTranslation(vector2{ 250.f });
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
-	//object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
-	object2->SetDepth(0.5f);
-	ObjectManager::GetObjectManager()->AddObject(object2);
+	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
+	object2->SetDepth(-0.1f);
+	objManager->FindLayer("Stage")->AddObject(object2);
 
 
 	object1 = new Object();
@@ -37,10 +41,7 @@ void TestLevel::Load()
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
 	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
-	object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
-	object1->GetComponentByTemplate<Sprite>()->SetFrame(10);
-	//object1->GetComponentByTemplate<Physics>()->SetGravity(0.f, -1.f);
-	ObjectManager::GetObjectManager()->AddObject(object1);
+	objManager->FindLayer("Stage")->AddObject(object1);
 
 	cameraManager.Init();
 }
@@ -80,16 +81,6 @@ void TestLevel::Update(float dt)
     {
         object1->GetComponentByTemplate<Physics>()->AddForce(0.f, 0.1f);
     }
-	if (input.IsKeyTriggered(GLFW_KEY_Q))
-	{
-		object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/rect.png");
-		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/rect.png");
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_C))
-	{
-		object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
-		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
-	}
 
 	cameraManager.CameraMove(1.1f);
 }
@@ -102,15 +93,16 @@ void TestLevel::Draw() const noexcept
 {
 	Graphics::GL::begin_drawing();
 
-	for (const auto & obj: ObjectManager::GetObjectManager()->GetObjectManagerContainer())
+	for (const auto& element : ObjectManager::GetObjectManager()->GetObjectManagerContainer())
 	{
-		// I know there is efficient grammar in c++11
-		if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
+		for (const auto& obj : element->GetObjContainer())
 		{
-			// is it located in a right place?
-			sprite->UpdateUniforms(cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld(), 
-				obj.get()->GetTransform().CalculateWorldDepth());
-			Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+			if (const auto& sprite = obj.get()->GetComponentByTemplate<Sprite>())
+			{
+				sprite->UpdateUniforms(cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld(),
+					obj.get()->GetTransform().CalculateWorldDepth());
+				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+			}
 		}
 	}
 

@@ -12,6 +12,7 @@ Creation Date: 08.12.2019
 #include "ObjectManager.hpp"
 #include "States/StateManager.hpp"
 #include <iostream>
+
 ObjectManager::~ObjectManager()
 {
 }
@@ -24,52 +25,43 @@ ObjectManager* ObjectManager::GetObjectManager()
 
 void ObjectManager::Init()
 {
-    objects.clear();
-    delete_obj.clear();
+	trunks.clear();
 }
 
 void ObjectManager::Update(float dt)
 {
-    if (!StateManager::GetStateManager()->is_restart) {
-        
-        delete_obj.clear();
-        for (const auto &obj : objects) {
-            for (const auto &comp : obj->GetComponentContainer()) 
-            {
-                comp->Update(dt);
-            }
-            if (obj->GetDead()) {
-                delete_obj.push_back(obj);
-            }
-        }
-
-        for (const auto &obj : delete_obj) {
-            DeleteObject(obj);
-        }
-    }
-    else {
-        std::cout << "Object Manager is stopped!" << std::endl;
-    }
+	for (const auto & element : trunks)
+	{
+		element->Update(dt);
+	}
 }
 
 void ObjectManager::Clear()
 {
-    objects.clear();
-    delete_obj.clear();
+	for (const auto& element : trunks)
+	{
+		element->Clear();
+	}
+	trunks.clear();
+}
+void ObjectManager::AddLayer(const std::string & layerName)
+{
+	Layer* tmp = new Layer();
+	tmp->Init();
+	tmp->SetName(layerName);
+	trunks.push_back(tmp);
 }
 
-void ObjectManager::AddObject(Object * obj)
+Layer* ObjectManager::FindLayer(const std::string & name)
 {
-    objects.push_back(std::shared_ptr<Object>(obj));
-}
-
-void ObjectManager::DeleteObject(std::shared_ptr<Object> obj)
-{
-    const auto tmp = std::find(objects.begin(), objects.end(), obj);
-    if (tmp == objects.end()) 
-    {
-        return;
-    }
-    objects.erase(tmp);
+	const int size = trunks.size();
+	for (int i = 0; i < size; ++i)
+	{
+		if (trunks.at(i)->GetName() == name)
+		{
+			return trunks.at(i);
+		}
+	}
+	return nullptr;
 }
 

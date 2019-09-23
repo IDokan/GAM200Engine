@@ -14,6 +14,8 @@ Creation Date: 08.12.2019
 #include "Object.hpp"
 #include <memory>
 #include <unordered_map>
+#include <string>
+#include <Graphics/Layer.hpp>
 
 class ObjectManager
 {
@@ -26,15 +28,15 @@ public:
     void Update(float dt);
     void Clear();
 
-    void AddObject(Object* obj);
-    void DeleteObject(std::shared_ptr<Object> obj);
+	// I don't know it will be deleted.
+	// Temporary, commented it out.
+    std::vector<Layer*>& GetObjectManagerContainer() { return trunks; }
 
-    std::vector<std::shared_ptr<Object>>& GetObjectManagerContainer() { return objects; }
-
+	void AddLayer(const std::string& layerName = "UnnamedLayer");
+	// return nullptr, when finding layer is failed.
+	Layer* FindLayer(const std::string& name);
 private:
     ObjectManager() {};
-    // Puzzle, Casual -> map (easy to get specific object)
-    std::vector<std::shared_ptr<Object>> objects{};
-    //std::unordered_map<std::string, std::unique_ptr<Object>> objectsMap;
-    std::vector<std::shared_ptr<Object>>delete_obj{};
+
+	std::vector<Layer*> trunks{};
 };

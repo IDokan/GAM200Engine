@@ -59,6 +59,7 @@ void Object::SetScale(float scale)
     transform.SetScale(vector2{ scale });
 }
 
+// Depth value should be between -1 to 1.
 void Object::SetDepth(float depth)
 {
     transform.SetDepth(depth);
