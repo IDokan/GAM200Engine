@@ -90,6 +90,9 @@
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Sounds\SoundManager.cpp">
+      <Filter>Sounds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -197,6 +200,9 @@
       <Filter>Graphics\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Observer.hpp" />
+    <ClInclude Include="Sounds\SoundManager.hpp">
+      <Filter>Sounds</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -213,6 +219,9 @@
     </Filter>
     <Filter Include="Graphics\ImGui">
       <UniqueIdentifier>{a7684bdb-7afc-4f97-921a-b8c9261a5ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sounds">
+      <UniqueIdentifier>{6b7e432b-27a8-4a06-88b8-ee201562c7c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
