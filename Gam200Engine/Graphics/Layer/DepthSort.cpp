@@ -18,6 +18,9 @@ Creation Date: 09.26.2019
 //template <typename T>
 //void sort(T start, T end, greater<T>());
 
+
+
+//If I use this function, the compiler says that Layer* and Object cannot compare.
 bool Compare(Object x, Object y)
 {
     if (x.GetTransform().GetDepth() == y.GetTransform().GetDepth())
@@ -30,7 +33,8 @@ bool Compare(Object x, Object y)
     }
 }
 
+
 void SortingDepth(vector<Layer*> trunks)
 {
-    sort(trunks.begin(), trunks.end(), Compare);
+    sort(trunks.begin(), trunks.end()/*, Compare*/);
 }

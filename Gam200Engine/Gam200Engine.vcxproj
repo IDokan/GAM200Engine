@@ -193,7 +193,8 @@
     <ClInclude Include="Graphics\ImGui\imstb_textedit.h" />
     <ClInclude Include="Graphics\ImGui\imstb_truetype.h" />
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp" />
-    <ClInclude Include="Graphics\Layer.hpp" />
+    <ClInclude Include="Graphics\Layer\DepthSort.hpp" />
+    <ClInclude Include="Graphics\Layer\Layer.hpp" />
     <ClInclude Include="Graphics\Material.hpp" />
     <ClInclude Include="Graphics\Mesh.hpp" />
     <ClInclude Include="Graphics\Shader.hpp" />
@@ -239,7 +240,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp" />
-    <ClCompile Include="Graphics\Layer.cpp" />
+    <ClCompile Include="Graphics\Layer\DepthSort.cpp" />
+    <ClCompile Include="Graphics\Layer\Layer.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />

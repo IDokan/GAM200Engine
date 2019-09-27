@@ -17,6 +17,7 @@ Creation Date: 08.15.2019
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
+#include <Graphics/Layer/DepthSort.hpp>
 
 void TestLevel::Load()
 {
@@ -41,8 +42,11 @@ void TestLevel::Load()
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
 	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+    object1->SetDepth(-0.1f);
 	objManager->FindLayer("Stage")->AddObject(object1);
 
+    SortingDepth(objManager->GetObjectManagerContainer());
+    
 	cameraManager.Init();
 }
 
