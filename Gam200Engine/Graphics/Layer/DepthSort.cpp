@@ -19,22 +19,21 @@ Creation Date: 09.26.2019
 //void sort(T start, T end, greater<T>());
 
 
+//Error	C2664	'bool (Object,Object)': cannot convert argument 1 from 'std::shared_ptr<Object>' to 'Object'	
 
-//If I use this function, the compiler says that Layer* and Object cannot compare.
-bool Compare(Object x, Object y)
+bool Compare( const shared_ptr<Object> &x, const shared_ptr<Object> &y)
 {
-    if (x.GetTransform().GetDepth() == y.GetTransform().GetDepth())
-    {
-        return x.GetObjectName() < y.GetObjectName();
-    }
-    else
-    {
-        return x.GetTransform().GetDepth() < y.GetTransform().GetDepth();
-    }
+    return (x->GetTransform().GetDepth() <= y->GetTransform().GetDepth());
 }
 
-
-void SortingDepth(vector<Layer*> trunks)
+//trunk 안의 layer를 불러와서 비교시키는 기능을 넣어야 함.
+bool operator<(const shared_ptr<Object> &x, const shared_ptr<Object> &y)
 {
-    sort(trunks.begin(), trunks.end()/*, Compare*/);
+    return (x->GetTransform().GetDepth() < y->GetTransform().GetDepth());
+}
+
+void SortingDepth(vector<shared_ptr<Object>> layer)
+{
+    //layer[0]->GetTransform().GetDepth();
+    sort(layer.begin(), layer.end());
 }

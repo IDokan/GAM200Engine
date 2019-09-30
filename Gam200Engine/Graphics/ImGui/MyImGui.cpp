@@ -66,6 +66,7 @@ namespace MyImGui
 				if (ImGui::Selectable(objContainer.at(i)->GetObjectName().c_str(), selected == i))
 				{
 					selected = i;
+                    selectedLayer = 0;
 				}
 			}
 		}

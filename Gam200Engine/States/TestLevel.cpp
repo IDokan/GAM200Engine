@@ -24,7 +24,17 @@ void TestLevel::Load()
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
 	objManager->AddLayer("Stage");
-	
+
+    object1 = new Object();
+    object1->SetObjectName("Object1");
+    object1->SetTranslation(vector2{ 0.f });
+    object1->SetScale(vector2{ 200.f });
+    object1->AddComponent(new Sprite(object1));
+    object1->AddComponent(new Physics(object1));
+    object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+    object1->SetDepth(0.1f);
+    objManager->FindLayer("Stage")->AddObject(object1);
+
 	object2 = new Object();
 	object2->SetObjectName("Object2");
 	object2->SetTranslation(vector2{ 250.f });
@@ -35,18 +45,11 @@ void TestLevel::Load()
 	objManager->FindLayer("Stage")->AddObject(object2);
 
 
-	object1 = new Object();
-	object1->SetObjectName("Object1");
-	object1->SetTranslation(vector2{ 0.f });
-	object1->SetScale(vector2{ 200.f });
-	object1->AddComponent(new Sprite(object1));
-	object1->AddComponent(new Physics(object1));
-	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
-    object1->SetDepth(-0.1f);
-	objManager->FindLayer("Stage")->AddObject(object1);
 
-    SortingDepth(objManager->GetObjectManagerContainer());
-    
+
+    vector<shared_ptr<Object>>layer = objManager->FindLayer("Stage")->GetObjContainer();
+    SortingDepth(layer);
+
 	cameraManager.Init();
 }
 

@@ -18,4 +18,4 @@ Creation Date: 09.26.2019
 using namespace std;
 
 bool Compare(Object x, Object y);
-void SortingDepth(vector<Layer*>trunks);
+void SortingDepth(vector<shared_ptr<Object>>layer);
