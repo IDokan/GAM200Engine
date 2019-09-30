@@ -22,7 +22,7 @@ void TestLevel::Load()
 {
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
-	objManager->AddLayer("Stage");
+	objManager->AddLayer(LayerNames::Stage);
 	
 	object2 = new Object();
 	object2->SetObjectName("Object2");
@@ -31,7 +31,7 @@ void TestLevel::Load()
 	object2->AddComponent(new Sprite(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
 	object2->SetDepth(-0.1f);
-	objManager->FindLayer("Stage")->AddObject(object2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 
 
 	object1 = new Object();
@@ -41,7 +41,7 @@ void TestLevel::Load()
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
 	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
-	objManager->FindLayer("Stage")->AddObject(object1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
 	cameraManager.Init();
 }
@@ -93,7 +93,7 @@ void TestLevel::Draw() const noexcept
 {
 	Graphics::GL::begin_drawing();
 
-	for (const auto& element : ObjectManager::GetObjectManager()->GetObjectManagerContainer())
+	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
 		for (const auto& obj : element->GetObjContainer())
 		{

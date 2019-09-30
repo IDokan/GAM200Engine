@@ -46,12 +46,12 @@ void Layer::DeleteObject(std::shared_ptr<Object> obj)
 	layer.second.erase(tmp);
 }
 
-void Layer::SetName(const std::string name)
+void Layer::SetName(LayerNames name)
 {
 	layer.first = name;
 }
 
-const std::string& Layer::GetName() const
+LayerNames Layer::GetName() const
 {
 	return layer.first;
 }

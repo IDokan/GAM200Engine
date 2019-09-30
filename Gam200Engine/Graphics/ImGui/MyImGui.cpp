@@ -19,9 +19,9 @@ Creation Date: 08.23.2019
 
 namespace MyImGui
 {
-	
 	void InitImGui(GLFWwindow* window) noexcept
 	{
+#ifdef _DEBUG
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
 		ImGuiIO& io = ImGui::GetIO();
@@ -38,11 +38,13 @@ namespace MyImGui
 			style.WindowRounding = 0.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
+#endif
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
 	void UpdateImGui(bool isShowWindow) noexcept
 	{
+#ifdef _DEBUG
 		// Start the Dear ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -56,23 +58,24 @@ namespace MyImGui
 		ImGui::Begin("Scene");
 		static int selectedLayer = -1;
 		static int selected = -1;
-		auto& layerContainer = ObjectManager::GetObjectManager()->GetObjectManagerContainer();
-		for (const auto& element : layerContainer)
+		auto& layerContainer = ObjectManager::GetObjectManager()->GetLayerContainer();
+		for (int i = 0; i < layerContainer.size(); ++i)
 		{
-			const auto objContainer = element->GetObjContainer();
+			const auto objContainer = layerContainer.at(i)->GetObjContainer();
 			const int size = objContainer.size();
-			for (int i = 0; i < size; ++i)
+			for (int j = 0; j < size; ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(i)->GetObjectName().c_str(), selected == i))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j))
 				{
-					selected = i;
+					selectedLayer = i;
+					selected = j;
 				}
 			}
 		}
 		ImGui::End();
 
 		ImGui::Begin("Property");
-		if (selectedLayer >= 0 && selectedLayer <= layerContainer.size())
+		if (selectedLayer >= 0 && selectedLayer <= int(layerContainer.size()))
 		{
 			const auto& objContainer = layerContainer.at(selectedLayer)->GetObjContainer();
 			const int objContainerSize = objContainer.size();
@@ -147,12 +150,15 @@ namespace MyImGui
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
+#endif
 	}
 
 	void ClearImGui() noexcept
 	{
+#ifdef _DEBUG
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
+#endif
 	}
 }

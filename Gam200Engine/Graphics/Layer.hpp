@@ -4,6 +4,14 @@
 #include <memory>
 #include <Object/Object.hpp>
 
+enum LayerNames
+{
+	BackGround,
+	Stage,
+	HUD,
+	NumOfLayers,
+};
+
 class Layer
 {
 public:
@@ -14,12 +22,12 @@ public:
 	void AddObject(Object* obj);
 	void DeleteObject(std::shared_ptr<Object> obj);
 
-	void SetName(const std::string name);
-	[[nodiscard]] const std::string& GetName() const;
+	void SetName(LayerNames name);
+	[[nodiscard]] LayerNames GetName() const;
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
 private:
-	std::pair<std::string, std::vector<std::shared_ptr<Object>>> layer;
+	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> layer;
 
 	std::vector<std::shared_ptr<Object>>delete_obj{};
 };
