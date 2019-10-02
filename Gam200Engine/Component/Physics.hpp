@@ -11,7 +11,19 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #pragma once
-#include <map>
+
+enum  class ObjectType
+{
+    CIRCLE,
+    RECTANGLE,
+};
+
+struct CollsionBox
+{
+    vector2 Translation{};
+    vector2 Scale{};
+    vector2 TranslationAmount{};
+};
 
 struct matrix3;
 struct vector2;
@@ -32,17 +44,39 @@ public:
     void SetGravity(vector2 gravity);
     void SetGravity(float x, float y);
 
+    void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj = vector2{ 0.f,0.f }, vector2 scaleAdj = vector2{ 0.f,0.f });
+    void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
+    void SetCollisionBoxPosition(vector2 originPos);
+
     bool IsCollideWith(Object* object);
     
     void AddForce(vector2 frc);
     void AddForce(float x, float y);
 
-    vector2 GetTranslation(matrix3 matrix) const;
+    const vector2 GetTranslation(const matrix3 &matrix) const;
 
+    const CollsionBox &GetCollisionBox() const
+    {
+        return collisionBox;
+    }
+
+    bool GetHasCollisionBox() const
+    {
+        return hasCollisionBox;
+    }
+
+    ObjectType GetObjectType() //Woo
+    {
+        return objectType;
+    }
 private:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};
     vector2 vectorTranslation{};
     vector2 position{};
+
+    ObjectType objectType;
+    CollsionBox collisionBox{};
+    bool hasCollisionBox = false;
 };

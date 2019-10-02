@@ -16,7 +16,6 @@ Creation Date: 08.15.2019
 #include <Object/Object.hpp>
 #include "matrix3.hpp"
 #include <cmath>
-#include <iostream>
 
 Physics::Physics(Object * obj) : Component(obj) 
 {
@@ -57,7 +56,7 @@ void Physics::Update(float dt)
     position = position + vectorTranslation;
     
     owner->SetTranslation(position);
-    owner->SetCollisionBoxPosition(position);
+    owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 
 void Physics::Clear()
@@ -86,23 +85,53 @@ void Physics::SetGravity(float x, float y)
     this->gravity.y = y;
 }
 
+void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj, vector2 scaleAdj)
+{
+    objectType = objType;
+    collisionBox.TranslationAmount = positionAdj;
+    collisionBox.Translation = object->GetTranslation() + positionAdj;
+    collisionBox.Scale = object->GetScale() + scaleAdj;
+    hasCollisionBox = true;
+}
+
+void Physics::SetCollisionBoxAndObjectType(Object * object, ObjectType objType, float positionX, float positionY, float scaleX, float scaleY)
+{
+    objectType = objType;
+    collisionBox.TranslationAmount.x = positionX;
+    collisionBox.TranslationAmount.y = positionY;
+    collisionBox.Translation.x = object->GetTranslation().x + positionX;
+    collisionBox.Translation.y = object->GetTranslation().y + positionY;
+    collisionBox.Scale.x = scaleX;
+    collisionBox.Scale.y = scaleY;
+    hasCollisionBox = true;
+}
+
+void Physics::SetCollisionBoxPosition(vector2 originPos)
+{
+    collisionBox.Translation = originPos + collisionBox.TranslationAmount;
+}
+
+
 bool Physics::IsCollideWith(Object * object)
 {
-    if (owner->GetHasCollisionBox() && object->GetHasCollisionBox() == true)
-    {
-        if (owner->GetObjectType() == object->GetObjectType())
-        {
-            if (owner->GetObjectType() == Object::ObjectType::RECTANGLE)
-            {
-                float objectLeft = object->GetCollisionBox().Translation.x - (object->GetCollisionBox().Scale.width / 2);
-                float objectRight = object->GetCollisionBox().Translation.x + (object->GetCollisionBox().Scale.width / 2);
-                float objectBottom = object->GetCollisionBox().Translation.y - (object->GetCollisionBox().Scale.height / 2);
-                float objectTop = object->GetCollisionBox().Translation.y + (object->GetCollisionBox().Scale.height / 2);
+    CollsionBox ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    CollsionBox objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
 
-                float ownerLeft = owner->GetCollisionBox().Translation.x - (owner->GetCollisionBox().Scale.width / 2);
-                float ownerRight = owner->GetCollisionBox().Translation.x + (owner->GetCollisionBox().Scale.width / 2);
-                float ownerBottom = owner->GetCollisionBox().Translation.y - (owner->GetCollisionBox().Scale.height / 2);
-                float ownerTop = owner->GetCollisionBox().Translation.y + (owner->GetCollisionBox().Scale.height / 2);
+    if (owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
+    {
+        if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == object->GetComponentByTemplate<Physics>()->GetObjectType())
+        {
+            if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == ObjectType::RECTANGLE)
+            {
+                float objectLeft = objectCollisionBox.Translation.x - (objectCollisionBox.Scale.width / 2);
+                float objectRight = objectCollisionBox.Translation.x + (objectCollisionBox.Scale.width / 2);
+                float objectBottom = objectCollisionBox.Translation.y - (objectCollisionBox.Scale.height / 2);
+                float objectTop = objectCollisionBox.Translation.y + (objectCollisionBox.Scale.height / 2);
+
+                float ownerLeft = ownerCollisionBox.Translation.x - (ownerCollisionBox.Scale.width / 2);
+                float ownerRight = ownerCollisionBox.Translation.x + (ownerCollisionBox.Scale.width / 2);
+                float ownerBottom = ownerCollisionBox.Translation.y - (ownerCollisionBox.Scale.height / 2);
+                float ownerTop = ownerCollisionBox.Translation.y + (ownerCollisionBox.Scale.height / 2);
 
                 if (objectRight >= ownerLeft && objectLeft <= ownerRight && objectTop >= ownerBottom && objectBottom <= ownerTop)
                 {
@@ -113,13 +142,13 @@ bool Physics::IsCollideWith(Object * object)
                     return false;
                 }
             }
-            else if (owner->GetObjectType() == Object::ObjectType::CIRCLE)
+            else if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == ObjectType::CIRCLE)
             {
-                float xDistance = object->GetTranslation().x - owner->GetTranslation().x;
-                float yDistance = object->GetTranslation().y - owner->GetTranslation().y;
+                float xDistance = objectCollisionBox.Translation.x - ownerCollisionBox.Translation.x;
+                float yDistance = objectCollisionBox.Translation.y - ownerCollisionBox.Translation.y;
                 float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                if (distance < (object->GetScale().x / 2) + (owner->GetScale().x / 2))
+                if (distance < (objectCollisionBox.Scale.x / 2) + (ownerCollisionBox.Scale.x / 2))
                 {
                     return true;
                 }
@@ -131,16 +160,16 @@ bool Physics::IsCollideWith(Object * object)
         }
         else
         {
-            if (owner->GetObjectType() == Object::ObjectType::RECTANGLE)
+            if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == ObjectType::RECTANGLE)
             {
-                float rectangleLeft = owner->GetCollisionBox().Translation.x - (owner->GetCollisionBox().Scale.width / 2);
-                float rectangleRight = owner->GetCollisionBox().Translation.x + (owner->GetCollisionBox().Scale.width / 2);
-                float rectangleBottom = owner->GetCollisionBox().Translation.y - (owner->GetCollisionBox().Scale.height / 2);
-                float rectangleTop = owner->GetCollisionBox().Translation.y + (owner->GetCollisionBox().Scale.height / 2);
+                float rectangleLeft = ownerCollisionBox.Translation.x - (ownerCollisionBox.Scale.width / 2);
+                float rectangleRight = ownerCollisionBox.Translation.x + (ownerCollisionBox.Scale.width / 2);
+                float rectangleBottom = ownerCollisionBox.Translation.y - (ownerCollisionBox.Scale.height / 2);
+                float rectangleTop = ownerCollisionBox.Translation.y + (ownerCollisionBox.Scale.height / 2);
 
-                float circleX = object->GetCollisionBox().Translation.x;
-                float circleY = object->GetCollisionBox().Translation.y;
-                float circleRadius = object->GetCollisionBox().Scale.x / 2;
+                float circleX = objectCollisionBox.Translation.x;
+                float circleY = objectCollisionBox.Translation.y;
+                float circleRadius = objectCollisionBox.Scale.x / 2;
 
                 if (circleX >= rectangleLeft && circleX <= rectangleRight && circleY >= rectangleBottom && circleY <= rectangleTop)
                 {
@@ -247,16 +276,16 @@ bool Physics::IsCollideWith(Object * object)
                     }
                 }
             }
-            if (owner->GetObjectType() == Object::ObjectType::CIRCLE)
+            if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == ObjectType::CIRCLE)
             {
-                float rectangleLeft = object->GetCollisionBox().Translation.x - (object->GetCollisionBox().Scale.width / 2);
-                float rectangleRight = object->GetCollisionBox().Translation.x + (object->GetCollisionBox().Scale.width / 2);
-                float rectangleBottom = object->GetCollisionBox().Translation.y - (object->GetCollisionBox().Scale.height / 2);
-                float rectangleTop = object->GetCollisionBox().Translation.y + (object->GetCollisionBox().Scale.height / 2);
+                float rectangleLeft = objectCollisionBox.Translation.x - (objectCollisionBox.Scale.width / 2);
+                float rectangleRight = objectCollisionBox.Translation.x + (objectCollisionBox.Scale.width / 2);
+                float rectangleBottom = objectCollisionBox.Translation.y - (objectCollisionBox.Scale.height / 2);
+                float rectangleTop = objectCollisionBox.Translation.y + (objectCollisionBox.Scale.height / 2);
 
-                float circleX = owner->GetCollisionBox().Translation.x;
-                float circleY = owner->GetCollisionBox().Translation.y;
-                float circleRadius = owner->GetCollisionBox().Scale.x / 2;
+                float circleX = ownerCollisionBox.Translation.x;
+                float circleY = ownerCollisionBox.Translation.y;
+                float circleRadius = ownerCollisionBox.Scale.x / 2;
 
                 if (circleX >= rectangleLeft && circleX <= rectangleRight && circleY >= rectangleBottom && circleY <= rectangleTop)
                 {
@@ -384,7 +413,7 @@ void Physics::AddForce(float x, float y)
     force.y += y;
 }
 
-vector2 Physics::GetTranslation(matrix3 matrix3) const
+const vector2 Physics::GetTranslation(const matrix3 &matrix3) const
 {
     return vector2{ matrix3.column2.x, matrix3.column2.y };
 }

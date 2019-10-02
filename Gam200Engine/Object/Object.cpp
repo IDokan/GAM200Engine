@@ -89,29 +89,3 @@ float Object::GetRotation() const noexcept
 {
 	return transform.GetRotation();
 }
-
-void Object::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj, vector2 scaleAdj)
-{
-    objectType = objType;
-    collisionBox.TranslationAmount = positionAdj;
-    collisionBox.Translation = object->GetTranslation() + positionAdj;
-    collisionBox.Scale = object->GetScale() + scaleAdj;
-    hasCollisionBox = true;
-}
-
-void Object::SetCollisionBoxAndObjectType(Object * object, ObjectType objType, float positionX, float positionY, float scaleX, float scaleY)
-{
-    objectType = objType;
-    collisionBox.TranslationAmount.x = positionX;
-    collisionBox.TranslationAmount.y = positionY;
-    collisionBox.Translation.x = object->GetTranslation().x + positionX;
-    collisionBox.Translation.y = object->GetTranslation().y + positionY;
-    collisionBox.Scale.x = scaleX;
-    collisionBox.Scale.y = scaleY;
-    hasCollisionBox = true;
-}
-
-void Object::SetCollisionBoxPosition(vector2 originPos)
-{
-    collisionBox.Translation = originPos + collisionBox.TranslationAmount;
-}

@@ -29,8 +29,10 @@ void TestLevel::Load()
 	object2->SetTranslation(vector2{ 250.f });
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
+	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
 	object2->SetDepth(-0.1f);
+    object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 
 
@@ -40,10 +42,10 @@ void TestLevel::Load()
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-    object1->SetCollisionBoxAndObjectType(object1, Object::ObjectType::RECTANGLE);
+    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
-    object2->SetCollisionBoxAndObjectType(object2, Object::ObjectType::CIRCLE);
+    
 	cameraManager.Init();
 }
 

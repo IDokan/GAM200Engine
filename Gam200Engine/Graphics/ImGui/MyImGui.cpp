@@ -16,8 +16,7 @@ Creation Date: 08.23.2019
 #include <Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Component/Sprite.hpp>
-// Physics.hpp should be moved into Component folder
-#include <Physics.hpp>
+#include <Component/Physics.hpp>
 
 namespace MyImGui
 {
