@@ -89,9 +89,6 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Layer\DepthSort.cpp">
-      <Filter>Graphics\Layer</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Layer\Layer.cpp">
       <Filter>Graphics\Layer</Filter>
     </ClCompile>
@@ -200,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
       <Filter>Graphics\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Layer\DepthSort.hpp">
-      <Filter>Graphics\Layer</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Layer\Layer.hpp">
       <Filter>Graphics\Layer</Filter>

@@ -11,6 +11,7 @@ public:
 	void Init();
 	void Update(float dt);
 	void Clear();
+
 	
 	void AddObject(Object* obj);
 	void DeleteObject(std::shared_ptr<Object> obj);
@@ -19,7 +20,7 @@ public:
 	[[nodiscard]] const std::string& GetName() const;
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
-    void SortingDepth(std::vector<std::shared_ptr<Object>>layer);
+    void SortingDepth();
 
 private:
 	std::pair<std::string, std::vector<std::shared_ptr<Object>>> layer;

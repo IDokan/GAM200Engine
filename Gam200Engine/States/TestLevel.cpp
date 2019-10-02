@@ -46,9 +46,7 @@ void TestLevel::Load()
 	object2->SetDepth(-0.1f);
     stageLayer->AddObject(object2);
 
-
-    std::vector<std::shared_ptr<Object>>layer = stageLayer->GetObjContainer();
-    stageLayer->SortingDepth(layer);
+    stageLayer->SortingDepth();
 
 	cameraManager.Init();
 }
