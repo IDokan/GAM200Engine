@@ -60,3 +60,18 @@ std::vector<std::shared_ptr<Object>>& Layer::GetObjContainer()
 {
 	return layer.second;
 }
+
+
+/*
+ * brief
+ * Hyerin Jung
+ */
+bool operator<(const std::shared_ptr<Object> &x, const std::shared_ptr<Object> &y)
+{
+    return (x->GetTransform().GetDepth() < y->GetTransform().GetDepth());
+}
+
+void Layer::SortingDepth(std::vector<std::shared_ptr<Object>> layer)
+{
+    sort(layer.begin(), layer.end());
+}

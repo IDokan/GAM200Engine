@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>    //sorting
 #include <vector>
 #include <string>
 #include <memory>
@@ -18,6 +19,8 @@ public:
 	[[nodiscard]] const std::string& GetName() const;
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
+    void SortingDepth(std::vector<std::shared_ptr<Object>>layer);
+
 private:
 	std::pair<std::string, std::vector<std::shared_ptr<Object>>> layer;
 

@@ -17,13 +17,15 @@ Creation Date: 08.15.2019
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
-#include <Graphics/Layer/DepthSort.hpp>
+#include <Graphics/Layer/Layer.hpp>
 
 void TestLevel::Load()
 {
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
 	objManager->AddLayer("Stage");
+
+    auto stageLayer = objManager->FindLayer("Stage");
 
     object1 = new Object();
     object1->SetObjectName("Object1");
@@ -33,7 +35,7 @@ void TestLevel::Load()
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
     object1->SetDepth(0.1f);
-    objManager->FindLayer("Stage")->AddObject(object1);
+    stageLayer->AddObject(object1);
 
 	object2 = new Object();
 	object2->SetObjectName("Object2");
@@ -42,13 +44,11 @@ void TestLevel::Load()
 	object2->AddComponent(new Sprite(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
 	object2->SetDepth(-0.1f);
-	objManager->FindLayer("Stage")->AddObject(object2);
+    stageLayer->AddObject(object2);
 
 
-
-
-    vector<shared_ptr<Object>>layer = objManager->FindLayer("Stage")->GetObjContainer();
-    SortingDepth(layer);
+    std::vector<std::shared_ptr<Object>>layer = stageLayer->GetObjContainer();
+    stageLayer->SortingDepth(layer);
 
 	cameraManager.Init();
 }
