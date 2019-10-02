@@ -88,8 +88,11 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Layer.cpp">
-      <Filter>Graphics</Filter>
+    <ClCompile Include="Component\Physics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp">
+      <Filter>Graphics\Parallex scrolling</Filter>
     </ClCompile>
     <ClCompile Include="Component\Physics.cpp" />
   </ItemGroup>
@@ -197,8 +200,11 @@
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
       <Filter>Graphics\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Layer.hpp">
-      <Filter>Graphics</Filter>
+    <ClInclude Include="Component\Physics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp">
+      <Filter>Graphics\Parallex scrolling</Filter>
     </ClInclude>
     <ClInclude Include="Component\Physics.hpp" />
   </ItemGroup>
@@ -217,6 +223,9 @@
     </Filter>
     <Filter Include="Graphics\ImGui">
       <UniqueIdentifier>{a7684bdb-7afc-4f97-921a-b8c9261a5ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Parallex scrolling">
+      <UniqueIdentifier>{994be212-26ea-43f2-91e0-b978228ba340}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

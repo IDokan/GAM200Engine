@@ -87,7 +87,8 @@ void TestLevel::Draw() const noexcept
 }
 
 void TestLevel::Input()
-{
+{
+
     if (input.IsKeyPressed(GLFW_KEY_W))
     {
         object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);

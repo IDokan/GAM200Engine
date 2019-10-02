@@ -15,16 +15,36 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui_impl_glfw.h>
 #include <Application.hpp>
 #include <Object/ObjectManager.hpp>
+
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 
 namespace MyImGui
 {
-	void DrawSpriteSection(Sprite* sprite)
+	void HelpMarker(const char* description)
+	{
+		ImGui::TextDisabled("(?)");
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(description);
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+	}
+	
+	void SeparateSection(const char* description)
 	{
 		ImGui::Spacing();
 		ImGui::Separator();
 		ImGui::Spacing();
+		ImGui::Text(description);
+	}
+	
+	void DrawSpriteSection(Sprite* sprite)
+	{
+		SeparateSection("Sprite Section");
 		Graphics::Color4f color = sprite->GetColor();
 		ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
 		sprite->SetColor(color);
@@ -41,7 +61,28 @@ namespace MyImGui
 
 	void DrawPhysicsSection(Physics* physics)
 	{
-		// TODO: Implement DUBUG Drawing about Physics
+		SeparateSection("Physics Section");
+
+		static vector2 velocity, gravity, force;
+		velocity = physics->GetVelocity();
+		gravity = physics->GetGravity();
+		force = physics->GetForce();
+
+		ImGui::InputFloat2("Velocity", velocity.elements);
+		ImGui::InputFloat2("Gravity", gravity.elements);
+		ImGui::InputFloat2("Force", force.elements, "%.3f", ImGuiInputTextFlags_ReadOnly);
+		ImGui::SameLine(); HelpMarker("Read Only");
+
+		physics->SetVelocity(velocity);
+		physics->SetGravity(gravity);
+
+		static bool isCollisionBoxDrawn = false;
+		ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
+		if (isCollisionBoxDrawn)
+		{
+			// TODO: Display Collision Box
+			
+		}
 	}
 
 	void DrawTransformSection(Object* obj)
@@ -127,7 +168,9 @@ namespace MyImGui
 			if (selected >= 0 && selected < objContainerSize)
 			{
 				Object* obj = objContainer.at(selected).get();
-				ImGui::Text(obj->GetObjectName().c_str());
+				ImGui::Text("Object name is \"");	ImGui::SameLine();
+				ImGui::Text(obj->GetObjectName().c_str()); ImGui::SameLine();
+				ImGui::Text("\"");
 				ImGui::Spacing();
 
 				DrawTransformSection(obj);
