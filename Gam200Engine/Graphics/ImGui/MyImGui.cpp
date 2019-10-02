@@ -16,9 +16,55 @@ Creation Date: 08.23.2019
 #include <Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Component/Sprite.hpp>
+// Physics.hpp should be moved into Component folder
+#include <Physics.hpp>
 
 namespace MyImGui
 {
+	void DrawSpriteSection(Sprite* sprite)
+	{
+		ImGui::Spacing();
+		ImGui::Separator();
+		ImGui::Spacing();
+		Graphics::Color4f color = sprite->GetColor();
+		ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
+		sprite->SetColor(color);
+
+		ImGui::Spacing();
+		if (ImGui::Button("Button"))
+		{
+			sprite->SetImage("../texture/rect.png");
+		}
+		unsigned int* textureID = sprite->GetRefTextureHandle();
+		ImGui::Text("%d", textureID);
+		ImGui::Image((textureID), ImVec2(128, 128));
+	}
+
+	void DrawPhysicsSection(Physics* physics)
+	{
+		// TODO: Implement DUBUG Drawing about Physics
+	}
+
+	void DrawTransformSection(Object* obj)
+	{
+		ImGui::Text("Transform");
+		static vector2 translation{}, scale{};
+		static float rotation;
+		translation = obj->GetTranslation();
+		rotation = obj->GetRotation();
+		scale = obj->GetScale();
+
+		ImGui::DragFloat("Translation X", &translation.x);
+		ImGui::DragFloat("Translation Y", &translation.y);
+		ImGui::DragFloat("Scale X", &scale.x);
+		ImGui::DragFloat("Scale Y", &scale.y);
+		ImGui::DragFloat("Rotation", &rotation, 0.005f);
+
+		obj->SetTranslation(translation);
+		obj->SetScale(scale);
+		obj->SetRotation(rotation);
+	}
+
 	void InitImGui(GLFWwindow* window) noexcept
 	{
 #ifdef _DEBUG
@@ -85,42 +131,16 @@ namespace MyImGui
 				ImGui::Text(obj->GetObjectName().c_str());
 				ImGui::Spacing();
 
-				ImGui::Text("Transform");
-				static vector2 translation{}, scale{};
-				static float rotation;
-				translation = obj->GetTranslation();
-				rotation = obj->GetRotation();
-				scale = obj->GetScale();
+				DrawTransformSection(obj);
 
-				ImGui::DragFloat("Translation X", &translation.x);
-				ImGui::DragFloat("Translation Y", &translation.y);
-				ImGui::DragFloat("Scale X", &scale.x);
-				ImGui::DragFloat("Scale Y", &scale.y);
-				ImGui::DragFloat("Rotation", &rotation, 0.005f);
-
-				obj->SetTranslation(translation);
-				obj->SetScale(scale);
-				obj->SetRotation(rotation);
-
-				// TODO: Make Object Controller followed Component
+				// If object have components display them.
 				if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>())
 				{
-					ImGui::Spacing();
-					ImGui::Separator();
-					ImGui::Spacing();
-					Graphics::Color4f color = sprite->GetColor();
-					ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
-					sprite->SetColor(color);
-
-					ImGui::Spacing();
-					static int* cnt = 0;
-					if (ImGui::Button("Button"))
-					{
-						sprite->SetImage("../texture/rect.png");
-					}
-					unsigned int* textureID = sprite->GetRefTextureHandle();
-					ImGui::Text("%d", textureID);
-					ImGui::Image((textureID), ImVec2(128, 128));
+					DrawSpriteSection(sprite);
+				}
+				if (Physics * physics = obj->GetComponentByTemplate<Physics>())
+				{
+					DrawPhysicsSection(physics);
 				}
 			}
 			else
