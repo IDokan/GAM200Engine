@@ -388,3 +388,18 @@ vector2 Physics::GetTranslation(matrix3 matrix3) const
 {
     return vector2{ matrix3.column2.x, matrix3.column2.y };
 }
+
+vector2 Physics::GetVelocity() const noexcept
+{
+	return velocity;
+}
+
+vector2 Physics::GetGravity() const noexcept
+{
+	return gravity;
+}
+
+vector2 Physics::GetForce() const noexcept
+{
+	return force;
+}

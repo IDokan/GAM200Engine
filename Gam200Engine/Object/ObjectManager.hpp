@@ -15,7 +15,7 @@ Creation Date: 08.12.2019
 #include <memory>
 #include <unordered_map>
 #include <string>
-#include <Graphics/Layer.hpp>
+#include <Graphics/Parallax scrolling/Layer.hpp>
 
 class ObjectManager
 {

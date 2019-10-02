@@ -38,6 +38,21 @@ public:
     void AddForce(float x, float y);
 
     vector2 GetTranslation(matrix3 matrix) const;
+    /**
+	 * \brief Implemented by Il.
+	 * \return velocity
+	 */
+	vector2 GetVelocity() const noexcept;
+    /**
+	 * \brief Implemented by Il.
+	 * \return gravity
+	 */
+	vector2 GetGravity() const noexcept;
+    /**
+	 * \brief Implemented by Il.
+	 * \return force
+	 */
+	vector2 GetForce() const noexcept;
 
 private:
     vector2 velocity{};
