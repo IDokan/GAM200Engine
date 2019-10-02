@@ -13,7 +13,7 @@ Creation Date: 08.15.2019
 #include <iostream>
 #include "TestLevel.hpp"
 #include <Component/Sprite.hpp>
-#include <Physics.hpp>
+#include <Component/Physics.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
@@ -40,48 +40,23 @@ void TestLevel::Load()
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+    object1->SetCollisionBoxAndObjectType(object1, Object::ObjectType::RECTANGLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
+    object2->SetCollisionBoxAndObjectType(object2, Object::ObjectType::CIRCLE);
 	cameraManager.Init();
 }
 
 void TestLevel::Update(float dt)
 {
+    TestLevel::Input();
+    
 	// Code for test Physics thing by Woo
     if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
     {
         std::cout << "colliding!!" << std::endl;
     }
-    if (input.IsKeyPressed(GLFW_KEY_W))
-    {
-		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-    }
-    if (input.IsKeyPressed(GLFW_KEY_A))
-    {
-		object1->GetComponentByTemplate<Physics>()->SetDirection(-3.f, 0.f);
-    }
-    if (input.IsKeyPressed(GLFW_KEY_S))
-    {
-		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
-    }
-    if (input.IsKeyPressed(GLFW_KEY_D))
-    {
-		object1->GetComponentByTemplate<Physics>()->SetDirection(3.f, 0.f);
-    }
-    if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_S))
-    {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
-    }
-    if (input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_D) )
-    {
-		object1->GetComponentByTemplate<Physics>()->SetDirection(0.f, 0.f);
-    }
-    if (input.IsKeyTriggered(GLFW_KEY_SPACE))
-    {
-        object1->GetComponentByTemplate<Physics>()->AddForce(0.f, 0.1f);
-    }
-
+   
 	cameraManager.CameraMove(1.1f);
 }
 
@@ -107,4 +82,61 @@ void TestLevel::Draw() const noexcept
 	}
 
 	Graphics::GL::end_drawing();
+}
+
+void TestLevel::Input()
+{
+    if (input.IsKeyPressed(GLFW_KEY_W))
+    {
+        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+        if (input.IsKeyPressed(GLFW_KEY_D))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+        }
+        else if (input.IsKeyPressed(GLFW_KEY_A))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+        }
+    }
+    if (input.IsKeyPressed(GLFW_KEY_A))
+    {
+        object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+        if (input.IsKeyPressed(GLFW_KEY_W))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+        }
+        else if (input.IsKeyPressed(GLFW_KEY_S))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+        }
+    }
+    if (input.IsKeyPressed(GLFW_KEY_S))
+    {
+        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+
+        if (input.IsKeyPressed(GLFW_KEY_A))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+        }
+        else if (input.IsKeyPressed(GLFW_KEY_D))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+        }
+    }
+    if (input.IsKeyPressed(GLFW_KEY_D))
+    {
+        object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+        if (input.IsKeyPressed(GLFW_KEY_W))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+        }
+        else if (input.IsKeyPressed(GLFW_KEY_S))
+        {
+            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+        }
+    }
+    if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
+    {
+        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+    }
 }

@@ -30,6 +30,7 @@ public:
 
 	void Draw() const noexcept override;
 
+    void Input();
 private:
 	Graphics::CameraManager cameraManager;
 

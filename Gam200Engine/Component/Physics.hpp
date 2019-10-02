@@ -11,6 +11,8 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #pragma once
+#include <map>
+
 struct matrix3;
 struct vector2;
 class Object;
@@ -29,19 +31,18 @@ public:
     void SetVelocity(float x, float y);
     void SetGravity(vector2 gravity);
     void SetGravity(float x, float y);
-    bool IsCollideWith(Object* object);
-    void SetDirection(vector2 dir);
-    void SetDirection(float x, float y);
 
+    bool IsCollideWith(Object* object);
+    
     void AddForce(vector2 frc);
     void AddForce(float x, float y);
 
-    vector2 GetTranslation(matrix3 matrix);
+    vector2 GetTranslation(matrix3 matrix) const;
 
 private:
     vector2 velocity{};
     vector2 gravity{};
-    vector2 direction{};
     vector2 force{};
     vector2 vectorTranslation{};
+    vector2 position{};
 };
