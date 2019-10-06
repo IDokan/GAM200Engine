@@ -32,11 +32,11 @@ public:
 	// Temporary, commented it out.
     std::vector<Layer*>& GetLayerContainer() { return layerContainer; }
 
-	void AddLayer(LayerNames layerName);
 	// return nullptr, when finding layer is failed.
 	Layer* FindLayer(LayerNames name);
 private:
     ObjectManager() {};
+	void AddLayer();
 
 	std::vector<Layer*> layerContainer{};
 };

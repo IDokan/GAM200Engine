@@ -21,6 +21,53 @@ Creation Date: 08.23.2019
 
 namespace MyImGui
 {
+	bool isCollisionBoxShown = false;
+	int stack = 0;
+
+	void AddCollisionBox(Object* obj, Physics* physics)
+	{
+		if (isCollisionBoxShown == true)
+		{
+			return;
+		}
+
+		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
+		if (hudLayer != nullptr)
+		{
+			// Toggle Show var
+			isCollisionBoxShown = true;
+
+			// Make Collision Box Object and Add to Object Manager
+			Object* collisionBox = new Object();
+			collisionBox->AddComponent(new Sprite(collisionBox));
+			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
+			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+			collisionBox->SetTranslation(positionOfCollisionBox.Translation);
+			collisionBox->SetScale(positionOfCollisionBox.Scale);
+			collisionBox->SetDepth(-1.f);
+
+			// If type of collision type is circle, make image as circle.
+			if (physics->GetObjectType() == ObjectType::CIRCLE)
+			{
+				collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+			}
+
+			hudLayer->AddObject(collisionBox);
+		}
+	}
+
+	void DeleteCollisionBox(Object* obj, Physics* physics)
+	{
+		if (isCollisionBoxShown == false)
+		{
+			return;
+		}
+		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
+		// Toggle Show Var
+		isCollisionBoxShown = false;
+		hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
+	}
+
 	void HelpMarker(const char* description)
 	{
 		ImGui::TextDisabled("(?)");
@@ -33,7 +80,7 @@ namespace MyImGui
 			ImGui::EndTooltip();
 		}
 	}
-	
+
 	void SeparateSection(const char* description)
 	{
 		ImGui::Spacing();
@@ -41,7 +88,7 @@ namespace MyImGui
 		ImGui::Spacing();
 		ImGui::Text(description);
 	}
-	
+
 	void DrawSpriteSection(Sprite* sprite)
 	{
 		SeparateSection("Sprite Section");
@@ -59,7 +106,7 @@ namespace MyImGui
 		ImGui::Image((textureID), ImVec2(128, 128));
 	}
 
-	void DrawPhysicsSection(Physics* physics)
+	void DrawPhysicsSection(Object* object, Physics* physics)
 	{
 		SeparateSection("Physics Section");
 
@@ -77,11 +124,17 @@ namespace MyImGui
 		physics->SetGravity(gravity);
 
 		static bool isCollisionBoxDrawn = false;
-		ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
-		if (isCollisionBoxDrawn)
+		if (physics->GetHasCollisionBox())
 		{
-			// TODO: Display Collision Box
-			
+			ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
+			if (isCollisionBoxDrawn)
+			{
+				AddCollisionBox(object, physics);
+			}
+			else
+			{
+				DeleteCollisionBox(object, physics);
+			}
 		}
 	}
 
@@ -111,7 +164,7 @@ namespace MyImGui
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
 		ImGuiIO& io = ImGui::GetIO();
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -151,7 +204,7 @@ namespace MyImGui
 			const int size = objContainer.size();
 			for (int j = 0; j < size; ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && selectedLayer == i))
 				{
 					selectedLayer = i;
 					selected = j;
@@ -182,7 +235,7 @@ namespace MyImGui
 				}
 				if (Physics * physics = obj->GetComponentByTemplate<Physics>())
 				{
-					DrawPhysicsSection(physics);
+					DrawPhysicsSection(obj, physics);
 				}
 			}
 			else

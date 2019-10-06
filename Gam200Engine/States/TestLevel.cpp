@@ -22,7 +22,6 @@ void TestLevel::Load()
 {
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
-	objManager->AddLayer(LayerNames::Stage);
 	
 	object2 = new Object();
 	object2->SetObjectName("Object2");
@@ -31,6 +30,7 @@ void TestLevel::Load()
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
+	object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
 	object2->SetDepth(-0.1f);
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
@@ -42,11 +42,84 @@ void TestLevel::Load()
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE);
+	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::RECTANGLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
+
+
+	object3 = new Object();
+	object3->SetObjectName("Object3");
+	object3->SetTranslation(vector2{ 100.f });
+	object3->SetScale(vector2{ 200.f });
+	object3->AddComponent(new Sprite(object3));
+	object3->AddComponent(new Physics(object3));
+	object3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object3, ObjectType::CIRCLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object3);
+
+	object4 = new Object();
+	object4->SetObjectName("Object4");
+	object4->SetTranslation(vector2{ 500.f });
+	object4->SetScale(vector2{ 200.f });
+	object4->AddComponent(new Sprite(object4));
+	object4->AddComponent(new Physics(object4));
+	object4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object4, ObjectType::CIRCLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object4);
+
+	object5 = new Object();
+	object5->SetObjectName("Object5");
+	object5->SetTranslation(vector2{ -100.f });
+	object5->SetScale(vector2{ 200.f });
+	object5->AddComponent(new Sprite(object5));
+	object5->AddComponent(new Physics(object5));
+	object5->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object5, ObjectType::CIRCLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object5);
 
     
 	cameraManager.Init();
+}
+
+bool isCollisionBoxShown = false;
+void AddCollisionBox(Object* obj, Physics* physics)
+{
+	if (isCollisionBoxShown == true)
+	{
+		return;
+	}
+
+	Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
+	if (hudLayer != nullptr)
+	{
+		// Toggle Show var
+		isCollisionBoxShown = true;
+
+		// Make Collision Box Object and Add to Object Manager
+		Object* collisionBox = new Object();
+		collisionBox->AddComponent(new Sprite(collisionBox));
+		collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
+		const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+		collisionBox->SetTranslation(positionOfCollisionBox.Translation);
+		collisionBox->SetScale(positionOfCollisionBox.Scale);
+		collisionBox->SetDepth(-1.f);
+
+		// If type of collision type is circle, make image as circle.
+		if (physics->GetObjectType() == ObjectType::CIRCLE)
+		{
+			collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+		}
+
+		hudLayer->AddObject(collisionBox);
+	}
+}
+
+void DeleteCollisionBox(Object* obj, Physics* physics)
+{
+	if (isCollisionBoxShown == false)
+	{
+		return;
+	}
+	Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
+	// Toggle Show Var
+	isCollisionBoxShown = false;
+	hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
 }
 
 void TestLevel::Update(float dt)
@@ -60,6 +133,15 @@ void TestLevel::Update(float dt)
     }
    
 	cameraManager.CameraMove(1.1f);
+
+	if (input.IsKeyTriggered(GLFW_KEY_Q))
+	{
+		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_Z))
+	{
+		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
+	}
 }
 
 void TestLevel::Unload()

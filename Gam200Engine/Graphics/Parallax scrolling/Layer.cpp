@@ -47,14 +47,30 @@ void Layer::AddObject(Object* obj)
 	layer.second.push_back(std::shared_ptr<Object>(obj));
 }
 
-void Layer::DeleteObject(std::shared_ptr<Object> obj)
+bool Layer::DeleteObject(std::shared_ptr<Object> obj)
 {
 	const auto tmp = std::find(layer.second.begin(), layer.second.end(), obj);
 	if (tmp == layer.second.end())
 	{
-		return;
+		return false;
 	}
 	layer.second.erase(tmp);
+	return true;
+}
+
+bool Layer::DeleteObject(std::string objName)
+{
+	size_t index = 0;
+	for (auto iterator = layer.second.begin(); iterator < layer.second.end(); ++iterator)
+	{
+		if (layer.second.at(index)->GetObjectName() == objName)
+		{
+			layer.second.erase(iterator);
+			return true;
+		}
+		++index;
+	}
+	return false;
 }
 
 void Layer::SetName(LayerNames name)
