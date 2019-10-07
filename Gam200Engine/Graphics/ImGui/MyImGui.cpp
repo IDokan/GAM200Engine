@@ -24,6 +24,7 @@ namespace MyImGui
 	bool isCollisionBoxShown = false;
 	int stack = 0;
 
+	static Object* collisionBox;
 	void AddCollisionBox(Object* obj, Physics* physics)
 	{
 		if (isCollisionBoxShown == true)
@@ -38,7 +39,7 @@ namespace MyImGui
 			isCollisionBoxShown = true;
 
 			// Make Collision Box Object and Add to Object Manager
-			Object* collisionBox = new Object();
+			collisionBox = new Object();
 			collisionBox->AddComponent(new Sprite(collisionBox));
 			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
 			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
@@ -65,7 +66,8 @@ namespace MyImGui
 		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
 		// Toggle Show Var
 		isCollisionBoxShown = false;
-		hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
+		//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
+		hudLayer->DeleteObject(collisionBox);
 	}
 
 	void HelpMarker(const char* description)
@@ -164,11 +166,11 @@ namespace MyImGui
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
 		ImGuiIO& io = ImGui::GetIO();
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init("#version 330");
+		ImGui_ImplOpenGL3_Init("#version 330 core");
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -190,8 +192,8 @@ namespace MyImGui
 		ImGui::NewFrame();
 
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-		if (isShowWindow)
-			ImGui::ShowDemoWindow(&isShowWindow);
+		//if (isShowWindow)
+		//	ImGui::ShowDemoWindow(&isShowWindow);
 
 		// 2. Let's make my own window with ImGui Tutorial!
 		ImGui::Begin("Scene");
@@ -264,6 +266,7 @@ namespace MyImGui
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
+			
 		}
 #endif
 	}

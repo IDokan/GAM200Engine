@@ -32,7 +32,7 @@ void Layer::Update(float dt)
 	}
 
 	for (const auto& obj : delete_obj) {
-		DeleteObject(obj);
+		DeleteObject(obj.get());
 	}
 }
 
@@ -47,15 +47,28 @@ void Layer::AddObject(Object* obj)
 	layer.second.push_back(std::shared_ptr<Object>(obj));
 }
 
-bool Layer::DeleteObject(std::shared_ptr<Object> obj)
+bool Layer::DeleteObject(Object* obj)
 {
-	const auto tmp = std::find(layer.second.begin(), layer.second.end(), obj);
-	if (tmp == layer.second.end())
+	//const auto tmp = std::find(layer.second.begin(), layer.second.end(), obj);
+	//if (tmp == layer.second.end())
+	//{
+	//	return false;
+	//}
+	//layer.second.erase(tmp);
+	//return true;
+	//
+	//
+	size_t index = 0;
+	for (auto iterator = layer.second.begin(); iterator < layer.second.end(); ++iterator)
 	{
-		return false;
+		if (layer.second.at(index).get() == obj)
+		{
+			layer.second.erase(iterator);
+			return true;
+		}
+		++index;
 	}
-	layer.second.erase(tmp);
-	return true;
+	return false;
 }
 
 bool Layer::DeleteObject(std::string objName)
