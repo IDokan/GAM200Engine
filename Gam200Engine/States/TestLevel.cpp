@@ -158,7 +158,8 @@ void TestLevel::Draw() const noexcept
 		{
 			if (const auto& sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
-				sprite->UpdateUniforms(cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld(),
+				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+				sprite->UpdateUniforms(matrix,
 					obj.get()->GetTransform().CalculateWorldDepth());
 				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
 			}

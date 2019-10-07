@@ -31,7 +31,7 @@ public:
 	void Clear();
 	
 	void AddObject(Object* obj);
-	bool DeleteObject(std::shared_ptr<Object> obj);
+	bool DeleteObject(Object* obj);
 	bool DeleteObject(std::string objName);
 
 	void SetName(LayerNames name);
