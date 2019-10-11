@@ -29,6 +29,8 @@ public:
 	void Init();
 	void Update(float dt);
 	void Clear();
+
+	void AddObjectDynamically(Object* obj);
 	
 	void AddObject(Object* obj);
 	bool DeleteObject(Object* obj);
@@ -39,6 +41,8 @@ public:
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
 private:
+	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> willBeAdded;
+	
 	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> layer;
 
 	std::vector<std::shared_ptr<Object>>delete_obj{};

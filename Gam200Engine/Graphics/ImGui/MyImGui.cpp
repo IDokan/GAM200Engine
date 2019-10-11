@@ -53,7 +53,7 @@ namespace MyImGui
 				collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
 			}
 
-			hudLayer->AddObject(collisionBox);
+			hudLayer->AddObjectDynamically(collisionBox);
 		}
 	}
 
@@ -67,7 +67,7 @@ namespace MyImGui
 		// Toggle Show Var
 		isCollisionBoxShown = false;
 		//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
-		hudLayer->DeleteObject(collisionBox);
+		collisionBox->SetDead(true);
 	}
 
 	void HelpMarker(const char* description)
@@ -166,19 +166,13 @@ namespace MyImGui
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
 		ImGuiIO& io = ImGui::GetIO();
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init("#version 330 core");
+		ImGui_ImplOpenGL3_Init("#version 330");
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			style.WindowRounding = 0.0f;
-			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-		}
 #endif
 	}
 
@@ -255,19 +249,6 @@ namespace MyImGui
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		ImGuiIO& io = ImGui::GetIO();
-		// Update and Render additional Platform Windows
-		// (Platform functions may change the currentOpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-		//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			GLFWwindow* backup_current_context = glfwGetCurrentContext();
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(backup_current_context);
-			
-		}
 #endif
 	}
 

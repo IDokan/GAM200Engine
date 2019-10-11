@@ -76,9 +76,9 @@ bool PlatformWindow::CreateWindow() noexcept
     glfwSetWindowSizeCallback(window, WindowSizeCallback);
     glfwSwapInterval(true);
 
+	MyImGui::InitImGui(window);
     glewInit();
 
-	MyImGui::InitImGui(window);
 
     return true;
 }

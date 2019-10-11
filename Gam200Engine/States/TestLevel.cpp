@@ -76,9 +76,10 @@ void TestLevel::Load()
     
 	cameraManager.Init();
 }
-
+Object* collisionBox;
+Object* cB2;
 bool isCollisionBoxShown = false;
-void AddCollisionBox(Object* obj, Physics* physics)
+void AddCollisionBox(Object* obj, Physics* physics, bool tmp = false)
 {
 	if (isCollisionBoxShown == true)
 	{
@@ -91,26 +92,48 @@ void AddCollisionBox(Object* obj, Physics* physics)
 		// Toggle Show var
 		isCollisionBoxShown = true;
 
-		// Make Collision Box Object and Add to Object Manager
-		Object* collisionBox = new Object();
-		collisionBox->AddComponent(new Sprite(collisionBox));
-		collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
-		const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
-		collisionBox->SetTranslation(positionOfCollisionBox.Translation);
-		collisionBox->SetScale(positionOfCollisionBox.Scale);
-		collisionBox->SetDepth(-1.f);
-
-		// If type of collision type is circle, make image as circle.
-		if (physics->GetObjectType() == ObjectType::CIRCLE)
+		if (!tmp)
 		{
-			collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
-		}
+			// Make Collision Box Object and Add to Object Manager
+			collisionBox = new Object();
+			collisionBox->AddComponent(new Sprite(collisionBox));
+			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
+			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+			collisionBox->SetTranslation(positionOfCollisionBox.Translation);
+			collisionBox->SetScale(positionOfCollisionBox.Scale);
+			collisionBox->SetDepth(-1.f);
 
-		hudLayer->AddObject(collisionBox);
+			// If type of collision type is circle, make image as circle.
+			if (physics->GetObjectType() == ObjectType::CIRCLE)
+			{
+				collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+			}
+
+			hudLayer->AddObjectDynamically(collisionBox);
+		}
+		else
+		{
+			// Make Collision Box Object and Add to Object Manager
+			cB2 = new Object();
+			cB2->AddComponent(new Sprite(cB2));
+			cB2->SetObjectName(obj->GetObjectName() + " CollisionBox2");
+			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+			cB2->SetTranslation(positionOfCollisionBox.Translation);
+			cB2->SetScale(positionOfCollisionBox.Scale);
+			cB2->SetDepth(-1.f);
+
+			// If type of collision type is circle, make image as circle.
+			if (physics->GetObjectType() == ObjectType::CIRCLE)
+			{
+				cB2->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+			}
+
+			hudLayer->AddObjectDynamically(cB2);
+		}
 	}
 }
 
-void DeleteCollisionBox(Object* obj, Physics* physics)
+void DeleteCollisionBox(Object* obj, Physics* physics, bool tmp = false)
 {
 	if (isCollisionBoxShown == false)
 	{
@@ -119,7 +142,16 @@ void DeleteCollisionBox(Object* obj, Physics* physics)
 	Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
 	// Toggle Show Var
 	isCollisionBoxShown = false;
-	hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
+	if (tmp)
+	{
+		cB2->SetDead(true);
+	}
+	else
+	{
+		
+		collisionBox->SetDead(true);
+	}
+	//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
 }
 
 void TestLevel::Update(float dt)
@@ -141,6 +173,14 @@ void TestLevel::Update(float dt)
 	if (input.IsKeyTriggered(GLFW_KEY_Z))
 	{
 		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_E))
+	{
+		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_C))
+	{
+		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
 	}
 }
 
@@ -165,8 +205,6 @@ void TestLevel::Draw() const noexcept
 			}
 		}
 	}
-
-	Graphics::GL::end_drawing();
 }
 
 void TestLevel::Input()

@@ -21,6 +21,13 @@ void Layer::Update(float dt)
 {
 	delete_obj.clear();
 
+	auto& vector = layer.second;
+	for (const auto& obj : willBeAdded.second)
+	{
+		vector.push_back(obj);
+	}
+	willBeAdded.second.clear();
+
 	for (const auto& obj : layer.second) {
 		for (const auto& comp : obj->GetComponentContainer())
 		{
@@ -40,6 +47,11 @@ void Layer::Clear()
 {
 	layer.second.clear();
 	delete_obj.clear();
+}
+
+void Layer::AddObjectDynamically(Object* obj)
+{
+	willBeAdded.second.push_back(std::shared_ptr<Object>(obj));
 }
 
 void Layer::AddObject(Object* obj)

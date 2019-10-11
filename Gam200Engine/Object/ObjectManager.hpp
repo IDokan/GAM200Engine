@@ -28,8 +28,6 @@ public:
     void Update(float dt);
     void Clear();
 
-	// I don't know it will be deleted.
-	// Temporary, commented it out.
     std::vector<Layer*>& GetLayerContainer() { return layerContainer; }
 
 	// return nullptr, when finding layer is failed.
