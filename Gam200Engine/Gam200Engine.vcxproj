@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -114,7 +114,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\dll\$(PlatformTarget);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -122,8 +122,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Component\Component.hpp" />
+    <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Graphics\Layer\Layer.hpp" />
     <ClInclude Include="Graphics\Material.hpp" />
     <ClInclude Include="Graphics\Mesh.hpp" />
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
     <ClInclude Include="Graphics\Shader.hpp" />
     <ClInclude Include="Graphics\StockShaders.hpp" />
     <ClInclude Include="Graphics\Texture.hpp" />
@@ -205,8 +207,9 @@
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
-    <ClInclude Include="Physics.hpp" />
+    <ClInclude Include="Observer.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
+    <ClInclude Include="Sounds\SoundManager.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
     <ClInclude Include="States\TestLevel.hpp" />
@@ -216,6 +219,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -241,6 +245,7 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp" />
     <ClCompile Include="Graphics\Layer\Layer.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
@@ -249,8 +254,9 @@
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
-    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
+    <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
     <ClCompile Include="Window.cpp" />

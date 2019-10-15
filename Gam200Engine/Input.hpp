@@ -31,7 +31,7 @@ public:
     bool IsKeyReleased(int key);
 
     [[nodiscard]] vector2 GetPresentMousePosition() const noexcept;
-	void SetPresentMousePosition(const vector2& mousePosition) noexcept;
+	void SetPresentMousePosition(const vector2& mousePos) noexcept;
     [[nodiscard]] vector2 GetMousePosition() const  noexcept;
     double MouseWheelScroll();
     bool IsMouseButtonPressed(int button);

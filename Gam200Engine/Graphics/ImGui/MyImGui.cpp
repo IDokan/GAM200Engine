@@ -15,13 +15,101 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui_impl_glfw.h>
 #include <Application.hpp>
 #include <Object/ObjectManager.hpp>
+
 #include <Component/Sprite.hpp>
+#include <Component/Physics.hpp>
 
 namespace MyImGui
 {
+	void HelpMarker(const char* description)
+	{
+		ImGui::TextDisabled("(?)");
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			ImGui::TextUnformatted(description);
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+	}
 	
+	void SeparateSection(const char* description)
+	{
+		ImGui::Spacing();
+		ImGui::Separator();
+		ImGui::Spacing();
+		ImGui::Text(description);
+	}
+	
+	void DrawSpriteSection(Sprite* sprite)
+	{
+		SeparateSection("Sprite Section");
+		Graphics::Color4f color = sprite->GetColor();
+		ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
+		sprite->SetColor(color);
+
+		ImGui::Spacing();
+		if (ImGui::Button("Button"))
+		{
+			sprite->SetImage("../texture/rect.png");
+		}
+		unsigned int* textureID = sprite->GetRefTextureHandle();
+		ImGui::Text("%d", textureID);
+		ImGui::Image((textureID), ImVec2(128, 128));
+	}
+
+	void DrawPhysicsSection(Physics* physics)
+	{
+		SeparateSection("Physics Section");
+
+		static vector2 velocity, gravity, force, vectorTranslation;
+		velocity = physics->GetVelocity();
+		gravity = physics->GetGravity();
+		force = physics->GetForce();
+        vectorTranslation = physics->GetVectorTranslation();
+
+		ImGui::InputFloat2("Velocity", velocity.elements);
+		ImGui::InputFloat2("Gravity", gravity.elements);
+		ImGui::InputFloat2("VectorTranslation", vectorTranslation.elements);
+		ImGui::InputFloat2("Force", force.elements, "%.3f", ImGuiInputTextFlags_ReadOnly);
+		ImGui::SameLine(); HelpMarker("Read Only");
+
+		physics->SetVelocity(velocity);
+		physics->SetGravity(gravity);
+        physics->SetVectorTranslation(vectorTranslation);
+
+		static bool isCollisionBoxDrawn = false;
+		ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
+		if (isCollisionBoxDrawn)
+		{
+			// TODO: Display Collision Box
+		}
+	}
+
+	void DrawTransformSection(Object* obj)
+	{
+		ImGui::Text("Transform");
+		static vector2 translation{}, scale{};
+		static float rotation;
+        translation = obj->GetTranslation();
+		rotation = obj->GetRotation();
+		scale = obj->GetScale();
+
+		ImGui::DragFloat("Translation X", &translation.x);
+		ImGui::DragFloat("Translation Y", &translation.y);
+		ImGui::DragFloat("Scale X", &scale.x);
+		ImGui::DragFloat("Scale Y", &scale.y);
+		ImGui::DragFloat("Rotation", &rotation, 0.005f);
+
+		obj->SetTranslation(translation);
+		obj->SetScale(scale);
+		obj->SetRotation(rotation);
+	}
+
 	void InitImGui(GLFWwindow* window) noexcept
 	{
+#ifdef _DEBUG
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
 		ImGuiIO& io = ImGui::GetIO();
@@ -38,11 +126,13 @@ namespace MyImGui
 			style.WindowRounding = 0.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
+#endif
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
 	void UpdateImGui(bool isShowWindow) noexcept
 	{
+#ifdef _DEBUG
 		// Start the Dear ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -56,69 +146,45 @@ namespace MyImGui
 		ImGui::Begin("Scene");
 		static int selectedLayer = -1;
 		static int selected = -1;
-		auto& layerContainer = ObjectManager::GetObjectManager()->GetObjectManagerContainer();
-		for (const auto& element : layerContainer)
+		auto& layerContainer = ObjectManager::GetObjectManager()->GetLayerContainer();
+		for (int i = 0; i < layerContainer.size(); ++i)
 		{
-			const auto objContainer = element->GetObjContainer();
+			const auto objContainer = layerContainer.at(i)->GetObjContainer();
 			const int size = objContainer.size();
-			for (int i = 0; i < size; ++i)
+			for (int j = 0; j < size; ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(i)->GetObjectName().c_str(), selected == i))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j))
 				{
-					selected = i;
-                    selectedLayer = 0;
+					selectedLayer = i;
+					selected = j;
 				}
 			}
 		}
 		ImGui::End();
 
 		ImGui::Begin("Property");
-		if (selectedLayer >= 0 && selectedLayer <= layerContainer.size())
+		if (selectedLayer >= 0 && selectedLayer <= int(layerContainer.size()))
 		{
 			const auto& objContainer = layerContainer.at(selectedLayer)->GetObjContainer();
 			const int objContainerSize = objContainer.size();
 			if (selected >= 0 && selected < objContainerSize)
 			{
 				Object* obj = objContainer.at(selected).get();
-				ImGui::Text(obj->GetObjectName().c_str());
+				ImGui::Text("Object name is \"");	ImGui::SameLine();
+				ImGui::Text(obj->GetObjectName().c_str()); ImGui::SameLine();
+				ImGui::Text("\"");
 				ImGui::Spacing();
 
-				ImGui::Text("Transform");
-				static vector2 translation{}, scale{};
-				static float rotation;
-				translation = obj->GetTranslation();
-				rotation = obj->GetRotation();
-				scale = obj->GetScale();
+				DrawTransformSection(obj);
 
-				ImGui::DragFloat("Translation X", &translation.x);
-				ImGui::DragFloat("Translation Y", &translation.y);
-				ImGui::DragFloat("Scale X", &scale.x);
-				ImGui::DragFloat("Scale Y", &scale.y);
-				ImGui::DragFloat("Rotation", &rotation, 0.005f);
-
-				obj->SetTranslation(translation);
-				obj->SetScale(scale);
-				obj->SetRotation(rotation);
-
-				// TODO: Make Object Controller followed Component
+				// If object have components display them.
 				if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>())
 				{
-					ImGui::Spacing();
-					ImGui::Separator();
-					ImGui::Spacing();
-					Graphics::Color4f color = sprite->GetColor();
-					ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
-					sprite->SetColor(color);
-
-					ImGui::Spacing();
-					static int* cnt = 0;
-					if (ImGui::Button("Button"))
-					{
-						sprite->SetImage("../texture/rect.png");
-					}
-					unsigned int* textureID = sprite->GetRefTextureHandle();
-					ImGui::Text("%d", textureID);
-					ImGui::Image((textureID), ImVec2(128, 128));
+					DrawSpriteSection(sprite);
+				}
+				if (Physics * physics = obj->GetComponentByTemplate<Physics>())
+				{
+					DrawPhysicsSection(physics);
 				}
 			}
 			else
@@ -148,12 +214,15 @@ namespace MyImGui
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
+#endif
 	}
 
 	void ClearImGui() noexcept
 	{
+#ifdef _DEBUG
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
+#endif
 	}
 }

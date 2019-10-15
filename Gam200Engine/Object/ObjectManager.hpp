@@ -15,7 +15,7 @@ Creation Date: 08.12.2019
 #include <memory>
 #include <unordered_map>
 #include <string>
-#include "Graphics/Layer/Layer.hpp"
+#include <Graphics/Parallax scrolling/Layer.hpp>
 
 class ObjectManager
 {
@@ -30,13 +30,13 @@ public:
 
 	// I don't know it will be deleted.
 	// Temporary, commented it out.
-    std::vector<Layer*>& GetObjectManagerContainer() { return trunks; }
+    std::vector<Layer*>& GetLayerContainer() { return layerContainer; }
 
-	void AddLayer(const std::string& layerName = "UnnamedLayer");
+	void AddLayer(LayerNames layerName);
 	// return nullptr, when finding layer is failed.
-	Layer* FindLayer(const std::string& name);
+	Layer* FindLayer(LayerNames name);
 private:
     ObjectManager() {};
 
-	std::vector<Layer*> trunks{};
+	std::vector<Layer*> layerContainer{};
 };

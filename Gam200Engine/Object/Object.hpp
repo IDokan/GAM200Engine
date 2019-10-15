@@ -31,19 +31,21 @@ public:
     {
         return is_dead;
     }
+
     Transform GetTransform() const
     {
         return transform;
     }
+
     std::vector<Component*> GetComponentContainer() 
     {
         return component;
     }
-
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate()const;
 
 public:
+    
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
 
@@ -55,14 +57,16 @@ public:
     void SetObjectName(std::string name); // Woo
     std::string GetObjectName(); // Woo
 
+    
+    
     vector2 GetTranslation(); // Woo
     vector2 GetScale(); // Woo
 	float GetRotation() const noexcept; // Sinil
 
 private:
-    std::string objectName;
     Transform transform;
     std::vector<Component*> component;
+    std::string objectName;
     bool is_dead = false;
 };
 

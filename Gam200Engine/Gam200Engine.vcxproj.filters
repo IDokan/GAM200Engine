@@ -5,7 +5,6 @@
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Component\Component.cpp">
@@ -89,16 +88,18 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Layer\Layer.cpp">
-      <Filter>Graphics\Layer</Filter>
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Sounds\SoundManager.cpp">
+      <Filter>Sounds</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Physics.cpp" />
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Input.hpp" />
-    <ClInclude Include="Physics.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Window.hpp" />
@@ -198,9 +199,12 @@
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
       <Filter>Graphics\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Layer\Layer.hpp">
-      <Filter>Graphics\Layer</Filter>
+    <ClInclude Include="Observer.hpp" />
+    <ClInclude Include="Sounds\SoundManager.hpp">
+      <Filter>Sounds</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Physics.hpp" />
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -218,8 +222,8 @@
     <Filter Include="Graphics\ImGui">
       <UniqueIdentifier>{a7684bdb-7afc-4f97-921a-b8c9261a5ff6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Layer">
-      <UniqueIdentifier>{b0578dd1-625b-486b-aa63-3b3b1920d5af}</UniqueIdentifier>
+    <Filter Include="Sounds">
+      <UniqueIdentifier>{6b7e432b-27a8-4a06-88b8-ee201562c7c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

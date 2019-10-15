@@ -26,12 +26,12 @@ ObjectManager* ObjectManager::GetObjectManager()
 
 void ObjectManager::Init()
 {
-	trunks.clear();
+	layerContainer.clear();
 }
 
 void ObjectManager::Update(float dt)
 {
-	for (const auto & element : trunks)
+	for (const auto & element : layerContainer)
 	{
 		element->Update(dt);
 	}
@@ -39,28 +39,28 @@ void ObjectManager::Update(float dt)
 
 void ObjectManager::Clear()
 {
-	for (const auto& element : trunks)
+	for (const auto& element : layerContainer)
 	{
 		element->Clear();
 	}
-	trunks.clear();
+	layerContainer.clear();
 }
-void ObjectManager::AddLayer(const std::string & layerName)
+void ObjectManager::AddLayer(LayerNames layerName)
 {
 	Layer* tmp = new Layer();
 	tmp->Init();
 	tmp->SetName(layerName);
-	trunks.push_back(tmp);
+	layerContainer.push_back(tmp);
 }
 
-Layer* ObjectManager::FindLayer(const std::string & name)
+Layer* ObjectManager::FindLayer(LayerNames name)
 {
-	const int size = trunks.size();
+	const int size = layerContainer.size();
 	for (int i = 0; i < size; ++i)
 	{
-		if (trunks.at(i)->GetName() == name)
+		if (layerContainer.at(i)->GetName() == name)
 		{
-			return trunks.at(i);
+			return layerContainer.at(i);
 		}
 	}
 	return nullptr;

@@ -10,11 +10,11 @@ Creation Date: 08.12.2019
     Header file for the Application.cpp
 ******************************************************************************/
 #include "Object.hpp"
+#include <iostream>
 
 Object::Object()
 {
 }
-
 
 Object::~Object()
 {
