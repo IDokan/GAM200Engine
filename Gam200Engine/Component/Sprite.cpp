@@ -52,10 +52,10 @@ void Sprite::Init()
 	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = Graphics::Color4f{1.f};
 
 	// TODO: To Modify for animation or special shader
-	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
-	mesh->AddTextureCoordinate(vector2{ 1.f });
+	mesh->AddTextureCoordinate(vector2{ 0.f });
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
-	mesh->AddTextureCoordinate(vector2{ 0.f});
+	mesh->AddTextureCoordinate(vector2{ 1.f });
+	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
 
 	SetImage(imageFilePath);
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());

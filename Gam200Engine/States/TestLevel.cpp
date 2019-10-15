@@ -46,7 +46,7 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
     object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
     object1->GetComponentByTemplate<Sprite>()->SetFrame(10);
-    object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
+    object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/numbers.png");
 
 	object3 = new Object();
 	object3->SetObjectName("Object3");
@@ -78,6 +78,7 @@ void TestLevel::Load()
     
 	cameraManager.Init();
 }
+
 Object* collisionBox;
 Object* cB2;
 bool isCollisionBoxShown = false;
@@ -160,11 +161,7 @@ void TestLevel::Update(float dt)
 {
     TestLevel::Input();
     
-	// Code for test Physics thing by Woo
-    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
-    {
-        std::cout << "colliding!!" << std::endl;
-    }
+	TestLevel::Collision();
    
 	cameraManager.CameraMove(1.1f);
 
