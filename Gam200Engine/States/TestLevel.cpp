@@ -4,11 +4,11 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   TestLevel.cpp
 Author
-	- Sinil.Kang rtd99062@gmail.com
+    - Sinil.Kang rtd99062@gmail.com
 
 Creation Date: 08.15.2019
 
-	Source file for First Level to Test Sprite Component
+    Source file for First Level to Test Sprite Component
 ******************************************************************************/
 #include <iostream>
 #include "TestLevel.hpp"
@@ -17,6 +17,7 @@ Creation Date: 08.15.2019
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
+#include <Graphics/Parallax scrolling/Layer.hpp>
 
 void TestLevel::Load()
 {
@@ -35,6 +36,17 @@ void TestLevel::Load()
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 
+    object1 = new Object();
+    object1->SetObjectName("Object1");
+    object1->SetTranslation(vector2{ 0.f });
+    object1->SetScale(vector2{ 200.f });
+    object1->AddComponent(new Sprite(object1));
+    object1->AddComponent(new Physics(object1));
+    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::RECTANGLE);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
+    object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+    object1->GetComponentByTemplate<Sprite>()->SetFrame(10);
+    object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
 
 	object1 = new Object();
 	object1->SetObjectName("Object1");
@@ -190,7 +202,7 @@ void TestLevel::Unload()
 
 void TestLevel::Draw() const noexcept
 {
-	Graphics::GL::begin_drawing();
+    Graphics::GL::begin_drawing();
 
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
@@ -262,5 +274,26 @@ void TestLevel::Input()
     if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
     {
         object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_SPACE))
+    {
+        object1->GetComponentByTemplate<Physics>()->AddForce(vector2{ object1->GetComponentByTemplate<Physics>()->GetVelocity().x *  30.f, object1->GetComponentByTemplate<Physics>()->GetVelocity().y * 30.f });
+    }
+}
+
+void TestLevel::Collision()
+{
+    vector2 obj1OldPosition = object1->GetComponentByTemplate<Physics>()->GetOldPosition();
+    vector2 obj2OldPosition = object2->GetComponentByTemplate<Physics>()->GetOldPosition();
+
+    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
+    {
+        if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
+        {
+            object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+            object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+            object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(obj1OldPosition);
+            object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(obj2OldPosition);
+        }
     }
 }
