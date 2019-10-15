@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <iostream>
 #include <matrix3.hpp>
+#include <Vector2.hpp>
 
 Graphics::Shader::Shader(const std::string& vertex_shader_source_code, const std::string& fragment_shader_source_code)
 {
@@ -119,7 +120,7 @@ bool Graphics::Shader::LoadFromSource(const std::string& vertex_shader_source_co
 	return true;
 }
 
-void Graphics::Shader::SendUniformVariable(const std::string& variable_name, const Math::matrix3& affine_matrix) noexcept
+void Graphics::Shader::SendUniformVariable(const std::string& variable_name, const  matrix3& affine_matrix) noexcept
 {
 	glCheck(glUniformMatrix3fv(GetUniformLocation(variable_name), 1, GL_FALSE, &affine_matrix.elements[0][0]));
 }
@@ -132,6 +133,11 @@ void Graphics::Shader::SendUniformVariable(const std::string& variable_name, flo
 void Graphics::Shader::SendUniformVariable(const std::string& variable_name, int number) noexcept
 {
 	glCheck(glUniform1i(GetUniformLocation(variable_name), number));
+}
+
+void Graphics::Shader::SendUniformVariable(const std::string& variable_name, vector2 number) noexcept
+{
+	glCheck(glUniform2f(GetUniformLocation(variable_name), number.x, number.y));
 }
 
 void Graphics::Shader::SendUniformVariable(const std::string& variable_name, Color4f color) noexcept

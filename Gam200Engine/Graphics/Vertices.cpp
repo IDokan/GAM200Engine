@@ -153,8 +153,8 @@ namespace Graphics
         glCheck(pointer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 
         GLuint offset = 0;
-        Math::vector2  position          ;
-        Math::vector2  textureCoordinate ;
+         vector2  position          ;
+         vector2  textureCoordinate ;
         Color4ub color;
         char* destination = nullptr; 
         for (std::size_t index = 0; index < mesh.GetPointCount(); ++index)

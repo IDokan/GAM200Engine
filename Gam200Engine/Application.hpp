@@ -11,8 +11,8 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #pragma once
 #include "Window.hpp"
-#include "Demo.hpp"
-
+#include <States/TestLevel.hpp>
+#include <Graphics/Color4f.hpp>
 
 class Application
 {
@@ -21,7 +21,9 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
-    Math::vector2 GetWindowSize;
+    void InputTest();
+    void Input();
+     vector2 GetWindowSize;
 
 private:
     Application() = default;
@@ -29,5 +31,11 @@ private:
     int fpsFrames = 0;
     Window window;
 
-	Demo demo;
+	TestLevel testLevel;
+
+	// Our state
+	bool show_demo_window = true;
+	bool show_another_window = false;
+	Graphics::Color4f clear_color = Graphics::Color4f{ 0.45f, 0.55f, 0.60f, 1.00f };
+
 };

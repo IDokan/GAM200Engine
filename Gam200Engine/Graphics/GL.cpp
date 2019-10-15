@@ -18,6 +18,7 @@ Creation Date: 08.10.2019
 #include <Graphics/glCheck.hpp>
 #include <GL/glew.h>
 #include <iostream>
+#include "ImGui/MyImGui.hpp"
 
 namespace Graphics
 {
@@ -25,18 +26,7 @@ namespace Graphics
     {
         set_clear_color(Color4f{0, 255});
         glCheck(glEnable(GL_DEPTH_TEST));
-		auto tmp = glGetError();
-		if (tmp != GL_NO_ERROR)
-		{
-			std::cout << "Error!\n";
-			return;
-		}
         glCheck(glEnable(GL_BLEND));
-		if (tmp != GL_NO_ERROR)
-		{
-			std::cout << "Error!\n";
-			return;
-		}
         glCheck(glBlendEquation(GL_FUNC_ADD));
         glCheck(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
         enable_multiple_sampling(true);
@@ -61,10 +51,18 @@ namespace Graphics
         {
             material.shader->SendUniformVariable(element.first, element.second);
         }
+		for (const auto& element : material.intUniform)
+		{
+			material.shader->SendUniformVariable(element.first, element.second);
+		}
         for (const auto& element : material.floatUniforms)
         {
             material.shader->SendUniformVariable(element.first, element.second);
         }
+		for (const auto& element : material.vector2Uniforms)
+		{
+			material.shader->SendUniformVariable(element.first, element.second);
+		}
         for (const auto & element : material.textureUniforms)
         {
             Texture::SelectTextureForSlot(*element.second.texture, element.second.textureSlot);

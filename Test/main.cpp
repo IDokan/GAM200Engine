@@ -2,11 +2,12 @@
 
 int main()
 {
+	
     Engine engine;
 
     engine.Init();
 
-    while (!engine.IsRunning())
+    while (!engine.GetIsRunnig())
     {
         engine.Update();
     }

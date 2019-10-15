@@ -14,7 +14,7 @@ Created: 08/05/2019
 //just math.h header
 #include <corecrt_math_defines.h>
 
-namespace Math
+namespace MATH
 {
     constexpr float PI = M_PI;
     constexpr float TWO_PI = PI * 2.0f;

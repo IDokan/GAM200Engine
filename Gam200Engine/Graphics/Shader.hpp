@@ -13,9 +13,8 @@ Creation Date: 08.06.2019
 #include <map>
 #include <string>
 
-namespace Math {
-	struct matrix3;
-}
+struct matrix3;
+struct vector2;
 
 namespace Graphics
 {
@@ -32,9 +31,10 @@ namespace Graphics
 		bool LoadFromSource(const std::string& vertex_shader_source_code,
 							const std::string& fragment_shader_source_code);
 
-		void SendUniformVariable(const std::string& variable_name, const Math::matrix3& affine_matrix) noexcept;
+		void SendUniformVariable(const std::string& variable_name, const  matrix3& affine_matrix) noexcept;
 		void SendUniformVariable(const std::string& variable_name, float number) noexcept;
 		void SendUniformVariable(const std::string& variable_name, int number) noexcept;
+		void SendUniformVariable(const std::string& variable_name, vector2 number) noexcept;
 		void SendUniformVariable(const std::string& variable_name, Color4f color) noexcept;
 
 		constexpr unsigned GetShaderHandler() const noexcept { return handleToShader; }

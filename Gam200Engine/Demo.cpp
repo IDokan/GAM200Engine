@@ -19,23 +19,23 @@ Creation Date: 08.10.2019
 void Demo::Init()
 {
 	using namespace Graphics;
-	testMaterial.shader = &Graphics::SHADER::solid_color();
-	// send uniform matrix variable named "to_ndc"
-	testMaterial.color4fUniforms["color"] = to_color4f(Color4ub{ 255, 0, 0 });
-	testMaterial.matrix3Uniforms["to_ndc"] = Math::MATRIX3::build_scale(2.f / 1920, 2.f / 1080);
+	testMaterial.shader = &Graphics::SHADER::interpolated_colors();
+	// send uniform matrix variable named "to_ndc"	// Should change arbitrary value into variable
+	testMaterial.matrix3Uniforms["to_ndc"] =  MATRIX3::build_scale(2.f / 1920, 2.f / 1080);
 
-	VertexLayoutDescription testLayout = SHADER::solid_color_vertex_layout();
+	VertexLayoutDescription testLayout = SHADER::interpolated_colors_vertex_layout();
 
 	Mesh triangle;
 	triangle.SetPointListType(PointListPattern::Triangles);
-	triangle.AddPoint(Math::vector2{ 0.f, 100.f });
-	triangle.AddPoint(Math::vector2{ 100.f, 0.f });
-	triangle.AddPoint(Math::vector2{ -100.f, 0.f });
+	triangle.AddPoint( vector2{ 0.f, 100.f });
+	triangle.AddPoint( vector2{ 100.f, 0.f });
+	triangle.AddPoint( vector2{ -100.f, 0.f });
+	triangle.AddColor(Color4ub{ 165 });
 
 	testVertices.InitializeWithMeshAndLayout(triangle, testLayout);
 }
 
-void Demo::Update(float dt)
+void Demo::Update(float /*dt*/)
 {
 }
 

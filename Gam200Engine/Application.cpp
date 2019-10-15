@@ -13,6 +13,15 @@ Creation Date: 08.05.2019
 #include "Input.hpp"
 #include <iostream>
 #include "Graphics/GL.hpp"
+#include "States/StateManager.hpp"
+#include "Object/ObjectManager.hpp"
+
+#include <Graphics/ImGui/MyImGui.hpp>
+
+#include <Graphics/ImGui/imgui.h>
+#include <Graphics/ImGui/imgui_impl_opengl3.h>
+#include "Graphics/ImGui/imgui_impl_glfw.h"
+
 
 Application* Application::GetApplication()
 {
@@ -23,11 +32,17 @@ Application* Application::GetApplication()
 void Application::Init()
 {
     window.CreateWindow();
+    window.TurnOnMonitorVerticalSynchronization(true);
     GetWindowSize = window.WindowSize();
+
+    input.Init();
 
 	Graphics::GL::setup();
 
-	demo.Init();
+	StateManager::GetStateManager()->Init();
+	ObjectManager::GetObjectManager()->Init();
+
+	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(new TestLevel()));
 }
 
 void Application::Update(float dt)
@@ -38,25 +53,84 @@ void Application::Update(float dt)
     ++fpsFrames;
     if (fpsEllapsedTime >= 1.0f)
     {
+        std::cout << fpsFrames << std::endl;
         fpsEllapsedTime = 0;
         fpsFrames = 0;
     }
 
-	demo.Draw();
-
     window.PollEvent();
-    window.SwapBackBuffer();
 
-    if (input.IsKeyTriggered(GLFW_KEY_A))
+	const auto& stateManager = StateManager::GetStateManager();
+	stateManager->Update(dt);
+	ObjectManager::GetObjectManager()->Update(dt);
+	stateManager->Draw();
+
+    GetApplication()->Input();
+
+	// I'm not sure it is right place or not
+	// One Possibility:
+	// put it after /*renderer.Clear();*/
+	MyImGui::UpdateImGui(show_demo_window);
+
+	Graphics::GL::end_drawing();
+
+	// Change Order of calling function : SwapBuffer 
+	window.SwapBackBuffer();
+}
+
+void Application::Input()
+{
+    if (input.IsKeyTriggered(GLFW_KEY_V))
     {
-        std::cout << "a" << std::endl;
-    }
+        window.TurnOnMonitorVerticalSynchronization(!window.IsMonitorVerticalSynchronizationOn());
+    }  
     if (input.IsKeyTriggered(GLFW_KEY_F))
     {
         window.ToggleFullscreen();
+    }  
+}
+
+void Application::InputTest()
+{
+    if (input.IsKeyPressed (GLFW_KEY_A))
+    {
+        std::cout << "A" << std::endl;
+    }
+    if (input.IsKeyPressed(GLFW_KEY_B))
+    {
+        std::cout << "B" << std::endl;
+    }
+    if (input.IsKeyReleased(GLFW_KEY_B))
+    {
+        std::cout << "B" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
+    {
+        std::cout << "left mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+    {
+        std::cout << "right mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_MIDDLE))
+    {
+        std::cout << "middle mouse button triggered" << std::endl;
+    }
+    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+    {
+        std::cout << "mouse button double clicked" << std::endl;
     }
 }
 
 void Application::Clear()
 {
+	ObjectManager::GetObjectManager()->Clear();
+	StateManager::GetStateManager()->Clear();
+
+
+	// ImGui Clear
+	MyImGui::ClearImGui();
+
+	window.ClearWindow();
 }
+

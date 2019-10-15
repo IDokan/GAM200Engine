@@ -13,11 +13,20 @@ Creation Date: 08.05.2019
 #include "Application.hpp"
 #include "Input.hpp"
 #include <iostream>
+#include <Object/ObjectManager.hpp>
+#include <States/StateManager.hpp>
+#include <Sounds/SoundManager.hpp>
 
 Application* app_ = nullptr;
-
+SoundManager test;
 void Engine::Init()
 {
+    //-----------TEST SOUNDS-------------------------
+    test.Load_Sound();
+    test.Play_Sound(SOUNDS::JAMJAMTEST_SOUND);
+    test.SetVolume(JAMJAMTEST_SOUND, 1);
+    //------------------------------------------------
+
     app_ = Application::GetApplication();
     app_->Init();
     timer.Reset();
@@ -28,10 +37,18 @@ void Engine::Update()
 {
     dt = static_cast<float>(timer.GetElapsedSeconds());
     timer.Reset();
+
     app_->Update(dt);
-    std::cout << input.GetMousePos().x << "," << input.GetMousePos().y << std::endl;
+    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+    {
+        app_->GetApplication()->Clear();
+        isRunning = true;
+    }
 }
 
 void Engine::Clear()
 {
+	delete Application::GetApplication();
+	delete ObjectManager::GetObjectManager();
+	delete StateManager::GetStateManager();
 }

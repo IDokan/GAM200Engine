@@ -36,13 +36,27 @@ bool Window::IsFullscreen() noexcept
     return platformWindow->IsFullscreen();
 }
 
+void Window::TurnOnMonitorVerticalSynchronization(bool enable) noexcept
+{
+    platformWindow->TurnOnMonitorVerticalSynchronization(enable);
+}
+
+void Window::ClearWindow() const noexcept
+{
+	platformWindow->ClearWindow();
+}
+
+bool Window::IsMonitorVerticalSynchronizationOn() noexcept
+{
+    return platformWindow->IsMonitorVerticalSynchronizationOn();
+}
 
 void Window::ToggleFullscreen() noexcept
 {
     platformWindow->ToggleFullscreen();
 }
 
-Math::vector2 Window::WindowSize() noexcept
+ vector2 Window::WindowSize() noexcept
 {
     return platformWindow->GetPlatformWindowSize();
 }

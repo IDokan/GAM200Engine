@@ -16,19 +16,21 @@ class Application;
 
 class Engine
 {
-private:
-    bool isRunning = false;
-    float dt;
-    Timer timer;
 public:
     Engine() = default;
-    
+
     void Init();
     void Update();
     void Clear();
 
-    bool IsRunning() noexcept
+    bool GetIsRunnig() noexcept
     {
         return isRunning;
     }
+
+private:
+    float timea = 0;
+    bool isRunning = false;
+    float dt=0;
+    Timer timer;
 };
