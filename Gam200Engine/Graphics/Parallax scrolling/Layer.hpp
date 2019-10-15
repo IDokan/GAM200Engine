@@ -37,6 +37,7 @@ public:
 	[[nodiscard]] LayerNames GetName() const;
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
+	void SortingDepth();
 private:
 	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> layer;
 

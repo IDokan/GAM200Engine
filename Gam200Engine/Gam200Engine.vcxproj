@@ -23,7 +23,7 @@
     <ProjectGuid>{68B5BAB0-908A-4A27-A080-6E50386B66EA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Gam200Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -194,7 +194,6 @@
     <ClInclude Include="Graphics\ImGui\imstb_textedit.h" />
     <ClInclude Include="Graphics\ImGui\imstb_truetype.h" />
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp" />
-    <ClInclude Include="Graphics\Layer\Layer.hpp" />
     <ClInclude Include="Graphics\Material.hpp" />
     <ClInclude Include="Graphics\Mesh.hpp" />
     <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
@@ -243,7 +242,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp" />
-    <ClCompile Include="Graphics\Layer\Layer.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />

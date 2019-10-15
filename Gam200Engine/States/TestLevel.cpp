@@ -17,7 +17,7 @@ Creation Date: 08.15.2019
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
-#include <Graphics/Layer/Layer.hpp>
+#include <Graphics/Parallax scrolling/Layer.hpp>
 
 void TestLevel::Load()
 {

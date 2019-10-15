@@ -9,6 +9,8 @@ Creation Date: 10.02.2019
 
 	Source file for Layer to Implement Parallax scrolling
 ******************************************************************************/
+
+#include <algorithm>
 #include "Layer.hpp"
 
 void Layer::Init()
@@ -70,4 +72,19 @@ LayerNames Layer::GetName() const
 std::vector<std::shared_ptr<Object>>& Layer::GetObjContainer()
 {
 	return layer.second;
+}
+
+
+
+/**
+ * \brief implemented by Hyerin Jung
+ * \return
+ */
+bool operator<(const std::shared_ptr<Object>& x, const std::shared_ptr<Object>& y)
+{
+	return (x->GetTransform().GetDepth() < y->GetTransform().GetDepth());
+}
+void Layer::SortingDepth()
+{
+	std::sort(layer.second.begin(), layer.second.end());
 }
