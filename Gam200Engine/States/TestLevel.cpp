@@ -48,16 +48,6 @@ void TestLevel::Load()
     object1->GetComponentByTemplate<Sprite>()->SetFrame(10);
     object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/testSpriteSheet.png");
 
-	object1 = new Object();
-	object1->SetObjectName("Object1");
-	object1->SetTranslation(vector2{ 0.f });
-	object1->SetScale(vector2{ 200.f });
-	object1->AddComponent(new Sprite(object1));
-	object1->AddComponent(new Physics(object1));
-	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::RECTANGLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-
-
 	object3 = new Object();
 	object3->SetObjectName("Object3");
 	object3->SetTranslation(vector2{ 100.f });
