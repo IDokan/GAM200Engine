@@ -88,13 +88,10 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Physics.cpp">
-      <Filter>Component</Filter>
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Sounds\SoundManager.cpp">
+      <Filter>Sounds</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp">
-      <Filter>Graphics\Parallex scrolling</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Physics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -200,13 +197,10 @@
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
       <Filter>Graphics\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Physics.hpp">
-      <Filter>Component</Filter>
+    <ClInclude Include="Observer.hpp" />
+    <ClInclude Include="Sounds\SoundManager.hpp">
+      <Filter>Sounds</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp">
-      <Filter>Graphics\Parallex scrolling</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Physics.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -224,8 +218,8 @@
     <Filter Include="Graphics\ImGui">
       <UniqueIdentifier>{a7684bdb-7afc-4f97-921a-b8c9261a5ff6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Parallex scrolling">
-      <UniqueIdentifier>{994be212-26ea-43f2-91e0-b978228ba340}</UniqueIdentifier>
+    <Filter Include="Sounds">
+      <UniqueIdentifier>{6b7e432b-27a8-4a06-88b8-ee201562c7c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
