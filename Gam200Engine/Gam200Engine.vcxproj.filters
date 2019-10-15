@@ -92,6 +92,8 @@
     <ClCompile Include="Sounds\SoundManager.cpp">
       <Filter>Sounds</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Physics.cpp" />
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -201,6 +203,8 @@
     <ClInclude Include="Sounds\SoundManager.hpp">
       <Filter>Sounds</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Physics.hpp" />
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
