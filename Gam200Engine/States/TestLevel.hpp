@@ -31,6 +31,7 @@ public:
 	void Draw() const noexcept override;
 
     void Input();
+    void Collision();
 private:
 	Graphics::CameraManager cameraManager;
 
