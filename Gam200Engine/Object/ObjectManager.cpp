@@ -12,6 +12,7 @@ Creation Date: 08.12.2019
 #include "ObjectManager.hpp"
 #include "States/StateManager.hpp"
 #include <iostream>
+#include "Graphics/Parallax scrolling/Layer.hpp"
 
 ObjectManager::~ObjectManager()
 {

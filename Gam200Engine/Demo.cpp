@@ -18,7 +18,6 @@ Creation Date: 08.10.2019
 
 void Demo::Init()
 {
-
 	using namespace Graphics;
 	testMaterial.shader = &Graphics::SHADER::interpolated_colors();
 	// send uniform matrix variable named "to_ndc"	// Should change arbitrary value into variable

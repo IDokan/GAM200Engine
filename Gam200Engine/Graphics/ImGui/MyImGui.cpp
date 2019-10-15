@@ -112,18 +112,21 @@ namespace MyImGui
 	{
 		SeparateSection("Physics Section");
 
-		static vector2 velocity, gravity, force;
+		static vector2 velocity, gravity, force, vectorTranslation;
 		velocity = physics->GetVelocity();
 		gravity = physics->GetGravity();
 		force = physics->GetForce();
+        vectorTranslation = physics->GetVectorTranslation();
 
 		ImGui::InputFloat2("Velocity", velocity.elements);
 		ImGui::InputFloat2("Gravity", gravity.elements);
+		ImGui::InputFloat2("VectorTranslation", vectorTranslation.elements);
 		ImGui::InputFloat2("Force", force.elements, "%.3f", ImGuiInputTextFlags_ReadOnly);
 		ImGui::SameLine(); HelpMarker("Read Only");
 
 		physics->SetVelocity(velocity);
 		physics->SetGravity(gravity);
+        physics->SetVectorTranslation(vectorTranslation);
 
 		static bool isCollisionBoxDrawn = false;
 		if (physics->GetHasCollisionBox())
@@ -145,7 +148,7 @@ namespace MyImGui
 		ImGui::Text("Transform");
 		static vector2 translation{}, scale{};
 		static float rotation;
-		translation = obj->GetTranslation();
+        translation = obj->GetTranslation();
 		rotation = obj->GetRotation();
 		scale = obj->GetScale();
 

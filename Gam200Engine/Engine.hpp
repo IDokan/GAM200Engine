@@ -29,7 +29,8 @@ public:
     }
 
 private:
+    float timea = 0;
     bool isRunning = false;
-    float dt;
+    float dt=0;
     Timer timer;
 };

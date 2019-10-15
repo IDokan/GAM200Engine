@@ -43,10 +43,14 @@ public:
     void SetVelocity(float x, float y);
     void SetGravity(vector2 gravity);
     void SetGravity(float x, float y);
+    void SetWorldForceZero();
 
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj = vector2{ 0.f,0.f }, vector2 scaleAdj = vector2{ 0.f,0.f });
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
+    void ActiveGhostCollision(bool active);
+    void SetIsCollide(bool collide); // prototype
+    void SetVectorTranslation(vector2 translation); // prototype
 
     bool IsCollideWith(Object* object);
     
@@ -84,14 +88,39 @@ public:
     {
         return objectType;
     }
+
+    vector2 GetPosition() const
+    {
+        return position;
+    }
+
+    vector2 GetOldPosition() const
+    {
+        return oldPosition;
+    }
+
+    bool GetIsGhost() const
+    {
+        return isGhost;
+    }
+
+    vector2 GetVectorTranslation() const; 
+
 private:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};
     vector2 vectorTranslation{};
     vector2 position{};
+    vector2 oldPosition{};
+    vector2 initializedPosition{};
 
-    ObjectType objectType;
+    ObjectType objectType{};
     CollsionBox collisionBox{};
-    bool hasCollisionBox = false;
+
+    float friction;
+   
+    bool hasCollisionBox;
+    bool isGhost;
+    bool isCollide;
 };
