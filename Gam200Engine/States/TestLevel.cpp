@@ -142,6 +142,17 @@ void TestLevel::Input()
     {
         object1->GetComponentByTemplate<Physics>()->AddForce(vector2{ object1->GetComponentByTemplate<Physics>()->GetVelocity().x *  30.f, object1->GetComponentByTemplate<Physics>()->GetVelocity().y * 30.f });
     }
+    if (input.IsKeyTriggered(GLFW_KEY_G))
+    {
+        if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() == true)
+        {
+            object1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+        }
+        else
+        {
+            object1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+        }
+    }
 }
 
 void TestLevel::Collision()
