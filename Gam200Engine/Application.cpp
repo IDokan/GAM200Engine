@@ -72,6 +72,8 @@ void Application::Update(float dt)
 	// put it after /*renderer.Clear();*/
 	MyImGui::UpdateImGui(show_demo_window);
 
+	Graphics::GL::end_drawing();
+
 	// Change Order of calling function : SwapBuffer 
 	window.SwapBackBuffer();
 }

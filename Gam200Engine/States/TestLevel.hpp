@@ -37,5 +37,8 @@ private:
 
 	Object* object1;
 	Object* object2;
+	Object* object3;
+	Object* object4;
+	Object* object5;
 	bool flag = false;
 };

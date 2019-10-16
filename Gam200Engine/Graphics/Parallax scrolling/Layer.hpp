@@ -29,15 +29,21 @@ public:
 	void Init();
 	void Update(float dt);
 	void Clear();
+
+	void AddObjectDynamically(Object* obj);
 	
 	void AddObject(Object* obj);
-	void DeleteObject(std::shared_ptr<Object> obj);
+	bool DeleteObject(Object* obj);
+	bool DeleteObject(std::string objName);
 
 	void SetName(LayerNames name);
 	[[nodiscard]] LayerNames GetName() const;
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
+	void SortingDepth();
 private:
+	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> willBeAdded;
+	
 	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> layer;
 
 	std::vector<std::shared_ptr<Object>>delete_obj{};

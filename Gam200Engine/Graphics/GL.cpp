@@ -18,6 +18,7 @@ Creation Date: 08.10.2019
 #include <Graphics/glCheck.hpp>
 #include <GL/glew.h>
 #include <iostream>
+#include "ImGui/MyImGui.hpp"
 
 namespace Graphics
 {

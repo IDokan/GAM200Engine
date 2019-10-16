@@ -21,6 +21,55 @@ Creation Date: 08.23.2019
 
 namespace MyImGui
 {
+	bool isCollisionBoxShown = false;
+	int stack = 0;
+
+	static Object* collisionBox;
+	void AddCollisionBox(Object* obj, Physics* physics)
+	{
+		if (isCollisionBoxShown == true)
+		{
+			return;
+		}
+
+		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
+		if (hudLayer != nullptr)
+		{
+			// Toggle Show var
+			isCollisionBoxShown = true;
+
+			// Make Collision Box Object and Add to Object Manager
+			collisionBox = new Object();
+			collisionBox->AddComponent(new Sprite(collisionBox));
+			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
+			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+			collisionBox->SetTranslation(positionOfCollisionBox.Translation);
+			collisionBox->SetScale(positionOfCollisionBox.Scale);
+			collisionBox->SetDepth(-1.f);
+
+			// If type of collision type is circle, make image as circle.
+			if (physics->GetObjectType() == ObjectType::CIRCLE)
+			{
+				collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+			}
+
+			hudLayer->AddObjectDynamically(collisionBox);
+		}
+	}
+
+	void DeleteCollisionBox(Object* obj, Physics* physics)
+	{
+		if (isCollisionBoxShown == false)
+		{
+			return;
+		}
+		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
+		// Toggle Show Var
+		isCollisionBoxShown = false;
+		//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
+		collisionBox->SetDead(true);
+	}
+
 	void HelpMarker(const char* description)
 	{
 		ImGui::TextDisabled("(?)");
@@ -33,7 +82,7 @@ namespace MyImGui
 			ImGui::EndTooltip();
 		}
 	}
-	
+
 	void SeparateSection(const char* description)
 	{
 		ImGui::Spacing();
@@ -41,7 +90,7 @@ namespace MyImGui
 		ImGui::Spacing();
 		ImGui::Text(description);
 	}
-	
+
 	void DrawSpriteSection(Sprite* sprite)
 	{
 		SeparateSection("Sprite Section");
@@ -59,7 +108,7 @@ namespace MyImGui
 		ImGui::Image((textureID), ImVec2(128, 128));
 	}
 
-	void DrawPhysicsSection(Physics* physics)
+	void DrawPhysicsSection(Object* object, Physics* physics)
 	{
 		SeparateSection("Physics Section");
 
@@ -80,10 +129,17 @@ namespace MyImGui
         physics->SetVectorTranslation(vectorTranslation);
 
 		static bool isCollisionBoxDrawn = false;
-		ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
-		if (isCollisionBoxDrawn)
+		if (physics->GetHasCollisionBox())
 		{
-			// TODO: Display Collision Box
+			ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
+			if (isCollisionBoxDrawn)
+			{
+				AddCollisionBox(object, physics);
+			}
+			else
+			{
+				DeleteCollisionBox(object, physics);
+			}
 		}
 	}
 
@@ -113,7 +169,6 @@ namespace MyImGui
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
 		ImGuiIO& io = ImGui::GetIO();
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -121,11 +176,6 @@ namespace MyImGui
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			style.WindowRounding = 0.0f;
-			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-		}
 #endif
 	}
 
@@ -139,8 +189,8 @@ namespace MyImGui
 		ImGui::NewFrame();
 
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-		if (isShowWindow)
-			ImGui::ShowDemoWindow(&isShowWindow);
+		//if (isShowWindow)
+		//	ImGui::ShowDemoWindow(&isShowWindow);
 
 		// 2. Let's make my own window with ImGui Tutorial!
 		ImGui::Begin("Scene");
@@ -153,7 +203,7 @@ namespace MyImGui
 			const int size = objContainer.size();
 			for (int j = 0; j < size; ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && selectedLayer == i))
 				{
 					selectedLayer = i;
 					selected = j;
@@ -184,7 +234,7 @@ namespace MyImGui
 				}
 				if (Physics * physics = obj->GetComponentByTemplate<Physics>())
 				{
-					DrawPhysicsSection(physics);
+					DrawPhysicsSection(obj, physics);
 				}
 			}
 			else
@@ -202,18 +252,6 @@ namespace MyImGui
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		ImGuiIO& io = ImGui::GetIO();
-		// Update and Render additional Platform Windows
-		// (Platform functions may change the currentOpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-		//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			GLFWwindow* backup_current_context = glfwGetCurrentContext();
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(backup_current_context);
-		}
 #endif
 	}
 

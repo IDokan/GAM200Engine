@@ -12,6 +12,7 @@ Creation Date: 08.12.2019
 #include "ObjectManager.hpp"
 #include "States/StateManager.hpp"
 #include <iostream>
+#include "Graphics/Parallax scrolling/Layer.hpp"
 
 ObjectManager::~ObjectManager()
 {
@@ -26,6 +27,7 @@ ObjectManager* ObjectManager::GetObjectManager()
 void ObjectManager::Init()
 {
 	layerContainer.clear();
+	AddLayer();
 }
 
 void ObjectManager::Update(float dt)
@@ -44,12 +46,15 @@ void ObjectManager::Clear()
 	}
 	layerContainer.clear();
 }
-void ObjectManager::AddLayer(LayerNames layerName)
+void ObjectManager::AddLayer()
 {
-	Layer* tmp = new Layer();
-	tmp->Init();
-	tmp->SetName(layerName);
-	layerContainer.push_back(tmp);
+	for (int i = LayerNames::BackGround; i < LayerNames::NumOfLayers; ++i)
+	{
+		Layer* tmp = new Layer();
+		tmp->Init();
+		tmp->SetName(LayerNames(i));
+		layerContainer.push_back(tmp);
+	}
 }
 
 Layer* ObjectManager::FindLayer(LayerNames name)
