@@ -23,39 +23,32 @@ void TestLevel::Load()
 {
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
+
+	background = new Object();
+	background->SetObjectName("background");
+	background->SetTranslation(vector2{ 0.f });
+	background->SetScale(vector2{ 700000 });
+	background->AddComponent(new Sprite(background));
+	background->AddComponent(new Physics(background));
+	background->GetComponentByTemplate<Sprite>()->SetImage("../texture/background.png");
+	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
+	background->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(background, ObjectType::CIRCLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(background);
 	
 	object2 = new Object();
-	object2->SetObjectName("Object2");
+	object2->SetObjectName("Player2");
 	object2->SetTranslation(vector2{ 250.f });
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
-	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f, 1.f });
-	object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
+	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
+	object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite2.png");
+	object2->GetComponentByTemplate<Sprite>()->SetFrame(6);
+	object2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
+	object2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
 	object2->SetDepth(-0.1f);
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
-
-    object1 = new Object();
-    object1->SetObjectName("Object1");
-    object1->SetTranslation(vector2{ 0.f });
-    object1->SetScale(vector2{ 200.f });
-    object1->AddComponent(new Sprite(object1));
-    object1->AddComponent(new Physics(object1));
-    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::RECTANGLE);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-    object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
-    object1->GetComponentByTemplate<Sprite>()->SetFrame(10);
-    object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/numbers.png");
-
-	object3 = new Object();
-	object3->SetObjectName("Object3");
-	object3->SetTranslation(vector2{ 100.f });
-	object3->SetScale(vector2{ 200.f });
-	object3->AddComponent(new Sprite(object3));
-	object3->AddComponent(new Physics(object3));
-	object3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object3, ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object3);
 
 	object4 = new Object();
 	object4->SetObjectName("Object4");
@@ -66,14 +59,35 @@ void TestLevel::Load()
 	object4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object4, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object4);
 
-	object5 = new Object();
-	object5->SetObjectName("Object5");
-	object5->SetTranslation(vector2{ -100.f });
-	object5->SetScale(vector2{ 200.f });
-	object5->AddComponent(new Sprite(object5));
-	object5->AddComponent(new Physics(object5));
-	object5->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object5, ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object5);
+	numbers = new Object();
+	numbers->SetObjectName("numbers");
+	numbers->SetTranslation(vector2{ -100.f });
+	numbers->SetScale(vector2{ 200.f });
+	numbers->AddComponent(new Sprite(numbers));
+	numbers->AddComponent(new Physics(numbers));
+	numbers->GetComponentByTemplate<Sprite>()->SetImage("../texture/numbers.png");
+	numbers->GetComponentByTemplate<Sprite>()->SetFrame(10);
+	numbers->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+	numbers->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(numbers, ObjectType::CIRCLE);
+	numbers->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	numbers->SetDepth(-0.5f);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
+
+	object1 = new Object();
+	object1->SetObjectName("Player1");
+	object1->SetTranslation(vector2{ 0.f });
+	object1->SetScale(vector2{ 200.f });
+	object1->AddComponent(new Sprite(object1));
+	object1->AddComponent(new Physics(object1));
+	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE, vector2{0.f}, vector2{0.5f});
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
+	object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+	object1->GetComponentByTemplate<Sprite>()->SetFrame(6);
+	object1->GetComponentByTemplate<Sprite>()->SetSpeed(6);
+	//object1->SetScale(vector2{ 908000, 112000 });
+	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite1.png");
+	//object1->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
+	object1->SetDepth(-1.f);
 
     
 	cameraManager.Init();

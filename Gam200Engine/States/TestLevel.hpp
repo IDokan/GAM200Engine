@@ -37,8 +37,8 @@ private:
 
 	Object* object1;
 	Object* object2;
-	Object* object3;
+	Object* background;
 	Object* object4;
-	Object* object5;
+	Object* numbers;
 	bool flag = false;
 };
