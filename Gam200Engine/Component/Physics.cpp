@@ -30,6 +30,7 @@ void Physics::Init()
 {
     friction = 0.8f;
     initializedPosition = owner->GetTranslation();
+    position = owner->GetTranslation();
     hasCollisionBox = false;
     isGhost = false;
     isCollide = false;
@@ -47,7 +48,7 @@ void Physics::Update(float dt)
         gravity.y += -dt * 10.f;
     }
 
-    oldPosition = GetCollisionBox().Translation;
+    oldPosition = owner->GetTranslation();//GetCollisionBox().Translation;
     force *= friction;
 
     if (isCollide == false)
@@ -64,7 +65,7 @@ void Physics::Update(float dt)
         isCollide = false;
     }
 
-    owner->SetTranslation(position);
+    //owner->SetTranslation(position);
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 

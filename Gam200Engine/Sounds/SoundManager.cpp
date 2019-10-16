@@ -49,7 +49,7 @@ void SoundManager::ERRCHECK(FMOD_RESULT _theResult, const std::string errorReaso
 {
     if (_theResult != FMOD_OK)
     {
-        std::cout << errorReason <<" Error!\n";
+   //     std::cout << errorReason <<" Error!\n";
     }
 }
 

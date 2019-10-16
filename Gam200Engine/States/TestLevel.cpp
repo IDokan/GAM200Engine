@@ -79,7 +79,7 @@ void TestLevel::Load()
 	object1->SetScale(vector2{ 200.f });
 	object1->AddComponent(new Sprite(object1));
 	object1->AddComponent(new Physics(object1));
-	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE, vector2{0.f}, vector2{0.5f});
+	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE, vector2{0.f}, vector2{-50.f});
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 	object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
 	object1->GetComponentByTemplate<Sprite>()->SetFrame(6);
@@ -344,15 +344,23 @@ void TestLevel::Collision()
 {
     vector2 obj1OldPosition = object1->GetComponentByTemplate<Physics>()->GetOldPosition();
     vector2 obj2OldPosition = object2->GetComponentByTemplate<Physics>()->GetOldPosition();
+    vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
+    float distance = std::sqrt((obj1Position.x - obj2Position.x) * (obj1Position.x - obj2Position.x) + (obj1Position.y - obj2Position.y) * (obj1Position.y - obj2Position.y));
 
-    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
+    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true || distance > 700.f)
     {
         if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
         {
             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-            object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(obj1OldPosition);
-            object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(obj2OldPosition);
+            object1->SetTranslation(obj1OldPosition);
+            object2->SetTranslation(obj2OldPosition);
         }
+    }
+    else
+    {
+        object1->SetTranslation(obj1Position);
+        object2->SetTranslation(obj2Position);
     }
 }
