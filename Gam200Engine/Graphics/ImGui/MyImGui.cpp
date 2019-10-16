@@ -27,10 +27,10 @@ namespace MyImGui
 	static Object* collisionBox;
 	void AddCollisionBox(Object* obj, Physics* physics)
 	{
-		if (isCollisionBoxShown == true)
-		{
-			return;
-		}
+		//if (isCollisionBoxShown == true)
+		//{
+		//	return;
+		//}
 
 		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
 		if (hudLayer != nullptr)
@@ -161,6 +161,11 @@ namespace MyImGui
 		obj->SetTranslation(translation);
 		obj->SetScale(scale);
 		obj->SetRotation(rotation);
+
+		if(ImGui::Button("Delete it"))
+		{
+			obj->SetDead(true);
+		}
 	}
 
 	void InitImGui(GLFWwindow* window) noexcept
@@ -180,7 +185,7 @@ namespace MyImGui
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
-	void UpdateImGui(bool isShowWindow) noexcept
+	void UpdateImGui(bool isShowWindow, float dt) noexcept
 	{
 #ifdef _DEBUG
 		// Start the Dear ImGui frame
@@ -191,7 +196,7 @@ namespace MyImGui
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		//if (isShowWindow)
 		//	ImGui::ShowDemoWindow(&isShowWindow);
-
+		
 		// 2. Let's make my own window with ImGui Tutorial!
 		ImGui::Begin("Scene");
 		static int selectedLayer = -1;

@@ -17,6 +17,6 @@ Creation Date: 08.23.2019
 namespace MyImGui
 {
 	void InitImGui(GLFWwindow* window) noexcept;
-	void UpdateImGui(bool isShowWindow) noexcept;
+	void UpdateImGui(bool isShowWindow, float dt) noexcept;
 	void ClearImGui() noexcept;
 };

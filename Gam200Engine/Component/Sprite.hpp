@@ -37,6 +37,10 @@ public:
 	void SetColor(const Graphics::Color4f& color) noexcept;
 	void SetImage(const std::filesystem::path&) noexcept;
 
+	// Test function they should be implemented specifically later...
+	void SetIsBackground(bool isBackGround) noexcept;
+	void ExpandTextureCoordinate(float scale) noexcept;
+
 	Graphics::Vertices* GetVertices() const noexcept;
 	Graphics::material* GetMaterial() const noexcept;
 
@@ -63,6 +67,7 @@ private:
 	std::shared_ptr<Graphics::Texture> texture;
 	std::string imageFilePath;
 
+	bool isBackground;
 	bool isAnimated;
 	int frame;
 	float speed;
