@@ -79,6 +79,15 @@ void TestLevel::Load()
     
 	cameraManager.Init();
 }
+Object* collisionBox;
+Object* cB2;
+bool isCollisionBoxShown = false;
+void AddCollisionBox(Object* obj, Physics* physics, bool tmp = false)
+{
+	if (isCollisionBoxShown == true)
+	{
+		return;
+	}
 
 Object* collisionBox;
 Object* cB2;
