@@ -42,7 +42,6 @@ void Physics::Update(float dt)
     matrix3 gra = MATRIX3::build_translation(gravity);
     matrix3 finalTranslation = vel * gra;
 
-
     if (gravity.y >= -50.f && gravity.y != 0) // 종단속도
     {
         gravity.y += -dt * 10.f;

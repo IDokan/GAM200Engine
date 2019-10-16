@@ -11,6 +11,7 @@ Creation Date: 08.15.2019
     Source file for First Level to Test Sprite Component
 ******************************************************************************/
 #include <iostream>
+#include <cmath>
 #include "TestLevel.hpp"
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -92,6 +93,16 @@ void TestLevel::Load()
     
 	cameraManager.Init();
 }
+
+Object* collisionBox;
+Object* cB2;
+bool isCollisionBoxShown = false;
+void AddCollisionBox(Object* obj, Physics* physics, bool tmp = false)
+{
+	if (isCollisionBoxShown == true)
+	{
+		return;
+	}
 
 Object* collisionBox;
 Object* cB2;
@@ -337,6 +348,17 @@ void TestLevel::Input()
     if (input.IsKeyTriggered(GLFW_KEY_SPACE))
     {
         object1->GetComponentByTemplate<Physics>()->AddForce(vector2{ object1->GetComponentByTemplate<Physics>()->GetVelocity().x *  30.f, object1->GetComponentByTemplate<Physics>()->GetVelocity().y * 30.f });
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_G))
+    {
+        if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() == true)
+        {
+            object1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+        }
+        else
+        {
+            object1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+        }
     }
 }
 
