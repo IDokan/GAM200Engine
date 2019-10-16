@@ -11,6 +11,7 @@ Creation Date: 08.15.2019
     Source file for First Level to Test Sprite Component
 ******************************************************************************/
 #include <iostream>
+#include <cmath>
 #include "TestLevel.hpp"
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -47,7 +48,7 @@ void TestLevel::Load()
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::RECTANGLE);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 
-    cameraManager.Init();
+    cameraManager.Init(); 
 }
 
 void TestLevel::Update(float dt)
@@ -159,8 +160,11 @@ void TestLevel::Collision()
 {
     vector2 obj1OldPosition = object1->GetComponentByTemplate<Physics>()->GetOldPosition();
     vector2 obj2OldPosition = object2->GetComponentByTemplate<Physics>()->GetOldPosition();
+    vector2 obj1Postion = object1->GetComponentByTemplate<Physics>()->GetPosition(); // test
+    vector2 obj2Postion = object2->GetComponentByTemplate<Physics>()->GetPosition(); // test
+    float distance = std::sqrt((obj1Postion.x - obj2Postion.x) * (obj1Postion.x - obj2Postion.x) + (obj1Postion.y - obj2Postion.y) * (obj1Postion.y - obj2Postion.y)); // test
 
-    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
+    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true || distance > 700.f)
     {
         if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
         {
