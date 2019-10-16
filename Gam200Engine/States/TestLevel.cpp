@@ -19,9 +19,12 @@ Creation Date: 08.15.2019
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
+#include "Sounds/SoundManager.hpp"
 
+SoundManager test;
 void TestLevel::Load()
 {
+	test.Load_Sound();
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
 
@@ -33,8 +36,6 @@ void TestLevel::Load()
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../texture/background.png");
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
-	background->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(background, ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(background);
 	
 	object2 = new Object();
 	object2->SetObjectName("Player2");
@@ -43,10 +44,6 @@ void TestLevel::Load()
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
-	object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite2.png");
-	object2->GetComponentByTemplate<Sprite>()->SetFrame(6);
-	object2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
-	object2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
 	object2->SetDepth(-0.1f);
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
@@ -82,27 +79,11 @@ void TestLevel::Load()
 	object1->AddComponent(new Physics(object1));
 	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE, vector2{0.f}, vector2{-50.f});
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-	object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
-	object1->GetComponentByTemplate<Sprite>()->SetFrame(6);
-	object1->GetComponentByTemplate<Sprite>()->SetSpeed(6);
-	//object1->SetScale(vector2{ 908000, 112000 });
-	object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite1.png");
-	//object1->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
 	object1->SetDepth(-1.f);
 
     
 	cameraManager.Init();
 }
-
-Object* collisionBox;
-Object* cB2;
-bool isCollisionBoxShown = false;
-void AddCollisionBox(Object* obj, Physics* physics, bool tmp = false)
-{
-	if (isCollisionBoxShown == true)
-	{
-		return;
-	}
 
 Object* collisionBox;
 Object* cB2;
@@ -181,7 +162,7 @@ void DeleteCollisionBox(Object* obj, Physics* physics, bool tmp = false)
 	}
 	//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
 }
-
+bool check_haha = false;
 void TestLevel::Update(float dt)
 {
     TestLevel::Input();
@@ -189,7 +170,47 @@ void TestLevel::Update(float dt)
 	TestLevel::Collision();
    
 	cameraManager.CameraMove(1.1f);
-
+	ObjectManager* objManager = ObjectManager::GetObjectManager();
+	// Background show up
+	if (input.IsKeyTriggered(GLFW_KEY_1))
+	{
+		objManager->FindLayer(LayerNames::BackGround)->AddObjectDynamically(background);
+	}
+	// Sprite show up
+	if (input.IsKeyTriggered(GLFW_KEY_2))
+	{
+		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite2.png");
+		object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite1.png");
+	}
+	// Animation Works
+    if (input.IsKeyTriggered(GLFW_KEY_3))
+    {
+		object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+		object1->GetComponentByTemplate<Sprite>()->SetFrame(6);
+		object1->GetComponentByTemplate<Sprite>()->SetSpeed(6);
+		object2->GetComponentByTemplate<Sprite>()->SetFrame(6);
+		object2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
+		object2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+    }
+	//Bgm Sounds
+	if (input.IsKeyTriggered(GLFW_KEY_4) )
+	{
+	//	test.Load_Sound();
+		if (check_haha == false) {
+			test.Play_Sound(SOUNDS::JAMJAMTEST_SOUND);
+			test.SetVolume(JAMJAMTEST_SOUND, 1);
+			check_haha = true;
+		}
+		else if(check_haha == true)
+		{
+			test.Stop_Sound(JAMJAMTEST_SOUND);
+		}
+		
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_5))
+	{
+		
+	}
 	if (input.IsKeyTriggered(GLFW_KEY_Q))
 	{
 		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
@@ -348,6 +369,9 @@ void TestLevel::Input()
     if (input.IsKeyTriggered(GLFW_KEY_SPACE))
     {
         object1->GetComponentByTemplate<Physics>()->AddForce(vector2{ object1->GetComponentByTemplate<Physics>()->GetVelocity().x *  30.f, object1->GetComponentByTemplate<Physics>()->GetVelocity().y * 30.f });
+		
+		test.Play_Sound(SOUNDS::DASH_SOUND);
+		test.SetVolume(DASH_SOUND, 1);
     }
     if (input.IsKeyTriggered(GLFW_KEY_G))
     {
@@ -362,6 +386,7 @@ void TestLevel::Input()
     }
 }
 
+bool is_collisionTest = false;
 void TestLevel::Collision()
 {
     vector2 obj1OldPosition = object1->GetComponentByTemplate<Physics>()->GetOldPosition();
@@ -370,8 +395,13 @@ void TestLevel::Collision()
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
     float distance = std::sqrt((obj1Position.x - obj2Position.x) * (obj1Position.x - obj2Position.x) + (obj1Position.y - obj2Position.y) * (obj1Position.y - obj2Position.y));
 
-    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true || distance > 700.f)
+    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
     {
+		if (is_collisionTest == false) {
+			test.Play_Sound(SOUNDS::COLLISION_SOUND);
+			test.SetVolume(COLLISION_SOUND, 1);
+			is_collisionTest = true;
+		}
         if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
         {
             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
@@ -380,6 +410,14 @@ void TestLevel::Collision()
             object2->SetTranslation(obj2OldPosition);
         }
     }
+	else if (distance > 700.f)
+	{
+		object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+		object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+		object1->SetTranslation(obj1OldPosition);
+		object2->SetTranslation(obj2OldPosition);
+		is_collisionTest = false;
+	}
     else
     {
         object1->SetTranslation(obj1Position);

@@ -20,8 +20,8 @@ using  namespace  FMOD;
 enum  SOUNDS
 {
     JAMJAMTEST_SOUND =0 ,
-	BACKGROUND_SOUND ,
-	MENU_SOUND	
+	DASH_SOUND ,
+	COLLISION_SOUND	
 };
 
 class SoundManager 
