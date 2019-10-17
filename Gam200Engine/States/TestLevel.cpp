@@ -48,14 +48,14 @@ void TestLevel::Load()
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 
-	object4 = new Object();
+	/*object4 = new Object();
 	object4->SetObjectName("Object4");
 	object4->SetTranslation(vector2{ 500.f });
 	object4->SetScale(vector2{ 200.f });
 	object4->AddComponent(new Sprite(object4));
 	object4->AddComponent(new Physics(object4));
 	object4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object4, ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object4);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object4);*/
 
 	numbers = new Object();
 	numbers->SetObjectName("numbers");
@@ -69,7 +69,6 @@ void TestLevel::Load()
 	numbers->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(numbers, ObjectType::CIRCLE);
 	numbers->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
 	numbers->SetDepth(-0.5f);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
 
 	object1 = new Object();
 	object1->SetObjectName("Player1");
@@ -191,6 +190,7 @@ void TestLevel::Update(float dt)
 		object2->GetComponentByTemplate<Sprite>()->SetFrame(6);
 		object2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
 		object2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+		objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
     }
 	//Bgm Sounds
 	if (input.IsKeyTriggered(GLFW_KEY_4) )
@@ -409,6 +409,11 @@ void TestLevel::Collision()
             object1->SetTranslation(obj1OldPosition);
             object2->SetTranslation(obj2OldPosition);
         }
+		else
+		{
+			object1->SetTranslation(obj1Position);
+			object2->SetTranslation(obj2Position);
+		}
     }
 	else if (distance > 700.f)
 	{
