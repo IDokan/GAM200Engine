@@ -29,7 +29,7 @@ Creation Date: 08.14.2019
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../texture/rect.png"), isAnimated(false), frame(1), speed(1.f), index(0.f)
+		imageFilePath("../texture/rect.png"), isBackground(false), isAnimated(false), frame(1), speed(1.f), index(0.f)
 {
 	mesh->Clear();
 }
@@ -52,10 +52,10 @@ void Sprite::Init()
 	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = Graphics::Color4f{1.f};
 
 	// TODO: To Modify for animation or special shader
-	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
-	mesh->AddTextureCoordinate(vector2{ 1.f });
+	mesh->AddTextureCoordinate(vector2{ 0.f });
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
-	mesh->AddTextureCoordinate(vector2{ 0.f});
+	mesh->AddTextureCoordinate(vector2{ 1.f });
+	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
 
 	SetImage(imageFilePath);
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
@@ -98,6 +98,25 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 	{
 		std::cout << "Image Loading Failed!\n";
 	}
+}
+
+void Sprite::SetIsBackground(bool isBackGround) noexcept
+{
+	isBackground = isBackGround;
+	if(isBackground)
+	{
+		material->shader = &Graphics::SHADER::background();
+	}
+}
+
+void Sprite::ExpandTextureCoordinate(float scale) noexcept
+{
+	mesh->ClearTextureCoordinates();
+	mesh->AddTextureCoordinate(vector2{ 0.f });
+	mesh->AddTextureCoordinate(vector2{ 1.f * scale, 0.f });
+	mesh->AddTextureCoordinate(vector2{ 1.f * scale});
+	mesh->AddTextureCoordinate(vector2{ 0.f, 1.f *scale});
+	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
 void Sprite::UpdateUniforms(const matrix3& toNDC, float depth) noexcept

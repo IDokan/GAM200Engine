@@ -17,14 +17,14 @@ Creation Date: 08.05.2019
 #include <States/StateManager.hpp>
 #include <Sounds/SoundManager.hpp>
 
-Application* app_ = nullptr;
-SoundManager test;
+Application* app_ = nullptr;/*
+SoundManager test;*/
 void Engine::Init()
 {
-    //-----------TEST SOUNDS-------------------------
-    test.Load_Sound();
-    test.Play_Sound(SOUNDS::JAMJAMTEST_SOUND);
-    test.SetVolume(JAMJAMTEST_SOUND, 1);
+    ////-----------TEST SOUNDS-------------------------
+    //test.Load_Sound();
+    //test.Play_Sound(SOUNDS::JAMJAMTEST_SOUND);
+    //test.SetVolume(JAMJAMTEST_SOUND, 1);
     //------------------------------------------------
 
     app_ = Application::GetApplication();

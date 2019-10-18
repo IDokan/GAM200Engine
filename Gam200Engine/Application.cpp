@@ -70,7 +70,7 @@ void Application::Update(float dt)
 	// I'm not sure it is right place or not
 	// One Possibility:
 	// put it after /*renderer.Clear();*/
-	MyImGui::UpdateImGui(show_demo_window);
+	MyImGui::UpdateImGui(show_demo_window, dt);
 
 	Graphics::GL::end_drawing();
 

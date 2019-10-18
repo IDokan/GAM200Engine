@@ -30,6 +30,7 @@ void Physics::Init()
 {
     friction = 0.8f;
     initializedPosition = owner->GetTranslation();
+    position = owner->GetTranslation();
     hasCollisionBox = false;
     isGhost = false;
     isCollide = false;
@@ -41,13 +42,12 @@ void Physics::Update(float dt)
     matrix3 gra = MATRIX3::build_translation(gravity);
     matrix3 finalTranslation = vel * gra;
 
-
     if (gravity.y >= -50.f && gravity.y != 0) // 종단속도
     {
         gravity.y += -dt * 10.f;
     }
 
-    oldPosition = GetCollisionBox().Translation;
+    oldPosition = owner->GetTranslation();//GetCollisionBox().Translation;
     force *= friction;
 
     if (isCollide == false)
@@ -64,7 +64,7 @@ void Physics::Update(float dt)
         isCollide = false;
     }
 
-    owner->SetTranslation(position);
+    //owner->SetTranslation(position);
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 
