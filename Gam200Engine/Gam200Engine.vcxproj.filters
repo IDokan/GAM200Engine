@@ -94,6 +94,15 @@
     </ClCompile>
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
+    <ClCompile Include="Graphics\BitmapFont.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Text.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Animation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -205,6 +214,15 @@
     </ClInclude>
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
+    <ClInclude Include="Graphics\BitmapFont.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Text.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Animation.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

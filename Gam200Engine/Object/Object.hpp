@@ -75,10 +75,14 @@ COMPONENT* Object::GetComponentByTemplate() const
 {
     for (const auto& i : component)
     {
-        if (typeid(COMPONENT) == typeid(*i))
-        {
-            return dynamic_cast<COMPONENT*>(i);
-        }
+		COMPONENT* iterator = dynamic_cast<COMPONENT*>(i);
+		if (iterator != nullptr)
+		{
+			if (typeid(COMPONENT*) == typeid(iterator))
+			{
+				return iterator;
+			}
+		}
     }
     return nullptr;
 }

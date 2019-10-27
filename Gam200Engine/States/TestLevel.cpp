@@ -13,13 +13,15 @@ Creation Date: 08.15.2019
 #include <iostream>
 #include <cmath>
 #include "TestLevel.hpp"
-#include <Component/Sprite.hpp>
-#include <Component/Physics.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Input.hpp>
 #include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
 #include "Sounds/SoundManager.hpp"
+// Include Components
+#include <Component/Sprite.hpp>
+#include <Component/Physics.hpp>
+#include <Component/Animation.hpp>
 
 SoundManager test;
 void TestLevel::Load()
@@ -41,9 +43,9 @@ void TestLevel::Load()
 	object2->SetObjectName("Player2");
 	object2->SetTranslation(vector2{ 250.f });
 	object2->SetScale(vector2{ 250.f });
-	object2->AddComponent(new Sprite(object2));
+	object2->AddComponent(new Animation(object2));
 	object2->AddComponent(new Physics(object2));
-	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
+	object2->GetComponentByTemplate<Animation>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
 	object2->SetDepth(-0.1f);
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
@@ -61,11 +63,10 @@ void TestLevel::Load()
 	numbers->SetObjectName("numbers");
 	numbers->SetTranslation(vector2{ -100.f });
 	numbers->SetScale(vector2{ 200.f });
-	numbers->AddComponent(new Sprite(numbers));
+	numbers->AddComponent(new Animation(numbers));
 	numbers->AddComponent(new Physics(numbers));
-	numbers->GetComponentByTemplate<Sprite>()->SetImage("../texture/numbers.png");
-	numbers->GetComponentByTemplate<Sprite>()->SetFrame(10);
-	numbers->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+	numbers->GetComponentByTemplate<Animation>()->SetImage("../texture/numbers.png");
+	numbers->GetComponentByTemplate<Animation>()->SetFrame(10);
 	numbers->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(numbers, ObjectType::CIRCLE);
 	numbers->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
 	numbers->SetDepth(-0.5f);
@@ -74,7 +75,7 @@ void TestLevel::Load()
 	object1->SetObjectName("Player1");
 	object1->SetTranslation(vector2{ 0.f });
 	object1->SetScale(vector2{ 200.f });
-	object1->AddComponent(new Sprite(object1));
+	object1->AddComponent(new Animation(object1));
 	object1->AddComponent(new Physics(object1));
 	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE, vector2{0.f}, vector2{-50.f});
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
@@ -84,83 +85,6 @@ void TestLevel::Load()
 	cameraManager.Init();
 }
 
-Object* collisionBox;
-Object* cB2;
-bool isCollisionBoxShown = false;
-void AddCollisionBox(Object* obj, Physics* physics, bool tmp = false)
-{
-	if (isCollisionBoxShown == true)
-	{
-		return;
-	}
-
-	Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
-	if (hudLayer != nullptr)
-	{
-		// Toggle Show var
-		isCollisionBoxShown = true;
-
-		if (!tmp)
-		{
-			// Make Collision Box Object and Add to Object Manager
-			collisionBox = new Object();
-			collisionBox->AddComponent(new Sprite(collisionBox));
-			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
-			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
-			collisionBox->SetTranslation(positionOfCollisionBox.Translation);
-			collisionBox->SetScale(positionOfCollisionBox.Scale);
-			collisionBox->SetDepth(-1.f);
-
-			// If type of collision type is circle, make image as circle.
-			if (physics->GetObjectType() == ObjectType::CIRCLE)
-			{
-				collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
-			}
-
-			hudLayer->AddObjectDynamically(collisionBox);
-		}
-		else
-		{
-			// Make Collision Box Object and Add to Object Manager
-			cB2 = new Object();
-			cB2->AddComponent(new Sprite(cB2));
-			cB2->SetObjectName(obj->GetObjectName() + " CollisionBox2");
-			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
-			cB2->SetTranslation(positionOfCollisionBox.Translation);
-			cB2->SetScale(positionOfCollisionBox.Scale);
-			cB2->SetDepth(-1.f);
-
-			// If type of collision type is circle, make image as circle.
-			if (physics->GetObjectType() == ObjectType::CIRCLE)
-			{
-				cB2->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
-			}
-
-			hudLayer->AddObjectDynamically(cB2);
-		}
-	}
-}
-
-void DeleteCollisionBox(Object* obj, Physics* physics, bool tmp = false)
-{
-	if (isCollisionBoxShown == false)
-	{
-		return;
-	}
-	Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
-	// Toggle Show Var
-	isCollisionBoxShown = false;
-	if (tmp)
-	{
-		cB2->SetDead(true);
-	}
-	else
-	{
-		
-		collisionBox->SetDead(true);
-	}
-	//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
-}
 bool check_haha = false;
 void TestLevel::Update(float dt)
 {
@@ -178,18 +102,16 @@ void TestLevel::Update(float dt)
 	// Sprite show up
 	if (input.IsKeyTriggered(GLFW_KEY_2))
 	{
-		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite2.png");
-		object1->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite1.png");
+		object2->GetComponentByTemplate<Animation>()->SetImage("../texture/playerSprite2.png");
+		object1->GetComponentByTemplate<Animation>()->SetImage("../texture/playerSprite1.png");
 	}
 	// Animation Works
     if (input.IsKeyTriggered(GLFW_KEY_3))
     {
-		object1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
-		object1->GetComponentByTemplate<Sprite>()->SetFrame(6);
-		object1->GetComponentByTemplate<Sprite>()->SetSpeed(6);
-		object2->GetComponentByTemplate<Sprite>()->SetFrame(6);
-		object2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
-		object2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+		object1->GetComponentByTemplate<Animation>()->SetFrame(6);
+		object1->GetComponentByTemplate<Animation>()->SetSpeed(6);
+		object2->GetComponentByTemplate<Animation>()->SetFrame(6);
+		object2->GetComponentByTemplate<Animation>()->SetSpeed(10);
 		objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
     }
 	//Bgm Sounds
@@ -210,22 +132,6 @@ void TestLevel::Update(float dt)
 	if (input.IsKeyTriggered(GLFW_KEY_5))
 	{
 		
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_Q))
-	{
-		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_Z))
-	{
-		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_E))
-	{
-		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_C))
-	{
-		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
 	}
 }
 
