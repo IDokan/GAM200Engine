@@ -43,6 +43,8 @@ namespace Graphics
         };
 
     public:
+        explicit BitmapFont(const std::filesystem::path& filename);
+		~BitmapFont() noexcept = default;
         bool               LoadFromFile(const std::filesystem::path& filename);
         bool               LoadDefinition(const std::wstring& font_definition, std::vector<Texture> page_textures);
         const information& GetInformation() const noexcept;

@@ -13,6 +13,17 @@
 
 namespace Graphics
 {
+	BitmapFont::BitmapFont(const std::filesystem::path& filename)
+	{
+		characters.clear();
+		pageTextures.clear();
+		if (LoadFromFile(filename) == false)
+		{
+			//std::cerr << "Falied to load file!" << std::endl;
+		}
+		
+	}
+
     bool BitmapFont::LoadFromFile(const std::filesystem::path& filename)
     {
         if (CanParseFile(filename) == false)

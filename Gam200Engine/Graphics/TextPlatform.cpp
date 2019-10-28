@@ -1,21 +1,27 @@
-/*  1. sinil.gang
- *  2. text assignment
- *  3. CS230
- *  4. Spring 2019
- */
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   TextPlatform.cpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+Creation Date: 10.28.2019
+
+	Source file for base text platform used for Text Class
+******************************************************************************/
 #include <Graphics/BitmapFont.hpp>
 #include <Graphics/Mesh.hpp>
 #include <Graphics/StockShaders.hpp>
-#include <Graphics/Text.hpp>
+#include <Graphics/TextPlatform.hpp>
 
 namespace Graphics
 {
-    Text::Text(std::wstring text_string, const BitmapFont& text_font) noexcept : string(text_string), font(&text_font)
+    TextPlatform::TextPlatform(std::wstring text_string, const BitmapFont& text_font) noexcept : string(text_string), font(&text_font)
     {
         InitializeWithEmptyVertices();
     }
 
-    std::vector<std::pair<const Vertices*, const Texture*>> Text::GetVerticesWithMatchingTextures() const noexcept
+    std::vector<std::pair<const Vertices*, const Texture*>> TextPlatform::GetVerticesWithMatchingTextures() const noexcept
     {
         BuildNewMeshesIfNeeded();
         std::vector<std::pair<const Vertices*, const Texture*>> result;
@@ -29,9 +35,9 @@ namespace Graphics
         return result;
     }
 
-    std::wstring Text::GetString() const noexcept { return string; }
+    std::wstring TextPlatform::GetString() const noexcept { return string; }
 
-    void Text::SetString(const std::wstring& text_string) noexcept
+    void TextPlatform::SetString(const std::wstring& text_string) noexcept
     {
         if (string != text_string)
         {
@@ -40,16 +46,16 @@ namespace Graphics
         }
     }
 
-    const BitmapFont* Text::GetFont() const noexcept { return font; }
+    const BitmapFont* TextPlatform::GetFont() const noexcept { return font; }
 
-    void Text::SetFont(const BitmapFont& text_font) noexcept
+    void TextPlatform::SetFont(const BitmapFont& text_font) noexcept
     {
         font = &text_font;
         InitializeWithEmptyVertices();
         needNewMeshes = true;
     }
 
-    void Text::InitializeWithEmptyVertices() const noexcept
+    void TextPlatform::InitializeWithEmptyVertices() const noexcept
     {
         vertices.clear();
 
@@ -63,7 +69,7 @@ namespace Graphics
         }
     }
 
-    void Text::BuildNewMeshesIfNeeded() const noexcept
+    void TextPlatform::BuildNewMeshesIfNeeded() const noexcept
     {
         if (needNewMeshes == false)
         {

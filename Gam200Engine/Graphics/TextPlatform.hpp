@@ -1,8 +1,14 @@
-/*
- * Rudy Castan
- * Graphics Library
- * CS230
- */
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   TextPlatform.hpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+Creation Date: 10.28.2019
+
+	Source file for base text platform used for Text Class
+******************************************************************************/
 #pragma once
 
 #include <Graphics/Vertices.hpp>
@@ -20,11 +26,11 @@ namespace Graphics
 	class BitmapFont;
 	class Texture;
 
-    class [[nodiscard]] Text
+    class [[nodiscard]] TextPlatform
     {
     public:
-        Text() noexcept = default;
-        Text(std::wstring text_string, const BitmapFont& text_font) noexcept;
+		TextPlatform() noexcept = default;
+		TextPlatform(std::wstring text_string, const BitmapFont& text_font) noexcept;
 
         std::vector<std::pair<const Vertices*, const Texture*>> GetVerticesWithMatchingTextures() const noexcept;
         std::wstring                                            GetString() const noexcept;

@@ -93,14 +93,19 @@
       <Filter>Sounds</Filter>
     </ClCompile>
     <ClCompile Include="Component\Physics.cpp" />
-    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Text.cpp">
+    <ClCompile Include="Component\Animation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TextPlatform.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Animation.cpp">
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp">
+      <Filter>Graphics\Parallax Scrolling</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\TextComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,14 +218,22 @@
       <Filter>Sounds</Filter>
     </ClInclude>
     <ClInclude Include="Component\Physics.hpp" />
-    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Text.hpp">
+    <ClInclude Include="Component\Animation.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TextPlatform.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Animation.hpp">
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp">
+      <Filter>Graphics\Parallax Scrolling</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\StockBitmapFonts.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TextComponent.hpp">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -243,9 +256,15 @@
     <Filter Include="Sounds">
       <UniqueIdentifier>{6b7e432b-27a8-4a06-88b8-ee201562c7c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Parallax Scrolling">
+      <UniqueIdentifier>{b5633d40-2cff-4889-9a49-4c9c529490cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">
+      <Filter>Graphics</Filter>
+    </None>
+    <None Include="Graphics\StockBitmapFonts.inl">
       <Filter>Graphics</Filter>
     </None>
   </ItemGroup>

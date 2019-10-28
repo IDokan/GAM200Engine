@@ -18,14 +18,6 @@ Creation Date: 08.14.2019
 #include <Graphics/Texture.hpp>
 class Component;
 
-namespace Graphics
-{
-	class Mesh;
-	class Vertices;
-	struct material;
-	class Texture;
-}
-
 class Sprite :
 	public Component
 {

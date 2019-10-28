@@ -22,6 +22,7 @@ Creation Date: 08.15.2019
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 #include <Component/Animation.hpp>
+#include <Component/Text.hpp>
 
 SoundManager test;
 void TestLevel::Load()
@@ -36,7 +37,7 @@ void TestLevel::Load()
 	background->SetScale(vector2{ 700000 });
 	background->AddComponent(new Sprite(background));
 	background->AddComponent(new Physics(background));
-	background->GetComponentByTemplate<Sprite>()->SetImage("../texture/background.png");
+	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
 	
 	object2 = new Object();
@@ -60,16 +61,14 @@ void TestLevel::Load()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object4);*/
 
 	numbers = new Object();
-	numbers->SetObjectName("numbers");
+	numbers->SetObjectName("test text");
 	numbers->SetTranslation(vector2{ -100.f });
-	numbers->SetScale(vector2{ 200.f });
-	numbers->AddComponent(new Animation(numbers));
-	numbers->AddComponent(new Physics(numbers));
-	numbers->GetComponentByTemplate<Animation>()->SetImage("../texture/numbers.png");
-	numbers->GetComponentByTemplate<Animation>()->SetFrame(10);
-	numbers->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(numbers, ObjectType::CIRCLE);
-	numbers->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	numbers->AddComponent(new TextComponent(numbers));
+	numbers->GetComponentByTemplate<TextComponent>()->SetString(
+		L"AaBbCcDdEeFf\n\nGgHhIiJjKkLl\n\tMmNnOoPpQqRrSs\n\n\nTtUuVv\n\t\tWwXxYyZz");
 	numbers->SetDepth(-0.5f);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
+	
 
 	object1 = new Object();
 	object1->SetObjectName("Player1");
@@ -102,8 +101,8 @@ void TestLevel::Update(float dt)
 	// Sprite show up
 	if (input.IsKeyTriggered(GLFW_KEY_2))
 	{
-		object2->GetComponentByTemplate<Animation>()->SetImage("../texture/playerSprite2.png");
-		object1->GetComponentByTemplate<Animation>()->SetImage("../texture/playerSprite1.png");
+		object2->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite2.png");
+		object1->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite1.png");
 	}
 	// Animation Works
     if (input.IsKeyTriggered(GLFW_KEY_3))
@@ -112,7 +111,6 @@ void TestLevel::Update(float dt)
 		object1->GetComponentByTemplate<Animation>()->SetSpeed(6);
 		object2->GetComponentByTemplate<Animation>()->SetFrame(6);
 		object2->GetComponentByTemplate<Animation>()->SetSpeed(10);
-		objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
     }
 	//Bgm Sounds
 	if (input.IsKeyTriggered(GLFW_KEY_4) )
@@ -154,8 +152,16 @@ void TestLevel::Draw() const noexcept
 					obj.get()->GetTransform().CalculateWorldDepth());
 				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
 			}
+			if (const auto& text = obj.get()->GetComponentByTemplate<TextComponent>())
+			{
+				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+				text->Draw(matrix,
+					obj.get()->GetTransform().CalculateWorldDepth());
+			}
 		}
 	}
+
+	Graphics::GL::end_drawing();
 }
 
 void TestLevel::Input()

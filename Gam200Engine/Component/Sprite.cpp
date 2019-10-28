@@ -24,7 +24,7 @@ Creation Date: 08.14.2019
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../texture/rect.png"), isBackground(false)
+		imageFilePath("../assets/textures/rect.png"), isBackground(false)
 {
 	mesh->Clear();
 }
@@ -46,7 +46,6 @@ void Sprite::Init()
 
 	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = Graphics::Color4f{1.f};
 
-	// TODO: To Modify for animation or special shader
 	mesh->AddTextureCoordinate(vector2{ 0.f });
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
 	mesh->AddTextureCoordinate(vector2{ 1.f });
