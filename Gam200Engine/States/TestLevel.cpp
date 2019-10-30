@@ -78,10 +78,21 @@ void TestLevel::Load()
 	object1->AddComponent(new Physics(object1));
 	object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, ObjectType::CIRCLE, vector2{0.f}, vector2{-50.f});
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-	object1->SetDepth(-1.f);
 
-    
+	string = new Object();
+	string->SetObjectName("Rectangle");
+	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation())/2 });
+	string->SetScale(vector2{object2->GetTranslation().x - object1->GetTranslation().x, 5.f});
+	//string->SetRotation(vector2{})
+	string->AddComponent(new Sprite(string));
+	string->SetDepth(-0.7f);
+	//string->AddComponent(new Physics(string));
+	//string->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(string, ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ -50.f });
+	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+	//string->SetDepth(-1.f);
+
 	cameraManager.Init();
+
 }
 
 Object* collisionBox;
@@ -227,6 +238,21 @@ void TestLevel::Update(float dt)
 	{
 		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
 	}
+
+	/*************************************UPDATE STRING****************************************************/
+
+
+	const float dx = (object1->GetTranslation().x - object2->GetTranslation().x);
+	const float dy = (object1->GetTranslation().y - object2->GetTranslation().y);
+	float stringSize = sqrt(dx * dx + dy * dy);
+	float stringAngle = (dx) / stringSize;
+	
+	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation()) / 2 });
+	string->SetScale(vector2{ stringSize, string->GetScale().y });
+	if(object1->GetTranslation().y < object2->GetTranslation().y)
+		string->SetRotation(acos(-stringAngle));
+	else
+		string->SetRotation(acos(stringAngle));
 }
 
 void TestLevel::Unload()
@@ -384,6 +410,8 @@ void TestLevel::Input()
             object1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
         }
     }
+
+	
 }
 
 bool is_collisionTest = false;
