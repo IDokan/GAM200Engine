@@ -16,6 +16,7 @@ Creation Date: 08.12.2019
 #include "Component/Component.hpp"
 
 
+
 class Object
 {
 public:
@@ -23,6 +24,14 @@ public:
     Object();
 
 public:
+
+    enum class ObjectType
+    {
+        PLAYER_1,
+        PLAYER_2,
+        OBSTACLE,
+    };
+
     void SetDead(bool condition) 
     {
         is_dead = condition;
@@ -44,6 +53,11 @@ public:
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate()const;
 
+    ObjectType GetobjectType() const // test fuction for Woo
+    {
+        return objType;
+    }
+
 public:
     
     virtual void AddComponent(Component* comp);
@@ -57,7 +71,7 @@ public:
     void SetObjectName(std::string name); // Woo
     std::string GetObjectName(); // Woo
 
-    
+    void SetObjectType(ObjectType objType); // test function Woo
     
     vector2 GetTranslation(); // Woo
     vector2 GetScale(); // Woo
@@ -68,6 +82,8 @@ private:
     std::vector<Component*> component;
     std::string objectName;
     bool is_dead = false;
+
+    ObjectType objType; // test variable Woo
 };
 
 template <typename COMPONENT>

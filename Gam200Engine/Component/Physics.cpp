@@ -1,4 +1,4 @@
- /******************************************************************************
+/******************************************************************************
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
@@ -15,6 +15,7 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Object/Object.hpp>
 #include "matrix3.hpp"
+#include <Object/ObjectManager.hpp>
 #include <cmath>
 #include <iostream>
 
@@ -63,8 +64,6 @@ void Physics::Update(float dt)
         position = oldPosition;
         isCollide = false;
     }
-
-    //owner->SetTranslation(position);
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 
@@ -142,6 +141,22 @@ void Physics::SetVectorTranslation(vector2 translation)
     vectorTranslation = translation;
 }
 
+bool Physics::IsCollideWith()
+{
+    const auto & physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+
+    for (const auto & object : physicsObject)
+    {
+        if (owner->GetobjectType() != object->GetobjectType())
+        {
+            if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object) == true)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 bool Physics::IsCollideWith(Object * object)
 {
@@ -168,10 +183,6 @@ bool Physics::IsCollideWith(Object * object)
                 {
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
             }
             else if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == ObjectType::CIRCLE)
             {
@@ -182,10 +193,6 @@ bool Physics::IsCollideWith(Object * object)
                 if (distance < (objectCollisionBox.Scale.x / 2) + (ownerCollisionBox.Scale.x / 2))
                 {
                     return true;
-                }
-                else
-                {
-                    return false;
                 }
             }
         }
@@ -213,7 +220,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleX - rectangleLeft);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleY >= rectangleTop)
                     {
@@ -221,7 +231,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleTop;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleY <= rectangleBottom)
                     {
@@ -229,7 +242,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleBottom;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
                 else if (circleY >= rectangleTop)
@@ -238,7 +254,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleY - rectangleTop);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleX >= rectangleRight)
                     {
@@ -246,7 +265,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleTop;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
                 else if (circleX >= rectangleRight)
@@ -255,7 +277,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleX - rectangleRight);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleY <= rectangleBottom)
                     {
@@ -263,7 +288,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleBottom;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
                 else if (circleY <= rectangleBottom)
@@ -272,7 +300,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleY - rectangleBottom);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -298,7 +329,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleX - rectangleLeft);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleY >= rectangleTop)
                     {
@@ -306,7 +340,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleTop;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleY <= rectangleBottom)
                     {
@@ -314,7 +351,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleBottom;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
                 else if (circleY >= rectangleTop)
@@ -323,7 +363,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleY - rectangleTop);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleX >= rectangleRight)
                     {
@@ -331,7 +374,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleTop;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
                 else if (circleX >= rectangleRight)
@@ -340,7 +386,10 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleX - rectangleRight);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                     else if (circleY <= rectangleBottom)
                     {
@@ -348,7 +397,10 @@ bool Physics::IsCollideWith(Object * object)
                         float yDistance = circleY - rectangleBottom;
                         float distance = std::sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
                 else if (circleY <= rectangleBottom)
@@ -357,17 +409,16 @@ bool Physics::IsCollideWith(Object * object)
                     {
                         float distance = std::abs(circleY - rectangleBottom);
 
-                        return distance <= circleRadius ? true : false;
+                        if (distance <= circleRadius)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
         }
-        return false;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 void Physics::AddForce(vector2 frc)

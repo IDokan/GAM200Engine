@@ -42,13 +42,13 @@ namespace MyImGui
 			collisionBox = new Object();
 			collisionBox->AddComponent(new Sprite(collisionBox));
 			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
-			const CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+			const Physics::CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
 			collisionBox->SetTranslation(positionOfCollisionBox.Translation);
 			collisionBox->SetScale(positionOfCollisionBox.Scale);
 			collisionBox->SetDepth(-1.f);
 
 			// If type of collision type is circle, make image as circle.
-			if (physics->GetObjectType() == ObjectType::CIRCLE)
+			if (physics->GetObjectType() == Physics::ObjectType::CIRCLE)
 			{
 				collisionBox->GetComponentByTemplate<Sprite>()->SetImage("../texture/circle.png");
 			}

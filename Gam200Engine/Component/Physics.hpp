@@ -12,18 +12,9 @@ Creation Date: 08.15.2019
 
 #pragma once
 
-enum  class ObjectType
-{
-    CIRCLE,
-    RECTANGLE,
-};
 
-struct CollsionBox
-{
-    vector2 Translation{};
-    vector2 Scale{};
-    vector2 TranslationAmount{};
-};
+
+
 
 struct matrix3;
 struct vector2;
@@ -33,8 +24,23 @@ class Component;
 class Physics : public Component
 {
 public:
+
+    struct CollsionBox
+    {
+        vector2 Translation{};
+        vector2 Scale{};
+        vector2 TranslationAmount{};
+    };
+
+    enum  class ObjectType
+    {
+        CIRCLE,
+        RECTANGLE,
+    };
+
     Physics(Object* obj);
     ~Physics();
+
     virtual void Init() override;
     virtual void Update(float dt) override;
     virtual void Clear() override;
@@ -53,6 +59,7 @@ public:
     void SetVectorTranslation(vector2 translation); // prototype
 
     bool IsCollideWith(Object* object);
+    bool IsCollideWith();
     
     void AddForce(vector2 frc);
     void AddForce(float x, float y);

@@ -40,5 +40,6 @@ private:
 	Object* background;
 	Object* object4;
 	Object* numbers;
+	Object* testObject; // test for jaemin
 	bool flag = false;
 };
