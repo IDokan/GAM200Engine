@@ -92,8 +92,13 @@
     <ClCompile Include="Sounds\SoundManager.cpp">
       <Filter>Sounds</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
+    <ClCompile Include="Component\Physics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\StringSprite.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -203,8 +208,13 @@
     <ClInclude Include="Sounds\SoundManager.hpp">
       <Filter>Sounds</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
+    <ClInclude Include="Component\Physics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\StringSprite.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

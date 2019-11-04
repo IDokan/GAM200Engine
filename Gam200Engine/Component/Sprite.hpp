@@ -11,7 +11,10 @@ Creation Date: 08.14.2019
 ******************************************************************************/
 #pragma once
 #include <filesystem>
-class Component;
+#include <Component/Component.hpp>
+
+struct matrix3;
+
 
 namespace Graphics
 {
@@ -19,6 +22,8 @@ namespace Graphics
 	class Vertices;
 	struct material;
 	class Texture;
+
+	class Color4f;
 }
 
 class Sprite :
