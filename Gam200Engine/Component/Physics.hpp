@@ -11,30 +11,31 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #pragma once
-
-enum  class ObjectType
-{
-    CIRCLE,
-    RECTANGLE,
-};
-
-struct CollsionBox
-{
-    vector2 Translation{};
-    vector2 Scale{};
-    vector2 TranslationAmount{};
-};
-
-struct matrix3;
-struct vector2;
-class Object;
-class Component;
+#include "Vector2.hpp"
+#include "matrix3.hpp"
+#include "Component.hpp"
+#include "Object/Object.hpp"
 
 class Physics : public Component
 {
 public:
+
+    struct CollsionBox
+    {
+        vector2 Translation{};
+        vector2 Scale{};
+        vector2 TranslationAmount{};
+    };
+
+    enum  class ObjectType
+    {
+        CIRCLE,
+        RECTANGLE,
+    };
+
     Physics(Object* obj);
     ~Physics();
+
     virtual void Init() override;
     virtual void Update(float dt) override;
     virtual void Clear() override;
@@ -49,10 +50,11 @@ public:
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
     void ActiveGhostCollision(bool active);
-    void SetIsCollide(bool collide); // prototype
-    void SetVectorTranslation(vector2 translation); // prototype
+    void SetIsCollide(bool collide);
+    void SetVectorTranslation(vector2 translation);
 
     bool IsCollideWith(Object* object);
+    bool IsCollideWith();
     
     void AddForce(vector2 frc);
     void AddForce(float x, float y);
@@ -106,7 +108,7 @@ public:
 
     vector2 GetVectorTranslation() const; 
 
-private:
+protected:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};

@@ -18,10 +18,10 @@ Object::Object()
 
 Object::~Object()
 {
-	for (auto& comp : component)
-	{
-		delete comp;
-	}
+    for (auto& comp : component)
+    {
+        delete comp;
+    }
 }
 
 void Object::AddComponent(Component * comp)
@@ -32,7 +32,7 @@ void Object::AddComponent(Component * comp)
 
 void Object::DeleteComponent(Component * comp)
 {
-	const auto tmp = std::find(component.begin(), component.end(), comp);
+    const auto tmp = std::find(component.begin(), component.end(), comp);
     if (tmp == component.end()) {
         return;
     }
@@ -75,6 +75,11 @@ std::string Object::GetObjectName()
     return objectName;
 }
 
+void Object::SetObjectType(ObjectType objType)
+{
+    this->objType = objType;
+}
+
 vector2 Object::GetTranslation()
 {
     return transform.GetTranslation();
@@ -87,5 +92,5 @@ vector2 Object::GetScale()
 
 float Object::GetRotation() const noexcept
 {
-	return transform.GetRotation();
+    return transform.GetRotation();
 }
