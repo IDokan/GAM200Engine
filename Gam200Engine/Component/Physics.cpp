@@ -10,11 +10,7 @@ Creation Date: 08.15.2019
     Source file for Physics
 ******************************************************************************/
 
-#include "Vector2.hpp"
-#include <Component/Component.hpp>
-#include <Component/Physics.hpp>
-#include <Object/Object.hpp>
-#include "matrix3.hpp"
+#include "Component/Physics.hpp"
 #include <Object/ObjectManager.hpp>
 #include <cmath>
 #include <iostream>
@@ -147,9 +143,10 @@ bool Physics::IsCollideWith()
 
     for (const auto & object : physicsObject)
     {
-        if (owner->GetobjectType() != object->GetobjectType())
+        for(const auto & object2 : physicsObject)
+        if (object->GetobjectType() != object2->GetobjectType())
         {
-            if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object) == true)
+            if (object->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
             {
                 return true;
             }

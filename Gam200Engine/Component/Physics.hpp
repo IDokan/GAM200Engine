@@ -11,15 +11,10 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #pragma once
-
-
-
-
-
-struct matrix3;
-struct vector2;
-class Object;
-class Component;
+#include "Vector2.hpp"
+#include "matrix3.hpp"
+#include "Component.hpp"
+#include "Object/Object.hpp"
 
 class Physics : public Component
 {
@@ -55,8 +50,8 @@ public:
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
     void ActiveGhostCollision(bool active);
-    void SetIsCollide(bool collide); // prototype
-    void SetVectorTranslation(vector2 translation); // prototype
+    void SetIsCollide(bool collide);
+    void SetVectorTranslation(vector2 translation);
 
     bool IsCollideWith(Object* object);
     bool IsCollideWith();
@@ -113,7 +108,7 @@ public:
 
     vector2 GetVectorTranslation() const; 
 
-private:
+protected:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};
