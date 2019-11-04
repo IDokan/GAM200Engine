@@ -105,6 +105,7 @@
     <ClCompile Include="Component\TextComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Component\TextComponent.hpp">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

@@ -10,6 +10,7 @@ Creation Date: 11.04.2019
 	Header file for Sprite implementation for string graphics
 ******************************************************************************/
 #include <Component/StringSprite.hpp>
+#include <Object/Object.hpp>
 
 StringSprite::StringSprite(Object* obj) noexcept
 	: Sprite(obj)
@@ -21,6 +22,7 @@ void StringSprite::Init()
 	Sprite::Init();
 
 	SetImage("../assets/textures/rope.png");
+	owner->SetDepth(-500.f);
 }
 
 void StringSprite::Update(float dt)

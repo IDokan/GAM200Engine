@@ -23,6 +23,7 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Component/Animation.hpp>
 #include <Component/TextComponent.hpp>
+#include <Component/StringSprite.hpp>
 
 SoundManager test;
 void TestLevel::Load()
@@ -82,14 +83,12 @@ void TestLevel::Load()
 	string = new Object();
 	string->SetObjectName("Rectangle");
 	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation())/2 });
-	string->SetScale(vector2{object2->GetTranslation().x - object1->GetTranslation().x, 5.f});
+	string->SetScale(vector2{object2->GetTranslation().x - object1->GetTranslation().x, 20.f});
 	//string->SetRotation(vector2{})
-	string->AddComponent(new Sprite(string));
-	string->SetDepth(-0.7f);
-	//string->AddComponent(new Physics(string));
-	//string->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(string, ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ -50.f });
+	string->AddComponent(new StringSprite(string));
+	string->AddComponent(new Physics(string));
+	string->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(string, Physics::ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ -50.f });
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
-	//string->SetDepth(-1.f);
 
 	cameraManager.Init();
 

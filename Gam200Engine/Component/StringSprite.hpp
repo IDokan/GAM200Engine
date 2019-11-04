@@ -15,7 +15,7 @@ Creation Date: 11.04.2019
 
 class Object;
 
-class StringSprite : Sprite
+class StringSprite : public Sprite
 {
 public:
 	StringSprite(Object* obj) noexcept;
