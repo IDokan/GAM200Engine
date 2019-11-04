@@ -53,18 +53,8 @@ public:
 	const std::string& GetImagePath() const noexcept;
 	unsigned int GetTextureHandle() const noexcept;
 	unsigned int* GetRefTextureHandle() noexcept;
-	
-	bool IsAnimated() const noexcept;
-	void SetIsAnimated(bool is_animated) noexcept;
 
-	int GetFrame() const noexcept;
-	void SetFrame(int frame) noexcept;
-
-	float GetSpeed() const noexcept;
-	void SetSpeed(float speed) noexcept;
-
-private:
-	void SendIndex() const noexcept;
+protected:
 
 	std::shared_ptr<Graphics::Mesh> mesh;
 	std::shared_ptr<Graphics::Vertices> vertices;
@@ -73,8 +63,4 @@ private:
 	std::string imageFilePath;
 
 	bool isBackground;
-	bool isAnimated;
-	int frame;
-	float speed;
-	float index;
 };

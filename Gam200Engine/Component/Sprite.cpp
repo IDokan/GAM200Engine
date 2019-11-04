@@ -9,11 +9,6 @@ Creation Date: 08.14.2019
 
 	Source file for Graphic Component
 ******************************************************************************/
-#include <Component/Component.hpp>
-#include <Graphics/Mesh.hpp>
-#include <Graphics/Vertices.hpp>
-#include <Graphics/Material.hpp>
-#include <Graphics/Texture.hpp>
 #include "Sprite.hpp"
 #include <Object/Transform.hpp>
 #include <Graphics/StockShaders.hpp>
@@ -29,7 +24,7 @@ Creation Date: 08.14.2019
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../texture/rect.png"), isBackground(false), isAnimated(false), frame(1), speed(1.f), index(0.f)
+		imageFilePath("../assets/textures/rect.png"), isBackground(false)
 {
 	mesh->Clear();
 }
@@ -51,7 +46,6 @@ void Sprite::Init()
 
 	material->color4fUniforms[Graphics::SHADER::Uniform_Color] = Graphics::Color4f{1.f};
 
-	// TODO: To Modify for animation or special shader
 	mesh->AddTextureCoordinate(vector2{ 0.f });
 	mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
 	mesh->AddTextureCoordinate(vector2{ 1.f });
@@ -59,18 +53,10 @@ void Sprite::Init()
 
 	SetImage(imageFilePath);
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
-
-	// Animation Stuffs
-	material->intUniform[Graphics::SHADER::Uniform_Frame] = frame;
 }
 
 void Sprite::Update(float dt)
 {
-	if (isAnimated)
-	{
-		index += dt * speed;
-		SendIndex();
-	}
 }
 
 void Sprite::Clear()
@@ -153,41 +139,5 @@ unsigned Sprite::GetTextureHandle() const noexcept
 unsigned* Sprite::GetRefTextureHandle() noexcept
 {
 	return texture->GetRefTextureHandle();
-}
-
-bool Sprite::IsAnimated() const noexcept
-{
-	return isAnimated;
-}
-
-void Sprite::SetIsAnimated(bool is_animated) noexcept
-{
-	isAnimated = is_animated;
-	material->shader = (isAnimated) ? &Graphics::SHADER::animated() : &Graphics::SHADER::textured();
-}
-
-int Sprite::GetFrame() const noexcept
-{
-	return frame;
-}
-
-void Sprite::SetFrame(int frame) noexcept
-{
-	material->intUniform[Graphics::SHADER::Uniform_Frame] = this->frame = frame;
-}
-
-float Sprite::GetSpeed() const noexcept
-{
-	return speed;
-}
-
-void Sprite::SetSpeed(float speed) noexcept
-{
-	this->speed = speed;
-}
-
-void Sprite::SendIndex() const noexcept
-{
-	material->intUniform[Graphics::SHADER::Uniform_Index] = ceil(int(index) % frame);
 }
 #pragma warning (pop)

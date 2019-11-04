@@ -235,9 +235,15 @@
     <Filter Include="Sounds">
       <UniqueIdentifier>{6b7e432b-27a8-4a06-88b8-ee201562c7c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Parallax Scrolling">
+      <UniqueIdentifier>{b5633d40-2cff-4889-9a49-4c9c529490cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">
+      <Filter>Graphics</Filter>
+    </None>
+    <None Include="Graphics\StockBitmapFonts.inl">
       <Filter>Graphics</Filter>
     </None>
   </ItemGroup>
