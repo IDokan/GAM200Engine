@@ -61,6 +61,7 @@ void Layer::AddObject(Object* obj)
 	layer.second.push_back(std::shared_ptr<Object>(obj));
 }
 
+
 bool Layer::DeleteObject(Object* obj)
 {
 	//const auto tmp = std::find(layer.second.begin(), layer.second.end(), obj);

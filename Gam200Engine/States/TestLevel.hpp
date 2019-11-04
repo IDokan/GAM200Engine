@@ -13,6 +13,7 @@ Creation Date: 08.15.2019
 #pragma once
 #include <States/State.hpp>
 #include <Object/Object.hpp>
+#include <Player.h>
 #include <Graphics/CameraManager.hpp>
 
 class TestLevel final : public State
@@ -35,7 +36,7 @@ public:
 private:
 	Graphics::CameraManager cameraManager;
 
-	Object* object1;
+	Player* player1;
 	Object* object2;
 	Object* background;
 	Object* object4;
