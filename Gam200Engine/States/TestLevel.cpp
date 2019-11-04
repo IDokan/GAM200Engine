@@ -30,7 +30,9 @@ void TestLevel::Load()
 	test.Load_Sound();
 	// Set Layer
 	auto objManager = ObjectManager::GetObjectManager();
+    //Player* player = new Player( , ,,);
 
+    
 	background = new Object();
 	background->SetObjectName("background");
 	background->SetTranslation(vector2{ 0.f });
