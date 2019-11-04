@@ -11,7 +11,9 @@ Creation Date: 08.14.2019
 ******************************************************************************/
 #pragma once
 #include <filesystem>
-class Component;
+#include <Component/Component.hpp>
+#include <matrix3.hpp>
+#include <Graphics/Color4f.hpp>
 
 namespace Graphics
 {

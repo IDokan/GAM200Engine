@@ -45,7 +45,6 @@ public:
     COMPONENT* GetComponentByTemplate()const;
 
 public:
-    
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
 
@@ -63,7 +62,7 @@ public:
     vector2 GetScale(); // Woo
 	float GetRotation() const noexcept; // Sinil
 
-private:
+protected:
     Transform transform;
     std::vector<Component*> component;
     std::string objectName;

@@ -96,7 +96,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -104,8 +104,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,7 +114,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -122,8 +122,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,7 +134,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -144,8 +144,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -156,7 +156,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -166,8 +166,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -208,6 +208,7 @@
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Observer.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
@@ -254,6 +255,7 @@
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
