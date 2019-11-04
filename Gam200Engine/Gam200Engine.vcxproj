@@ -177,6 +177,7 @@
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
     <ClInclude Include="Component\StringSprite.hpp" />
+    <ClInclude Include="Component\TextComponent.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
@@ -227,6 +228,7 @@
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Component\StringSprite.cpp" />
+    <ClCompile Include="Component\TextComponent.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />

@@ -99,6 +99,12 @@
     <ClCompile Include="Component\StringSprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Animation.cpp" />
+    <ClCompile Include="Graphics\BitmapFont.cpp" />
+    <ClCompile Include="Graphics\TextPlatform.cpp" />
+    <ClCompile Include="Component\TextComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -213,6 +219,13 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\StringSprite.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Animation.hpp" />
+    <ClInclude Include="Graphics\BitmapFont.hpp" />
+    <ClInclude Include="Graphics\StockBitmapFonts.hpp" />
+    <ClInclude Include="Graphics\TextPlatform.hpp" />
+    <ClInclude Include="Component\TextComponent.hpp">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,7 +22,7 @@ Creation Date: 08.15.2019
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 #include <Component/Animation.hpp>
-#include <Component/Text.hpp>
+#include <Component/TextComponent.hpp>
 
 SoundManager test;
 void TestLevel::Load()
@@ -137,26 +137,6 @@ void TestLevel::Update(float dt)
 			test.Stop_Sound(JAMJAMTEST_SOUND);
 		}
 		
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_5))
-	{
-		
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_Q))
-	{
-		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_Z))
-	{
-		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>());
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_E))
-	{
-		AddCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_C))
-	{
-		DeleteCollisionBox(object1, object1->GetComponentByTemplate<Physics>(), true);
 	}
 
 	/*************************************UPDATE STRING****************************************************/

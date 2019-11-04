@@ -12,17 +12,16 @@ Creation Date: 08.14.2019
 #pragma once
 #include <filesystem>
 #include <Component/Component.hpp>
+#include <Graphics/Mesh.hpp>
+#include <Graphics/Vertices.hpp>
+#include <Graphics/Material.hpp>
+#include <Graphics/Texture.hpp>
 
 struct matrix3;
 
 
 namespace Graphics
 {
-	class Mesh;
-	class Vertices;
-	struct material;
-	class Texture;
-
 	class Color4f;
 }
 

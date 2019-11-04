@@ -20,7 +20,7 @@ void StringSprite::Init()
 {
 	Sprite::Init();
 
-	SetImage("../texture/rope.png");
+	SetImage("../assets/textures/rope.png");
 }
 
 void StringSprite::Update(float dt)
