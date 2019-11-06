@@ -54,7 +54,7 @@ public:
     void SetVectorTranslation(vector2 translation);
 
     bool IsCollideWith(Object* object);
-    bool IsCollideWith();
+    void IsCollideWith();
     
     void AddForce(vector2 frc);
     void AddForce(float x, float y);

@@ -409,57 +409,5 @@ void TestLevel::Input()
 
 void TestLevel::Collision()
 {
-    vector2 obj1OldPosition = object1->GetComponentByTemplate<Physics>()->GetOldPosition();
-    vector2 obj2OldPosition = object2->GetComponentByTemplate<Physics>()->GetOldPosition();
-
-    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith() == true)
-    {
-        if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
-        {
-            object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-            object1->SetTranslation(obj1OldPosition);
-            std::cout << "collision\n";
-        }
-       /* else
-        {
-            object1->SetTranslation(obj1Position);
-        }*/
-    }
-    if (object2->GetComponentByTemplate<Physics>()->IsCollideWith() == true)
-    {
-        if (object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
-        {
-            object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-            object2->SetTranslation(obj2OldPosition);
-        }
-        /* else
-         {
-             object1->SetTranslation(obj1Position);
-         }*/
-    }
-  /*  else
-    {
-        object1->SetTranslation(obj1Position);
-    }*/
-
-    //if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
-    //{
-    //    if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
-    //    {
-    //        object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-    //        object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-    //        object1->SetTranslation(obj1OldPosition);
-    //        object2->SetTranslation(obj2OldPosition);
-    //    }
-    //    else
-    //    {
-    //        object1->SetTranslation(obj1Position);
-    //        object2->SetTranslation(obj2Position);
-    //    }
-    //}
-    //else
-    //{
-    //    object1->SetTranslation(obj1Position);
-    //    object2->SetTranslation(obj2Position);
-    //}
+    object1->GetComponentByTemplate<Physics>()->IsCollideWith();
 }

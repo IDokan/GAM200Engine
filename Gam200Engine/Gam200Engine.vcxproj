@@ -175,6 +175,7 @@
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
+    <ClInclude Include="Component\StringPhysics.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
@@ -257,6 +258,7 @@
     <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
+    <ClCompile Include="StringPhysics.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>

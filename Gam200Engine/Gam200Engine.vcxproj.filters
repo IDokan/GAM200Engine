@@ -96,6 +96,9 @@
     <ClCompile Include="Component\Physics.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="StringPhysics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
     <ClInclude Include="Component\Physics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\StringPhysics.hpp">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
