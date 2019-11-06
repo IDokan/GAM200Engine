@@ -11,14 +11,18 @@ Creation Date: 08.14.2019
 ******************************************************************************/
 #pragma once
 #include <filesystem>
-class Component;
+#include <Component/Component.hpp>
+#include <Graphics/Mesh.hpp>
+#include <Graphics/Vertices.hpp>
+#include <Graphics/Material.hpp>
+#include <Graphics/Texture.hpp>
+
+struct matrix3;
+
 
 namespace Graphics
 {
-	class Mesh;
-	class Vertices;
-	struct material;
-	class Texture;
+	class Color4f;
 }
 
 class Sprite :
@@ -48,18 +52,8 @@ public:
 	const std::string& GetImagePath() const noexcept;
 	unsigned int GetTextureHandle() const noexcept;
 	unsigned int* GetRefTextureHandle() noexcept;
-	
-	bool IsAnimated() const noexcept;
-	void SetIsAnimated(bool is_animated) noexcept;
 
-	int GetFrame() const noexcept;
-	void SetFrame(int frame) noexcept;
-
-	float GetSpeed() const noexcept;
-	void SetSpeed(float speed) noexcept;
-
-private:
-	void SendIndex() const noexcept;
+protected:
 
 	std::shared_ptr<Graphics::Mesh> mesh;
 	std::shared_ptr<Graphics::Vertices> vertices;
@@ -68,8 +62,4 @@ private:
 	std::string imageFilePath;
 
 	bool isBackground;
-	bool isAnimated;
-	int frame;
-	float speed;
-	float index;
 };

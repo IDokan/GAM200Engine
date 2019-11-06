@@ -96,9 +96,16 @@
     <ClCompile Include="Component\Physics.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="StringPhysics.cpp">
+    <ClCompile Include="Component\StringSprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Animation.cpp" />
+    <ClCompile Include="Graphics\BitmapFont.cpp" />
+    <ClCompile Include="Graphics\TextPlatform.cpp" />
+    <ClCompile Include="Component\TextComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -212,9 +219,17 @@
     <ClInclude Include="Component\Physics.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\StringPhysics.hpp">
+    <ClInclude Include="Component\StringSprite.hpp">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Animation.hpp" />
+    <ClInclude Include="Graphics\BitmapFont.hpp" />
+    <ClInclude Include="Graphics\StockBitmapFonts.hpp" />
+    <ClInclude Include="Graphics\TextPlatform.hpp" />
+    <ClInclude Include="Component\TextComponent.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -235,9 +250,15 @@
     <Filter Include="Sounds">
       <UniqueIdentifier>{6b7e432b-27a8-4a06-88b8-ee201562c7c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Parallax Scrolling">
+      <UniqueIdentifier>{b5633d40-2cff-4889-9a49-4c9c529490cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">
+      <Filter>Graphics</Filter>
+    </None>
+    <None Include="Graphics\StockBitmapFonts.inl">
       <Filter>Graphics</Filter>
     </None>
   </ItemGroup>

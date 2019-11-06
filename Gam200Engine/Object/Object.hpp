@@ -60,7 +60,6 @@ public:
     }
 
 public:
-    
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
 
@@ -78,7 +77,7 @@ public:
     vector2 GetScale(); // Woo
 	float GetRotation() const noexcept; // Sinil
 
-private:
+protected:
     Transform transform;
     std::vector<Component*> component;
     std::string objectName;
@@ -92,10 +91,14 @@ COMPONENT* Object::GetComponentByTemplate() const
 {
     for (const auto& i : component)
     {
-        if (typeid(COMPONENT) == typeid(*i))
-        {
-            return dynamic_cast<COMPONENT*>(i);
-        }
+		COMPONENT* iterator = dynamic_cast<COMPONENT*>(i);
+		if (iterator != nullptr)
+		{
+			if (typeid(COMPONENT*) == typeid(iterator))
+			{
+				return iterator;
+			}
+		}
     }
     return nullptr;
 }

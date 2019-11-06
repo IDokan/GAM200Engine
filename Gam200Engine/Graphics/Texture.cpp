@@ -108,7 +108,7 @@ namespace Graphics
         {
             return;
         }
-        glCheck(glDeleteTextures(1, &textureHandle));
+        glDeleteTextures(1, &textureHandle);
         textureHandle = 0;
     }
 
