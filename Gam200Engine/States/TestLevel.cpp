@@ -409,5 +409,5 @@ void TestLevel::Input()
 
 void TestLevel::Collision()
 {
-    object1->GetComponentByTemplate<Physics>()->IsCollideWith();
+    object1->GetComponentByTemplate<Physics>()->ManageCollision();
 }

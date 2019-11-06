@@ -137,7 +137,7 @@ void Physics::SetVectorTranslation(vector2 translation)
     vectorTranslation = translation;
 }
 
-void Physics::IsCollideWith()
+void Physics::ManageCollision()
 {
     const auto & physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
 
