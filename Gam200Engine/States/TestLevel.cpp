@@ -86,7 +86,6 @@ void TestLevel::Load()
 	string->AddComponent(new Sprite(string));
 	string->SetDepth(-0.1f);
 	string->AddComponent(new Physics(string));
-	string->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(string, Physics::ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ 0.f });
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
 	cameraManager.Init();
@@ -100,6 +99,9 @@ void TestLevel::Update(float dt)
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
     
     TestLevel::Input();
+
+    object2->SetTranslation(obj2Position);
+    object1->SetTranslation(obj1Position);
     
 	TestLevel::Collision();
    
@@ -117,8 +119,7 @@ void TestLevel::Update(float dt)
 		object1->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite1.png");
 	}
 	// Animation Works
-    object2->SetTranslation(obj2Position);
-    object1->SetTranslation(obj1Position);
+
     if (input.IsKeyTriggered(GLFW_KEY_3))
     {
 		object1->GetComponentByTemplate<Animation>()->SetFrame(6);
