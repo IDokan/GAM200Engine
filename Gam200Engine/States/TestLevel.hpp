@@ -37,7 +37,7 @@ private:
 	Graphics::CameraManager cameraManager;
 
 	Player* player1;
-	Object* object2;
+    Player* player2;
 	Object* background;
 	Object* object4;
 	Object* numbers;

@@ -39,16 +39,10 @@ void TestLevel::Load()
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
     
 
-	object2 = new Object();
-	object2->SetObjectName("Player2");
-	object2->SetTranslation(vector2{ 250.f });
-	object2->SetScale(vector2{ 250.f });
-	object2->AddComponent(new Sprite(object2));
-	object2->AddComponent(new Physics(object2));
-	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
-	object2->SetDepth(-0.1f);
-    object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+    player2 = new Player("Player2",vector2{250.f},
+                vector2{200.f},ObjectType::CIRCLE, Graphics::Color4f{1.f,1.f,0.f});
+
+    objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
 
 	/*object4 = new Object();
 	object4->SetObjectName("Object4");
@@ -72,12 +66,11 @@ void TestLevel::Load()
 	numbers->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
 	numbers->SetDepth(-0.5f);
 
-    player1 = new Player("Player1", vector2{ 0.f }, vector2{ 200.f },-1.0f);
+    player1 = new Player("Player1", vector2{ 0.f }, vector2{ 200.f }, 
+        ObjectType::CIRCLE, Graphics::Color4f{1}, vector2{ 0.f }, vector2{ -50.f }, -1.0f);
 
-    player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, ObjectType::CIRCLE, vector2{0.f}, vector2{-50.f});
-	objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
-   // player1->SetDepth(-1.f);
-
+  	objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+   
 	cameraManager.Init();
 }
 
@@ -175,7 +168,7 @@ void TestLevel::Update(float dt)
 	// Sprite show up
 	if (input.IsKeyTriggered(GLFW_KEY_2))
 	{
-		object2->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite2.png");
+        player2->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite2.png");
         player1->GetComponentByTemplate<Sprite>()->SetImage("../texture/playerSprite1.png");
 	}
 	// Animation Works
@@ -184,9 +177,9 @@ void TestLevel::Update(float dt)
         player1->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
         player1->GetComponentByTemplate<Sprite>()->SetFrame(6);
         player1->GetComponentByTemplate<Sprite>()->SetSpeed(6);
-		object2->GetComponentByTemplate<Sprite>()->SetFrame(6);
-		object2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
-		object2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
+		player2->GetComponentByTemplate<Sprite>()->SetFrame(6);
+		player2->GetComponentByTemplate<Sprite>()->SetSpeed(10);
+		player2->GetComponentByTemplate<Sprite>()->SetIsAnimated(true);
 		objManager->FindLayer(LayerNames::Stage)->AddObject(numbers);
     }
 	//Bgm Sounds
@@ -312,56 +305,56 @@ void TestLevel::Input()
 	/**********************Moving Object 2*******************************************/
 	if (input.IsKeyPressed(GLFW_KEY_UP))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
 		if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
 		}
 		else if (input.IsKeyPressed(GLFW_KEY_LEFT))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
 		}
 	}
 	if (input.IsKeyPressed(GLFW_KEY_LEFT))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
 		if (input.IsKeyPressed(GLFW_KEY_UP))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
 		}
 		else if (input.IsKeyPressed(GLFW_KEY_DOWN))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
 		}
 	}
 	if (input.IsKeyPressed(GLFW_KEY_DOWN))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
 
 		if (input.IsKeyPressed(GLFW_KEY_LEFT))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
 		}
 		else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
 		}
 	}
 	if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+        player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
 		if (input.IsKeyPressed(GLFW_KEY_UP))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
 		}
 		else if (input.IsKeyPressed(GLFW_KEY_DOWN))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
 		}
 	}
 	if (input.IsKeyReleased(GLFW_KEY_UP) && input.IsKeyReleased(GLFW_KEY_LEFT) && input.IsKeyReleased(GLFW_KEY_DOWN) && input.IsKeyReleased(GLFW_KEY_RIGHT))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
 	}
     if (input.IsKeyTriggered(GLFW_KEY_SPACE))
     {
@@ -387,12 +380,12 @@ bool is_collisionTest = false;
 void TestLevel::Collision()
 {
     vector2 obj1OldPosition = player1->GetComponentByTemplate<Physics>()->GetOldPosition();
-    vector2 obj2OldPosition = object2->GetComponentByTemplate<Physics>()->GetOldPosition();
+    vector2 obj2OldPosition = player2->GetComponentByTemplate<Physics>()->GetOldPosition();
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
-    vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
     float distance = std::sqrt((obj1Position.x - obj2Position.x) * (obj1Position.x - obj2Position.x) + (obj1Position.y - obj2Position.y) * (obj1Position.y - obj2Position.y));
 
-    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(object2) == true)
+    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(player2) == true)
     {
 		if (is_collisionTest == false) {
 			test.Play_Sound(SOUNDS::COLLISION_SOUND);
@@ -402,27 +395,27 @@ void TestLevel::Collision()
         if (player1->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
         {
             player1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-            object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+            player2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
             player1->SetTranslation(obj1OldPosition);
-            object2->SetTranslation(obj2OldPosition);
+            player2->SetTranslation(obj2OldPosition);
         }
 		else
 		{
             player1->SetTranslation(obj1Position);
-			object2->SetTranslation(obj2Position);
+			player2->SetTranslation(obj2Position);
 		}
     }
 	else if (distance > 700.f)
 	{
         player1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-		object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+		player2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
         player1->SetTranslation(obj1OldPosition);
-		object2->SetTranslation(obj2OldPosition);
+		player2->SetTranslation(obj2OldPosition);
 		is_collisionTest = false;
 	}
     else
     {
         player1->SetTranslation(obj1Position);
-        object2->SetTranslation(obj2Position);
+        player2->SetTranslation(obj2Position);
     }
 }
