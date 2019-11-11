@@ -30,6 +30,7 @@ public:
         PLAYER_1,
         PLAYER_2,
         OBSTACLE,
+        MOUSE
     };
 
     void SetDead(bool condition) 

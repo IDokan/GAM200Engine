@@ -105,6 +105,10 @@
     <ClCompile Include="Component\TextComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="States\ProtoLevel.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -227,6 +231,10 @@
     <ClInclude Include="Graphics\TextPlatform.hpp" />
     <ClInclude Include="Component\TextComponent.hpp">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="States\ProtoLevel.hpp">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

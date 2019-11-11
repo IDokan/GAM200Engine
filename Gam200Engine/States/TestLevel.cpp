@@ -34,7 +34,7 @@ void TestLevel::Load()
 
     
 	background = new Object();
-	background->SetObjectName("background");
+	background->SetObjectName("background1");
 	background->SetTranslation(vector2{ 0.f });
 	background->SetScale(vector2{ 700000 });
 	background->AddComponent(new Sprite(background));
@@ -86,10 +86,24 @@ void TestLevel::Load()
 	//string->SetRotation(vector2{})
 	string->AddComponent(new Sprite(string));
 	string->SetDepth(-0.7f);
-	//string->AddComponent(new Physics(string));
+	string->AddComponent(new Physics(string));
 	//string->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(string, ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ -50.f });
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 	//string->SetDepth(-1.f);
+
+    button = new Object();
+    //button->SetObjectType(Object::ObjectType::RECTANGLE);
+    button->SetObjectName("Button");
+    button->SetTranslation(vector2{ 400.f, -350.f });
+    button->SetScale(vector2{ 50.f });
+    button->AddComponent(new Sprite(button));
+    button->SetDepth(-0.1f);
+    button->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.5f, 0.5f, 1.f });
+    button->AddComponent(new Physics(button));
+    objManager->FindLayer(LayerNames::HUD)->AddObject(button);
+
+
+
 
 	cameraManager.Init();
 
@@ -101,6 +115,7 @@ void TestLevel::Update(float dt)
     vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
     
+
     TestLevel::Input();
     
 	TestLevel::Collision();
@@ -144,8 +159,15 @@ void TestLevel::Update(float dt)
 		
 	}
 
-	/*************************************UPDATE STRING****************************************************/
+    //Mouse Imputs for deleting all.
+    //if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+    //    objManager->FindLayer(LayerNames::Stage)->DeleteObject(object1);
+    //    objManager->FindLayer(LayerNames::Stage)->DeleteObject(object2);
+    //    objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
+    //    objManager->FindLayer(LayerNames::BackGround)->DeleteObject(background);
+    //}
 
+	/*************************************UPDATE STRING****************************************************/
 
 	const float dx = (object1->GetTranslation().x - object2->GetTranslation().x);
 	const float dy = (object1->GetTranslation().y - object2->GetTranslation().y);
@@ -158,6 +180,26 @@ void TestLevel::Update(float dt)
 		string->SetRotation(acos(-stringAngle));
 	else
 		string->SetRotation(acos(stringAngle));
+
+    /*******************Level Change Button***************************JJW***********************************/
+    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+    {
+        //When mouse click position is in the range of x range of button
+        if ((input.GetMousePosition().x <= (button->GetTranslation().x + button->GetScale().x / 2))
+            && (input.GetMousePosition().x >= (button->GetTranslation().x - button->GetScale().x / 2)))
+        {
+            //When mouse click position is in the range of y range of button
+            if ((input.GetMousePosition().y <= (button->GetTranslation().y + button->GetScale().y / 2))
+                && (input.GetMousePosition().y >= (button->GetTranslation().y - button->GetScale().y / 2)))
+            {
+                is_next = true;
+                //change the level
+                LevelChangeTo("protoLevel");
+            }
+        }
+    }
+
+
 }
 
 void TestLevel::Unload()
