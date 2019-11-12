@@ -92,20 +92,30 @@
     <ClCompile Include="Sounds\SoundManager.cpp">
       <Filter>Sounds</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
     <ClCompile Include="Component\Physics.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\StringSprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Animation.cpp" />
-    <ClCompile Include="Graphics\BitmapFont.cpp" />
-    <ClCompile Include="Graphics\TextPlatform.cpp" />
     <ClCompile Include="Component\TextComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Component\Animation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\BitmapFont.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp">
+      <Filter>Graphics\Parallax Scrolling</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TextPlatform.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -215,21 +225,33 @@
     <ClInclude Include="Sounds\SoundManager.hpp">
       <Filter>Sounds</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
     <ClInclude Include="Component\Physics.hpp">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\StringSprite.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Animation.hpp" />
-    <ClInclude Include="Graphics\BitmapFont.hpp" />
-    <ClInclude Include="Graphics\StockBitmapFonts.hpp" />
-    <ClInclude Include="Graphics\TextPlatform.hpp" />
     <ClInclude Include="Component\TextComponent.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Component\Animation.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BitmapFont.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp">
+      <Filter>Graphics\Parallax Scrolling</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TextPlatform.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\StockBitmapFonts.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

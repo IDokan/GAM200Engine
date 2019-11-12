@@ -70,7 +70,7 @@ void Graphics::CameraManager::SetZoom(float zoom) noexcept
 	selectedCamera->cameraView.SetZoom(zoom);
 }
 
-constexpr float Graphics::CameraManager::GetZoom() const noexcept
+float Graphics::CameraManager::GetZoom() const noexcept
 {
 	return selectedCamera->cameraView.GetZoom();
 }
@@ -101,6 +101,11 @@ matrix3 Graphics::CameraManager::GetWorldToNDCTransform() const noexcept
 		selectedCamera->camera.WorldToCamera();
 }
 
+matrix3 Graphics::CameraManager::GetCameraToWorldTransform() const noexcept
+{
+	return selectedCamera->camera.CameraToWorld();
+}
+
 void Graphics::CameraManager::MoveUp(float dt, float distance) noexcept
 {
 	selectedCamera->camera.MoveUp(dt * distance);
@@ -111,10 +116,42 @@ void Graphics::CameraManager::MoveRight(float dt, float distance) noexcept
 	selectedCamera->camera.MoveRight(dt * distance);
 }
 
-void Graphics::CameraManager::CameraMove(const float& zoomSize) noexcept
+void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept
 {
+	DEBUGCameraMove(zoomSize);
+
+	vector2 cameraPosition = GetPosition();
+
+	vector2 distance{ position1 - cameraPosition };
+
+	vector2 cameraDetectRectSize{ 500.f, 300.f };
+
+	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);
+
+	vector2 player2Delta = CalculateDeltaBetweenCameraAndPlayer(position2 - cameraPosition, cameraDetectRectSize);
+
+	vector2 totalDelta{};
+
+	printf("player1Delta x = %f, y = %f\n", player1Delta.x, player1Delta.y);
+	printf("player2Delta x = %f, y = %f\n\n\n", player2Delta.x, player2Delta.y);
+	if (player1Delta.x == 0 && player1Delta.y == 0)
+	{
+		totalDelta += player2Delta;
+	}
+	if (player2Delta.x == 0 && player2Delta.y == 0)
+	{
+		totalDelta += player1Delta;
+	}
+	
+	SetPosition(cameraPosition + totalDelta);
+}
+
+void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept
+{
+#ifdef _DEBUG
+
 	// Camera Movement
-	if(input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		input.SetPresentMousePosition(input.GetMousePosition());
 	}
@@ -143,5 +180,28 @@ void Graphics::CameraManager::CameraMove(const float& zoomSize) noexcept
 			selectedCamera->cameraView.GetZoom() / zoomSize
 		);
 	}
+#endif
+}
+
+vector2 Graphics::CameraManager::CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept
+{
+	vector2 delta{};
+	if (objDistance.x - playgroundSize.x > 0)
+	{
+		delta.x += (objDistance.x - playgroundSize.x);
+	}
+	else if (objDistance.x + playgroundSize.x < 0)
+	{
+		delta.x += (objDistance.x + playgroundSize.x);
+	}
+	if (objDistance.y - playgroundSize.y > 0)
+	{
+		delta.y += (objDistance.y - playgroundSize.y);
+	}
+	else if (objDistance.y + playgroundSize.y < 0)
+	{
+		delta.y += (objDistance.y + playgroundSize.y);
+	}
+	return delta;
 }
 
