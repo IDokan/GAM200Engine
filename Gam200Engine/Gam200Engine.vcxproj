@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -115,7 +115,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -176,6 +176,7 @@
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
+    <ClInclude Include="Component\StringPhysics.hpp" />
     <ClInclude Include="Component\StringSprite.hpp" />
     <ClInclude Include="Component\TextComponent.hpp" />
     <ClInclude Include="Demo.hpp" />
@@ -228,6 +229,7 @@
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
+    <ClCompile Include="Component\StringPhysics.cpp" />
     <ClCompile Include="Component\StringSprite.cpp" />
     <ClCompile Include="Component\TextComponent.cpp" />
     <ClCompile Include="Demo.cpp" />

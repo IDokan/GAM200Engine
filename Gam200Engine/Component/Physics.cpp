@@ -137,22 +137,45 @@ void Physics::SetVectorTranslation(vector2 translation)
     vectorTranslation = translation;
 }
 
-bool Physics::IsCollideWith()
+void Physics::ManageCollision()
 {
     const auto & physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
 
     for (const auto & object : physicsObject)
     {
-        for(const auto & object2 : physicsObject)
-        if (object->GetobjectType() != object2->GetobjectType())
+        for (const auto & object2 : physicsObject)
         {
-            if (object->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
+            if (object->GetobjectType() != object2->GetobjectType())
             {
-                return true;
+                if (object->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
+                {
+                    if (object->GetComponentByTemplate<Physics>()->GetIsGhost() != true && object->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
+                    {
+                        if (object->GetobjectType() == Object::ObjectType::PLAYER_1)
+                        {
+                            object->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            object->SetTranslation(object->GetComponentByTemplate<Physics>()->GetOldPosition());
+                        }
+                        else if (object->GetobjectType() == Object::ObjectType::PLAYER_2)
+                        {
+                            object->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            object->SetTranslation(object->GetComponentByTemplate<Physics>()->GetOldPosition());
+                        }
+                        if (object2->GetobjectType() == Object::ObjectType::PLAYER_1)
+                        {
+                            object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+                        }
+                        else if (object2->GetobjectType() == Object::ObjectType::PLAYER_2)
+                        {
+                            object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+                        }
+                    }
+                }
             }
         }
     }
-    return false;
 }
 
 bool Physics::IsCollideWith(Object * object)
