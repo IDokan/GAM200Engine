@@ -67,6 +67,18 @@ void TestLevel::Load()
     object1->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
+	object2 = new Object();
+	object2->SetObjectName("Player2");
+	object2->SetObjectType(Object::ObjectType::PLAYER_2);
+	object2->SetTranslation(vector2{ 250.f });
+	object2->SetScale(vector2{ 250.f });
+	object2->AddComponent(new Sprite(object2));
+	object2->AddComponent(new Physics(object2));
+	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
+	object2->SetDepth(-0.1f);
+	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+
 	string = new Object();
 	string->SetObjectType(Object::ObjectType::STRING);
 	string->SetObjectName("String");
@@ -107,8 +119,8 @@ void TestLevel::Update(float dt)
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
 	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	vector3 cameraRect{ cameraManager.GetCameraToWorldTransform() * vector3 { 1000.f, 600.f, 0.f } };
-	cameraDEBUGdrawing->SetScale(vector2{ cameraRect.x, cameraRect.y });
+	vector2 cameraRect = cameraManager.GetDEBUGCameraRectSize() * 2;
+	cameraDEBUGdrawing->SetScale(cameraRect);
 
 
 
