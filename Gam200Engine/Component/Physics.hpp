@@ -59,6 +59,11 @@ public:
     void AddForce(vector2 frc);
     void AddForce(float x, float y);
 
+    //void SetPosition(vector2 pos)
+    //{
+    //    position = pos;
+    //} ////test 
+
     const vector2 GetTranslation(const matrix3 &matrix) const;
     /**
 	 * \brief Implemented by Il.
