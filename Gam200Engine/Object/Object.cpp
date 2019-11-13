@@ -70,6 +70,7 @@ void Object::SetObjectName(std::string name)
     objectName = name;
 }
 
+
 std::string Object::GetObjectName()
 {
     return objectName;

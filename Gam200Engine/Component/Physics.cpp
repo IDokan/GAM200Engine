@@ -15,8 +15,11 @@ Creation Date: 08.15.2019
 #include <cmath>
 #include <iostream>
 
-Physics::Physics(Object * obj) : Component(obj)
+Physics::Physics(Object* obj) : Component(obj)
 {
+    hasCollisionBox = false;
+    isGhost = false;
+    isCollide = false;
 }
 
 Physics::~Physics()
@@ -28,9 +31,6 @@ void Physics::Init()
     friction = 0.8f;
     initializedPosition = owner->GetTranslation();
     position = owner->GetTranslation();
-    hasCollisionBox = false;
-    isGhost = false;
-    isCollide = false;
 }
 
 void Physics::Update(float dt)
@@ -44,11 +44,14 @@ void Physics::Update(float dt)
         gravity.y += -dt * 10.f;
     }
 
-    oldPosition = owner->GetTranslation();//GetCollisionBox().Translation;
+    //GetCollisionBox().Translation;
     force *= friction;
 
     if (isCollide == false)
     {
+        oldPosition = owner->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
+        //oldPosition = owner->GetTranslation();
+        //oldPosition = position;
         vectorTranslation += GetTranslation(finalTranslation);
         vectorTranslation += force;
         position = initializedPosition + vectorTranslation;
@@ -105,7 +108,7 @@ void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, v
     hasCollisionBox = true;
 }
 
-void Physics::SetCollisionBoxAndObjectType(Object * object, ObjectType objType, float positionX, float positionY, float scaleX, float scaleY)
+void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY, float scaleX, float scaleY)
 {
     objectType = objType;
     collisionBox.TranslationAmount.x = positionX;
@@ -139,34 +142,34 @@ void Physics::SetVectorTranslation(vector2 translation)
 
 void Physics::ManageCollision()
 {
-    const auto & physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-
-    for (const auto & object : physicsObject)
+    const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+    for (const auto& object1 : physicsObject)
     {
-        for (const auto & object2 : physicsObject)
+        for (const auto& object2 : physicsObject)
         {
-            if (object->GetobjectType() != object2->GetobjectType())
+            if (object1->GetComponentByTemplate<Physics>() && object2->GetComponentByTemplate<Physics>())
+            if (object1->GetObjectType() != object2->GetObjectType())
             {
-                if (object->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
+                if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
                 {
-                    if (object->GetComponentByTemplate<Physics>()->GetIsGhost() != true && object->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
+                    if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
                     {
-                        if (object->GetobjectType() == Object::ObjectType::PLAYER_1)
+                        if (object1->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
-                            object->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-                            object->SetTranslation(object->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
-                        else if (object->GetobjectType() == Object::ObjectType::PLAYER_2)
+                        else if (object1->GetObjectType() == Object::ObjectType::PLAYER_2)
                         {
-                            object->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-                            object->SetTranslation(object->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
-                        if (object2->GetobjectType() == Object::ObjectType::PLAYER_1)
+                        if (object2->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
                             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
                             object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
-                        else if (object2->GetobjectType() == Object::ObjectType::PLAYER_2)
+                        else if (object2->GetObjectType() == Object::ObjectType::PLAYER_2)
                         {
                             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
                             object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
@@ -178,9 +181,10 @@ void Physics::ManageCollision()
     }
 }
 
-bool Physics::IsCollideWith(Object * object)
+bool Physics::IsCollideWith(Object* object)
 {
-    if (owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
+    if (owner->GetComponentByTemplate<Physics>() && object->GetComponentByTemplate<Physics>())
+    if ((owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox()  == true) && (owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() != NULL  && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() != NULL) )
     {
         CollsionBox ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
         CollsionBox objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
@@ -452,7 +456,7 @@ void Physics::AddForce(float x, float y)
     force.y = y;
 }
 
-const vector2 Physics::GetTranslation(const matrix3 &matrix3) const
+const vector2 Physics::GetTranslation(const matrix3& matrix3) const
 {
     return vector2{ matrix3.column2.x, matrix3.column2.y };
 }

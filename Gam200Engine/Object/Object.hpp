@@ -54,7 +54,7 @@ public:
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate()const;
 
-    ObjectType GetobjectType() const // test fuction for Woo
+    ObjectType GetObjectType() const // test fuction for Woo
     {
         return objType;
     }
@@ -82,7 +82,6 @@ protected:
     std::vector<Component*> component;
     std::string objectName;
     bool is_dead = false;
-
     ObjectType objType; // test variable Woo
 };
 

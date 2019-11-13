@@ -24,6 +24,7 @@ Creation Date: 08.15.2019
 #include <Component/Animation.hpp>
 #include <Component/TextComponent.hpp>
 #include <Component/StringSprite.hpp>
+#include <Component/StringPhysics.hpp>
 
 SoundManager test;
 void TestLevel::Load()
@@ -59,7 +60,7 @@ void TestLevel::Load()
     object1 = new Object();
     object1->SetObjectType(Object::ObjectType::PLAYER_1);
     object1->SetObjectName("Player1");
-    object1->SetTranslation(vector2{ 0.f });
+    object1->SetTranslation(vector2{ 1.f,2.f });
     object1->SetScale(vector2{ 200.f });
     object1->AddComponent(new Sprite(object1));
     object1->AddComponent(new Physics(object1));
@@ -74,7 +75,7 @@ void TestLevel::Load()
 	string->SetScale(vector2{object2->GetTranslation().x - object1->GetTranslation().x, 5.f});
 	string->AddComponent(new Sprite(string));
 	string->SetDepth(-0.1f);
-	string->AddComponent(new Physics(string));
+    string->AddComponent(new StringPhyscis(string, object1, object2));
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
 	cameraManager.Init();
@@ -96,10 +97,7 @@ void TestLevel::Update(float dt)
 {
     vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
-    
-    TestLevel::Input();
 
-    object2->SetTranslation(obj2Position);
     object1->SetTranslation(obj1Position);
     
 	TestLevel::Collision();
@@ -151,17 +149,9 @@ void TestLevel::Update(float dt)
 
 	/*************************************UPDATE STRING****************************************************/
 
-	const float dx = (object1->GetTranslation().x - object2->GetTranslation().x);
-	const float dy = (object1->GetTranslation().y - object2->GetTranslation().y);
-	float stringSize = sqrt(dx * dx + dy * dy);
-	float stringAngle = (dx) / stringSize;
 
-	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation()) / 2 });
-	string->SetScale(vector2{ stringSize, string->GetScale().y });
-	if (object1->GetTranslation().y < object2->GetTranslation().y)
-		string->SetRotation(acos(-stringAngle));
-	else
-		string->SetRotation(acos(stringAngle));
+
+   
 }
 
 void TestLevel::Unload()
@@ -332,5 +322,5 @@ void TestLevel::Input()
 
 void TestLevel::Collision()
 {
-    object1->GetComponentByTemplate<Physics>()->ManageCollision();
+    object1 ->GetComponentByTemplate<Physics>()->ManageCollision();
 }
