@@ -212,6 +212,9 @@
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
+    <ClInclude Include="Object\Strings\String.hpp" />
+    <ClInclude Include="Object\Strings\StringPiece.hpp" />
+    <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Observer.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
@@ -265,6 +268,9 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
+    <ClCompile Include="Object\Strings\String.cpp" />
+    <ClCompile Include="Object\Strings\StringPiece.cpp" />
+    <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />

@@ -19,10 +19,9 @@ class String : public Object
 {
 public:
 	String() = default;
-	// Ctor should get a position of both players. How can it be?
-	String(Transform position1, Transform position2);
+
+	void Update(float dt);
 
 private:
-	std::vector<StringPiece> strings;
-	std::list<StringVertex> vertices;
+	std::vector<vector2> vetices;
 };

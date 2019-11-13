@@ -116,6 +116,18 @@
     <ClCompile Include="Graphics\TextPlatform.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Component\StringPhysics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Strings\String.cpp">
+      <Filter>Object\Strings</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Strings\StringPiece.cpp">
+      <Filter>Object\Strings</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Strings\StringVertex.cpp">
+      <Filter>Object\Strings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -252,6 +264,18 @@
     <ClInclude Include="Graphics\StockBitmapFonts.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Component\StringPhysics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Strings\String.hpp">
+      <Filter>Object\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Strings\StringPiece.hpp">
+      <Filter>Object\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Strings\StringVertex.hpp">
+      <Filter>Object\Strings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -274,6 +298,9 @@
     </Filter>
     <Filter Include="Graphics\Parallax Scrolling">
       <UniqueIdentifier>{b5633d40-2cff-4889-9a49-4c9c529490cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Strings">
+      <UniqueIdentifier>{3936bad3-08ed-43be-bc89-2c6344daaeb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
