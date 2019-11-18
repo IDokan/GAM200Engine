@@ -68,14 +68,24 @@ void TestLevel::Load()
     object1->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
-	string = new Object();
+	object2 = new Object();
+	object2->SetObjectName("Player2");
+	object2->SetObjectType(Object::ObjectType::PLAYER_2);
+	object2->SetTranslation(vector2{ 250.f });
+	object2->SetScale(vector2{ 250.f });
+	object2->AddComponent(new Sprite(object2));
+	object2->AddComponent(new Physics(object2));
+	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
+	object2->SetDepth(-0.1f);
+	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+	
+	string = new String();
 	string->SetObjectType(Object::ObjectType::STRING);
 	string->SetObjectName("String");
 	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation())/2 });
 	string->SetScale(vector2{object2->GetTranslation().x - object1->GetTranslation().x, 5.f});
-	string->AddComponent(new Sprite(string));
 	string->SetDepth(-0.1f);
-    string->AddComponent(new StringPhyscis(string, object1, object2));
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
 	cameraManager.Init();

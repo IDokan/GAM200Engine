@@ -10,9 +10,28 @@ Creation Date:
 	Source file for the String Object
 ******************************************************************************/
 #include <Object/Strings/String.hpp>
+#include "Component/StringSprite.hpp"
+#include <Component/StringPhysics.hpp>
+
+String::String()
+	:verticesCapacity(0)
+{
+	AddComponent(new StringSprite(this));
+	// should ctor need three pointers?
+	//string->AddComponent(new StringPhysics(string, object1, object2));
+	AddComponent(new StringPhysics(this));
+
+	
+	vertices.push_back(vector2{0.f});
+}
 
 void String::Update(float dt)
 {
-	// Check -> collision 
+	// Check -> collision
 	// vertices draw - Il
+}
+
+size_t String::GetVertexSize() const noexcept
+{
+	return maxVertexSize;
 }
