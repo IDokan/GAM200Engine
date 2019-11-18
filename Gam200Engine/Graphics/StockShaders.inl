@@ -229,4 +229,87 @@ void main()
 )");
 		return shader;
 	}
+
+    inline Shader& SHADER::StringShader() noexcept
+    {
+		static Shader shader(
+			R"(
+#version 330
+
+layout(location = 0) in vec2 position;
+layout(location = 1) in vec2 texture_coordinate;
+
+uniform float stringHeight;
+uniform vec2 stringVectorPosition[50];
+uniform int stringVertexCapacity;
+uniform mat3 to_ndc;
+uniform float depth;
+
+out vec2 interpolated_texture_coordinate;
+
+// Flag that indicates it has to be discarded or not.
+flat out int isDiscarded;
+
+void main()
+{
+	int stringIndex = int(position.x);
+	if(stringIndex >= stringVertexCapacity)
+{
+	isDiscarded = 1;
+	return;
+}
+
+// Get a position of each vertex
+// manipulate to_ndc in here?
+// 
+	
+// position flag indicates this position is a upper point or lower point
+// if 0 upper point, if 1 lower point
+int positionFlag = int(position.y);
+if(positionFlag == 0)
+{
+	vec3 position = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y + stringHeight, 1.f);
+}
+if(positionFlag == 0)
+{
+	vec3 position = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y - stringHeight, 1.f);
+}
+
+    gl_Position = vec4(position.xy, depth, 1.0);
+    interpolated_texture_coordinate = texture_coordinate;
+}
+)",
+R"(
+#version 330
+
+flat in int isDiscarded;
+in vec2 interpolated_texture_coordinate;
+
+uniform vec4 color;
+uniform sampler2D texture_to_sample;
+
+out vec4 output_color;
+
+void main()
+{
+// Discard and return unused vertices
+	if(isDiscarded == 1)
+{
+	discard;
+	return;
+}
+
+    vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
+    vec4 new_color = color * texel;
+    if(new_color.a <= 0.0f)
+        discard;
+    output_color = new_color;
+
+
+// DEBUG code, first of all, check is it drawn correctly or not.
+output_color = color;
+}
+)");
+		return shader;
+    }
 }

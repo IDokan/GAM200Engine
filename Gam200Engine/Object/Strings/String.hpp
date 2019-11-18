@@ -17,11 +17,17 @@ Creation Date:
 
 class String : public Object
 {
+private:
+	const size_t maxVertexSize = 50;
+	
 public:
-	String() = default;
+	String();
 
 	void Update(float dt);
 
+	[[nodiscard]] size_t GetVertexSize() const noexcept;
+
 private:
-	std::vector<vector2> vetices;
+	std::vector<vector2> vertices;
+	int verticesCapacity;
 };

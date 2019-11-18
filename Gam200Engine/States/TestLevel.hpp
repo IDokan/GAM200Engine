@@ -14,6 +14,7 @@ Creation Date: 08.15.2019
 #include <States/State.hpp>
 #include <Object/Object.hpp>
 #include <Graphics/CameraManager.hpp>
+#include <Object/Strings/String.hpp>
 
 class TestLevel final : public State
 {
@@ -41,7 +42,7 @@ private:
 	Object* object4;
 	Object* numbers;
 	Object* testObject; // test for jaemin
-	Object* string;
+	String* string;
 	bool flag = false;
 
 	Object* cameraDEBUGdrawing;
