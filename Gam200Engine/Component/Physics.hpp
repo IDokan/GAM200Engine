@@ -113,7 +113,7 @@ public:
 
     vector2 GetVectorTranslation() const; 
 
-protected:
+private:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};
