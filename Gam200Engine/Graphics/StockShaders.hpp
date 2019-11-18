@@ -91,7 +91,9 @@ namespace Graphics
 
 		/**
 		 * \brief uniform input:
-		 * maxStringVertexSize : int - To indicate how many vertex is used in string to discard unused mesh's points
+		 * stringHeight : float - height of string
+		 * stringVectorPosition : vec2[50] - array that stored position of each Vertex
+		 * stringVertexCapacity : int - To indicate how many vertex is used in string to discard unused mesh's points
 		 * to_ndc            : mat3      - To transform the mesh's local positions into Normalized Device Coordinates.
 		 * depth             : float     - Used to define the meshes depth. Assumed to be in the range of [-1,1)
 		 * color             : vec4      - The color used to multiply the texture with to create simple color variations
@@ -104,6 +106,7 @@ namespace Graphics
 		 * \return Globally accessible Shader for drawing meshes with an infinite tiles.
 		 */
 		Shader& StringShader() noexcept;
+		const VertexLayoutDescription& StringVertexLayout() noexcept;
 
         constexpr const char* Uniform_ToNDC   = "to_ndc";
         constexpr const char* Uniform_Depth   = "depth";

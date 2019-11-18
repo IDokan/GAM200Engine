@@ -66,7 +66,7 @@ void TestLevel::Load()
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::CIRCLE, vector2{ 0.f }, vector2{ -50.f });
     object1->SetDepth(-1.f);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
+    //objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
 	object2 = new Object();
 	object2->SetObjectName("Player2");
@@ -78,13 +78,13 @@ void TestLevel::Load()
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
 	object2->SetDepth(-0.1f);
 	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+	//objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 	
 	string = new String();
 	string->SetObjectType(Object::ObjectType::STRING);
 	string->SetObjectName("String");
-	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation())/2 });
-	string->SetScale(vector2{object2->GetTranslation().x - object1->GetTranslation().x, 5.f});
+	string->SetTranslation(vector2{ 0.f });
+	string->SetScale(vector2{1.f});
 	string->SetDepth(-0.1f);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
@@ -176,7 +176,15 @@ void TestLevel::Draw() const noexcept
 	{
 		for (const auto& obj : element->GetObjContainer())
 		{
-			if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
+			if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
+			{
+				// Incomplete one
+				const auto matrix = cameraManager.GetWorldToNDCTransform();
+				stringSprite->UpdateUniforms(matrix,
+					obj.get()->GetTransform().CalculateWorldDepth());
+				Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
+			}
+			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
 				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
 				sprite->UpdateUniforms(matrix,

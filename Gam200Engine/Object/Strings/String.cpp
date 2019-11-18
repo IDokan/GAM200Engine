@@ -14,15 +14,16 @@ Creation Date:
 #include <Component/StringPhysics.hpp>
 
 String::String()
-	:verticesCapacity(0)
 {
 	AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
 	//string->AddComponent(new StringPhysics(string, object1, object2));
-	AddComponent(new StringPhysics(this));
+	//AddComponent(new StringPhyscis(this));
 
 	
 	vertices.push_back(vector2{0.f});
+	vertices.push_back(vector2{ 100.f });
+	vertices.push_back(vector2{ 150.f, 200.f });
 }
 
 void String::Update(float dt)
@@ -31,7 +32,7 @@ void String::Update(float dt)
 	// vertices draw - Il
 }
 
-size_t String::GetVertexSize() const noexcept
+std::vector<vector2>& String::GetVertices() noexcept
 {
-	return maxVertexSize;
+	return vertices;
 }

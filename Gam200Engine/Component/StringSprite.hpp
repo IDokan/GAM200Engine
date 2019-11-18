@@ -26,7 +26,7 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
-	void UpdateUniforms();
+	void UpdateUniforms(const matrix3& toNDC, float depth);
 
 	/* Getters & Setters */
 	float GetStringHeight() const noexcept;

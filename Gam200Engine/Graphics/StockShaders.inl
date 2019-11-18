@@ -240,7 +240,7 @@ layout(location = 0) in vec2 position;
 layout(location = 1) in vec2 texture_coordinate;
 
 uniform float stringHeight;
-uniform vec2 stringVectorPosition[50];
+uniform vec2 stringVectorPosition[60];
 uniform int stringVertexCapacity;
 uniform mat3 to_ndc;
 uniform float depth;
@@ -266,16 +266,19 @@ void main()
 // position flag indicates this position is a upper point or lower point
 // if 0 upper point, if 1 lower point
 int positionFlag = int(position.y);
+	vec3 vertexPosition = to_ndc * vec3(stringVectorPosition[stringIndex], 1.f);
 if(positionFlag == 0)
 {
-	vec3 position = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y + stringHeight, 1.f);
+	vertexPosition.y = vertexPosition.y + stringHeight;
+	//vertexPosition = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y+stringHeight, 1.f);
 }
-if(positionFlag == 0)
+else
 {
-	vec3 position = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y - stringHeight, 1.f);
+vertexPosition.y = vertexPosition.y - stringHeight;
+	//vertexPosition = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y-stringHeight, 1.f);
 }
 
-    gl_Position = vec4(position.xy, depth, 1.0);
+    gl_Position = vec4(vertexPosition.xy, depth, 1.0);
     interpolated_texture_coordinate = texture_coordinate;
 }
 )",
@@ -301,8 +304,8 @@ void main()
 
     vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
     vec4 new_color = color * texel;
-    if(new_color.a <= 0.0f)
-        discard;
+//    if(new_color.a <= 0.0f)
+//        discard;
     output_color = new_color;
 
 
@@ -312,4 +315,11 @@ output_color = color;
 )");
 		return shader;
     }
+
+	inline const VertexLayoutDescription& SHADER::StringVertexLayout() noexcept
+	{
+		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
+											  VertexLayoutDescription::TextureCoordinates2WithFloats };
+		return layout;
+	}
 }

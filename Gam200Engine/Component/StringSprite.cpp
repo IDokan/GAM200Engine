@@ -28,7 +28,7 @@ void StringSprite::Init()
 
 	mesh->ClearPoints();
 
-	size_t maxVertexSize = stringOwner->GetVertexSize();
+	const size_t maxVertexSize = String::maxVertexSize;
 
 	for (size_t i = 0; i < maxVertexSize; ++i)
 	{
@@ -37,7 +37,15 @@ void StringSprite::Init()
 		mesh->AddPoint(vector2{ index, 0 });
 		mesh->AddPoint(vector2{ index, 1 });
 	}
-
+	mesh->ClearTextureCoordinates();
+	for (size_t i = 0; i < maxVertexSize; i+=2)
+	{
+		mesh->AddTextureCoordinate(vector2{ 0.f });
+		mesh->AddTextureCoordinate(vector2{ 1.f, 0.f });
+		mesh->AddTextureCoordinate(vector2{ 1.f });
+		mesh->AddTextureCoordinate(vector2{ 0.f, 1.f });
+	}
+	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::StringVertexLayout());
 	material->shader = &Graphics::SHADER::StringShader();
 }
 
@@ -51,9 +59,34 @@ void StringSprite::Clear()
 	Sprite::Clear();
 }
 
-void StringSprite::UpdateUniforms()
+void StringSprite::UpdateUniforms(const matrix3& toNDC, float depth)
 {
-	
+	// Update Uniform in Base Class
+	Sprite::UpdateUniforms(toNDC, depth);
+
+	// String uniforms upgrade
+	std::vector<vector2> stringVertices = stringOwner->GetVertices();
+	size_t verticesSize = stringVertices.size();
+	material->intUniform[Graphics::SHADER::Uniform_String_Vertex_Capacity] = verticesSize;
+	material->floatUniforms[Graphics::SHADER::Uniform_String_Height] = 0.05f;
+
+	// Initialize static array of vector2
+	static vector2 vectorArr[String::maxVertexSize] = {vector2{0.f}};
+	for (size_t i = 0; i < verticesSize; ++i)
+	{
+		vectorArr[i] = stringVertices.at(i);
+	}
+	material->arrayVector2Uniforms[Graphics::SHADER::Uniform_String_Vertex_Position] = vectorArr;
+
+	for (size_t i = 0; i < String::maxVertexSize; ++i)
+	{
+		vector3 tmp{ vectorArr[i].x, vectorArr[i].y , 1 };
+		printf("vectorArr[%d]:\n", i);
+		printf("%f, %f, %f\n", tmp.x, tmp.y, tmp.z);
+		tmp = toNDC * tmp;
+		printf("toNDC * vectorArr[%d]:\n", i);
+		printf("%f, %f, %f\n", tmp.x, tmp.y, tmp.z);
+	}
 }
 
 float StringSprite::GetStringHeight() const noexcept

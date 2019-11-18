@@ -67,6 +67,10 @@ namespace Graphics
         {
             Texture::SelectTextureForSlot(*element.second.texture, element.second.textureSlot);
         }
+		for (const auto & element : material.arrayVector2Uniforms)
+		{
+			material.shader->SendUniformVariable(element.first, element.second);
+		}
         glCheck(glDrawArrays(vertices.GetVerticesListPattern(), 0, vertices.GetVerticesCount()));
     }
 
