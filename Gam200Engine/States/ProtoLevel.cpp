@@ -56,10 +56,9 @@ void ProtoLevel::Update(float dt) {
 
     cameraManager.CameraMove(1.1f);
     ObjectManager* objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::BackGround)->AddObjectDynamically(background);
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
-    objectA->SetTranslation(input.GetMousePosition());
-    
+    is_next = false;
     if (input.IsKeyTriggered(GLFW_KEY_SPACE)) {
         is_next = true;
         //change the level
@@ -67,6 +66,8 @@ void ProtoLevel::Update(float dt) {
     }
 }
 void ProtoLevel::Unload() {
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
+    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
 
 }
 
@@ -87,6 +88,5 @@ void ProtoLevel::Draw() const noexcept {
             }
         }
     }
-
     Graphics::GL::end_drawing();
 }

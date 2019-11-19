@@ -160,12 +160,9 @@ void TestLevel::Update(float dt)
 	}
 
     //Mouse Imputs for deleting all.
-    //if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
-    //    objManager->FindLayer(LayerNames::Stage)->DeleteObject(object1);
-    //    objManager->FindLayer(LayerNames::Stage)->DeleteObject(object2);
-    //    objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
-    //    objManager->FindLayer(LayerNames::BackGround)->DeleteObject(background);
-    //}
+    if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+        objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
+    }
 
 	/*************************************UPDATE STRING****************************************************/
 
@@ -188,6 +185,7 @@ void TestLevel::Update(float dt)
         if ((input.GetMousePosition().x <= (button->GetTranslation().x + button->GetScale().x / 2))
             && (input.GetMousePosition().x >= (button->GetTranslation().x - button->GetScale().x / 2)))
         {
+            is_next = false;
             //When mouse click position is in the range of y range of button
             if ((input.GetMousePosition().y <= (button->GetTranslation().y + button->GetScale().y / 2))
                 && (input.GetMousePosition().y >= (button->GetTranslation().y - button->GetScale().y / 2)))
@@ -199,11 +197,16 @@ void TestLevel::Update(float dt)
         }
     }
 
-
 }
 
 void TestLevel::Unload()
 {
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
+    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
+    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player1");
+    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player2");
+    objManager->FindLayer(LayerNames::Stage)->DeleteObject("testObject");
+
 }
 
 void TestLevel::Draw() const noexcept
@@ -230,7 +233,7 @@ void TestLevel::Draw() const noexcept
 		}
 	}
 
-	Graphics::GL::end_drawing();
+	Graphics::GL::end_drawing();    
 }
 
 void TestLevel::Input()
