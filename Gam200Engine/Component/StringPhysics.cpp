@@ -19,10 +19,6 @@ StringPhyscis::StringPhyscis(Object* object) : Component(object)
 {
 }
 
-StringPhyscis::StringPhyscis(Object* obj, Object* player1, Object* player2)
-{
-}
-
 StringPhyscis::~StringPhyscis()
 {
 }

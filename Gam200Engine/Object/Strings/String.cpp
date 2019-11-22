@@ -20,10 +20,10 @@ String::String()
 	//string->AddComponent(new StringPhysics(string, object1, object2));
 	//AddComponent(new StringPhyscis(this));
 
-	
+
 	vertices.push_back(vector2{0.f});
-	vertices.push_back(vector2{ 100.f });
-	vertices.push_back(vector2{ 150.f, 200.f });
+	vertices.push_back(vector2{ 100.f});
+	vertices.push_back(vector2{ 200.f, 200.f });
 }
 
 void String::Update(float dt)
