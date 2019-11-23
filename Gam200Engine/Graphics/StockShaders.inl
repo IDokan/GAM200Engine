@@ -240,7 +240,7 @@ layout(location = 0) in vec2 position;
 layout(location = 1) in vec2 texture_coordinate;
 
 uniform float stringHeight;
-uniform vec2 stringVectorPosition[50];
+uniform vec2 stringVectorPosition[60];
 uniform int stringVertexCapacity;
 uniform mat3 to_ndc;
 uniform float depth;
@@ -250,32 +250,77 @@ out vec2 interpolated_texture_coordinate;
 // Flag that indicates it has to be discarded or not.
 flat out int isDiscarded;
 
+vec2 GetPerpendicularVectorWithSize(vec2 vector, float size)
+{
+		// rotate by counter clockwise
+		vec2 perpendicularVector = vec2(-vector.y, vector.x);
+		vec2 normalVector = normalize(perpendicularVector);
+		return (normalVector * vec2(stringHeight));
+}
+
+
 void main()
 {
 	int stringIndex = int(position.x);
 	if(stringIndex >= stringVertexCapacity)
-{
-	isDiscarded = 1;
-	return;
-}
-
-// Get a position of each vertex
-// manipulate to_ndc in here?
-// 
+	{
+		isDiscarded = 1;
+		return;
+	}
 	
-// position flag indicates this position is a upper point or lower point
-// if 0 upper point, if 1 lower point
-int positionFlag = int(position.y);
-if(positionFlag == 0)
-{
-	vec3 position = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y + stringHeight, 1.f);
-}
-if(positionFlag == 0)
-{
-	vec3 position = to_ndc * vec3(stringVectorPosition[stringIndex].x, stringVectorPosition[stringIndex].y - stringHeight, 1.f);
-}
+	// position flag indicates this position is a upper point or lower point
+	// if 0 upper point, if 1 lower point
+	int positionFlag = int(position.y);
+	vec3 vertexPosition = vec3(stringVectorPosition[stringIndex], 1.f);
 
-    gl_Position = vec4(position.xy, depth, 1.0);
+	// Determine thickness of string with stringHeight and calculation with other points
+	
+
+	if(positionFlag == 0)
+	{
+
+		if(stringIndex == 0)
+		{
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringHeight);
+			
+			vertexPosition.x += normalVector.x;
+			vertexPosition.y += normalVector.y;
+		}
+		else if(stringIndex == stringVertexCapacity-1)
+		{
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringHeight);
+			
+			vertexPosition.x += normalVector.x;
+			vertexPosition.y += normalVector.y;
+		}
+		else{
+				vertexPosition.y = vertexPosition.y + stringHeight;
+		}
+	}
+	else
+	{
+		if(stringIndex == 0)
+		{
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringHeight);
+			
+			vertexPosition.x -= normalVector.x;
+			vertexPosition.y -= normalVector.y;
+		}
+		else if(stringIndex == stringVertexCapacity-1)
+		{
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringHeight);
+			
+			vertexPosition.x -= normalVector.x;
+			vertexPosition.y -= normalVector.y;
+		}
+		else
+		{
+				vertexPosition.y = vertexPosition.y - stringHeight;
+		}
+	}
+		vertexPosition = to_ndc * vertexPosition;
+
+    gl_Position = vec4(vertexPosition.xy, depth, 1.0);
     interpolated_texture_coordinate = texture_coordinate;
 }
 )",
@@ -292,24 +337,27 @@ out vec4 output_color;
 
 void main()
 {
-// Discard and return unused vertices
+	// Discard and return unused vertices
 	if(isDiscarded == 1)
-{
-	discard;
-	return;
-}
+	{
+		discard;
+		return;
+	}
 
     vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
     vec4 new_color = color * texel;
     if(new_color.a <= 0.0f)
         discard;
     output_color = new_color;
-
-
-// DEBUG code, first of all, check is it drawn correctly or not.
-output_color = color;
 }
 )");
 		return shader;
     }
+
+	inline const VertexLayoutDescription& SHADER::StringVertexLayout() noexcept
+	{
+		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
+											  VertexLayoutDescription::TextureCoordinates2WithFloats };
+		return layout;
+	}
 }

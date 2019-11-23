@@ -17,6 +17,8 @@ Creation Date: 08.10.2019
 #include "matrix3.hpp"
 #include <Vector2.hpp>
 
+#include "Object/Strings/String.hpp"
+
 namespace Graphics
 {
     class Shader;
@@ -36,5 +38,6 @@ namespace Graphics
         std::map<std::string, float>           floatUniforms{};
 		std::map<std::string, vector2>			vector2Uniforms{};
         std::map<std::string, texture_uniform> textureUniforms{};
+		std::map<std::string, vector2*>			arrayVector2Uniforms{};
     };
 }

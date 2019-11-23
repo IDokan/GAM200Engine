@@ -27,8 +27,9 @@ public:
 	String(Object* player1, Object* player2);
 
 	void Update(float dt);
-	[[nodiscard]] size_t GetVertexSize() const noexcept;
+
+	/* Getter & Setter */
+	std::vector<vector2>& GetVertices() noexcept;
 private:
 	std::vector<vector2> vertices;
-	int verticesCapacity;
 };

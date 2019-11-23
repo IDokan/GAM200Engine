@@ -48,7 +48,7 @@ void String::Update(float dt)
 	// vertices draw - Il
 }
 
-size_t String::GetVertexSize() const noexcept
+std::vector<vector2>& String::GetVertices() noexcept
 {
 	return maxVertexSize;
 }
