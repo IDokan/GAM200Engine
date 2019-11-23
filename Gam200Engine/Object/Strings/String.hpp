@@ -20,16 +20,13 @@ class String : public Object
 {
     friend StringPhysics;
     friend StringSprite;
-private:
-	const size_t maxVertexSize = 50;
+public:
+    static constexpr const size_t maxVertexSize = 60;
 	
 public:
 	String(Object* player1, Object* player2);
 
 	void Update(float dt);
-
-	/* Getter & Setter */
-	std::vector<vector2>& GetVertices() noexcept;
 private:
 	std::vector<vector2> vertices;
 };

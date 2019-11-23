@@ -16,7 +16,6 @@ Creation Date:
 #include "Component/Physics.hpp"
 
 String::String(Object* player1, Object* player2)
-	:verticesCapacity(0)
 {
 	AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
@@ -47,10 +46,4 @@ void String::Update(float dt)
 	// Check -> collision
 	// vertices draw - Il
 }
-
-std::vector<vector2>& String::GetVertices() noexcept
-{
-	return maxVertexSize;
-}
-
 
