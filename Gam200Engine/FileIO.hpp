@@ -3,24 +3,27 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   Application.cpp
+File Name:   FileIO.hpp
 Author
-    - jaemin.woo wjm9932@gmail.com
-Creation Date: 08.05.2019
+    - jiwon.jung jjwon6218@gmail.com
+Creation Date: 11.23.2019
 
-    Source file for the make window
+    Source file for file IO
 ******************************************************************************/
+#include <Object/Object.hpp>
+#include <string>
 
-struct ObjectData {
-    int xpos;
-    int ypos;
-    int size;
-    int transform;
-    int speed;
-};
+class fileIO
+{
+public:
+	struct ObjectData
+	{
+		std::string playername;
+		vector2 transform;
+		vector2 size;
+		std::string objectType;
+	};
 
-class fileIO {
-    fileIO();
-
+	void input();
                                                                             
 };

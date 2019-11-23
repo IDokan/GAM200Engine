@@ -94,6 +94,7 @@
     </ClCompile>
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
+    <ClCompile Include="FileIO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -205,6 +206,7 @@
     </ClInclude>
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
+    <ClInclude Include="FileIO.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -230,5 +232,8 @@
     <None Include="Graphics\StockShaders.inl">
       <Filter>Graphics</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="objectData.txt" />
   </ItemGroup>
 </Project>

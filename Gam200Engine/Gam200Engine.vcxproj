@@ -177,6 +177,7 @@
     <ClInclude Include="Component\Sprite.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="FileIO.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
     <ClInclude Include="Graphics\CameraView.hpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
     <ClCompile Include="Graphics\CameraView.cpp" />
@@ -266,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="objectData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
