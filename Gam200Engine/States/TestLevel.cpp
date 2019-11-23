@@ -71,7 +71,7 @@ void TestLevel::Load()
 	object2 = new Object();
 	object2->SetObjectName("Player2");
 	object2->SetObjectType(Object::ObjectType::PLAYER_2);
-	object2->SetTranslation(vector2{ 250.f });
+	object2->SetTranslation(vector2{ 250.f, 255.f });
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
@@ -80,7 +80,7 @@ void TestLevel::Load()
 	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 	
-	string = new String();
+	string = new String(object1, object2);
 	string->SetObjectType(Object::ObjectType::STRING);
 	string->SetObjectName("String");
 	string->SetTranslation(vector2{ (object2->GetTranslation() + object1->GetTranslation())/2 });
@@ -111,6 +111,7 @@ void TestLevel::Update(float dt)
     object1->SetTranslation(obj1Position);
     
 	TestLevel::Collision();
+    TestLevel::Input();
 
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);

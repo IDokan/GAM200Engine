@@ -11,22 +11,23 @@ Creation Date:
 ******************************************************************************/
 #pragma once
 #include "Object/Object.hpp"
-#include "Object/Strings/StringPiece.hpp"
-#include "Object/Strings/StringVertex.hpp"
 #include <list>
+
+class StringPhysics;
+class StringSprite;
 
 class String : public Object
 {
+    friend StringPhysics;
+    friend StringSprite;
 private:
 	const size_t maxVertexSize = 50;
 	
 public:
-	String();
+	String(Object* player1, Object* player2);
 
 	void Update(float dt);
-
 	[[nodiscard]] size_t GetVertexSize() const noexcept;
-
 private:
 	std::vector<vector2> vertices;
 	int verticesCapacity;

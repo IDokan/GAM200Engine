@@ -11,10 +11,12 @@ Creation Date: 11.04.2019
 ******************************************************************************/
 
 #pragma once
-#include "Component/Physics.hpp"
+#include "Component/Component.hpp"
+#include "Object/Object.hpp"
+#include "Object//Strings/String.hpp"
 #include <vector>
 
-class StringPhyscis : public Component
+class StringPhysics : public Component
 {
 public:
     struct ObjectPoint
@@ -29,15 +31,22 @@ public:
     virtual void Update(float dt) override;
     virtual void Clear() override;
 
-    StringPhyscis(Object* object);
-    ~StringPhyscis();
+    StringPhysics(Object* object, Object* player1, Object* player2);
+    ~StringPhysics();
 
-    void IsBendPointInstantiated(vector2 point1, vector2 point2);
+    void IsBendPointInstantiated(vector2 point1, vector2 point2, int index);
     void SetObjectPoint(Object* obj);
     void SetNormalVector(vector2 point1, vector2 point2);
+    void InsertPoint();
 
 private:
-    //std::vector<vector2> vertex{};
     ObjectPoint objectPoint{};
     vector2 norVector{};
+    String* stringPhysicsOwner;
+    Object* player1;
+    Object* player2;
+    unsigned int vertexSize;
+    
+    int addCount;
+    std::vector < std::pair<int, vector2>> vertexContainer{};
 };
