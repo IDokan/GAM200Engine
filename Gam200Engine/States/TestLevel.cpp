@@ -107,6 +107,7 @@ void TestLevel::Update(float dt)
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
 
     object1->SetTranslation(obj1Position);
+	object2->SetTranslation(obj2Position);
     
 	TestLevel::Collision();
     TestLevel::Input();
