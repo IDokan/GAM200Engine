@@ -48,7 +48,7 @@ void TestLevel::Load()
 	testObject = new Object();
 	testObject->SetObjectName("test");
 	testObject->SetObjectType(Object::ObjectType::OBSTACLE);
-	testObject->SetTranslation(vector2{ -300 });
+	testObject->SetTranslation(vector2{ 600 });
 	testObject->SetScale(vector2{ 100.f });
 	testObject->AddComponent(new Sprite(testObject));
 	testObject->AddComponent(new Physics(testObject));
@@ -66,19 +66,19 @@ void TestLevel::Load()
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::CIRCLE, vector2{ 0.f }, vector2{ -50.f });
     object1->SetDepth(-1.f);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
+    objManager->FindLayer(LayerNames::HUD)->AddObject(object1);
 
 	object2 = new Object();
 	object2->SetObjectName("Player2");
 	object2->SetObjectType(Object::ObjectType::PLAYER_2);
-	object2->SetTranslation(vector2{ 250.f, 255.f });
+	object2->SetTranslation(vector2{ 250.f});
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
 	object2->SetDepth(-0.1f);
 	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+	objManager->FindLayer(LayerNames::HUD)->AddObject(object2);
 	
 	string = new String(object1, object2);
 	string->SetObjectType(Object::ObjectType::STRING);
@@ -98,8 +98,6 @@ void TestLevel::Load()
 	cameraDEBUGdrawing->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f, 0.5 });
 	objManager->FindLayer(HUD)->AddObject(cameraDEBUGdrawing);
 
-
-
 }
 
 bool check_haha = false;
@@ -109,6 +107,7 @@ void TestLevel::Update(float dt)
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
 
     object1->SetTranslation(obj1Position);
+	object2->SetTranslation(obj2Position);
     
 	TestLevel::Collision();
     TestLevel::Input();

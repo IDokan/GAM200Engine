@@ -15,6 +15,7 @@ Creation Date: 11.04.2019
 #include "Component/Physics.hpp"
 #include "Object/ObjectManager.hpp"
 #include <vector>
+#include <Component/StringSprite.hpp>
 
 StringPhysics::StringPhysics(Object* object, Object* player1, Object* player2) : Component(object) , stringPhysicsOwner(dynamic_cast<String*>(object)), player1(player1), player2(player2)
 {
@@ -44,8 +45,16 @@ void StringPhysics::Update(float dt)
         {
             if (object->GetComponentByTemplate<Physics>() != 0 && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
             {
-                SetObjectPoint(&*object);
-                IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1);
+				auto objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
+
+				objectPoint.leftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
+				IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1, objectPoint.leftBottom);
+				objectPoint.leftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
+				IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1, objectPoint.leftTop);
+				objectPoint.rightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
+				IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1, objectPoint.rightBottom);
+				objectPoint.rightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
+				IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1, objectPoint.rightTop);
             }
         }
     }
@@ -59,46 +68,36 @@ void StringPhysics::Update(float dt)
     addCount = 0;
 }
 
-void StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, int index)
+void StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint)
 {
-    std::vector<vector2>::iterator begin = stringPhysicsOwner->vertices.begin();
-    auto compare = norVector.x > norVector.y ? norVector.x : norVector.y;
+	auto compare = abs(norVector.x) > abs(norVector.y) ? abs(norVector.x) : abs(norVector.y);
 
-    if (dot(norVector, objectPoint.leftBottom) - dot(norVector, point2) <= abs(compare)
-        && dot(norVector, objectPoint.leftBottom) - dot(norVector, point2) >= -abs(compare))
-    {
-        if (point1 != objectPoint.leftBottom && point2 != objectPoint.leftBottom)
-        {
-            vertexContainer.push_back(std::pair(index, objectPoint.leftBottom));
-            addCount++;
-        }
-    }
-    if (dot(norVector, objectPoint.leftTop) - dot(norVector, point2) <= abs(compare)
-        && dot(norVector, objectPoint.leftTop) - dot(norVector, point2) >= -abs(compare))
-    {
-        if (point1 != objectPoint.leftTop && point2 != objectPoint.leftTop)
-        {
-            vertexContainer.push_back(std::pair(index, objectPoint.leftTop));
-            addCount++;
-        }
-    }
-    if (dot(norVector, objectPoint.rightBottom) - dot(norVector, point2) <= abs(compare)
-        && dot(norVector, objectPoint.rightBottom) - dot(norVector, point2) >= -abs(compare))
-    {
-        if (point1 != objectPoint.rightBottom && point2 != objectPoint.rightBottom)
-        {
-            vertexContainer.push_back(std::pair(index, objectPoint.rightBottom));
-            addCount++;
-        }
-    }
-    if (dot(norVector, objectPoint.rightTop) - dot(norVector, point2) <= abs(compare)
-        && dot(norVector, objectPoint.rightTop) - dot(norVector, point2) >= -abs(compare))
-    {
-        if (point1 != objectPoint.rightTop && point2 != objectPoint.rightTop)
-        {
-            vertexContainer.push_back(std::pair(index,objectPoint.rightTop));
-            addCount++;
-        }
+	vector2 RP{ targetPoint - point1 };
+	vector2 QP{ point2 - point1 };
+
+	// Check target point is between the edge. 
+	if (!(0 <= dot(RP, QP) && dot(RP, QP) <= dot(QP, QP)))
+	{
+		return;
+	}
+	const float resultWithTarget = dot(norVector, targetPoint);
+	const float resultWithPointOnLine = dot(norVector, point1);
+	const float collisionResult = resultWithTarget - resultWithPointOnLine;
+	if (collisionResult <= compare
+		&& collisionResult >= -compare)
+	{
+		if (point1 != targetPoint && point2 != targetPoint)
+		{
+			//printf("Line collision detected in\ntarget point = {%f, %f}\n", targetPoint.x, targetPoint.y);
+			//printf("Current normal vector is = {%f, %f}\n", norVector.x, norVector.y);
+			//printf("string point 1 is = {%f, %f}\n", point1.x, point1.y);
+			//printf("string point 2 is = {%f, %f}\n", point2.x, point2.y);
+			//printf("collision equation result is %f\n", dot(norVector, targetPoint) - dot(norVector, point2));
+			//owner->GetComponentByTemplate<StringSprite>()->SetColor(Graphics::Color4f{ 0.f });
+
+			vertexContainer.push_back(std::pair(index, targetPoint));
+			++addCount;
+		}
     }
 }
 
@@ -115,7 +114,7 @@ void StringPhysics::SetObjectPoint(Object* obj)
 void StringPhysics::SetNormalVector(vector2 point1, vector2 point2)
 {
     norVector = { point1.x - point2.x, point1.y - point2.y };
-    norVector = { norVector.x, -norVector.y };
+    norVector = { norVector.y, -norVector.x };
 }
 
 void StringPhysics::InsertPoint()
