@@ -80,5 +80,5 @@ COMPONENT* Object::GetComponentByTemplate() const
             return dynamic_cast<COMPONENT*>(i);
         }
     }
-    return nullptr;
+    throw "There is nothing to get component!";
 }

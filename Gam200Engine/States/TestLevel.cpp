@@ -32,11 +32,12 @@ void TestLevel::Load()
 	background->SetObjectName("background");
 	background->SetTranslation(vector2{ 0.f });
 	background->SetScale(vector2{ 700000 });
-	background->AddComponent(new Sprite(background));
+    
+    background->AddComponent(new Sprite(background));
 	background->AddComponent(new Physics(background));
-	background->GetComponentByTemplate<Sprite>()->SetImage("../texture/background.png");
-	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
-	
+    background->GetComponentByTemplate<Sprite>()->SetImage("../texture/background.png");
+    background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
+
 	object2 = new Object();
 	object2->SetObjectName("Player2");
 	object2->SetTranslation(vector2{ 250.f });
