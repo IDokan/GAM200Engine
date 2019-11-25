@@ -99,5 +99,5 @@ COMPONENT* Object::GetComponentByTemplate() const
 			}
 		}
     }
-    return nullptr;
+    throw "There is nothing to get component!";
 }

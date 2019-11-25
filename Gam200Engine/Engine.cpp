@@ -41,6 +41,7 @@ void Engine::Update()
     app_->Update(dt);
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
+        //throw "Hello nice to meet you :)";
         app_->GetApplication()->Clear();
         isRunning = true;
     }
