@@ -39,6 +39,9 @@ void StringPhysics::Update(float dt)
     vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
 
 	/* *******************************!!!Buggy Code!!!****************************** */
+	// 1. The position of removing loop can be wrong
+	// 2. (Strong) The condition equation can be wrong (I think it is a major problem)
+	// 3. Graphic problem (X inside squre not a huge and major problem)
 	// Remove detached point
 	for (size_t i = 0; i < vertexSize-2; ++i)
 	{
