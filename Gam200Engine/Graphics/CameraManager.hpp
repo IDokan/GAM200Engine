@@ -34,6 +34,7 @@ namespace Graphics
 
 		void SetZoom(float) noexcept;
 		float GetZoom() const noexcept;
+		constexpr float GetInitZoomSize() const noexcept;
 
 		void SetViewSize(const vector2&) noexcept;
 		void SetViewSize(int, int) noexcept;
@@ -65,7 +66,13 @@ namespace Graphics
 		CameraSet* selectedCamera = nullptr;
 		std::unordered_map<std::string, std::shared_ptr<CameraSet>> cameraStorage;
 
-		vector2 cameraDetectRectSize{ 500.f, 300.f };
+		vector2 initCameraDetectRectSize{ 500.f, 300.f };
+		vector2 cameraDetectRectSize{ initCameraDetectRectSize };
 	};
+
+	constexpr float CameraManager::GetInitZoomSize() const noexcept
+	{
+		return selectedCamera->cameraView.GetInitZoomSize();
+	}
 }
 

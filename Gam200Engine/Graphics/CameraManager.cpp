@@ -128,9 +128,12 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
 
 	vector2 totalDelta{};
 
-	float dx = abs(position1.x - position2.x);
-	float dy = abs(position1.y - position2.y);
+	const float dx = abs(position1.x - position2.x);
+	const float dy = abs(position1.y - position2.y);
 
+	const float currentZoom = GetZoom();
+	
+	// Zoom Out part
 	if (dx >= 2*cameraDetectRectSize.x)
 	{
  		SetZoom(GetZoom()*((2*cameraDetectRectSize.x) / dx));
@@ -141,6 +144,25 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
 		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
 		cameraDetectRectSize.y = dy / 2;
 	}
+
+	// Zoom In part
+	if (cameraDetectRectSize.x > initCameraDetectRectSize.x)
+	{
+		if (dx <= 2 * cameraDetectRectSize.x)
+		{
+			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / dx));
+			cameraDetectRectSize.x = dx / 2;
+		}
+	}
+	else if (cameraDetectRectSize.y > initCameraDetectRectSize.y)
+	{
+		if (dy <= 2 * cameraDetectRectSize.y)
+		{
+			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
+			cameraDetectRectSize.y = dy / 2;
+		}
+	}
+
 	totalDelta += player2Delta;
 	totalDelta += player1Delta;
 

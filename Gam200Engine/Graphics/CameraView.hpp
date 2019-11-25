@@ -23,6 +23,8 @@ Creation Date: 08.12.2019
         constexpr float GetZoom() const noexcept { return zoom; }
         matrix3         GetCameraToNDCTransform() const noexcept { return cameraToNDC; }
 
+		constexpr float GetInitZoomSize() const noexcept { return initZoomSize; }
+
         enum FrameOfReference
         {
             RightHanded_OriginCenter,
@@ -34,8 +36,9 @@ Creation Date: 08.12.2019
         constexpr FrameOfReference GetFrameOfReference() const noexcept { return frameOfReference; }
 
     private:
+		const float initZoomSize{ 1.f };
         vector2          displaySize{};
         matrix3          cameraToNDC = {1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f};
-        float            zoom{1.0f};
+        float            zoom{initZoomSize};
         FrameOfReference frameOfReference = RightHanded_OriginCenter;
     };
