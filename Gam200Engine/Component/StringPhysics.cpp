@@ -88,13 +88,16 @@ void StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, int 
 	{
 		if (point1 != targetPoint && point2 != targetPoint)
 		{
-			printf("Line collision detected in\ntarget point = {%f, %f}\n", targetPoint.x, targetPoint.y);
-			printf("Current normal vector is = {%f, %f}\n", norVector.x, norVector.y);
-			printf("string point 1 is = {%f, %f}\n", point1.x, point1.y);
-			printf("string point 2 is = {%f, %f}\n", point2.x, point2.y);
-			printf("collision equation result is %f\n", dot(norVector, targetPoint) - dot(norVector, point2));
-			owner->GetComponentByTemplate<StringSprite>()->SetColor(Graphics::Color4f{ 0.f });
-        }
+			//printf("Line collision detected in\ntarget point = {%f, %f}\n", targetPoint.x, targetPoint.y);
+			//printf("Current normal vector is = {%f, %f}\n", norVector.x, norVector.y);
+			//printf("string point 1 is = {%f, %f}\n", point1.x, point1.y);
+			//printf("string point 2 is = {%f, %f}\n", point2.x, point2.y);
+			//printf("collision equation result is %f\n", dot(norVector, targetPoint) - dot(norVector, point2));
+			//owner->GetComponentByTemplate<StringSprite>()->SetColor(Graphics::Color4f{ 0.f });
+
+			vertexContainer.push_back(std::pair(index, targetPoint));
+			++addCount;
+		}
     }
 }
 
@@ -111,7 +114,7 @@ void StringPhysics::SetObjectPoint(Object* obj)
 void StringPhysics::SetNormalVector(vector2 point1, vector2 point2)
 {
     norVector = { point1.x - point2.x, point1.y - point2.y };
-    norVector = { norVector.x, -norVector.y };
+    norVector = { norVector.y, -norVector.x };
 }
 
 void StringPhysics::InsertPoint()
