@@ -115,8 +115,8 @@ void TestLevel::Update(float dt)
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
 	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	vector3 cameraRect{ cameraManager.GetCameraToWorldTransform() * vector3 { 1000.f, 600.f, 0.f } };
-	cameraDEBUGdrawing->SetScale(vector2{ cameraRect.x, cameraRect.y });
+	vector2 cameraRect = cameraManager.GetDEBUGCameraRectSize() * 2;
+	cameraDEBUGdrawing->SetScale(cameraRect);
 
 
 

@@ -22,7 +22,7 @@ Graphics::CameraManager::CameraManager()
 }
 
 /**
- * \brief 
+ * \brief
  * For now, it do only set view size. However, Named for the possibility which do anything else...
  */
 void Graphics::CameraManager::Init() noexcept
@@ -31,7 +31,7 @@ void Graphics::CameraManager::Init() noexcept
 }
 
 /**
- * \brief 
+ * \brief
  * \Notice Function name is "AddCamera" but it is able to initialize cameraSet when cameraTag is already exist value.
  * \param cameraTag : Key value for cameraStorage
  */
@@ -97,7 +97,7 @@ void Graphics::CameraManager::SetFrameOfReference(CameraView::FrameOfReference f
 
 matrix3 Graphics::CameraManager::GetWorldToNDCTransform() const noexcept
 {
-	return selectedCamera->cameraView.GetCameraToNDCTransform() * 
+	return selectedCamera->cameraView.GetCameraToNDCTransform() *
 		selectedCamera->camera.WorldToCamera();
 }
 
@@ -122,26 +122,34 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
 
 	vector2 cameraPosition = GetPosition();
 
-	vector2 distance{ position1 - cameraPosition };
-
-	vector2 cameraDetectRectSize{ 500.f, 300.f };
-
 	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);
 
 	vector2 player2Delta = CalculateDeltaBetweenCameraAndPlayer(position2 - cameraPosition, cameraDetectRectSize);
 
 	vector2 totalDelta{};
 
-	if (player1Delta.x == 0 && player1Delta.y == 0)
+	float dx = abs(position1.x - position2.x);
+	float dy = abs(position1.y - position2.y);
+
+	if (dx >= 2*cameraDetectRectSize.x)
 	{
-		totalDelta += player2Delta;
+ 		SetZoom(GetZoom()*((2*cameraDetectRectSize.x) / dx));
+		cameraDetectRectSize.x = dx/2;
 	}
-	if (player2Delta.x == 0 && player2Delta.y == 0)
+	if (dy >= 2*cameraDetectRectSize.y)
 	{
-		totalDelta += player1Delta;
+		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
+		cameraDetectRectSize.y = dy / 2;
 	}
-	
+	totalDelta += player2Delta;
+	totalDelta += player1Delta;
+
 	SetPosition(cameraPosition + totalDelta);
+}
+
+vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
+{
+	return cameraDetectRectSize;
 }
 
 void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept

@@ -50,6 +50,7 @@ namespace Graphics
 
 		void CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept;
 
+		vector2 GetDEBUGCameraRectSize() const noexcept;
 	private:
 		void DEBUGCameraMove(const float& zoomSize) noexcept;
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
@@ -63,6 +64,8 @@ namespace Graphics
 
 		CameraSet* selectedCamera = nullptr;
 		std::unordered_map<std::string, std::shared_ptr<CameraSet>> cameraStorage;
+
+		vector2 cameraDetectRectSize{ 500.f, 300.f };
 	};
 }
 
