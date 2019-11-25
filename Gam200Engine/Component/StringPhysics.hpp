@@ -34,11 +34,14 @@ public:
     StringPhysics(Object* object, Object* player1, Object* player2);
     ~StringPhysics();
 
-    void IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint);
+    bool IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint) const;
     void SetObjectPoint(Object* obj);
     void SetNormalVector(vector2 point1, vector2 point2);
-    void InsertPoint();
 
+
+private:
+	void InsertPoint();
+	void DeletePoint();
 private:
     ObjectPoint objectPoint{};
     vector2 norVector{};
