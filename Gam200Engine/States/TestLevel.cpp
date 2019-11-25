@@ -18,6 +18,7 @@ Creation Date: 08.15.2019
 #include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
 #include "Sounds/SoundManager.hpp"
+#include <FileIO.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -98,7 +99,8 @@ void TestLevel::Load()
 	cameraDEBUGdrawing->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f, 0.5 });
 	objManager->FindLayer(HUD)->AddObject(cameraDEBUGdrawing);
 
-
+	fileIO* a = 0;
+	a->input();
 
 }
 

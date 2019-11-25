@@ -181,6 +181,7 @@
     <ClInclude Include="Component\TextComponent.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="FileIO.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Component\TextComponent.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -293,6 +295,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Graphics\StockShaders.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="objectData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

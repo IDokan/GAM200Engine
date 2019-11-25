@@ -128,6 +128,7 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp">
       <Filter>Object\Strings</Filter>
     </ClCompile>
+    <ClCompile Include="FileIO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp">
       <Filter>Object\Strings</Filter>
     </ClInclude>
+    <ClInclude Include="FileIO.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -310,5 +312,8 @@
     <None Include="Graphics\StockBitmapFonts.inl">
       <Filter>Graphics</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="objectData.txt" />
   </ItemGroup>
 </Project>
