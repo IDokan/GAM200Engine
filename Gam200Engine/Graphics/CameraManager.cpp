@@ -132,8 +132,6 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
 
 	vector2 totalDelta{};
 
-	printf("player1Delta x = %f, y = %f\n", player1Delta.x, player1Delta.y);
-	printf("player2Delta x = %f, y = %f\n\n\n", player2Delta.x, player2Delta.y);
 	if (player1Delta.x == 0 && player1Delta.y == 0)
 	{
 		totalDelta += player2Delta;

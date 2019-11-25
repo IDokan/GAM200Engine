@@ -250,8 +250,10 @@ out vec2 interpolated_texture_coordinate;
 // Flag that indicates it has to be discarded or not.
 flat out int isDiscarded;
 
-vec2 GetPerpendicularVectorWithSize(vec2 vector, float size)
+vec2 GetPerpendicularVectorWithSize(vec2 targetVector, vec2 currentVector, float size)
 {
+		// Get a vector
+		vec2 vector = targetVector - currentVector;
 		// rotate by counter clockwise
 		vec2 perpendicularVector = vec2(-vector.y, vector.x);
 		vec2 normalVector = normalize(perpendicularVector);
@@ -278,22 +280,26 @@ void main()
 
 	if(positionFlag == 0)
 	{
-
+		// If first vertex of string,
 		if(stringIndex == 0)
 		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringHeight);
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringVectorPosition[stringIndex], stringHeight);
 			
 			vertexPosition.x += normalVector.x;
 			vertexPosition.y += normalVector.y;
 		}
+		// If last vertex of string,
 		else if(stringIndex == stringVertexCapacity-1)
 		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringHeight);
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringVectorPosition[stringIndex], stringHeight);
 			
 			vertexPosition.x += normalVector.x;
 			vertexPosition.y += normalVector.y;
 		}
+		// normal vertex
 		else{
+				vec2 lastNormalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringVectorPosition[stringIndex], stringHeight);
+				vec2 nextNormalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringVectorPosition[stringIndex], stringHeight);
 				vertexPosition.y = vertexPosition.y + stringHeight;
 		}
 	}
@@ -301,14 +307,14 @@ void main()
 	{
 		if(stringIndex == 0)
 		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringHeight);
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringVectorPosition[stringIndex], stringHeight);
 			
 			vertexPosition.x -= normalVector.x;
 			vertexPosition.y -= normalVector.y;
 		}
 		else if(stringIndex == stringVertexCapacity-1)
 		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringHeight);
+			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringVectorPosition[stringIndex], stringHeight);
 			
 			vertexPosition.x -= normalVector.x;
 			vertexPosition.y -= normalVector.y;
