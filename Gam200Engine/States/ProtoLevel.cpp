@@ -34,9 +34,9 @@ void ProtoLevel::Load() {
     background->SetScale(vector2{ 700000 });
     background->AddComponent(new Sprite(background));
     background->AddComponent(new Physics(background));
-    background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
     background->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.f, 0.f });
     background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
     /*objectA = new Object();
     objectA->SetObjectName("MouseInput");
@@ -56,7 +56,6 @@ void ProtoLevel::Update(float dt) {
 
     cameraManager.CameraMove(1.1f);
     ObjectManager* objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
     is_next = false;
     if (input.IsKeyTriggered(GLFW_KEY_SPACE)) {
