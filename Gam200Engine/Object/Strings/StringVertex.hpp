@@ -10,14 +10,14 @@ Creation Date:
 	Header file for the String Vertex Object
 ******************************************************************************/
 #pragma once
-#include <Object/Transform.hpp>
+#include "Vector2.hpp"
 
-// TODO: I'm not sure what may be a base class
-class StringVertex : public Transform
+struct StringVertex
 {
-private:
-	// TODO: Implement CTOR, DTOR, and functions
-
-public:
-
+	StringVertex(vector2 pos, float d = 0.f)
+		: position(pos), distanceWhenAdded(d)
+	{}
+	
+	vector2 position;
+	float distanceWhenAdded;
 };

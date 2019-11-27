@@ -51,5 +51,5 @@ private:
     unsigned int vertexSize;
     
     int addCount;
-    std::vector < std::pair<int, vector2>> vertexContainer{};
+    std::vector < std::pair<int, StringVertex>> vertexContainer{};
 };
