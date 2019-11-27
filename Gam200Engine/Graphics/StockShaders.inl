@@ -283,6 +283,10 @@ void main()
 		isDiscarded = 1;
 		return;
 	}
+    else
+    {
+        isDiscarded = 0;
+    }
 	
 	// position flag indicates this position is a upper point or lower point
 	// if 0 upper point, if 1 lower point
