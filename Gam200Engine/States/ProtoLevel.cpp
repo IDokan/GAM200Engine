@@ -54,7 +54,8 @@ void ProtoLevel::Update(float dt) {
 
     //vector2 objectAPosition = objectA->GetComponentByTemplate<Physics>()->GetPosition();
 
-    cameraManager.CameraMove(1.1f);
+    
+    cameraManager.CameraMove(vector2{ -1.f }, vector2{ -1.f }, 1.1f);
     ObjectManager* objManager = ObjectManager::GetObjectManager();
 
     is_next = false;
