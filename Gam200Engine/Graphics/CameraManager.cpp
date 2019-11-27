@@ -120,6 +120,14 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
 {
 	DEBUGCameraMove(zoomSize);
 
+    if (position1.x == -1.f ||
+        position1.y == -1.f ||
+        position2.x == -1.f ||
+        position2.y == -1.f)
+    {
+        return;
+    }
+
 	vector2 cameraPosition = GetPosition();
 
 	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);

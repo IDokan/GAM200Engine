@@ -36,7 +36,7 @@ void TestLevel::Load()
 
 
 	background = new Object();
-	background->SetObjectName("background");
+	background->SetObjectName("background1");
 	background->SetTranslation(vector2{ 0.f });
 	background->SetScale(vector2{ 700000 });
 	background->AddComponent(new Sprite(background));
@@ -87,6 +87,20 @@ void TestLevel::Load()
 	string->SetScale(vector2{1.f});
 	string->SetDepth(-0.1f);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+
+    button = new Object();
+    //button->SetObjectType(Object::ObjectType::RECTANGLE);
+    button->SetObjectName("Button");
+    button->SetTranslation(vector2{ 400.f, -350.f });
+    button->SetScale(vector2{ 50.f });
+    button->AddComponent(new Sprite(button));
+    button->SetDepth(-0.1f);
+    button->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.5f, 0.5f, 1.f });
+    button->AddComponent(new Physics(button));
+    objManager->FindLayer(LayerNames::HUD)->AddObject(button);
+
+
+
 
 	cameraManager.Init();
 
@@ -157,6 +171,11 @@ void TestLevel::Update(float dt)
 
 	}
 
+    //Mouse Imputs for deleting all.
+    if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+        objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
+    }
+
 	/*************************************UPDATE STRING****************************************************/
 
 
@@ -166,6 +185,12 @@ void TestLevel::Update(float dt)
 
 void TestLevel::Unload()
 {
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
+    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
+    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player1");
+    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player2");
+    objManager->FindLayer(LayerNames::Stage)->DeleteObject("testObject");
+
 }
 
 void TestLevel::Draw() const noexcept

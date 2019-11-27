@@ -43,6 +43,8 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(new TestLevel()));
+    StateManager::GetStateManager()->AddStates("protoLevel", dynamic_cast<State*>(new ProtoLevel()));
+
 }
 
 void Application::Update(float dt)

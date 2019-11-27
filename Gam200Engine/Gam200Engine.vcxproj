@@ -219,6 +219,7 @@
     <ClInclude Include="Observer.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="States\ProtoLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
@@ -275,6 +276,7 @@
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="States\ProtoLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
