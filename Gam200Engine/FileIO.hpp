@@ -13,6 +13,7 @@ Creation Date: 11.23.2019
 ******************************************************************************/
 #include <Object/Object.hpp>
 #include <fstream>
+#include "Component/Sprite.hpp"
 #include "Component/Physics.hpp"
 #include <string>
 

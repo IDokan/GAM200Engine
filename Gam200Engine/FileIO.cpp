@@ -14,6 +14,7 @@ Creation Date: 11.23.2019
 #include "Vector2.hpp"
 #include <iostream>
 
+
 void fileIO::input()
 {
 	Object* object;
@@ -46,6 +47,8 @@ void fileIO::input()
 		object->SetObjectName(s);
 		object->SetTranslation(vector2{ x, y });
 		object->SetScale(vector2{ a, d });
+		//object->AddComponent(new Sprite(object));
+		//object->AddComp
         //outStream << object->AddComponent << std::endl;
 	}
 	inStream.close();

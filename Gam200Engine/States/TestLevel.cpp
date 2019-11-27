@@ -40,7 +40,6 @@ void TestLevel::Load()
 	background->SetObjectName("background");
 	background->SetTranslation(vector2{ 0.f });
 	background->SetScale(vector2{ 700000 });
-    
     background->AddComponent(new Sprite(background));
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
@@ -113,7 +112,7 @@ void TestLevel::Update(float dt)
 
     object1->SetTranslation(obj1Position);
     
-	TestLevel::Collision();
+	//TestLevel::Collision();
     TestLevel::Input();
 
 	// DEBUG object should be updated after camera Update()
@@ -179,28 +178,30 @@ void TestLevel::Draw() const noexcept
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
 		for (const auto& obj : element->GetObjContainer())
-		{
-			if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
-			{
-				// Incomplete one
-				const auto matrix = cameraManager.GetWorldToNDCTransform();
-				stringSprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
-			}
-			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
-			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				sprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
-			}
-			if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())
-			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				text->Draw(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-			}
+		{//
+				if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
+				{
+					// Incomplete one
+					const auto matrix = cameraManager.GetWorldToNDCTransform();
+					stringSprite->UpdateUniforms(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+					Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
+				}
+				else if (const auto& sprite = obj.get()->GetComponentByTemplate<Sprite>())
+				{
+					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+					sprite->UpdateUniforms(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+					Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+				}
+				if (const auto& text = obj.get()->GetComponentByTemplate<TextComponent>())
+				{
+					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+					text->Draw(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+				}
+			
+			//
 		}
 	}
 	Graphics::GL::end_drawing();

@@ -42,11 +42,13 @@ void StringPhysics::Update(float dt)
 
         for (const auto& object : physicsObject)
         {
-            if (object->GetComponentByTemplate<Physics>() != 0 && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
-            {
-                SetObjectPoint(&*object);
-                IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1);
-            }
+			
+				if (object->GetComponentByTemplate<Physics>() != 0 && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
+				{
+					SetObjectPoint(&*object);
+					IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 1), i + 1);
+				}
+	
         }
     }
     if (addCount !=0)

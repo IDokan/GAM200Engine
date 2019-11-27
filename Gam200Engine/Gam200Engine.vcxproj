@@ -296,9 +296,6 @@
     </None>
     <None Include="Graphics\StockShaders.inl" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="objectData.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

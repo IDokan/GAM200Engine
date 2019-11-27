@@ -313,7 +313,4 @@
       <Filter>Graphics</Filter>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="objectData.txt" />
-  </ItemGroup>
 </Project>
