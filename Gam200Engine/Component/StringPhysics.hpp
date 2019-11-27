@@ -49,7 +49,8 @@ private:
     Object* player1;
     Object* player2;
     unsigned int vertexSize;
-    
+    bool isDelete;
+
     int addCount;
     std::vector < std::pair<int, vector2>> vertexContainer{};
 };

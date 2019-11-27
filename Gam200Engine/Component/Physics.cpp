@@ -147,7 +147,7 @@ void Physics::ManageCollision()
     {
         for (const auto& object2 : physicsObject)
         {
-            if (object1->GetComponentByTemplate<Physics>() && object2->GetComponentByTemplate<Physics>())
+            if (object1->GetComponentByTemplate<Physics>() && object2->GetComponentByTemplate<Physics>() && !(object1->GetObjectType() == Object::ObjectType::STRING && object2->GetObjectType() == Object::ObjectType::STRING))
             if (object1->GetObjectType() != object2->GetObjectType())
             {
                 if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
