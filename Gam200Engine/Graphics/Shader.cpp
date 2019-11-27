@@ -5,6 +5,7 @@
 #include <iostream>
 #include <matrix3.hpp>
 #include <Vector2.hpp>
+#include <Object/Strings/String.hpp>
 
 Graphics::Shader::Shader(const std::string& vertex_shader_source_code, const std::string& fragment_shader_source_code)
 {
@@ -143,6 +144,11 @@ void Graphics::Shader::SendUniformVariable(const std::string& variable_name, vec
 void Graphics::Shader::SendUniformVariable(const std::string& variable_name, Color4f color) noexcept
 {
 	glCheck(glUniform4f(GetUniformLocation(variable_name), color.red, color.green, color.blue, color.alpha));
+}
+
+void Graphics::Shader::SendUniformVariable(const std::string& variable_name, vector2* number) noexcept
+{
+	glCheck(glUniform2fv(GetUniformLocation(variable_name), String::maxVertexSize, &number->elements[0]));
 }
 
 void Graphics::Shader::Delete() noexcept

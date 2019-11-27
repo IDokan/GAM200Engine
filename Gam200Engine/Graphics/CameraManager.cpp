@@ -22,7 +22,7 @@ Graphics::CameraManager::CameraManager()
 }
 
 /**
- * \brief 
+ * \brief
  * For now, it do only set view size. However, Named for the possibility which do anything else...
  */
 void Graphics::CameraManager::Init() noexcept
@@ -31,7 +31,7 @@ void Graphics::CameraManager::Init() noexcept
 }
 
 /**
- * \brief 
+ * \brief
  * \Notice Function name is "AddCamera" but it is able to initialize cameraSet when cameraTag is already exist value.
  * \param cameraTag : Key value for cameraStorage
  */
@@ -70,7 +70,7 @@ void Graphics::CameraManager::SetZoom(float zoom) noexcept
 	selectedCamera->cameraView.SetZoom(zoom);
 }
 
-constexpr float Graphics::CameraManager::GetZoom() const noexcept
+float Graphics::CameraManager::GetZoom() const noexcept
 {
 	return selectedCamera->cameraView.GetZoom();
 }
@@ -97,8 +97,13 @@ void Graphics::CameraManager::SetFrameOfReference(CameraView::FrameOfReference f
 
 matrix3 Graphics::CameraManager::GetWorldToNDCTransform() const noexcept
 {
-	return selectedCamera->cameraView.GetCameraToNDCTransform() * 
+	return selectedCamera->cameraView.GetCameraToNDCTransform() *
 		selectedCamera->camera.WorldToCamera();
+}
+
+matrix3 Graphics::CameraManager::GetCameraToWorldTransform() const noexcept
+{
+	return selectedCamera->camera.CameraToWorld();
 }
 
 void Graphics::CameraManager::MoveUp(float dt, float distance) noexcept
@@ -111,10 +116,70 @@ void Graphics::CameraManager::MoveRight(float dt, float distance) noexcept
 	selectedCamera->camera.MoveRight(dt * distance);
 }
 
-void Graphics::CameraManager::CameraMove(const float& zoomSize) noexcept
+void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept
 {
+	DEBUGCameraMove(zoomSize);
+
+	vector2 cameraPosition = GetPosition();
+
+	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);
+
+	vector2 player2Delta = CalculateDeltaBetweenCameraAndPlayer(position2 - cameraPosition, cameraDetectRectSize);
+
+	vector2 totalDelta{};
+
+	const float dx = abs(position1.x - position2.x);
+	const float dy = abs(position1.y - position2.y);
+
+	const float currentZoom = GetZoom();
+	
+	// Zoom Out part
+	if (dx >= 2*cameraDetectRectSize.x)
+	{
+ 		SetZoom(GetZoom()*((2*cameraDetectRectSize.x) / dx));
+		cameraDetectRectSize.x = dx/2;
+	}
+	if (dy >= 2*cameraDetectRectSize.y)
+	{
+		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
+		cameraDetectRectSize.y = dy / 2;
+	}
+
+	// Zoom In part
+	if (cameraDetectRectSize.x > initCameraDetectRectSize.x)
+	{
+		if (dx <= 2 * cameraDetectRectSize.x)
+		{
+			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / dx));
+			cameraDetectRectSize.x = dx / 2;
+		}
+	}
+	else if (cameraDetectRectSize.y > initCameraDetectRectSize.y)
+	{
+		if (dy <= 2 * cameraDetectRectSize.y)
+		{
+			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
+			cameraDetectRectSize.y = dy / 2;
+		}
+	}
+
+	totalDelta += player2Delta;
+	totalDelta += player1Delta;
+
+	SetPosition(cameraPosition + totalDelta);
+}
+
+vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
+{
+	return cameraDetectRectSize;
+}
+
+void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept
+{
+#ifdef _DEBUG
+
 	// Camera Movement
-	if(input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		input.SetPresentMousePosition(input.GetMousePosition());
 	}
@@ -143,5 +208,28 @@ void Graphics::CameraManager::CameraMove(const float& zoomSize) noexcept
 			selectedCamera->cameraView.GetZoom() / zoomSize
 		);
 	}
+#endif
+}
+
+vector2 Graphics::CameraManager::CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept
+{
+	vector2 delta{};
+	if (objDistance.x - playgroundSize.x > 0)
+	{
+		delta.x += (objDistance.x - playgroundSize.x);
+	}
+	else if (objDistance.x + playgroundSize.x < 0)
+	{
+		delta.x += (objDistance.x + playgroundSize.x);
+	}
+	if (objDistance.y - playgroundSize.y > 0)
+	{
+		delta.y += (objDistance.y - playgroundSize.y);
+	}
+	else if (objDistance.y + playgroundSize.y < 0)
+	{
+		delta.y += (objDistance.y + playgroundSize.y);
+	}
+	return delta;
 }
 

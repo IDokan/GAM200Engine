@@ -1,2 +1,0 @@
-stb_image.h         2.20
-stb_image_write.h   1.10

@@ -92,22 +92,41 @@
     <ClCompile Include="Sounds\SoundManager.cpp">
       <Filter>Sounds</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
     <ClCompile Include="Component\Physics.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\StringSprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Animation.cpp" />
-    <ClCompile Include="Graphics\BitmapFont.cpp" />
-    <ClCompile Include="Graphics\TextPlatform.cpp" />
     <ClCompile Include="Component\TextComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="States\ProtoLevel.cpp">
-      <Filter>States</Filter>
+    <ClCompile Include="Component\Animation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\BitmapFont.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp">
+      <Filter>Graphics\Parallax Scrolling</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TextPlatform.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\StringPhysics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Strings\String.cpp">
+      <Filter>Object\Strings</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Strings\StringPiece.cpp">
+      <Filter>Object\Strings</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Strings\StringVertex.cpp">
+      <Filter>Object\Strings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,23 +237,44 @@
     <ClInclude Include="Sounds\SoundManager.hpp">
       <Filter>Sounds</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp" />
     <ClInclude Include="Component\Physics.hpp">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\StringSprite.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Animation.hpp" />
-    <ClInclude Include="Graphics\BitmapFont.hpp" />
-    <ClInclude Include="Graphics\StockBitmapFonts.hpp" />
-    <ClInclude Include="Graphics\TextPlatform.hpp" />
     <ClInclude Include="Component\TextComponent.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="States\ProtoLevel.hpp">
-      <Filter>States</Filter>
+    <ClInclude Include="Component\Animation.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BitmapFont.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp">
+      <Filter>Graphics\Parallax Scrolling</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TextPlatform.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\StockBitmapFonts.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\StringPhysics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Strings\String.hpp">
+      <Filter>Object\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Strings\StringPiece.hpp">
+      <Filter>Object\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Strings\StringVertex.hpp">
+      <Filter>Object\Strings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +298,9 @@
     </Filter>
     <Filter Include="Graphics\Parallax Scrolling">
       <UniqueIdentifier>{b5633d40-2cff-4889-9a49-4c9c529490cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Strings">
+      <UniqueIdentifier>{3936bad3-08ed-43be-bc89-2c6344daaeb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

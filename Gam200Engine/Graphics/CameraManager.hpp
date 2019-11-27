@@ -33,7 +33,8 @@ namespace Graphics
 		vector2 GetPosition() const noexcept;
 
 		void SetZoom(float) noexcept;
-		constexpr float GetZoom() const noexcept;
+		float GetZoom() const noexcept;
+		constexpr float GetInitZoomSize() const noexcept;
 
 		void SetViewSize(const vector2&) noexcept;
 		void SetViewSize(int, int) noexcept;
@@ -43,12 +44,18 @@ namespace Graphics
 		constexpr CameraView::FrameOfReference GetFrameOfReference() const noexcept { return selectedCamera->cameraView.GetFrameOfReference(); };
 
 		matrix3 GetWorldToNDCTransform() const noexcept;
+		matrix3 GetCameraToWorldTransform() const noexcept;
 
 		void MoveUp(float dt, float distance) noexcept;
 		void MoveRight(float dt, float distance) noexcept;
 
-		void CameraMove(const float& zoomSize) noexcept;
+		void CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept;
 
+		vector2 GetDEBUGCameraRectSize() const noexcept;
+	private:
+		void DEBUGCameraMove(const float& zoomSize) noexcept;
+		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
+		
 	private:
 		struct CameraSet
 		{
@@ -58,6 +65,14 @@ namespace Graphics
 
 		CameraSet* selectedCamera = nullptr;
 		std::unordered_map<std::string, std::shared_ptr<CameraSet>> cameraStorage;
+
+		vector2 initCameraDetectRectSize{ 500.f, 300.f };
+		vector2 cameraDetectRectSize{ initCameraDetectRectSize };
 	};
+
+	constexpr float CameraManager::GetInitZoomSize() const noexcept
+	{
+		return selectedCamera->cameraView.GetInitZoomSize();
+	}
 }
 

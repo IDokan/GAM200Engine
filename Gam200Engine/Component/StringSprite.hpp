@@ -14,8 +14,9 @@ Creation Date: 11.04.2019
 #include <Component/Sprite.hpp>
 
 class Object;
+class String;
 
-class StringSprite : Sprite
+class StringSprite : public Sprite
 {
 public:
 	StringSprite(Object* obj) noexcept;
@@ -24,7 +25,14 @@ public:
 	virtual void Init() override;
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
+
+	void UpdateUniforms(const matrix3& toNDC, float depth);
+
+	/* Getters & Setters */
+	float GetStringHeight() const noexcept;
+	void SetStringHeight(float height) noexcept;
 	
 private:
-	
+	String* stringOwner;
+	float stringHeight;
 };

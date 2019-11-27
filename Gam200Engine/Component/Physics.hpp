@@ -54,10 +54,15 @@ public:
     void SetVectorTranslation(vector2 translation);
 
     bool IsCollideWith(Object* object);
-    bool IsCollideWith();
+    void ManageCollision();
     
     void AddForce(vector2 frc);
     void AddForce(float x, float y);
+
+    //void SetPosition(vector2 pos)
+    //{
+    //    position = pos;
+    //} ////test 
 
     const vector2 GetTranslation(const matrix3 &matrix) const;
     /**
@@ -108,7 +113,7 @@ public:
 
     vector2 GetVectorTranslation() const; 
 
-protected:
+private:
     vector2 velocity{};
     vector2 gravity{};
     vector2 force{};

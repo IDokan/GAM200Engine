@@ -59,16 +59,17 @@ void Object::SetScale(float scale)
     transform.SetScale(vector2{ scale });
 }
 
-// Depth value should be between -1 to 1.
+// Depth value should be between [-5000, 5000).
 void Object::SetDepth(float depth)
 {
-    transform.SetDepth(depth);
+    transform.SetDepth(depth / 5000.f);
 }
 
 void Object::SetObjectName(std::string name)
 {
     objectName = name;
 }
+
 
 std::string Object::GetObjectName()
 {

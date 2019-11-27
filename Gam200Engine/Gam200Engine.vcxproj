@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -115,7 +115,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glfw\include;$(SolutionDir)external\glew\include;$(SolutionDir)math;$(SolutionDir)GAM200Engine;$(SolutionDir)external\stb\include;$(SolutionDir)external\fmod\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -176,6 +176,7 @@
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
+    <ClInclude Include="Component\StringPhysics.hpp" />
     <ClInclude Include="Component\StringSprite.hpp" />
     <ClInclude Include="Component\TextComponent.hpp" />
     <ClInclude Include="Demo.hpp" />
@@ -211,6 +212,9 @@
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
+    <ClInclude Include="Object\Strings\String.hpp" />
+    <ClInclude Include="Object\Strings\StringPiece.hpp" />
+    <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Observer.hpp" />
     <ClInclude Include="PlatformWindow.hpp" />
@@ -229,6 +233,7 @@
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
+    <ClCompile Include="Component\StringPhysics.cpp" />
     <ClCompile Include="Component\StringSprite.cpp" />
     <ClCompile Include="Component\TextComponent.cpp" />
     <ClCompile Include="Demo.cpp" />
@@ -264,6 +269,9 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
+    <ClCompile Include="Object\Strings\String.cpp" />
+    <ClCompile Include="Object\Strings\StringPiece.cpp" />
+    <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PlatformWindow.cpp" />

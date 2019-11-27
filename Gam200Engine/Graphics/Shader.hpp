@@ -36,6 +36,7 @@ namespace Graphics
 		void SendUniformVariable(const std::string& variable_name, int number) noexcept;
 		void SendUniformVariable(const std::string& variable_name, vector2 number) noexcept;
 		void SendUniformVariable(const std::string& variable_name, Color4f color) noexcept;
+		void SendUniformVariable(const std::string& variable_name, vector2* number) noexcept;
 
 		constexpr unsigned GetShaderHandler() const noexcept { return handleToShader; }
 
