@@ -264,7 +264,7 @@ vec2 GetPerpendicularVectorWithSize(vec2 targetVector1, vec2 targetVector2, vec2
 {
 		// Get a vector
 		vec2 vector1 = targetVector1 - currentVector;
-		vec2 vector2 = targetVector2 - currentVector;
+		vec2 vector2 = currentVector - targetVector2;
 		// rotate by counter clockwise
 		vec2 perpendicularVector1 = vec2(-vector1.y, vector1.x);
 		vec2 perpendicularVector2 = vec2(-vector2.y, vector2.x);
@@ -304,7 +304,7 @@ void main()
 		// If last vertex of string,
 		else if(stringIndex == stringVertexCapacity-1)
 		{
-			normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringVectorPosition[stringIndex], stringHeight);
+			normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex], stringVectorPosition[stringIndex-1], stringHeight);
 		}
 		// normal vertex
 		else{
