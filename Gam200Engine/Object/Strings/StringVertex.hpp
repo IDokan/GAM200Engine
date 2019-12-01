@@ -14,10 +14,15 @@ Creation Date:
 
 struct StringVertex
 {
-	StringVertex(vector2 pos, float d = 0.f)
-		: position(pos), distanceWhenAdded(d)
+	StringVertex(vector2 pos, vector2 center = vector2{ 0.f })
+		: position(pos), centerPositionOfCollidedObject(center)
 	{}
+
+	bool operator==(const StringVertex& rhs) const
+	{
+		return (position == rhs.position);
+	}
 	
 	vector2 position;
-	float distanceWhenAdded;
+	vector2 centerPositionOfCollidedObject;
 };

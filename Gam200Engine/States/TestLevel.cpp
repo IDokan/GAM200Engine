@@ -104,14 +104,6 @@ void TestLevel::Load()
 
 	cameraManager.Init();
 
-	cameraDEBUGdrawing = new Object();
-	cameraDEBUGdrawing->SetObjectName("camera Debug drawing object");
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	cameraDEBUGdrawing->SetScale(vector2{ 1000, 600 });
-	cameraDEBUGdrawing->AddComponent(new Sprite(cameraDEBUGdrawing));
-	cameraDEBUGdrawing->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f, 0.5 });
-	objManager->FindLayer(HUD)->AddObject(cameraDEBUGdrawing);
-
 }
 
 bool check_haha = false;
@@ -128,9 +120,6 @@ void TestLevel::Update(float dt)
 
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	vector2 cameraRect = cameraManager.GetDEBUGCameraRectSize() * 2;
-	cameraDEBUGdrawing->SetScale(cameraRect);
 
 
 
@@ -171,11 +160,6 @@ void TestLevel::Update(float dt)
 
 	}
 
-    //Mouse Imputs for deleting all.
-    if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
-        objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
-    }
-
 	/*************************************UPDATE STRING****************************************************/
 
 
@@ -186,10 +170,13 @@ void TestLevel::Update(float dt)
 void TestLevel::Unload()
 {
     ObjectManager* objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player1");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player2");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("testObject");
+    for (const auto& layers: objManager->GetLayerContainer())
+    {
+		for (const auto& obj : layers->GetObjContainer())
+		{
+			obj->SetDead(true);
+		}
+    }
 
 }
 

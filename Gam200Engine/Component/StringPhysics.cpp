@@ -38,6 +38,7 @@ void StringPhysics::Update(float dt)
 
 	vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
 
+	float distanceResultContainer = 0;
 	// Add collided point
 	for (size_t i = 0; i < vertexSize - 1; i++)
 	{
@@ -51,30 +52,20 @@ void StringPhysics::Update(float dt)
 				vector2 stringVertex1 = stringPhysicsOwner->vertices.at(i).position;
 				vector2 stringVertex2 = stringPhysicsOwner->vertices.at(i + 1).position;
 
-				objectPoint.leftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
-				if (IsBendPointInstantiated(stringVertex1, stringVertex2, i + 1, objectPoint.leftBottom))
-				{
-					++addCount;
-					vertexContainer.emplace_back(std::pair(i + 1, objectPoint.leftBottom));
-				}
-				objectPoint.leftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
-				if (IsBendPointInstantiated(stringVertex1, stringVertex2, i + 1, objectPoint.leftTop))
-				{
-					++addCount;
-					vertexContainer.emplace_back(std::pair(i + 1, objectPoint.leftTop));
-				}
-				objectPoint.rightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
-				if (IsBendPointInstantiated(stringVertex1, stringVertex2, i + 1, objectPoint.rightBottom))
-				{
-					++addCount;
-					vertexContainer.emplace_back(std::pair(i + 1, objectPoint.rightBottom));
-				}
-				objectPoint.rightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
-				if (IsBendPointInstantiated(stringVertex1, stringVertex2, i + 1, objectPoint.rightTop))
-				{
-					++addCount;
-					vertexContainer.emplace_back(std::pair(i + 1, objectPoint.rightTop));
-				}
+				vector2 center{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
+
+				// Left-Bottom
+				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+					center + vector2{ - objectCollisionBox.Scale.x / 2,  - objectCollisionBox.Scale.y / 2 }, center);
+				// Left-Top
+				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+					center + vector2{ - objectCollisionBox.Scale.x / 2, + objectCollisionBox.Scale.y / 2 }, center);
+				// Right-Bottom
+				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+					center + vector2{ + objectCollisionBox.Scale.x / 2, - objectCollisionBox.Scale.y / 2 }, center);
+				// Right-Top
+				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+					center + vector2{ + objectCollisionBox.Scale.x / 2, + objectCollisionBox.Scale.y / 2 }, center);
 			}
 		}
 	}
@@ -90,35 +81,30 @@ void StringPhysics::Update(float dt)
 
 	vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
 
-	///* *******************************!!!Buggy Code!!!****************************** */
-	//// 1. The position of removing loop can be wrong
-	//// 2. (Strong) The condition equation can be wrong (I think it is a major problem)
-	//// 3. Graphic problem (X inside squre not a huge and major problem)
-	//// Remove detached point
-	//for (size_t i = 0; i < vertexSize - 2; ++i)
-	//{
-	//	//If detected,
-	//	// TODO: Change the equation to calculate with distance
-	//	if (IsBendPointInstantiated(stringPhysicsOwner->vertices.at(i).position, stringPhysicsOwner->vertices.at(i + 2).position, /*I'm not sure it can be 0*/0, stringPhysicsOwner->vertices.at(i + 1).position))
-	//	{
-	//		vertexContainer.emplace_back(std::pair{ i + 1, stringPhysicsOwner->vertices.at(i + 1) });
-	//	}
-	//}
-	//if (vertexContainer.empty() == false)
-	//{
-	//	DeletePoint();
-	//}
+	for (size_t i = 0; i < vertexSize - 2; ++i)
+	{
+		SetNormalVector(stringPhysicsOwner->vertices.at(i).position, stringPhysicsOwner->vertices.at(i + 2).position);
+		//If detected,
+		if (IsDetached(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 2), stringPhysicsOwner->vertices.at(i + 1)))
+		{
+			vertexContainer.emplace_back(std::pair{ i + 1, stringPhysicsOwner->vertices.at(i + 1) });
+		}
+	}
+	if (vertexContainer.empty() == false)
+	{
+		DeletePoint();
+	}
 }
 
 bool StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint) const
 {
-	auto compare = abs(norVector.x) > abs(norVector.y) ? abs(norVector.x) : abs(norVector.y);
+	const auto compare = 2*(abs(norVector.x) > abs(norVector.y) ? abs(norVector.x) : abs(norVector.y));
 
 	vector2 RP{ targetPoint - point1 };
 	vector2 QP{ point2 - point1 };
 
 	// Check target point is between the edge. 
-	if (!(0 <= dot(RP, QP) && dot(RP, QP) <= dot(QP, QP)))
+	if (!(0 < dot(RP, QP) && dot(RP, QP) < dot(QP, QP)))
 	{
 		return false;
 	}
@@ -136,16 +122,6 @@ bool StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, int 
 	return false;
 }
 
-void StringPhysics::SetObjectPoint(Object* obj)
-{
-	auto objectCollisionBox = obj->GetComponentByTemplate<Physics>()->GetCollisionBox();
-
-	objectPoint.leftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.x - objectCollisionBox.Scale.y / 2 };
-	objectPoint.leftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.x + objectCollisionBox.Scale.y / 2 };
-	objectPoint.rightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.x - objectCollisionBox.Scale.y / 2 };
-	objectPoint.rightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.x + objectCollisionBox.Scale.y / 2 };
-}
-
 void StringPhysics::SetNormalVector(vector2 point1, vector2 point2)
 {
 	norVector = { point1.x - point2.x, point1.y - point2.y };
@@ -157,7 +133,7 @@ void StringPhysics::InsertPoint()
 	for (int i = 0; i < addCount; i++)
 	{
 		const auto& begin = stringPhysicsOwner->vertices.begin();
-		stringPhysicsOwner->vertices.insert(begin + vertexContainer.at(i).first, StringVertex{ vertexContainer.at(i).second/* , TODO: Add Distance */ });
+		stringPhysicsOwner->vertices.insert(begin + vertexContainer.at(i).first, StringVertex{ vertexContainer.at(i).second});
 	}
 	vertexContainer.clear();
 	vertexSize = stringPhysicsOwner->vertices.size();
@@ -172,6 +148,40 @@ void StringPhysics::DeletePoint()
 	}
 	vertexContainer.clear();
 	vertexSize = stringPhysicsOwner->vertices.size();
+}
+
+void StringPhysics::PushbackIfBended(vector2 point1, vector2 point2, int index, vector2 targetPoint, vector2 centerPosition)
+{
+	if (IsBendPointInstantiated(point1, point2, index, targetPoint))
+	{
+		++addCount;
+		vertexContainer.emplace_back(std::pair(index, StringVertex{ targetPoint, centerPosition }));
+	}
+}
+
+/*
+ *    https://bowbowbow.tistory.com/14
+ *    The Key Point is 
+ *    We can get an sign of angle between two vector via 2 dimensional cross product 
+*/
+bool StringPhysics::IsDetached(StringVertex point1, StringVertex point2, StringVertex targetPoint) const
+{
+	vector2 ToTargetPosition{ targetPoint.position - point1.position };
+	vector2 ToCenter { targetPoint.centerPositionOfCollidedObject - point1.position };
+	vector2 ToNextVertex { point2.position - point1.position };
+
+	if (cross(ToTargetPosition, ToCenter) > 0)
+	{
+		return cross(ToTargetPosition, ToNextVertex) < 0;
+	}
+	else if(cross(ToTargetPosition, ToCenter) < 0)
+	{
+		return cross(ToTargetPosition, ToNextVertex) > 0;
+	}
+	else
+	{
+		return true;
+	}
 }
 
 void StringPhysics::Clear()

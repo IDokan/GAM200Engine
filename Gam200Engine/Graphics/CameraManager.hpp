@@ -55,7 +55,8 @@ namespace Graphics
 	private:
 		void DEBUGCameraMove(const float& zoomSize) noexcept;
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
-		
+		void ZoomAndCollisionBoxHandling(vector2 distanceBetweenPlayer) noexcept;
+		void PositionHandling(vector2 position1, vector2 position2) noexcept;
 	private:
 		struct CameraSet
 		{
