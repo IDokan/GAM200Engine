@@ -17,6 +17,7 @@ Creation Date: 08.14.2019
 #include "Graphics/GL.hpp"
 #include <iostream>
 #include "Application.hpp"
+#include <Component/Physics.hpp>
 
 #pragma warning (push)
 #pragma warning (disable : 4458)
@@ -57,6 +58,11 @@ void Sprite::Init()
 
 void Sprite::Update(float dt)
 {
+	if (Physics* p = owner->GetComponentByTemplate<Physics>())
+	{
+		Graphics::Color4f currentColor = GetColor();
+		SetColor(Graphics::Color4f{static_cast<float>(!p->IsCollided()), currentColor.green, currentColor.blue, currentColor.alpha});
+	}
 }
 
 void Sprite::Clear()

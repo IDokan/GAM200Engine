@@ -64,22 +64,12 @@ public:
     //    position = pos;
     //} ////test 
 
-    const vector2 GetTranslation(const matrix3 &matrix) const;
-    /**
-	 * \brief Implemented by Il.
-	 * \return velocity
-	 */
+    vector2 GetTranslation(const matrix3 &matrix) const;
 	vector2 GetVelocity() const noexcept;
-    /**
-	 * \brief Implemented by Il.
-	 * \return gravity
-	 */
 	vector2 GetGravity() const noexcept;
-    /**
-	 * \brief Implemented by Il.
-	 * \return force
-	 */
 	vector2 GetForce() const noexcept;
+	bool IsCollided() const noexcept;
+	
 
     const CollsionBox &GetCollisionBox() const
     {

@@ -358,18 +358,37 @@ void TestLevel::Collision()
     object1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
+void UpdateCollisionBox(Object* obj1, Object* obj2)
+{
+	obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
+	obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
+}
+
 void TestLevel::PlayerScaling()
 {
+	const float minimum_scaling_limit = 150.f;
 	const float scaling_constant = 1.01f;
+	
 	if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 	{
+		if (object1->GetScale().x <= minimum_scaling_limit)
+		{
+			return;
+		}
 		object1->SetScale(object1->GetScale() / scaling_constant);
 		
 		object2->SetScale(object2->GetScale() * scaling_constant);
+
+		UpdateCollisionBox(object1, object2);
 	}
 	if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
 	{
+		if (object2->GetScale().x <= minimum_scaling_limit)
+		{
+			return;
+		}
 		object1->SetScale(object1->GetScale() * scaling_constant);
 		object2->SetScale(object2->GetScale() / scaling_constant);
+		UpdateCollisionBox(object1, object2);
 	}
 }
