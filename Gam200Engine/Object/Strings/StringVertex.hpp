@@ -10,14 +10,19 @@ Creation Date:
 	Header file for the String Vertex Object
 ******************************************************************************/
 #pragma once
-#include <Object/Transform.hpp>
+#include "Vector2.hpp"
 
-// TODO: I'm not sure what may be a base class
-class StringVertex : public Transform
+struct StringVertex
 {
-private:
-	// TODO: Implement CTOR, DTOR, and functions
+	StringVertex(vector2 pos, vector2 center = vector2{ 0.f })
+		: position(pos), centerPositionOfCollidedObject(center)
+	{}
 
-public:
-
+	bool operator==(const StringVertex& rhs) const
+	{
+		return (position == rhs.position);
+	}
+	
+	vector2 position;
+	vector2 centerPositionOfCollidedObject;
 };

@@ -45,6 +45,4 @@ private:
 	Object* testObject; // test for jaemin
 	String* string;
 	bool flag = false;
-
-	Object* cameraDEBUGdrawing;
 };

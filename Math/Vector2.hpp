@@ -84,5 +84,7 @@ Created: 08/05/2019
     std::ostream &operator<<(std::ostream &p_Stream, const vector2 &p_Vector);
 
 
+	//==================2 dimensional Cross Product ==========================
+	[[nodiscard]] float cross(vector2 secondFinger, vector2 thirdFinger);
 
 #pragma warning(pop)

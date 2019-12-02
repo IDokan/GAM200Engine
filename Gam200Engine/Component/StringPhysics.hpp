@@ -19,8 +19,10 @@ Creation Date: 11.04.2019
 class StringPhysics : public Component
 {
 public:
+
     struct ObjectPoint
     {
+		vector2 center{};
         vector2 leftBottom{};
         vector2 rightBottom{};
         vector2 leftTop{};
@@ -35,13 +37,15 @@ public:
     ~StringPhysics();
 
     bool IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint) const;
-    void SetObjectPoint(Object* obj);
     void SetNormalVector(vector2 point1, vector2 point2);
 
 
 private:
 	void InsertPoint();
 	void DeletePoint();
+
+	void PushbackIfBended(vector2 point1, vector2 point2, int index, vector2 targetPoint, vector2 centerPosition);
+	bool IsDetached(StringVertex point1, StringVertex point2, StringVertex targetPoint) const;
 private:
     ObjectPoint objectPoint{};
     vector2 norVector{};
@@ -52,5 +56,5 @@ private:
     bool isDelete;
 
     int addCount;
-    std::vector < std::pair<int, vector2>> vertexContainer{};
+    std::vector < std::pair<int, StringVertex>> vertexContainer{};
 };

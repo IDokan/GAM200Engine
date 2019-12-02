@@ -18,6 +18,7 @@ Creation Date: 08.15.2019
 #include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
 #include "Sounds/SoundManager.hpp"
+#include <FileIO.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -39,7 +40,7 @@ void TestLevel::Load()
 	background->SetObjectName("background1");
 	background->SetTranslation(vector2{ 0.f });
 	background->SetScale(vector2{ 700000 });
-	background->AddComponent(new Sprite(background));
+    background->AddComponent(new Sprite(background));
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
@@ -100,17 +101,11 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::HUD)->AddObject(button);
 
 
+	fileIO* a = 0;
+	a->input();
 
 
 	cameraManager.Init();
-
-	cameraDEBUGdrawing = new Object();
-	cameraDEBUGdrawing->SetObjectName("camera Debug drawing object");
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	cameraDEBUGdrawing->SetScale(vector2{ 1000, 600 });
-	cameraDEBUGdrawing->AddComponent(new Sprite(cameraDEBUGdrawing));
-	cameraDEBUGdrawing->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f, 0.5 });
-	objManager->FindLayer(HUD)->AddObject(cameraDEBUGdrawing);
 
 }
 
@@ -123,14 +118,11 @@ void TestLevel::Update(float dt)
     object1->SetTranslation(obj1Position);
 	object2->SetTranslation(obj2Position);
     
-	TestLevel::Collision();
+	//TestLevel::Collision();
     TestLevel::Input();
 
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	vector2 cameraRect = cameraManager.GetDEBUGCameraRectSize() * 2;
-	cameraDEBUGdrawing->SetScale(cameraRect);
 
 
 
@@ -171,11 +163,6 @@ void TestLevel::Update(float dt)
 
 	}
 
-    //Mouse Imputs for deleting all.
-    if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
-        objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
-    }
-
 	/*************************************UPDATE STRING****************************************************/
 
 
@@ -186,10 +173,13 @@ void TestLevel::Update(float dt)
 void TestLevel::Unload()
 {
     ObjectManager* objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player1");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player2");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("testObject");
+    for (const auto& layers: objManager->GetLayerContainer())
+    {
+		for (const auto& obj : layers->GetObjContainer())
+		{
+			obj->SetDead(true);
+		}
+    }
 
 }
 
@@ -200,28 +190,30 @@ void TestLevel::Draw() const noexcept
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
 		for (const auto& obj : element->GetObjContainer())
-		{
-			if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
-			{
-				// Incomplete one
-				const auto matrix = cameraManager.GetWorldToNDCTransform();
-				stringSprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
-			}
-			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
-			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				sprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
-			}
-			if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())
-			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				text->Draw(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-			}
+		{//
+				if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
+				{
+					// Incomplete one
+					const auto matrix = cameraManager.GetWorldToNDCTransform();
+					stringSprite->UpdateUniforms(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+					Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
+				}
+				else if (const auto& sprite = obj.get()->GetComponentByTemplate<Sprite>())
+				{
+					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+					sprite->UpdateUniforms(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+					Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+				}
+				if (const auto& text = obj.get()->GetComponentByTemplate<TextComponent>())
+				{
+					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+					text->Draw(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+				}
+			
+			//
 		}
 	}
 	Graphics::GL::end_drawing();
