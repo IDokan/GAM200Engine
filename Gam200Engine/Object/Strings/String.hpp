@@ -11,6 +11,7 @@ Creation Date:
 ******************************************************************************/
 #pragma once
 #include "Object/Object.hpp"
+#include "Object/Strings/StringVertex.hpp"
 #include <list>
 
 class StringPhysics;
@@ -28,5 +29,5 @@ public:
 
 	void Update(float dt);
 private:
-	std::vector<vector2> vertices;
+	std::vector<StringVertex> vertices;
 };

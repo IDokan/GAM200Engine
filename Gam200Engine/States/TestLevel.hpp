@@ -39,11 +39,10 @@ private:
 	Object* object1;
 	Object* object2;
 	Object* background;
+    Object* button;
 	Object* object4;
 	Object* numbers;
 	Object* testObject; // test for jaemin
 	String* string;
 	bool flag = false;
-
-	Object* cameraDEBUGdrawing;
 };

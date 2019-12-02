@@ -17,33 +17,17 @@ Creation Date:
 
 String::String(Object* player1, Object* player2)
 {
-	AddComponent(new StringSprite(this));
+	Object::AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
 	//string->AddComponent(new StringPhysics(string, object1, object2));
-	AddComponent(new StringPhysics(this, player1, player2));
+	Object::AddComponent(new StringPhysics(this, player1, player2));
 
 	
-	vertices.push_back(player1->GetTranslation());
-	vertices.push_back(player2->GetTranslation());
+	vertices.emplace_back(player1->GetTranslation());
+	vertices.emplace_back(player2->GetTranslation());
 }
 
 void String::Update(float dt)
 {
-    //const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-
-    //for (std::vector<vector2>::iterator it = vertices.begin(); it != vertices.end() - 1; it++)
-    //{
-    //    this->GetComponentByTemplate<StringPhysics>()->SetNormalVector(*it, *(it + 1));
-    //        for (const auto& object : physicsObject)
-    //        {
-    //            if (object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
-    //            {
-    //                this->GetComponentByTemplate<StringPhysics>()->SetObjectPoint(&*object);
-    //                this->GetComponentByTemplate<StringPhysics>()->IsBendPointInstantiated(*it, *(it + 1), it+1);
-    //            }
-    //        }
-    //}
-	// Check -> collision
-	// vertices draw - Il
 }
 

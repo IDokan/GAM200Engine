@@ -34,6 +34,7 @@ namespace Graphics
 
 		void SetZoom(float) noexcept;
 		float GetZoom() const noexcept;
+		constexpr float GetInitZoomSize() const noexcept;
 
 		void SetViewSize(const vector2&) noexcept;
 		void SetViewSize(int, int) noexcept;
@@ -50,10 +51,12 @@ namespace Graphics
 
 		void CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept;
 
+		vector2 GetDEBUGCameraRectSize() const noexcept;
 	private:
 		void DEBUGCameraMove(const float& zoomSize) noexcept;
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
-		
+		void ZoomAndCollisionBoxHandling(vector2 distanceBetweenPlayer) noexcept;
+		void PositionHandling(vector2 position1, vector2 position2) noexcept;
 	private:
 		struct CameraSet
 		{
@@ -63,6 +66,14 @@ namespace Graphics
 
 		CameraSet* selectedCamera = nullptr;
 		std::unordered_map<std::string, std::shared_ptr<CameraSet>> cameraStorage;
+
+		vector2 initCameraDetectRectSize{ 500.f, 300.f };
+		vector2 cameraDetectRectSize{ initCameraDetectRectSize };
 	};
+
+	constexpr float CameraManager::GetInitZoomSize() const noexcept
+	{
+		return selectedCamera->cameraView.GetInitZoomSize();
+	}
 }
 

@@ -13,9 +13,9 @@ Creation Date: 08.10.2019
 
 namespace Graphics
 {
-    inline Shader& SHADER::solid_color() noexcept
-    {
-        static Shader shader(R"(
+	inline Shader& SHADER::solid_color() noexcept
+	{
+		static Shader shader(R"(
 #version 330
 
 layout(location = 0) in vec2 position;
@@ -29,7 +29,7 @@ void main()
     gl_Position = vec4(position.xy, depth, 1.0);
 }
 )",
-                             R"(
+R"(
 #version 330
 
 uniform vec4 color;
@@ -40,19 +40,19 @@ void main()
     output_color = color;
 }
 )");
-        return shader;
-    }
+		return shader;
+	}
 
-    inline const VertexLayoutDescription& SHADER::solid_color_vertex_layout() noexcept
-    {
-        static VertexLayoutDescription layout{VertexLayoutDescription::Position2WithFloats};
-        return layout;
-    }
+	inline const VertexLayoutDescription& SHADER::solid_color_vertex_layout() noexcept
+	{
+		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats };
+		return layout;
+	}
 
-    inline Shader& SHADER::interpolated_colors() noexcept
-    {
-        static Shader shader(
-            R"(
+	inline Shader& SHADER::interpolated_colors() noexcept
+	{
+		static Shader shader(
+			R"(
 #version 330
 
 layout(location = 0) in vec2 position;
@@ -70,7 +70,7 @@ void main()
     interpolated_color = color;
 }
 )",
-            R"(
+R"(
 #version 330
 
 in vec4 interpolated_color;
@@ -81,20 +81,20 @@ void main()
     output_color = interpolated_color;
 }
 )");
-        return shader;
-    }
+		return shader;
+	}
 
-    inline const VertexLayoutDescription& SHADER::interpolated_colors_vertex_layout() noexcept
-    {
-        static VertexLayoutDescription layout{VertexLayoutDescription::Position2WithFloats,
-                                              VertexLayoutDescription::Color4WithUnsignedBytes};
-        return layout;
-    }
+	inline const VertexLayoutDescription& SHADER::interpolated_colors_vertex_layout() noexcept
+	{
+		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
+											  VertexLayoutDescription::Color4WithUnsignedBytes };
+		return layout;
+	}
 
-    inline Shader& SHADER::textured() noexcept
-    {
-        static Shader shader(
-            R"(
+	inline Shader& SHADER::textured() noexcept
+	{
+		static Shader shader(
+			R"(
 #version 330
 
 layout(location = 0) in vec2 position;
@@ -112,7 +112,7 @@ void main()
     interpolated_texture_coordinate = texture_coordinate;
 }
 )",
-            R"(
+R"(
 #version 330
 
 in vec2 interpolated_texture_coordinate;
@@ -131,15 +131,15 @@ void main()
     output_color = new_color;
 }
 )");
-        return shader;
-    }
+		return shader;
+	}
 
-    inline const VertexLayoutDescription& SHADER::textured_vertex_layout() noexcept
-    {
-        static VertexLayoutDescription layout{VertexLayoutDescription::Position2WithFloats,
-                                              VertexLayoutDescription::TextureCoordinates2WithFloats};
-        return layout;
-    }
+	inline const VertexLayoutDescription& SHADER::textured_vertex_layout() noexcept
+	{
+		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
+											  VertexLayoutDescription::TextureCoordinates2WithFloats };
+		return layout;
+	}
 
 	inline Shader& SHADER::animated() noexcept
 	{
@@ -230,8 +230,8 @@ void main()
 		return shader;
 	}
 
-    inline Shader& SHADER::StringShader() noexcept
-    {
+	inline Shader& SHADER::StringShader() noexcept
+	{
 		static Shader shader(
 			R"(
 #version 330
@@ -250,13 +250,29 @@ out vec2 interpolated_texture_coordinate;
 // Flag that indicates it has to be discarded or not.
 flat out int isDiscarded;
 
-vec2 GetPerpendicularVectorWithSize(vec2 vector, float size)
+vec2 GetPerpendicularVectorWithSize(vec2 targetVector, vec2 currentVector, float size)
 {
+		// Get a vector
+		vec2 vector = targetVector - currentVector;
 		// rotate by counter clockwise
 		vec2 perpendicularVector = vec2(-vector.y, vector.x);
 		vec2 normalVector = normalize(perpendicularVector);
 		return (normalVector * vec2(stringHeight));
 }
+
+vec2 GetPerpendicularVectorWithSize(vec2 targetVector1, vec2 targetVector2, vec2 currentVector, float size)
+{
+		// Get a vector
+		vec2 vector1 = targetVector1 - currentVector;
+		vec2 vector2 = currentVector - targetVector2;
+		// rotate by counter clockwise
+		vec2 perpendicularVector1 = vec2(-vector1.y, vector1.x);
+		vec2 perpendicularVector2 = vec2(-vector2.y, vector2.x);
+
+		vec2 normalVector = normalize(perpendicularVector1 + perpendicularVector2);
+		return (normalVector * vec2(stringHeight));
+}
+
 
 
 void main()
@@ -274,51 +290,35 @@ void main()
 	vec3 vertexPosition = vec3(stringVectorPosition[stringIndex], 1.f);
 
 	// Determine thickness of string with stringHeight and calculation with other points
-	
+	vec2 normalVector = vec2(0, 0);
 
-	if(positionFlag == 0)
-	{
-
+		// If first vertex of string,
 		if(stringIndex == 0)
 		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringHeight);
-			
-			vertexPosition.x += normalVector.x;
-			vertexPosition.y += normalVector.y;
+			normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringVectorPosition[stringIndex], stringHeight);
 		}
+		// If last vertex of string,
 		else if(stringIndex == stringVertexCapacity-1)
 		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringHeight);
-			
-			vertexPosition.x += normalVector.x;
-			vertexPosition.y += normalVector.y;
+			normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex], stringVectorPosition[stringIndex-1], stringHeight);
 		}
+		// normal vertex
 		else{
-				vertexPosition.y = vertexPosition.y + stringHeight;
+				normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringVectorPosition[stringIndex-1], stringVectorPosition[stringIndex], stringHeight);
 		}
-	}
-	else
+
+	// If current position is lower position,
+	if(positionFlag == 1)
 	{
-		if(stringIndex == 0)
-		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex+1], stringHeight);
-			
-			vertexPosition.x -= normalVector.x;
-			vertexPosition.y -= normalVector.y;
-		}
-		else if(stringIndex == stringVertexCapacity-1)
-		{
-			vec2 normalVector = GetPerpendicularVectorWithSize(stringVectorPosition[stringIndex-1], stringHeight);
-			
-			vertexPosition.x -= normalVector.x;
-			vertexPosition.y -= normalVector.y;
-		}
-		else
-		{
-				vertexPosition.y = vertexPosition.y - stringHeight;
-		}
+		// Flip normal vector (up -> down)
+		normalVector = -normalVector;
 	}
-		vertexPosition = to_ndc * vertexPosition;
+	
+		// Update vertexPosition with calculated normalVector
+		vertexPosition.x += normalVector.x;
+		vertexPosition.y += normalVector.y;
+		
+vertexPosition = to_ndc * vertexPosition;
 
     gl_Position = vec4(vertexPosition.xy, depth, 1.0);
     interpolated_texture_coordinate = texture_coordinate;
@@ -352,7 +352,7 @@ void main()
 }
 )");
 		return shader;
-    }
+	}
 
 	inline const VertexLayoutDescription& SHADER::StringVertexLayout() noexcept
 	{

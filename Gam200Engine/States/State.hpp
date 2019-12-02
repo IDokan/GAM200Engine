@@ -15,7 +15,7 @@ Creation Date: 08.12.2019
 
 enum class GameStates 
 {
-    Menu, Game, Credit, None
+    Menu, Game, Proto, Test, Credit, None
 };
 
 class State abstract
@@ -41,7 +41,7 @@ public:
     {
         return is_next;
     }
-    GameStates GetStateInfo() 
+    GameStates GetStateInfo()
     {
         return current_state_info;
     }

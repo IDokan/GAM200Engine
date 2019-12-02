@@ -37,7 +37,7 @@ void TestLevel::Load()
 
 
 	background = new Object();
-	background->SetObjectName("background");
+	background->SetObjectName("background1");
 	background->SetTranslation(vector2{ 0.f });
 	background->SetScale(vector2{ 700000 });
     background->AddComponent(new Sprite(background));
@@ -49,7 +49,7 @@ void TestLevel::Load()
 	testObject = new Object();
 	testObject->SetObjectName("test");
 	testObject->SetObjectType(Object::ObjectType::OBSTACLE);
-	testObject->SetTranslation(vector2{ -300 });
+	testObject->SetTranslation(vector2{ 600 });
 	testObject->SetScale(vector2{ 100.f });
 	testObject->AddComponent(new Sprite(testObject));
 	testObject->AddComponent(new Physics(testObject));
@@ -67,19 +67,19 @@ void TestLevel::Load()
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::CIRCLE, vector2{ 0.f }, vector2{ -50.f });
     object1->SetDepth(-1.f);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
+    objManager->FindLayer(LayerNames::HUD)->AddObject(object1);
 
 	object2 = new Object();
 	object2->SetObjectName("Player2");
 	object2->SetObjectType(Object::ObjectType::PLAYER_2);
-	object2->SetTranslation(vector2{ 250.f, 255.f });
+	object2->SetTranslation(vector2{ 250.f});
 	object2->SetScale(vector2{ 250.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
 	object2->SetDepth(-0.1f);
 	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+	objManager->FindLayer(LayerNames::HUD)->AddObject(object2);
 	
 	string = new String(object1, object2);
 	string->SetObjectType(Object::ObjectType::STRING);
@@ -89,18 +89,23 @@ void TestLevel::Load()
 	string->SetDepth(-0.1f);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
-	cameraManager.Init();
+    button = new Object();
+    //button->SetObjectType(Object::ObjectType::RECTANGLE);
+    button->SetObjectName("Button");
+    button->SetTranslation(vector2{ 400.f, -350.f });
+    button->SetScale(vector2{ 50.f });
+    button->AddComponent(new Sprite(button));
+    button->SetDepth(-0.1f);
+    button->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.5f, 0.5f, 1.f });
+    button->AddComponent(new Physics(button));
+    objManager->FindLayer(LayerNames::HUD)->AddObject(button);
 
-	cameraDEBUGdrawing = new Object();
-	cameraDEBUGdrawing->SetObjectName("camera Debug drawing object");
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	cameraDEBUGdrawing->SetScale(vector2{ 1000, 600 });
-	cameraDEBUGdrawing->AddComponent(new Sprite(cameraDEBUGdrawing));
-	cameraDEBUGdrawing->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f, 0.5 });
-	objManager->FindLayer(HUD)->AddObject(cameraDEBUGdrawing);
 
 	fileIO* a = 0;
 	a->input();
+
+
+	cameraManager.Init();
 
 }
 
@@ -111,15 +116,13 @@ void TestLevel::Update(float dt)
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
 
     object1->SetTranslation(obj1Position);
+	object2->SetTranslation(obj2Position);
     
 	//TestLevel::Collision();
     TestLevel::Input();
 
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	vector3 cameraRect{ cameraManager.GetCameraToWorldTransform() * vector3 { 1000.f, 600.f, 0.f } };
-	cameraDEBUGdrawing->SetScale(vector2{ cameraRect.x, cameraRect.y });
 
 
 
@@ -169,6 +172,15 @@ void TestLevel::Update(float dt)
 
 void TestLevel::Unload()
 {
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
+    for (const auto& layers: objManager->GetLayerContainer())
+    {
+		for (const auto& obj : layers->GetObjContainer())
+		{
+			obj->SetDead(true);
+		}
+    }
+
 }
 
 void TestLevel::Draw() const noexcept
