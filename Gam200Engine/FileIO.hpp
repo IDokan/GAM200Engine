@@ -21,7 +21,7 @@ Creation Date: 11.23.2019
 class fileIO
 {
 public:
-	void input();
+	void input(const std::filesystem::path& filePath);
 	
 
 };
