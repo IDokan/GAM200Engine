@@ -152,7 +152,8 @@ void Physics::ManageCollision()
             {
                 if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
                 {
-                    if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
+                    if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true
+                        && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
                     {
                         if (object1->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
@@ -184,12 +185,16 @@ void Physics::ManageCollision()
 bool Physics::IsCollideWith(Object* object)
 {
     if (owner->GetComponentByTemplate<Physics>() && object->GetComponentByTemplate<Physics>())
-    if ((owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox()  == true) && (owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() != NULL  && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() != NULL) )
+    if ((owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() 
+       && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox()  == true)
+        && (owner->GetComponentByTemplate<Physics>()->GetHasCollisionBox() != NULL 
+            && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() != NULL) )
     {
         CollsionBox ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
         CollsionBox objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
 
-        if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == object->GetComponentByTemplate<Physics>()->GetObjectType())
+        if (owner->GetComponentByTemplate<Physics>()->GetObjectType()
+            == object->GetComponentByTemplate<Physics>()->GetObjectType())
         {
             if (owner->GetComponentByTemplate<Physics>()->GetObjectType() == ObjectType::RECTANGLE)
             {
@@ -203,7 +208,8 @@ bool Physics::IsCollideWith(Object* object)
                 float ownerBottom = ownerCollisionBox.Translation.y - (ownerCollisionBox.Scale.height / 2);
                 float ownerTop = ownerCollisionBox.Translation.y + (ownerCollisionBox.Scale.height / 2);
 
-                if (objectRight >= ownerLeft && objectLeft <= ownerRight && objectTop >= ownerBottom && objectBottom <= ownerTop)
+                if (objectRight >= ownerLeft && objectLeft <= ownerRight
+                    && objectTop >= ownerBottom && objectBottom <= ownerTop)
                 {
                     return true;
                 }
@@ -233,7 +239,8 @@ bool Physics::IsCollideWith(Object* object)
                 float circleY = objectCollisionBox.Translation.y;
                 float circleRadius = objectCollisionBox.Scale.x / 2;
 
-                if (circleX >= rectangleLeft && circleX <= rectangleRight && circleY >= rectangleBottom && circleY <= rectangleTop)
+                if (circleX >= rectangleLeft && circleX <= rectangleRight
+                    && circleY >= rectangleBottom && circleY <= rectangleTop)
                 {
                     return true;
                 }
@@ -342,7 +349,8 @@ bool Physics::IsCollideWith(Object* object)
                 float circleY = ownerCollisionBox.Translation.y;
                 float circleRadius = ownerCollisionBox.Scale.x / 2;
 
-                if (circleX >= rectangleLeft && circleX <= rectangleRight && circleY >= rectangleBottom && circleY <= rectangleTop)
+                if (circleX >= rectangleLeft && circleX <= rectangleRight
+                    && circleY >= rectangleBottom && circleY <= rectangleTop)
                 {
                     return true;
                 }

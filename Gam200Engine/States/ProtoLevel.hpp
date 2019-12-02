@@ -30,5 +30,6 @@ public:
 private:
     Graphics::CameraManager cameraManager;
     Object* background;
-    Object* objectA;
+    Object* startPoint;
+    Object* goalPoint;
 };

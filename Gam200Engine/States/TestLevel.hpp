@@ -46,6 +46,9 @@ private:
 	Object* numbers;
 	Object* testObject; // test for jaemin
 	String* string;
+
+    Object* startPoint;
+    Object* goalPoint;
 	bool flag = false;
 
 	Object* cameraDEBUGdrawing;

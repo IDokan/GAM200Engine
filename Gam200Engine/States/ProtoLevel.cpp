@@ -38,16 +38,27 @@ void ProtoLevel::Load() {
     background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
-    /*objectA = new Object();
-    objectA->SetObjectName("MouseInput");
-    objectA->SetObjectType(Object::ObjectType::MOUSE);
-    objectA->SetTranslation(vector2{ 200.f });
-    objectA->SetScale(vector2{ 200.f });
-    objectA->AddComponent(new Sprite(objectA));
-    objectA->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
-    objectA->SetDepth(-0.1f);
-    objectA->AddComponent(new Physics(objectA));
-    objManager->FindLayer(LayerNames::Stage)->AddObject(objectA);*/
+    //make the start point. and the players have to displayed near that point.
+    startPoint = new Object();
+    startPoint->SetObjectName("startPoint");
+    startPoint->SetTranslation(vector2{ -1000.f });
+    startPoint->SetScale(vector2{ 300 });
+    startPoint->AddComponent(new Sprite(startPoint));
+    startPoint->AddComponent(new Physics(startPoint));
+    startPoint->GetComponentByTemplate<Sprite>()->SetImage("asset/texture/Circle.png");
+    startPoint->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(startPoint);
+
+    goalPoint = new Object();
+    goalPoint->SetObjectName("goalPoint");
+    goalPoint->SetTranslation(vector2{ 1000.f });
+    goalPoint->SetScale(vector2{ 300 });
+    goalPoint->AddComponent(new Sprite(goalPoint));
+    goalPoint->AddComponent(new Physics(goalPoint));
+    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("asset/texture/Circle.png");
+    goalPoint->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{0.f, 1.f, 1.f });
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(goalPoint);
+
 
 }
 void ProtoLevel::Update(float dt) {
@@ -59,11 +70,21 @@ void ProtoLevel::Update(float dt) {
     ObjectManager* objManager = ObjectManager::GetObjectManager();
 
     is_next = false;
-    if (input.IsKeyTriggered(GLFW_KEY_SPACE)) {
+    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+    {
         is_next = true;
-        //change the level
-        LevelChangeTo("testLevel");
+        //change the level 
+        LevelChangeTo("protoLevel");
     }
+
+    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT)) {
+
+    }
+
+
+
+
+
 }
 void ProtoLevel::Unload() {
     ObjectManager* objManager = ObjectManager::GetObjectManager();
