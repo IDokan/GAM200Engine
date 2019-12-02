@@ -18,46 +18,36 @@ Creation Date: 11.23.2019
 void fileIO::input()
 {
 	Object* object;
+	auto objManager = ObjectManager::GetObjectManager();
 	
 	std::ifstream inStream;
-	std::string s;
+	std::string objectName;
 	inStream.open("objectData.txt");
 	if(inStream.is_open())
 	{
 		std::cout << "fail";
 	}
 	
-	while (!inStream.eof())
+	while (!inStream.eof()) //Loop continue until .txt file end
 	{
-		float x, y;
-		float a, d;
-		object = new Object();
-		//std::string temp;
-		//inStream >> object->GetObjectName();       // object name
+		float xTrans, yTrans;
+		float xScale, yScale;
+		object = new Object(); // Make new object
+		
+		inStream >> objectName;		   // Object Name
+		inStream >> xTrans;            // x value of translation
+		inStream >> yTrans;            // y value of translation
+		inStream >> xScale;            // x value of scale
+		inStream >> yScale;            // y value of scale
 
-		//std::getline(inStream, temp);
-		//object->GetTranslation().x = (float)inStream.get();      //object translation
-		//inSobject->SetTranslation().y;      //object translation
-		inStream >> s;			  // Test string
-		inStream >> x;            // Test number
-		inStream >> y;            // Test number
-		inStream >> a;            // Test number
-		inStream >> d;            // Test number
-
-		object->SetObjectName(s);
-		object->SetTranslation(vector2{ x, y });
-		object->SetScale(vector2{ a, d });
-		//object->AddComponent(new Sprite(object));
-		//object->AddComp
-        //outStream << object->AddComponent << std::endl;
+		object->SetObjectName(objectName);
+		object->SetTranslation(vector2{ xTrans, yTrans });
+		object->SetScale(vector2{ xScale, yScale });
+		object->AddComponent(new Sprite(object));
+		object->AddComponent(new Physics(object));
+		object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::CIRCLE, vector2{ xTrans, yTrans }, vector2{ xScale, yScale });
+		object->SetDepth(-1.f);
+		objManager->FindLayer(LayerNames::Stage)->AddObject(object);
 	}
 	inStream.close();
-}
-
-
-void fileIO::output()
-{
-
-
-
 }
