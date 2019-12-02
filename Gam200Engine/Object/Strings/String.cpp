@@ -9,6 +9,8 @@ Creation Date:
 
 	Source file for the String Object
 ******************************************************************************/
+#include <algorithm>
+#include <numeric>
 #include <Object/Strings/String.hpp>
 #include "Component/StringSprite.hpp"
 #include <Component/StringPhysics.hpp>
@@ -29,5 +31,15 @@ String::String(Object* player1, Object* player2)
 
 void String::Update(float dt)
 {
+}
+
+float String::GetStringLength()
+{
+	float total = 0.f;
+	for (size_t i = 0; i < vertices.size() - 1; ++i)
+	{
+		total += distance_between(vertices.at(i).position, vertices.at(i + 1).position);
+	}
+	return total;
 }
 

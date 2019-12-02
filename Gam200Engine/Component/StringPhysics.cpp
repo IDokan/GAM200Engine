@@ -46,6 +46,11 @@ void StringPhysics::Update(float dt)
 
 		for (const auto& object : physicsObject)
 		{
+			if (object->GetObjectType() == Object::ObjectType::PLAYER_1 || object->GetObjectType() == Object::ObjectType::PLAYER_2)
+			{
+				continue;
+			}
+			
 			if (object->GetComponentByTemplate<Physics>() != 0 && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
 			{
 				const auto objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
