@@ -11,6 +11,7 @@ Creation Date:
 ******************************************************************************/
 #pragma once
 #include "Object/Object.hpp"
+#include "Object/Strings/StringVertex.hpp"
 #include <list>
 
 class StringPhysics;
@@ -27,6 +28,8 @@ public:
 	String(Object* player1, Object* player2);
 
 	void Update(float dt);
+
+	float GetStringLength();
 private:
-	std::vector<vector2> vertices;
+	std::vector<StringVertex> vertices;
 };

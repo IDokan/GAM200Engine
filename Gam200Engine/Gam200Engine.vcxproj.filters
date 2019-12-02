@@ -128,9 +128,8 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp">
       <Filter>Object\Strings</Filter>
     </ClCompile>
-    <ClCompile Include="States\ProtoLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
+    <ClCompile Include="States\ProtoLevel.cpp" />
+    <ClCompile Include="FileIO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -279,9 +278,8 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp">
       <Filter>Object\Strings</Filter>
     </ClInclude>
-    <ClInclude Include="States\ProtoLevel.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
+    <ClInclude Include="States\ProtoLevel.hpp" />
+    <ClInclude Include="FileIO.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

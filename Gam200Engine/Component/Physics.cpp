@@ -464,7 +464,7 @@ void Physics::AddForce(float x, float y)
     force.y = y;
 }
 
-const vector2 Physics::GetTranslation(const matrix3& matrix3) const
+vector2 Physics::GetTranslation(const matrix3& matrix3) const
 {
     return vector2{ matrix3.column2.x, matrix3.column2.y };
 }
@@ -482,6 +482,11 @@ vector2 Physics::GetGravity() const noexcept
 vector2 Physics::GetForce() const noexcept
 {
     return force;
+}
+
+bool Physics::IsCollided() const noexcept
+{
+	return isCollide;
 }
 
 vector2 Physics::GetVectorTranslation() const

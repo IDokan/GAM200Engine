@@ -9,6 +9,8 @@ Creation Date:
 
 	Source file for the String Object
 ******************************************************************************/
+#include <algorithm>
+#include <numeric>
 #include <Object/Strings/String.hpp>
 #include "Component/StringSprite.hpp"
 #include <Component/StringPhysics.hpp>
@@ -17,33 +19,27 @@ Creation Date:
 
 String::String(Object* player1, Object* player2)
 {
-	AddComponent(new StringSprite(this));
+	Object::AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
 	//string->AddComponent(new StringPhysics(string, object1, object2));
-	AddComponent(new StringPhysics(this, player1, player2));
+	Object::AddComponent(new StringPhysics(this, player1, player2));
 
 	
-	vertices.push_back(player1->GetTranslation());
-	vertices.push_back(player2->GetTranslation());
+	vertices.emplace_back(player1->GetTranslation());
+	vertices.emplace_back(player2->GetTranslation());
 }
 
 void String::Update(float dt)
 {
-    //const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+}
 
-    //for (std::vector<vector2>::iterator it = vertices.begin(); it != vertices.end() - 1; it++)
-    //{
-    //    this->GetComponentByTemplate<StringPhysics>()->SetNormalVector(*it, *(it + 1));
-    //        for (const auto& object : physicsObject)
-    //        {
-    //            if (object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
-    //            {
-    //                this->GetComponentByTemplate<StringPhysics>()->SetObjectPoint(&*object);
-    //                this->GetComponentByTemplate<StringPhysics>()->IsBendPointInstantiated(*it, *(it + 1), it+1);
-    //            }
-    //        }
-    //}
-	// Check -> collision
-	// vertices draw - Il
+float String::GetStringLength()
+{
+	float total = 0.f;
+	for (size_t i = 0; i < vertices.size() - 1; ++i)
+	{
+		total += distance_between(vertices.at(i).position, vertices.at(i + 1).position);
+	}
+	return total;
 }
 

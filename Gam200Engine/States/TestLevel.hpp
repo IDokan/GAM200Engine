@@ -34,6 +34,8 @@ public:
     void Input();
     void Collision();
 private:
+	void PlayerScaling();
+private:
 	Graphics::CameraManager cameraManager;
 
     Object* gameClearPopUp;
@@ -56,6 +58,4 @@ private:
 
 	bool flag = false;
     bool isCheck_Clear = false;
-
-	Object* cameraDEBUGdrawing;
 };

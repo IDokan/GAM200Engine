@@ -128,53 +128,8 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
         return;
     }
 
-	vector2 cameraPosition = GetPosition();
-
-	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);
-
-	vector2 player2Delta = CalculateDeltaBetweenCameraAndPlayer(position2 - cameraPosition, cameraDetectRectSize);
-
-	vector2 totalDelta{};
-
-	const float dx = abs(position1.x - position2.x);
-	const float dy = abs(position1.y - position2.y);
-
-	const float currentZoom = GetZoom();
-	
-	// Zoom Out part
-	if (dx >= 2*cameraDetectRectSize.x)
-	{
- 		SetZoom(GetZoom()*((2*cameraDetectRectSize.x) / dx));
-		cameraDetectRectSize.x = dx/2;
-	}
-	if (dy >= 2*cameraDetectRectSize.y)
-	{
-		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
-		cameraDetectRectSize.y = dy / 2;
-	}
-
-	// Zoom In part
-	if (cameraDetectRectSize.x > initCameraDetectRectSize.x)
-	{
-		if (dx <= 2 * cameraDetectRectSize.x)
-		{
-			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / dx));
-			cameraDetectRectSize.x = dx / 2;
-		}
-	}
-	else if (cameraDetectRectSize.y > initCameraDetectRectSize.y)
-	{
-		if (dy <= 2 * cameraDetectRectSize.y)
-		{
-			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / dy));
-			cameraDetectRectSize.y = dy / 2;
-		}
-	}
-
-	totalDelta += player2Delta;
-	totalDelta += player1Delta;
-
-	SetPosition(cameraPosition + totalDelta);
+	PositionHandling(position1, position2);
+	ZoomAndCollisionBoxHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 }
 
 vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
@@ -193,12 +148,13 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept
 	}
 	if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 	{
+		// Get an relative distance with current zoom size
 		const vector2& mousePosition = input.GetMousePosition();
-		const vector2& presentMousePosition = input.GetPresentMousePosition();
+		const vector2& distance = (input.GetPresentMousePosition() - mousePosition) / selectedCamera->cameraView.GetZoom();
 
-		selectedCamera->camera.SetCenter(
-			selectedCamera->camera.GetCenter() + (presentMousePosition - mousePosition)
-		);
+		// Apply distance into current Up and Right vector
+		selectedCamera->camera.MoveRight(distance.x);
+		selectedCamera->camera.MoveUp(distance.y);
 
 		input.SetPresentMousePosition(mousePosition);
 	}
@@ -215,6 +171,16 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept
 		selectedCamera->cameraView.SetZoom(
 			selectedCamera->cameraView.GetZoom() / zoomSize
 		);
+	}
+
+	// Rotating Camera
+	if (input.IsKeyPressed(GLFW_KEY_E))
+	{
+		selectedCamera->camera.Rotate(0.05f);
+	}
+	if (input.IsKeyPressed(GLFW_KEY_Q))
+	{
+		selectedCamera->camera.Rotate(-0.05f);
 	}
 #endif
 }
@@ -240,4 +206,61 @@ vector2 Graphics::CameraManager::CalculateDeltaBetweenCameraAndPlayer(vector2 ob
 	}
 	return delta;
 }
+
+void Graphics::CameraManager::ZoomAndCollisionBoxHandling(vector2 distanceBetweenPlayer) noexcept
+{
+
+	// Zoom Out part
+	if (distanceBetweenPlayer.x > 2 * cameraDetectRectSize.x)
+	{
+		SetZoom(GetZoom()*((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
+		cameraDetectRectSize.x = distanceBetweenPlayer.x / 2;
+	}
+	if (distanceBetweenPlayer.y > 2 * cameraDetectRectSize.y)
+	{
+		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / distanceBetweenPlayer.y));
+		cameraDetectRectSize.y = distanceBetweenPlayer.y / 2;
+	}
+
+	// Zoom In part
+	if (cameraDetectRectSize.x > initCameraDetectRectSize.x)
+	{
+		if (distanceBetweenPlayer.x< 2 * cameraDetectRectSize.x)
+		{
+			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
+			cameraDetectRectSize.x = distanceBetweenPlayer.x / 2;
+		}
+	}
+	if (cameraDetectRectSize.y > initCameraDetectRectSize.y)
+	{
+		if (distanceBetweenPlayer.y < 2 * cameraDetectRectSize.y)
+		{
+			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / distanceBetweenPlayer.y));
+			cameraDetectRectSize.y = distanceBetweenPlayer.y / 2;
+		}
+	}
+
+	if (cameraDetectRectSize.x < initCameraDetectRectSize.x)
+	{
+		cameraDetectRectSize.x = initCameraDetectRectSize.x;
+	}
+	if (cameraDetectRectSize.y < initCameraDetectRectSize.y)
+	{
+		cameraDetectRectSize.y = initCameraDetectRectSize.y;
+	}
+}
+
+void Graphics::CameraManager::PositionHandling(vector2 position1, vector2 position2) noexcept
+{
+	vector2 cameraPosition = GetPosition();
+
+	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);
+
+	vector2 player2Delta = CalculateDeltaBetweenCameraAndPlayer(position2 - cameraPosition, cameraDetectRectSize);
+
+	vector2 totalDelta{player1Delta + player2Delta};
+
+	SetPosition(cameraPosition + totalDelta);
+}
+
 

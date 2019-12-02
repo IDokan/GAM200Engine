@@ -18,6 +18,7 @@ Creation Date: 08.15.2019
 #include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
 #include "Sounds/SoundManager.hpp"
+#include <FileIO.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -64,30 +65,30 @@ void TestLevel::Load()
     object1->SetScale(vector2{ 150.f });
     object1->AddComponent(new Sprite(object1));
     object1->AddComponent(new Physics(object1));
-    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::CIRCLE, vector2{ 0.f }, vector2{ -50.f });
     object1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
+    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::RECTANGLE);
     object1->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
-	object2 = new Object();
-	object2->SetObjectName("Player2");
-	object2->SetObjectType(Object::ObjectType::PLAYER_2);
-	object2->SetTranslation(vector2{200.f, -1800.f});
-	object2->SetScale(vector2{ 150.f });
-	object2->AddComponent(new Sprite(object2));
-	object2->AddComponent(new Physics(object2));
-	object2->SetDepth(-0.1f);
-	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
+    object2 = new Object();
+    object2->SetObjectName("Player2");
+    object2->SetObjectType(Object::ObjectType::PLAYER_2);
+    object2->SetTranslation(vector2{ 200.f, -1800.f });
+    object2->SetScale(vector2{ 150.f });
+    object2->AddComponent(new Sprite(object2));
+    object2->AddComponent(new Physics(object2));
+    object2->SetDepth(-0.1f);
+    object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
     object2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
-	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
-	
-	string = new String(object1, object2);
-	string->SetObjectType(Object::ObjectType::STRING);
-	string->SetObjectName("String");
-	string->SetTranslation(vector2{ 0.f });
-	string->SetScale(vector2{1.f});
-	string->SetDepth(-0.1f);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
+
+    string = new String(object1, object2);
+    string->SetObjectType(Object::ObjectType::STRING);
+    string->SetObjectName("String");
+    string->SetTranslation(vector2{ 0.f });
+    string->SetScale(vector2{ 1.f });
+    string->SetDepth(-0.1f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
 
     button = new Object();
@@ -102,6 +103,8 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::HUD)->AddObject(button);
 
 
+    fileIO* a = 0;
+    a->input("objectData.txt");
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     goalPoint->SetObjectName("goalPoint");
@@ -122,7 +125,7 @@ void TestLevel::Load()
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
     startPoint->AddComponent(new Physics(startPoint));
-    startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE );
+    startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
@@ -133,7 +136,7 @@ void TestLevel::Load()
     first_Objects_1->SetObjectType(Object::ObjectType::OBSTACLE);
     first_Objects_1->SetObjectName("goalPoint");
     first_Objects_1->SetTranslation(vector2{ -900.f, -1600.f });
-    first_Objects_1->SetScale(vector2{1000.f, 150.f });
+    first_Objects_1->SetScale(vector2{ 1000.f, 150.f });
     first_Objects_1->AddComponent(new Sprite(first_Objects_1));
     first_Objects_1->AddComponent(new Physics(first_Objects_1));
     first_Objects_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_1, Physics::ObjectType::RECTANGLE);
@@ -169,18 +172,7 @@ void TestLevel::Load()
 
 
 
-	cameraManager.Init();
-
-
     cameraManager.Init();
-
-    cameraDEBUGdrawing = new Object();
-    cameraDEBUGdrawing->SetObjectName("camera Debug drawing object");
-    cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-    cameraDEBUGdrawing->SetScale(vector2{ 1000, 600 });
-    cameraDEBUGdrawing->AddComponent(new Sprite(cameraDEBUGdrawing));
-    cameraDEBUGdrawing->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f, 0.5 });
-    objManager->FindLayer(HUD)->AddObject(cameraDEBUGdrawing);
 
 }
 
@@ -196,14 +188,10 @@ void TestLevel::Update(float dt)
     TestLevel::Collision();
     TestLevel::Input();
 
-	// DEBUG object should be updated after camera Update()
-	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
-	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
-	vector2 cameraRect = cameraManager.GetDEBUGCameraRectSize() * 2;
-	cameraDEBUGdrawing->SetScale(cameraRect);
-	ObjectManager* objManager = ObjectManager::GetObjectManager();
+    // DEBUG object should be updated after camera Update()
+    cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
 
-
+    auto objManager = ObjectManager::GetObjectManager();
 
 
     //Collision Check with goalPoint and Player 1
@@ -213,7 +201,7 @@ void TestLevel::Update(float dt)
         gameClearPopUp = new Object();
         gameClearPopUp->SetObjectName("gameClearPopUp");
         gameClearPopUp->SetObjectType(Object::ObjectType::OBSTACLE);
-        gameClearPopUp->SetTranslation(vector2{  cameraManager.GetPosition().x,cameraManager.GetPosition().y });
+        gameClearPopUp->SetTranslation(vector2{ cameraManager.GetPosition().x,cameraManager.GetPosition().y });
         gameClearPopUp->SetScale(vector2{ 1500.f,1200.f });
         gameClearPopUp->AddComponent(new Sprite(gameClearPopUp));
         gameClearPopUp->AddComponent(new Physics(gameClearPopUp));
@@ -224,18 +212,18 @@ void TestLevel::Update(float dt)
     }
 
 
-	// Background show up
-	if (input.IsKeyTriggered(GLFW_KEY_1))
-	{
-		objManager->FindLayer(LayerNames::BackGround)->AddObjectDynamically(background);
-	}
-	// Sprite show up
-	if (input.IsKeyTriggered(GLFW_KEY_2))
-	{
-		object2->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite2.png");
-		object1->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite1.png");
-	}
-	// Animation Works
+    // Background show up
+    if (input.IsKeyTriggered(GLFW_KEY_1))
+    {
+        objManager->FindLayer(LayerNames::BackGround)->AddObjectDynamically(background);
+    }
+    // Sprite show up
+    if (input.IsKeyTriggered(GLFW_KEY_2))
+    {
+        object2->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite2.png");
+        object1->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite1.png");
+    }
+    // Animation Works
 
     if (input.IsKeyTriggered(GLFW_KEY_3))
     {
@@ -259,11 +247,8 @@ void TestLevel::Update(float dt)
         }
     }
 
-    //Mouse Imputs for deleting all.
-    if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
-        objManager->FindLayer(LayerNames::Stage)->DeleteObject(testObject);
-    }
 
+    PlayerScaling();
 
     //stage transition
     is_next = false;
@@ -278,6 +263,15 @@ void TestLevel::Update(float dt)
 
 void TestLevel::Unload()
 {
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
+    for (const auto& layers : objManager->GetLayerContainer())
+    {
+        for (const auto& obj : layers->GetObjContainer())
+        {
+            obj->SetDead(true);
+        }
+    }
+
 }
 
 void TestLevel::Draw() const noexcept
@@ -286,8 +280,9 @@ void TestLevel::Draw() const noexcept
 
     for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
     {
+        element->SortingDepth();
         for (const auto& obj : element->GetObjContainer())
-        {
+        {//
             if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
             {
                 // Incomplete one
@@ -309,6 +304,8 @@ void TestLevel::Draw() const noexcept
                 text->Draw(matrix,
                     obj.get()->GetTransform().CalculateWorldDepth());
             }
+
+            //
         }
     }
     Graphics::GL::end_drawing();
@@ -453,4 +450,39 @@ void TestLevel::Input()
 void TestLevel::Collision()
 {
     object1->GetComponentByTemplate<Physics>()->ManageCollision();
+}
+
+void UpdateCollisionBox(Object* obj1, Object* obj2)
+{
+    obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
+    obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
+}
+
+void TestLevel::PlayerScaling()
+{
+    const float minimum_scaling_limit = 150.f;
+    const float scaling_constant = 1.01f;
+
+    if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+    {
+        if (object1->GetScale().x <= minimum_scaling_limit)
+        {
+            return;
+        }
+        object1->SetScale(object1->GetScale() / scaling_constant);
+
+        object2->SetScale(object2->GetScale() * scaling_constant);
+
+        UpdateCollisionBox(object1, object2);
+    }
+    if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
+    {
+        if (object2->GetScale().x <= minimum_scaling_limit)
+        {
+            return;
+        }
+        object1->SetScale(object1->GetScale() * scaling_constant);
+        object2->SetScale(object2->GetScale() / scaling_constant);
+        UpdateCollisionBox(object1, object2);
+    }
 }

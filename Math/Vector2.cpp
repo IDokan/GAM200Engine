@@ -175,3 +175,8 @@ Created: 08/05/2019
         return p_Stream;
     }
 
+float cross(vector2 secondFinger, vector2 thirdFinger)
+{
+	return secondFinger.x * thirdFinger.y - secondFinger.y * thirdFinger.x;
+}
+
