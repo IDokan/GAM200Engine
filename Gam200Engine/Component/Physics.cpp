@@ -63,7 +63,8 @@ void Physics::Update(float dt)
         position = oldPosition;
         isCollide = false;
     }
-    owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
+    owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(owner->GetTranslation()); // for ImGui..
+    //owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 
 void Physics::Clear()
