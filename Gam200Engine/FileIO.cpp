@@ -15,15 +15,21 @@ Creation Date: 11.23.2019
 #include <iostream>
 
 
-void fileIO::input()
+// TODO: Get a File path as argument - Complete
+// TODO: Make it SetImage available
+// TODO: & Depth - Complete
+//
+// TODO: Save
+// Later: Sprite get image path.
+void fileIO::input(const std::filesystem::path& filePath)
 {
-	Object* object;
+	
 	auto objManager = ObjectManager::GetObjectManager();
 	
 	std::ifstream inStream;
 	std::string objectName;
-	inStream.open("objectData.txt");
-	if(inStream.is_open())
+	inStream.open(filePath);
+	if(inStream.is_open() == false)
 	{
 		std::cout << "fail";
 	}
@@ -32,21 +38,23 @@ void fileIO::input()
 	{
 		float xTrans, yTrans;
 		float xScale, yScale;
-		object = new Object(); // Make new object
+		float depth;
+		Object* object = new Object(); // Make new object
 		
 		inStream >> objectName;		   // Object Name
 		inStream >> xTrans;            // x value of translation
 		inStream >> yTrans;            // y value of translation
 		inStream >> xScale;            // x value of scale
 		inStream >> yScale;            // y value of scale
+		inStream >> depth;             // depth value
 
 		object->SetObjectName(objectName);
 		object->SetTranslation(vector2{ xTrans, yTrans });
 		object->SetScale(vector2{ xScale, yScale });
 		object->AddComponent(new Sprite(object));
 		object->AddComponent(new Physics(object));
-		object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::CIRCLE, vector2{ xTrans, yTrans }, vector2{ xScale, yScale });
-		object->SetDepth(-1.f);
+		object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::RECTANGLE);
+		object->SetDepth(depth);
 		objManager->FindLayer(LayerNames::Stage)->AddObject(object);
 	}
 	inStream.close();
