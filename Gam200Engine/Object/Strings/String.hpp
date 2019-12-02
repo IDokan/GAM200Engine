@@ -28,6 +28,8 @@ public:
 	String(Object* player1, Object* player2);
 
 	void Update(float dt);
+
+	float GetStringLength();
 private:
 	std::vector<StringVertex> vertices;
 };

@@ -189,6 +189,7 @@ void TestLevel::Draw() const noexcept
 
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
+		element->SortingDepth();
 		for (const auto& obj : element->GetObjContainer())
 		{//
 				if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
