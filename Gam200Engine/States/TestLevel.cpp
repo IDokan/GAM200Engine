@@ -88,13 +88,6 @@ void TestLevel::Load()
 	string->SetDepth(-0.1f);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
-    string = new String(object1, object2);
-    string->SetObjectType(Object::ObjectType::STRING);
-    string->SetObjectName("String");
-    string->SetTranslation(vector2{ 0.f });
-    string->SetScale(vector2{ 1.f });
-    string->SetDepth(-0.1f);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
     button = new Object();
     //button->SetObjectType(Object::ObjectType::RECTANGLE);
@@ -119,36 +112,9 @@ void TestLevel::Load()
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 
-    goalPoint = new Object();
-    goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 1000.f });
-    goalPoint->SetScale(vector2{ 50 });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-    goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("asset/texture/Circle.png");
-    goalPoint->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 1.f, 1.f });
-    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::CIRCLE, vector2{ 0.f }, vector2{ 0.f });
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint); 
 
-    gameClearPopUp = new Object();
-    gameClearPopUp->SetObjectName("gameClearPopUp");
-gameClearPopUp->SetObjectType(Object::ObjectType::OBSTACLE);
-    gameClearPopUp->SetTranslation(vector2{ 1.f,2.f });
-    gameClearPopUp->SetScale(vector2{ 800.f,500.f });
-    gameClearPopUp->AddComponent(new Sprite(gameClearPopUp));
-    gameClearPopUp->AddComponent(new Physics(gameClearPopUp));
-    gameClearPopUp->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameClear.png");
-    gameClearPopUp->SetDepth(-2.f);
-    //gameClearPopUp = new Object();
-    ////gameClearPopUp->SetObjectType(Object::ObjectType::PLAYER_1);
-    //gameClearPopUp->SetObjectName("gameClearPopUp");
-    //gameClearPopUp->SetTranslation(vector2{ 1.f,2.f });
-    //gameClearPopUp->SetScale(vector2{ 800.f,500.f });
-    //gameClearPopUp->AddComponent(new Sprite(gameClearPopUp));
-    //gameClearPopUp->AddComponent(new Physics(gameClearPopUp));
-    //gameClearPopUp->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameClear.png");
-    //gameClearPopUp->SetDepth(-2.f);
-    //objManager->FindLayer(LayerNames::HUD)->AddObject(gameClearPopUp);
+
+
 
 
 
@@ -194,9 +160,19 @@ void TestLevel::Update(float dt)
 
     //Collision Check with goalPoint and Player 1
     //object1->GetComponentByTemplate<Physics>()->GetPosition() == goalPoint-> GetComponentByTemplate<Physics>()->GetPosition()
-    if (goalPoint->GetComponentByTemplate<Physics>()->IsCollideWith(object1))
+    if (goalPoint->GetComponentByTemplate<Physics>()->IsCollideWith(object1) && isCheck_Clear == false)
     {
+        gameClearPopUp = new Object();
+        gameClearPopUp->SetObjectName("gameClearPopUp");
+        gameClearPopUp->SetObjectType(Object::ObjectType::OBSTACLE);
+        gameClearPopUp->SetTranslation(vector2{  cameraManager.GetPosition().x,cameraManager.GetPosition().y });
+        gameClearPopUp->SetScale(vector2{ 1500.f,1200.f });
+        gameClearPopUp->AddComponent(new Sprite(gameClearPopUp));
+        gameClearPopUp->AddComponent(new Physics(gameClearPopUp));
+        gameClearPopUp->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameClear.png");
+        gameClearPopUp->SetDepth(-2.f);
         objManager->FindLayer(LayerNames::HUD)->AddObject(gameClearPopUp);
+        isCheck_Clear = true;
     }
 
 

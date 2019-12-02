@@ -47,9 +47,8 @@ private:
 	Object* testObject; // test for jaemin
 	String* string;
 
-    Object* startPoint;
-    Object* goalPoint;
 	bool flag = false;
+    bool isCheck_Clear = false;
 
 	Object* cameraDEBUGdrawing;
 };
