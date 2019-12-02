@@ -60,24 +60,25 @@ void TestLevel::Load()
     object1 = new Object();
     object1->SetObjectType(Object::ObjectType::PLAYER_1);
     object1->SetObjectName("Player1");
-    object1->SetTranslation(vector2{ -800.f});
+    object1->SetTranslation(vector2{ -200.f, -1800.f });
     object1->SetScale(vector2{ 150.f });
     object1->AddComponent(new Sprite(object1));
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::CIRCLE, vector2{ 0.f }, vector2{ -50.f });
+    object1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
     object1->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
 	object2 = new Object();
 	object2->SetObjectName("Player2");
 	object2->SetObjectType(Object::ObjectType::PLAYER_2);
-	object2->SetTranslation(vector2{ 250.f});
-	object2->SetScale(vector2{ 250.f });
+	object2->SetTranslation(vector2{200.f, -1800.f});
+	object2->SetScale(vector2{ 150.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
-	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
 	object2->SetDepth(-0.1f);
 	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::CIRCLE);
+    object2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 	
 	string = new String(object1, object2);
@@ -104,15 +105,62 @@ void TestLevel::Load()
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 2000.f });
-    goalPoint->SetScale(vector2{ 50.f });
+    goalPoint->SetTranslation(vector2{ 0.f, 2000.f });
+    goalPoint->SetScale(vector2{ 150.f });
     goalPoint->AddComponent(new Sprite(goalPoint));
     goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ -50.f });
+    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 
 
+    startPoint = new Object();
+    startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+    startPoint->SetObjectName("goalPoint");
+    startPoint->SetTranslation(vector2{ 0.f, -2000.f });
+    startPoint->SetScale(vector2{ 150.f });
+    startPoint->AddComponent(new Sprite(startPoint));
+    startPoint->AddComponent(new Physics(startPoint));
+    startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE );
+    startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
+    startPoint->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+
+    //=================================================================================================================
+    //  Obstacles
+    first_Objects_1 = new Object();
+    first_Objects_1->SetObjectType(Object::ObjectType::OBSTACLE);
+    first_Objects_1->SetObjectName("goalPoint");
+    first_Objects_1->SetTranslation(vector2{ -900.f, -1600.f });
+    first_Objects_1->SetScale(vector2{1000.f, 150.f });
+    first_Objects_1->AddComponent(new Sprite(first_Objects_1));
+    first_Objects_1->AddComponent(new Physics(first_Objects_1));
+    first_Objects_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_1, Physics::ObjectType::RECTANGLE);
+    first_Objects_1->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_1);
+
+    first_Objects_2 = new Object();
+    first_Objects_2->SetObjectType(Object::ObjectType::OBSTACLE);
+    first_Objects_2->SetObjectName("goalPoint");
+    first_Objects_2->SetTranslation(vector2{ 0.f, -1600.f });
+    first_Objects_2->SetScale(vector2{ 500.f, 150.f });
+    first_Objects_2->AddComponent(new Sprite(first_Objects_2));
+    first_Objects_2->AddComponent(new Physics(first_Objects_2));
+    first_Objects_2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_2, Physics::ObjectType::RECTANGLE);
+    first_Objects_2->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_2);
+
+    first_Objects_3 = new Object();
+    first_Objects_3->SetObjectType(Object::ObjectType::OBSTACLE);
+    first_Objects_3->SetObjectName("goalPoint");
+    first_Objects_3->SetTranslation(vector2{ 900.f, -1600.f });
+    first_Objects_3->SetScale(vector2{ 900.f, 150.f });
+    first_Objects_3->AddComponent(new Sprite(first_Objects_3));
+    first_Objects_3->AddComponent(new Physics(first_Objects_3));
+    first_Objects_3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_3, Physics::ObjectType::RECTANGLE);
+    first_Objects_3->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_3);
 
 
 

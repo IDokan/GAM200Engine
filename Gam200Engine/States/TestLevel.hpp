@@ -37,6 +37,7 @@ private:
 	Graphics::CameraManager cameraManager;
 
     Object* gameClearPopUp;
+    Object* startPoint;
     Object* goalPoint;
 	Object* object1;
 	Object* object2;
@@ -46,6 +47,12 @@ private:
 	Object* numbers;
 	Object* testObject; // test for jaemin
 	String* string;
+
+//map objects
+
+    Object* first_Objects_1;
+    Object* first_Objects_2;
+    Object* first_Objects_3;
 
 	bool flag = false;
     bool isCheck_Clear = false;
