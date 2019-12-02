@@ -163,11 +163,8 @@ void TestLevel::Update(float dt)
 
 	}
 
-	/*************************************UPDATE STRING****************************************************/
 
-
-
-   
+	PlayerScaling();
 }
 
 void TestLevel::Unload()
@@ -359,4 +356,20 @@ void TestLevel::Input()
 void TestLevel::Collision()
 {
     object1->GetComponentByTemplate<Physics>()->ManageCollision();
+}
+
+void TestLevel::PlayerScaling()
+{
+	const float scaling_constant = 1.01f;
+	if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+	{
+		object1->SetScale(object1->GetScale() / scaling_constant);
+		
+		object2->SetScale(object2->GetScale() * scaling_constant);
+	}
+	if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
+	{
+		object1->SetScale(object1->GetScale() * scaling_constant);
+		object2->SetScale(object2->GetScale() / scaling_constant);
+	}
 }
