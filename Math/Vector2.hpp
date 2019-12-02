@@ -50,8 +50,10 @@ Created: 08/05/2019
 
     vector2 operator-(const vector2& v) noexcept;
 
-    vector2 operator+(const vector2& v1, const vector2& v2) noexcept;
-    vector2 operator-(const vector2& v1, const vector2& v2) noexcept;
+	vector2 operator+(const vector2& v1, const vector2& v2) noexcept;
+	vector2 operator+(const vector2& v1, float addition) noexcept;
+	vector2 operator-(const vector2& v1, const vector2& v2) noexcept;
+	vector2 operator-(const vector2& v1, float substitution) noexcept;
     vector2 operator*(const vector2& v, float scale) noexcept;
     vector2 operator*(float scale, const vector2& v) noexcept;
     vector2 operator/(const vector2& v, float divisor) noexcept;

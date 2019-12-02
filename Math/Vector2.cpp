@@ -57,12 +57,22 @@ Created: 08/05/2019
 
     }
 
-    vector2 operator-(const vector2& v1, const vector2& v2) noexcept
+vector2 operator+(const vector2& v1, float addition) noexcept
+{
+	return { v1.x + addition, v1.y + addition };
+}
+
+vector2 operator-(const vector2& v1, const vector2& v2) noexcept
     {
         return{ v1.x - v2.x, v1.y - v2.y };
     }
 
-    vector2 operator*(const vector2& v, float scale) noexcept
+vector2 operator-(const vector2& v1, float substitution) noexcept
+{
+	return { v1.x - substitution, v1.y - substitution };
+}
+
+vector2 operator*(const vector2& v, float scale) noexcept
     {
         return {v.x * scale, v.y * scale};
     }

@@ -73,7 +73,7 @@ void TestLevel::Load()
 	object2->SetObjectName("Player2");
 	object2->SetObjectType(Object::ObjectType::PLAYER_2);
 	object2->SetTranslation(vector2{ 250.f});
-	object2->SetScale(vector2{ 250.f });
+	object2->SetScale(vector2{ 200.f });
 	object2->AddComponent(new Sprite(object2));
 	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
@@ -366,29 +366,29 @@ void UpdateCollisionBox(Object* obj1, Object* obj2)
 
 void TestLevel::PlayerScaling()
 {
-	const float minimum_scaling_limit = 150.f;
-	const float scaling_constant = 1.01f;
+	const float minimum_scaling_limit = 125.f;
+	const float scaling_constant = 1.f;
 	
 	if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 	{
-		if (object1->GetScale().x <= minimum_scaling_limit)
+		if (object1->GetScale().x <= minimum_scaling_limit || object2->GetComponentByTemplate<Physics>()->IsCollided())
 		{
 			return;
 		}
-		object1->SetScale(object1->GetScale() / scaling_constant);
+		object1->SetScale(object1->GetScale() - scaling_constant);
 		
-		object2->SetScale(object2->GetScale() * scaling_constant);
+		object2->SetScale(object2->GetScale() + scaling_constant);
 
 		UpdateCollisionBox(object1, object2);
 	}
 	if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
 	{
-		if (object2->GetScale().x <= minimum_scaling_limit)
+		if (object2->GetScale().x <= minimum_scaling_limit || object1->GetComponentByTemplate<Physics>()->IsCollided())
 		{
 			return;
 		}
-		object1->SetScale(object1->GetScale() * scaling_constant);
-		object2->SetScale(object2->GetScale() / scaling_constant);
+		object1->SetScale(object1->GetScale() + scaling_constant);
+		object2->SetScale(object2->GetScale() - scaling_constant);
 		UpdateCollisionBox(object1, object2);
 	}
 }
