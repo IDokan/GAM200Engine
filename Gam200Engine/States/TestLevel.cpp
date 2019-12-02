@@ -100,6 +100,41 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::HUD)->AddObject(button);
 
 
+    goalPoint = new Object();
+    goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+    goalPoint->SetObjectName("goalPoint");
+    goalPoint->SetTranslation(vector2{ 2000.f });
+    goalPoint->SetScale(vector2{ 50.f });
+    goalPoint->AddComponent(new Sprite(goalPoint));
+    goalPoint->AddComponent(new Physics(goalPoint));
+    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE, vector2{ 0.f }, vector2{ -50.f });
+    goalPoint->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+
+
+    gameClearPopUp = new Object();
+    gameClearPopUp->SetObjectName("gameClearPopUp");
+gameClearPopUp->SetObjectType(Object::ObjectType::OBSTACLE);
+    gameClearPopUp->SetTranslation(vector2{ 1.f,2.f });
+    gameClearPopUp->SetScale(vector2{ 800.f,500.f });
+    gameClearPopUp->AddComponent(new Sprite(gameClearPopUp));
+    gameClearPopUp->AddComponent(new Physics(gameClearPopUp));
+    gameClearPopUp->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameClear.png");
+    gameClearPopUp->SetDepth(-2.f);
+    //gameClearPopUp = new Object();
+    ////gameClearPopUp->SetObjectType(Object::ObjectType::PLAYER_1);
+    //gameClearPopUp->SetObjectName("gameClearPopUp");
+    //gameClearPopUp->SetTranslation(vector2{ 1.f,2.f });
+    //gameClearPopUp->SetScale(vector2{ 800.f,500.f });
+    //gameClearPopUp->AddComponent(new Sprite(gameClearPopUp));
+    //gameClearPopUp->AddComponent(new Physics(gameClearPopUp));
+    //gameClearPopUp->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameClear.png");
+    //gameClearPopUp->SetDepth(-2.f);
+    //objManager->FindLayer(LayerNames::HUD)->AddObject(gameClearPopUp);
+
+
+
+
 
 
 	cameraManager.Init();
@@ -131,10 +166,19 @@ void TestLevel::Update(float dt)
 	cameraDEBUGdrawing->SetTranslation(cameraManager.GetPosition());
 	vector2 cameraRect = cameraManager.GetDEBUGCameraRectSize() * 2;
 	cameraDEBUGdrawing->SetScale(cameraRect);
-
-
-
 	ObjectManager* objManager = ObjectManager::GetObjectManager();
+
+
+
+
+    //Collision Check with goalPoint and Player 1
+    //object1->GetComponentByTemplate<Physics>()->GetPosition() == goalPoint-> GetComponentByTemplate<Physics>()->GetPosition()
+    if (goalPoint->GetComponentByTemplate<Physics>()->IsCollideWith(object1))
+    {
+        objManager->FindLayer(LayerNames::HUD)->AddObject(gameClearPopUp);
+    }
+
+
 	// Background show up
 	if (input.IsKeyTriggered(GLFW_KEY_1))
 	{
@@ -178,19 +222,10 @@ void TestLevel::Update(float dt)
 
 	/*************************************UPDATE STRING****************************************************/
 
-
-
-   
 }
 
 void TestLevel::Unload()
 {
-    ObjectManager* objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player1");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("Player2");
-    objManager->FindLayer(LayerNames::Stage)->DeleteObject("testObject");
-
 }
 
 void TestLevel::Draw() const noexcept

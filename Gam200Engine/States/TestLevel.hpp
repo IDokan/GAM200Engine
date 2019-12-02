@@ -36,6 +36,8 @@ public:
 private:
 	Graphics::CameraManager cameraManager;
 
+    Object* gameClearPopUp;
+    Object* goalPoint;
 	Object* object1;
 	Object* object2;
 	Object* background;
