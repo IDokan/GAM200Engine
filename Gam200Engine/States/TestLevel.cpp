@@ -45,7 +45,6 @@ void TestLevel::Load()
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
 
-
 	testObject = new Object();
 	testObject->SetObjectName("test");
 	testObject->SetObjectType(Object::ObjectType::OBSTACLE);
@@ -102,7 +101,7 @@ void TestLevel::Load()
 
 
 	fileIO* a = 0;
-	a->input("objectData.txt");
+	a->Input("../assets/tmp/objectData.txt");
 
 
 	cameraManager.Init();
@@ -172,6 +171,8 @@ void TestLevel::Update(float dt)
 
 void TestLevel::Unload()
 {
+	fileIO* a = 0;
+	a->Output();
     ObjectManager* objManager = ObjectManager::GetObjectManager();
     for (const auto& layers: objManager->GetLayerContainer())
     {

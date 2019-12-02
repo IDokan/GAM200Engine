@@ -5,7 +5,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:   FileIO.cpp
 Author
     - jiwon.jung jjwon6218@gmail.com
-    - Hyerin Jung (junghl0621@gmail.com)
 Creation Date: 11.23.2019
 
     Source file for file IO
@@ -15,17 +14,18 @@ Creation Date: 11.23.2019
 #include <iostream>
 
 
-// TODO: Get a File path as argument - Complete
+// TODO: Get a File path as argument   - Complete
 // TODO: Make it SetImage available
-// TODO: & Depth - Complete
-//
+// TODO: & Depth                       - Complete
+// TODO: Change file path of .txt file - Complete
 // TODO: Save
 // Later: Sprite get image path.
-void fileIO::input(const std::filesystem::path& filePath)
+// , const std::filesystem::path& texturePath
+void fileIO::Input(const std::filesystem::path& filePath)
 {
 	
 	auto objManager = ObjectManager::GetObjectManager();
-	
+	//std::filesystem::path spritePath;
 	std::ifstream inStream;
 	std::string objectName;
 	inStream.open(filePath);
@@ -48,14 +48,42 @@ void fileIO::input(const std::filesystem::path& filePath)
 		inStream >> yScale;            // y value of scale
 		inStream >> depth;             // depth value
 
+		/*if(inStream == spritePath)
+		{
+			
+			object->GetComponentByTemplate<Sprite>()->SetImage(spritePath);
+		}*/
+		
 		object->SetObjectName(objectName);
 		object->SetTranslation(vector2{ xTrans, yTrans });
 		object->SetScale(vector2{ xScale, yScale });
 		object->AddComponent(new Sprite(object));
 		object->AddComponent(new Physics(object));
+		
+		object->SetObjectType(Object::ObjectType::OBSTACLE);
 		object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::RECTANGLE);
 		object->SetDepth(depth);
 		objManager->FindLayer(LayerNames::Stage)->AddObject(object);
 	}
 	inStream.close();
+}
+
+void fileIO::Output()
+{
+	std::ofstream outputFile("../assets/tmp/objectOutput.txt");
+	const auto& objectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	for(const auto& object : objectContainer)
+	{
+		if(object->GetObjectType() == Object::ObjectType::OBSTACLE)
+		{
+			outputFile << object->GetObjectName() << ' ';
+			outputFile << object->GetTranslation().x << ' ';
+			outputFile << object->GetTranslation().y << ' ';
+			outputFile << object->GetScale().x << ' ';
+			outputFile << object->GetScale().y << ' ';
+			outputFile << object->GetDepth() << '\n';
+		}
+	}
+
+	outputFile.close();
 }

@@ -95,3 +95,8 @@ float Object::GetRotation() const noexcept
 {
     return transform.GetRotation();
 }
+
+float Object::GetDepth()
+{
+	return transform.GetDepth() * 5000.f;
+}
