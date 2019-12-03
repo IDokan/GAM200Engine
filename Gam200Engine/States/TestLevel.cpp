@@ -500,29 +500,29 @@ void UpdateCollisionBox(Object* obj1, Object* obj2)
 
 void TestLevel::PlayerScaling()
 {
-    const float minimum_scaling_limit = 150.f;
-    const float scaling_constant = 1.01f;
+	const float minimum_scaling_limit = 125.f;
+	const float scaling_constant = 1.f;
+	
+	if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+	{
+		if (object1->GetScale().x <= minimum_scaling_limit || object2->GetComponentByTemplate<Physics>()->IsCollided())
+		{
+			return;
+		}
+		object1->SetScale(object1->GetScale() - scaling_constant);
+		
+		object2->SetScale(object2->GetScale() + scaling_constant);
 
-    if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
-    {
-        if (object1->GetScale().x <= minimum_scaling_limit)
-        {
-            return;
-        }
-        object1->SetScale(object1->GetScale() / scaling_constant);
-
-        object2->SetScale(object2->GetScale() * scaling_constant);
-
-        UpdateCollisionBox(object1, object2);
-    }
-    if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
-    {
-        if (object2->GetScale().x <= minimum_scaling_limit)
-        {
-            return;
-        }
-        object1->SetScale(object1->GetScale() * scaling_constant);
-        object2->SetScale(object2->GetScale() / scaling_constant);
-        UpdateCollisionBox(object1, object2);
-    }
+		UpdateCollisionBox(object1, object2);
+	}
+	if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
+	{
+		if (object2->GetScale().x <= minimum_scaling_limit || object1->GetComponentByTemplate<Physics>()->IsCollided())
+		{
+			return;
+		}
+		object1->SetScale(object1->GetScale() + scaling_constant);
+		object2->SetScale(object2->GetScale() - scaling_constant);
+		UpdateCollisionBox(object1, object2);
+	}
 }
