@@ -8,10 +8,10 @@ Author
         junghl0621@gmail.com
 Creation Date: 11.11.2019
 
-    
+
 ******************************************************************************/
 
-#include "ProtoLevel.hpp"
+#include "MainMenu.hpp"
 #include <Object\ObjectManager.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
@@ -24,8 +24,8 @@ Creation Date: 11.11.2019
 
 
 
-void ProtoLevel::Load() {
-    
+void MainMenu::Load() {
+
     auto objManager = ObjectManager::GetObjectManager();
 
     background = new Object();
@@ -34,64 +34,56 @@ void ProtoLevel::Load() {
     background->SetScale(vector2{ 700000 });
     background->AddComponent(new Sprite(background));
     background->AddComponent(new Physics(background));
-    background->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.f, 0.f });
+    background->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.2f, 0.2f });
     background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+    
+    select_menu = new Object();
+    select_menu->SetObjectName("select_menu");
+    select_menu->SetObjectType(Object::ObjectType::OBSTACLE);
+    select_menu->SetTranslation(vector2{ cameraManager.GetPosition().x,cameraManager.GetPosition().y+100.f });
+    select_menu->SetScale(vector2{ 500.f,100.f });
+    select_menu->AddComponent(new Sprite(select_menu));
+    select_menu->AddComponent(new Physics(select_menu));
+    select_menu->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/select_menu.png");
+    select_menu->SetDepth(-2.f);
+    objManager->FindLayer(LayerNames::HUD)->AddObject(select_menu);
 
-    //make the start point. and the players have to displayed near that point.
-    startPoint = new Object();
-    startPoint->SetObjectName("startPoint");
-    startPoint->SetTranslation(vector2{ -1000.f });
-    startPoint->SetScale(vector2{ 300 });
-    startPoint->AddComponent(new Sprite(startPoint));
-    startPoint->AddComponent(new Physics(startPoint));
-    startPoint->GetComponentByTemplate<Sprite>()->SetImage("asset/texture/Circle.png");
-    startPoint->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(startPoint);
-
-    goalPoint = new Object();
-    goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 1000.f });
-    goalPoint->SetScale(vector2{ 300 });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-    goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("asset/texture/Circle.png");
-    goalPoint->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{0.f, 1.f, 1.f });
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(goalPoint);
+    exit = new Object();
+    exit->SetObjectName("exit");
+    exit->SetObjectType(Object::ObjectType::OBSTACLE);
+    exit->SetTranslation(vector2{ cameraManager.GetPosition().x,cameraManager.GetPosition().y-100.f });
+    exit->SetScale(vector2{ 500.f,100.f });
+    exit->AddComponent(new Sprite(exit));
+    exit->AddComponent(new Physics(exit));
+    exit->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/exit.png");
+    exit->SetDepth(-2.f);
+    objManager->FindLayer(LayerNames::HUD)->AddObject(exit);
 
 
 }
-void ProtoLevel::Update(float dt) {
+void MainMenu::Update(float dt) {
 
-    //vector2 objectAPosition = objectA->GetComponentByTemplate<Physics>()->GetPosition();
 
-    
     cameraManager.CameraMove(vector2{ -1.f }, vector2{ -1.f }, 1.1f);
     ObjectManager* objManager = ObjectManager::GetObjectManager();
 
     is_next = false;
-    if (input.IsKeyPressed(GLFW_KEY_8))
-    {
-        is_next = true;
-        //change the level 
-        LevelChangeTo("testLevel");
-    }
     if (input.IsKeyPressed(GLFW_KEY_SPACE))
     {
         is_next = true;
         //change the level 
-        LevelChangeTo("mainMenu");
+        LevelChangeTo("protoLevel");
     }
 
-
 }
-void ProtoLevel::Unload() {
+void MainMenu::Unload() {
     ObjectManager* objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
 
 }
 
-void ProtoLevel::Draw() const noexcept {
+void MainMenu::Draw() const noexcept {
 
     Graphics::GL::begin_drawing();
 

@@ -42,6 +42,8 @@ void Application::Init()
 	StateManager::GetStateManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+
+    StateManager::GetStateManager()->AddStates("mainMenu", dynamic_cast<State*>(new TestLevel()));
 	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(new TestLevel()));
     StateManager::GetStateManager()->AddStates("protoLevel", dynamic_cast<State*>(new ProtoLevel()));
 

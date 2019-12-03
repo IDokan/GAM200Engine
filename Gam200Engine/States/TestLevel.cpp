@@ -39,11 +39,11 @@ void TestLevel::Load()
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 0.f });
-    background->SetScale(vector2{ 700000 });
+    background->SetScale(vector2{ 2000.f,4000.f });
     background->AddComponent(new Sprite(background));
     background->AddComponent(new Physics(background));
-    background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
-    background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
+    background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
 
     testObject = new Object();
@@ -91,18 +91,6 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
 
-    button = new Object();
-    //button->SetObjectType(Object::ObjectType::RECTANGLE);
-    button->SetObjectName("Button");
-    button->SetTranslation(vector2{ 400.f, -350.f });
-    button->SetScale(vector2{ 50.f });
-    button->AddComponent(new Sprite(button));
-    button->SetDepth(-0.1f);
-    button->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.5f, 0.5f, 1.f });
-    button->AddComponent(new Physics(button));
-    objManager->FindLayer(LayerNames::HUD)->AddObject(button);
-
-
     fileIO* a = 0;
     a->input("objectData.txt");
     goalPoint = new Object();
@@ -131,11 +119,12 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 
     //=================================================================================================================
-    //  Obstacles
+    //  Obstacles 1
+
     first_Objects_1 = new Object();
     first_Objects_1->SetObjectType(Object::ObjectType::OBSTACLE);
-    first_Objects_1->SetObjectName("goalPoint");
-    first_Objects_1->SetTranslation(vector2{ -900.f, -1600.f });
+    first_Objects_1->SetObjectName("first_Objects_1");
+    first_Objects_1->SetTranslation(vector2{ -930.f, -1600.f });
     first_Objects_1->SetScale(vector2{ 1000.f, 150.f });
     first_Objects_1->AddComponent(new Sprite(first_Objects_1));
     first_Objects_1->AddComponent(new Physics(first_Objects_1));
@@ -145,7 +134,7 @@ void TestLevel::Load()
 
     first_Objects_2 = new Object();
     first_Objects_2->SetObjectType(Object::ObjectType::OBSTACLE);
-    first_Objects_2->SetObjectName("goalPoint");
+    first_Objects_2->SetObjectName("first_Objects_2");
     first_Objects_2->SetTranslation(vector2{ 0.f, -1600.f });
     first_Objects_2->SetScale(vector2{ 500.f, 150.f });
     first_Objects_2->AddComponent(new Sprite(first_Objects_2));
@@ -156,7 +145,7 @@ void TestLevel::Load()
 
     first_Objects_3 = new Object();
     first_Objects_3->SetObjectType(Object::ObjectType::OBSTACLE);
-    first_Objects_3->SetObjectName("goalPoint");
+    first_Objects_3->SetObjectName("first_Objects_3");
     first_Objects_3->SetTranslation(vector2{ 900.f, -1600.f });
     first_Objects_3->SetScale(vector2{ 900.f, 150.f });
     first_Objects_3->AddComponent(new Sprite(first_Objects_3));
@@ -165,11 +154,78 @@ void TestLevel::Load()
     first_Objects_3->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_3);
 
+    //
+    //=================================================================================================================
 
+    //=================================================================================================================
+    //Obstacle 3
 
+    third_Objects_1 = new Object();
+    third_Objects_1->SetObjectType(Object::ObjectType::OBSTACLE);
+    third_Objects_1->SetObjectName("third_Objects_1");
+    third_Objects_1->SetTranslation(vector2{ -600.f, 800.f });
+    third_Objects_1->SetScale(vector2{ 500.f, 50.f });
+    third_Objects_1->AddComponent(new Sprite(third_Objects_1));
+    third_Objects_1->AddComponent(new Physics(third_Objects_1));
+    third_Objects_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(third_Objects_1, Physics::ObjectType::RECTANGLE);
+    third_Objects_1->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(third_Objects_1);
 
+    third_Objects_2 = new Object();
+    third_Objects_2->SetObjectType(Object::ObjectType::OBSTACLE);
+    third_Objects_2->SetObjectName("third_Objects_2");
+    third_Objects_2->SetTranslation(vector2{ -825.f, 525.f });
+    third_Objects_2->SetScale(vector2{ 50.f, 500.f });
+    third_Objects_2->AddComponent(new Sprite(third_Objects_2));
+    third_Objects_2->AddComponent(new Physics(third_Objects_2));
+    third_Objects_2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(third_Objects_2, Physics::ObjectType::RECTANGLE);
+    third_Objects_2->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(third_Objects_2);
 
+    third_Objects_3 = new Object();
+    third_Objects_3->SetObjectType(Object::ObjectType::OBSTACLE);
+    third_Objects_3->SetObjectName("third_Objects_3");
+    third_Objects_3->SetTranslation(vector2{ -550.f, 300.f });
+    third_Objects_3->SetScale(vector2{ 500.f, 50.f });
+    third_Objects_3->AddComponent(new Sprite(third_Objects_3));
+    third_Objects_3->AddComponent(new Physics(third_Objects_3));
+    third_Objects_3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(third_Objects_3, Physics::ObjectType::RECTANGLE);
+    third_Objects_3->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(third_Objects_3);
 
+    third_Objects_4 = new Object();
+    third_Objects_4->SetObjectType(Object::ObjectType::OBSTACLE);
+    third_Objects_4->SetObjectName("third_Objects_4");
+    third_Objects_4->SetTranslation(vector2{ -325.f, 750.f });
+    third_Objects_4->SetScale(vector2{ 50.f, 175.f });
+    third_Objects_4->AddComponent(new Sprite(third_Objects_4));
+    third_Objects_4->AddComponent(new Physics(third_Objects_4));
+    third_Objects_4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(third_Objects_4, Physics::ObjectType::RECTANGLE);
+    third_Objects_4->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(third_Objects_4);
+
+    third_Objects_5 = new Object();
+    third_Objects_5->SetObjectType(Object::ObjectType::OBSTACLE);
+    third_Objects_5->SetObjectName("third_Objects_5");
+    third_Objects_5->SetTranslation(vector2{ -325.f, 400.f });
+    third_Objects_5->SetScale(vector2{ 50.f, 200.f });
+    third_Objects_5->AddComponent(new Sprite(third_Objects_5));
+    third_Objects_5->AddComponent(new Physics(third_Objects_5));
+    third_Objects_5->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(third_Objects_5, Physics::ObjectType::RECTANGLE);
+    third_Objects_5->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(third_Objects_5);
+
+    map = new Object();
+    map->SetObjectType(Object::ObjectType::OBSTACLE);
+    map->SetObjectName("map");
+    map->SetTranslation(vector2{ -575.f, 550.f });
+    map->SetScale(vector2{ 200.f });
+    map->AddComponent(new Sprite(map));
+    map->AddComponent(new Physics(map));
+    map->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(map, Physics::ObjectType::CIRCLE);
+    map->SetDepth(-1.f);
+    map->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/map.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(map);
 
 
     cameraManager.Init();
@@ -211,27 +267,6 @@ void TestLevel::Update(float dt)
         isCheck_Clear = true;
     }
 
-
-    // Background show up
-    if (input.IsKeyTriggered(GLFW_KEY_1))
-    {
-        objManager->FindLayer(LayerNames::BackGround)->AddObjectDynamically(background);
-    }
-    // Sprite show up
-    if (input.IsKeyTriggered(GLFW_KEY_2))
-    {
-        object2->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite2.png");
-        object1->GetComponentByTemplate<Animation>()->SetImage("../assets/textures/playerSprite1.png");
-    }
-    // Animation Works
-
-    if (input.IsKeyTriggered(GLFW_KEY_3))
-    {
-        object1->GetComponentByTemplate<Animation>()->SetFrame(6);
-        object1->GetComponentByTemplate<Animation>()->SetSpeed(6);
-        object2->GetComponentByTemplate<Animation>()->SetFrame(6);
-        object2->GetComponentByTemplate<Animation>()->SetSpeed(10);
-    }
     //Bgm Sounds
     if (input.IsKeyTriggered(GLFW_KEY_4))
     {
@@ -247,12 +282,17 @@ void TestLevel::Update(float dt)
         }
     }
 
+    if (map->GetComponentByTemplate<Physics>()->IsCollideWith(object1) && isCheck_Clear == false)
+    {
+        objManager->FindLayer(LayerNames::Stage)->DeleteObject(map);
+    }
+
 
     PlayerScaling();
 
     //stage transition
     is_next = false;
-    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+    if (input.IsKeyPressed(GLFW_KEY_8))
     {
         is_next = true;
         //change the level 
