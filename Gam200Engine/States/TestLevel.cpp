@@ -228,6 +228,18 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(map);
 
 
+    sharpKnife = new Object();
+    sharpKnife->SetObjectType(Object::ObjectType::OBSTACLE);
+    sharpKnife->SetObjectName("sharpKnife");
+    sharpKnife->SetTranslation(vector2 { -600.f, -300.f } );
+    sharpKnife->SetScale(vector2{ 300.f ,300.f});
+    sharpKnife->AddComponent(new Sprite(sharpKnife));
+    sharpKnife->AddComponent(new Physics(sharpKnife));
+    sharpKnife->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(sharpKnife, Physics::ObjectType::CIRCLE);
+    sharpKnife->SetDepth(-1.f);
+    sharpKnife->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(sharpKnife);
+
     cameraManager.Init();
 
 }
@@ -299,6 +311,28 @@ void TestLevel::Update(float dt)
         LevelChangeTo("protoLevel");
     }
     //collision check with player 1 or 2 and goal Point
+    printf("%f \n", object1->GetComponentByTemplate<Physics>()->GetPosition().x);
+
+
+    //Game over when the players out of background bound.
+   // if ((object1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+   //     object1->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2) ||
+   //     object2->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+   //     object2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2))
+   //        )
+   // {
+   //     object1->SetTranslation(vector2{ 0.f, -2000.f });
+   //     object2->SetTranslation(vector2{ 200.f, -2000.f }); //change actual location
+
+   //     obj1Position = object1->GetTranslation();
+   //     obj2Position = object2->GetTranslation();
+   //}
+
+      if(sharpKnife->GetComponentByTemplate<Physics>()->IsCollideWith(string))
+      {
+          object1->SetTranslation(vector2{ 0.f, -2000.f });
+          object2->SetTranslation(vector2{ 200.f, -2000.f });
+      }
 }
 
 void TestLevel::Unload()

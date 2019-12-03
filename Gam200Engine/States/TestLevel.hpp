@@ -62,6 +62,9 @@ private:
 
     Object* map;
 
+//Obstacle
+    Object* sharpKnife;
+
 	bool flag = false;
     bool isCheck_Clear = false;
 };
