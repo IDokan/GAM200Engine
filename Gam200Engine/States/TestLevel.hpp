@@ -62,6 +62,10 @@ private:
 
     Object* map;
 
+    //movement image
+    Object* movement_p1;
+    Object* movement_p2;
+
 	bool flag = false;
     bool isCheck_Clear = false;
 };
