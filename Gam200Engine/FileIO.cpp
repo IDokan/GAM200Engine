@@ -15,12 +15,12 @@ Creation Date: 11.23.2019
 
 
 // TODO: Get a File path as argument   - Complete
-// TODO: Make it SetImage available
+// TODO: Make it SetImage available    - Complete
 // TODO: & Depth                       - Complete
 // TODO: Change file path of .txt file - Complete
-// TODO: Save
-// Later: Sprite get image path.
-// , const std::filesystem::path& texturePath
+// TODO: Save                          - Complete
+// TODO: Sprite get image path         - Complete
+
 void fileIO::Input(const std::filesystem::path& filePath)
 {
 	
@@ -29,6 +29,7 @@ void fileIO::Input(const std::filesystem::path& filePath)
 	std::ifstream inStream;
 	std::string objectName;
 	inStream.open(filePath);
+	
 	if(inStream.is_open() == false)
 	{
 		std::cout << "fail";
@@ -39,6 +40,8 @@ void fileIO::Input(const std::filesystem::path& filePath)
 		float xTrans, yTrans;
 		float xScale, yScale;
 		float depth;
+		std::string spriteFileName;
+		
 		Object* object = new Object(); // Make new object
 		
 		inStream >> objectName;		   // Object Name
@@ -47,20 +50,19 @@ void fileIO::Input(const std::filesystem::path& filePath)
 		inStream >> xScale;            // x value of scale
 		inStream >> yScale;            // y value of scale
 		inStream >> depth;             // depth value
-
-		/*if(inStream == spritePath)
-		{
-			
-			object->GetComponentByTemplate<Sprite>()->SetImage(spritePath);
-		}*/
+		inStream >> spriteFileName;    // File path of sprite file
 		
 		object->SetObjectName(objectName);
 		object->SetTranslation(vector2{ xTrans, yTrans });
 		object->SetScale(vector2{ xScale, yScale });
 		object->AddComponent(new Sprite(object));
 		object->AddComponent(new Physics(object));
-		
 		object->SetObjectType(Object::ObjectType::OBSTACLE);
+		if(spriteFileName != "no")
+		{
+			object->GetComponentByTemplate<Sprite>()->SetImage(spriteFileName);
+		}
+		
 		object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::RECTANGLE);
 		object->SetDepth(depth);
 		objManager->FindLayer(LayerNames::Stage)->AddObject(object);
