@@ -44,25 +44,21 @@ void Physics::Update(float dt)
         gravity.y += -dt * 10.f;
     }
 
-    //GetCollisionBox().Translation;
     force *= friction;
 
     if (isCollide == false)
     {
-        oldPosition = owner->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
-        //oldPosition = owner->GetTranslation();
-        //oldPosition = position;
-        vectorTranslation += GetTranslation(finalTranslation);
-        vectorTranslation += force;
-        position = initializedPosition + vectorTranslation;
+        oldPosition = owner->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation; //owner->GetTranslation();
+        vectorTranslation = GetTranslation(finalTranslation);
+        position = owner->GetTranslation() + vectorTranslation;
     }
     else
     {
         SetWorldForceZero();
-        vectorTranslation = oldPosition - initializedPosition;
         position = oldPosition;
         isCollide = false;
     }
+    //owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(owner->GetTranslation()); // for ImGui..
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 
@@ -97,6 +93,11 @@ void Physics::SetWorldForceZero()
     force = vector2{ 0.f,0.f };
     gravity = vector2{ 0.f,0.f };
     velocity = vector2{ 0.f,0.f };
+}
+
+void Physics::SetPosition(vector2 pos)
+{
+    position = pos;
 }
 
 void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj, vector2 scaleAdj)
@@ -158,21 +159,25 @@ void Physics::ManageCollision()
                         if (object1->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
                             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-                            object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            //object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
                         else if (object1->GetObjectType() == Object::ObjectType::PLAYER_2)
                         {
                             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-                            object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            //object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
                         if (object2->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
                             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            //object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                             object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
                         else if (object2->GetObjectType() == Object::ObjectType::PLAYER_2)
                         {
                             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                            //object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                             object2->SetTranslation(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                         }
                     }

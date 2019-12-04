@@ -85,9 +85,8 @@ void ProtoLevel::Update(float dt) {
 
 
 }
-void ProtoLevel::Unload() {
-    ObjectManager* objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::BackGround)->DeleteObject("background");
+void ProtoLevel::Unload() 
+{
 
 }
 
