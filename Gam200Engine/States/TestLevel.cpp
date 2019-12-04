@@ -112,14 +112,16 @@ void TestLevel::Load()
 bool check_haha = false;
 void TestLevel::Update(float dt)
 {
-    if (string->GetStringLength() > 500.f)
-    {
-        object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-        object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+    //if (string->GetStringLength() > 500.f)
+    //{
+    //    object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+    //    object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
 
-        //object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
-        // object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
-    }
+    //    //object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+    //    // object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+    //}
+        
+
 
 	TestLevel::Collision();
     TestLevel::Input();

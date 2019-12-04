@@ -49,19 +49,12 @@ void Physics::Update(float dt)
     if (isCollide == false)
     {
         oldPosition = owner->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation; //owner->GetTranslation();
-        vectorTranslation += GetTranslation(finalTranslation);
-        vectorTranslation += force;
-      /*  owner->SetTranslation(initializedPosition + vectorTranslation);
-        position = owner->GetTranslation();*/
-        position = initializedPosition + vectorTranslation;
+        vectorTranslation = GetTranslation(finalTranslation);
+        position = owner->GetTranslation() + vectorTranslation;
     }
     else
     {
         SetWorldForceZero();
-        vectorTranslation = oldPosition - initializedPosition;
-        //position = oldPosition;
-       /* owner->SetTranslation(oldPosition);
-        position = owner->GetTranslation();*/
         position = oldPosition;
         isCollide = false;
     }
