@@ -331,3 +331,5 @@ ASALocalRun/
 external/
 
 Test/imgui.ini
+
+assets/tmp/objectOutput.txt

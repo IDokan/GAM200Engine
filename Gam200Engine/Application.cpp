@@ -126,8 +126,8 @@ void Application::InputTest()
 
 void Application::Clear()
 {
-	ObjectManager::GetObjectManager()->Clear();
 	StateManager::GetStateManager()->Clear();
+	ObjectManager::GetObjectManager()->Clear();
 
 
 	// ImGui Clear

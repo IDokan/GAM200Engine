@@ -91,8 +91,6 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 
 
-    fileIO* a = 0;
-    a->input("objectData.txt");
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     goalPoint->SetObjectName("goalPoint");
@@ -104,6 +102,8 @@ void TestLevel::Load()
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+	fileIO* a = 0;
+	a->Input("../assets/tmp/objectData.txt");
 
 
     startPoint = new Object();
@@ -333,6 +333,8 @@ void TestLevel::Update(float dt)
 
 void TestLevel::Unload()
 {
+	fileIO* a = 0;
+	a->Output();
     ObjectManager* objManager = ObjectManager::GetObjectManager();
     for (const auto& layers : objManager->GetLayerContainer())
     {

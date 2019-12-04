@@ -52,7 +52,7 @@ Creation Date: 08.12.2019
 
         switch (camera.GetFrameOfReference())
         {
-            case CameraView::RightHanded_OriginCenter:
+		case CameraView::RightHanded_OriginCenter:
                 break;
             case CameraView::RightHanded_OriginBottomLeft:
                 translateMatrix = MATRIX3::build_translation(vector2{-1.f});
