@@ -179,6 +179,7 @@
     <ClInclude Include="Component\StringPhysics.hpp" />
     <ClInclude Include="Component\StringSprite.hpp" />
     <ClInclude Include="Component\TextComponent.hpp" />
+    <ClInclude Include="Component\Volatile.hpp" />
     <ClInclude Include="Demo.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="FileIO.hpp" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Component\StringPhysics.cpp" />
     <ClCompile Include="Component\StringSprite.cpp" />
     <ClCompile Include="Component\TextComponent.cpp" />
+    <ClCompile Include="Component\Volatile.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileIO.cpp" />

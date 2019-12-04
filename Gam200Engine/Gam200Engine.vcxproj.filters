@@ -130,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="States\ProtoLevel.cpp" />
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="Component\Volatile.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="States\ProtoLevel.hpp" />
     <ClInclude Include="FileIO.hpp" />
+    <ClInclude Include="Component\Volatile.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
