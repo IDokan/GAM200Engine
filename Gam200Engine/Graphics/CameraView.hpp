@@ -36,7 +36,7 @@ Creation Date: 08.12.2019
         constexpr FrameOfReference GetFrameOfReference() const noexcept { return frameOfReference; }
 
     private:
-		const float initZoomSize{ 1.f };
+		const float		 initZoomSize{ 1.f };
         vector2          displaySize{};
         matrix3          cameraToNDC = {1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f};
         float            zoom{initZoomSize};
