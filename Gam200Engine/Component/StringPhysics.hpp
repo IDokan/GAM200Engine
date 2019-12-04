@@ -14,7 +14,7 @@ Creation Date: 11.04.2019
 #include "Component/Component.hpp"
 #include "Object/Object.hpp"
 #include "Object//Strings/String.hpp"
-#include <vector>
+#include <deque>
 
 class StringPhysics : public Component
 {
@@ -56,5 +56,5 @@ private:
     bool isDelete;
 
     int addCount;
-    std::vector < std::pair<int, StringVertex>> vertexContainer{};
+    std::deque < std::pair<int, StringVertex>> vertexContainer{};
 };

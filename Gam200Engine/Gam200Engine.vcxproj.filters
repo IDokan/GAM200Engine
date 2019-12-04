@@ -133,6 +133,9 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Volatile.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -285,6 +288,9 @@
     <ClInclude Include="FileIO.hpp" />
     <ClInclude Include="MainMenu.hpp">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Volatile.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
