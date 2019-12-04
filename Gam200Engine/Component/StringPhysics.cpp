@@ -79,8 +79,8 @@ void StringPhysics::Update(float dt)
 		InsertPoint();
 	}
 
-	*stringPhysicsOwner->vertices.begin() = player1->GetTranslation();
-	*(stringPhysicsOwner->vertices.end() - 1) = player2->GetTranslation();
+    *stringPhysicsOwner->vertices.begin() = player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
+    *(stringPhysicsOwner->vertices.end() - 1) = player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
 	addCount = 0;
 
 

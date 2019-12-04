@@ -45,6 +45,17 @@ void TestLevel::Load()
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(1000);
 
+    object1 = new Object();
+    object1->SetObjectName("Player1");
+    object1->SetObjectType(Object::ObjectType::PLAYER_1);
+    object1->SetTranslation(vector2{ 1.f,2.f });
+    object1->SetScale(vector2{ 200.f });
+    object1->AddComponent(new Sprite(object1));
+    object1->AddComponent(new Physics(object1));
+    object1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
+    object1->SetDepth(-0.1f);
+    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::RECTANGLE, vector2{ 0 }, vector2{ -50.f });
+    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
 
 	testObject = new Object();
 	testObject->SetObjectName("test");
@@ -58,17 +69,6 @@ void TestLevel::Load()
 	testObject->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(testObject, Physics::ObjectType::CIRCLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(testObject);
 
-    object1 = new Object();
-    object1->SetObjectType(Object::ObjectType::PLAYER_1);
-    object1->SetObjectName("Player1");
-    object1->SetTranslation(vector2{ 1.f,2.f });
-    object1->SetScale(vector2{ 200.f });
-    object1->AddComponent(new Sprite(object1));
-    object1->AddComponent(new Physics(object1));
-    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::RECTANGLE);
-    object1->SetDepth(-1.f);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-
 	object2 = new Object();
 	object2->SetObjectName("Player2");
 	object2->SetObjectType(Object::ObjectType::PLAYER_2);
@@ -78,7 +78,7 @@ void TestLevel::Load()
 	object2->AddComponent(new Physics(object2));
 	object2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
 	object2->SetDepth(-0.1f);
-	//object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::RECTANGLE);
+	object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::RECTANGLE);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 	
 	string = new String(object1, object2);
@@ -101,8 +101,8 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::HUD)->AddObject(button);
 
 
-	fileIO* a = 0;
-	a->input("objectData.txt");
+	//fileIO* a = 0;
+	//a->input("objectData.txt");
 
 
 	cameraManager.Init();
@@ -112,14 +112,23 @@ void TestLevel::Load()
 bool check_haha = false;
 void TestLevel::Update(float dt)
 {
+    if (string->GetStringLength() > 500.f)
+    {
+        object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+        object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+
+        //object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+        // object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+    }
+
+	TestLevel::Collision();
+    TestLevel::Input();
+
     vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
 
     object1->SetTranslation(obj1Position);
-	object2->SetTranslation(obj2Position);
-    
-	TestLevel::Collision();
-    TestLevel::Input();
+    object2->SetTranslation(obj2Position);
 
 	// DEBUG object should be updated after camera Update()
 	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
