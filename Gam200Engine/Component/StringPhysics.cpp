@@ -29,16 +29,14 @@ StringPhysics::~StringPhysics()
 
 void StringPhysics::Init()
 {
-	addCount = 0;
 }
 
-void StringPhysics::Update(float dt)
+void StringPhysics::Update(float /*dt*/)
 {
 	const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
 
-	vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
+	size_t vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
 
-	float distanceResultContainer = 0;
 	// Add collided point
 	for (size_t i = 0; i < vertexSize - 1; i++)
 	{
@@ -74,18 +72,16 @@ void StringPhysics::Update(float dt)
 			}
 		}
 	}
-	if (addCount != 0)
+	if (vertexContainer.empty() == false)
 	{
 		InsertPoint();
 	}
 
 	*stringPhysicsOwner->vertices.begin() = player1->GetTranslation();
 	*(stringPhysicsOwner->vertices.end() - 1) = player2->GetTranslation();
-	addCount = 0;
 
 
 	vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
-
 	for (size_t i = 0; i < vertexSize - 2; ++i)
 	{
 		SetNormalVector(stringPhysicsOwner->vertices.at(i).position, stringPhysicsOwner->vertices.at(i + 2).position);
@@ -101,7 +97,7 @@ void StringPhysics::Update(float dt)
 	}
 }
 
-bool StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint) const
+bool StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, vector2 targetPoint) const
 {
 	const auto compare = 2*(abs(norVector.x) > abs(norVector.y) ? abs(norVector.x) : abs(norVector.y));
 
@@ -135,13 +131,13 @@ void StringPhysics::SetNormalVector(vector2 point1, vector2 point2)
 
 void StringPhysics::InsertPoint()
 {
-	for (int i = 0; i < addCount; i++)
+	size_t verticesSize = vertexContainer.size();
+	for (size_t i = 0; i < verticesSize; i++)
 	{
 		const auto& begin = stringPhysicsOwner->vertices.begin();
-		stringPhysicsOwner->vertices.insert(begin + vertexContainer.at(i).first, StringVertex{ vertexContainer.at(i).second});
+		stringPhysicsOwner->vertices.insert(begin + vertexContainer.at(i).first, vertexContainer.at(i).second);
 	}
 	vertexContainer.clear();
-	vertexSize = stringPhysicsOwner->vertices.size();
 }
 
 void StringPhysics::DeletePoint()
@@ -152,14 +148,12 @@ void StringPhysics::DeletePoint()
 		stringPhysicsOwner->vertices.erase(it);
 	}
 	vertexContainer.clear();
-	vertexSize = stringPhysicsOwner->vertices.size();
 }
 
-void StringPhysics::PushbackIfBended(vector2 point1, vector2 point2, int index, vector2 targetPoint, vector2 centerPosition)
+void StringPhysics::PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition)
 {
-	if (IsBendPointInstantiated(point1, point2, index, targetPoint))
+	if (IsBendPointInstantiated(point1, point2, targetPoint))
 	{
-		++addCount;
 		vertexContainer.emplace_back(std::pair(index, StringVertex{ targetPoint, centerPosition }));
 	}
 }

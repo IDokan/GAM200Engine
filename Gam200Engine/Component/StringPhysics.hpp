@@ -36,7 +36,7 @@ public:
     StringPhysics(Object* object, Object* player1, Object* player2);
     ~StringPhysics();
 
-    bool IsBendPointInstantiated(vector2 point1, vector2 point2, int index, vector2 targetPoint) const;
+    bool IsBendPointInstantiated(vector2 point1, vector2 point2, vector2 targetPoint) const;
     void SetNormalVector(vector2 point1, vector2 point2);
 
 
@@ -44,7 +44,7 @@ private:
 	void InsertPoint();
 	void DeletePoint();
 
-	void PushbackIfBended(vector2 point1, vector2 point2, int index, vector2 targetPoint, vector2 centerPosition);
+	void PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition);
 	bool IsDetached(StringVertex point1, StringVertex point2, StringVertex targetPoint) const;
 private:
     ObjectPoint objectPoint{};
@@ -52,8 +52,6 @@ private:
     String* stringPhysicsOwner;
     Object* player1;
     Object* player2;
-    unsigned int vertexSize;
     
-    int addCount;
     std::deque < std::pair<int, StringVertex>> vertexContainer{};
 };
