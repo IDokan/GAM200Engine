@@ -20,7 +20,7 @@ class Physics : public Component
 {
 public:
 
-    struct CollsionBox
+    struct CollisionBox
     {
         vector2 Translation{};
         vector2 Scale{};
@@ -31,6 +31,7 @@ public:
     {
         CIRCLE,
         RECTANGLE,
+        DEFAULT,
     };
 
     Physics(Object* obj);
@@ -52,12 +53,8 @@ public:
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
     void SetVectorTranslation(vector2 translation);
-
     bool IsCollideWith(Object* object);
     void ManageCollision();
-    
-    void AddForce(vector2 frc);
-    void AddForce(float x, float y);
 
     //void SetPosition(vector2 pos)
     //{
@@ -81,7 +78,7 @@ public:
 	 */
 	vector2 GetForce() const noexcept;
 
-    const CollsionBox &GetCollisionBox() const
+    const CollisionBox &GetCollisionBox() const
     {
         return collisionBox;
     }
@@ -121,16 +118,13 @@ public:
 private:
     vector2 velocity{};
     vector2 gravity{};
-    vector2 force{};
     vector2 vectorTranslation{};
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
 
     ObjectType objectType{};
-    CollsionBox collisionBox{};
-
-    float friction;
+    CollisionBox collisionBox{};
    
     bool hasCollisionBox;
     bool isGhost;
