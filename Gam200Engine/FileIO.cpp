@@ -13,19 +13,10 @@ Creation Date: 11.23.2019
 #include "Vector2.hpp"
 #include <iostream>
 
-
-// TODO: Get a File path as argument   - Complete
-// TODO: Make it SetImage available    - Complete
-// TODO: & Depth                       - Complete
-// TODO: Change file path of .txt file - Complete
-// TODO: Save                          - Complete
-// TODO: Sprite get image path         - Complete
-
 void fileIO::Input(const std::filesystem::path& filePath)
 {
-	
 	auto objManager = ObjectManager::GetObjectManager();
-	//std::filesystem::path spritePath;
+
 	std::ifstream inStream;
 	std::string objectName;
 	inStream.open(filePath);
@@ -37,9 +28,12 @@ void fileIO::Input(const std::filesystem::path& filePath)
 	
 	while (!inStream.eof()) //Loop continue until .txt file end
 	{
-		float xTrans, yTrans;
-		float xScale, yScale;
+		float xTrans;
+		float yTrans;
+		float xScale;
+		float yScale;
 		float depth;
+		std::string objectType;
 		std::string spriteFileName;
 		
 		Object* object = new Object(); // Make new object
@@ -50,6 +44,7 @@ void fileIO::Input(const std::filesystem::path& filePath)
 		inStream >> xScale;            // x value of scale
 		inStream >> yScale;            // y value of scale
 		inStream >> depth;             // depth value
+		inStream >> objectType;        // object type
 		inStream >> spriteFileName;    // File path of sprite file
 		
 		object->SetObjectName(objectName);
@@ -57,7 +52,19 @@ void fileIO::Input(const std::filesystem::path& filePath)
 		object->SetScale(vector2{ xScale, yScale });
 		object->AddComponent(new Sprite(object));
 		object->AddComponent(new Physics(object));
-		object->SetObjectType(Object::ObjectType::OBSTACLE);
+		
+		if(objectType == "player1")
+		{
+			object->SetObjectType(Object::ObjectType::PLAYER_1);
+		}
+		else if(objectType == "player2")
+		{
+			object->SetObjectType(Object::ObjectType::PLAYER_2);
+		}
+		else if(objectType == "obstacle")
+		{
+			object->SetObjectType(Object::ObjectType::OBSTACLE);
+		}
 		if(spriteFileName != "no")
 		{
 			object->GetComponentByTemplate<Sprite>()->SetImage(spriteFileName);
@@ -73,6 +80,16 @@ void fileIO::Input(const std::filesystem::path& filePath)
 void fileIO::Output()
 {
 	std::ofstream outputFile("../assets/tmp/objectOutput.txt");
+
+	outputFile << "Name" << ' ';
+	outputFile << ' ';
+	outputFile << "x_pos" << ' ';
+	outputFile << "y_pos" << ' ';
+	outputFile << "x_scale" << ' ';
+	outputFile << "y_scale" << ' ';
+	outputFile << "depth" << '\n';
+	outputFile << '\n';
+	
 	const auto& objectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
 	for(const auto& object : objectContainer)
 	{
@@ -84,6 +101,7 @@ void fileIO::Output()
 			outputFile << object->GetScale().x << ' ';
 			outputFile << object->GetScale().y << ' ';
 			outputFile << object->GetDepth() << '\n';
+			outputFile << '\n';
 		}
 	}
 

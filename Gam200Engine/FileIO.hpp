@@ -22,5 +22,4 @@ class fileIO
 public:
 	void Input(const std::filesystem::path& filePath); //, const std::filesystem::path& texturePath
 	void Output();
-
 };
