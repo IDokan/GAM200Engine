@@ -133,6 +133,12 @@
     <ClCompile Include="Component\Volatile.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp">
+      <Filter>Object\InteractiveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp">
+      <Filter>Object\InteractiveObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -286,6 +292,12 @@
     <ClInclude Include="Component\Volatile.hpp">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp">
+      <Filter>Object\InteractiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp">
+      <Filter>Object\InteractiveObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -311,6 +323,9 @@
     </Filter>
     <Filter Include="Object\Strings">
       <UniqueIdentifier>{3936bad3-08ed-43be-bc89-2c6344daaeb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\InteractiveObject">
+      <UniqueIdentifier>{bb207cb7-93ee-4df0-a8f0-7b1f7c449a02}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

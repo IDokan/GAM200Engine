@@ -10,12 +10,13 @@ Creation Date:
 	Header file for the String Vertex Object
 ******************************************************************************/
 #pragma once
-#include "Vector2.hpp"
+#include <Vector2.hpp>
+#include <Object/Object.hpp>
 
 struct StringVertex
 {
-	StringVertex(vector2 pos, vector2 center = vector2{ 0.f })
-		: position(pos), centerPositionOfCollidedObject(center)
+	StringVertex(vector2 pos, vector2 center = vector2{ 0.f }, Object* objPtr = nullptr)
+		: position(pos), centerPositionOfCollidedObject(center), attachedObject(objPtr)
 	{}
 
 	bool operator==(const StringVertex& rhs) const
@@ -25,4 +26,5 @@ struct StringVertex
 	
 	vector2 position;
 	vector2 centerPositionOfCollidedObject;
+	Object* attachedObject;
 };

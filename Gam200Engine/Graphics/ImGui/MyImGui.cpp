@@ -15,6 +15,7 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui_impl_glfw.h>
 #include <Application.hpp>
 #include <Object/ObjectManager.hpp>
+#include <Object/InteractiveObject/InteractiveObject.hpp>
 
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -143,6 +144,24 @@ namespace MyImGui
 		}
 	}
 
+	void DrawInteractiveObjectSection(InteractiveObject* obj)
+	{
+		if (obj == nullptr)
+		{
+			return;
+		}
+
+		SeparateSection("InteractiveObject");
+		static int numOfAttached;
+		static int numOfDetached;
+
+		numOfAttached = obj->GetAttachedNum();
+		numOfDetached = obj->GetDetachedNum();
+
+		ImGui::Text("%s", std::string("Num of Attached : " + std::to_string(numOfAttached)).c_str());
+		ImGui::Text("%s", std::string("Num of Detached : " + std::to_string(numOfDetached)).c_str());
+	}
+
 	void DrawTransformSection(Object* obj)
 	{
 		ImGui::Text("Transform");
@@ -241,6 +260,7 @@ namespace MyImGui
 				{
 					DrawPhysicsSection(obj, physics);
 				}
+				DrawInteractiveObjectSection(dynamic_cast<InteractiveObject*>(obj));
 			}
 			else
 			{

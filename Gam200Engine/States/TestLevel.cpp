@@ -27,6 +27,8 @@ Creation Date: 08.15.2019
 #include <Component/StringSprite.hpp>
 #include <Component/StringPhysics.hpp>
 
+#include <Object/InteractiveObject/TestInteractionObject.hpp>
+
 SoundManager test;
 void TestLevel::Load()
 {
@@ -99,6 +101,10 @@ void TestLevel::Load()
     button->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.5f, 0.5f, 1.f });
     button->AddComponent(new Physics(button));
     objManager->FindLayer(LayerNames::HUD)->AddObject(button);
+
+	TestInteractionObject* tio = new TestInteractionObject();
+	tio->SetObjectName("Test Interaction Object");
+	objManager->FindLayer(Stage)->AddObject(tio);
 
 
 	fileIO* a = 0;

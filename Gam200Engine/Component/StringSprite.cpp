@@ -65,8 +65,7 @@ void StringSprite::UpdateUniforms(const matrix3& toNDC, float depth)
 	Sprite::UpdateUniforms(toNDC, depth);
 
 	// String uniforms upgrade
-	std::vector<StringVertex> stringVertices = stringOwner->vertices;
-	size_t verticesSize = stringVertices.size();
+	size_t verticesSize = stringOwner->vertices.size();
 	material->intUniform[Graphics::SHADER::Uniform_String_Vertex_Capacity] = verticesSize;
 	material->floatUniforms[Graphics::SHADER::Uniform_String_Height] = stringHeight;
 
@@ -74,7 +73,7 @@ void StringSprite::UpdateUniforms(const matrix3& toNDC, float depth)
 	static vector2 vectorArr[String::maxVertexSize] = {vector2{0.f}};
 	for (size_t i = 0; i < verticesSize; ++i)
 	{
-		vectorArr[i] = stringVertices.at(i).position;
+		vectorArr[i] = stringOwner->vertices.at(i).position;
 	}
 	material->arrayVector2Uniforms[Graphics::SHADER::Uniform_String_Vertex_Position] = vectorArr;
 }

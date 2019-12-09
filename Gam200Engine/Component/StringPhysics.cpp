@@ -16,6 +16,7 @@ Creation Date: 11.04.2019
 #include "Object/ObjectManager.hpp"
 #include <vector>
 #include <Component/StringSprite.hpp>
+#include <Object/InteractiveObject/InteractiveObject.hpp>
 
 StringPhysics::StringPhysics(Object* object, Object* player1, Object* player2) : Component(object), stringPhysicsOwner(dynamic_cast<String*>(object)), player1(player1), player2(player2)
 {
@@ -57,18 +58,19 @@ void StringPhysics::Update(float /*dt*/)
 
 				vector2 center{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
 
+				InteractiveObject* interactiveObject = dynamic_cast<InteractiveObject*>(object.get());
 				// Left-Bottom
 				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-					center + vector2{ - objectCollisionBox.Scale.x / 2,  - objectCollisionBox.Scale.y / 2 }, center);
+					center + vector2{ - objectCollisionBox.Scale.x / 2,  - objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
 				// Left-Top
 				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-					center + vector2{ - objectCollisionBox.Scale.x / 2, + objectCollisionBox.Scale.y / 2 }, center);
+					center + vector2{ - objectCollisionBox.Scale.x / 2, + objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
 				// Right-Bottom
 				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-					center + vector2{ + objectCollisionBox.Scale.x / 2, - objectCollisionBox.Scale.y / 2 }, center);
+					center + vector2{ + objectCollisionBox.Scale.x / 2, - objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
 				// Right-Top
 				PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-					center + vector2{ + objectCollisionBox.Scale.x / 2, + objectCollisionBox.Scale.y / 2 }, center);
+					center + vector2{ + objectCollisionBox.Scale.x / 2, + objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
 			}
 		}
 	}
@@ -81,20 +83,7 @@ void StringPhysics::Update(float /*dt*/)
 	*(stringPhysicsOwner->vertices.end() - 1) = player2->GetTranslation();
 
 
-	vertexSize = stringPhysicsOwner->vertices.size(); // will be changed.
-	for (size_t i = 0; i < vertexSize - 2; ++i)
-	{
-		SetNormalVector(stringPhysicsOwner->vertices.at(i).position, stringPhysicsOwner->vertices.at(i + 2).position);
-		//If detected,
-		if (IsDetached(stringPhysicsOwner->vertices.at(i), stringPhysicsOwner->vertices.at(i + 2), stringPhysicsOwner->vertices.at(i + 1)))
-		{
-			vertexContainer.emplace_back(std::pair{ i + 1, stringPhysicsOwner->vertices.at(i + 1) });
-		}
-	}
-	if (vertexContainer.empty() == false)
-	{
-		DeletePoint();
-	}
+	Detach();
 }
 
 bool StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, vector2 targetPoint) const
@@ -129,6 +118,61 @@ void StringPhysics::SetNormalVector(vector2 point1, vector2 point2)
 	norVector = { norVector.y, -norVector.x };
 }
 
+void StringPhysics::DeletePositionsWithObject(Object* obj)
+{
+	std::vector<StringVertex> deletedVector{};
+	// Iteration to find what vertices' attached object is same with given object pointer
+	std::for_each(std::begin(stringPhysicsOwner->vertices), std::end(stringPhysicsOwner->vertices), [=](const StringVertex& vertex) mutable
+		{
+			if (vertex.attachedObject == obj)
+			{
+				deletedVector.emplace_back(vertex);
+			}
+		});
+
+	// Based on saved string vertex, find it in vertices and erase it!
+	std::for_each(std::begin(deletedVector), std::end(deletedVector), [=](const StringVertex& vertex) mutable
+		{
+			const auto & it = std::find(std::begin(stringPhysicsOwner->vertices), std::end(stringPhysicsOwner->vertices), vertex);
+			stringPhysicsOwner->vertices.erase(it);
+		});
+}
+
+void StringPhysics::Detach()
+{
+	const size_t vertices_size = stringPhysicsOwner->vertices.size();
+	if (vertices_size < 3)
+	{
+		return;
+	}
+	if (IsDetached(stringPhysicsOwner->vertices.at(vertices_size - 3), stringPhysicsOwner->vertices.back(), stringPhysicsOwner->vertices.at(vertices_size - 2)))
+	{
+		std::swap(stringPhysicsOwner->vertices.at(vertices_size - 2), stringPhysicsOwner->vertices.back());
+		if(InteractiveObject* obj = dynamic_cast<InteractiveObject*>(stringPhysicsOwner->vertices.back().attachedObject);
+			obj != nullptr)
+		{
+			obj->Detached();
+		}
+		stringPhysicsOwner->vertices.pop_back();
+	}
+	
+	if(stringPhysicsOwner->vertices.size() < 3)
+	{
+		return;
+	}
+
+	if (IsDetached(stringPhysicsOwner->vertices.front(), stringPhysicsOwner->vertices.at(2), stringPhysicsOwner->vertices.at(1)))
+	{
+		std::swap(stringPhysicsOwner->vertices.front(), stringPhysicsOwner->vertices.at(1));
+		if (InteractiveObject * obj = dynamic_cast<InteractiveObject*>(stringPhysicsOwner->vertices.front().attachedObject);
+			obj != nullptr)
+		{
+			obj->Detached();
+		}
+		stringPhysicsOwner->vertices.pop_front();
+	}
+}
+
 void StringPhysics::InsertPoint()
 {
 	size_t verticesSize = vertexContainer.size();
@@ -150,11 +194,15 @@ void StringPhysics::DeletePoint()
 	vertexContainer.clear();
 }
 
-void StringPhysics::PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition)
+void StringPhysics::PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition, InteractiveObject* objPtr)
 {
 	if (IsBendPointInstantiated(point1, point2, targetPoint))
 	{
-		vertexContainer.emplace_back(std::pair(index, StringVertex{ targetPoint, centerPosition }));
+		if (objPtr != nullptr)
+		{
+			objPtr->Attached();
+		}
+		vertexContainer.emplace_back(std::pair(index, StringVertex{ targetPoint, centerPosition, objPtr }));
 	}
 }
 

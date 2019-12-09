@@ -12,7 +12,7 @@ Creation Date:
 #pragma once
 #include "Object/Object.hpp"
 #include "Object/Strings/StringVertex.hpp"
-#include <list>
+#include <deque>
 
 class StringPhysics;
 class StringSprite;
@@ -31,5 +31,5 @@ public:
 
 	float GetStringLength();
 private:
-	std::vector<StringVertex> vertices;
+	std::deque<StringVertex> vertices;
 };

@@ -16,6 +16,8 @@ Creation Date: 11.04.2019
 #include "Object//Strings/String.hpp"
 #include <deque>
 
+class InteractiveObject;
+
 class StringPhysics : public Component
 {
 public:
@@ -39,12 +41,15 @@ public:
     bool IsBendPointInstantiated(vector2 point1, vector2 point2, vector2 targetPoint) const;
     void SetNormalVector(vector2 point1, vector2 point2);
 
+	void DeletePositionsWithObject(Object* obj);
 
 private:
+	void Detach();
+	
 	void InsertPoint();
 	void DeletePoint();
 
-	void PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition);
+	void PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition, InteractiveObject* objPtr = nullptr);
 	bool IsDetached(StringVertex point1, StringVertex point2, StringVertex targetPoint) const;
 private:
     ObjectPoint objectPoint{};
@@ -53,5 +58,5 @@ private:
     Object* player1;
     Object* player2;
     
-    std::deque < std::pair<int, StringVertex>> vertexContainer{};
+    std::vector < std::pair<int, StringVertex>> vertexContainer{};
 };

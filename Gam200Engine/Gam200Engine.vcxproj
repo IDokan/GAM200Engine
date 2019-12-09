@@ -212,6 +212,8 @@
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
     <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
+    <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Strings\String.hpp" />
@@ -271,6 +273,8 @@
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
+    <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Strings\String.cpp" />
