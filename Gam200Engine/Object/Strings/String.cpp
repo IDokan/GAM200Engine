@@ -56,3 +56,8 @@ float String::GetStringLength()
 	return total;
 }
 
+const std::deque<StringVertex>& String::GetVertices() const noexcept
+{
+	return vertices;
+}
+

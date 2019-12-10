@@ -32,6 +32,7 @@ public:
 	void Update(float dt);
 
 	float GetStringLength();
+	const std::deque<StringVertex>& GetVertices() const noexcept;
 private:
 	std::deque<StringVertex> vertices;
 	Object* player1;

@@ -54,7 +54,7 @@ public:
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate()const;
 
-    ObjectType GetObjectType() const // test fuction for Woo
+    [[nodiscard]] ObjectType GetObjectType() const // test fuction for Woo
     {
         return objType;
     }
@@ -72,6 +72,7 @@ public:
     std::string GetObjectName(); // Woo
 
     void SetObjectType(ObjectType objType); // test function Woo
+    [[nodiscard]] std::string GetStringOfObjectType() const noexcept;
     
     vector2 GetTranslation(); // Woo
     vector2 GetScale(); // Woo

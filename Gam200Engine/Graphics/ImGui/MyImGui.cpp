@@ -26,6 +26,21 @@ Creation Date: 08.23.2019
 
 namespace MyImGui
 {
+	/* Helper functions */
+	void HelpMarker(const char* description);
+	void MakeBigSpacing();
+	void SeparateSection(const char* description);
+	void DrawSpriteSection(Sprite* sprite);
+	void DrawPhysicsSection(Object* object, Physics* physics);
+	void DrawInteractiveObjectSection(InteractiveObject* obj);
+	void DrawStringSection(String* string);
+	void DrawObjectNameSection(Object* obj);
+	void DrawInformation(Object* obj);
+	void DrawTransformSection(Object* obj);
+	void HighlightSelectedObject(Object* obj);
+	/* End of helper functions */
+
+
 	bool isCollisionBoxShown = false;
 	int stack = 0;
 
@@ -75,16 +90,22 @@ namespace MyImGui
 		}
 	}
 
-	void SeparateSection(const char* description)
+	void MakeBigSpacing()
 	{
 		ImGui::Spacing();
 		ImGui::Separator();
 		ImGui::Spacing();
-		ImGui::Text(description);
+	}
+
+	void SeparateSection(const char* description)
+	{
+		MakeBigSpacing();
+		ImGui::Text("%s", description);
 	}
 
 	void DrawSpriteSection(Sprite* sprite)
 	{
+
 		SeparateSection("Sprite Section");
 		Graphics::Color4f color = sprite->GetColor();
 		ImGui::ColorEdit4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_AlphaPreview);
@@ -107,7 +128,7 @@ namespace MyImGui
 		static vector2 velocity, gravity, vectorTranslation;
 		velocity = physics->GetVelocity();
 		gravity = physics->GetGravity();
-        vectorTranslation = physics->GetVectorTranslation();
+		vectorTranslation = physics->GetVectorTranslation();
 
 		ImGui::InputFloat2("Velocity", velocity.elements);
 		ImGui::InputFloat2("Gravity", gravity.elements);
@@ -116,7 +137,7 @@ namespace MyImGui
 
 		physics->SetVelocity(velocity);
 		physics->SetGravity(gravity);
-        physics->SetVectorTranslation(vectorTranslation);
+		physics->SetVectorTranslation(vectorTranslation);
 
 		static bool isCollisionBoxDrawn = false;
 		if (physics->GetHasCollisionBox())
@@ -151,12 +172,54 @@ namespace MyImGui
 		ImGui::Text("%s", std::string("Num of Detached : " + std::to_string(numOfDetached)).c_str());
 	}
 
+	void DrawStringSection(String* string)
+	{
+		SeparateSection("String Section");
+
+		// Length of string
+		ImGui::Text("%s", std::string("Entire string length is " + std::to_string(string->GetStringLength())).c_str());
+
+		// Num of vertices
+		const auto& vertices = string->GetVertices();
+		ImGui::Text("%s", std::string("There is " + std::to_string(vertices.size()) + " vertices").c_str());
+
+		for (size_t i = 0; i < vertices.size(); ++i)
+		{
+			MakeBigSpacing();
+
+			// Specify what the number of current vertex is
+			const StringVertex& vertex = vertices.at(i);
+			ImGui::Text("%s", std::string("Vertex " + std::to_string(i)).c_str());
+
+			// Position of vertex
+			ImGui::Text("%s", std::string("Position : " + std::to_string(vertex.position.x) + ' ' + std::to_string(vertex.position.y)).c_str());
+
+			// The center position of attached object
+			ImGui::Text("%s", std::string("The center Position of attached object: ").c_str());
+			ImGui::Text("\t%s", std::string(std::to_string(vertex.centerPositionOfCollidedObject.x) + ' ' + std::to_string(vertex.centerPositionOfCollidedObject.y)).c_str());
+
+			// Information of the attached object
+			if (Object* obj = vertex.attachedObject;
+				obj != nullptr)
+			{
+				ImGui::Text("%s", std::string("Attached Object name is ").c_str());
+				ImGui::Text("\t%s", obj->GetObjectName().c_str());
+				ImGui::Text("The type of attached object");
+				ImGui::Text("\t%s", obj->GetStringOfObjectType().c_str());
+			}
+			else
+			{
+				ImGui::Text("Attached object is nullptr!");
+			}
+		}
+	}
+
 	void DrawTransformSection(Object* obj)
 	{
 		ImGui::Text("Transform");
 		static vector2 translation{}, scale{};
 		static float rotation;
-        translation = obj->GetTranslation();
+		translation = obj->GetTranslation();
 		rotation = obj->GetRotation();
 		scale = obj->GetScale();
 
@@ -170,10 +233,58 @@ namespace MyImGui
 		obj->SetScale(scale);
 		obj->SetRotation(rotation);
 
-		if(ImGui::Button("Delete it"))
+		if (ImGui::Button("Delete it"))
 		{
 			obj->SetDead(true);
 		}
+	}
+
+	void DrawObjectNameSection(Object* obj)
+	{
+		ImGui::Text("Object name is \"");	ImGui::SameLine();
+		ImGui::Text(obj->GetObjectName().c_str()); ImGui::SameLine();
+		ImGui::Text("\"");
+		ImGui::Spacing();
+	}
+
+	void DrawInformation(Object* obj)
+	{
+		DrawObjectNameSection(obj);
+
+		if (String * string = dynamic_cast<String*>(obj);
+			string != nullptr)
+		{
+			DrawStringSection(string);
+			return;
+		}
+
+		DrawTransformSection(obj);
+
+		// If object have components display them.
+		if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>())
+		{
+			HighlightSelectedObject(obj);
+
+			DrawSpriteSection(sprite);
+		}
+		if (Physics * physics = obj->GetComponentByTemplate<Physics>())
+		{
+			DrawPhysicsSection(obj, physics);
+		}
+		DrawInteractiveObjectSection(dynamic_cast<InteractiveObject*>(obj));
+	}
+
+	void HighlightSelectedObject(Object* obj)
+	{
+		static Object* selectedObj = nullptr;
+		static Graphics::Color4f color{};
+		if (selectedObj != obj)
+		{
+			selectedObj = obj;
+			color = obj->GetComponentByTemplate<Sprite>()->GetColor();
+		}
+
+		// TODO: Test that that I 
 	}
 
 	void InitImGui(GLFWwindow* window) noexcept
@@ -202,7 +313,7 @@ namespace MyImGui
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		//if (isShowWindow)
 		//	ImGui::ShowDemoWindow(&isShowWindow);
-		
+
 		// 2. Let's make my own window with ImGui Tutorial!
 		ImGui::Begin("Scene");
 		static int selectedLayer = -1;
@@ -228,26 +339,12 @@ namespace MyImGui
 		{
 			const auto& objContainer = layerContainer.at(selectedLayer)->GetObjContainer();
 			const size_t objContainerSize = objContainer.size();
-			if (selected >= 0 && selected < objContainerSize)
+			if (selected >= 0 && selected < static_cast<int>(objContainerSize))
 			{
 				Object* obj = objContainer.at(selected).get();
-				ImGui::Text("Object name is \"");	ImGui::SameLine();
-				ImGui::Text(obj->GetObjectName().c_str()); ImGui::SameLine();
-				ImGui::Text("\"");
-				ImGui::Spacing();
 
-				DrawTransformSection(obj);
-
-				// If object have components display them.
-				if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>())
-				{
-					DrawSpriteSection(sprite);
-				}
-				if (Physics * physics = obj->GetComponentByTemplate<Physics>())
-				{
-					DrawPhysicsSection(obj, physics);
-				}
-				DrawInteractiveObjectSection(dynamic_cast<InteractiveObject*>(obj));
+				// Draw all information about selected object in here!
+				DrawInformation(obj);
 			}
 			else
 			{
