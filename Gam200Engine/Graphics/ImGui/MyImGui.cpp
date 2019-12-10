@@ -9,6 +9,9 @@ Creation Date: 08.23.2019
 
 	Header file for My ImGui Code
 ******************************************************************************/
+#pragma warning(push)
+#pragma warning(disable:26451)
+#pragma warning(disable:26495)
 #include "MyImGui.hpp"
 #include <Graphics/ImGui/imgui.h>
 #include <Graphics/ImGui/imgui_impl_opengl3.h>
@@ -16,6 +19,7 @@ Creation Date: 08.23.2019
 #include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
+#pragma warning (pop)
 
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>

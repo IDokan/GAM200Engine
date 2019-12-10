@@ -56,7 +56,7 @@ void Sprite::Init()
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
-void Sprite::Update(float dt)
+void Sprite::Update(float /*dt*/)
 {
 	if (Physics* p = owner->GetComponentByTemplate<Physics>())
 	{

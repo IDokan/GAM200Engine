@@ -10,9 +10,13 @@ Creation Date: 08.23.2019
 	Header file for My ImGui Code
 ******************************************************************************/
 #pragma once
+#pragma warning(push)
+#pragma warning(disable:26451)
+#pragma warning(disable:26495)
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <Graphics/ImGui/imgui.h>
+#pragma warning (pop)
 
 namespace MyImGui
 {

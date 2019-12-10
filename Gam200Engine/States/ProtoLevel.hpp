@@ -13,7 +13,8 @@ Creation Date: 11.11.2019
 #pragma once
 #include<States/State.hpp>
 #include<Graphics/CameraManager.hpp>
-#include<Object/ObjectManager.hpp>
+
+class Object;
 
 class ProtoLevel final :public State
 {

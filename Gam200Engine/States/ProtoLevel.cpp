@@ -12,13 +12,11 @@ Creation Date: 11.11.2019
 ******************************************************************************/
 
 #include "ProtoLevel.hpp"
-#include <Object\ObjectManager.hpp>
+#include <Object/ObjectManager.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
-#include <Component\Animation.cpp>
-#include <Graphics\GL.cpp>
-#include <Component\TextComponent.hpp>
+#include <Graphics/GL.hpp>
 #include <Systems/Input.hpp>
 #include <States\StateManager.hpp>
 
