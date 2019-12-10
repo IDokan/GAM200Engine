@@ -103,9 +103,6 @@
     <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp">
       <Filter>Graphics\Parallax Scrolling</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\TextPlatform.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -156,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="Systems\Observer.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,9 +276,6 @@
     <ClInclude Include="Graphics\Parallax scrolling\Layer.hpp">
       <Filter>Graphics\Parallax Scrolling</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\TextPlatform.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -338,6 +335,9 @@
     </ClInclude>
     <ClInclude Include="Systems\Timer.hpp">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

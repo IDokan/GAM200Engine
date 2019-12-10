@@ -21,7 +21,7 @@ class Player : public Object
 
 public:
     Player(std::string _playerName, const vector2 playerPos, vector2 playerScale
-        , ObjectType _objectType, Graphics::Color4f _color = { 0.f,0.f,0.f,0.f },
+        , Physics::ObjectType _objectType, Graphics::Color4f _color = { 0.f,0.f,0.f,0.f },
         vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f }, float _depth = 0);
 
 private:

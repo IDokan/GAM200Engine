@@ -13,7 +13,6 @@ Creation Date: 08.15.2019
 #pragma once
 #include <States/State.hpp>
 #include <Object/Object.hpp>
-#include <Player.h>
 #include <Graphics/CameraManager.hpp>
 #include <Object/Strings/String.hpp>
 
@@ -36,6 +35,7 @@ public:
     void Collision();
 private:
 	void PlayerScaling();
+	void DeadAndRestart(vector2& player1Position, vector2& player2Position);
 private:
 	Graphics::CameraManager cameraManager;
 
