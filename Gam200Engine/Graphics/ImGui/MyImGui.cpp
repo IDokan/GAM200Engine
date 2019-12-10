@@ -43,7 +43,7 @@ namespace MyImGui
 			collisionBox = new Object();
 			collisionBox->AddComponent(new Sprite(collisionBox));
 			collisionBox->SetObjectName(obj->GetObjectName() + " CollisionBox");
-			const Physics::CollsionBox positionOfCollisionBox = physics->GetCollisionBox();
+			const Physics::CollisionBox positionOfCollisionBox = physics->GetCollisionBox();
 			collisionBox->SetTranslation(positionOfCollisionBox.Translation);
 			collisionBox->SetScale(positionOfCollisionBox.Scale);
 			collisionBox->SetDepth(-1.f);
@@ -113,16 +113,14 @@ namespace MyImGui
 	{
 		SeparateSection("Physics Section");
 
-		static vector2 velocity, gravity, force, vectorTranslation;
+		static vector2 velocity, gravity, vectorTranslation;
 		velocity = physics->GetVelocity();
 		gravity = physics->GetGravity();
-		force = physics->GetForce();
         vectorTranslation = physics->GetVectorTranslation();
 
 		ImGui::InputFloat2("Velocity", velocity.elements);
 		ImGui::InputFloat2("Gravity", gravity.elements);
 		ImGui::InputFloat2("VectorTranslation", vectorTranslation.elements);
-		ImGui::InputFloat2("Force", force.elements, "%.3f", ImGuiInputTextFlags_ReadOnly);
 		ImGui::SameLine(); HelpMarker("Read Only");
 
 		physics->SetVelocity(velocity);

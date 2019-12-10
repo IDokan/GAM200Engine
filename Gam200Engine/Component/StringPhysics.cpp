@@ -90,8 +90,8 @@ bool StringPhysics::IsBendPointInstantiated(vector2 point1, vector2 point2, vect
 {
 	const auto compare = 2*(abs(norVector.x) > abs(norVector.y) ? abs(norVector.x) : abs(norVector.y));
 
-	vector2 RP{ targetPoint - point1 };
-	vector2 QP{ point2 - point1 };
+    vector2 RP{ targetPoint - point1 };
+    vector2 QP{ point2 - point1 };
 
 	// Check target point is between the edge. 
 	if (!(0 < dot(RP, QP) && dot(RP, QP) < dot(QP, QP)))

@@ -25,8 +25,8 @@ String::String(Object* player1, Object* player2)
 	Object::AddComponent(new StringPhysics(this, player1, player2));
 
 	
-	vertices.emplace_back(player1->GetTranslation());
-	vertices.emplace_back(player2->GetTranslation());
+	vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+	vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
 }
 
 void String::Update(float dt)
