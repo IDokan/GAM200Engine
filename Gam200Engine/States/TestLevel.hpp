@@ -13,6 +13,7 @@ Creation Date: 08.15.2019
 #pragma once
 #include <States/State.hpp>
 #include <Object/Object.hpp>
+#include <Player.h>
 #include <Graphics/CameraManager.hpp>
 #include <Object/Strings/String.hpp>
 

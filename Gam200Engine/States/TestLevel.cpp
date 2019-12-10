@@ -391,56 +391,56 @@ void TestLevel::Input()
     /**********************Moving Object 1*******************************************/
     if (input.IsKeyPressed(GLFW_KEY_W))
     {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+        player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
         if (input.IsKeyPressed(GLFW_KEY_D))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
         }
         else if (input.IsKeyPressed(GLFW_KEY_A))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
         }
     }
     if (input.IsKeyPressed(GLFW_KEY_A))
     {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+        player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
         if (input.IsKeyPressed(GLFW_KEY_W))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
         }
         else if (input.IsKeyPressed(GLFW_KEY_S))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
         }
     }
     if (input.IsKeyPressed(GLFW_KEY_S))
     {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+        player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
 
         if (input.IsKeyPressed(GLFW_KEY_A))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
         }
         else if (input.IsKeyPressed(GLFW_KEY_D))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
         }
     }
     if (input.IsKeyPressed(GLFW_KEY_D))
     {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+        player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
         if (input.IsKeyPressed(GLFW_KEY_W))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
         }
         else if (input.IsKeyPressed(GLFW_KEY_S))
         {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
         }
     }
     if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
     {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+        player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
     }
 
 
@@ -477,28 +477,28 @@ void TestLevel::Input()
 
 		if (input.IsKeyPressed(GLFW_KEY_LEFT))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
 		}
 		else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
 		}
 	}
 	if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+        player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
 		if (input.IsKeyPressed(GLFW_KEY_UP))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
 		}
 		else if (input.IsKeyPressed(GLFW_KEY_DOWN))
 		{
-			object2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+			player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
 		}
 	}
 	if (input.IsKeyReleased(GLFW_KEY_UP) && input.IsKeyReleased(GLFW_KEY_LEFT) && input.IsKeyReleased(GLFW_KEY_DOWN) && input.IsKeyReleased(GLFW_KEY_RIGHT))
 	{
-		object2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
 	}
 	if (input.IsKeyTriggered(GLFW_KEY_G))
 	{

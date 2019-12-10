@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:   Application.hpp
 Author
         dbsqhd106@gmail.com
-Creation Date: 
+Creation Date: 11th/Nov/2019
 
     Header file for the Application.cpp
 ******************************************************************************/
@@ -13,29 +13,23 @@ Creation Date:
 #pragma once
 #include <Component/Sprite.hpp>
 #include  <Object/Object.hpp>
+#include <Component/Physics.hpp>
+#include <utility>
 
 class Player : public Object
 {
-    Player(std::string /*_playerName*/, vector2 /*playerPos*/, vector2 /*playerScale*/
-        )
-    {
-     //   Object::SetObjectName(_playerName);
-        //SetObjectName(_playerName);
-       // this->AddComponent(new Sprite())
-    };/*
 
-    
-    void AddComponent(Component* comp) override;
+public:
+    Player(std::string _playerName, const vector2 playerPos, vector2 playerScale
+        , ObjectType _objectType, Graphics::Color4f _color = { 0.f,0.f,0.f,0.f },
+        vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f }, float _depth = 0);
 
-    void SetDepth(float depth) override;
-    void SetTranslation(vector2 pos) override;
-    void SetRotation(float angle) override;
-    void SetScale(vector2 scale) override;
-    void SetScale(float scale) override;
-    void SetObjectName(std::string name) override;*/
+private:
+    std::string playerName;
+    float pos_x;
+    float pos_y;
+    float scale_x;
+    float scale_y;
+    float depth;
     
-//private:
-//    Object* newPlayer;
-//    std::string playerName;
-//    
 };
