@@ -38,13 +38,34 @@ private:
 private:
 	Graphics::CameraManager cameraManager;
 
+    Object* gameClearPopUp;
+    Object* startPoint;
+    Object* goalPoint;
 	Object* object1;
 	Object* object2;
 	Object* background;
-    Object* button;
 	Object* object4;
 	Object* numbers;
 	Object* testObject; // test for jaemin
 	String* string;
+
+//map objects
+    Object* first_Objects_1;
+    Object* first_Objects_2;
+    Object* first_Objects_3;
+
+    Object* third_Objects_1;
+    Object* third_Objects_2;
+    Object* third_Objects_3;
+    Object* third_Objects_4;
+    Object* third_Objects_5;
+
+    Object* map;
+
+    //movement image
+    Object* movement_p1;
+    Object* movement_p2;
+
 	bool flag = false;
+    bool isCheck_Clear = false;
 };

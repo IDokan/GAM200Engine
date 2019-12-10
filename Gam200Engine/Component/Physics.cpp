@@ -160,7 +160,8 @@ void Physics::ManageCollision()
             {
                 if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
                 {
-                    if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
+                    if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true
+                        && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
                     {
                         if (object1->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {

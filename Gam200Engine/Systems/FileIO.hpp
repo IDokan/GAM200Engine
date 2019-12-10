@@ -6,7 +6,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:   FileIO.hpp
 Author
     - jiwon.jung jjwon6218@gmail.com
-    - Hyerin Jung (junghl0621@gmail.com)
 Creation Date: 11.23.2019
 
     Source file for file IO
@@ -21,7 +20,6 @@ Creation Date: 11.23.2019
 class fileIO
 {
 public:
-	void input(const std::filesystem::path& filePath);
-	
-
+	void Input(const std::filesystem::path& filePath); //, const std::filesystem::path& texturePath
+	void Output();
 };

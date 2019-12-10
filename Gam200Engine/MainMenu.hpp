@@ -2,24 +2,25 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   ProtoLevel.cpp
+File Name:   MainMenu.hpp
 Author
-        Hyerin Jung
-        junghl0621@gmail.com
-Creation Date: 11.11.2019
+    -Hyerin Jung (junghl0621@gmail.com)
 
-    Header file for the ProtoLevel.cpp
+Creation Date: 12.02.2019
+
+    Source file for Mainmenu State Component
 ******************************************************************************/
+
 #pragma once
 #include<States/State.hpp>
 #include<Graphics/CameraManager.hpp>
 #include<Object/ObjectManager.hpp>
 
-class ProtoLevel final :public State
+class MainMenu final :public State
 {
 public:
-    ProtoLevel() = default;
-    virtual ~ProtoLevel(){};
+    MainMenu() = default;
+    virtual ~MainMenu() {};
 
     virtual void Load() override;
     virtual void Update(float dt) override;
@@ -30,6 +31,6 @@ public:
 private:
     Graphics::CameraManager cameraManager;
     Object* background;
-    Object* startPoint;
-    Object* goalPoint;
+    Object* select_menu;
+    Object* exit;
 };
