@@ -13,7 +13,6 @@ Creation Date: 08.15.2019
 #pragma once
 #include <States/State.hpp>
 #include <Object/Object.hpp>
-#include <Graphics/CameraManager.hpp>
 #include <Object/Strings/String.hpp>
 
 class TestLevel final : public State
@@ -29,46 +28,44 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Unload() override;
 
-	void Draw() const noexcept override;
-
     void Input();
     void Collision();
 private:
+	void GameDead();
 	void PlayerScaling();
-	void DeadAndRestart(vector2& player1Position, vector2& player2Position);
+	void DeadAndRestart();
 private:
-	Graphics::CameraManager cameraManager;
 
-    Object* gameClearPopUp;
-    Object* startPoint;
-    Object* goalPoint;
-	Object* object1;
-	Object* object2;
-	Object* background;
-	Object* object4;
-	Object* numbers;
-	Object* testObject; // test for jaemin
-	String* string;
+    Object* gameClearPopUp{};
+    Object* startPoint{};
+    Object* goalPoint{};
+	Object* object1{};
+	Object* object2{};
+	Object* background{};
+	Object* object4{};
+	Object* numbers{};
+	Object* testObject{}; // test for jaemin
+	String* string{};
 
 //map objects
-    Object* first_Objects_1;
-    Object* first_Objects_2;
-    Object* first_Objects_3;
+    Object* first_Objects_1{};
+    Object* first_Objects_2{};
+    Object* first_Objects_3{};
 
-    Object* third_Objects_1;
-    Object* third_Objects_2;
-    Object* third_Objects_3;
-    Object* third_Objects_4;
-    Object* third_Objects_5;
+    Object* third_Objects_1{};
+    Object* third_Objects_2{};
+    Object* third_Objects_3{};
+    Object* third_Objects_4{};
+    Object* third_Objects_5{};
 
-    Object* map;
+    Object* map{};
 
 //Obstacle
-    Object* sharpKnife;
+    Object* sharpKnife{};
 
     //movement image
-    Object* movement_p1;
-    Object* movement_p2;
+    Object* movement_p1{};
+    Object* movement_p2{};
 
 	bool flag = false;
     bool isCheck_Clear = false;

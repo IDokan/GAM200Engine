@@ -322,7 +322,7 @@ void TestLevel::Update(float /*dt*/)
 		object2->SetTranslation(vector2{ 200.f, -2000.f });
 	}
 
-	DeadAndRestart(obj1Position, obj2Position);
+	DeadAndRestart();
 }
 
 void TestLevel::Unload()
@@ -338,43 +338,6 @@ void TestLevel::Unload()
 		}
 	}
 
-}
-
-void TestLevel::Draw() const noexcept
-{
-	Graphics::GL::begin_drawing();
-
-	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
-	{
-		element->SortingDepth();
-		for (const auto& obj : element->GetObjContainer())
-		{
-			if (const auto & stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
-			{
-				// Incomplete one
-				const auto matrix = cameraManager.GetWorldToNDCTransform();
-				stringSprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
-			}
-			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
-			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				sprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
-			}
-			if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())
-			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				text->Draw(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-			}
-
-			//
-		}
-	}
-	Graphics::GL::end_drawing();
 }
 
 void TestLevel::Input()
@@ -509,6 +472,16 @@ void TestLevel::Collision()
 	object1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
+void TestLevel::GameDead()
+{
+	object1->SetTranslation(vector2{ -200.f, -1900.f });
+	object2->SetTranslation(vector2{ 200.f, -1900.f }); //change actual location 
+
+	string->InitString();
+	
+	cameraManager.InitializeCurrentCameraSetting();
+}
+
 void UpdateCollisionBox(Object* obj1, Object* obj2)
 {
 	obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
@@ -544,19 +517,15 @@ void TestLevel::PlayerScaling()
 	}
 }
 
-void TestLevel::DeadAndRestart(vector2& player1Position, vector2& player2Position)
+void TestLevel::DeadAndRestart()
 {
 	// Game over when the players out of background bound. 
-    if ((object1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) || 
-        object1->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2) || 
-        object2->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) || 
-        object2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2)) 
-           ) 
-    { 
-        object1->SetTranslation(vector2{ -200.f, -2000.f }); 
-        object2->SetTranslation(vector2{ 200.f, -2000.f }); //change actual location 
-
-		player1Position = object1->GetTranslation();
-		player2Position = object2->GetTranslation();
-   } 
+	if ((object1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+		object1->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2) ||
+		object2->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+		object2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2))
+		)
+	{
+		GameDead();
+	}
 }

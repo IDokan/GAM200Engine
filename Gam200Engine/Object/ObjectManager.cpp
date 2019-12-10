@@ -59,8 +59,8 @@ void ObjectManager::AddLayer()
 
 Layer* ObjectManager::FindLayer(LayerNames name)
 {
-	const int size = layerContainer.size();
-	for (int i = 0; i < size; ++i)
+	const size_t size = layerContainer.size();
+	for (size_t i = 0; i < size; ++i)
 	{
 		if (layerContainer.at(i)->GetName() == name)
 		{

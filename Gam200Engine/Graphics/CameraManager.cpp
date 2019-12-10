@@ -27,7 +27,15 @@ Graphics::CameraManager::CameraManager()
  */
 void Graphics::CameraManager::Init() noexcept
 {
+	InitializeCurrentCameraSetting();
+}
+
+void Graphics::CameraManager::InitializeCurrentCameraSetting() noexcept
+{
+	selectedCamera->cameraView.SetZoom(selectedCamera->cameraView.GetInitZoomSize());
 	selectedCamera->cameraView.SetViewSize(Application::GetApplication()->GetWindowSize);
+	selectedCamera->camera.SetCenter(vector2{ 0.f });
+	selectedCamera->camera.ResetUp();
 }
 
 /**
@@ -129,7 +137,7 @@ void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2
     }
 
 	PositionHandling(position1, position2);
-	ZoomAndCollisionBoxHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
+	ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 }
 
 vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
@@ -207,7 +215,7 @@ vector2 Graphics::CameraManager::CalculateDeltaBetweenCameraAndPlayer(vector2 ob
 	return delta;
 }
 
-void Graphics::CameraManager::ZoomAndCollisionBoxHandling(vector2 distanceBetweenPlayer) noexcept
+void Graphics::CameraManager::ZoomAndCollisionRegionHandling(vector2 distanceBetweenPlayer) noexcept
 {
 
 	// Zoom Out part

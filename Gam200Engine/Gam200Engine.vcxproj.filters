@@ -157,6 +157,18 @@
     <ClCompile Include="Object\Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="States\BasicMovementLevel.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\OneWayPassLevel.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SizeScalingLevel.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\State.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp">
@@ -338,6 +350,15 @@
     </ClInclude>
     <ClInclude Include="Object\Player.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="States\BasicMovementLevel.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\OneWayPassLevel.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\SizeScalingLevel.hpp">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

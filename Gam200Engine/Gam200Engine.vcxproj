@@ -216,8 +216,11 @@
     <ClInclude Include="Object\Strings\StringPiece.hpp" />
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
+    <ClInclude Include="States\BasicMovementLevel.hpp" />
+    <ClInclude Include="States\OneWayPassLevel.hpp" />
     <ClInclude Include="States\ProtoLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
+    <ClInclude Include="States\SizeScalingLevel.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
     <ClInclude Include="States\TestLevel.hpp" />
@@ -278,8 +281,12 @@
     <ClCompile Include="Object\Strings\StringPiece.cpp" />
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
+    <ClCompile Include="States\BasicMovementLevel.cpp" />
+    <ClCompile Include="States\OneWayPassLevel.cpp" />
     <ClCompile Include="States\ProtoLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
+    <ClCompile Include="States\SizeScalingLevel.cpp" />
+    <ClCompile Include="States\State.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />

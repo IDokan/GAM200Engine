@@ -27,9 +27,13 @@ public:
 public:
 	String(Object* player1, Object* player2);
 
+
+	void InitString();
 	void Update(float dt);
 
 	float GetStringLength();
 private:
 	std::deque<StringVertex> vertices;
+	Object* player1;
+	Object* player2;
 };

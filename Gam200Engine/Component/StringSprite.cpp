@@ -66,7 +66,7 @@ void StringSprite::UpdateUniforms(const matrix3& toNDC, float depth)
 
 	// String uniforms upgrade
 	size_t verticesSize = stringOwner->vertices.size();
-	material->intUniform[Graphics::SHADER::Uniform_String_Vertex_Capacity] = verticesSize;
+	material->intUniform[Graphics::SHADER::Uniform_String_Vertex_Capacity] = static_cast<int>(verticesSize);
 	material->floatUniforms[Graphics::SHADER::Uniform_String_Height] = stringHeight;
 
 	// Initialize static array of vector2

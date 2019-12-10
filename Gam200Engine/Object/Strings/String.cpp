@@ -18,6 +18,7 @@ Creation Date:
 #include "Component/Physics.hpp"
 
 String::String(Object* player1, Object* player2)
+	: player1(player1), player2(player2)
 {
 	Object::AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
@@ -34,7 +35,14 @@ String::String(Object* player1, Object* player2)
 	SetDepth(-4500.f);
 }
 
-void String::Update(float dt)
+void String::InitString()
+{
+	vertices.clear();
+	vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+	vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+}
+
+void String::Update(float /*dt*/)
 {
 }
 
