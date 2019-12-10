@@ -246,6 +246,19 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(map);
 
 
+    sharpKnife = new Object();
+    sharpKnife->SetObjectType(Object::ObjectType::OBSTACLE);
+    sharpKnife->SetObjectName("sharpKnife");
+    sharpKnife->SetTranslation(vector2 { -600.f, -300.f } );
+    sharpKnife->SetScale(vector2{ 300.f ,300.f});
+    sharpKnife->AddComponent(new Sprite(sharpKnife));
+    sharpKnife->AddComponent(new Physics(sharpKnife));
+    sharpKnife->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(sharpKnife, Physics::ObjectType::CIRCLE);
+    sharpKnife->SetDepth(-1.f);
+    sharpKnife->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(sharpKnife);
+
+    cameraManager.Init();
     //=========================================================================================
     // player movement information image update
 
@@ -296,9 +309,6 @@ void TestLevel::Update(float /*dt*/)
     object1->SetTranslation(obj1Position);
     object2->SetTranslation(obj2Position);
 
-    TestLevel::Collision();
-    TestLevel::Input();
-
     // DEBUG object should be updated after camera Update()
     cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
 
@@ -313,13 +323,15 @@ void TestLevel::Update(float /*dt*/)
         isCheck_Clear = true;
     }
 
-	/*************************************UPDATE STRING****************************************************/
+    PlayerScaling();
 
-    if (map->GetComponentByTemplate<Physics>()->IsCollideWith(object1))
-    {
-        map->SetDead(true);
-    }
-   
+
+
+      if(sharpKnife->GetComponentByTemplate<Physics>()->IsCollideWith(string))
+      {
+          object1->SetTranslation(vector2{ 0.f, -2000.f });
+          object2->SetTranslation(vector2{ 200.f, -2000.f });
+      }
 }
 
 void TestLevel::Unload()

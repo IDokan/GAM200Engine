@@ -62,6 +62,9 @@ private:
 
     Object* map;
 
+//Obstacle
+    Object* sharpKnife;
+
     //movement image
     Object* movement_p1;
     Object* movement_p2;
