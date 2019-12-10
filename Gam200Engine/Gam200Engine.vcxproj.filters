@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Demo.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="PlatformWindow.cpp" />
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -88,7 +82,6 @@
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp">
       <Filter>Sounds</Filter>
     </ClCompile>
@@ -128,8 +121,6 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp">
       <Filter>Object\Strings</Filter>
     </ClCompile>
-    <ClCompile Include="States\ProtoLevel.cpp" />
-    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Component\Volatile.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -139,15 +130,35 @@
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="States\ProtoLevel.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.hpp" />
-    <ClInclude Include="Demo.hpp" />
-    <ClInclude Include="Engine.hpp" />
-    <ClInclude Include="Input.hpp" />
-    <ClInclude Include="PlatformWindow.hpp" />
-    <ClInclude Include="Timer.hpp" />
-    <ClInclude Include="Window.hpp" />
     <ClInclude Include="Component\Component.hpp">
       <Filter>Component</Filter>
     </ClInclude>
@@ -244,7 +255,6 @@
     <ClInclude Include="Graphics\ImGui\MyImGui.hpp">
       <Filter>Graphics\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp">
       <Filter>Sounds</Filter>
     </ClInclude>
@@ -287,8 +297,6 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp">
       <Filter>Object\Strings</Filter>
     </ClInclude>
-    <ClInclude Include="States\ProtoLevel.hpp" />
-    <ClInclude Include="FileIO.hpp" />
     <ClInclude Include="Component\Volatile.hpp">
       <Filter>Component</Filter>
     </ClInclude>
@@ -297,6 +305,36 @@
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformWindow.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="States\ProtoLevel.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.hpp">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.hpp">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.hpp">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +364,15 @@
     </Filter>
     <Filter Include="Object\InteractiveObject">
       <UniqueIdentifier>{bb207cb7-93ee-4df0-a8f0-7b1f7c449a02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{7a388916-1738-4bd7-85c6-725586ea2e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{74847f09-b038-45f7-b7cf-b449a9d947a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{41210f07-5800-43f1-8a05-6677ec51e3bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
