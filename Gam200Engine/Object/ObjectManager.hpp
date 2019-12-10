@@ -11,7 +11,7 @@ Creation Date: 08.12.2019
 ******************************************************************************/
 #pragma once
 #include <vector>
-#include "Object.hpp"
+#include <Object/Object.hpp>
 #include <memory>
 #include <unordered_map>
 #include <string>

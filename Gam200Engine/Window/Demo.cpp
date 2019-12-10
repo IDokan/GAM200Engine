@@ -9,7 +9,7 @@ Creation Date: 08.10.2019
 
 	code file for Demo graphics code
 ******************************************************************************/
-#include "Demo.hpp"
+#include <Window/Demo.hpp>
 #include <Graphics/StockShaders.hpp>
 #include <Graphics/Color4ub.hpp>
 #include <Graphics/Mesh.hpp>

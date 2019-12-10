@@ -9,9 +9,9 @@ Creation Date: 08.05.2019
 
     Source file for running program
 ******************************************************************************/
-#include "Engine.hpp"
-#include "Application.hpp"
-#include "Input.hpp"
+#include <Window/Engine.hpp>
+#include <Window/Application.hpp>
+#include <Systems/Input.hpp>
 #include <iostream>
 #include <Object/ObjectManager.hpp>
 #include <States/StateManager.hpp>

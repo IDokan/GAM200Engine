@@ -13,7 +13,7 @@ Creation Date: 08.10.2019
 
 #include <Graphics/Material.hpp>
 #include <Graphics/Shader.hpp>
-#include "Graphics/Vertices.hpp"
+#include <Graphics/Vertices.hpp>
 
 class Demo
 {

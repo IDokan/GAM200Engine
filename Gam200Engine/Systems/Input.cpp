@@ -10,9 +10,9 @@ Creation Date: 08.06.2019
 
     Source file for getting keyboard input
 ******************************************************************************/
-#include "Input.hpp"
-#include "PlatformWindow.hpp"
-#include "Application.hpp"
+#include <Systems/Input.hpp>
+#include <Window/PlatformWindow.hpp>
+#include <Window/Application.hpp>
 #include <chrono>
 
 Input input;

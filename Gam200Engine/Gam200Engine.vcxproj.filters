@@ -130,31 +130,31 @@
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Demo.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformWindow.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
     <ClCompile Include="States\ProtoLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="FileIO.cpp">
+    <ClCompile Include="Window\Application.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\Demo.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\Engine.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\PlatformWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\FileIO.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="Systems\Input.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp">
+    <ClCompile Include="Systems\Observer.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -306,34 +306,37 @@
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClInclude>
-    <ClInclude Include="Application.hpp">
-      <Filter>Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Demo.hpp">
-      <Filter>Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.hpp">
-      <Filter>Window</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformWindow.hpp">
-      <Filter>Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.hpp">
-      <Filter>Window</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Timer</Filter>
     </ClInclude>
     <ClInclude Include="States\ProtoLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="FileIO.hpp">
+    <ClInclude Include="Window\Application.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\Demo.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\Engine.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\PlatformWindow.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\Window.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\FileIO.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Input.hpp">
+    <ClInclude Include="Systems\Input.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.hpp">
+    <ClInclude Include="Systems\Observer.hpp">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Timer.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

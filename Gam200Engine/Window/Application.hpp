@@ -10,7 +10,7 @@ Creation Date: 08.05.2019
     Header file for the Application.cpp
 ******************************************************************************/
 #pragma once
-#include "Window.hpp"
+#include <Window/Window.hpp>
 #include <States/TestLevel.hpp>
 #include <States/ProtoLevel.hpp>
 #include <Graphics/Color4f.hpp>
@@ -22,7 +22,6 @@ public:
     void Init();
     void Update(float dt);
     void Clear();
-    void InputTest();
     void Input();
      vector2 GetWindowSize;
 

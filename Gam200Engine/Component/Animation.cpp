@@ -41,7 +41,7 @@ void Animation::Clear()
 
 void Animation::SendIndex() const noexcept
 {
-	material->intUniform[Graphics::SHADER::Uniform_Index] = ceil(int(index) % frame);
+	material->intUniform[Graphics::SHADER::Uniform_Index] = static_cast<int>(ceil(int(index) % frame));
 }
 
 int Animation::GetFrame() const noexcept
@@ -49,9 +49,9 @@ int Animation::GetFrame() const noexcept
 	return frame;
 }
 
-void Animation::SetFrame(int frame) noexcept
+void Animation::SetFrame(int frame_) noexcept
 {
-	material->intUniform[Graphics::SHADER::Uniform_Frame] = this->frame = frame;
+	material->intUniform[Graphics::SHADER::Uniform_Frame] = frame = frame_;
 }
 
 float Animation::GetSpeed() const noexcept
@@ -59,7 +59,7 @@ float Animation::GetSpeed() const noexcept
 	return speed;
 }
 
-void Animation::SetSpeed(float speed) noexcept
+void Animation::SetSpeed(float speed_) noexcept
 {
-	this->speed = speed;
+	speed = speed_;
 }

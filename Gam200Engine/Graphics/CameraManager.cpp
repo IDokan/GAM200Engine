@@ -11,8 +11,8 @@ Creation Date: 08.21.2019
 ******************************************************************************/
 
 #include "CameraManager.hpp"
-#include <Application.hpp>
-#include <Input.hpp>
+#include <Window/Application.hpp>
+#include <Systems/Input.hpp>
 
 Graphics::CameraManager::CameraManager()
 {

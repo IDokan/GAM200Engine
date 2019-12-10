@@ -13,8 +13,8 @@ Creation Date: 08.15.2019
 #pragma once
 #include "Vector2.hpp"
 #include "matrix3.hpp"
-#include "Component.hpp"
-#include "Object/Object.hpp"
+#include <Component/Component.hpp>
+#include <Object/Object.hpp>
 
 class Physics : public Component
 {

@@ -14,9 +14,9 @@ Creation Date: 08.14.2019
 #include <Graphics/StockShaders.hpp>
 #include <GL/glew.h>
 #include <Object/Object.hpp>
-#include "Graphics/GL.hpp"
+#include <Graphics/GL.hpp>
 #include <iostream>
-#include "Application.hpp"
+#include <Window/Application.hpp>
 #include <Component/Physics.hpp>
 
 #pragma warning (push)
@@ -89,6 +89,8 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 	else
 	{
 		std::cout << "Image Loading Failed!\n";
+		std::cout << "Owner object name is " << owner->GetObjectName() << std::endl;
+		std::cout << "Path is " << filepath << std::endl;
 	}
 }
 

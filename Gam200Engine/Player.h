@@ -16,7 +16,7 @@ Creation Date:
 
 class Player : public Object
 {
-    Player(std::string _playerName, vector2 playerPos, vector2 playerScale
+    Player(std::string /*_playerName*/, vector2 /*playerPos*/, vector2 /*playerScale*/
         )
     {
      //   Object::SetObjectName(_playerName);

@@ -14,11 +14,11 @@ Creation Date: 08.15.2019
 #include <cmath>
 #include "TestLevel.hpp"
 #include <Object/ObjectManager.hpp>
-#include <Input.hpp>
+#include <Systems/Input.hpp>
 #include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
 #include "Sounds/SoundManager.hpp"
-#include <FileIO.hpp>
+#include <Systems/FileIO.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
@@ -90,14 +90,13 @@ void TestLevel::Load()
     object2->SetScale(vector2{ 150.f });
     object2->AddComponent(new Sprite(object2));
     object2->AddComponent(new Physics(object2));
-    object2->SetDepth(-0.1f);
+    object2->SetDepth(-1.f);
     object2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object2, Physics::ObjectType::RECTANGLE);
     object2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
     objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
 
-	TestInteractionObject* tio = new TestInteractionObject();
-	tio->SetObjectName("Test Interaction Object");
-	objManager->FindLayer(Stage)->AddObject(tio);
+	string = new String(object1, object2);
+	objManager->FindLayer(Stage)->AddObject(string);
 
 
     goalPoint = new Object();
@@ -275,7 +274,7 @@ void TestLevel::Load()
 }
 
 bool check_haha = false;
-void TestLevel::Update(float dt)
+void TestLevel::Update(float /*dt*/)
 {
     //if (string->GetStringLength() > 500.f)
     //{
@@ -314,7 +313,6 @@ void TestLevel::Update(float dt)
         isCheck_Clear = true;
     }
 
-	}
 	/*************************************UPDATE STRING****************************************************/
 
     if (map->GetComponentByTemplate<Physics>()->IsCollideWith(object1))
@@ -347,7 +345,7 @@ void TestLevel::Draw() const noexcept
     {
         element->SortingDepth();
         for (const auto& obj : element->GetObjContainer())
-        {//
+        {
             if (const auto& stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
             {
                 // Incomplete one

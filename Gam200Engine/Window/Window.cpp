@@ -9,8 +9,8 @@ Creation Date: 08.05.2019
 
     Source file for making window
 ******************************************************************************/
-#include "Window.hpp"
-#include "PlatformWindow.hpp"
+#include <Window/Window.hpp>
+#include <Window/PlatformWindow.hpp>
 
 Window::Window() noexcept : platformWindow(std::make_unique<PlatformWindow>()) {};
 

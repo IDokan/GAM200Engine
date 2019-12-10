@@ -13,7 +13,7 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui.h>
 #include <Graphics/ImGui/imgui_impl_opengl3.h>
 #include <Graphics/ImGui/imgui_impl_glfw.h>
-#include <Application.hpp>
+#include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 
@@ -56,19 +56,6 @@ namespace MyImGui
 
 			hudLayer->AddObjectDynamically(collisionBox);
 		}
-	}
-
-	void DeleteCollisionBox(Object* obj, Physics* physics)
-	{
-		if (isCollisionBoxShown == false)
-		{
-			return;
-		}
-		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
-		// Toggle Show Var
-		isCollisionBoxShown = false;
-		//hudLayer->DeleteObject(obj->GetObjectName() + " CollisionBox");
-		collisionBox->SetDead(true);
 	}
 
 	void HelpMarker(const char* description)
@@ -137,7 +124,7 @@ namespace MyImGui
 			}
 			else
 			{
-				DeleteCollisionBox(object, physics);
+				//DeleteCollisionBox(object, physics);
 			}
 		}
 	}
@@ -190,19 +177,17 @@ namespace MyImGui
 #ifdef _DEBUG
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
-		ImGuiIO& io = ImGui::GetIO();
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
-		ImGuiStyle& style = ImGui::GetStyle();
 #endif
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
-	void UpdateImGui(bool isShowWindow, float dt) noexcept
+	void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
 	{
 #ifdef _DEBUG
 		// Start the Dear ImGui frame
@@ -222,7 +207,7 @@ namespace MyImGui
 		for (int i = 0; i < layerContainer.size(); ++i)
 		{
 			const auto objContainer = layerContainer.at(i)->GetObjContainer();
-			const int size = objContainer.size();
+			const size_t size = objContainer.size();
 			for (int j = 0; j < size; ++j)
 			{
 				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && selectedLayer == i))
@@ -238,7 +223,7 @@ namespace MyImGui
 		if (selectedLayer >= 0 && selectedLayer <= int(layerContainer.size()))
 		{
 			const auto& objContainer = layerContainer.at(selectedLayer)->GetObjContainer();
-			const int objContainerSize = objContainer.size();
+			const size_t objContainerSize = objContainer.size();
 			if (selected >= 0 && selected < objContainerSize)
 			{
 				Object* obj = objContainer.at(selected).get();

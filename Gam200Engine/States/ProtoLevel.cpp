@@ -19,7 +19,7 @@ Creation Date: 11.11.2019
 #include <Component\Animation.cpp>
 #include <Graphics\GL.cpp>
 #include <Component\TextComponent.hpp>
-#include <Input.hpp>
+#include <Systems/Input.hpp>
 #include <States\StateManager.hpp>
 
 
@@ -61,13 +61,12 @@ void ProtoLevel::Load() {
 
 
 }
-void ProtoLevel::Update(float dt) {
+void ProtoLevel::Update(float /*dt*/) {
 
     //vector2 objectAPosition = objectA->GetComponentByTemplate<Physics>()->GetPosition();
 
     
     cameraManager.CameraMove(vector2{ -1.f }, vector2{ -1.f }, 1.1f);
-    ObjectManager* objManager = ObjectManager::GetObjectManager();
 
     is_next = false;
     if (input.IsKeyPressed(GLFW_KEY_8))

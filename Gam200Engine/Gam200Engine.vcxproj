@@ -171,7 +171,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Application.hpp" />
     <ClInclude Include="Component\Animation.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
@@ -180,9 +179,6 @@
     <ClInclude Include="Component\StringSprite.hpp" />
     <ClInclude Include="Component\TextComponent.hpp" />
     <ClInclude Include="Component\Volatile.hpp" />
-    <ClInclude Include="Demo.hpp" />
-    <ClInclude Include="Engine.hpp" />
-    <ClInclude Include="FileIO.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -211,7 +207,6 @@
     <ClInclude Include="Graphics\Texture.hpp" />
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
-    <ClInclude Include="Input.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
@@ -220,19 +215,24 @@
     <ClInclude Include="Object\Strings\StringPiece.hpp" />
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
-    <ClInclude Include="Observer.hpp" />
-    <ClInclude Include="PlatformWindow.hpp" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="States\ProtoLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
     <ClInclude Include="States\TestLevel.hpp" />
+    <ClInclude Include="Systems\FileIO.hpp" />
+    <ClInclude Include="Systems\Input.hpp" />
+    <ClInclude Include="Systems\Observer.hpp" />
+    <ClInclude Include="Systems\Timer.hpp" />
     <ClInclude Include="Timer.hpp" />
-    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="Window\Application.hpp" />
+    <ClInclude Include="Window\Demo.hpp" />
+    <ClInclude Include="Window\Engine.hpp" />
+    <ClInclude Include="Window\PlatformWindow.hpp" />
+    <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Component\Animation.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
@@ -241,9 +241,6 @@
     <ClCompile Include="Component\StringSprite.cpp" />
     <ClCompile Include="Component\TextComponent.cpp" />
     <ClCompile Include="Component\Volatile.cpp" />
-    <ClCompile Include="Demo.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -272,7 +269,6 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
-    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
@@ -281,14 +277,19 @@
     <ClCompile Include="Object\Strings\StringPiece.cpp" />
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
-    <ClCompile Include="Observer.cpp" />
-    <ClCompile Include="PlatformWindow.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="States\ProtoLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Systems\FileIO.cpp" />
+    <ClCompile Include="Systems\Input.cpp" />
+    <ClCompile Include="Systems\Observer.cpp" />
+    <ClCompile Include="Window\Application.cpp" />
+    <ClCompile Include="Window\Demo.cpp" />
+    <ClCompile Include="Window\Engine.cpp" />
+    <ClCompile Include="Window\PlatformWindow.cpp" />
+    <ClCompile Include="Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Math\Math.vcxproj">

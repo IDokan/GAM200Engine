@@ -27,6 +27,11 @@ String::String(Object* player1, Object* player2)
 	
 	vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
 	vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+
+	// Basic property initialize
+	SetObjectName("String");
+	SetObjectType(Object::ObjectType::STRING);
+	SetDepth(-4500.f);
 }
 
 void String::Update(float dt)

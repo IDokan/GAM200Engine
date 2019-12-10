@@ -123,7 +123,7 @@ std::vector<std::shared_ptr<Object>>& Layer::GetObjContainer()
  */
 bool operator<(const std::shared_ptr<Object>& x, const std::shared_ptr<Object>& y)
 {
-	return (x->GetTransform().GetDepth() < y->GetTransform().GetDepth());
+	return (x->GetTransform().GetDepth() > y->GetTransform().GetDepth());
 }
 void Layer::SortingDepth()
 {

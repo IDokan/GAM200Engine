@@ -10,7 +10,7 @@ Creation Date: 08.05.2019
     Source file for the make window
 ******************************************************************************/
 #include "Application.hpp"
-#include "Input.hpp"
+#include <Systems/Input.hpp>
 #include <iostream>
 #include "Graphics/GL.hpp"
 #include "States/StateManager.hpp"
@@ -90,42 +90,11 @@ void Application::Input()
     }  
 }
 
-void Application::InputTest()
-{
-    if (input.IsKeyPressed (GLFW_KEY_A))
-    {
-        std::cout << "A" << std::endl;
-    }
-    if (input.IsKeyPressed(GLFW_KEY_B))
-    {
-        std::cout << "B" << std::endl;
-    }
-    if (input.IsKeyReleased(GLFW_KEY_B))
-    {
-        std::cout << "B" << std::endl;
-    }
-    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
-    {
-        std::cout << "left mouse button triggered" << std::endl;
-    }
-    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
-    {
-        std::cout << "right mouse button triggered" << std::endl;
-    }
-    if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_MIDDLE))
-    {
-        std::cout << "middle mouse button triggered" << std::endl;
-    }
-    if (input.IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
-    {
-        std::cout << "mouse button double clicked" << std::endl;
-    }
-}
 
 void Application::Clear()
 {
-	ObjectManager::GetObjectManager()->Clear();
 	StateManager::GetStateManager()->Clear();
+	ObjectManager::GetObjectManager()->Clear();
 
 
 	// ImGui Clear

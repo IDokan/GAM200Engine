@@ -11,8 +11,8 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #define UNUSED
 
-#include "PlatformWindow.hpp"
-#include "Input.hpp"
+#include <Window/PlatformWindow.hpp>
+#include <Systems/Input.hpp>
 #include <Graphics/glCheck.hpp>
 #include <Graphics/GL.hpp>
 #include <Graphics/ImGui/MyImGui.hpp>

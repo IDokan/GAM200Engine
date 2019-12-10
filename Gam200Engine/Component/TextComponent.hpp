@@ -10,10 +10,10 @@ Creation Date: 10.28.2019
 	Header file for Text Component Implementation
 ******************************************************************************/
 #pragma once
-#include "Graphics/TextPlatform.hpp"
-#include "Component/Component.hpp"
-#include "Graphics/BitmapFont.hpp"
-#include "Graphics/Material.hpp"
+#include <Graphics/TextPlatform.hpp>
+#include <Component/Component.hpp>
+#include <Graphics/BitmapFont.hpp>
+#include <Graphics/Material.hpp>
 
 namespace Graphics
 {

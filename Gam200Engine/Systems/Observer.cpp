@@ -10,7 +10,7 @@ Creation Date: 08.29.2019
     Header file for the Application.cpp
 ******************************************************************************/
 
-#include "Observer.hpp"
+#include <Systems/Observer.hpp>
 
 void Subject::addObserver(Observer *obs) {
     observerList.push_back(obs);
