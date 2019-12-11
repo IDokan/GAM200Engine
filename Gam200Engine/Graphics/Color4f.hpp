@@ -24,6 +24,13 @@ namespace Graphics
 		Color4f() noexcept = default;
 		Color4f(float grey, float alpha = 1.f) noexcept;
 		Color4f(float red, float green, float blue, float alpha = 1.f) noexcept;
+
+		Graphics::Color4f operator*(float scaler) const noexcept;
+		Graphics::Color4f operator-(Graphics::Color4f color) const noexcept;
+		Graphics::Color4f operator+(Graphics::Color4f color) const noexcept;
+
+	private:
+		void Clamping() noexcept;
 	};
 
 	static_assert(sizeof(Color4f) == 16, "Color4f should be 4 floats");

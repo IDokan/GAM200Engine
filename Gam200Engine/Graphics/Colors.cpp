@@ -79,12 +79,69 @@ namespace Graphics
 		);
 	}
 
-	 Color4f::Color4f(float grey, float alpha) noexcept : red(grey), green(grey), blue(grey), alpha(alpha) {}
+	 Color4f::Color4f(float grey, float alpha) noexcept : red(grey), green(grey), blue(grey), alpha(alpha) { Clamping(); }
 
 	 Color4f::Color4f(float red, float green, float blue, float alpha) noexcept
 		: red(red), green(green), blue(blue), alpha(alpha)
 	{
+		 Clamping();
 	}
+
+	 Graphics::Color4f Color4f::operator*(float scaler) const noexcept
+	 {
+		 return Color4f{ red * scaler, green * scaler, blue * scaler, alpha};
+	 }
+
+	 Graphics::Color4f Color4f::operator-(Graphics::Color4f color) const noexcept
+	 {
+	 	// return greater alpha value between two of them.
+		 return Color4f{ red - color.red, green - color.green, blue - color.blue, (alpha > color.alpha) ? alpha : color.alpha };
+	 }
+
+	 Graphics::Color4f Color4f::operator+(Graphics::Color4f color) const noexcept
+	 {
+		 // return greater alpha value between two of them.
+		 return Color4f{ red + color.red, green + color.green, blue+color.blue, (alpha > color.alpha) ? alpha : color.alpha };
+	 }
+
+	 void Color4f::Clamping() noexcept
+	 {
+		if (red < 0.f)
+		{
+			red = 0.f;
+		}
+		else if (red > 1.f)
+		{
+			red = 1.f;
+		}
+
+		if (green < 0.f)
+		{
+			green = 0.f;
+		}
+		else if (green > 1.f)
+		{
+			green = 1.f;
+		}
+
+		if (blue < 0.f)
+		{
+			blue = 0.f;
+		}
+		else if (blue > 1.f)
+		{
+			blue = 1.f;
+		}
+
+		if (alpha < 0.f)
+		{
+			alpha = 0.f;
+		}
+		else if (alpha > 1.f)
+		{
+			alpha = 1.f;
+		}
+	 }
 
 	 Color4f to_color4f(const Color4ub& eight_bit_color)
 	{

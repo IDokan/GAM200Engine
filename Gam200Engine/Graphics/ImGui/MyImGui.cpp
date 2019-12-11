@@ -37,7 +37,7 @@ namespace MyImGui
 	void DrawObjectNameSection(Object* obj);
 	void DrawInformation(Object* obj);
 	void DrawTransformSection(Object* obj);
-	void HighlightSelectedObject(Object* obj);
+	void HighlightSelectedObject(Object* obj, float dt);
 	/* End of helper functions */
 
 
@@ -247,7 +247,7 @@ namespace MyImGui
 		ImGui::Spacing();
 	}
 
-	void DrawInformation(Object* obj)
+	void DrawInformation(Object* obj, float dt)
 	{
 		DrawObjectNameSection(obj);
 
@@ -261,9 +261,10 @@ namespace MyImGui
 		DrawTransformSection(obj);
 
 		// If object have components display them.
-		if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>())
+		if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>();
+			sprite != nullptr)
 		{
-			HighlightSelectedObject(obj);
+			HighlightSelectedObject(obj, dt);
 
 			DrawSpriteSection(sprite);
 		}
@@ -274,17 +275,42 @@ namespace MyImGui
 		DrawInteractiveObjectSection(dynamic_cast<InteractiveObject*>(obj));
 	}
 
-	void HighlightSelectedObject(Object* obj)
+	void HighlightSelectedObject(Object* obj, float dt)
 	{
+		if (obj == nullptr || obj->GetComponentByTemplate<Sprite>() == nullptr)
+		{
+			return;
+		}
+		
 		static Object* selectedObj = nullptr;
-		static Graphics::Color4f color{};
+		static Graphics::Color4f originalColor{};
+		static Graphics::Color4f startColor{ 0.f };
+		static float localTimer {0.f};
+		
 		if (selectedObj != obj)
 		{
+			// recover data of selected data
+			if (selectedObj != nullptr && localTimer < 1.f)
+			{
+				selectedObj->GetComponentByTemplate<Sprite>()->SetColor(originalColor);
+			}
+			
+			// Initialize local timer
+			localTimer = 0.f;
+			
+			// Save data of selected object
 			selectedObj = obj;
-			color = obj->GetComponentByTemplate<Sprite>()->GetColor();
+			originalColor = obj->GetComponentByTemplate<Sprite>()->GetColor();
 		}
 
-		// TODO: Test that that I 
+
+		// Update color when only needed
+		if (localTimer < 1.f)
+		{
+			localTimer += dt;
+
+			obj->GetComponentByTemplate<Sprite>()->SetColor(startColor + (originalColor - startColor) * localTimer);
+		}
 	}
 
 	void InitImGui(GLFWwindow* window) noexcept
@@ -302,7 +328,7 @@ namespace MyImGui
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
-	void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
+	void UpdateImGui(bool /*isShowWindow*/, float dt) noexcept
 	{
 #ifdef _DEBUG
 		// Start the Dear ImGui frame
@@ -344,7 +370,7 @@ namespace MyImGui
 				Object* obj = objContainer.at(selected).get();
 
 				// Draw all information about selected object in here!
-				DrawInformation(obj);
+				DrawInformation(obj, dt);
 			}
 			else
 			{
