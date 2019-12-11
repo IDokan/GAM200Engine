@@ -10,7 +10,7 @@ Creation Date: 08.15.2019
     Source file for Physics
 ******************************************************************************/
 
-#include "Component/Physics.hpp"
+#include <Component/Physics.hpp>
 #include <Object/ObjectManager.hpp>
 #include <cmath>
 #include <iostream>
@@ -25,6 +25,7 @@ Physics::Physics(Object* obj) : Component(obj)
     position = { 0.f, 0.f };
     oldPosition = { 0.f, 0.f };
     initializedPosition = { 0.f, 0.f };
+    oldScale = { 0.f, 0.f };
     objectType = ObjectType::DEFAULT;
     collisionBox = { vector2{0.f,0.f}, vector2{0.f,0.f} };
     hasCollisionBox = true;
@@ -41,6 +42,7 @@ void Physics::Init()
     initializedPosition = owner->GetTranslation();
     position = owner->GetTranslation();
     oldPosition = owner->GetTranslation();
+    oldScale = owner->GetScale();
 }
 
 void Physics::Update(float dt)
@@ -49,11 +51,11 @@ void Physics::Update(float dt)
     matrix3 gra = MATRIX3::build_translation(gravity);
     matrix3 finalTranslation = vel * gra;
 
-    if (gravity.y >= -50.f && gravity.y != 0) // ���ܼӵ�
+    if (gravity.y >= -50.f && gravity.y != 0)
     {
         gravity.y += -dt * 10.f;
     }
-
+    oldScale = owner->GetScale();
     if (isCollide == false)
     {
         oldPosition = owner->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation; //owner->GetTranslation();
@@ -64,7 +66,6 @@ void Physics::Update(float dt)
     {
         SetWorldForceZero();
         position = oldPosition;
-
         isCollide = false;
     }
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
@@ -151,6 +152,11 @@ void Physics::SetIsCollide(bool collide)
 void Physics::SetVectorTranslation(vector2 translation)
 {
     vectorTranslation = translation;
+}
+
+void Physics::SetScale(vector2 scale)
+{
+    owner->SetScale(scale);
 }
 
 void Physics::ManageCollision()
