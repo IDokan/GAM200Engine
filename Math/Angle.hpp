@@ -16,7 +16,7 @@ Created: 08/05/2019
 
 namespace MATH
 {
-    constexpr float PI = M_PI;
+    constexpr float PI = static_cast<float>(M_PI);
     constexpr float TWO_PI = PI * 2.0f;
     constexpr float HALF_PI = PI / 2.0f;
     constexpr float QUARTER_PI = PI / 4.0f;

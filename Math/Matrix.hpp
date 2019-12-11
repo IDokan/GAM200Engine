@@ -22,7 +22,7 @@ Created: 08/05/2019
         Matrix(float p_Diagonal);
         //========================================Get Column of Matrix========================================
         vector4 GetColumn(int p_Index) {
-            p_Index * 4;
+            //p_Index * 4;
             return vector4(Elements[p_Index], Elements[p_Index + 1], Elements[p_Index + 2], Elements[p_Index + 3]);
         }
         //============================================Multiplication==========================================
