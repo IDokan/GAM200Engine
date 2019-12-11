@@ -47,6 +47,7 @@ public:
     void SetGravity(float x, float y);
     void SetWorldForceZero();
     void SetPosition(vector2 pos);
+    void SetOldPosition(vector2 pos);
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj = vector2{ 0.f,0.f }, vector2 scaleAdj = vector2{ 0.f,0.f });
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
