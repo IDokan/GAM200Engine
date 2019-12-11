@@ -107,6 +107,11 @@ void Physics::SetPosition(vector2 pos)
     position = pos;
 }
 
+void Physics::SetOldPosition(vector2 pos)
+{
+    oldPosition = pos;
+}
+
 void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj, vector2 scaleAdj)
 {
     objectType = objType;
