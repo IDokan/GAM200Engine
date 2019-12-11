@@ -26,35 +26,28 @@ public:
 		:current_state_info(GameStates::None), next_level({}), is_next(false), cameraManager({})
 	{}
 	virtual ~State() = default;
-	virtual void Load() = 0;
     virtual void Update(float dt) = 0;
-    virtual void Unload() = 0;
+	void LoadState() noexcept;
+	void UnloadState() noexcept;
 
 	virtual void Draw() const noexcept;
 
 public:
-    void LevelChangeTo(std::string name)
-    {
-        next_level = name;
-    }
-    std::string GetChangedLevelName()
-    {
-        return next_level;
-    }
-    bool isNextLevel() 
-    {
-        return is_next;
-    }
-    GameStates GetStateInfo()
-    {
-        return current_state_info;
-    }
+	void LevelChangeTo(std::string name);
+	std::string GetChangedLevelName();
+	bool isNextLevel();
+	GameStates GetStateInfo();
 
-protected:    
+protected:
+	virtual void Load() = 0;
+	virtual void Unload() = 0;
     GameStates current_state_info;
     std::string next_level;
     bool is_next;
 
 
 	Graphics::CameraManager cameraManager{};
+
+private:
+	void InstanceDEBUGObjects();
 };

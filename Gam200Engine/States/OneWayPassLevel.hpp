@@ -19,8 +19,10 @@ public:
 	OneWayPassLevel();
 	virtual ~OneWayPassLevel();
 
-	void Load() override;
 	void Update(float dt) override;
+
+protected:
+	void Load() override;
 	void Unload() override;
 	
 private:

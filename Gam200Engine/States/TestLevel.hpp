@@ -24,12 +24,13 @@ public:
 	{
 	};
 
-	virtual void Load() override;
 	virtual void Update(float dt) override;
-	virtual void Unload() override;
 
     void Input();
     void Collision();
+protected:
+	virtual void Load() override;
+	virtual void Unload() override;
 private:
 	void GameDead();
 	void PlayerScaling();

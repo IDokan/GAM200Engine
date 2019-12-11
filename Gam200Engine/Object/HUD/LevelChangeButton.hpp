@@ -2,26 +2,26 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   SizeScalingLevel.hpp
+File Name:   LevelChangeButton.hpp
 Author
 	- Sinil.Kang rtd99062@gmail.com
 
-Creation Date: 12.10.2019
+Creation Date: 12.11.2019
 
-	Header file for level that teach size scaling
+	Header file for object that make jump level
 ******************************************************************************/
 #pragma once
-#include <States/State.hpp>
+#include <Object/Object.hpp>
 
-class SizeScalingLevel : public State
+class LevelChangeButton : public Object
 {
 public:
-	SizeScalingLevel();
-	virtual ~SizeScalingLevel();
+	LevelChangeButton();
+	virtual ~LevelChangeButton();
 
-	void Update(float dt) override;
-protected:
-	void Load() override;
-	void Unload() override;
-	
+	std::vector<std::string> GetStateNames() const noexcept;
+
+	void ChangeLevel(const std::string& nextLevelName) noexcept;
+
+private:
 };

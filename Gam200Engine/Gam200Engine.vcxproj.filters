@@ -169,6 +169,9 @@
     <ClCompile Include="States\State.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="Object\HUD\LevelChangeButton.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp">
@@ -360,6 +363,9 @@
     <ClInclude Include="States\SizeScalingLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="Object\HUD\LevelChangeButton.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -397,6 +403,9 @@
     </Filter>
     <Filter Include="Systems">
       <UniqueIdentifier>{41210f07-5800-43f1-8a05-6677ec51e3bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\HUD">
+      <UniqueIdentifier>{ac9987e2-7f86-4a47-9852-03bf48e0fcdc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

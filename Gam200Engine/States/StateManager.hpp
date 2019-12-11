@@ -26,7 +26,10 @@ public:
     void AddStates(std::string name, State *state);
 
 	void Draw() const noexcept;
+	void SetNextLevel(std::string levelName) noexcept;
 
+	std::vector<std::string> GetStateNames() const noexcept;
+	
     bool is_restart = false;
      
 private:

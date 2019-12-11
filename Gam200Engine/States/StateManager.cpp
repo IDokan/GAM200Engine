@@ -9,9 +9,9 @@ Creation Date: 08.12.2019
 
     Header file for the Application.cpp
 ******************************************************************************/
-
-#include "StateManager.hpp"
 #include <iostream>
+#include <algorithm>
+#include "StateManager.hpp"
 
 
 StateManager * StateManager::GetStateManager()
@@ -32,10 +32,19 @@ void StateManager::Update(float dt)
     {
         currentState->Update(dt);
         if (currentState->isNextLevel()) {
-            std::string tmpName = currentState->GetChangedLevelName();
-            currentState->Unload();
-            currentState = states.find(tmpName)->second.get();
-            currentState->Load();
+	        const std::string tmpName = currentState->GetChangedLevelName();
+            currentState->UnloadState();
+            if (const auto & state = states.find(tmpName);
+				state != states.end())
+            {
+				currentState = state->second.get();
+            }
+            else
+            {
+				// Print DEBUG data
+				std::cout << "Change level failed!\n";
+            }
+            currentState->LoadState();
         }
     }
     else
@@ -47,7 +56,7 @@ void StateManager::Update(float dt)
 
 void StateManager::Clear()
 {
-	currentState->Unload();
+	currentState->UnloadState();
     currentState = nullptr;
 
     states.clear();
@@ -61,7 +70,7 @@ void StateManager::AddStates(std::string name, State * state)
     	// if (state->GetStateInfo() == GameStates::Menu ) 
 		{
             currentState = state;
-            currentState->Load();
+            currentState->LoadState();
         }
     }
     states.insert(tmp);
@@ -71,4 +80,21 @@ void StateManager::AddStates(std::string name, State * state)
 void StateManager::Draw() const noexcept
 {
 	currentState->Draw();
+}
+
+void StateManager::SetNextLevel(std::string levelName) noexcept
+{
+	currentState->LevelChangeTo(levelName);
+}
+
+std::vector<std::string> StateManager::GetStateNames() const noexcept
+{
+	std::vector<std::string> stateNames;
+	std::for_each(std::begin(states), std::end(states), [&](const std::pair< std::string, std::shared_ptr<State>>& stateUnit)
+		{
+			stateNames.push_back(stateUnit.first);
+		}
+	);
+
+	return stateNames;
 }

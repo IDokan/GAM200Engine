@@ -38,6 +38,7 @@ public:
 
 	void SetName(LayerNames name);
 	[[nodiscard]] LayerNames GetName() const;
+	[[nodiscard]] std::string GetNameAsString() const;
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
 	void SortingDepth();

@@ -207,6 +207,7 @@
     <ClInclude Include="Graphics\Texture.hpp" />
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
+    <ClInclude Include="Object\HUD\LevelChangeButton.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
@@ -272,6 +273,7 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
+    <ClCompile Include="Object\HUD\LevelChangeButton.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />

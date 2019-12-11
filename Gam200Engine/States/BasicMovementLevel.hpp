@@ -19,8 +19,10 @@ public:
 	BasicMovementLevel();
 	virtual ~BasicMovementLevel();
 
-	void Load() override;
 	void Update(float dt) override;
+
+protected:
+	void Load() override;
 	void Unload() override;
 private:
 };

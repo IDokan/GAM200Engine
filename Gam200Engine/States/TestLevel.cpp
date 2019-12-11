@@ -11,23 +11,17 @@ Creation Date: 08.15.2019
 	Source file for First Level to Test Sprite Component
 ******************************************************************************/
 #include <iostream>
-#include <cmath>
 #include "TestLevel.hpp"
 #include <Object/ObjectManager.hpp>
 #include <Systems/Input.hpp>
-#include <Graphics/GL.hpp>
 #include <Graphics/Parallax scrolling/Layer.hpp>
 #include "Sounds/SoundManager.hpp"
 #include <Systems/FileIO.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
-#include <Component/Animation.hpp>
 #include <Component/TextComponent.hpp>
-#include <Component/StringSprite.hpp>
 #include <Component/StringPhysics.hpp>
-
-#include <Object/InteractiveObject/TestInteractionObject.hpp>
 
 SoundManager test;
 void TestLevel::Load()
