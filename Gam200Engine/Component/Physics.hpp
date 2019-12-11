@@ -11,8 +11,8 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #pragma once
-#include "Vector2.hpp"
-#include "matrix3.hpp"
+#include <Vector2.hpp>
+#include <matrix3.hpp>
 #include <Component/Component.hpp>
 #include <Object/Object.hpp>
 
@@ -54,13 +54,9 @@ public:
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
     void SetVectorTranslation(vector2 translation);
+    void SetScale(vector2 scale);
     bool IsCollideWith(Object* object);
     void ManageCollision();
-
-    //void SetPosition(vector2 pos)
-    //{
-    //    position = pos;
-    //} ////test 
 
     vector2 GetTranslation(const matrix3 &matrix) const;
 	vector2 GetVelocity() const noexcept;
@@ -103,7 +99,10 @@ public:
     {
         return isCollide;
     }
-
+    vector2 GetOldScale() const
+    {
+        return oldScale;
+    }
     vector2 GetVectorTranslation() const; 
 
 private:
@@ -113,7 +112,7 @@ private:
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
-
+    vector2 oldScale{};
     ObjectType objectType{};
     CollisionBox collisionBox{};
    

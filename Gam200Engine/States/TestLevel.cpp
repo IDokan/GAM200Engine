@@ -496,11 +496,20 @@ void TestLevel::PlayerScaling()
         {
             return;
         }
+        vector2 object1OldScale = object1->GetScale();
+        vector2 object2OldScale = object2->GetScale();
+
         object1->SetScale(object1->GetScale() - scaling_constant);
-
         object2->SetScale(object2->GetScale() + scaling_constant);
-
         UpdateCollisionBox(object1, object2);
+
+        TestLevel::Collision();
+        if (object2->GetComponentByTemplate<Physics>()->IsCollided())
+        {
+            object1->SetScale(object1OldScale);
+            object2->SetScale(object2OldScale);
+            UpdateCollisionBox(object1, object2);
+        }
     }
     if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
     {
@@ -508,9 +517,21 @@ void TestLevel::PlayerScaling()
         {
             return;
         }
+        vector2 object1OldScale = object1->GetScale();
+        vector2 object2OldScale = object2->GetScale();
+
         object1->SetScale(object1->GetScale() + scaling_constant);
         object2->SetScale(object2->GetScale() - scaling_constant);
         UpdateCollisionBox(object1, object2);
+
+        TestLevel::Collision();
+
+        if (object1->GetComponentByTemplate<Physics>()->IsCollided())
+        {
+            object1->SetScale(object1OldScale);
+            object2->SetScale(object2OldScale);
+            UpdateCollisionBox(object1, object2);
+        }
     }
 }
 
