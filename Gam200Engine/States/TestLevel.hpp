@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:   TestLevel.hpp
 Author
 	- Sinil.Kang rtd99062@gmail.com
-
+    - Hyerin Jung junghl0621@gmail.com
 Creation Date: 08.15.2019
 
 	Header file for First Level to Test Sprite Component

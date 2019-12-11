@@ -154,9 +154,6 @@
     <ClCompile Include="Systems\Observer.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="States\BasicMovementLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -168,6 +165,12 @@
     </ClCompile>
     <ClCompile Include="States\State.cpp">
       <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player1.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player2.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,9 +351,6 @@
     <ClInclude Include="Systems\Timer.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Player.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="States\BasicMovementLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
@@ -359,6 +359,12 @@
     </ClInclude>
     <ClInclude Include="States\SizeScalingLevel.hpp">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player1.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player2.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

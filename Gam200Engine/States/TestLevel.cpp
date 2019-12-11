@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:   TestLevel.cpp
 Author
 	- Sinil.Kang rtd99062@gmail.com
-
+    - Hyerin Jung junghl0621@gmail.com
 Creation Date: 08.15.2019
 
 	Source file for First Level to Test Sprite Component
@@ -321,8 +321,8 @@ void TestLevel::Update(float /*dt*/)
 		object1->SetTranslation(vector2{ 0.f, -2000.f });
 		object2->SetTranslation(vector2{ 200.f, -2000.f });
 	}
-
-	DeadAndRestart();
+    
+    DeadAndRestart();
 }
 
 void TestLevel::Unload()
