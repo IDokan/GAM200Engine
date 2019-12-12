@@ -91,7 +91,9 @@ void fileIO::Output()
 	outputTEST << "y_pos" << ' ';
 	outputTEST << "x_scale" << ' ';
 	outputTEST << "y_scale" << ' ';
-	outputTEST << "depth" << '\n';
+	outputTEST << "depth" << ' ';
+	outputTEST << "object_type" << ' ';
+	outputTEST << "file_path" << '\n';
 	outputTEST << '\n';
 	
 	const auto& testObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
@@ -104,7 +106,9 @@ void fileIO::Output()
 			outputTEST << object->GetTranslation().y << ' ';
 			outputTEST << object->GetScale().x << ' ';
 			outputTEST << object->GetScale().y << ' ';
-			outputTEST << object->GetDepth() << '\n';
+			outputTEST << object->GetDepth() << ' ';
+			outputTEST << "test" << ' ';
+			outputTEST << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
 			outputTEST << '\n';
 		}
 	}
