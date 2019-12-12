@@ -97,7 +97,7 @@ void fileIO::Output()
 	const auto& objectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
 	for(const auto& object : objectContainer)
 	{
-		if(object->GetObjectType() == Object::ObjectType::OBSTACLE)
+		if(object->GetObjectType() == Object::ObjectType::TEST)
 		{
 			outputFile << object->GetObjectName() << ' ';
 			outputFile << object->GetTranslation().x << ' ';
