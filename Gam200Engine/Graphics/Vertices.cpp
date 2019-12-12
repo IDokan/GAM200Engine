@@ -120,7 +120,7 @@ namespace Graphics
 
     void Vertices::Select(const Vertices& vertices)
     {
-        glCheck(glBindVertexArray(vertices.verticesHandle));
+        glBindVertexArray(vertices.verticesHandle);
 
     }
 

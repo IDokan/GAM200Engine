@@ -13,7 +13,7 @@ Creation Date: DEC/11st/2019
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 #include <Component/Physics.hpp>
 
-class ObstacleObject : public InteractiveObject
+class ObstacleObject final : public InteractiveObject
 {
 
 public:

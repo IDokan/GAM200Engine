@@ -18,7 +18,7 @@ Creation Date: 11.04.2019
 #include <Component/StringSprite.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 
-StringPhysics::StringPhysics(Object* object, Object* player1, Object* player2) : Component(object), stringPhysicsOwner(dynamic_cast<String*>(object)), player1(player1), player2(player2)
+StringPhysics::StringPhysics(Object* object, Object* player1, Object* player2) : Component(object), stringPhysicsOwner(dynamic_cast<String*>(object)), player1(player1), player2(player2), shouldClear(false)
 {
 
 }
@@ -147,6 +147,12 @@ void StringPhysics::DeleteVerticesInContainer()
         }
     });
 
+    if (shouldClear)
+    {
+        stringPhysicsOwner->vertices.clear();
+        stringPhysicsOwner->vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+        stringPhysicsOwner->vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+    }
 }
 
 void StringPhysics::Detach()
@@ -257,6 +263,11 @@ void StringPhysics::LimitStringLength()
 void StringPhysics::SetStringLength(float length)
 {
     stringLength = length;
+}
+
+void StringPhysics::SetShouldClear(bool should)
+{
+    shouldClear = should;
 }
 
 void StringPhysics::Clear()
