@@ -1,6 +1,2 @@
-Name  x_pos y_pos x_scale y_scale depth object_type
-
-object1 -179 114 150 150 -1 PLAYER_1
-
-object2 -268 -1005 150 150 -1 PLAYER_2
+Name  x_pos y_pos x_scale y_scale depth object_type file_path
 

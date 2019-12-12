@@ -91,7 +91,9 @@ void fileIO::Output()
 	outputTEST << "y_pos" << ' ';
 	outputTEST << "x_scale" << ' ';
 	outputTEST << "y_scale" << ' ';
-	outputTEST << "depth" << '\n';
+	outputTEST << "depth" << ' ';
+	outputTEST << "object_type" << ' ';
+	outputTEST << "file_path" << '\n';
 	outputTEST << '\n';
 	
 	const auto& testObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
@@ -104,7 +106,9 @@ void fileIO::Output()
 			outputTEST << object->GetTranslation().y << ' ';
 			outputTEST << object->GetScale().x << ' ';
 			outputTEST << object->GetScale().y << ' ';
-			outputTEST << object->GetDepth() << '\n';
+			outputTEST << object->GetDepth() << ' ';
+			outputTEST << "test" << ' ';
+			outputTEST << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
 			outputTEST << '\n';
 		}
 	}
@@ -119,7 +123,9 @@ void fileIO::Output()
 	outputOBSTACLE << "y_pos" << ' ';
 	outputOBSTACLE << "x_scale" << ' ';
 	outputOBSTACLE << "y_scale" << ' ';
-	outputOBSTACLE << "depth" << '\n';
+	outputOBSTACLE << "depth" << ' ';
+	outputOBSTACLE << "object_type" << ' ';
+	outputOBSTACLE << "file_path" << '\n';
 	outputOBSTACLE << '\n';
 
 	const auto& obstacleObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
@@ -132,7 +138,9 @@ void fileIO::Output()
 			outputOBSTACLE << object->GetTranslation().y << ' ';
 			outputOBSTACLE << object->GetScale().x << ' ';
 			outputOBSTACLE << object->GetScale().y << ' ';
-			outputOBSTACLE << object->GetDepth() << '\n';
+			outputOBSTACLE << object->GetDepth() << ' ';
+			outputOBSTACLE << "test" << ' ';
+			outputOBSTACLE << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
 			outputOBSTACLE << '\n';
 		}
 	}
@@ -148,7 +156,8 @@ void fileIO::Output()
 	outputPLAYER << "x_scale" << ' ';
 	outputPLAYER << "y_scale" << ' ';
 	outputPLAYER << "depth" << ' ';
-	outputPLAYER << "object_type" << '\n';
+	outputPLAYER << "object_type" << ' ';
+	outputPLAYER << "file_path" << '\n';
 	outputPLAYER << '\n';
 
 	const auto& playerObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
@@ -162,7 +171,8 @@ void fileIO::Output()
 			outputPLAYER << object->GetScale().x << ' ';
 			outputPLAYER << object->GetScale().y << ' ';
 			outputPLAYER << object->GetDepth() << ' ';
-			outputPLAYER << "PLAYER_1" << '\n';
+			outputPLAYER << "player1" << ' ';
+			outputPLAYER << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
 			outputPLAYER << '\n';
 		}
 
@@ -174,7 +184,8 @@ void fileIO::Output()
 			outputPLAYER << object->GetScale().x << ' ';
 			outputPLAYER << object->GetScale().y << ' ';
 			outputPLAYER << object->GetDepth() << ' ';
-			outputPLAYER << "PLAYER_2" << '\n';
+			outputPLAYER << "player2" << ' ';
+			outputPLAYER << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
 			outputPLAYER << '\n';
 		}
 	}
