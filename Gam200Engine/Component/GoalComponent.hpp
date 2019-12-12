@@ -16,12 +16,12 @@ Creation Date: 12.13.2019
 class GoalComponent : public Component
 {
 public:
-	GoalComponent(Object* obj, const std::string& targetStage_, Object* targetObject_);
+	GoalComponent(Object* obj, const std::string& targetStage_);
 	virtual ~GoalComponent();
 	
-	void Init() override;
-	void Update(float dt) override;
-	void Clear() override;
+	virtual void Init() override;
+	virtual void Update(float dt) override;
+	virtual void Clear() override;
 
 private:
 	std::string targetStage;

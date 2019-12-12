@@ -42,7 +42,9 @@ protected:
     void Input();
     void Collision();
     void InitObject();
-
+private:
+	void PlayerScaling();
+	
 private:
     Object* background;
     Object* startPoint{};

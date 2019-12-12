@@ -13,11 +13,11 @@ Creation Date: 12.13.2019
 #include <Component/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <States/StateManager.hpp>
+#include <iostream>
 
-GoalComponent::GoalComponent(Object* obj, const std::string& targetStage_, Object* targetObject_)
-	: Component(obj), targetStage(targetStage_), targetObject(targetObject_)
+GoalComponent::GoalComponent(Object* obj, const std::string& targetStage_)
+	: Component(obj), targetStage(targetStage_)
 {
-	assert(targetObject_->GetComponentByTemplate<Physics>() != nullptr && "Owner object of Goal Component must have physics component!");
 }
 
 GoalComponent::~GoalComponent()
@@ -28,9 +28,9 @@ void GoalComponent::Init()
 {
 }
 
-void GoalComponent::Update(float /*dt*/)
+void GoalComponent::Update(float dt)
 {
-	if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(targetObject))
+	if (owner->GetComponentByTemplate<Physics>()->GetIsCollide())
 	{
 		StateManager::GetStateManager()->SetNextLevel(targetStage);
 	}

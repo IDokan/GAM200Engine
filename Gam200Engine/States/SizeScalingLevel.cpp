@@ -126,3 +126,61 @@ void SizeScalingLevel::InitObject() {
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
 }
+
+
+
+void UpdateCollisionBox(Object* obj1, Object* obj2)
+{
+	obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
+	obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
+}
+
+void SizeScalingLevel::PlayerScaling()
+{
+	const float minimum_scaling_limit = 125.f;
+	const float scaling_constant = 1.f;
+
+	if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+	{
+		if (player1->GetScale().x <= minimum_scaling_limit || player2->GetComponentByTemplate<Physics>()->IsCollided())
+		{
+			return;
+		}
+		vector2 player1OldScale = player1->GetScale();
+		vector2 player2OldScale = player2->GetScale();
+
+		player1->SetScale(player1->GetScale() - scaling_constant);
+		player2->SetScale(player2->GetScale() + scaling_constant);
+		UpdateCollisionBox(player1, player2);
+
+		Collision();
+		if (player2->GetComponentByTemplate<Physics>()->IsCollided())
+		{
+			player1->SetScale(player1OldScale);
+			player2->SetScale(player2OldScale);
+			UpdateCollisionBox(player1, player2);
+		}
+	}
+	if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
+	{
+		if (player2->GetScale().x <= minimum_scaling_limit || player1->GetComponentByTemplate<Physics>()->IsCollided())
+		{
+			return;
+		}
+		vector2 player1OldScale = player1->GetScale();
+		vector2 player2OldScale = player2->GetScale();
+
+		player1->SetScale(player1->GetScale() + scaling_constant);
+		player2->SetScale(player2->GetScale() - scaling_constant);
+		UpdateCollisionBox(player1, player2);
+
+		Collision();
+
+		if (player1->GetComponentByTemplate<Physics>()->IsCollided())
+		{
+			player1->SetScale(player1OldScale);
+			player2->SetScale(player2OldScale);
+			UpdateCollisionBox(player1, player2);
+		}
+	}
+}
