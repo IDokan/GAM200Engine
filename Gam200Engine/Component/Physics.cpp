@@ -168,10 +168,13 @@ void Physics::ManageCollision()
             if (object1->GetObjectType() != object2->GetObjectType())
             {
                 if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
-                {
+                {   
                     if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true
                         && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
                     {
+                        object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                        object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+
                         if (object1->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
                             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
@@ -187,7 +190,7 @@ void Physics::ManageCollision()
                                         object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
                                         object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
                                     }
-                                }
+                                } /* this computer is dumass's computer fucking shit */
                             }
                         }
                         else if (object1->GetObjectType() == Object::ObjectType::PLAYER_2)

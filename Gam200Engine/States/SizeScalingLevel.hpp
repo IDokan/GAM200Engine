@@ -42,7 +42,10 @@ protected:
     void Input();
     void Collision();
     void InitObject();
-
+private:
+	void UpdateCollisionBox(Object* obj1, Object* obj2);
+	void PlayerScaling();
+	
 private:
     Object* background;
     Object* startPoint{};
@@ -50,9 +53,9 @@ private:
 
     Object* scaleObject1;
     Object* scaleObject2;
-
-    Player1* player1{};
-    Player2* player2{};
+    
+    Object* player1{};
+    Object* player2{};
     String* string{};
 
 };

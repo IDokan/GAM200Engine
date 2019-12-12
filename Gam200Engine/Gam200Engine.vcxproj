@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Component\Animation.hpp" />
     <ClInclude Include="Component\Component.hpp" />
+    <ClInclude Include="Component\GoalComponent.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
@@ -243,6 +244,7 @@
   <ItemGroup>
     <ClCompile Include="Component\Animation.cpp" />
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\GoalComponent.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />

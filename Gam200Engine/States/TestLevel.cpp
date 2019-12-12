@@ -22,6 +22,7 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Component/TextComponent.hpp>
 #include <Component/StringPhysics.hpp>
+#include <Component/GoalComponent.hpp>
 
 SoundManager test;
 
@@ -94,10 +95,10 @@ void TestLevel::Load()
     goalPoint->SetObjectName("goalPoint");
     goalPoint->SetTranslation(vector2{ 0.f, 2000.f });
     goalPoint->SetScale(vector2{ 150.f });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-    goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel"));
+	goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
@@ -107,7 +108,7 @@ void TestLevel::Load()
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("goalPoint");
+    startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -2000.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
@@ -455,7 +456,7 @@ void TestLevel::PlayerMove(vector2 player1Position, vector2 player2Position) con
     object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetTranslation());
 }
 
-void UpdateCollisionBox(Object* obj1, Object* obj2)
+void TestLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
 {
     obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
     obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
