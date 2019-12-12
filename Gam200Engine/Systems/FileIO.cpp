@@ -65,6 +65,10 @@ void fileIO::Input(const std::filesystem::path& filePath)
 		{
 			object->SetObjectType(Object::ObjectType::OBSTACLE);
 		}
+		else if(objectType == "test")
+		{
+			object->SetObjectType(Object::ObjectType::TEST);
+		}
 		if(spriteFileName != "no")
 		{
 			object->GetComponentByTemplate<Sprite>()->SetImage(spriteFileName);
