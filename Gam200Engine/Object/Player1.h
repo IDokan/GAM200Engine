@@ -16,13 +16,15 @@ Creation Date: 11th/Nov/2019
 #include <Component/Physics.hpp>
 #include <utility>
 
-class Player : public Object
+class Player1 : public Object
 {
 
 public:
-    Player(std::string _playerName, const vector2 playerPos, vector2 playerScale
-        , Physics::ObjectType _objectType, Graphics::Color4f _color = { 0.f,0.f,0.f,0.f },
-        vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f }, float _depth = 0);
+    Player1(std::string _playerName, const vector2 playerPos, vector2 playerScale
+        , Physics::ObjectType _objectType, float _depth = 0, Graphics::Color4f _color = { 0.f,0.f,0.f,0.f },
+        vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f });
+
+    void Move() noexcept;
 
 private:
     std::string playerName;

@@ -154,9 +154,6 @@
     <ClCompile Include="Systems\Observer.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="States\BasicMovementLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -353,9 +350,6 @@
     </ClInclude>
     <ClInclude Include="Systems\Timer.hpp">
       <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="States\BasicMovementLevel.hpp">
       <Filter>States</Filter>

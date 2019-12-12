@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   TestLevel.cpp
 Author
-    - Sinil.Kang rtd99062@gmail.com
-
+	- Sinil.Kang rtd99062@gmail.com
+    - Hyerin Jung junghl0621@gmail.com
 Creation Date: 08.15.2019
 
     Source file for First Level to Test Sprite Component
