@@ -19,8 +19,8 @@ Creation Date: 12.10.2019
 #include <Component/TextComponent.hpp>
 
 // Include Special objects
-#include <Object/HUD/LevelChangeButton.hpp>
-
+#include <Object/DEBUGObject/LevelChangeButton.hpp>
+#include <Object/DEBUGObject/WallSpawner.hpp>
 
 void State::LoadState() noexcept
 {
@@ -101,5 +101,8 @@ void State::InstanceDEBUGObjects()
 
 	LevelChangeButton* tmp = new LevelChangeButton();
 	objManager->FindLayer(HUD)->AddObject(tmp);
+	WallSpawner* wallSpawner = new WallSpawner();
+	objManager->FindLayer(HUD)->AddObject(wallSpawner);
+	
 #endif
 }

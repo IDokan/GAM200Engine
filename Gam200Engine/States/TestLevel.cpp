@@ -309,14 +309,6 @@ void TestLevel::Update(float /*dt*/)
 
     PlayerScaling();
 
-
-
-    if (sharpKnife->GetComponentByTemplate<Physics>()->IsCollideWith(string))
-    {
-        object1->SetTranslation(vector2{ 0.f, -2000.f });
-        object2->SetTranslation(vector2{ 200.f, -2000.f });
-    }
-
     DeadAndRestart();
 }
 

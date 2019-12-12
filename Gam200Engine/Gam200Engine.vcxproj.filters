@@ -169,8 +169,11 @@
     <ClCompile Include="States\State.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="Object\HUD\LevelChangeButton.cpp">
-      <Filter>Object\HUD</Filter>
+    <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp">
+      <Filter>Object\DEBUGObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp">
+      <Filter>Object\DEBUGObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -363,8 +366,11 @@
     <ClInclude Include="States\SizeScalingLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="Object\HUD\LevelChangeButton.hpp">
-      <Filter>Object\HUD</Filter>
+    <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp">
+      <Filter>Object\DEBUGObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp">
+      <Filter>Object\DEBUGObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +412,9 @@
     </Filter>
     <Filter Include="Object\HUD">
       <UniqueIdentifier>{ac9987e2-7f86-4a47-9852-03bf48e0fcdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\DEBUGObject">
+      <UniqueIdentifier>{144e1d1b-af11-4117-be89-c65fb7b5e0c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

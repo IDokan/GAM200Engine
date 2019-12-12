@@ -11,7 +11,7 @@ Creation Date: 12.11.2019
 	Source file for object that make jump level
 ******************************************************************************/
 
-#include <Object/HUD/LevelChangeButton.hpp>
+#include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <States/StateManager.hpp>
 #include <utility>
 

@@ -23,7 +23,10 @@ Creation Date: 08.23.2019
 #include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
-#include <Object/HUD/LevelChangeButton.hpp>
+// Include special objects
+#include <Object/DEBUGObject/WallSpawner.hpp>
+#include <Object/DEBUGObject/LevelChangeButton.hpp>
+// Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 
@@ -42,6 +45,7 @@ namespace MyImGui
 	void DrawTransformSection(Object* obj);
 	void HighlightSelectedObject(Object* obj, float dt);
 	void DrawLevelChangeSection(LevelChangeButton* levelChangeButton);
+	void DrawWallSpawnerSection(WallSpawner* wallSpawner);
 	/* End of helper functions */
 
 
@@ -223,19 +227,23 @@ namespace MyImGui
 		ImGui::Text("Transform");
 		static vector2 translation{}, scale{};
 		static float rotation;
+		static float depth;
 		translation = obj->GetTranslation();
 		rotation = obj->GetRotation();
 		scale = obj->GetScale();
+		depth = obj->GetDepth();
 
 		ImGui::DragFloat("Translation X", &translation.x);
 		ImGui::DragFloat("Translation Y", &translation.y);
 		ImGui::DragFloat("Scale X", &scale.x);
 		ImGui::DragFloat("Scale Y", &scale.y);
 		ImGui::DragFloat("Rotation", &rotation, 0.005f);
+		ImGui::DragFloat("Depth", &depth);
 
 		obj->SetTranslation(translation);
 		obj->SetScale(scale);
 		obj->SetRotation(rotation);
+		obj->SetDepth(depth);
 
 		if (ImGui::Button("Delete it"))
 		{
@@ -294,6 +302,13 @@ namespace MyImGui
 
 		// Draw Interactive Object
 		DrawInteractiveObjectSection(dynamic_cast<InteractiveObject*>(obj));
+
+		// Draw Wall Spawner object
+		if (WallSpawner* wallSpawner = dynamic_cast<WallSpawner*>(obj);
+			wallSpawner != nullptr)
+		{
+			DrawWallSpawnerSection(wallSpawner);
+		}
 	}
 
 	void HighlightSelectedObject(Object* obj, float dt)
@@ -348,17 +363,37 @@ namespace MyImGui
 		}
 	}
 
+	void DrawWallSpawnerSection(WallSpawner* wallSpawner)
+	{
+		SeparateSection("Wall Spawner");
+
+		if (ImGui::Button("Spawn wall!"))
+		{
+			wallSpawner->SpawnWall();
+		}
+	}
+
 	void InitImGui(GLFWwindow* window) noexcept
 	{
 #ifdef _DEBUG
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+	
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 #endif
 	}
 
@@ -427,6 +462,15 @@ namespace MyImGui
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 #endif
 	}
 
