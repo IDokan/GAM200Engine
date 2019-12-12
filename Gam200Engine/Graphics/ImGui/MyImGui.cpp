@@ -120,13 +120,15 @@ namespace MyImGui
 		sprite->SetColor(color);
 
 		ImGui::Spacing();
-		if (ImGui::Button("Button"))
+
+		static constexpr size_t BUFFER_SIZE = 128;
+		static char* filePath{};
+		filePath = const_cast<char*>(sprite->GetImagePath().c_str());
+		ImGui::InputText("file path", filePath, BUFFER_SIZE);
+		if (ImGui::Button("Change sprite!"))
 		{
-			sprite->SetImage("../texture/rect.png");
+			sprite->SetImage(filePath);
 		}
-		unsigned int* textureID = sprite->GetRefTextureHandle();
-		ImGui::Text("%d", textureID);
-		ImGui::Image((textureID), ImVec2(128, 128));
 	}
 
 	void DrawPhysicsSection(Object* object, Physics* physics)
