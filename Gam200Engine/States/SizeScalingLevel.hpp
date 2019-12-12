@@ -43,6 +43,7 @@ protected:
     void Collision();
     void InitObject();
 private:
+	void UpdateCollisionBox(Object* obj1, Object* obj2);
 	void PlayerScaling();
 	
 private:

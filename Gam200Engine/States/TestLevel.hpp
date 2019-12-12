@@ -38,6 +38,7 @@ private:
     void PlayerMove(vector2 player1Position, vector2 player2Position) const;
 	void PlayerScaling();
 	void CheckOutofPlace();
+	void UpdateCollisionBox(Object* obj1, Object* obj2);
 private:
 
     Object* gameClearPopUp{};

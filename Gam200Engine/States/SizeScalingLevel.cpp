@@ -28,10 +28,11 @@ void SizeScalingLevel::Load()
     cameraManager.Init();
 }
 
-void SizeScalingLevel::Update(float /*dt*/)
+void SizeScalingLevel::Update(float dt)
 {
     SizeScalingLevel::Input();
     SizeScalingLevel::Collision();
+	PlayerScaling();
 
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
@@ -286,7 +287,7 @@ void SizeScalingLevel::InitObject() {
 
 
 
-void UpdateCollisionBox(Object* obj1, Object* obj2)
+void SizeScalingLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
 {
 	obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
 	obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);

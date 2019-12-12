@@ -456,6 +456,62 @@ void TestLevel::PlayerMove(vector2 player1Position, vector2 player2Position) con
     object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetTranslation());
 }
 
+void TestLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
+{
+    obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
+    obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
+}
+
+void TestLevel::PlayerScaling()
+{
+    const float minimum_scaling_limit = 125.f;
+    const float scaling_constant = 1.f;
+
+    if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+    {
+        if (object1->GetScale().x <= minimum_scaling_limit || object2->GetComponentByTemplate<Physics>()->IsCollided())
+        {
+            return;
+        }
+        vector2 object1OldScale = object1->GetScale();
+        vector2 object2OldScale = object2->GetScale();
+
+        object1->SetScale(object1->GetScale() - scaling_constant);
+        object2->SetScale(object2->GetScale() + scaling_constant);
+        UpdateCollisionBox(object1, object2);
+
+        TestLevel::Collision();
+        if (object2->GetComponentByTemplate<Physics>()->IsCollided())
+        {
+            object1->SetScale(object1OldScale);
+            object2->SetScale(object2OldScale);
+            UpdateCollisionBox(object1, object2);
+        }
+    }
+    if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
+    {
+        if (object2->GetScale().x <= minimum_scaling_limit || object1->GetComponentByTemplate<Physics>()->IsCollided())
+        {
+            return;
+        }
+        vector2 object1OldScale = object1->GetScale();
+        vector2 object2OldScale = object2->GetScale();
+
+        object1->SetScale(object1->GetScale() + scaling_constant);
+        object2->SetScale(object2->GetScale() - scaling_constant);
+        UpdateCollisionBox(object1, object2);
+
+        TestLevel::Collision();
+
+        if (object1->GetComponentByTemplate<Physics>()->IsCollided())
+        {
+            object1->SetScale(object1OldScale);
+            object2->SetScale(object2OldScale);
+            UpdateCollisionBox(object1, object2);
+        }
+    }
+}
+
 void TestLevel::CheckOutofPlace()
 {
 	// Game over when the players out of background bound. 
