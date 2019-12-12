@@ -83,31 +83,101 @@ void fileIO::Input(const std::filesystem::path& filePath)
 
 void fileIO::Output()
 {
-	std::ofstream outputFile("../assets/tmp/objectOutput.txt");
+	std::ofstream outputTEST("../assets/tmp/ObjectOutput_TEST.txt");
 
-	outputFile << "Name" << ' ';
-	outputFile << ' ';
-	outputFile << "x_pos" << ' ';
-	outputFile << "y_pos" << ' ';
-	outputFile << "x_scale" << ' ';
-	outputFile << "y_scale" << ' ';
-	outputFile << "depth" << '\n';
-	outputFile << '\n';
+	outputTEST << "Name" << ' ';
+	outputTEST << ' ';
+	outputTEST << "x_pos" << ' ';
+	outputTEST << "y_pos" << ' ';
+	outputTEST << "x_scale" << ' ';
+	outputTEST << "y_scale" << ' ';
+	outputTEST << "depth" << '\n';
+	outputTEST << '\n';
 	
-	const auto& objectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-	for(const auto& object : objectContainer)
+	const auto& testObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	for(const auto& object : testObjectContainer)
 	{
 		if(object->GetObjectType() == Object::ObjectType::TEST)
 		{
-			outputFile << object->GetObjectName() << ' ';
-			outputFile << object->GetTranslation().x << ' ';
-			outputFile << object->GetTranslation().y << ' ';
-			outputFile << object->GetScale().x << ' ';
-			outputFile << object->GetScale().y << ' ';
-			outputFile << object->GetDepth() << '\n';
-			outputFile << '\n';
+			outputTEST << object->GetObjectName() << ' ';
+			outputTEST << object->GetTranslation().x << ' ';
+			outputTEST << object->GetTranslation().y << ' ';
+			outputTEST << object->GetScale().x << ' ';
+			outputTEST << object->GetScale().y << ' ';
+			outputTEST << object->GetDepth() << '\n';
+			outputTEST << '\n';
 		}
 	}
 
-	outputFile.close();
+	outputTEST.close();
+
+	std::ofstream outputOBSTACLE("../assets/tmp/objectOutput_OBSTACLE.txt");
+
+	outputOBSTACLE << "Name" << ' ';
+	outputOBSTACLE << ' ';
+	outputOBSTACLE << "x_pos" << ' ';
+	outputOBSTACLE << "y_pos" << ' ';
+	outputOBSTACLE << "x_scale" << ' ';
+	outputOBSTACLE << "y_scale" << ' ';
+	outputOBSTACLE << "depth" << '\n';
+	outputOBSTACLE << '\n';
+
+	const auto& obstacleObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	for (const auto& object : obstacleObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::OBSTACLE)
+		{
+			outputOBSTACLE << object->GetObjectName() << ' ';
+			outputOBSTACLE << object->GetTranslation().x << ' ';
+			outputOBSTACLE << object->GetTranslation().y << ' ';
+			outputOBSTACLE << object->GetScale().x << ' ';
+			outputOBSTACLE << object->GetScale().y << ' ';
+			outputOBSTACLE << object->GetDepth() << '\n';
+			outputOBSTACLE << '\n';
+		}
+	}
+
+	outputOBSTACLE.close();
+
+	std::ofstream outputPLAYER("../assets/tmp/objectOutput_PLAYER.txt");
+
+	outputPLAYER << "Name" << ' ';
+	outputPLAYER << ' ';
+	outputPLAYER << "x_pos" << ' ';
+	outputPLAYER << "y_pos" << ' ';
+	outputPLAYER << "x_scale" << ' ';
+	outputPLAYER << "y_scale" << ' ';
+	outputPLAYER << "depth" << ' ';
+	outputPLAYER << "object_type" << '\n';
+	outputPLAYER << '\n';
+
+	const auto& playerObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	for (const auto& object : playerObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
+		{
+			outputPLAYER << object->GetObjectName() << ' ';
+			outputPLAYER << object->GetTranslation().x << ' ';
+			outputPLAYER << object->GetTranslation().y << ' ';
+			outputPLAYER << object->GetScale().x << ' ';
+			outputPLAYER << object->GetScale().y << ' ';
+			outputPLAYER << object->GetDepth() << ' ';
+			outputPLAYER << "PLAYER_1" << '\n';
+			outputPLAYER << '\n';
+		}
+
+		if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
+		{
+			outputPLAYER << object->GetObjectName() << ' ';
+			outputPLAYER << object->GetTranslation().x << ' ';
+			outputPLAYER << object->GetTranslation().y << ' ';
+			outputPLAYER << object->GetScale().x << ' ';
+			outputPLAYER << object->GetScale().y << ' ';
+			outputPLAYER << object->GetDepth() << ' ';
+			outputPLAYER << "PLAYER_2" << '\n';
+			outputPLAYER << '\n';
+		}
+	}
+
+	outputPLAYER.close();
 }
