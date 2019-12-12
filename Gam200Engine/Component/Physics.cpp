@@ -168,7 +168,10 @@ void Physics::ManageCollision()
             if (object1->GetObjectType() != object2->GetObjectType())
             {
                 if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object2) == true)
-                {
+                {   
+                    object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                    object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+
                     if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true
                         && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
                     {
