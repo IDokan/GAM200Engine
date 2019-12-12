@@ -22,6 +22,7 @@ Creation Date: 08.05.2019
 #include <States/BasicMovementLevel.hpp>
 #include <States/OneWayPassLevel.hpp>
 #include <States/SizeScalingLevel.hpp>
+#include <States/CrushObjectLevel.hpp>
 
 
 Application* Application::GetApplication()
@@ -43,12 +44,19 @@ void Application::Init()
 	StateManager::GetStateManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+#ifdef _DEBUG
 	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
+#endif	
 	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
+	StateManager::GetStateManager()->AddStates("SizeScalingLevel", dynamic_cast<State*>(new SizeScalingLevel()));
+	StateManager::GetStateManager()->AddStates("CrushObjectLevel", dynamic_cast<State*>(new CrushObjectLevel()));
+
+	/*
+	 
 	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
 	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
-	StateManager::GetStateManager()->AddStates("SizeScalingLevel", dynamic_cast<State*>(new SizeScalingLevel()));
-
+	
+	 */
 }
 
 void Application::Update(float dt)

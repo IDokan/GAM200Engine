@@ -1,2 +1,1 @@
-Name  x_pos y_pos x_scale y_scale depth object_type file_path
-
+TestSpawnedObject0 0 -61 189 139 -50 test ../assets/textures/map.png

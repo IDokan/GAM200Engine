@@ -228,13 +228,6 @@ void BasicMovementLevel::InitObject() {
     player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
     player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 
-    //player1 = new Player1("player1", vector2{ -200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, -1.f);
-    //player1->SetObjectType(Object::ObjectType::PLAYER_1);
-    //player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
-    //player2 = new Player2("player2", vector2{ 200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, 0.f);
-    //player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    //player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
-
     string = new String(player1, player2);
 
     goalPoint = new Object();

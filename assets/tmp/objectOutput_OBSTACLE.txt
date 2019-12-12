@@ -1,1 +1,0 @@
-Name  x_pos y_pos x_scale y_scale depth object_type file_path

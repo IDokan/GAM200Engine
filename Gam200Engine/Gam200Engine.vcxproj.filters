@@ -187,6 +187,9 @@
     <ClCompile Include="Component\GoalComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="States\CrushObjectLevel.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp">
@@ -395,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="Component\GoalComponent.hpp">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="States\CrushObjectLevel.hpp">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

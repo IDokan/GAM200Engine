@@ -223,6 +223,7 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="States\BasicMovementLevel.hpp" />
+    <ClInclude Include="States\CrushObjectLevel.hpp" />
     <ClInclude Include="States\OneWayPassLevel.hpp" />
     <ClInclude Include="States\ProtoLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
@@ -294,6 +295,7 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="States\BasicMovementLevel.cpp" />
+    <ClCompile Include="States\CrushObjectLevel.cpp" />
     <ClCompile Include="States\OneWayPassLevel.cpp" />
     <ClCompile Include="States\ProtoLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
