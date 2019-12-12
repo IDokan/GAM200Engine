@@ -133,6 +133,11 @@ void Physics::SetCollisionBoxPosition(vector2 originPos)
     collisionBox.Translation = originPos + collisionBox.TranslationAmount;
 }
 
+void Physics::SetCollisionBoxScale(vector2 scale)
+{
+    this->collisionBox.Scale = { scale };
+}
+
 void Physics::ActiveGhostCollision(bool active)
 {
     isGhost = active;

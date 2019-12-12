@@ -44,6 +44,7 @@ public:
 	void DeletePositionsWithObject(Object* obj);
 
 private:
+    void DeleteVerticesInContainer();
 	void Detach();
 	
 	void InsertPoint();
@@ -59,4 +60,5 @@ private:
     Object* player2;
     
     std::vector < std::pair<int, StringVertex>> vertexContainer{};
+    std::vector <StringVertex> deletedVertices{};
 };

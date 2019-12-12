@@ -26,6 +26,7 @@ public:
 		:current_state_info(GameStates::None), next_level({}), is_next(false), cameraManager({})
 	{}
 	virtual ~State() = default;
+    virtual void GameRestart() = 0;
 	virtual void Load() = 0;
     virtual void Update(float dt) = 0;
     virtual void Unload() = 0;

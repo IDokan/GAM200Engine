@@ -30,6 +30,16 @@ Creation Date: 08.15.2019
 #include <Object/InteractiveObject/TestInteractionObject.hpp>
 
 SoundManager test;
+
+void TestLevel::GameRestart()
+{
+    PlayerMove(vector2{ -200.f, -1900.f }, vector2{200.f, -1900.f});
+
+    string->InitString();
+
+    cameraManager.InitializeCurrentCameraSetting();
+}
+
 void TestLevel::Load()
 {
 	test.Load_Sound();
@@ -246,15 +256,9 @@ void TestLevel::Load()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(map);
 
 
-	sharpKnife = new Object();
+	sharpKnife = new ObstacleObject(vector2{ -600.f, -300.f }, vector2{ 300.f ,300.f }, Physics::ObjectType::CIRCLE);
 	sharpKnife->SetObjectType(Object::ObjectType::OBSTACLE);
 	sharpKnife->SetObjectName("sharpKnife");
-	sharpKnife->SetTranslation(vector2{ -600.f, -300.f });
-	sharpKnife->SetScale(vector2{ 300.f ,300.f });
-	sharpKnife->AddComponent(new Sprite(sharpKnife));
-	sharpKnife->AddComponent(new Physics(sharpKnife));
-	sharpKnife->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(sharpKnife, Physics::ObjectType::CIRCLE);
-	sharpKnife->SetDepth(-1.f);
 	sharpKnife->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
 	objManager->FindLayer(LayerNames::Stage)->AddObject(sharpKnife);
 
@@ -282,6 +286,10 @@ void TestLevel::Load()
 	movement_p2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P2.png");
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movement_p2);
 
+    crushable_Object = new CrushableObject(vector2{0.f,-500.f},vector2{300.f}, Physics::ObjectType::RECTANGLE,  string);
+    crushable_Object->SetObjectName("HELLO!");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(crushable_Object);
+
 	cameraManager.Init();
 
 }
@@ -289,40 +297,33 @@ void TestLevel::Load()
 bool check_haha = false;
 void TestLevel::Update(float /*dt*/)
 {
-	TestLevel::Collision();
-	TestLevel::Input();
+    TestLevel::Collision();
+    TestLevel::Input();
 
-	vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
-	vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 obj2Position = object2->GetComponentByTemplate<Physics>()->GetPosition();
 
-	object1->SetTranslation(obj1Position);
-	object2->SetTranslation(obj2Position);
+    object1->SetTranslation(obj1Position);
+    object2->SetTranslation(obj2Position);
 
-	// DEBUG object should be updated after camera Update()
-	cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
+    // DEBUG object should be updated after camera Update()
+    cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
 
-	auto objManager = ObjectManager::GetObjectManager();
-
-
-	//Collision Check with goalPoint and Player 1 or 2
-	if (goalPoint->GetComponentByTemplate<Physics>()->IsCollideWith(object1)
-		&& isCheck_Clear == false)
-	{
-		objManager->FindLayer(LayerNames::HUD)->AddObject(gameClearPopUp);
-		isCheck_Clear = true;
-	}
-
-	PlayerScaling();
+    auto objManager = ObjectManager::GetObjectManager();
 
 
+    //Collision Check with goalPoint and Player 1 or 2
+    if (goalPoint->GetComponentByTemplate<Physics>()->IsCollideWith(object1)
+        && isCheck_Clear == false)
+    {
+        objManager->FindLayer(LayerNames::HUD)->AddObject(gameClearPopUp);
+        isCheck_Clear = true;
+    }
 
-	if (sharpKnife->GetComponentByTemplate<Physics>()->IsCollideWith(string))
-	{
-		object1->SetTranslation(vector2{ 0.f, -2000.f });
-		object2->SetTranslation(vector2{ 200.f, -2000.f });
-	}
+    PlayerScaling();
 
-	DeadAndRestart();
+    CheckOutofPlace();
+
 }
 
 void TestLevel::Unload()
@@ -342,7 +343,6 @@ void TestLevel::Unload()
 
 void TestLevel::Input()
 {
-	/**********************Moving Object 1*******************************************/
 	if (input.IsKeyPressed(GLFW_KEY_W))
 	{
 		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
@@ -472,14 +472,14 @@ void TestLevel::Collision()
 	object1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
-void TestLevel::GameDead()
+void TestLevel::PlayerMove(vector2 player1Position, vector2 player2Position) const
 {
-	object1->SetTranslation(vector2{ -200.f, -1900.f });
-	object2->SetTranslation(vector2{ 200.f, -1900.f }); //change actual location 
-
-	string->InitString();
-	
-	cameraManager.InitializeCurrentCameraSetting();
+    object1->SetTranslation(player1Position);
+    object2->SetTranslation(player2Position); //change actual location
+    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetTranslation());
+    object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetTranslation());
+    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetTranslation());
+    object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetTranslation());
 }
 
 void UpdateCollisionBox(Object* obj1, Object* obj2)
@@ -517,7 +517,7 @@ void TestLevel::PlayerScaling()
 	}
 }
 
-void TestLevel::DeadAndRestart()
+void TestLevel::CheckOutofPlace()
 {
 	// Game over when the players out of background bound. 
 	if ((object1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
@@ -526,6 +526,6 @@ void TestLevel::DeadAndRestart()
 		object2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2))
 		)
 	{
-		GameDead();
+        GameRestart();
 	}
 }

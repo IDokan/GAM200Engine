@@ -22,6 +22,7 @@ public:
     ProtoLevel() = default;
     virtual ~ProtoLevel(){};
 
+    virtual void GameRestart() override;
     virtual void Load() override;
     virtual void Update(float dt) override;
     virtual void Unload() override;
