@@ -85,7 +85,7 @@ void fileIO::Output()
 {
 	std::ofstream outputTEST("../assets/tmp/ObjectOutput_TEST.txt");
 
-	outputTEST << "Name" << ' ';
+	/*outputTEST << "Name" << ' ';
 	outputTEST << ' ';
 	outputTEST << "x_pos" << ' ';
 	outputTEST << "y_pos" << ' ';
@@ -94,13 +94,22 @@ void fileIO::Output()
 	outputTEST << "depth" << ' ';
 	outputTEST << "object_type" << ' ';
 	outputTEST << "file_path" << '\n';
-	outputTEST << '\n';
-	
+	outputTEST << '\n';*/
+	int i = 0;
 	const auto& testObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	for (const auto& object : testObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::TEST)
+		{
+			++i;
+		}
+	}
+	int j = 0;
 	for(const auto& object : testObjectContainer)
 	{
 		if(object->GetObjectType() == Object::ObjectType::TEST)
 		{
+			++j;
 			outputTEST << object->GetObjectName() << ' ';
 			outputTEST << object->GetTranslation().x << ' ';
 			outputTEST << object->GetTranslation().y << ' ';
@@ -108,8 +117,9 @@ void fileIO::Output()
 			outputTEST << object->GetScale().y << ' ';
 			outputTEST << object->GetDepth() << ' ';
 			outputTEST << "test" << ' ';
-			outputTEST << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
-			outputTEST << '\n';
+			outputTEST << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+			if(i != j)
+				outputTEST << '\n';
 		}
 	}
 

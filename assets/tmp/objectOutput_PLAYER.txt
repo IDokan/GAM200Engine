@@ -1,2 +1,6 @@
 Name  x_pos y_pos x_scale y_scale depth object_type file_path
 
+object1 -200 -1800 150 150 -1 player1 ../assets/textures/p1.png
+
+object2 200 -1800 150 150 -1 player2 ../assets/textures/p2.png
+

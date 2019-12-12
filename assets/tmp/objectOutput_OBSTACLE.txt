@@ -1,1 +1,28 @@
 Name  x_pos y_pos x_scale y_scale depth object_type file_path
+
+test 600 600 100 100 -0.1 test ../assets/textures/rect.png
+
+goalPoint 0 2000 150 150 -1 test ../assets/textures/goalPoint.png
+
+goalPoint 0 -2000 150 150 -1 test ../assets/textures/startPoint.png
+
+first_Objects_1 -930 -1500 1000 150 -1 test ../assets/textures/rect.png
+
+first_Objects_2 0 -1500 500 150 -1 test ../assets/textures/rect.png
+
+first_Objects_3 900 -1500 900 150 -1 test ../assets/textures/rect.png
+
+third_Objects_1 -600 800 500 50 -1 test ../assets/textures/rect.png
+
+third_Objects_2 -825 525 50 500 -1 test ../assets/textures/rect.png
+
+third_Objects_3 -550 300 500 50 -1 test ../assets/textures/rect.png
+
+third_Objects_4 -325 737 50 175 -1 test ../assets/textures/rect.png
+
+third_Objects_5 -325 400 50 200 -1 test ../assets/textures/rect.png
+
+map -575 550 200 200 -1 test ../assets/textures/map.png
+
+sharpKnife -600 -300 300 300 -1 test ../assets/textures/sharp_box.png
+
