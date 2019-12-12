@@ -34,7 +34,7 @@ private:
 	void GameDead();
 	void PlayerScaling();
 	void DeadAndRestart();
-    void LimitStringLength();
+
 private:
 
     Object* gameClearPopUp{};

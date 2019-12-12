@@ -54,14 +54,12 @@ public:
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
     void SetVectorTranslation(vector2 translation);
-    void SetScale(vector2 scale);
     bool IsCollideWith(Object* object);
     void ManageCollision();
 
     vector2 GetTranslation(const matrix3 &matrix) const;
 	vector2 GetVelocity() const noexcept;
 	vector2 GetGravity() const noexcept;
-	vector2 GetForce() const noexcept;
 	bool IsCollided() const noexcept;
 	
 
@@ -99,10 +97,6 @@ public:
     {
         return isCollide;
     }
-    vector2 GetOldScale() const
-    {
-        return oldScale;
-    }
     vector2 GetVectorTranslation() const; 
 
 private:
@@ -112,7 +106,6 @@ private:
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
-    vector2 oldScale{};
     ObjectType objectType{};
     CollisionBox collisionBox{};
    

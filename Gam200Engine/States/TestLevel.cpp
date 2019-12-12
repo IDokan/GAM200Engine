@@ -107,6 +107,7 @@ void TestLevel::Load()
     goalPoint->AddComponent(new Sprite(goalPoint));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+    goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
@@ -122,6 +123,7 @@ void TestLevel::Load()
     startPoint->AddComponent(new Sprite(startPoint));
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
+    startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
@@ -289,7 +291,6 @@ void TestLevel::Load()
 bool check_haha = false;
 void TestLevel::Update(float /*dt*/)
 {
-    TestLevel::LimitStringLength();
     TestLevel::Collision();
     TestLevel::Input();
 
@@ -551,17 +552,5 @@ void TestLevel::DeadAndRestart()
         )
     {
         GameDead();
-    }
-}
-
-void TestLevel::LimitStringLength()
-{
-    if (string->GetStringLength() > 1000.f)
-    {
-        object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-        object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-
-        object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
-        object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
     }
 }

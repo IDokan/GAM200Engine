@@ -30,6 +30,7 @@ StringPhysics::~StringPhysics()
 
 void StringPhysics::Init()
 {
+    stringLength = 1200.f;
 }
 
 void StringPhysics::Update(float /*dt*/)
@@ -82,6 +83,7 @@ void StringPhysics::Update(float /*dt*/)
 	*stringPhysicsOwner->vertices.begin() = player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
 	*(stringPhysicsOwner->vertices.end() - 1) = player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
 
+    LimitStringLength();
 
 	Detach();
 }
@@ -229,6 +231,23 @@ bool StringPhysics::IsDetached(StringVertex point1, StringVertex point2, StringV
 	{
 		return true;
 	}
+}
+
+void StringPhysics::LimitStringLength()
+{
+    if (stringPhysicsOwner->GetStringLength() > stringLength)
+    {
+        player1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+        player2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+
+        player1->GetComponentByTemplate<Physics>()->SetPosition(player1->GetComponentByTemplate<Physics>()->GetOldPosition());
+        player2->GetComponentByTemplate<Physics>()->SetPosition(player2->GetComponentByTemplate<Physics>()->GetOldPosition());
+    }
+}
+
+void StringPhysics::SetStringLength(float length)
+{
+    stringLength = length;
 }
 
 void StringPhysics::Clear()
