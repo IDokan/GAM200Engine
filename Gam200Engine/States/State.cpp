@@ -31,6 +31,16 @@ void State::LoadState() noexcept
 void State::UnloadState() noexcept
 {
 	is_next = false;
+
+	ObjectManager* objManager = ObjectManager::GetObjectManager();
+	for (const auto& layers : objManager->GetLayerContainer())
+	{
+		for (const auto& obj : layers->GetObjContainer())
+		{
+			obj->SetDead(true);
+		}
+	}
+	
 	Unload();
 }
 

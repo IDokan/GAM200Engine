@@ -19,8 +19,8 @@ Creation Date: 12.10.2019
 #include <Object\ObjectManager.hpp>
 #include <Component/Sprite.hpp>
 #include <Systems/FileIO.hpp>
-#include <Object/Player1.h>
-#include <Object/Player2.h>
+#include <Object/Players/Player1.h>
+#include <Object/Players/Player2.h>
 
 // input function
 #include <Graphics/GL.hpp>

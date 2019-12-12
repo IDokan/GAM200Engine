@@ -41,18 +41,6 @@ void TestLevel::Load()
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
-    object1 = new Object();
-    object1->SetObjectName("object1");
-    object1->SetObjectType(Object::ObjectType::PLAYER_1);
-    object1->SetTranslation(vector2{ 1.f,2.f });
-    object1->SetScale(vector2{ 200.f });
-    object1->AddComponent(new Sprite(object1));
-    object1->AddComponent(new Physics(object1));
-    object1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
-    object1->SetDepth(-0.1f);
-    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object1, Physics::ObjectType::RECTANGLE, vector2{ 0 }, vector2{ -50.f });
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-
     testObject = new Object();
     testObject->SetObjectName("test");
     testObject->SetObjectType(Object::ObjectType::OBSTACLE);
@@ -316,14 +304,6 @@ void TestLevel::Unload()
 {
     fileIO* a = 0;
     a->Output();
-    ObjectManager* objManager = ObjectManager::GetObjectManager();
-    for (const auto& layers : objManager->GetLayerContainer())
-    {
-        for (const auto& obj : layers->GetObjContainer())
-        {
-            obj->SetDead(true);
-        }
-    }
 
 }
 

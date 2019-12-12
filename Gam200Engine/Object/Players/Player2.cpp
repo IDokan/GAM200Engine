@@ -9,12 +9,12 @@ Creation Date: 11th/Nov/2019
 
 	Header file for the Application.cpp
 ******************************************************************************/
-#include  <Object/Player1.h>
+#include  <Object/Players/Player2.h>
 #include <Systems/Input.hpp>
 
-Player1::Player1(std::string _playerName, const vector2 playerPos, const vector2 playerScale, Physics::ObjectType _objectType,
+Player2::Player2(std::string _playerName, const vector2 playerPos, const vector2 playerScale, Physics::ObjectType _objectType,
     float _depth, Graphics::Color4f _color, vector2 positionAdj, vector2 scaleAdj)
-	:Object(), playerName(_playerName), pos_x(playerPos.x), pos_y(playerPos.y), scale_x(playerScale.x), scale_y(playerScale.y), depth(_depth)
+    :Object(), playerName(_playerName), pos_x(playerPos.x), pos_y(playerPos.y), scale_x(playerScale.x), scale_y(playerScale.y), depth(_depth)
 {
 	Object::SetObjectName(std::move(_playerName));
 
@@ -31,62 +31,63 @@ Player1::Player1(std::string _playerName, const vector2 playerPos, const vector2
 	GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, _objectType, positionAdj, scaleAdj);
 
 	GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ _color });
+	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 };
 
 
-void Player1::Move() noexcept
+void Player2::Move() noexcept
 {
-    /**********************Moving player 1*******************************************/
-    if (input.IsKeyPressed(GLFW_KEY_W))
+    /**********************Moving player 2*******************************************/
+    if (input.IsKeyPressed(GLFW_KEY_UP))
     {
         GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-        if (input.IsKeyPressed(GLFW_KEY_D))
+        if (input.IsKeyPressed(GLFW_KEY_RIGHT))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
         }
-        else if (input.IsKeyPressed(GLFW_KEY_A))
+        else if (input.IsKeyPressed(GLFW_KEY_LEFT))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
         }
     }
-    if (input.IsKeyPressed(GLFW_KEY_A))
+    if (input.IsKeyPressed(GLFW_KEY_LEFT))
     {
         GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_W))
+        if (input.IsKeyPressed(GLFW_KEY_UP))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
         }
-        else if (input.IsKeyPressed(GLFW_KEY_S))
+        else if (input.IsKeyPressed(GLFW_KEY_DOWN))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
         }
     }
-    if (input.IsKeyPressed(GLFW_KEY_S))
+    if (input.IsKeyPressed(GLFW_KEY_DOWN))
     {
         GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
 
-        if (input.IsKeyPressed(GLFW_KEY_A))
+        if (input.IsKeyPressed(GLFW_KEY_LEFT))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
         }
-        else if (input.IsKeyPressed(GLFW_KEY_D))
+        else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
         }
     }
-    if (input.IsKeyPressed(GLFW_KEY_D))
+    if (input.IsKeyPressed(GLFW_KEY_RIGHT))
     {
         GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_W))
+        if (input.IsKeyPressed(GLFW_KEY_UP))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
         }
-        else if (input.IsKeyPressed(GLFW_KEY_S))
+        else if (input.IsKeyPressed(GLFW_KEY_DOWN))
         {
             GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
         }
     }
-    if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
+    if (input.IsKeyReleased(GLFW_KEY_UP) && input.IsKeyReleased(GLFW_KEY_LEFT) && input.IsKeyReleased(GLFW_KEY_DOWN) && input.IsKeyReleased(GLFW_KEY_RIGHT))
     {
         GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
     }

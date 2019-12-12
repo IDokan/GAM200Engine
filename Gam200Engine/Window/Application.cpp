@@ -18,9 +18,10 @@ Creation Date: 08.05.2019
 
 #include <Graphics/ImGui/MyImGui.hpp>
 
-#include <Graphics/ImGui/imgui.h>
-#include <Graphics/ImGui/imgui_impl_opengl3.h>
-#include "Graphics/ImGui/imgui_impl_glfw.h"
+// Include States
+#include <States/BasicMovementLevel.hpp>
+#include <States/OneWayPassLevel.hpp>
+#include <States/SizeScalingLevel.hpp>
 
 
 Application* Application::GetApplication()
@@ -42,8 +43,11 @@ void Application::Init()
 	StateManager::GetStateManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
-	StateManager::GetStateManager()->AddStates("testLevel", dynamic_cast<State*>(new TestLevel()));
-    StateManager::GetStateManager()->AddStates("protoLevel", dynamic_cast<State*>(new ProtoLevel()));
+	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
+	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
+	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
+	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
+	StateManager::GetStateManager()->AddStates("SizeScalingLevel", dynamic_cast<State*>(new SizeScalingLevel()));
 
 }
 

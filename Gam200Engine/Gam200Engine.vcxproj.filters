@@ -172,6 +172,12 @@
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp">
       <Filter>Object\DEBUGObject</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Players\Player1.cpp">
+      <Filter>Object\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Players\Player2.cpp">
+      <Filter>Object\Players</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp">
@@ -366,6 +372,12 @@
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp">
       <Filter>Object\DEBUGObject</Filter>
     </ClInclude>
+    <ClInclude Include="Object\Players\Player1.h">
+      <Filter>Object\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Players\Player2.h">
+      <Filter>Object\Players</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -409,6 +421,9 @@
     </Filter>
     <Filter Include="Object\DEBUGObject">
       <UniqueIdentifier>{144e1d1b-af11-4117-be89-c65fb7b5e0c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Players">
+      <UniqueIdentifier>{6e6ec2b8-390b-43eb-8c8b-9f0659377b64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

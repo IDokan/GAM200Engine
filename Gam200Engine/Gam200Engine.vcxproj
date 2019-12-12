@@ -213,8 +213,8 @@
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
-    <ClInclude Include="Object\Player1.h" />
-    <ClInclude Include="Object\Player2.h" />
+    <ClInclude Include="Object\Players\Player1.h" />
+    <ClInclude Include="Object\Players\Player2.h" />
     <ClInclude Include="Object\Strings\String.hpp" />
     <ClInclude Include="Object\Strings\StringPiece.hpp" />
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
@@ -281,8 +281,8 @@
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
-    <ClCompile Include="Object\Player1.cpp" />
-    <ClCompile Include="Object\Player2.cpp" />
+    <ClCompile Include="Object\Players\Player1.cpp" />
+    <ClCompile Include="Object\Players\Player2.cpp" />
     <ClCompile Include="Object\Strings\String.cpp" />
     <ClCompile Include="Object\Strings\StringPiece.cpp" />
     <ClCompile Include="Object\Strings\StringVertex.cpp" />

@@ -11,6 +11,9 @@ Creation Date: 12.10.2019
 	Source file for level that string make player move easily
 ******************************************************************************/
 #include <States/OneWayPassLevel.hpp>
+#include <Object/Players/Player1.h>
+#include <Object/Players/Player2.h>
+#include <Object/ObjectManager.hpp>
 
 OneWayPassLevel::OneWayPassLevel()
 {
@@ -29,6 +32,8 @@ void OneWayPassLevel::Load()
 
 void OneWayPassLevel::Update(float dt)
 {
+	cameraManager.CameraMove(player1->GetTranslation(), player2->GetTranslation(), 1.1f);
+	Input();
 }
 
 void OneWayPassLevel::Unload()
@@ -39,7 +44,6 @@ void OneWayPassLevel::Input()
 {
     player1->Move();
     player2->Move();
-
 }
 
 void OneWayPassLevel::Collision()
@@ -59,12 +63,10 @@ void OneWayPassLevel::InitObject() {
 
     player1 = new Player1("player1", vector2{ -200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, -1.f);
     player1->SetObjectType(Object::ObjectType::PLAYER_1);
-    player1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
     player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
 
     player2 = new Player2("player2", vector2{ 200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, 0.f);
     player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
     player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
 
     string = new String(player1, player2);
