@@ -22,6 +22,7 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Component/TextComponent.hpp>
 #include <Component/StringPhysics.hpp>
+#include <Component/GoalComponent.hpp>
 
 SoundManager test;
 
@@ -97,7 +98,7 @@ void TestLevel::Load()
     goalPoint->AddComponent(new Sprite(goalPoint));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel", object1));
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
@@ -107,7 +108,7 @@ void TestLevel::Load()
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("goalPoint");
+    startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -2000.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));

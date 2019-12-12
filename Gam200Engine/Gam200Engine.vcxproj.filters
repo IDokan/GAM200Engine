@@ -184,6 +184,9 @@
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
+    <ClCompile Include="Component\GoalComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp">
@@ -389,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\GoalComponent.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
