@@ -9,6 +9,9 @@ Creation Date: 08.23.2019
 
 	Header file for My ImGui Code
 ******************************************************************************/
+
+#include <array>
+
 #pragma warning(push)
 #pragma warning(disable:26451)
 #pragma warning(disable:26495)
@@ -16,11 +19,14 @@ Creation Date: 08.23.2019
 #include <Graphics/ImGui/imgui.h>
 #include <Graphics/ImGui/imgui_impl_opengl3.h>
 #include <Graphics/ImGui/imgui_impl_glfw.h>
+#pragma warning (pop)
 #include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
-#pragma warning (pop)
-
+// Include special objects
+#include <Object/DEBUGObject/WallSpawner.hpp>
+#include <Object/DEBUGObject/LevelChangeButton.hpp>
+// Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 
@@ -38,6 +44,8 @@ namespace MyImGui
 	void DrawInformation(Object* obj);
 	void DrawTransformSection(Object* obj);
 	void HighlightSelectedObject(Object* obj, float dt);
+	void DrawLevelChangeSection(LevelChangeButton* levelChangeButton);
+	void DrawWallSpawnerSection(WallSpawner* wallSpawner);
 	/* End of helper functions */
 
 
@@ -112,13 +120,15 @@ namespace MyImGui
 		sprite->SetColor(color);
 
 		ImGui::Spacing();
-		if (ImGui::Button("Button"))
+
+		static constexpr size_t BUFFER_SIZE = 128;
+		static char* filePath{};
+		filePath = const_cast<char*>(sprite->GetImagePath().c_str());
+		ImGui::InputText("file path", filePath, BUFFER_SIZE);
+		if (ImGui::Button("Change sprite!"))
 		{
-			sprite->SetImage("../texture/rect.png");
+			sprite->SetImage(filePath);
 		}
-		unsigned int* textureID = sprite->GetRefTextureHandle();
-		ImGui::Text("%d", textureID);
-		ImGui::Image((textureID), ImVec2(128, 128));
 	}
 
 	void DrawPhysicsSection(Object* object, Physics* physics)
@@ -219,19 +229,23 @@ namespace MyImGui
 		ImGui::Text("Transform");
 		static vector2 translation{}, scale{};
 		static float rotation;
+		static float depth;
 		translation = obj->GetTranslation();
 		rotation = obj->GetRotation();
 		scale = obj->GetScale();
+		depth = obj->GetDepth();
 
 		ImGui::DragFloat("Translation X", &translation.x);
 		ImGui::DragFloat("Translation Y", &translation.y);
 		ImGui::DragFloat("Scale X", &scale.x);
 		ImGui::DragFloat("Scale Y", &scale.y);
 		ImGui::DragFloat("Rotation", &rotation, 0.005f);
+		ImGui::DragFloat("Depth", &depth);
 
 		obj->SetTranslation(translation);
 		obj->SetScale(scale);
 		obj->SetRotation(rotation);
+		obj->SetDepth(depth);
 
 		if (ImGui::Button("Delete it"))
 		{
@@ -249,30 +263,54 @@ namespace MyImGui
 
 	void DrawInformation(Object* obj, float dt)
 	{
+		// Draw Object Name first -> It is essential
 		DrawObjectNameSection(obj);
 
-		if (String * string = dynamic_cast<String*>(obj);
-			string != nullptr)
+		// Draw special object, after draw it return this function
 		{
-			DrawStringSection(string);
-			return;
-		}
+			// Draw level chang button description if given object is that
+			if (LevelChangeButton * levelChangeButton = dynamic_cast<LevelChangeButton*>(obj);
+				levelChangeButton != nullptr)
+			{
+				DrawLevelChangeSection(levelChangeButton);
+				return;
+			}
 
+			// Draw string object description if given object is that
+			if (String * string = dynamic_cast<String*>(obj);
+				string != nullptr)
+			{
+				DrawStringSection(string);
+				return;
+			}
+		}
+		// Draw Transform section
 		DrawTransformSection(obj);
 
-		// If object have components display them.
-		if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>();
-			sprite != nullptr)
 		{
-			HighlightSelectedObject(obj, dt);
+			// If object have special components display them.
+			if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>();
+				sprite != nullptr)
+			{
+				HighlightSelectedObject(obj, dt);
 
-			DrawSpriteSection(sprite);
+				DrawSpriteSection(sprite);
+			}
+			if (Physics * physics = obj->GetComponentByTemplate<Physics>())
+			{
+				DrawPhysicsSection(obj, physics);
+			}
 		}
-		if (Physics * physics = obj->GetComponentByTemplate<Physics>())
-		{
-			DrawPhysicsSection(obj, physics);
-		}
+
+		// Draw Interactive Object
 		DrawInteractiveObjectSection(dynamic_cast<InteractiveObject*>(obj));
+
+		// Draw Wall Spawner object
+		if (WallSpawner* wallSpawner = dynamic_cast<WallSpawner*>(obj);
+			wallSpawner != nullptr)
+		{
+			DrawWallSpawnerSection(wallSpawner);
+		}
 	}
 
 	void HighlightSelectedObject(Object* obj, float dt)
@@ -281,12 +319,12 @@ namespace MyImGui
 		{
 			return;
 		}
-		
+
 		static Object* selectedObj = nullptr;
 		static Graphics::Color4f originalColor{};
 		static Graphics::Color4f startColor{ 0.f };
-		static float localTimer {0.f};
-		
+		static float localTimer{ 0.f };
+
 		if (selectedObj != obj)
 		{
 			// recover data of selected data
@@ -294,10 +332,10 @@ namespace MyImGui
 			{
 				selectedObj->GetComponentByTemplate<Sprite>()->SetColor(originalColor);
 			}
-			
+
 			// Initialize local timer
 			localTimer = 0.f;
-			
+
 			// Save data of selected object
 			selectedObj = obj;
 			originalColor = obj->GetComponentByTemplate<Sprite>()->GetColor();
@@ -313,17 +351,51 @@ namespace MyImGui
 		}
 	}
 
+	void DrawLevelChangeSection(LevelChangeButton* levelChangeButton)
+	{
+		SeparateSection("Level Change Button");
+		const std::vector<std::string> stateNames = levelChangeButton->GetStateNames();
+
+		for (size_t i = 0; i < stateNames.size(); ++i)
+		{
+			if (ImGui::Button(stateNames.at(i).c_str()))
+			{
+				levelChangeButton->ChangeLevel(stateNames.at(i));
+			}
+		}
+	}
+
+	void DrawWallSpawnerSection(WallSpawner* wallSpawner)
+	{
+		SeparateSection("Wall Spawner");
+
+		if (ImGui::Button("Spawn wall!"))
+		{
+			wallSpawner->SpawnWall();
+		}
+	}
+
 	void InitImGui(GLFWwindow* window) noexcept
 	{
 #ifdef _DEBUG
 		ImGui::CreateContext();
 		// Set Multi-Viewports Enable.
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+	
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 #endif
 	}
 
@@ -341,24 +413,29 @@ namespace MyImGui
 		//	ImGui::ShowDemoWindow(&isShowWindow);
 
 		// 2. Let's make my own window with ImGui Tutorial!
-		ImGui::Begin("Scene");
 		static int selectedLayer = -1;
 		static int selected = -1;
 		auto& layerContainer = ObjectManager::GetObjectManager()->GetLayerContainer();
-		for (int i = 0; i < layerContainer.size(); ++i)
+		std::vector<std::string> layerNames;
+		for (size_t i = 0; i < layerContainer.size(); i++)
 		{
+			layerNames.push_back(layerContainer.at(i)->GetNameAsString());
+		}
+		for (size_t i = 0; i < layerNames.size(); ++i)
+		{
+			ImGui::Begin(layerNames.at(i).c_str());
 			const auto objContainer = layerContainer.at(i)->GetObjContainer();
 			const size_t size = objContainer.size();
 			for (int j = 0; j < size; ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && selectedLayer == i))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && static_cast<size_t>(selectedLayer) == i))
 				{
-					selectedLayer = i;
+					selectedLayer = static_cast<int>(i);
 					selected = j;
 				}
 			}
+			ImGui::End();
 		}
-		ImGui::End();
 
 		ImGui::Begin("Property");
 		if (selectedLayer >= 0 && selectedLayer <= int(layerContainer.size()))
@@ -387,6 +464,15 @@ namespace MyImGui
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 #endif
 	}
 

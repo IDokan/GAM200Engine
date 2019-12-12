@@ -111,6 +111,28 @@ LayerNames Layer::GetName() const
 	return layer.first;
 }
 
+std::string Layer::GetNameAsString() const
+{
+	std::string result;
+	switch (layer.first)
+	{
+	case BackGround:
+		result = "BackGround";
+		break;
+	case Stage:
+		result = "Stage";
+		break;
+	case HUD:
+		result = "HUD";
+		break;
+	case NumOfLayers:
+		result = "Error";
+		break;
+	default: ;
+	}
+	return result;
+}
+
 std::vector<std::shared_ptr<Object>>& Layer::GetObjContainer()
 {
 	return layer.second;

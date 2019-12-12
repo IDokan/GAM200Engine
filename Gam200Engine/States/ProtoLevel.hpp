@@ -22,13 +22,14 @@ public:
     ProtoLevel() = default;
     virtual ~ProtoLevel(){};
 
-    virtual void GameRestart() override;
-    virtual void Load() override;
     virtual void Update(float dt) override;
-    virtual void Unload() override;
 
     void Draw() const noexcept override;
 
+protected:
+    virtual void GameRestart() override;
+	virtual void Load() override;
+	virtual void Unload() override;
 private:
     Graphics::CameraManager cameraManager;
     Object* background;

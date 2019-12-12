@@ -154,9 +154,6 @@
     <ClCompile Include="Systems\Observer.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="States\BasicMovementLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -168,6 +165,18 @@
     </ClCompile>
     <ClCompile Include="States\State.cpp">
       <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp">
+      <Filter>Object\DEBUGObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp">
+      <Filter>Object\DEBUGObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Players\Player1.cpp">
+      <Filter>Object\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Players\Player2.cpp">
+      <Filter>Object\Players</Filter>
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
@@ -354,9 +363,6 @@
     <ClInclude Include="Systems\Timer.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Player.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="States\BasicMovementLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
@@ -365,6 +371,18 @@
     </ClInclude>
     <ClInclude Include="States\SizeScalingLevel.hpp">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp">
+      <Filter>Object\DEBUGObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp">
+      <Filter>Object\DEBUGObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Players\Player1.h">
+      <Filter>Object\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Players\Player2.h">
+      <Filter>Object\Players</Filter>
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
@@ -409,6 +427,15 @@
     </Filter>
     <Filter Include="Systems">
       <UniqueIdentifier>{41210f07-5800-43f1-8a05-6677ec51e3bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\HUD">
+      <UniqueIdentifier>{ac9987e2-7f86-4a47-9852-03bf48e0fcdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\DEBUGObject">
+      <UniqueIdentifier>{144e1d1b-af11-4117-be89-c65fb7b5e0c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Players">
+      <UniqueIdentifier>{6e6ec2b8-390b-43eb-8c8b-9f0659377b64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@ Creation Date: 08.15.2019
     Source file for Physics
 ******************************************************************************/
 
-#include "Component/Physics.hpp"
+#include <Component/Physics.hpp>
 #include <Object/ObjectManager.hpp>
 #include <cmath>
 #include <iostream>
@@ -49,7 +49,7 @@ void Physics::Update(float dt)
     matrix3 gra = MATRIX3::build_translation(gravity);
     matrix3 finalTranslation = vel * gra;
 
-    if (gravity.y >= -50.f && gravity.y != 0) // ���ܼӵ�
+    if (gravity.y >= -50.f && gravity.y != 0)
     {
         gravity.y += -dt * 10.f;
     }
@@ -64,7 +64,6 @@ void Physics::Update(float dt)
     {
         SetWorldForceZero();
         position = oldPosition;
-
         isCollide = false;
     }
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
@@ -105,6 +104,11 @@ void Physics::SetWorldForceZero()
 void Physics::SetPosition(vector2 pos)
 {
     position = pos;
+}
+
+void Physics::SetOldPosition(vector2 pos)
+{
+    oldPosition = pos;
 }
 
 void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj, vector2 scaleAdj)
@@ -173,24 +177,72 @@ void Physics::ManageCollision()
                             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
                             object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
                             object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            for (const auto& object3 : physicsObject)
+                            {
+                                if (object3->GetObjectType() == Object::ObjectType::PLAYER_2)
+                                {
+                                    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object3) == true)
+                                    {
+                                        object3->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                                        object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                        object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                    }
+                                }
+                            }
                         }
                         else if (object1->GetObjectType() == Object::ObjectType::PLAYER_2)
                         {
                             object1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
                             object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
                             object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            for (const auto& object3 : physicsObject)
+                            {
+                                if (object3->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                {
+                                    if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object3) == true)
+                                    {
+                                        object3->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                                        object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                        object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                    }
+                                }
+                            }
                         }
                         if (object2->GetObjectType() == Object::ObjectType::PLAYER_1)
                         {
                             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
                             object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                             object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            for (const auto& object3 : physicsObject)
+                            {
+                                if (object3->GetObjectType() == Object::ObjectType::PLAYER_2)
+                                {
+                                    if (object2->GetComponentByTemplate<Physics>()->IsCollideWith(&*object3) == true)
+                                    {
+                                        object3->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                                        object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                        object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                    }
+                                }
+                            }
                         }
                         else if (object2->GetObjectType() == Object::ObjectType::PLAYER_2)
                         {
                             object2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
                             object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
                             object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+                            for (const auto& object3 : physicsObject)
+                            {
+                                if (object3->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                {
+                                    if (object2->GetComponentByTemplate<Physics>()->IsCollideWith(&*object3) == true)
+                                    {
+                                        object3->GetComponentByTemplate<Physics>()->SetIsCollide(true);
+                                        object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                        object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
+                                    }
+                                }
+                            }
                         }
                     }
                 }

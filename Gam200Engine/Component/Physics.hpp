@@ -11,8 +11,8 @@ Creation Date: 08.15.2019
 ******************************************************************************/
 
 #pragma once
-#include "Vector2.hpp"
-#include "matrix3.hpp"
+#include <Vector2.hpp>
+#include <matrix3.hpp>
 #include <Component/Component.hpp>
 #include <Object/Object.hpp>
 
@@ -47,6 +47,7 @@ public:
     void SetGravity(float x, float y);
     void SetWorldForceZero();
     void SetPosition(vector2 pos);
+    void SetOldPosition(vector2 pos);
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj = vector2{ 0.f,0.f }, vector2 scaleAdj = vector2{ 0.f,0.f });
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
@@ -58,15 +59,9 @@ public:
     bool IsCollideWith(Object* object);
     void ManageCollision();
 
-    //void SetPosition(vector2 pos)
-    //{
-    //    position = pos;
-    //} ////test 
-
     vector2 GetTranslation(const matrix3 &matrix) const;
 	vector2 GetVelocity() const noexcept;
 	vector2 GetGravity() const noexcept;
-	vector2 GetForce() const noexcept;
 	bool IsCollided() const noexcept;
 	
 
@@ -104,7 +99,6 @@ public:
     {
         return isCollide;
     }
-
     vector2 GetVectorTranslation() const; 
 
 private:
@@ -114,7 +108,6 @@ private:
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
-
     ObjectType objectType{};
     CollisionBox collisionBox{};
    

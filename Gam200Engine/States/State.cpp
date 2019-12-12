@@ -18,6 +18,37 @@ Creation Date: 12.10.2019
 #include <Component/StringSprite.hpp>
 #include <Component/TextComponent.hpp>
 
+// Include Special objects
+#include <Object/DEBUGObject/LevelChangeButton.hpp>
+#include <Object/DEBUGObject/WallSpawner.hpp>
+
+void State::GameRestartState() noexcept
+{
+    GameRestart();
+    cameraManager.InitializeCurrentCameraSetting();
+}
+
+void State::LoadState() noexcept
+{
+	InstanceDEBUGObjects();
+	Load();
+}
+
+void State::UnloadState() noexcept
+{
+	is_next = false;
+
+	ObjectManager* objManager = ObjectManager::GetObjectManager();
+	for (const auto& layers : objManager->GetLayerContainer())
+	{
+		for (const auto& obj : layers->GetObjContainer())
+		{
+			obj->SetDead(true);
+		}
+	}
+	
+	Unload();
+}
 
 void State::Draw() const noexcept
 {
@@ -52,4 +83,42 @@ void State::Draw() const noexcept
 		}
 	}
 	Graphics::GL::end_drawing();
+}
+
+void State::LevelChangeTo(std::string name)
+{
+	is_next = true;
+	next_level = name;
+}
+
+std::string State::GetChangedLevelName()
+{
+	return next_level;
+}
+
+bool State::isNextLevel()
+{
+	return is_next;
+}
+
+GameStates State::GetStateInfo()
+{
+	return current_state_info;
+
+}
+
+
+
+void State::InstanceDEBUGObjects()
+{
+#ifdef _DEBUG
+	ObjectManager* objManager = ObjectManager::GetObjectManager();
+
+
+	LevelChangeButton* tmp = new LevelChangeButton();
+	objManager->FindLayer(HUD)->AddObject(tmp);
+	WallSpawner* wallSpawner = new WallSpawner();
+	objManager->FindLayer(HUD)->AddObject(wallSpawner);
+	
+#endif
 }

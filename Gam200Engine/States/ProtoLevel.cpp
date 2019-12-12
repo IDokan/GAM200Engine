@@ -62,28 +62,9 @@ void ProtoLevel::Load() {
 
 
 }
-void ProtoLevel::Update(float /*dt*/) {
-
-    //vector2 objectAPosition = objectA->GetComponentByTemplate<Physics>()->GetPosition();
-
-    
+void ProtoLevel::Update(float /*dt*/)
+{
     cameraManager.CameraMove(vector2{ -1.f }, vector2{ -1.f }, 1.1f);
-
-    is_next = false;
-    if (input.IsKeyPressed(GLFW_KEY_8))
-    {
-        is_next = true;
-        //change the level 
-        LevelChangeTo("testLevel");
-    }
-    if (input.IsKeyPressed(GLFW_KEY_SPACE))
-    {
-        is_next = true;
-        //change the level 
-        LevelChangeTo("mainMenu");
-    }
-
-
 }
 void ProtoLevel::Unload() 
 {

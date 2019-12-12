@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:   TestLevel.hpp
 Author
 	- Sinil.Kang rtd99062@gmail.com
-
+    - Hyerin Jung junghl0621@gmail.com
 Creation Date: 08.15.2019
 
 	Header file for First Level to Test Sprite Component
@@ -26,13 +26,14 @@ public:
 	{
 	};
 
-    void GameRestart() override;
-	virtual void Load() override;
 	virtual void Update(float dt) override;
-	virtual void Unload() override;
 
     void Input();
     void Collision();
+protected:
+    virtual void GameRestart() override;
+	virtual void Load() override;
+	virtual void Unload() override;
 private:
     void PlayerMove(vector2 player1Position, vector2 player2Position) const;
 	void PlayerScaling();
