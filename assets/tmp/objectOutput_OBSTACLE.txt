@@ -2,6 +2,8 @@ Name  x_pos y_pos x_scale y_scale depth
 
 test 600 600 100 100 -0.1
 
+sharpKnife -600 -300 300 300 -0.1
+
 goalPoint 0 2000 150 150 -1
 
 goalPoint 0 -2000 150 150 -1
@@ -23,6 +25,4 @@ third_Objects_4 -325 737 50 175 -1
 third_Objects_5 -325 400 50 200 -1
 
 map -575 550 200 200 -1
-
-sharpKnife -600 -300 300 300 -1
 

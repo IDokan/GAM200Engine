@@ -50,9 +50,9 @@ private:
 
     Object* scaleObject1;
     Object* scaleObject2;
-
-    Player1* player1{};
-    Player2* player2{};
+    
+    Object* player1{};
+    Object* player2{};
     String* string{};
 
 };
