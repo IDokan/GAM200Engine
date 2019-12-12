@@ -35,6 +35,7 @@ protected:
     void Input();
     void Collision();
     void InitObject();
+    void SetPlayersPosition(vector2 playerPos1, vector2 playerPos2);
 private:
     Object* background;
     Object* startPoint{};
