@@ -43,10 +43,10 @@ void Application::Init()
 	StateManager::GetStateManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
-	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
-	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
 	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
 	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
+	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
+	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
 	StateManager::GetStateManager()->AddStates("SizeScalingLevel", dynamic_cast<State*>(new SizeScalingLevel()));
 
 }

@@ -12,6 +12,14 @@ Creation Date: 12.10.2019
     Source file for level that player learned how to move player
 ******************************************************************************/
 #include <States/BasicMovementLevel.hpp>
+#include <Component/GoalComponent.hpp>
+#include <Component/Physics.hpp>
+#include <Object/Object.hpp>
+#include <Object/Strings/String.hpp>
+#include <Systems/Input.hpp>
+#include <Component/Sprite.hpp>
+#include <Object/ObjectManager.hpp>
+#include <Systems/FileIO.hpp>
 
 BasicMovementLevel::BasicMovementLevel()
 {
@@ -23,8 +31,8 @@ BasicMovementLevel::~BasicMovementLevel()
 
 void BasicMovementLevel::Load()
 {
-    //fileIO* a = 0;
-    //a->Input("../assets/tmp/objectData.txt");
+    fileIO* a = 0;
+    a->Input("../assets/tmp/objectData.txt");
 
     BasicMovementLevel::InitObject();
 
@@ -51,6 +59,8 @@ void BasicMovementLevel::GameRestart()
 
 void BasicMovementLevel::Unload()
 {
+	fileIO* a = 0;
+	a->Output();
 }
 
 void BasicMovementLevel::Input()
@@ -233,6 +243,7 @@ void BasicMovementLevel::InitObject() {
     goalPoint->SetTranslation(vector2{ 0.f, 500.f });
     goalPoint->SetScale(vector2{ 150.f });
     goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel"));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
@@ -240,10 +251,11 @@ void BasicMovementLevel::InitObject() {
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("goalPoint");
+    startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -500.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
+	startPoint->AddComponent(new GoalComponent(startPoint, "OneWayPassLevel"));
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");

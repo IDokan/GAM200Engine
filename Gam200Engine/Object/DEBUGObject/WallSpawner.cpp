@@ -13,11 +13,14 @@ Creation Date: 12.12.2019
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Component/Sprite.hpp>
+#include <Component/Physics.hpp>
 
 WallSpawner::WallSpawner()
 	:Object(), counter(0)
 {
 	SetObjectName("WallSpawner");
+	SetDepth(-50.f);
+	SetScale(vector2{ 100.f });
 }
 
 WallSpawner::~WallSpawner()
@@ -33,6 +36,8 @@ void WallSpawner::SpawnWall()
 	obj->SetRotation(GetRotation());
 	obj->SetDepth(GetDepth());
 	obj->AddComponent(new Sprite(obj));
+	obj->AddComponent(new Physics(obj));
+	obj->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj, Physics::ObjectType::RECTANGLE);
 	obj->SetObjectType(ObjectType::TEST);
 	
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->AddObjectDynamically(obj);
