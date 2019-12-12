@@ -13,6 +13,18 @@ Creation Date: 12.10.2019
 ******************************************************************************/
 #pragma once
 #include <States/State.hpp>
+#include <Object/Object.hpp>
+#include <Object/Strings/String.hpp>
+#include <Component/Physics.hpp>
+#include <Object\ObjectManager.hpp>
+#include <Component/Sprite.hpp>
+#include <Systems/FileIO.hpp>
+#include <Object/Players/Player1.h>
+#include <Object/Players/Player2.h>
+
+// input function
+#include <Graphics/GL.hpp>
+#include <Systems/Input.hpp>
 
 class Player1;
 class Player2;
@@ -45,7 +57,7 @@ private:
     Object* first_Objects_2{};
     Object* first_Objects_3{};
 
-    Player1* player1{};
-    Player2* player2{};
+    Object* player1{};
+    Object* player2{};
     String* string{};
 };

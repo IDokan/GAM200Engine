@@ -1,6 +1,2 @@
 Name  x_pos y_pos x_scale y_scale depth
 
-temp1 400 400 100 100 -1
-
-TestSpawnedObject0 -61 -839 136 132 -53
-
