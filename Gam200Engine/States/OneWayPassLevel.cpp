@@ -34,6 +34,8 @@ void OneWayPassLevel::Update(float dt)
 {
 	cameraManager.CameraMove(player1->GetTranslation(), player2->GetTranslation(), 1.1f);
 	Input();
+    Collision();
+    SetPlayersPosition(player1->GetComponentByTemplate<Physics>()->GetPosition(), player2->GetComponentByTemplate<Physics>()->GetPosition());
 }
 
 void OneWayPassLevel::GameRestart()
@@ -138,4 +140,13 @@ void OneWayPassLevel::InitObject() {
     objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_3);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
+}
+
+void OneWayPassLevel::SetPlayersPosition(vector2 playerPos1, vector2 playerPos2)
+{
+    player1->GetComponentByTemplate<Physics>()->SetPosition(playerPos1);
+    player2->GetComponentByTemplate<Physics>()->SetPosition(playerPos2);
+
+    player1->SetTranslation(playerPos1);
+    player2->SetTranslation(playerPos2);
 }
