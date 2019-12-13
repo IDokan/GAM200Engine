@@ -21,7 +21,7 @@ class Player1 : public Object
 
 public:
     Player1(std::string _playerName, const vector2 playerPos, vector2 playerScale
-        , Physics::ObjectType _objectType, float _depth = 0, Graphics::Color4f _color = { 0.f,0.f,0.f,0.f },
+        , Physics::ObjectType _objectType, float _depth = -50.f, Graphics::Color4f _color = { 1.f },
         vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f });
 
     void Move() noexcept;

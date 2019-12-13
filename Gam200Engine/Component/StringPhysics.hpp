@@ -43,14 +43,17 @@ public:
 
 	void DeletePositionsWithObject(Object* obj);
 
+    // Setter
     void SetStringLength(float length);
-
+    void SetShouldClear(bool should);
+    // Getter
     float GetStringLength() const
     {
         return stringLength;
     }
 
 private:
+    void DeleteVerticesInContainer();
 	void Detach();
 	
 	void InsertPoint();
@@ -66,8 +69,10 @@ private:
     String* stringPhysicsOwner;
     Object* player1;
     Object* player2;
+    bool shouldClear;
 
     float stringLength;
     
     std::vector < std::pair<int, StringVertex>> vertexContainer{};
+    std::vector <StringVertex> deletedVertices{};
 };

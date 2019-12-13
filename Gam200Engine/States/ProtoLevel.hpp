@@ -27,6 +27,7 @@ public:
     void Draw() const noexcept override;
 
 protected:
+    virtual void GameRestart() override;
 	virtual void Load() override;
 	virtual void Unload() override;
 private:

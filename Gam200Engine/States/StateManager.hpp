@@ -20,6 +20,7 @@ class StateManager
 {
 public:
     static StateManager *GetStateManager();
+    void GameRestart() const;
     void Init();
     void Update(float dt);
     void Clear();

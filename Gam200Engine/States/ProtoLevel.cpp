@@ -21,6 +21,9 @@ Creation Date: 11.11.2019
 #include <States\StateManager.hpp>
 
 
+void ProtoLevel::GameRestart()
+{
+}
 
 void ProtoLevel::Load() {
     

@@ -22,6 +22,12 @@ Creation Date: 12.10.2019
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 
+void State::GameRestartState() noexcept
+{
+    GameRestart();
+    cameraManager.InitializeCurrentCameraSetting();
+}
+
 void State::LoadState() noexcept
 {
 	InstanceDEBUGObjects();

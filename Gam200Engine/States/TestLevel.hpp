@@ -14,6 +14,8 @@ Creation Date: 08.15.2019
 #include <States/State.hpp>
 #include <Object/Object.hpp>
 #include <Object/Strings/String.hpp>
+#include <Object/InteractiveObject/CrushableObject.hpp>
+#include <Object/InteractiveObject/ObstacleObject.hpp>
 
 class TestLevel final : public State
 {
@@ -29,13 +31,14 @@ public:
     void Input();
     void Collision();
 protected:
+    virtual void GameRestart() override;
 	virtual void Load() override;
 	virtual void Unload() override;
 private:
-	void GameDead();
+    void PlayerMove(vector2 player1Position, vector2 player2Position) const;
 	void PlayerScaling();
-	void DeadAndRestart();
-
+	void CheckOutofPlace();
+	void UpdateCollisionBox(Object* obj1, Object* obj2);
 private:
 
     Object* gameClearPopUp{};
@@ -48,6 +51,9 @@ private:
 	Object* numbers{};
 	Object* testObject{}; // test for jaemin
 	String* string{};
+    CrushableObject* crushable_Object;
+
+
 
 //map objects
     Object* first_Objects_1{};
@@ -63,7 +69,7 @@ private:
     Object* map{};
 
 //Obstacle
-    Object* sharpKnife{};
+    ObstacleObject * sharpKnife{};
 
     //movement image
     Object* movement_p1{};

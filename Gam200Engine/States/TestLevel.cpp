@@ -22,8 +22,17 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Component/TextComponent.hpp>
 #include <Component/StringPhysics.hpp>
+#include <Component/GoalComponent.hpp>
 
 SoundManager test;
+
+void TestLevel::GameRestart()
+{
+    PlayerMove(vector2{ -200.f, -1900.f }, vector2{200.f, -1900.f});
+
+    string->InitString();
+}
+
 void TestLevel::Load()
 {
     test.Load_Sound();
@@ -86,10 +95,10 @@ void TestLevel::Load()
     goalPoint->SetObjectName("goalPoint");
     goalPoint->SetTranslation(vector2{ 0.f, 2000.f });
     goalPoint->SetScale(vector2{ 150.f });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-    goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel"));
+	goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
@@ -99,7 +108,7 @@ void TestLevel::Load()
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("goalPoint");
+    startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -2000.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
@@ -230,21 +239,13 @@ void TestLevel::Load()
     objManager->FindLayer(LayerNames::Stage)->AddObject(map);
 
 
-    sharpKnife = new Object();
+    sharpKnife = new ObstacleObject(vector2{ -600.f, -300.f }, vector2{ 300.f ,300.f }, Physics::ObjectType::CIRCLE);
     sharpKnife->SetObjectType(Object::ObjectType::OBSTACLE);
     sharpKnife->SetObjectName("sharpKnife");
-    sharpKnife->SetTranslation(vector2{ -600.f, -300.f });
-    sharpKnife->SetScale(vector2{ 300.f ,300.f });
-    sharpKnife->AddComponent(new Sprite(sharpKnife));
-    sharpKnife->AddComponent(new Physics(sharpKnife));
-    sharpKnife->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(sharpKnife, Physics::ObjectType::CIRCLE);
-    sharpKnife->SetDepth(-1.f);
     sharpKnife->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
     objManager->FindLayer(LayerNames::Stage)->AddObject(sharpKnife);
 
     cameraManager.Init();
-    //=========================================================================================
-    // player movement information image update
 
     movement_p1 = new Object();
     //movement_p1->SetObjectType(Object::ObjectType::OBSTACLE);
@@ -268,6 +269,9 @@ void TestLevel::Load()
 
     cameraManager.Init();
 
+    crushable_Object = new CrushableObject(vector2{0.f,-500.f},vector2{300.f}, Physics::ObjectType::RECTANGLE,  string);
+    crushable_Object->SetObjectName("HELLO!");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(crushable_Object);
 }
 
 bool check_haha = false;
@@ -298,7 +302,8 @@ void TestLevel::Update(float /*dt*/)
 
     PlayerScaling();
 
-    DeadAndRestart();
+    CheckOutofPlace();
+
 }
 
 void TestLevel::Unload()
@@ -310,34 +315,33 @@ void TestLevel::Unload()
 
 void TestLevel::Input()
 {
-    /**********************Moving Object 1*******************************************/
-    if (input.IsKeyPressed(GLFW_KEY_W))
-    {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-        if (input.IsKeyPressed(GLFW_KEY_D))
-        {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_A))
-        {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_A))
-    {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_W))
-        {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_S))
-        {
-            object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_S))
-    {
-        object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+	if (input.IsKeyPressed(GLFW_KEY_W))
+	{
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+		if (input.IsKeyPressed(GLFW_KEY_D))
+		{
+			object1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+		}
+		else if (input.IsKeyPressed(GLFW_KEY_A))
+		{
+			object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+		}
+	}
+	if (input.IsKeyPressed(GLFW_KEY_A))
+	{
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		if (input.IsKeyPressed(GLFW_KEY_W))
+		{
+			object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+		}
+		else if (input.IsKeyPressed(GLFW_KEY_S))
+		{
+			object1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+		}
+	}
+	if (input.IsKeyPressed(GLFW_KEY_S))
+	{
+		object1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
 
         if (input.IsKeyPressed(GLFW_KEY_A))
         {
@@ -440,19 +444,19 @@ void TestLevel::Collision()
     object1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
-void TestLevel::GameDead()
+void TestLevel::PlayerMove(vector2 player1Position, vector2 player2Position) const
 {
-    object1->SetTranslation(vector2{ -200.f, -1900.f });
-    object1->GetComponentByTemplate<Physics>()->SetOldPosition(vector2{ -200.f, -1900.f });
-    object2->SetTranslation(vector2{ 200.f, -1900.f }); //change actual location 
-    object2->GetComponentByTemplate<Physics>()->SetOldPosition(vector2{ -200.f, -1900.f });
-
-    string->InitString();
-
-    cameraManager.InitializeCurrentCameraSetting();
+    object1->SetTranslation(player1Position);
+    object2->SetTranslation(player2Position); //change actual location
+    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetTranslation());
+    object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetTranslation());
+    object1->GetComponentByTemplate<Physics>()->SetOldPosition(object1->GetTranslation());
+    object2->GetComponentByTemplate<Physics>()->SetOldPosition(object2->GetTranslation());
+    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetTranslation());
+    object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetTranslation());
 }
 
-void UpdateCollisionBox(Object* obj1, Object* obj2)
+void TestLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
 {
     obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
     obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
@@ -508,15 +512,15 @@ void TestLevel::PlayerScaling()
     }
 }
 
-void TestLevel::DeadAndRestart()
+void TestLevel::CheckOutofPlace()
 {
-    // Game over when the players out of background bound. 
-    if ((object1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
-        object1->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2) ||
-        object2->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
-        object2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2))
-        )
-    {
-        GameDead();
-    }
+	// Game over when the players out of background bound. 
+	if ((object1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+		object1->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2) ||
+		object2->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+		object2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2))
+		)
+	{
+        GameRestart();
+	}
 }

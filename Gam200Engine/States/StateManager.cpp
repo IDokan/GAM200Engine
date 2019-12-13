@@ -20,6 +20,11 @@ StateManager * StateManager::GetStateManager()
     return state_manager;
 }
 
+void StateManager::GameRestart() const
+{
+    currentState->GameRestartState();
+}
+
 void StateManager::Init()
 {
     currentState = nullptr;

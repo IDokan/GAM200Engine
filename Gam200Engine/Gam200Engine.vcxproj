@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Component\Animation.hpp" />
     <ClInclude Include="Component\Component.hpp" />
+    <ClInclude Include="Component\GoalComponent.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Sprite.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
@@ -209,7 +210,9 @@
     <ClInclude Include="Graphics\Vertices.hpp" />
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
+    <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
+    <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
@@ -220,6 +223,8 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="States\BasicMovementLevel.hpp" />
+    <ClInclude Include="States\CrushObjectLevel.hpp" />
+    <ClInclude Include="States\DeadLevel.hpp" />
     <ClInclude Include="States\OneWayPassLevel.hpp" />
     <ClInclude Include="States\ProtoLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
@@ -241,6 +246,7 @@
   <ItemGroup>
     <ClCompile Include="Component\Animation.cpp" />
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\GoalComponent.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Sprite.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
@@ -277,7 +283,9 @@
     <ClCompile Include="Graphics\Vertices.cpp" />
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
+    <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
+    <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
@@ -288,6 +296,8 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="States\BasicMovementLevel.cpp" />
+    <ClCompile Include="States\CrushObjectLevel.cpp" />
+    <ClCompile Include="States\DeadLevel.cpp" />
     <ClCompile Include="States\OneWayPassLevel.cpp" />
     <ClCompile Include="States\ProtoLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />

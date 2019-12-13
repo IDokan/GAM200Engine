@@ -35,6 +35,7 @@ public:
 	void Update(float dt) override;
 
 protected:
+    void GameRestart() override;
 	void Load() override;
 	void Unload() override;
 
@@ -46,7 +47,7 @@ private:
     Object* background;
     Object* startPoint{};
     Object* goalPoint{};
-    Player1* player1{};
-    Player2* player2{};
+    Object* player1{};
+    Object* player2{};
     String* string{};
 };

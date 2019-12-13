@@ -37,9 +37,7 @@ String::String(Object* player1, Object* player2)
 
 void String::InitString()
 {
-	vertices.clear();
-	vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
-	vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+    GetComponentByTemplate<StringPhysics>()->SetShouldClear(true);
 }
 
 void String::Update(float /*dt*/)
