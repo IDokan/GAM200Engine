@@ -94,7 +94,7 @@ void TestLevel::Load()
     goalPoint->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
     fileIO* a = 0;
-    a->Input("../assets/tmp/ObjectOutput_TEST.txt");
+    a->Input("../assets/fileIO/saveloadFile.txt");
 
 
     startPoint = new Object();

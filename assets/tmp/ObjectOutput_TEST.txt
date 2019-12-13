@@ -1,4 +1,0 @@
-TestSpawnedObject0 253 243 107 106 -93 test ../assets/textures/rect.png
-TestSpawnedObject1 395 346 107 106 -93 test ../assets/textures/rect.png
-TestSpawnedObject0 159 312 132 115 -121 test ../assets/textures/rect.png
-TestSpawnedObject1 425 487 132 115 -121 test ../assets/textures/rect.png
