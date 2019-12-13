@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: CrushObjectLevel.hpp
 Author: dbsqhd106@gmail.com
 
-Creation Date: DEC/11st/2019
+Creation Date: DEC/11th/2019
 
     Header file for the test object whether interact work or not
 ******************************************************************************/

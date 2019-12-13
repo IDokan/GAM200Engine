@@ -11,6 +11,7 @@ Creation Date: 12.10.2019
 	Source file for level that string make player move easily
 ******************************************************************************/
 #include <States/OneWayPassLevel.hpp>
+#include <Component/GoalComponent.hpp>
 
 
 OneWayPassLevel::OneWayPassLevel()
@@ -229,6 +230,7 @@ void OneWayPassLevel::InitObject() {
     goalPoint->SetTranslation(vector2{ 0.f, 1000.f });
     goalPoint->SetScale(vector2{ 150.f });
     goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "DeadLevel"));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
@@ -236,7 +238,7 @@ void OneWayPassLevel::InitObject() {
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("goalPoint");
+    startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -1000.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));

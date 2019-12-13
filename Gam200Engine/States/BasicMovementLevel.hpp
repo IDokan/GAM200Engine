@@ -12,18 +12,9 @@ Creation Date: 12.10.2019
 ******************************************************************************/
 #pragma once
 #include <States/State.hpp>
-#include <Object/Object.hpp>
-#include <Object/Strings/String.hpp>
-#include <Component/Physics.hpp>
-#include <Object\ObjectManager.hpp>
-#include <Component/Sprite.hpp>
-#include <Systems/FileIO.hpp>
-#include <Object/Players/Player1.h>
-#include <Object/Players/Player2.h>
 
-// input function
-#include <Graphics/GL.hpp>
-#include <Systems/Input.hpp>
+class Object;
+class String;
 
 
 class BasicMovementLevel : public State

@@ -1,8 +1,20 @@
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name: CrushObjectLevel.cpp
+Author: dbsqhd106@gmail.com
+
+Creation Date: DEC/11th/2019
+
+	Source file for the test object whether interact work or not
+******************************************************************************/
 #include <States/CrushObjectLevel.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 #include <Systems/Input.hpp>
+#include <Component/GoalComponent.hpp>
 #include <GLFW/glfw3.h>
 
 CrushObjectLevel::CrushObjectLevel()
@@ -226,7 +238,6 @@ void CrushObjectLevel::InitObject()
     background->SetTranslation(vector2{ 0.f,-1050.f });
     background->SetScale(vector2{ 2000.f,2400.f });
     background->AddComponent(new Sprite(background));
-    background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
     player1 = new Object();
@@ -265,6 +276,20 @@ void CrushObjectLevel::InitObject()
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
 
+	goalPoint = new Object();
+	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	goalPoint->SetObjectName("goalPoint");
+	goalPoint->SetTranslation(vector2{ -440.f, -550.f });
+	goalPoint->SetScale(vector2{ 250.f,150.f });
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, ""/*This is a last level in presentation*/));
+	goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+	goalPoint->SetDepth(-1.f);
+	
+
     object1 = new CrushableObject(vector2{ -809.f,-1529.f }, vector2{ 380.f,157.f }, Physics::ObjectType::RECTANGLE, string);
     object1->SetObjectName("obj_1");
 
@@ -279,12 +304,14 @@ void CrushObjectLevel::InitObject()
 
     object5 = new CrushableObject(vector2{ -394.f,-1530.f }, vector2{ 173.f,163.f }, Physics::ObjectType::RECTANGLE, string);
     object5->SetObjectName("obj_5");
+	object5->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 
     object6 = new CrushableObject(vector2{ 389.f,-766.f }, vector2{ 173.f,159.f }, Physics::ObjectType::RECTANGLE, string);
     object6->SetObjectName("obj_6");
+	object6->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 
-
-    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object3);

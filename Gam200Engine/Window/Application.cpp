@@ -45,14 +45,16 @@ void Application::Init()
 	StateManager::GetStateManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+#ifdef _DEBUG
+	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
+#endif	
+	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
+	StateManager::GetStateManager()->AddStates("DeadLevel", dynamic_cast<State*>(new DeadLevel()));
+    StateManager::GetStateManager()->AddStates("CrushObjectLevel", dynamic_cast<State*>(new CrushObjectLevel()));
 	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
 	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
-	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
-	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
-	StateManager::GetStateManager()->AddStates("SizeScalingLevel", dynamic_cast<State*>(new SizeScalingLevel()));
-    StateManager::GetStateManager()->AddStates("CrushObjectLevel", dynamic_cast<State*>(new CrushObjectLevel()));
-    StateManager::GetStateManager()->AddStates("DeadLevel", dynamic_cast<State*>(new DeadLevel()));
-
+	
+	 
 }
 
 void Application::Update(float dt)

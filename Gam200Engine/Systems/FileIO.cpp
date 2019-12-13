@@ -159,84 +159,73 @@ void fileIO::Output()
 	}
 	outputTEST.close();
 
-	/*********************************************************************/
-	
-	std::ofstream outputOBSTACLE("../assets/fileIO/OutputFiles/objectOutput_OBSTACLE.txt");
+	//std::ofstream outputOBSTACLE("../assets/tmp/objectOutput_OBSTACLE.txt");
 
-	outputOBSTACLE << "Name" << ' ';
-	outputOBSTACLE << ' ';
-	outputOBSTACLE << "x_pos" << ' ';
-	outputOBSTACLE << "y_pos" << ' ';
-	outputOBSTACLE << "x_scale" << ' ';
-	outputOBSTACLE << "y_scale" << ' ';
-	outputOBSTACLE << "depth" << ' ';
-	outputOBSTACLE << "object_type" << ' ';
-	outputOBSTACLE << "file_path" << '\n';
-	outputOBSTACLE << '\n';
+	//outputOBSTACLE << "Name" << ' ';
+	//outputOBSTACLE << ' ';
+	//outputOBSTACLE << "x_pos" << ' ';
+	//outputOBSTACLE << "y_pos" << ' ';
+	//outputOBSTACLE << "x_scale" << ' ';
+	//outputOBSTACLE << "y_scale" << ' ';
+	//outputOBSTACLE << "depth" << '\n';
+	//outputOBSTACLE << '\n';
 
-	const auto& obstacleObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-	for (const auto& object : obstacleObjectContainer)
-	{
-		if (object->GetObjectType() == Object::ObjectType::OBSTACLE)
-		{
-			outputOBSTACLE << object->GetObjectName() << ' ';
-			outputOBSTACLE << object->GetTranslation().x << ' ';
-			outputOBSTACLE << object->GetTranslation().y << ' ';
-			outputOBSTACLE << object->GetScale().x << ' ';
-			outputOBSTACLE << object->GetScale().y << ' ';
-			outputOBSTACLE << object->GetDepth() << ' ';
-			outputOBSTACLE << "test" << ' ';
-			outputOBSTACLE << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
-			outputOBSTACLE << '\n';
-		}
-	}
+	//const auto& obstacleObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	//for (const auto& object : obstacleObjectContainer)
+	//{
+	//	if (object->GetObjectType() == Object::ObjectType::OBSTACLE)
+	//	{
+	//		outputOBSTACLE << object->GetObjectName() << ' ';
+	//		outputOBSTACLE << object->GetTranslation().x << ' ';
+	//		outputOBSTACLE << object->GetTranslation().y << ' ';
+	//		outputOBSTACLE << object->GetScale().x << ' ';
+	//		outputOBSTACLE << object->GetScale().y << ' ';
+	//		outputOBSTACLE << object->GetDepth() << '\n';
+	//		outputOBSTACLE << '\n';
+	//	}
+	//}
 
-	outputOBSTACLE.close();
+	//outputOBSTACLE.close();
 
-	/**********************************************************************/
-	
-	std::ofstream outputPLAYER("../assets/fileIO/OutputFiles/objectOutput_PLAYER.txt");
+	//std::ofstream outputPLAYER("../assets/tmp/objectOutput_PLAYER.txt");
 
-	outputPLAYER << "Name" << ' ';
-	outputPLAYER << ' ';
-	outputPLAYER << "x_pos" << ' ';
-	outputPLAYER << "y_pos" << ' ';
-	outputPLAYER << "x_scale" << ' ';
-	outputPLAYER << "y_scale" << ' ';
-	outputPLAYER << "depth" << ' ';
-	outputPLAYER << "object_type" << ' ';
-	outputPLAYER << "file_path" << '\n';
-	outputPLAYER << '\n';
+	//outputPLAYER << "Name" << ' ';
+	//outputPLAYER << ' ';
+	//outputPLAYER << "x_pos" << ' ';
+	//outputPLAYER << "y_pos" << ' ';
+	//outputPLAYER << "x_scale" << ' ';
+	//outputPLAYER << "y_scale" << ' ';
+	//outputPLAYER << "depth" << ' ';
+	//outputPLAYER << "object_type" << '\n';
+	//outputPLAYER << '\n';
 
-	const auto& playerObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-	for (const auto& object : playerObjectContainer)
-	{
-		if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
-		{
-			outputPLAYER << object->GetObjectName() << ' ';
-			outputPLAYER << object->GetTranslation().x << ' ';
-			outputPLAYER << object->GetTranslation().y << ' ';
-			outputPLAYER << object->GetScale().x << ' ';
-			outputPLAYER << object->GetScale().y << ' ';
-			outputPLAYER << object->GetDepth() << ' ';
-			outputPLAYER << "player1" << ' ';
-			outputPLAYER << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
-			outputPLAYER << '\n';
-		}
+	//const auto& playerObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+	//for (const auto& object : playerObjectContainer)
+	//{
+	//	if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
+	//	{
+	//		outputPLAYER << object->GetObjectName() << ' ';
+	//		outputPLAYER << object->GetTranslation().x << ' ';
+	//		outputPLAYER << object->GetTranslation().y << ' ';
+	//		outputPLAYER << object->GetScale().x << ' ';
+	//		outputPLAYER << object->GetScale().y << ' ';
+	//		outputPLAYER << object->GetDepth() << ' ';
+	//		outputPLAYER << "PLAYER_1" << '\n';
+	//		outputPLAYER << '\n';
+	//	}
 
-		if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
-		{
-			outputPLAYER << object->GetObjectName() << ' ';
-			outputPLAYER << object->GetTranslation().x << ' ';
-			outputPLAYER << object->GetTranslation().y << ' ';
-			outputPLAYER << object->GetScale().x << ' ';
-			outputPLAYER << object->GetScale().y << ' ';
-			outputPLAYER << object->GetDepth() << ' ';
-			outputPLAYER << "player2" << ' ';
-			outputPLAYER << object->GetComponentByTemplate<Sprite>()->GetImagePath() << '\n';
-			outputPLAYER << '\n';
-		}
-	}
+	//	if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
+	//	{
+	//		outputPLAYER << object->GetObjectName() << ' ';
+	//		outputPLAYER << object->GetTranslation().x << ' ';
+	//		outputPLAYER << object->GetTranslation().y << ' ';
+	//		outputPLAYER << object->GetScale().x << ' ';
+	//		outputPLAYER << object->GetScale().y << ' ';
+	//		outputPLAYER << object->GetDepth() << ' ';
+	//		outputPLAYER << "PLAYER_2" << '\n';
+	//		outputPLAYER << '\n';
+	//	}
+	//}
 
-	outputPLAYER.close();
+	//outputPLAYER.close();
 }

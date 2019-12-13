@@ -181,15 +181,16 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept
 		);
 	}
 
-	// Rotating Camera
-	if (input.IsKeyPressed(GLFW_KEY_E))
-	{
-		selectedCamera->camera.Rotate(0.05f);
-	}
-	if (input.IsKeyPressed(GLFW_KEY_Q))
-	{
-		selectedCamera->camera.Rotate(-0.05f);
-	}
+	// Disable camera rotation
+	//// Rotating Camera
+	//if (input.IsKeyPressed(GLFW_KEY_E))
+	//{
+	//	selectedCamera->camera.Rotate(0.05f);
+	//}
+	//if (input.IsKeyPressed(GLFW_KEY_Q))
+	//{
+	//	selectedCamera->camera.Rotate(-0.05f);
+	//}
 #endif
 }
 

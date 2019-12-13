@@ -150,18 +150,9 @@ namespace MyImGui
 		physics->SetVectorTranslation(vectorTranslation);
 
 		static bool isCollisionBoxDrawn = false;
-		if (physics->GetHasCollisionBox())
-		{
-			ImGui::Checkbox("Draw Check Box", &isCollisionBoxDrawn);
-			if (isCollisionBoxDrawn)
-			{
-				AddCollisionBox(object, physics);
-			}
-			else
-			{
-				//DeleteCollisionBox(object, physics);
-			}
-		}
+
+		physics->SetCollisionBoxPosition(object->GetTranslation());
+		physics->SetCollisionBoxScale(object->GetScale());
 	}
 
 	void DrawInteractiveObjectSection(InteractiveObject* obj)

@@ -1,6 +1,2 @@
 Name  x_pos y_pos x_scale y_scale depth object_type file_path
 
-temp1 253 243 107 106 -93 test ../assets/textures/rect.png
-temp2 395 346 107 106 -93 test ../assets/textures/rect.png
-temp3 159 312 132 115 -121 test ../assets/textures/rect.png
-temp4 425 487 132 115 -121 test ../assets/textures/rect.png

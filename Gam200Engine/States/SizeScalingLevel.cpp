@@ -12,6 +12,7 @@ Creation Date: 12.10.2019
 	Source file for level that teach size scaling
 ******************************************************************************/
 #include <States/SizeScalingLevel.hpp>
+#include <Component/GoalComponent.hpp>
 
 SizeScalingLevel::SizeScalingLevel()
 {
@@ -214,16 +215,6 @@ void SizeScalingLevel::InitObject() {
     player2->SetDepth(-1.f);
     player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
     player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
- 
-
-    //player1 = new Player1("player1", vector2{ -200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, -1.f);
-    //player1->SetObjectType(Object::ObjectType::PLAYER_1);
-    //player1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
-    //player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
-    //player2 = new Player2("player2", vector2{ 200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, 0.f);
-    //player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    //player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
-    //player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
 
     string = new String(player1, player2);
 
@@ -233,6 +224,7 @@ void SizeScalingLevel::InitObject() {
     goalPoint->SetTranslation(vector2{ 0.f, 1000.f });
     goalPoint->SetScale(vector2{ 150.f });
     goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "CrushObjectLevel"));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
@@ -240,7 +232,7 @@ void SizeScalingLevel::InitObject() {
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("goalPoint");
+    startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -1000.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));

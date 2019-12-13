@@ -15,6 +15,7 @@ Creation Date: DEC/11th/2019
 #include <Systems/Input.hpp>
 #include <Component/Physics.hpp>
 #include <Object/InteractiveObject/ObstacleObject.hpp>
+#include <Component/GoalComponent.hpp>
 
 DeadLevel::DeadLevel()
 {
@@ -254,18 +255,32 @@ void DeadLevel::InitObject()
     obj_3->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
     objManager->FindLayer(LayerNames::Stage)->AddObject(obj_3);
 
-    startPoint = new Object();
-    startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("startPoint");
-    startPoint->SetTranslation(vector2{ 0.f, -2175.f });
-    startPoint->SetScale(vector2{ 250.f,150.f });
-    startPoint->AddComponent(new Sprite(startPoint));
-    startPoint->AddComponent(new Physics(startPoint));
-    startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
-    startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-    startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
-    startPoint->SetDepth(-1.f);
+	startPoint = new Object();
+	startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	startPoint->SetObjectName("startPoint");
+	startPoint->SetTranslation(vector2{ 0.f, -2175.f });
+	startPoint->SetScale(vector2{ 250.f,150.f });
+	startPoint->AddComponent(new Sprite(startPoint));
+	startPoint->AddComponent(new Physics(startPoint));
+	startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
+	startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
+	startPoint->SetDepth(-1.f);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 
-    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+	goalPoint = new Object();
+	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	goalPoint->SetObjectName("startPoint");
+	goalPoint->SetTranslation(vector2{ 0.f, -2175.f });
+	goalPoint->SetScale(vector2{ 250.f,150.f });
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "CrushObjectLevel"));
+	goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+	goalPoint->SetDepth(-1.f);
+
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
     
 }
