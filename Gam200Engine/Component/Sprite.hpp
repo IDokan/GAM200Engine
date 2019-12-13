@@ -39,7 +39,7 @@ public:
 
 	public:		// Getter & Setter
 	void SetColor(const Graphics::Color4f& color) noexcept;
-	void SetImage(const std::filesystem::path&) noexcept;
+	bool SetImage(const std::filesystem::path&) noexcept;
 
 	// Test function they should be implemented specifically later...
 	void SetIsBackground(bool isBackGround) noexcept;
