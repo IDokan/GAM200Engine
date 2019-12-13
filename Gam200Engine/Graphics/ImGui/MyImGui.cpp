@@ -121,14 +121,34 @@ namespace MyImGui
 
 		ImGui::Spacing();
 
+        static int resultPrintFlag = 0;
+
 		static constexpr size_t BUFFER_SIZE = 128;
 		static char* filePath{};
 		filePath = const_cast<char*>(sprite->GetImagePath().c_str());
 		ImGui::InputText("file path", filePath, BUFFER_SIZE);
 		if (ImGui::Button("Change sprite!"))
 		{
-			sprite->SetImage(filePath);
+            if (sprite->SetImage(filePath))
+            {
+                resultPrintFlag = 1;
+            }
+            else
+            {
+                resultPrintFlag = -1;
+            }
 		}
+
+        if (resultPrintFlag > 0)
+        {
+            ImGui::SameLine();
+            ImGui::Text("Image Loading succeed! :D");
+        }
+        else if (resultPrintFlag < 0)
+        {
+            ImGui::SameLine();
+            ImGui::Text("Image Loading Failed.. :(");
+        }
 	}
 
 	void DrawPhysicsSection(Object* object, Physics* physics)

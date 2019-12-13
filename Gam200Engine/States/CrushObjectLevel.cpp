@@ -226,7 +226,7 @@ void CrushObjectLevel::InitObject()
     background->SetTranslation(vector2{ 0.f,-1050.f });
     background->SetScale(vector2{ 2000.f,2400.f });
     background->AddComponent(new Sprite(background));
-    background->AddComponent(new Physics(background));
+    //background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
     player1 = new Object();

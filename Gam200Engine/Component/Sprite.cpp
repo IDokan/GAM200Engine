@@ -76,7 +76,7 @@ void Sprite::SetColor(const Graphics::Color4f& color) noexcept
 }
 
 // TODO: In order to improve engine, I should make a sprite storage to get a already loaded image file.
-void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
+bool Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 {
 	if (texture->LoadFromPNG(filepath))
 	{
@@ -91,7 +91,9 @@ void Sprite::SetImage(const std::filesystem::path& filepath) noexcept
 		std::cout << "Image Loading Failed!\n";
 		std::cout << "Owner object name is " << owner->GetObjectName() << std::endl;
 		std::cout << "Path is " << filepath << std::endl;
+        return false;
 	}
+    return true;
 }
 
 void Sprite::SetIsBackground(bool isBackGround) noexcept
