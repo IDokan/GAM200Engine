@@ -22,6 +22,7 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     SetTranslation(objPos);
     SetScale(objScale);
     Object::AddComponent(new Physics(this));
+    SetObjectType(Object::ObjectType::OBSTACLE);
     GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, objType);
     SetDepth(-0.1f);
 }

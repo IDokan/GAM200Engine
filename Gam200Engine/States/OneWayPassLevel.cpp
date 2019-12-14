@@ -33,8 +33,6 @@ void OneWayPassLevel::Update(float dt)
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
 
-    player1->SetTranslation(obj1Position);
-    player2->SetTranslation(obj2Position);
 
     cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
 	Input();
