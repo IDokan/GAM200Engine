@@ -192,7 +192,7 @@ void Physics::ManageCollision()
                                         object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
                                         object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
                                     }
-                                } /* this computer is dumass's computer fucking shit */
+                                }
                             }
                         }
                         else if (object1->GetObjectType() == Object::ObjectType::PLAYER_2)
