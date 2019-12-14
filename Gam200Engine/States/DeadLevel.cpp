@@ -270,8 +270,8 @@ void DeadLevel::InitObject()
 
 	goalPoint = new Object();
 	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-	goalPoint->SetObjectName("startPoint");
-	goalPoint->SetTranslation(vector2{ 0.f, -2175.f });
+	goalPoint->SetObjectName("goalPoint");
+	goalPoint->SetTranslation(vector2{ 0.f, -400.f });
 	goalPoint->SetScale(vector2{ 250.f,150.f });
 	goalPoint->AddComponent(new Sprite(goalPoint));
 	goalPoint->AddComponent(new GoalComponent(goalPoint, "CrushObjectLevel"));
