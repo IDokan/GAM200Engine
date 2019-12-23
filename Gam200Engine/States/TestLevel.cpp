@@ -29,7 +29,6 @@ SoundManager test;
 void TestLevel::GameRestart()
 {
     PlayerMove(vector2{ -200.f, -1900.f }, vector2{200.f, -1900.f});
-
     string->InitString();
 }
 

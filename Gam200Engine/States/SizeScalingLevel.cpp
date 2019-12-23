@@ -14,7 +14,7 @@ Creation Date: 12.10.2019
 #include <States/SizeScalingLevel.hpp>
 #include <Component/GoalComponent.hpp>
 
-SizeScalingLevel::SizeScalingLevel()
+SizeScalingLevel::SizeScalingLevel(): background(nullptr), scaleObject1(nullptr), scaleObject2(nullptr)
 {
 }
 
@@ -29,7 +29,7 @@ void SizeScalingLevel::Load()
     cameraManager.Init();
 }
 
-void SizeScalingLevel::Update(float dt)
+void SizeScalingLevel::Update(float /*dt*/)
 {
     SizeScalingLevel::Input();
     SizeScalingLevel::Collision();

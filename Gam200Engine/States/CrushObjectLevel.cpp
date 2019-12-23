@@ -16,6 +16,9 @@ Creation Date: DEC/11th/2019
 #include <Systems/Input.hpp>
 #include <Component/GoalComponent.hpp>
 #include <GLFW/glfw3.h>
+#include <Sounds/SoundManager.hpp>
+
+SoundManager TestSoundForCrush;
 
 CrushObjectLevel::CrushObjectLevel()
 {
@@ -25,7 +28,7 @@ CrushObjectLevel::~CrushObjectLevel()
 {
 }
 
-void CrushObjectLevel::Update(float dt)
+void CrushObjectLevel::Update(float /*dt*/)
 {
     cameraManager.CameraMove(player1->GetTranslation(), player2->GetTranslation(), 1.1f);
     Input();
@@ -41,7 +44,10 @@ void CrushObjectLevel::Update(float dt)
 void CrushObjectLevel::Load()
 {
     CrushObjectLevel::InitObject();
-    cameraManager.Init(); 
+    cameraManager.Init();
+    TestSoundForCrush.Load_Sound();
+    TestSoundForCrush.SetVolume(CRUSH_SOUND, 1);
+    TestSoundForCrush.SetVolume(SHAREWEIGHT_SOUND, 1);
 }
 
 
@@ -173,12 +179,12 @@ void CrushObjectLevel::Input()
 
     const float minimum_scaling_limit = 125.f;
     const float scaling_constant = 1.f;
-
     if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
     {
+
         if (player1->GetScale().x <= minimum_scaling_limit || player2->GetComponentByTemplate<Physics>()->IsCollided())
         {
-            
+
             return;
         }
         vector2 object1OldScale = player1->GetScale();
@@ -196,6 +202,12 @@ void CrushObjectLevel::Input()
             UpdateCollisionBox(player1, player2);
         }
     }
+    if (input.IsKeyReleased(GLFW_KEY_LEFT_SHIFT) || input.IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
+    {
+        TestSoundForCrush.Stop_Sound(SOUNDS::SHAREWEIGHT_SOUND);
+
+    }
+
     if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
     {
         if (player2->GetScale().x <= minimum_scaling_limit || player1->GetComponentByTemplate<Physics>()->IsCollided())
@@ -217,6 +229,12 @@ void CrushObjectLevel::Input()
             player2->SetScale(object2OldScale);
             UpdateCollisionBox(player1, player2);
         }
+    }
+
+    if (input.IsKeyReleased(GLFW_KEY_LEFT_SHIFT) || input.IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
+    {
+        TestSoundForCrush.Stop_Sound(SOUNDS::SHAREWEIGHT_SOUND);
+
     }
 }
 void CrushObjectLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
@@ -276,6 +294,20 @@ void CrushObjectLevel::InitObject()
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
 
+	goalPoint = new Object();
+	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	goalPoint->SetObjectName("goalPoint");
+	goalPoint->SetTranslation(vector2{ -440.f, -550.f });
+	goalPoint->SetScale(vector2{ 250.f,150.f });
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, ""/*This is a last level in presentation*/));
+	goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+	goalPoint->SetDepth(-1.f);
+	
+
     object1 = new CrushableObject(vector2{ -809.f,-1529.f }, vector2{ 380.f,157.f }, Physics::ObjectType::RECTANGLE, string);
     object1->SetObjectName("obj_1");
 
@@ -296,6 +328,7 @@ void CrushObjectLevel::InitObject()
     object6->SetObjectName("obj_6");
 	object6->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(object2);

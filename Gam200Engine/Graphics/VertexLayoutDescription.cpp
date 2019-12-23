@@ -59,7 +59,7 @@ namespace Graphics
     {
         GLintptr offset = 0;
         
-        for (int count = 0; count < fields.size(); ++count)
+        for (int count = 0; count < static_cast<int>(fields.size()); ++count)
         {
             glCheck(glEnableVertexAttribArray(count));
 

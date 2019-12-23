@@ -15,6 +15,10 @@ Creation Date: 12.13.2019
 #include <States/StateManager.hpp>
 #include <iostream>
 
+
+#include "Sounds/SoundManager.hpp"
+
+SoundManager testSoundforGoalPoint;
 GoalComponent::GoalComponent(Object* obj, const std::string& targetStage_)
 	: Component(obj), targetStage(targetStage_)
 {
@@ -26,12 +30,18 @@ GoalComponent::~GoalComponent()
 
 void GoalComponent::Init()
 {
+    testSoundforGoalPoint.Load_Sound();
 }
 
-void GoalComponent::Update(float dt)
+void GoalComponent::Update(float /*dt*/)
 {
 	if (owner->GetComponentByTemplate<Physics>()->GetIsCollide())
 	{
+        testSoundforGoalPoint.Play_Sound(SOUNDS::GOAL_SOUND);
+        testSoundforGoalPoint.SetVolume(GOAL_SOUND, 0.5);
+
+        
+        // TODO: Add Music
 		StateManager::GetStateManager()->SetNextLevel(targetStage);
 	}
 }

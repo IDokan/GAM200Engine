@@ -21,6 +21,7 @@ Creation Date: 12.10.2019
 #include <Systems/FileIO.hpp>
 #include <Object/Players/Player1.h>
 #include <Object/Players/Player2.h>
+#include <Sounds/SoundManager.hpp>
 
 // input function
 #include <Graphics/GL.hpp>

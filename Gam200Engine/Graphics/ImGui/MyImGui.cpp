@@ -385,8 +385,11 @@ namespace MyImGui
 			wallSpawner->SpawnWall();
 		}
 	}
-
+#ifdef _DEBUG
 	void InitImGui(GLFWwindow* window) noexcept
+#else
+    void InitImGui(GLFWwindow* /*window*/) noexcept
+#endif
 	{
 #ifdef _DEBUG
 		ImGui::CreateContext();
@@ -411,7 +414,11 @@ namespace MyImGui
 	}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
+#ifdef _DEBUG
 	void UpdateImGui(bool /*isShowWindow*/, float dt) noexcept
+#else
+    void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
+#endif
 	{
 #ifdef _DEBUG
 		// Start the Dear ImGui frame
@@ -437,7 +444,7 @@ namespace MyImGui
 			ImGui::Begin(layerNames.at(i).c_str());
 			const auto objContainer = layerContainer.at(i)->GetObjContainer();
 			const size_t size = objContainer.size();
-			for (int j = 0; j < size; ++j)
+			for (int j = 0; j < static_cast<int>(size); ++j)
 			{
 				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && static_cast<size_t>(selectedLayer) == i))
 				{

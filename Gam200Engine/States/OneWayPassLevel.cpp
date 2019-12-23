@@ -14,7 +14,8 @@ Creation Date: 12.10.2019
 #include <Component/GoalComponent.hpp>
 
 
-OneWayPassLevel::OneWayPassLevel()
+SoundManager bgm;
+OneWayPassLevel::OneWayPassLevel(): background(nullptr)
 {
 }
 
@@ -26,12 +27,16 @@ void OneWayPassLevel::Load()
 {
     OneWayPassLevel::InitObject();
     cameraManager.Init();
+    bgm.Load_Sound();
+    bgm.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    bgm.SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
-void OneWayPassLevel::Update(float dt)
+void OneWayPassLevel::Update(float /*dt*/)
 {
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
+
 
 
     cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);

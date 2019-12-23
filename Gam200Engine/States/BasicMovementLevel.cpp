@@ -20,8 +20,10 @@ Creation Date: 12.10.2019
 #include <Component/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Systems/FileIO.hpp>
+#include <Sounds/SoundManager.hpp>
 
-BasicMovementLevel::BasicMovementLevel()
+SoundManager TestBGMSoundForDebugMode;
+BasicMovementLevel::BasicMovementLevel(): background(nullptr)
 {
 }
 
@@ -37,9 +39,13 @@ void BasicMovementLevel::Load()
     BasicMovementLevel::InitObject();
 
     cameraManager.Init();
+    TestBGMSoundForDebugMode.Load_Sound();
+    TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
+
 }
 
-void BasicMovementLevel::Update(float dt)
+void BasicMovementLevel::Update(float /*dt*/)
 {
     BasicMovementLevel::Input();
     BasicMovementLevel::Collision();

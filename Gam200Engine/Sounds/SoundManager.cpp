@@ -21,12 +21,23 @@ SoundManager::SoundManager()
 
 void SoundManager::Load_Sound()
 {
-	theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/bgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[JAMJAMTEST_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+	//theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/bgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[JAMJAMTEST_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+	//ERRCHECK(theResult, "Load Sound");
+	//theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/dash.mp3", FMOD_DEFAULT, nullptr, &sound[DASH_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+	//ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Cartoon_Boing.mp3", FMOD_DEFAULT, nullptr, &sound[COLLISION_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
 	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/dash.mp3", FMOD_DEFAULT, nullptr, &sound[DASH_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
-	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/collision.mp3", FMOD_DEFAULT, nullptr, &sound[COLLISION_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
-	ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Missive.mp3", FMOD_DEFAULT, nullptr, &sound[BACKGROUND_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Siren_Whistle.mp3", FMOD_DEFAULT, nullptr, &sound[FALLING_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Magic_Chime.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Dog_Drinking_Close_Up.mp3", FMOD_DEFAULT, nullptr, &sound[SHAREWEIGHT_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    ERRCHECK(theResult, "Load Sound");
+
 }
 
 void SoundManager::Play_Sound(SOUNDS sound_name)

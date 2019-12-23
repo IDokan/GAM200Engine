@@ -145,7 +145,11 @@ vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
 	return cameraDetectRectSize;
 }
 
+#ifdef _DEBUG
 void Graphics::CameraManager::DEBUGCameraMove(const float& zoomSize) noexcept
+#else
+void Graphics::CameraManager::DEBUGCameraMove(const float& /*zoomSize*/) noexcept
+#endif  
 {
 #ifdef _DEBUG
 

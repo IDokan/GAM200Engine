@@ -33,7 +33,7 @@ Creation Date: 08.12.2019
             NormalizedDeviceCoordinates
         };
         void                       SetFrameOfReference(FrameOfReference frame_of_reference) noexcept;
-        constexpr FrameOfReference GetFrameOfReference() const noexcept { return frameOfReference; }
+        [[nodiscard]] constexpr FrameOfReference GetFrameOfReference() const noexcept { return frameOfReference; }
 
     private:
 		const float		 initZoomSize{ 1.f };

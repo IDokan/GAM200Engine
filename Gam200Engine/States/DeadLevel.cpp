@@ -16,8 +16,10 @@ Creation Date: DEC/11th/2019
 #include <Component/Physics.hpp>
 #include <Object/InteractiveObject/ObstacleObject.hpp>
 #include <Component/GoalComponent.hpp>
+#include <Sounds/SoundManager.hpp>
 
-DeadLevel::DeadLevel()
+SoundManager testSoundForDead;
+DeadLevel::DeadLevel(): background(nullptr), obj_1(nullptr), obj_2(nullptr), obj_3(nullptr)
 {
 }
 
@@ -25,7 +27,7 @@ DeadLevel::~DeadLevel()
 {
 }
 
-void DeadLevel::Update(float dt)
+void DeadLevel::Update(float /*dt*/)
 {
     cameraManager.CameraMove(player1->GetTranslation(), player2->GetTranslation(), 1.1f);
     Input();
@@ -47,7 +49,8 @@ void DeadLevel::Update(float dt)
 
 void DeadLevel::GameRestart()
 {
-   
+
+    testSoundForDead.Play_Sound(SOUNDS::FALLING_SOUND);
     player1->SetTranslation(vector2{ -200.f, -2000.f });
     player2->SetTranslation(vector2{ 200.f, -2000.f }); //change actual location
     player1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(player1->GetTranslation());
@@ -63,6 +66,8 @@ void DeadLevel::Load()
 {
     DeadLevel::InitObject();
     cameraManager.Init();
+    testSoundForDead.Load_Sound();
+    testSoundForDead.SetVolume(FALLING_SOUND, 1);
 }
 
 void DeadLevel::Unload()

@@ -17,8 +17,8 @@ Creation Date: 08.05.2019
 #include <States/StateManager.hpp>
 #include <Sounds/SoundManager.hpp>
 
-Application* app_ = nullptr;/*
-SoundManager test;*/
+Application* app_ = nullptr;
+//SoundManager BGM;
 void Engine::Init()
 {
     ////-----------TEST SOUNDS-------------------------

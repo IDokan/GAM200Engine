@@ -76,9 +76,9 @@ std::string Object::GetObjectName()
 	return objectName;
 }
 
-void Object::SetObjectType(ObjectType objType)
+void Object::SetObjectType(ObjectType objType_)
 {
-	this->objType = objType;
+	objType = objType_;
 }
 
 std::string Object::GetStringOfObjectType() const noexcept
