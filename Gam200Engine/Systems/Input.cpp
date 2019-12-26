@@ -14,6 +14,7 @@ Creation Date: 08.06.2019
 #include <Window/PlatformWindow.hpp>
 #include <Window/Application.hpp>
 #include <chrono>
+#include <States/StateManager.hpp>
 
 Input input;
 
@@ -124,9 +125,16 @@ void Input::SetPresentMousePosition(const vector2& mousePos) noexcept
 	presentMousePosition = mousePos;
 }
 
-vector2 Input::GetMousePosition() const noexcept
+vector2 Input::GetMouseAbsolutePosition() const noexcept
 {
 	return mousePosition;
+}
+
+vector2 Input::GetMouseRelativePosition() const noexcept
+{
+	const Graphics::CameraManager& cameraManager = StateManager::GetStateManager()->GetCurrentState()->GetCameraManager();
+
+	return mousePosition + cameraManager.GetPosition();
 }
 
 bool Input::IsMouseButtonTriggered(int button)

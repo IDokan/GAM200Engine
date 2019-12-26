@@ -33,6 +33,9 @@ public:
 
 	virtual void Draw() const noexcept;
 
+	// Getters
+	const Graphics::CameraManager& GetCameraManager() const noexcept;
+
 public:
 	void LevelChangeTo(std::string name);
 	std::string GetChangedLevelName();

@@ -85,6 +85,12 @@ void State::Draw() const noexcept
 	Graphics::GL::end_drawing();
 }
 
+const Graphics::CameraManager& State::GetCameraManager() const noexcept
+{
+	// TODO: insert return statement here
+	return cameraManager;
+}
+
 void State::LevelChangeTo(std::string name)
 {
 	is_next = true;

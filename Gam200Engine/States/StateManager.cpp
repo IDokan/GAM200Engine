@@ -103,3 +103,8 @@ std::vector<std::string> StateManager::GetStateNames() const noexcept
 
 	return stateNames;
 }
+
+State* StateManager::GetCurrentState() const noexcept
+{
+	return currentState;
+}

@@ -156,12 +156,12 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& /*zoomSize*/) noexcep
 	// Camera Movement
 	if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
-		input.SetPresentMousePosition(input.GetMousePosition());
+		input.SetPresentMousePosition(input.GetMouseAbsolutePosition());
 	}
 	if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		// Get an relative distance with current zoom size
-		const vector2& mousePosition = input.GetMousePosition();
+		const vector2& mousePosition = input.GetMouseAbsolutePosition();
 		const vector2& distance = (input.GetPresentMousePosition() - mousePosition) / selectedCamera->cameraView.GetZoom();
 
 		// Apply distance into current Up and Right vector

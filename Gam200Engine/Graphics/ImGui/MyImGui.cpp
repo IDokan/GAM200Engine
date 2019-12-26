@@ -22,13 +22,17 @@ Creation Date: 08.23.2019
 #pragma warning (pop)
 #include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
-#include <Object/InteractiveObject/InteractiveObject.hpp>
+#include <Systems/Input.hpp>
 // Include special objects
+#include <Object/InteractiveObject/InteractiveObject.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 // Include Components
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
+
+// Include iostream for DEBUG
+#include <iostream>
 
 namespace MyImGui
 {
@@ -46,6 +50,8 @@ namespace MyImGui
 	void HighlightSelectedObject(Object* obj, float dt);
 	void DrawLevelChangeSection(LevelChangeButton* levelChangeButton);
 	void DrawWallSpawnerSection(WallSpawner* wallSpawner);
+	void UpdateObjectTranslationWithMouse(Object* obj);
+	bool IsMouseOnTheObject(Object* obj, vector2 mousePos);
 	/* End of helper functions */
 
 
@@ -55,11 +61,6 @@ namespace MyImGui
 	static Object* collisionBox;
 	void AddCollisionBox(Object* obj, Physics* physics)
 	{
-		//if (isCollisionBoxShown == true)
-		//{
-		//	return;
-		//}
-
 		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
 		if (hudLayer != nullptr)
 		{
@@ -121,7 +122,7 @@ namespace MyImGui
 
 		ImGui::Spacing();
 
-        static int resultPrintFlag = 0;
+		static int resultPrintFlag = 0;
 
 		static constexpr size_t BUFFER_SIZE = 128;
 		static char* filePath{};
@@ -129,26 +130,26 @@ namespace MyImGui
 		ImGui::InputText("file path", filePath, BUFFER_SIZE);
 		if (ImGui::Button("Change sprite!"))
 		{
-            if (sprite->SetImage(filePath))
-            {
-                resultPrintFlag = 1;
-            }
-            else
-            {
-                resultPrintFlag = -1;
-            }
+			if (sprite->SetImage(filePath))
+			{
+				resultPrintFlag = 1;
+			}
+			else
+			{
+				resultPrintFlag = -1;
+			}
 		}
 
-        if (resultPrintFlag > 0)
-        {
-            ImGui::SameLine();
-            ImGui::Text("Image Loading succeed! :D");
-        }
-        else if (resultPrintFlag < 0)
-        {
-            ImGui::SameLine();
-            ImGui::Text("Image Loading Failed.. :(");
-        }
+		if (resultPrintFlag > 0)
+		{
+			ImGui::SameLine();
+			ImGui::Text("Image Loading succeed! :D");
+		}
+		else if (resultPrintFlag < 0)
+		{
+			ImGui::SameLine();
+			ImGui::Text("Image Loading Failed.. :(");
+		}
 	}
 
 	void DrawPhysicsSection(Object* object, Physics* physics)
@@ -280,7 +281,7 @@ namespace MyImGui
 		// Draw special object, after draw it return this function
 		{
 			// Draw level chang button description if given object is that
-			if (LevelChangeButton * levelChangeButton = dynamic_cast<LevelChangeButton*>(obj);
+			if (LevelChangeButton* levelChangeButton = dynamic_cast<LevelChangeButton*>(obj);
 				levelChangeButton != nullptr)
 			{
 				DrawLevelChangeSection(levelChangeButton);
@@ -288,7 +289,7 @@ namespace MyImGui
 			}
 
 			// Draw string object description if given object is that
-			if (String * string = dynamic_cast<String*>(obj);
+			if (String* string = dynamic_cast<String*>(obj);
 				string != nullptr)
 			{
 				DrawStringSection(string);
@@ -300,14 +301,14 @@ namespace MyImGui
 
 		{
 			// If object have special components display them.
-			if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>();
+			if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>();
 				sprite != nullptr)
 			{
 				HighlightSelectedObject(obj, dt);
 
 				DrawSpriteSection(sprite);
 			}
-			if (Physics * physics = obj->GetComponentByTemplate<Physics>())
+			if (Physics* physics = obj->GetComponentByTemplate<Physics>())
 			{
 				DrawPhysicsSection(obj, physics);
 			}
@@ -385,10 +386,35 @@ namespace MyImGui
 			wallSpawner->SpawnWall();
 		}
 	}
+	void UpdateObjectTranslationWithMouse(Object* obj)
+	{
+		if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			std::cout << "Object translation : " << obj->GetTranslation().x << ", " << obj->GetTranslation().y << std::endl;
+			std::cout << "Mouse translation : " << input.GetMouseRelativePosition().x << ", " << input.GetMouseRelativePosition().y << std::endl;
+			if (IsMouseOnTheObject(obj, input.GetMouseRelativePosition()))
+			{
+				obj->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.f, 0.f });
+			}
+		}
+
+	}
+	bool IsMouseOnTheObject(Object* obj, vector2 mousePos)
+	{
+		vector2 min{ obj->GetTranslation() - (obj->GetScale() / 2.f) };
+		vector2 max{ obj->GetTranslation() + (obj->GetScale() / 2.f) };
+		return !(
+			mousePos.x < min.x ||
+			mousePos.y < min.y ||
+			max.x < mousePos.x ||
+			max.y < mousePos.y
+			)
+			;
+	}
 #ifdef _DEBUG
 	void InitImGui(GLFWwindow* window) noexcept
 #else
-    void InitImGui(GLFWwindow* /*window*/) noexcept
+	void InitImGui(GLFWwindow* /*window*/) noexcept
 #endif
 	{
 #ifdef _DEBUG
@@ -397,7 +423,7 @@ namespace MyImGui
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	
+
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -417,7 +443,7 @@ namespace MyImGui
 #ifdef _DEBUG
 	void UpdateImGui(bool /*isShowWindow*/, float dt) noexcept
 #else
-    void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
+	void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
 #endif
 	{
 #ifdef _DEBUG
@@ -466,6 +492,8 @@ namespace MyImGui
 
 				// Draw all information about selected object in here!
 				DrawInformation(obj, dt);
+
+				UpdateObjectTranslationWithMouse(obj);
 			}
 			else
 			{
