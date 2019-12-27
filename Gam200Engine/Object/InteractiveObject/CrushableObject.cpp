@@ -14,6 +14,7 @@ Creation Date: DEC/11st/2019
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 #include <Sounds/SoundManager.hpp>
+#include <Component/Accumulating.hpp>
 
 SoundManager TestSoundforCrush;
 
@@ -28,6 +29,7 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     SetObjectType(Object::ObjectType::OBSTACLE);
     GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, objType);
     SetDepth(-0.1f);
+	Object::AddComponent(new Accumulating(this));
 
     /////
     TestSoundforCrush.Load_Sound();
@@ -42,12 +44,16 @@ void CrushableObject::DoSomethingWhenAttached()
 {
     if (attachedNum - detachedNum > 4)
     {
-		Crushed();
+		GetComponentByTemplate<Accumulating>()->SetIsAccumulating(true);
     }
 }
 
 void CrushableObject::DoSomethingWhenDetached()
 {
+	if (attachedNum - detachedNum <= 4)
+	{
+		GetComponentByTemplate<Accumulating>()->SetIsAccumulating(false);
+	}
 }
 
 void CrushableObject::Crushed() noexcept

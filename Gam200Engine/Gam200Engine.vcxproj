@@ -171,6 +171,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Accumulating.hpp" />
     <ClInclude Include="Component\Animation.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\GoalComponent.hpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Accumulating.cpp" />
     <ClCompile Include="Component\Animation.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\GoalComponent.cpp" />

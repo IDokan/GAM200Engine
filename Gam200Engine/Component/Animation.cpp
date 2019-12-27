@@ -15,7 +15,6 @@ Creation Date: 10.27.2019
 Animation::Animation(Object* obj) noexcept
 	: Sprite(obj), frame(1), speed(1.f), index(0.f), animationState(0.f), numOfState(1)
 {
-
 	// Animation Stuffs
 	material->intUniform[Graphics::SHADER::Uniform_Frame] = frame;
 	material->intUniform[Graphics::SHADER::Uniform_State] = animationState;

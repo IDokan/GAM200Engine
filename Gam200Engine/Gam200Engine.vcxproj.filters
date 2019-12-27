@@ -193,6 +193,9 @@
     <ClCompile Include="States\DeadLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Accumulating.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp">
@@ -407,6 +410,9 @@
     </ClInclude>
     <ClInclude Include="States\DeadLevel.hpp">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Accumulating.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
