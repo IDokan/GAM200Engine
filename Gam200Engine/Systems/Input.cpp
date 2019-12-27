@@ -134,7 +134,7 @@ vector2 Input::GetMouseRelativePosition() const noexcept
 {
 	const Graphics::CameraManager& cameraManager = StateManager::GetStateManager()->GetCurrentState()->GetCameraManager();
 
-	return mousePosition + cameraManager.GetPosition();
+	return (mousePosition / cameraManager.GetZoom()) + cameraManager.GetPosition();
 }
 
 bool Input::IsMouseButtonTriggered(int button)

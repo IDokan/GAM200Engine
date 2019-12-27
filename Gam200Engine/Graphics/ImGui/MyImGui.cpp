@@ -31,9 +31,6 @@ Creation Date: 08.23.2019
 #include <Component/Sprite.hpp>
 #include <Component/Physics.hpp>
 
-// Include iostream for DEBUG
-#include <iostream>
-
 namespace MyImGui
 {
 	/* Helper functions */
@@ -388,16 +385,25 @@ namespace MyImGui
 	}
 	void UpdateObjectTranslationWithMouse(Object* obj)
 	{
+		static bool isMoving = false;
+
 		if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			std::cout << "Object translation : " << obj->GetTranslation().x << ", " << obj->GetTranslation().y << std::endl;
-			std::cout << "Mouse translation : " << input.GetMouseRelativePosition().x << ", " << input.GetMouseRelativePosition().y << std::endl;
 			if (IsMouseOnTheObject(obj, input.GetMouseRelativePosition()))
 			{
-				obj->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.f, 0.f });
+				isMoving = true;
 			}
 		}
+		else
+		{
+			isMoving = false;
+		}
 
+
+		if (isMoving == true)
+		{
+			obj->SetTranslation(input.GetMouseRelativePosition());
+		}
 	}
 	bool IsMouseOnTheObject(Object* obj, vector2 mousePos)
 	{
