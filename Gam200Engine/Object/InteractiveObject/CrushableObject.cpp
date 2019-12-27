@@ -42,12 +42,17 @@ void CrushableObject::DoSomethingWhenAttached()
 {
     if (attachedNum - detachedNum > 4)
     {
-        TestSoundforCrush.Play_Sound(SOUNDS::CRUSH_SOUND);
-        SetDead(true);
-        currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);
+		Crushed();
     }
 }
 
 void CrushableObject::DoSomethingWhenDetached()
 {
+}
+
+void CrushableObject::Crushed() noexcept
+{
+	TestSoundforCrush.Play_Sound(SOUNDS::CRUSH_SOUND);
+	SetDead(true);
+	currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);
 }

@@ -27,6 +27,9 @@ public:
     void DoSomethingWhenDetached() override;
 
 private:
+	void Crushed() noexcept;
+
+private:
     vector2 objPos;
     vector2 objScale;
     Physics::ObjectType objType;

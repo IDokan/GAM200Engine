@@ -21,14 +21,23 @@ public:
 	virtual void Update(float dt) override;
 	virtual	void Clear() override;
 
+	// Getters
 	int GetFrame() const noexcept;
-	void SetFrame(int frame) noexcept;
-
 	float GetSpeed() const noexcept;
-	void SetSpeed(float speed) noexcept;
+	int GetState() const noexcept;
+	int GetNumOfState() const noexcept;
+
+	// Setters
+	void SetFrame(int frame_) noexcept;
+	void SetSpeed(float speed_) noexcept;
+	void SetState(int state_) noexcept;
+	void SetNumOfState(int numOfState_) noexcept;
+
 protected:
 	void SendIndex() const noexcept;
 	int frame;
 	float speed;
 	float index;
+	int animationState;
+	int numOfState;
 };

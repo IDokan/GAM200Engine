@@ -108,13 +108,20 @@ namespace Graphics
 		Shader& StringShader() noexcept;
 		const VertexLayoutDescription& StringVertexLayout() noexcept;
 
+		// Sprite Uniform Variables
         constexpr const char* Uniform_ToNDC   = "to_ndc";
         constexpr const char* Uniform_Depth   = "depth";
         constexpr const char* Uniform_Color   = "color";
         constexpr const char* Uniform_Texture = "texture_to_sample";
+		constexpr const char* Uniform_ImageSize = "image_size";
+
+		// Animation Uniform Variables
 		constexpr const char* Uniform_Frame = "frame";
 		constexpr const char* Uniform_Index = "index";
-		constexpr const char* Uniform_ImageSize = "image_size";
+		constexpr const char* Uniform_State = "state";
+		constexpr const char* Uniform_Max_State = "max_state";
+
+		// String Uniform Variables
 		constexpr const char* Uniform_String_Vertex_Capacity = "stringVertexCapacity";
 		constexpr const char* Uniform_String_Vertex_Position = "stringVectorPosition";
 		constexpr const char* Uniform_String_Height = "stringHeight";

@@ -155,6 +155,8 @@ uniform float depth;
 uniform int frame;
 uniform int index;
 uniform vec2 image_size;
+uniform int state;
+uniform int max_state;
 
 out vec2 interpolated_texture_coordinate;
 
@@ -162,7 +164,7 @@ void main()
 {
     vec3 position = to_ndc * vec3(position, 1.0f);
     gl_Position = vec4(position.xy, depth, 1.0);
-    interpolated_texture_coordinate = vec2((texture_coordinate.x+index)/frame, texture_coordinate.y);
+    interpolated_texture_coordinate = vec2((texture_coordinate.x + index) / frame, (texture_coordinate.y + state) / max_state);
 }
 )",
 R"(
