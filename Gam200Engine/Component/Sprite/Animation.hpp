@@ -10,7 +10,7 @@ Creation Date: 10.27.2019
 	Header file for Animation Component
 ******************************************************************************/
 #pragma once
-#include "Component/Sprite.hpp"
+#include <Component/Sprite/Sprite.hpp>
 
 class Animation : public Sprite
 {
@@ -34,6 +34,7 @@ public:
 	void SetNumOfState(int numOfState_) noexcept;
 
 protected:
+	int Clamp(int targetValue, int maxValue, int minValue = 0) const noexcept;
 	void SendIndex() const noexcept;
 	int frame;
 	float speed;

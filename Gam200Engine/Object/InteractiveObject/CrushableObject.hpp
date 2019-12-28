@@ -26,7 +26,7 @@ public:
     void DoSomethingWhenAttached() override;
     void DoSomethingWhenDetached() override;
 
-private:
+	//
 	void Crushed() noexcept;
 
 private:

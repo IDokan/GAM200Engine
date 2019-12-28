@@ -11,7 +11,7 @@ Creation Date: 11.04.2019
 ******************************************************************************/
 #pragma once
 
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 
 class Object;
 class String;
@@ -26,7 +26,7 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
-	void UpdateUniforms(const matrix3& toNDC, float depth);
+	virtual void UpdateUniforms(const matrix3& toNDC, float depth) noexcept;
 
 	/* Getters & Setters */
 	float GetStringHeight() const noexcept;

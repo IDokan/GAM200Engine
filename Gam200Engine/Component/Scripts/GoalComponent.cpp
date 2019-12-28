@@ -10,7 +10,7 @@ Creation Date: 12.13.2019
 	Source file for goal component that will be attached at goal object
 ******************************************************************************/
 #include <cassert>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <States/StateManager.hpp>
 #include <iostream>

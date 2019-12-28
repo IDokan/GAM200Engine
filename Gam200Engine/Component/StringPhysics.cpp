@@ -15,7 +15,7 @@ Creation Date: 11.04.2019
 #include "Component/Physics.hpp"
 #include "Object/ObjectManager.hpp"
 #include <vector>
-#include <Component/StringSprite.hpp>
+#include <Component/Sprite/StringSprite.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 
 StringPhysics::StringPhysics(Object* object, Object* player1, Object* player2) : Component(object), stringPhysicsOwner(dynamic_cast<String*>(object)), player1(player1), player2(player2), shouldClear(false)

@@ -35,7 +35,7 @@ public:
 	virtual void Init() override;
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
-	void UpdateUniforms(const matrix3& toNDC, float depth) noexcept;
+	virtual void UpdateUniforms(const matrix3& toNDC, float depth) noexcept;
 
 	public:		// Getter & Setter
 	void SetColor(const Graphics::Color4f& color) noexcept;

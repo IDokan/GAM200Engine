@@ -12,12 +12,12 @@ Creation Date: 12.10.2019
     Source file for level that player learned how to move player
 ******************************************************************************/
 #include <States/BasicMovementLevel.hpp>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <Object/Object.hpp>
 #include <Object/Strings/String.hpp>
 #include <Systems/Input.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>

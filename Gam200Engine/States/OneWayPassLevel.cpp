@@ -11,7 +11,7 @@ Creation Date: 12.10.2019
 	Source file for level that string make player move easily
 ******************************************************************************/
 #include <States/OneWayPassLevel.hpp>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 
 
 SoundManager bgm;

@@ -14,9 +14,9 @@ Creation Date: 12.10.2019
 #include <Object/ObjectManager.hpp>
 #include <Graphics/GL.hpp>
 // Include Components
-#include <Component/Sprite.hpp>
-#include <Component/StringSprite.hpp>
-#include <Component/TextComponent.hpp>
+#include <Component/Sprite/Sprite.hpp>
+#include <Component/Sprite/StringSprite.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 
 // Include Special objects
 #include <Object/DEBUGObject/LevelChangeButton.hpp>

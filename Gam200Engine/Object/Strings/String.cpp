@@ -12,7 +12,7 @@ Creation Date:
 #include <algorithm>
 #include <numeric>
 #include <Object/Strings/String.hpp>
-#include "Component/StringSprite.hpp"
+#include "Component/Sprite/StringSprite.hpp"
 #include <Component/StringPhysics.hpp>
 #include <Object/ObjectManager.hpp>
 #include "Component/Physics.hpp"

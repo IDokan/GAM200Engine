@@ -11,10 +11,10 @@ Creation Date: DEC/11st/2019
 ******************************************************************************/
 
 #include <Object/InteractiveObject/CrushableObject.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/CrushableObjectAnimation.hpp>
 #include <Component/Physics.hpp>
 #include <Sounds/SoundManager.hpp>
-#include <Component/Accumulating.hpp>
+#include <Component/Scripts/Accumulating.hpp>
 
 SoundManager TestSoundforCrush;
 
@@ -22,14 +22,14 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     Physics::ObjectType _objType, String  *_currentString ) : InteractiveObject(),
     objPos(_objPos), objScale(_objScale), objType(_objType),currentString(_currentString)
 {
-    Object::AddComponent(new Sprite(this));
+	Object::AddComponent(new Accumulating(this, 5.f));
+    Object::AddComponent(new CrushableObjectAnimation(this));
     SetTranslation(objPos);
     SetScale(objScale);
     Object::AddComponent(new Physics(this));
     SetObjectType(Object::ObjectType::OBSTACLE);
     GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, objType);
     SetDepth(-0.1f);
-	Object::AddComponent(new Accumulating(this));
 
     /////
     TestSoundforCrush.Load_Sound();

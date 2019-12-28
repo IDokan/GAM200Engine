@@ -9,14 +9,10 @@ Creation Date: 12.27.2019
 
 	Header file for accumulating.
 ******************************************************************************/
-#include <Component/Accumulating.hpp>
+#include <Component/Scripts/Accumulating.hpp>
 
-Accumulating::Accumulating(Object* obj, bool turnOn)
-	:Component(obj), isAccumulating(turnOn), accumulation(0.f)
-{
-}
-
-Accumulating::~Accumulating()
+Accumulating::Accumulating(Object* obj, float maximum, bool turnOn) noexcept
+	:Component(obj), maximum(maximum), isAccumulating(turnOn), accumulation(0.f)
 {
 }
 
@@ -26,6 +22,11 @@ void Accumulating::Init()
 
 void Accumulating::Update(float dt)
 {
+	if (accumulation > maximum)
+	{
+		return;
+	}
+
 	if (isAccumulating == true)
 	{
 		accumulation += dt;
@@ -46,7 +47,17 @@ float Accumulating::GetAccumulation() const noexcept
 	return accumulation;
 }
 
+float Accumulating::GetMaximum() const noexcept
+{
+	return maximum;
+}
+
 void Accumulating::SetIsAccumulating(bool isAccumulating_) noexcept
 {
 	isAccumulating = isAccumulating_;
+}
+
+void Accumulating::SetMaximum(float maximum_) noexcept
+{
+	maximum = maximum_;
 }

@@ -28,7 +28,7 @@ Creation Date: 08.23.2019
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 // Include Components
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
 
 namespace MyImGui

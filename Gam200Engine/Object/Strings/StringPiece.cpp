@@ -10,7 +10,7 @@ Creation Date:
 	Source file for the String Piece Object
 ******************************************************************************/
 #include <Object/Strings/StringPiece.hpp>
-#include <Component/StringSprite.hpp>
+#include <Component/Sprite/StringSprite.hpp>
 #include <Component/StringPhysics.hpp>
 
 StringPiece::StringPiece()

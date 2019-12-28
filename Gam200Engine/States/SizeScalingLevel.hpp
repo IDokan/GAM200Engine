@@ -17,7 +17,7 @@ Creation Date: 12.10.2019
 #include <Object/Strings/String.hpp>
 #include <Component/Physics.hpp>
 #include <Object\ObjectManager.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Systems/FileIO.hpp>
 #include <Object/Players/Player1.h>
 #include <Object/Players/Player2.h>

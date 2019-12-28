@@ -18,11 +18,11 @@ Creation Date: 08.15.2019
 #include "Sounds/SoundManager.hpp"
 #include <Systems/FileIO.hpp>
 // Include Components
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
-#include <Component/TextComponent.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 #include <Component/StringPhysics.hpp>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 
 SoundManager test;
 

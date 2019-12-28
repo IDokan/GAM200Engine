@@ -12,7 +12,7 @@ Creation Date: DEC/11st/2019
 
 
 #include <Object/InteractiveObject/ObstacleObject.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <States/StateManager.hpp>
 
 ObstacleObject::ObstacleObject(vector2 _objPos, vector2 _objScale,

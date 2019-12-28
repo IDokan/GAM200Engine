@@ -12,7 +12,7 @@ Creation Date: 12.10.2019
 	Source file for level that teach size scaling
 ******************************************************************************/
 #include <States/SizeScalingLevel.hpp>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 
 SizeScalingLevel::SizeScalingLevel(): background(nullptr), scaleObject1(nullptr), scaleObject2(nullptr)
 {

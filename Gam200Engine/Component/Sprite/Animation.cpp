@@ -9,11 +9,11 @@ Creation Date: 10.27.2019
 
 	Header file for Animation Component
 ******************************************************************************/
-#include "Component/Animation.hpp"
-#include "Graphics/StockShaders.hpp"
+#include <Component/Sprite/Animation.hpp>
+#include <Graphics/StockShaders.hpp>
 
 Animation::Animation(Object* obj) noexcept
-	: Sprite(obj), frame(1), speed(1.f), index(0.f), animationState(0.f), numOfState(1)
+	: Sprite(obj), frame(1), speed(0.f), index(0.f), animationState(0), numOfState(1)
 {
 	// Animation Stuffs
 	material->intUniform[Graphics::SHADER::Uniform_Frame] = frame;
@@ -38,6 +38,22 @@ void Animation::Update(float dt)
 void Animation::Clear()
 {
 	Sprite::Clear();
+}
+
+int Animation::Clamp(int targetValue, int maxValue, int minValue) const noexcept
+{
+	if (targetValue > maxValue)
+	{
+		return maxValue;
+	}
+	else if (targetValue < minValue)
+	{
+		return minValue;
+	}
+	else
+	{
+		return targetValue;
+	}
 }
 
 void Animation::SendIndex() const noexcept
@@ -78,6 +94,8 @@ void Animation::SetSpeed(float speed_) noexcept
 
 void Animation::SetState(int state_) noexcept
 {
+	state_ = Clamp(state_, numOfState - 1);
+
 	animationState = state_;
 	material->intUniform[Graphics::SHADER::Uniform_State] = animationState;
 }

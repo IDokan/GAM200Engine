@@ -9,7 +9,7 @@ Creation Date: 11.04.2019
 
 	Header file for Sprite implementation for string graphics
 ******************************************************************************/
-#include <Component/StringSprite.hpp>
+#include <Component/Sprite/StringSprite.hpp>
 #include <Object/Object.hpp>
 #include <Object/Strings/String.hpp>
 #include <Graphics/StockShaders.hpp>
@@ -59,7 +59,7 @@ void StringSprite::Clear()
 	Sprite::Clear();
 }
 
-void StringSprite::UpdateUniforms(const matrix3& toNDC, float depth)
+void StringSprite::UpdateUniforms(const matrix3& toNDC, float depth) noexcept
 {
 	// Update Uniform in Base Class
 	Sprite::UpdateUniforms(toNDC, depth);

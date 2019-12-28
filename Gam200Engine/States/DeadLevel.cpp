@@ -9,13 +9,13 @@ Creation Date: DEC/11th/2019
 
     Header file for the test object whether interact work or not
 ******************************************************************************/
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
 #include <States/DeadLevel.hpp>
 #include <Systems/Input.hpp>
 #include <Component/Physics.hpp>
 #include <Object/InteractiveObject/ObstacleObject.hpp>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 #include <Sounds/SoundManager.hpp>
 
 SoundManager testSoundForDead;

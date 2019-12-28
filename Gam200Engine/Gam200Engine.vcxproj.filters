@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Component\Component.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Sprite.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Camera.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -85,18 +79,6 @@
     <ClCompile Include="Sounds\SoundManager.cpp">
       <Filter>Sounds</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Physics.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\StringSprite.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\TextComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Animation.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\BitmapFont.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -106,9 +88,6 @@
     <ClCompile Include="Graphics\TextPlatform.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Component\StringPhysics.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Strings\String.cpp">
       <Filter>Object\Strings</Filter>
     </ClCompile>
@@ -117,9 +96,6 @@
     </ClCompile>
     <ClCompile Include="Object\Strings\StringVertex.cpp">
       <Filter>Object\Strings</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Volatile.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
@@ -184,26 +160,47 @@
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
-    <ClCompile Include="Component\GoalComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="States\CrushObjectLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="States\DeadLevel.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Accumulating.cpp">
+    <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Physics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\StringPhysics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\Animation.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\Sprite.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\StringSprite.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\TextComponent.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Scripts\Accumulating.cpp">
+      <Filter>Component\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Scripts\GoalComponent.cpp">
+      <Filter>Component\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Scripts\Volatile.cpp">
+      <Filter>Component\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\CrushableObjectAnimation.cpp">
+      <Filter>Component\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component\Component.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Sprite.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Camera.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -297,18 +294,6 @@
     <ClInclude Include="Sounds\SoundManager.hpp">
       <Filter>Sounds</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Physics.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\StringSprite.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\TextComponent.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Animation.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\BitmapFont.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -321,9 +306,6 @@
     <ClInclude Include="Graphics\StockBitmapFonts.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Component\StringPhysics.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Strings\String.hpp">
       <Filter>Object\Strings</Filter>
     </ClInclude>
@@ -332,9 +314,6 @@
     </ClInclude>
     <ClInclude Include="Object\Strings\StringVertex.hpp">
       <Filter>Object\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Volatile.hpp">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
@@ -402,17 +381,44 @@
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClInclude>
-    <ClInclude Include="Component\GoalComponent.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="States\CrushObjectLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="States\DeadLevel.hpp">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Accumulating.hpp">
+    <ClInclude Include="Component\Component.hpp">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Physics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\StringPhysics.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\Animation.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\Sprite.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\StringSprite.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\TextComponent.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Scripts\Accumulating.hpp">
+      <Filter>Component\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Scripts\GoalComponent.hpp">
+      <Filter>Component\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Scripts\Volatile.hpp">
+      <Filter>Component\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\CrushableObjectAnimation.hpp">
+      <Filter>Component\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +466,12 @@
     </Filter>
     <Filter Include="Object\Players">
       <UniqueIdentifier>{6e6ec2b8-390b-43eb-8c8b-9f0659377b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Sprite">
+      <UniqueIdentifier>{8ab0ea2e-5fd1-4e23-9a87-0d13dd8d4041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Scripts">
+      <UniqueIdentifier>{ed31fa1d-a8c1-47bd-8d2b-5e8157325aa8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

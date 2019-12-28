@@ -11,10 +11,10 @@ Creation Date: DEC/11th/2019
 ******************************************************************************/
 #include <States/CrushObjectLevel.hpp>
 #include <Object/ObjectManager.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
 #include <Systems/Input.hpp>
-#include <Component/GoalComponent.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 #include <GLFW/glfw3.h>
 #include <Sounds/SoundManager.hpp>
 
@@ -322,11 +322,9 @@ void CrushObjectLevel::InitObject()
 
     object5 = new CrushableObject(vector2{ -394.f,-1530.f }, vector2{ 173.f,163.f }, Physics::ObjectType::RECTANGLE, string);
     object5->SetObjectName("obj_5");
-	object5->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 
     object6 = new CrushableObject(vector2{ 389.f,-766.f }, vector2{ 173.f,159.f }, Physics::ObjectType::RECTANGLE, string);
     object6->SetObjectName("obj_6");
-	object6->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
 
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);

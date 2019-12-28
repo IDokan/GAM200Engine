@@ -9,7 +9,7 @@ Creation Date: 10.28.2019
 
 	Header file for Text Component Implementation
 ******************************************************************************/
-#include <Component/TextComponent.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 #include <Graphics/StockBitmapFonts.hpp>
 #include <Graphics/StockShaders.hpp>
 #include <Graphics/GL.hpp>
