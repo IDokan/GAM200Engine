@@ -59,15 +59,7 @@ void State::Draw() const noexcept
 		element->SortingDepth();
 		for (const auto& obj : element->GetObjContainer())
 		{
-			if (const auto & stringSprite = obj.get()->GetComponentByTemplate<StringSprite>())
-			{
-				// Incomplete one
-				const auto matrix = cameraManager.GetWorldToNDCTransform();
-				stringSprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*stringSprite->GetVertices(), *stringSprite->GetMaterial());
-			}
-			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
+			if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
 				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
 				sprite->UpdateUniforms(matrix,
