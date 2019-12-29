@@ -49,11 +49,16 @@ namespace MyImGui
 	void DrawWallSpawnerSection(WallSpawner* wallSpawner);
 	void UpdateObjectTranslationWithMouse(Object* obj);
 	bool IsMouseOnTheObject(Object* obj, vector2 mousePos);
+	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, bool& isMoving);
+	void DrawMainMenuBar();
 	/* End of helper functions */
 
-
+	/* Helper global variables */
+	float snapSettingMoveX = 1.f;
+	float snapSettingMoveY = 1.f;
 	bool isCollisionBoxShown = false;
 	int stack = 0;
+	/* End of helper global variables */
 
 	static Object* collisionBox;
 	void AddCollisionBox(Object* obj, Physics* physics)
@@ -385,24 +390,22 @@ namespace MyImGui
 	}
 	void UpdateObjectTranslationWithMouse(Object* obj)
 	{
+		static vector2 presentMousePosition{};
 		static bool isMoving = false;
-
-		if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
+		const vector2 currentMousePosition = input.GetMouseRelativePosition();
+		if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			if (IsMouseOnTheObject(obj, input.GetMouseRelativePosition()))
+			if (IsMouseOnTheObject(obj, currentMousePosition))
 			{
+				presentMousePosition = currentMousePosition;
+
 				isMoving = true;
 			}
 		}
-		else
-		{
-			isMoving = false;
-		}
-
 
 		if (isMoving == true)
 		{
-			obj->SetTranslation(input.GetMouseRelativePosition());
+			MoveObject(obj, currentMousePosition, presentMousePosition, isMoving);
 		}
 	}
 	bool IsMouseOnTheObject(Object* obj, vector2 mousePos)
@@ -416,6 +419,73 @@ namespace MyImGui
 			max.y < mousePos.y
 			)
 			;
+	}
+	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, bool& isMoving)
+	{
+		vector2 distance = (currentMousePosition - presentMousePosition);
+		vector2 newPosition = obj->GetTranslation();
+		// If shift button is pressed,
+		if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		{
+			// snapping
+			if (abs(distance.x) > snapSettingMoveX)
+			{
+				distance.x -= fmod(distance.x, snapSettingMoveX);
+				newPosition.x += distance.x;
+				presentMousePosition.x = newPosition.x;
+			}
+			if (abs(distance.y) > snapSettingMoveY)
+			{
+				distance.y -= fmod(distance.y, snapSettingMoveY);
+				newPosition.y += distance.y;
+				presentMousePosition.y = newPosition.y;
+			}
+
+			obj->SetTranslation(newPosition);
+		}
+		else
+		{
+			newPosition += distance;
+			obj->SetTranslation(newPosition);
+
+			// Update present mouse position
+			presentMousePosition = currentMousePosition;
+		}
+
+		if (input.IsMouseButtonReleased(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			isMoving = false;
+		}
+	}
+	void DrawMainMenuBar()
+	{
+		if (ImGui::BeginMainMenuBar())
+		{
+			if (ImGui::BeginMenu("ImGUi Configurations"))
+			{
+				if (ImGui::BeginMenu("Snap Settings"))
+				{
+					ImGui::InputFloat("Move X", &snapSettingMoveX, 0.5f);
+					// Simple Clamping
+					if (snapSettingMoveX < 0.f)
+					{
+						snapSettingMoveX = 0.f;
+					}
+
+					ImGui::InputFloat("Move Y", &snapSettingMoveY, 0.5f);
+					// Simple Clamping
+					if (snapSettingMoveY < 0.f)
+					{
+						snapSettingMoveY = 0.f;
+					}
+
+					ImGui::EndMenu();
+				}
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMainMenuBar();
+		}
 	}
 #ifdef _DEBUG
 	void InitImGui(GLFWwindow* window) noexcept
@@ -443,11 +513,11 @@ namespace MyImGui
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 #endif
-	}
+}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
 #ifdef _DEBUG
-	void UpdateImGui(bool /*isShowWindow*/, float dt) noexcept
+	void UpdateImGui(bool isShowWindow, float dt) noexcept
 #else
 	void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
 #endif
@@ -463,6 +533,9 @@ namespace MyImGui
 		//	ImGui::ShowDemoWindow(&isShowWindow);
 
 		// 2. Let's make my own window with ImGui Tutorial!
+
+		DrawMainMenuBar();
+
 		static int selectedLayer = -1;
 		static int selected = -1;
 		auto& layerContainer = ObjectManager::GetObjectManager()->GetLayerContainer();
