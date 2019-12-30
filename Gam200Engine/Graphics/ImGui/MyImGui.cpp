@@ -49,13 +49,13 @@ namespace MyImGui
 	void DrawWallSpawnerSection(WallSpawner* wallSpawner);
 	void UpdateObjectTranslationWithMouse(Object* obj);
 	bool IsMouseOnTheObject(Object* obj, vector2 mousePos);
-	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, bool& isMoving);
+	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, vector2& initialMousePosition, bool& isMoving);
 	void DrawMainMenuBar();
 	/* End of helper functions */
 
 	/* Helper global variables */
-	float snapSettingMoveX = 1.f;
-	float snapSettingMoveY = 1.f;
+	float snapSettingMoveX = 100.f;
+	float snapSettingMoveY = 100.f;
 	bool isCollisionBoxShown = false;
 	int stack = 0;
 	/* End of helper global variables */
@@ -390,6 +390,7 @@ namespace MyImGui
 	}
 	void UpdateObjectTranslationWithMouse(Object* obj)
 	{
+		static vector2 initialMousePosition{};
 		static vector2 presentMousePosition{};
 		static bool isMoving = false;
 		const vector2 currentMousePosition = input.GetMouseRelativePosition();
@@ -398,6 +399,7 @@ namespace MyImGui
 			if (IsMouseOnTheObject(obj, currentMousePosition))
 			{
 				presentMousePosition = currentMousePosition;
+				initialMousePosition = obj->GetTranslation();
 
 				isMoving = true;
 			}
@@ -405,7 +407,7 @@ namespace MyImGui
 
 		if (isMoving == true)
 		{
-			MoveObject(obj, currentMousePosition, presentMousePosition, isMoving);
+			MoveObject(obj, currentMousePosition, presentMousePosition, initialMousePosition, isMoving);
 		}
 	}
 	bool IsMouseOnTheObject(Object* obj, vector2 mousePos)
@@ -420,7 +422,7 @@ namespace MyImGui
 			)
 			;
 	}
-	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, bool& isMoving)
+	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, vector2& initialMousePosition, bool& isMoving)
 	{
 		vector2 distance = (currentMousePosition - presentMousePosition);
 		vector2 newPosition = obj->GetTranslation();
@@ -450,6 +452,12 @@ namespace MyImGui
 
 			// Update present mouse position
 			presentMousePosition = currentMousePosition;
+		}
+
+		if (input.IsKeyTriggered(GLFW_KEY_LEFT_SHIFT))
+		{
+			obj->SetTranslation(initialMousePosition);
+			presentMousePosition = initialMousePosition;
 		}
 
 		if (input.IsMouseButtonReleased(GLFW_MOUSE_BUTTON_LEFT))
