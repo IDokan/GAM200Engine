@@ -236,6 +236,7 @@
     <ClInclude Include="States\TestLevel.hpp" />
     <ClInclude Include="Systems\FileIO.hpp" />
     <ClInclude Include="Systems\Input.hpp" />
+    <ClInclude Include="Systems\KeyHelpers.hpp" />
     <ClInclude Include="Systems\Observer.hpp" />
     <ClInclude Include="Systems\Timer.hpp" />
     <ClInclude Include="Timer.hpp" />
@@ -311,6 +312,7 @@
     <ClCompile Include="States\TestLevel.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
+    <ClCompile Include="Systems\KeyHelpers.cpp" />
     <ClCompile Include="Systems\Observer.cpp" />
     <ClCompile Include="Window\Application.cpp" />
     <ClCompile Include="Window\Demo.cpp" />

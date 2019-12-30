@@ -23,6 +23,7 @@ Creation Date: 08.23.2019
 #include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Systems/Input.hpp>
+#include <Systems/KeyHelpers.hpp>
 // Include special objects
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
@@ -394,7 +395,7 @@ namespace MyImGui
 		static vector2 presentMousePosition{};
 		static bool isMoving = false;
 		const vector2 currentMousePosition = input.GetMouseRelativePosition();
-		if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		if (KeyHelpers::IsMoveButtonTriggered())
 		{
 			if (IsMouseOnTheObject(obj, currentMousePosition))
 			{
@@ -427,7 +428,7 @@ namespace MyImGui
 		vector2 distance = (currentMousePosition - presentMousePosition);
 		vector2 newPosition = obj->GetTranslation();
 		// If shift button is pressed,
-		if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		if (KeyHelpers::IsSnapButtonPressed())
 		{
 			// snapping
 			if (abs(distance.x) > snapSettingMoveX)
@@ -454,13 +455,13 @@ namespace MyImGui
 			presentMousePosition = currentMousePosition;
 		}
 
-		if (input.IsKeyTriggered(GLFW_KEY_LEFT_SHIFT))
+		if (KeyHelpers::IsSnapButtonTriggered())
 		{
 			obj->SetTranslation(initialMousePosition);
 			presentMousePosition = initialMousePosition;
 		}
 
-		if (input.IsMouseButtonReleased(GLFW_MOUSE_BUTTON_LEFT))
+		if (KeyHelpers::IsMoveButtonReleased())
 		{
 			isMoving = false;
 		}
@@ -525,7 +526,7 @@ namespace MyImGui
 
 	// Merge at one or make it separate kind of Begin, Update, End...
 #ifdef _DEBUG
-	void UpdateImGui(bool isShowWindow, float dt) noexcept
+	void UpdateImGui(bool /*isShowWindow*/, float dt) noexcept
 #else
 	void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
 #endif

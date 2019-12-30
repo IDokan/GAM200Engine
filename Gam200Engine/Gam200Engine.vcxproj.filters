@@ -199,6 +199,9 @@
     <ClCompile Include="Component\Sprite\CrushableObjectAnimation.cpp">
       <Filter>Component\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\KeyHelpers.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="Component\Sprite\CrushableObjectAnimation.hpp">
       <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\KeyHelpers.hpp">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
