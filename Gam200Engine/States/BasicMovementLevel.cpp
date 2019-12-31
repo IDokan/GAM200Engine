@@ -56,7 +56,7 @@ void BasicMovementLevel::Update(float /*dt*/)
     player1->SetTranslation(obj1Position);
     player2->SetTranslation(obj2Position);
 
-    cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
+    cameraManager.CameraMove(player1, player2, 1.1f);
 }
 
 void BasicMovementLevel::GameRestart()
@@ -265,7 +265,7 @@ void BasicMovementLevel::InitObject() {
     objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(string);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);   
 
 }

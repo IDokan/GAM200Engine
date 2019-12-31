@@ -64,7 +64,7 @@ void ProtoLevel::Load() {
 }
 void ProtoLevel::Update(float /*dt*/)
 {
-    cameraManager.CameraMove(vector2{ -1.f }, vector2{ -1.f }, 1.1f);
+	//cameraManager.CameraMove(object1, object2, 1.1f);
 }
 void ProtoLevel::Unload() 
 {

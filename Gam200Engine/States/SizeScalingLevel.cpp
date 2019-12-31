@@ -41,7 +41,7 @@ void SizeScalingLevel::Update(float /*dt*/)
     player1->SetTranslation(obj1Position);
     player2->SetTranslation(obj2Position);
 
-    cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
+	cameraManager.CameraMove(player1, player2, 1.1f);
 }
 
 void SizeScalingLevel::GameRestart()

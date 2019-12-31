@@ -30,7 +30,7 @@ CrushObjectLevel::~CrushObjectLevel()
 
 void CrushObjectLevel::Update(float /*dt*/)
 {
-    cameraManager.CameraMove(player1->GetTranslation(), player2->GetTranslation(), 1.1f);
+	cameraManager.CameraMove(player1, player2, 1.1f);
     Input();
     player1->GetComponentByTemplate<Physics>()->ManageCollision();
     vector2 player1Pos = player1->GetComponentByTemplate<Physics>()->GetPosition();

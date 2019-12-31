@@ -103,12 +103,12 @@ std::string Object::GetStringOfObjectType() const noexcept
 	return result;
 }
 
-vector2 Object::GetTranslation()
+vector2 Object::GetTranslation() const noexcept
 {
 	return transform.GetTranslation();
 }
 
-vector2 Object::GetScale()
+vector2 Object::GetScale() const noexcept
 {
 	return transform.GetScale();
 }
@@ -118,7 +118,7 @@ float Object::GetRotation() const noexcept
 	return transform.GetRotation();
 }
 
-float Object::GetDepth()
+float Object::GetDepth() const noexcept
 {
 	return transform.GetDepth() * 5000.f;
 }

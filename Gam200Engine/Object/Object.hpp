@@ -75,10 +75,10 @@ public:
     void SetObjectType(ObjectType objType); // test function Woo
     [[nodiscard]] std::string GetStringOfObjectType() const noexcept;
     
-    vector2 GetTranslation(); // Woo
-    vector2 GetScale(); // Woo
+    vector2 GetTranslation() const noexcept; // Woo
+    vector2 GetScale() const noexcept; // Woo
 	float GetRotation() const noexcept; // Sinil
-	float GetDepth(); //Jiwon
+	float GetDepth() const noexcept; //Jiwon
 
 protected:
     Transform transform;

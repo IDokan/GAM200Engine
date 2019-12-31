@@ -286,7 +286,7 @@ void TestLevel::Update(float /*dt*/)
     object2->SetTranslation(obj2Position);
 
     // DEBUG object should be updated after camera Update()
-    cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
+	cameraManager.CameraMove(object1, object2, 1.1f);
 
     auto objManager = ObjectManager::GetObjectManager();
 

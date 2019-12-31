@@ -39,7 +39,7 @@ void OneWayPassLevel::Update(float /*dt*/)
 
 
 
-    cameraManager.CameraMove(obj1Position, obj2Position, 1.1f);
+	cameraManager.CameraMove(player1, player2, 1.1f);
 	Input();
     Collision();
     SetPlayersPosition(player1->GetComponentByTemplate<Physics>()->GetPosition(), player2->GetComponentByTemplate<Physics>()->GetPosition());
