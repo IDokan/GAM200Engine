@@ -42,6 +42,7 @@ public:
     void SetNormalVector(vector2 point1, vector2 point2);
 
 	void DeletePositionsWithObject(Object* obj);
+    void DetermineFrcition(int friction);
 
     // Setter
     void SetStringLength(float length);
@@ -49,7 +50,7 @@ public:
     // Getter
     float GetStringLength() const
     {
-        return stringLength;
+        return limitStringLength;
     }
 
 private:
@@ -71,7 +72,7 @@ private:
     Object* player2;
     bool shouldClear;
 
-    float stringLength;
+    float limitStringLength;
     
     std::vector < std::pair<int, StringVertex>> vertexContainer{};
     std::vector <StringVertex> deletedVertices{};

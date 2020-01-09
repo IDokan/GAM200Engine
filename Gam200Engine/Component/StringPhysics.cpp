@@ -18,6 +18,8 @@ Creation Date: 11.04.2019
 #include <Component/StringSprite.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 
+#include <iostream>
+
 StringPhysics::StringPhysics(Object* object, Object* player1, Object* player2) : Component(object), stringPhysicsOwner(dynamic_cast<String*>(object)), player1(player1), player2(player2), shouldClear(false)
 {
 
@@ -30,7 +32,7 @@ StringPhysics::~StringPhysics()
 
 void StringPhysics::Init()
 {
-    stringLength = 2000.f;
+    limitStringLength = 500.f;
 }
 
 void StringPhysics::Update(float /*dt*/)
@@ -250,19 +252,29 @@ bool StringPhysics::IsDetached(StringVertex point1, StringVertex point2, StringV
 
 void StringPhysics::LimitStringLength()
 {
-    if (stringPhysicsOwner->GetStringLength() > stringLength)
+    if (stringPhysicsOwner->GetStringLength() > limitStringLength)
     {
-        player1->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-        player2->GetComponentByTemplate<Physics>()->SetIsCollide(true);
-
-        player1->GetComponentByTemplate<Physics>()->SetPosition(player1->GetComponentByTemplate<Physics>()->GetOldPosition());
-        player2->GetComponentByTemplate<Physics>()->SetPosition(player2->GetComponentByTemplate<Physics>()->GetOldPosition());
+        if (stringPhysicsOwner->oldStringLength < stringPhysicsOwner->stringLength)
+        {
+            int friction = stringPhysicsOwner->stringLength / 100;
+            DetermineFrcition(friction);
+        }
+        else
+        {
+            player1->GetComponentByTemplate<Physics>()->SetFriction(1.f);
+            player2->GetComponentByTemplate<Physics>()->SetFriction(1.f);
+        }
+    }
+    else
+    {
+        player1->GetComponentByTemplate<Physics>()->SetFriction(1.f);
+        player2->GetComponentByTemplate<Physics>()->SetFriction(1.f);
     }
 }
 
 void StringPhysics::SetStringLength(float length)
 {
-    stringLength = length;
+    limitStringLength = length;
 }
 
 void StringPhysics::SetShouldClear(bool should)
@@ -275,3 +287,25 @@ void StringPhysics::Clear()
 
 }
 
+void StringPhysics::DetermineFrcition(int friction)
+{
+    switch(friction)
+    {
+    case 5:
+        player1->GetComponentByTemplate<Physics>()->SetFriction(0.7f);
+        player2->GetComponentByTemplate<Physics>()->SetFriction(0.7f);
+        break;
+    case 6:
+        player1->GetComponentByTemplate<Physics>()->SetFriction(0.5f);
+        player2->GetComponentByTemplate<Physics>()->SetFriction(0.5f);
+        break;
+    case 7:
+        player1->GetComponentByTemplate<Physics>()->SetFriction(0.3f);
+        player2->GetComponentByTemplate<Physics>()->SetFriction(0.3f);
+        break;
+    default:
+        player1->GetComponentByTemplate<Physics>()->SetFriction(0.1f);
+        player2->GetComponentByTemplate<Physics>()->SetFriction(0.1f);
+        break;
+    }
+}

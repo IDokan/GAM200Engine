@@ -52,6 +52,7 @@ public:
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
     void SetCollisionBoxScale(vector2 scale);
+    void SetFriction(float friction);
 
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
@@ -59,13 +60,13 @@ public:
     bool IsCollideWith(Object* object);
     void ManageCollision();
 
-    vector2 GetTranslation(const matrix3 &matrix) const;
-	vector2 GetVelocity() const noexcept;
-	vector2 GetGravity() const noexcept;
-	bool IsCollided() const noexcept;
-	
+    vector2 GetTranslation(const matrix3& matrix) const;
+    vector2 GetVelocity() const noexcept;
+    vector2 GetGravity() const noexcept;
+    bool IsCollided() const noexcept;
 
-    const CollisionBox &GetCollisionBox() const
+
+    const CollisionBox& GetCollisionBox() const
     {
         return collisionBox;
     }
@@ -99,8 +100,9 @@ public:
     {
         return isCollide;
     }
-    vector2 GetVectorTranslation() const; 
 
+    vector2 GetVectorTranslation() const;
+    vector2 force{};
 private:
     vector2 velocity{};
     vector2 gravity{};
@@ -108,9 +110,12 @@ private:
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
+
+    float friction;
+
     ObjectType objectType{};
     CollisionBox collisionBox{};
-   
+
     bool hasCollisionBox;
     bool isGhost;
     bool isCollide;

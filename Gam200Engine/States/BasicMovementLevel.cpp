@@ -20,10 +20,8 @@ Creation Date: 12.10.2019
 #include <Component/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
 #include <Systems/FileIO.hpp>
-#include <Sounds/SoundManager.hpp>
 
-SoundManager TestBGMSoundForDebugMode;
-BasicMovementLevel::BasicMovementLevel(): background(nullptr)
+BasicMovementLevel::BasicMovementLevel()
 {
 }
 
@@ -39,13 +37,9 @@ void BasicMovementLevel::Load()
     BasicMovementLevel::InitObject();
 
     cameraManager.Init();
-    TestBGMSoundForDebugMode.Load_Sound();
-    TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
-
 }
 
-void BasicMovementLevel::Update(float /*dt*/)
+void BasicMovementLevel::Update(float dt)
 {
     BasicMovementLevel::Input();
     BasicMovementLevel::Collision();
@@ -120,6 +114,16 @@ void BasicMovementLevel::Input()
         {
             player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
         }
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_SPACE))
+    {
+        player1->GetComponentByTemplate<Physics>()->force.x = player1->GetComponentByTemplate<Physics>()->GetVelocity().x * 30;
+        player1->GetComponentByTemplate<Physics>()->force.y = player1->GetComponentByTemplate<Physics>()->GetVelocity().y * 30;
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_SPACE))
+    {
+        player1->GetComponentByTemplate<Physics>()->force.x = player1->GetComponentByTemplate<Physics>()->GetVelocity().x * 30;
+        player1->GetComponentByTemplate<Physics>()->force.y = player1->GetComponentByTemplate<Physics>()->GetVelocity().y * 30;
     }
     if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
     {

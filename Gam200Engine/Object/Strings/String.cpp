@@ -18,7 +18,7 @@ Creation Date:
 #include "Component/Physics.hpp"
 
 String::String(Object* player1, Object* player2)
-	: player1(player1), player2(player2)
+	: player1(player1), player2(player2), stringLength(0.f)
 {
 	Object::AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
@@ -46,12 +46,12 @@ void String::Update(float /*dt*/)
 
 float String::GetStringLength()
 {
-	float total = 0.f;
+    oldStringLength = stringLength;
 	for (size_t i = 0; i < vertices.size() - 1; ++i)
 	{
-		total += distance_between(vertices.at(i).position, vertices.at(i + 1).position);
+		stringLength = distance_between(vertices.at(i).position, vertices.at(i + 1).position);
 	}
-	return total;
+	return stringLength;
 }
 
 const std::deque<StringVertex>& String::GetVertices() const noexcept
