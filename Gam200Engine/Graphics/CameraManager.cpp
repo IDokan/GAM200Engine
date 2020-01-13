@@ -14,6 +14,7 @@ Creation Date: 08.21.2019
 #include <Window/Application.hpp>
 #include <Systems/Input.hpp>
 #include <Object/Object.hpp>
+#include <Component/Physics.hpp>
 
 Graphics::CameraManager::CameraManager()
 {

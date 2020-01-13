@@ -12,7 +12,7 @@ Creation Date: 12.13.2019
 #include <cassert>
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
-#include <States/StateManager.hpp>
+#include <Scenes/SceneManager.hpp>
 #include <iostream>
 
 
@@ -42,7 +42,7 @@ void GoalComponent::Update(float /*dt*/)
 
         
         // TODO: Add Music
-		StateManager::GetStateManager()->SetNextLevel(targetStage);
+		SceneManager::GetSceneManager()->SetNextScene(targetStage);
 	}
 }
 

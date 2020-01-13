@@ -2,76 +2,80 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   BasicMovementLevel.cpp
-Author
-    - Sinil.Kang            rtd99062@gmail.com
-    - Hyerin.Jung       junghl0621@gmail.com
+File Name: DeadLevel.cpp
+Author: dbsqhd106@gmail.com
 
-Creation Date: 12.10.2019
+Creation Date: DEC/11th/2019
 
-    Source file for level that player learned how to move player
+    Header file for the test object whether interact work or not
 ******************************************************************************/
-#include <States/BasicMovementLevel.hpp>
-#include <Component/Scripts/GoalComponent.hpp>
-#include <Component/Physics.hpp>
-#include <Object/Object.hpp>
-#include <Object/Strings/String.hpp>
-#include <Systems/Input.hpp>
 #include <Component/Sprite/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
-#include <Systems/FileIO.hpp>
+#include <Scenes/DeadLevel.hpp>
+#include <Systems/Input.hpp>
+#include <Component/Physics.hpp>
+#include <Object/InteractiveObject/ObstacleObject.hpp>
+#include <Component/Scripts/GoalComponent.hpp>
 #include <Sounds/SoundManager.hpp>
 
-SoundManager TestBGMSoundForDebugMode;
-BasicMovementLevel::BasicMovementLevel(): background(nullptr)
+SoundManager testSoundForDead;
+DeadLevel::DeadLevel(): background(nullptr), obj_1(nullptr), obj_2(nullptr), obj_3(nullptr)
 {
 }
 
-BasicMovementLevel::~BasicMovementLevel()
+DeadLevel::~DeadLevel()
 {
 }
 
-void BasicMovementLevel::Load()
+void DeadLevel::Update(float /*dt*/)
 {
-    fileIO* a = 0;
-    a->Input("../assets/fileIO/saveloadFile.txt");
+	cameraManager.CameraMove(player1, player2, 1.1f);
+    Input();
+    player1->GetComponentByTemplate<Physics>()->ManageCollision();
+    vector2 player1Pos = player1->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 player2Pos = player2->GetComponentByTemplate<Physics>()->GetPosition();
+    player1->SetTranslation(player1Pos);
+    player2->SetTranslation(player2Pos);
 
-    BasicMovementLevel::InitObject();
+    if ((player1->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+        player1->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2) ||
+        player2->GetComponentByTemplate<Physics>()->GetPosition().x < -(background->GetScale().x / 2) ||
+        player2->GetComponentByTemplate<Physics>()->GetPosition().x >(background->GetScale().x / 2))
+        )
+    {
+        GameRestart();
+    }
+}
 
+void DeadLevel::GameRestart()
+{
+
+    testSoundForDead.Play_Sound(SOUNDS::FALLING_SOUND);
+    player1->SetTranslation(vector2{ -200.f, -2000.f });
+    player2->SetTranslation(vector2{ 200.f, -2000.f }); //change actual location
+    player1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(player1->GetTranslation());
+    player2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(player2->GetTranslation());
+    player1->GetComponentByTemplate<Physics>()->SetOldPosition(player1->GetTranslation());
+    player2->GetComponentByTemplate<Physics>()->SetOldPosition(player2->GetTranslation());
+    player1->GetComponentByTemplate<Physics>()->SetPosition(player1->GetTranslation());
+    player2->GetComponentByTemplate<Physics>()->SetPosition(player2->GetTranslation());
+    string->InitString();
+}
+
+void DeadLevel::Load()
+{
+    DeadLevel::InitObject();
     cameraManager.Init();
-    TestBGMSoundForDebugMode.Load_Sound();
-    TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
-
+    testSoundForDead.Load_Sound();
+    testSoundForDead.SetVolume(FALLING_SOUND, 1);
 }
 
-void BasicMovementLevel::Update(float /*dt*/)
-{
-    BasicMovementLevel::Input();
-    BasicMovementLevel::Collision();
-
-    vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
-    vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
-
-    player1->SetTranslation(obj1Position);
-    player2->SetTranslation(obj2Position);
-
-    cameraManager.CameraMove(player1, player2, 1.1f);
-}
-
-void BasicMovementLevel::GameRestart()
+void DeadLevel::Unload()
 {
 }
 
-void BasicMovementLevel::Unload()
+void DeadLevel::Input()
 {
-	fileIO* a = 0;
-	a->Output();
-}
-
-void BasicMovementLevel::Input()
-{
-    /**********************Moving Object 1*******************************************/
     if (input.IsKeyPressed(GLFW_KEY_W))
     {
         player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
@@ -194,28 +198,24 @@ void BasicMovementLevel::Input()
             player1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
         }
     }
-
 }
 
-void BasicMovementLevel::Collision()
+void DeadLevel::InitObject()
 {
-    player1->GetComponentByTemplate<Physics>()->ManageCollision();
-}
-
-void BasicMovementLevel::InitObject() {
+    auto objManager = ObjectManager::GetObjectManager();
 
     background = new Object();
     background->SetObjectName("background1");
-    background->SetTranslation(vector2{ 1.f });
-    background->SetScale(vector2{ 1000.f });
+    background->SetTranslation(vector2{ 0.f,-1050.f });
+    background->SetScale(vector2{ 2000.f,2400.f });
     background->AddComponent(new Sprite(background));
-    background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(background);
 
     player1 = new Object();
     player1->SetObjectType(Object::ObjectType::PLAYER_1);
     player1->SetObjectName("player1");
-    player1->SetTranslation(vector2{ -200.f, -400.f });
+    player1->SetTranslation(vector2{ -200.f, -2000.f });
     player1->SetScale(vector2{ 150.f });
     player1->AddComponent(new Sprite(player1));
     player1->AddComponent(new Physics(player1));
@@ -223,10 +223,12 @@ void BasicMovementLevel::InitObject() {
     player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
     player1->SetDepth(-1.f);
 
+    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+
     player2 = new Object();
     player2->SetObjectName("player2");
     player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    player2->SetTranslation(vector2{ 200.f, -400.f });
+    player2->SetTranslation(vector2{ 200.f, -2000.f });
     player2->SetScale(vector2{ 150.f });
     player2->AddComponent(new Sprite(player2));
     player2->AddComponent(new Physics(player2));
@@ -235,37 +237,55 @@ void BasicMovementLevel::InitObject() {
     player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 
     string = new String(player1, player2);
-
-    goalPoint = new Object();
-    goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 0.f, 500.f });
-    goalPoint->SetScale(vector2{ 150.f });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel"));
-    goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-    goalPoint->SetDepth(-1.f);
-
-    startPoint = new Object();
-    startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    startPoint->SetObjectName("startPoint");
-    startPoint->SetTranslation(vector2{ 0.f, -500.f });
-    startPoint->SetScale(vector2{ 150.f });
-    startPoint->AddComponent(new Sprite(startPoint));
-	startPoint->AddComponent(new GoalComponent(startPoint, "OneWayPassLevel"));
-    startPoint->AddComponent(new Physics(startPoint));
-    startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
-    startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
-    startPoint->SetDepth(-1.f);
-
-    auto objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(string);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);   
 
+    obj_1 = new ObstacleObject(vector2{ -307.f, -411.f }, vector2{ 340.f ,750.f }, Physics::ObjectType::CIRCLE);
+    obj_1->SetObjectType(Object::ObjectType::OBSTACLE);
+    obj_1->SetObjectName("obj_1");
+    obj_1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(obj_1);
+
+
+    obj_2 = new ObstacleObject(vector2{ 565.f, -574.f }, vector2{ 570.f ,910.f }, Physics::ObjectType::CIRCLE);
+    obj_2->SetObjectType(Object::ObjectType::OBSTACLE);
+    obj_2->SetObjectName("obj_2");
+    obj_2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(obj_2);
+
+
+    obj_3 = new ObstacleObject(vector2{ -420.f, -1300.f }, vector2{ 740.f ,715.f }, Physics::ObjectType::CIRCLE);
+    obj_3->SetObjectType(Object::ObjectType::OBSTACLE);
+    obj_3->SetObjectName("obj_3");
+    obj_3->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/sharp_box.png");
+    objManager->FindLayer(LayerNames::Stage)->AddObject(obj_3);
+
+	startPoint = new Object();
+	startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	startPoint->SetObjectName("startPoint");
+	startPoint->SetTranslation(vector2{ 0.f, -2175.f });
+	startPoint->SetScale(vector2{ 250.f,150.f });
+	startPoint->AddComponent(new Sprite(startPoint));
+	startPoint->AddComponent(new Physics(startPoint));
+	startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
+	startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
+	startPoint->SetDepth(-1.f);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+
+	goalPoint = new Object();
+	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	goalPoint->SetObjectName("goalPoint");
+	goalPoint->SetTranslation(vector2{ 0.f, -400.f });
+	goalPoint->SetScale(vector2{ 250.f,150.f });
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "CrushObjectLevel"));
+	goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+	goalPoint->SetDepth(-1.f);
+
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+    
 }

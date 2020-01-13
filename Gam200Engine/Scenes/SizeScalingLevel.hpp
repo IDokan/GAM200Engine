@@ -2,17 +2,17 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   OneWayPassLevel.hpp
+File Name:   SizeScalingLevel.hpp
 Author
-    - Sinil.Kang rtd99062@gmail.com
+	- Sinil.Kang rtd99062@gmail.com
     - Hyerin Jung junghl0621@gmail.com
 
 Creation Date: 12.10.2019
 
-    Header file for level that string make player move easily
+	Header file for level that teach size scaling
 ******************************************************************************/
 #pragma once
-#include <States/State.hpp>
+#include <Scenes/Scene.hpp>
 #include <Object/Object.hpp>
 #include <Object/Strings/String.hpp>
 #include <Component/Physics.hpp>
@@ -21,44 +21,41 @@ Creation Date: 12.10.2019
 #include <Systems/FileIO.hpp>
 #include <Object/Players/Player1.h>
 #include <Object/Players/Player2.h>
-#include <Sounds/SoundManager.hpp>
 
 // input function
 #include <Graphics/GL.hpp>
 #include <Systems/Input.hpp>
 
-class Player1;
-class Player2;
-class Object;
-class String;
 
-class OneWayPassLevel : public State
+class SizeScalingLevel : public Scene
 {
 public:
-    OneWayPassLevel();
-    virtual ~OneWayPassLevel();
+	SizeScalingLevel();
+	virtual ~SizeScalingLevel();
 
 	void Update(float dt) override;
-
 protected:
     void GameRestart() override;
 	void Load() override;
 	void Unload() override;
-	
+
     void Input();
     void Collision();
     void InitObject();
-    void SetPlayersPosition(vector2 playerPos1, vector2 playerPos2);
+private:
+	void UpdateCollisionBox(Object* obj1, Object* obj2);
+	void PlayerScaling();
+	
 private:
     Object* background;
     Object* startPoint{};
     Object* goalPoint{};
 
-    Object* first_Objects_1{};
-    Object* first_Objects_2{};
-    Object* first_Objects_3{};
-
+    Object* scaleObject1;
+    Object* scaleObject2;
+    
     Object* player1{};
     Object* player2{};
     String* string{};
+
 };

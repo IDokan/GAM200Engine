@@ -2,43 +2,43 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   Application.hpp
+File Name:   SceneManager.hpp
 Author
         dbsqhd106@gmail.com
 Creation Date: 08.12.2019
 
-    Header file for the Application.cpp
+    Header file for the Scene Manager
 ******************************************************************************/
 
 #pragma once
 
-#include "State.hpp"
+#include <Scenes/Scene.hpp>
 #include <unordered_map>
 #include <memory>
 
-class StateManager
+class SceneManager
 {
 public:
-    static StateManager *GetStateManager();
+    static SceneManager *GetSceneManager();
     void GameRestart() const;
     void Init();
     void Update(float dt);
     void Clear();
-    void AddStates(std::string name, State *state);
+    void AddScenes(std::string name, Scene *scene);
 
 	void Draw() const noexcept;
 
 	// Setters
-	void SetNextLevel(std::string levelName) noexcept;
+	void SetNextScene(std::string sceneName) noexcept;
 
 	// Getters
-	std::vector<std::string> GetStateNames() const noexcept;
-	State* GetCurrentState() const noexcept;
+	std::vector<std::string> GetSceneNames() const noexcept;
+	Scene* GetCurrentScene() const noexcept;
 	
     bool is_restart = false;
      
 private:
-    StateManager(){};
-    std::unordered_map < std::string, std::shared_ptr<State> > states;
-    State *currentState = nullptr;
+    SceneManager(){};
+    std::unordered_map < std::string, std::shared_ptr<Scene> > scenes;
+    Scene *currentScene = nullptr;
 };

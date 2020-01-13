@@ -11,12 +11,12 @@ Creation Date: 11.11.2019
     Header file for the ProtoLevel.cpp
 ******************************************************************************/
 #pragma once
-#include<States/State.hpp>
+#include<Scenes/Scene.hpp>
 #include<Graphics/CameraManager.hpp>
 
 class Object;
 
-class ProtoLevel final :public State
+class ProtoLevel final :public Scene
 {
 public:
     ProtoLevel() = default;

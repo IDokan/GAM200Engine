@@ -11,13 +11,13 @@ Creation Date: 12.10.2019
 	Header file for level that player learned how to move player
 ******************************************************************************/
 #pragma once
-#include <States/State.hpp>
+#include <Scenes/Scene.hpp>
 
 class Object;
 class String;
 
 
-class BasicMovementLevel : public State
+class BasicMovementLevel : public Scene
 {
 public:
 	BasicMovementLevel();

@@ -18,7 +18,7 @@ Creation Date: 11.11.2019
 #include <Component/Physics.hpp>
 #include <Graphics/GL.hpp>
 #include <Systems/Input.hpp>
-#include <States\StateManager.hpp>
+#include <Scenes/SceneManager.hpp>
 
 
 void ProtoLevel::GameRestart()
