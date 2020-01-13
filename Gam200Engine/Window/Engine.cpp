@@ -14,7 +14,7 @@ Creation Date: 08.05.2019
 #include <Systems/Input.hpp>
 #include <iostream>
 #include <Object/ObjectManager.hpp>
-#include <States/StateManager.hpp>
+#include <Scenes/SceneManager.hpp>
 #include <Sounds/SoundManager.hpp>
 
 Application* app_ = nullptr;
@@ -51,5 +51,5 @@ void Engine::Clear()
 {
 	delete Application::GetApplication();
 	delete ObjectManager::GetObjectManager();
-	delete StateManager::GetStateManager();
+	delete SceneManager::GetSceneManager();
 }

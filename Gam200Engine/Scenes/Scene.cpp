@@ -2,14 +2,14 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   State.cpp
+File Name:   Scene.cpp
 Author
 		rtd99062@gmail.com
 Creation Date: 12.10.2019
 
-	Source file for the abstract class for all of state
+	Source file for the abstract class for all of Scene
 ******************************************************************************/
-#include <States/State.hpp>
+#include <Scenes/Scene.hpp>
 
 #include <Object/ObjectManager.hpp>
 #include <Graphics/GL.hpp>
@@ -22,19 +22,19 @@ Creation Date: 12.10.2019
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 
-void State::GameRestartState() noexcept
+void Scene::GameRestartScene() noexcept
 {
     GameRestart();
     cameraManager.InitializeCurrentCameraSetting();
 }
 
-void State::LoadState() noexcept
+void Scene::LoadScene() noexcept
 {
 	InstanceDEBUGObjects();
 	Load();
 }
 
-void State::UnloadState() noexcept
+void Scene::UnloadScene() noexcept
 {
 	is_next = false;
 
@@ -50,7 +50,7 @@ void State::UnloadState() noexcept
 	Unload();
 }
 
-void State::Draw() const noexcept
+void Scene::Draw() const noexcept
 {
 	Graphics::GL::begin_drawing();
 
@@ -77,37 +77,37 @@ void State::Draw() const noexcept
 	Graphics::GL::end_drawing();
 }
 
-const Graphics::CameraManager& State::GetCameraManager() const noexcept
+const Graphics::CameraManager& Scene::GetCameraManager() const noexcept
 {
-	// TODO: insert return statement here
+	// TODO: insert return Scenement here
 	return cameraManager;
 }
 
-void State::LevelChangeTo(std::string name)
+void Scene::LevelChangeTo(std::string name)
 {
 	is_next = true;
 	next_level = name;
 }
 
-std::string State::GetChangedLevelName()
+std::string Scene::GetChangedLevelName()
 {
 	return next_level;
 }
 
-bool State::isNextLevel()
+bool Scene::isNextLevel()
 {
 	return is_next;
 }
 
-GameStates State::GetStateInfo()
+GameScenes Scene::GetSceneInfo()
 {
-	return current_state_info;
+	return current_scene_info;
 
 }
 
 
 
-void State::InstanceDEBUGObjects()
+void Scene::InstanceDEBUGObjects()
 {
 #ifdef _DEBUG
 	ObjectManager* objManager = ObjectManager::GetObjectManager();

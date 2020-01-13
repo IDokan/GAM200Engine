@@ -31,12 +31,6 @@
     <ClCompile Include="Object\Transform.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="States\StateManager.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="States\TestLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Shader.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -103,9 +97,6 @@
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
-    <ClCompile Include="States\ProtoLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="Window\Application.cpp">
       <Filter>Window</Filter>
     </ClCompile>
@@ -130,18 +121,6 @@
     <ClCompile Include="Systems\Observer.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="States\BasicMovementLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="States\OneWayPassLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="States\SizeScalingLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="States\State.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp">
       <Filter>Object\DEBUGObject</Filter>
     </ClCompile>
@@ -159,12 +138,6 @@
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp">
       <Filter>Object\InteractiveObject</Filter>
-    </ClCompile>
-    <ClCompile Include="States\CrushObjectLevel.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="States\DeadLevel.cpp">
-      <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
@@ -201,6 +174,33 @@
     </ClCompile>
     <ClCompile Include="Systems\KeyHelpers.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\BasicMovementLevel.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\CrushObjectLevel.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\DeadLevel.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\OneWayPassLevel.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\ProtoLevel.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SizeScalingLevel.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\TestLevel.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,15 +239,6 @@
     </ClInclude>
     <ClInclude Include="Object\Transform.hpp">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="States\State.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\StateManager.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\TestLevel.hpp">
-      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Shader.hpp">
       <Filter>Graphics</Filter>
@@ -327,9 +318,6 @@
     <ClInclude Include="Timer.hpp">
       <Filter>Timer</Filter>
     </ClInclude>
-    <ClInclude Include="States\ProtoLevel.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="Window\Application.hpp">
       <Filter>Window</Filter>
     </ClInclude>
@@ -357,15 +345,6 @@
     <ClInclude Include="Systems\Timer.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="States\BasicMovementLevel.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\OneWayPassLevel.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\SizeScalingLevel.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp">
       <Filter>Object\DEBUGObject</Filter>
     </ClInclude>
@@ -383,12 +362,6 @@
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp">
       <Filter>Object\InteractiveObject</Filter>
-    </ClInclude>
-    <ClInclude Include="States\CrushObjectLevel.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\DeadLevel.hpp">
-      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Component\Component.hpp">
       <Filter>Component</Filter>
@@ -426,6 +399,39 @@
     <ClInclude Include="Systems\KeyHelpers.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\BasicMovementLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\CrushObjectLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\DeadLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\OneWayPassLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ProtoLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Scene.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SceneManager.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SizeScalingLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\TestLevel.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FSM\State.hpp">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="FSM\StateMachine.hpp">
+      <Filter>FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -433,9 +439,6 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{fb307eba-2f57-43da-8d75-22870e6fc4e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States">
-      <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{9d239c88-b28a-48b6-b1b5-2b65e7656637}</UniqueIdentifier>
@@ -479,6 +482,12 @@
     <Filter Include="Component\Scripts">
       <UniqueIdentifier>{ed31fa1d-a8c1-47bd-8d2b-5e8157325aa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{9f5db297-5e8c-4431-824c-dd05bc5e21d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">
@@ -486,6 +495,9 @@
     </None>
     <None Include="Graphics\StockBitmapFonts.inl">
       <Filter>Graphics</Filter>
+    </None>
+    <None Include="FSM\StateMachine.inl">
+      <Filter>FSM</Filter>
     </None>
   </ItemGroup>
 </Project>

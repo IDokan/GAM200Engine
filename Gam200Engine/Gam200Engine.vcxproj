@@ -182,6 +182,8 @@
     <ClInclude Include="Component\Sprite\StringSprite.hpp" />
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
+    <ClInclude Include="FSM\State.hpp" />
+    <ClInclude Include="FSM\StateMachine.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -224,16 +226,16 @@
     <ClInclude Include="Object\Strings\StringPiece.hpp" />
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
-    <ClInclude Include="States\BasicMovementLevel.hpp" />
-    <ClInclude Include="States\CrushObjectLevel.hpp" />
-    <ClInclude Include="States\DeadLevel.hpp" />
-    <ClInclude Include="States\OneWayPassLevel.hpp" />
-    <ClInclude Include="States\ProtoLevel.hpp" />
+    <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
+    <ClInclude Include="Scenes\CrushObjectLevel.hpp" />
+    <ClInclude Include="Scenes\DeadLevel.hpp" />
+    <ClInclude Include="Scenes\OneWayPassLevel.hpp" />
+    <ClInclude Include="Scenes\ProtoLevel.hpp" />
+    <ClInclude Include="Scenes\Scene.hpp" />
+    <ClInclude Include="Scenes\SceneManager.hpp" />
+    <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
+    <ClInclude Include="Scenes\TestLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
-    <ClInclude Include="States\SizeScalingLevel.hpp" />
-    <ClInclude Include="States\State.hpp" />
-    <ClInclude Include="States\StateManager.hpp" />
-    <ClInclude Include="States\TestLevel.hpp" />
     <ClInclude Include="Systems\FileIO.hpp" />
     <ClInclude Include="Systems\Input.hpp" />
     <ClInclude Include="Systems\KeyHelpers.hpp" />
@@ -258,6 +260,10 @@
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
+    <None Include="FSM\StateMachine.inl">
+      <FileType>CppCode</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -300,16 +306,16 @@
     <ClCompile Include="Object\Strings\StringPiece.cpp" />
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
-    <ClCompile Include="States\BasicMovementLevel.cpp" />
-    <ClCompile Include="States\CrushObjectLevel.cpp" />
-    <ClCompile Include="States\DeadLevel.cpp" />
-    <ClCompile Include="States\OneWayPassLevel.cpp" />
-    <ClCompile Include="States\ProtoLevel.cpp" />
+    <ClCompile Include="Scenes\BasicMovementLevel.cpp" />
+    <ClCompile Include="Scenes\CrushObjectLevel.cpp" />
+    <ClCompile Include="Scenes\DeadLevel.cpp" />
+    <ClCompile Include="Scenes\OneWayPassLevel.cpp" />
+    <ClCompile Include="Scenes\ProtoLevel.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\SceneManager.cpp" />
+    <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
+    <ClCompile Include="Scenes\TestLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
-    <ClCompile Include="States\SizeScalingLevel.cpp" />
-    <ClCompile Include="States\State.cpp" />
-    <ClCompile Include="States\StateManager.cpp" />
-    <ClCompile Include="States\TestLevel.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
     <ClCompile Include="Systems\KeyHelpers.cpp" />

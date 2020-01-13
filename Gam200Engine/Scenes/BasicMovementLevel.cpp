@@ -2,38 +2,53 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   SizeScalingLevel.cpp
+File Name:   BasicMovementLevel.cpp
 Author
-	- Sinil.Kang rtd99062@gmail.com
-    - Hyerin Jung junghl0621@gmail.com
+    - Sinil.Kang            rtd99062@gmail.com
+    - Hyerin.Jung       junghl0621@gmail.com
 
 Creation Date: 12.10.2019
 
-	Source file for level that teach size scaling
+    Source file for level that player learned how to move player
 ******************************************************************************/
-#include <States/SizeScalingLevel.hpp>
+#include <Scenes/BasicMovementLevel.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
+#include <Component/Physics.hpp>
+#include <Object/Object.hpp>
+#include <Object/Strings/String.hpp>
+#include <Systems/Input.hpp>
+#include <Component/Sprite/Sprite.hpp>
+#include <Object/ObjectManager.hpp>
+#include <Systems/FileIO.hpp>
+#include <Sounds/SoundManager.hpp>
 
-SizeScalingLevel::SizeScalingLevel(): background(nullptr), scaleObject1(nullptr), scaleObject2(nullptr)
+SoundManager TestBGMSoundForDebugMode;
+BasicMovementLevel::BasicMovementLevel(): background(nullptr)
 {
 }
 
-SizeScalingLevel::~SizeScalingLevel()
+BasicMovementLevel::~BasicMovementLevel()
 {
 }
 
-void SizeScalingLevel::Load()
+void BasicMovementLevel::Load()
 {
-    SizeScalingLevel::InitObject();
+    fileIO* a = 0;
+    a->Input("../assets/fileIO/saveloadFile.txt");
+
+    BasicMovementLevel::InitObject();
 
     cameraManager.Init();
+    TestBGMSoundForDebugMode.Load_Sound();
+    TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
+
 }
 
-void SizeScalingLevel::Update(float /*dt*/)
+void BasicMovementLevel::Update(float /*dt*/)
 {
-    SizeScalingLevel::Input();
-    SizeScalingLevel::Collision();
-	PlayerScaling();
+    BasicMovementLevel::Input();
+    BasicMovementLevel::Collision();
 
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
     vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
@@ -41,17 +56,20 @@ void SizeScalingLevel::Update(float /*dt*/)
     player1->SetTranslation(obj1Position);
     player2->SetTranslation(obj2Position);
 
-	cameraManager.CameraMove(player1, player2, 1.1f);
+    cameraManager.CameraMove(player1, player2, 1.1f);
 }
 
-void SizeScalingLevel::GameRestart()
+void BasicMovementLevel::GameRestart()
 {
 }
 
-void SizeScalingLevel::Unload()
+void BasicMovementLevel::Unload()
 {
+	fileIO* a = 0;
+	a->Output();
 }
-void SizeScalingLevel::Input()
+
+void BasicMovementLevel::Input()
 {
     /**********************Moving Object 1*******************************************/
     if (input.IsKeyPressed(GLFW_KEY_W))
@@ -179,17 +197,17 @@ void SizeScalingLevel::Input()
 
 }
 
-void SizeScalingLevel::Collision()
+void BasicMovementLevel::Collision()
 {
     player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
-void SizeScalingLevel::InitObject() {
+void BasicMovementLevel::InitObject() {
 
     background = new Object();
     background->SetObjectName("background1");
-    background->SetTranslation(vector2{ 0.f });
-    background->SetScale(vector2{ 2000.f,2000.f });
+    background->SetTranslation(vector2{ 1.f });
+    background->SetScale(vector2{ 1000.f });
     background->AddComponent(new Sprite(background));
     background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
@@ -197,7 +215,7 @@ void SizeScalingLevel::InitObject() {
     player1 = new Object();
     player1->SetObjectType(Object::ObjectType::PLAYER_1);
     player1->SetObjectName("player1");
-    player1->SetTranslation(vector2{ -200.f, -800.f });
+    player1->SetTranslation(vector2{ -200.f, -400.f });
     player1->SetScale(vector2{ 150.f });
     player1->AddComponent(new Sprite(player1));
     player1->AddComponent(new Physics(player1));
@@ -208,7 +226,7 @@ void SizeScalingLevel::InitObject() {
     player2 = new Object();
     player2->SetObjectName("player2");
     player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    player2->SetTranslation(vector2{ 200.f, -800.f });
+    player2->SetTranslation(vector2{ 200.f, -400.f });
     player2->SetScale(vector2{ 150.f });
     player2->AddComponent(new Sprite(player2));
     player2->AddComponent(new Physics(player2));
@@ -221,10 +239,10 @@ void SizeScalingLevel::InitObject() {
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 0.f, 1000.f });
+    goalPoint->SetTranslation(vector2{ 0.f, 500.f });
     goalPoint->SetScale(vector2{ 150.f });
     goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, "CrushObjectLevel"));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel"));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
@@ -233,104 +251,21 @@ void SizeScalingLevel::InitObject() {
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     startPoint->SetObjectName("startPoint");
-    startPoint->SetTranslation(vector2{ 0.f, -1000.f });
+    startPoint->SetTranslation(vector2{ 0.f, -500.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
+	startPoint->AddComponent(new GoalComponent(startPoint, "OneWayPassLevel"));
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
 
-    scaleObject1 = new Object();
-    scaleObject1->SetObjectType(Object::ObjectType::OBSTACLE);
-    scaleObject1->SetObjectName("scaleObj1");
-    scaleObject1->SetTranslation(vector2{ -600.f, -300.f });
-    scaleObject1->SetScale(vector2{ 1000.f, 150.f });
-    scaleObject1->SetRotation(97.7f);
-    scaleObject1->AddComponent(new Sprite(scaleObject1));
-    scaleObject1->AddComponent(new Physics(scaleObject1));
-    scaleObject1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(scaleObject1, Physics::ObjectType::RECTANGLE);
-    scaleObject1->SetDepth(-1.f);
-
-    scaleObject2 = new Object();
-    scaleObject2->SetObjectType(Object::ObjectType::OBSTACLE);
-    scaleObject2->SetObjectName("scaleObj2");
-    scaleObject2->SetTranslation(vector2{ -600.f, 300.f });
-    scaleObject2->SetScale(vector2{ 1000.f,150.f });
-    scaleObject2->SetRotation(150.4f);
-    scaleObject2->AddComponent(new Sprite(scaleObject2));
-    scaleObject2->AddComponent(new Physics(scaleObject2));
-    scaleObject2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(scaleObject2, Physics::ObjectType::RECTANGLE);
-    scaleObject2->SetDepth(-1.f);
-
-
     auto objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-    objManager->FindLayer(Stage)->AddObject(string);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(scaleObject1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(scaleObject2);
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
-    
+	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);   
 
-}
-
-
-
-void SizeScalingLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
-{
-	obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
-	obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
-}
-
-void SizeScalingLevel::PlayerScaling()
-{
-	const float minimum_scaling_limit = 125.f;
-	const float scaling_constant = 1.f;
-
-	if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
-	{
-		if (player1->GetScale().x <= minimum_scaling_limit || player2->GetComponentByTemplate<Physics>()->IsCollided())
-		{
-			return;
-		}
-		vector2 player1OldScale = player1->GetScale();
-		vector2 player2OldScale = player2->GetScale();
-
-		player1->SetScale(player1->GetScale() - scaling_constant);
-		player2->SetScale(player2->GetScale() + scaling_constant);
-		UpdateCollisionBox(player1, player2);
-
-		Collision();
-		if (player2->GetComponentByTemplate<Physics>()->IsCollided())
-		{
-			player1->SetScale(player1OldScale);
-			player2->SetScale(player2OldScale);
-			UpdateCollisionBox(player1, player2);
-		}
-	}
-	if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
-	{
-		if (player2->GetScale().x <= minimum_scaling_limit || player1->GetComponentByTemplate<Physics>()->IsCollided())
-		{
-			return;
-		}
-		vector2 player1OldScale = player1->GetScale();
-		vector2 player2OldScale = player2->GetScale();
-
-		player1->SetScale(player1->GetScale() + scaling_constant);
-		player2->SetScale(player2->GetScale() - scaling_constant);
-		UpdateCollisionBox(player1, player2);
-
-		Collision();
-
-		if (player1->GetComponentByTemplate<Physics>()->IsCollided())
-		{
-			player1->SetScale(player1OldScale);
-			player2->SetScale(player2OldScale);
-			UpdateCollisionBox(player1, player2);
-		}
-	}
 }

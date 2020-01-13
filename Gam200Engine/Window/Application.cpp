@@ -13,17 +13,19 @@ Creation Date: 08.05.2019
 #include <Systems/Input.hpp>
 #include <iostream>
 #include "Graphics/GL.hpp"
-#include "States/StateManager.hpp"
+#include "Scenes/SceneManager.hpp"
 #include "Object/ObjectManager.hpp"
 
 #include <Graphics/ImGui/MyImGui.hpp>
 
 // Include States
-#include <States/BasicMovementLevel.hpp>
-#include <States/OneWayPassLevel.hpp>
-#include <States/SizeScalingLevel.hpp>
-#include <States/CrushObjectLevel.hpp>
-#include <States/DeadLevel.hpp>
+#include <Scenes/BasicMovementLevel.hpp>
+#include <Scenes/OneWayPassLevel.hpp>
+#include <Scenes/SizeScalingLevel.hpp>
+#include <Scenes/CrushObjectLevel.hpp>
+#include <Scenes/DeadLevel.hpp>
+#include <Scenes/ProtoLevel.hpp>
+#include <Scenes/TestLevel.hpp>
 
 
 Application* Application::GetApplication()
@@ -42,17 +44,17 @@ void Application::Init()
 
 	Graphics::GL::setup();
 
-	StateManager::GetStateManager()->Init();
+	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
 #ifdef _DEBUG
-	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
-#endif	
-	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
-	StateManager::GetStateManager()->AddStates("DeadLevel", dynamic_cast<State*>(new DeadLevel()));
-    StateManager::GetStateManager()->AddStates("CrushObjectLevel", dynamic_cast<State*>(new CrushObjectLevel()));
-	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
-	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
+	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
+#endif									
+	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
+	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
+    SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
+	SceneManager::GetSceneManager()->AddScenes("TestLevel", dynamic_cast<Scene*>(new TestLevel()));
+	SceneManager::GetSceneManager()->AddScenes("ProtoLevel", dynamic_cast<Scene*>(new ProtoLevel()));
 	
 	 
 }
@@ -72,7 +74,7 @@ void Application::Update(float dt)
 
     window.PollEvent();
 
-	const auto& stateManager = StateManager::GetStateManager();
+	const auto& stateManager = SceneManager::GetSceneManager();
 	stateManager->Update(dt);
 	ObjectManager::GetObjectManager()->Update(dt);
 	stateManager->Draw();
@@ -103,7 +105,7 @@ void Application::Input()
 
 void Application::Clear()
 {
-	StateManager::GetStateManager()->Clear();
+	SceneManager::GetSceneManager()->Clear();
 	ObjectManager::GetObjectManager()->Clear();
 
 

@@ -10,7 +10,7 @@ Creation Date: 08.12.2019
     Header file for the Application.cpp
 ******************************************************************************/
 #include "ObjectManager.hpp"
-#include "States/StateManager.hpp"
+#include <Scenes/SceneManager.hpp>
 #include <iostream>
 #include "Graphics/Parallax scrolling/Layer.hpp"
 

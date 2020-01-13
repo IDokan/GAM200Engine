@@ -11,8 +11,6 @@ Creation Date: 08.05.2019
 ******************************************************************************/
 #pragma once
 #include <Window/Window.hpp>
-#include <States/TestLevel.hpp>
-#include <States/ProtoLevel.hpp>
 #include <Graphics/Color4f.hpp>
 
 class Application
@@ -30,9 +28,6 @@ private:
     float fpsEllapsedTime = 0.f;
     int fpsFrames = 0;
     Window window;
-
-	TestLevel testLevel;
-    ProtoLevel protoLevel;
 
 	// Our state
 	bool show_demo_window = true;

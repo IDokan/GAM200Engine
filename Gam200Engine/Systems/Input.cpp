@@ -14,7 +14,7 @@ Creation Date: 08.06.2019
 #include <Window/PlatformWindow.hpp>
 #include <Window/Application.hpp>
 #include <chrono>
-#include <States/StateManager.hpp>
+#include <Scenes/SceneManager.hpp>
 
 Input input;
 
@@ -132,7 +132,7 @@ vector2 Input::GetMouseAbsolutePosition() const noexcept
 
 vector2 Input::GetMouseRelativePosition() const noexcept
 {
-	const Graphics::CameraManager& cameraManager = StateManager::GetStateManager()->GetCurrentState()->GetCameraManager();
+	const Graphics::CameraManager& cameraManager = SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager();
 
 	return (mousePosition / cameraManager.GetZoom()) + cameraManager.GetPosition();
 }

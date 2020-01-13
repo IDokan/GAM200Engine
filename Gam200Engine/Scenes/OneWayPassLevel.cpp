@@ -2,58 +2,60 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: CrushObjectLevel.cpp
-Author: dbsqhd106@gmail.com
+File Name:   OneWayPassLevel.cpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+    - Hyerin Jung junghl0621@gmail.com
+Creation Date: 12.10.2019
 
-Creation Date: DEC/11th/2019
-
-	Source file for the test object whether interact work or not
+	Source file for level that string make player move easily
 ******************************************************************************/
-#include <States/CrushObjectLevel.hpp>
-#include <Object/ObjectManager.hpp>
-#include <Component/Sprite/Sprite.hpp>
-#include <Component/Physics.hpp>
-#include <Systems/Input.hpp>
+#include <Scenes/OneWayPassLevel.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
-#include <GLFW/glfw3.h>
-#include <Sounds/SoundManager.hpp>
 
-SoundManager TestSoundForCrush;
 
-CrushObjectLevel::CrushObjectLevel()
+SoundManager bgm;
+OneWayPassLevel::OneWayPassLevel(): background(nullptr)
 {
 }
 
-CrushObjectLevel::~CrushObjectLevel()
+OneWayPassLevel::~OneWayPassLevel()
 {
 }
 
-void CrushObjectLevel::Update(float /*dt*/)
+void OneWayPassLevel::Load()
 {
-	cameraManager.CameraMove(player1, player2, 1.1f);
-    Input();
-    player1->GetComponentByTemplate<Physics>()->ManageCollision();
-    vector2 player1Pos = player1->GetComponentByTemplate<Physics>()->GetPosition();
-    vector2 player2Pos = player2->GetComponentByTemplate<Physics>()->GetPosition();
-    player1->SetTranslation(player1Pos);
-    player2->SetTranslation(player2Pos);
-}
-
-
-
-void CrushObjectLevel::Load()
-{
-    CrushObjectLevel::InitObject();
+    OneWayPassLevel::InitObject();
     cameraManager.Init();
-    TestSoundForCrush.Load_Sound();
-    TestSoundForCrush.SetVolume(CRUSH_SOUND, 1);
-    TestSoundForCrush.SetVolume(SHAREWEIGHT_SOUND, 1);
+    bgm.Load_Sound();
+    bgm.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    bgm.SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
-
-
-void CrushObjectLevel::Input()
+void OneWayPassLevel::Update(float /*dt*/)
 {
+    vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
+
+
+
+	cameraManager.CameraMove(player1, player2, 1.1f);
+	Input();
+    Collision();
+    SetPlayersPosition(player1->GetComponentByTemplate<Physics>()->GetPosition(), player2->GetComponentByTemplate<Physics>()->GetPosition());
+}
+
+void OneWayPassLevel::GameRestart()
+{
+}
+
+void OneWayPassLevel::Unload()
+{
+}
+
+void OneWayPassLevel::Input()
+{
+    /**********************Moving Object 1*******************************************/
     if (input.IsKeyPressed(GLFW_KEY_W))
     {
         player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
@@ -177,91 +179,27 @@ void CrushObjectLevel::Input()
         }
     }
 
-    const float minimum_scaling_limit = 125.f;
-    const float scaling_constant = 1.f;
-    if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
-    {
-
-        if (player1->GetScale().x <= minimum_scaling_limit || player2->GetComponentByTemplate<Physics>()->IsCollided())
-        {
-
-            return;
-        }
-        vector2 object1OldScale = player1->GetScale();
-        vector2 object2OldScale = player2->GetScale();
-
-        player1->SetScale(player1->GetScale() - scaling_constant);
-        player2->SetScale(player2->GetScale() + scaling_constant);
-        UpdateCollisionBox(player1, player2);
-
-        player1->GetComponentByTemplate<Physics>()->ManageCollision();
-        if (player2->GetComponentByTemplate<Physics>()->IsCollided())
-        {
-            player1->SetScale(object1OldScale);
-            player2->SetScale(object2OldScale);
-            UpdateCollisionBox(player1, player2);
-        }
-    }
-    if (input.IsKeyReleased(GLFW_KEY_LEFT_SHIFT) || input.IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
-    {
-        TestSoundForCrush.Stop_Sound(SOUNDS::SHAREWEIGHT_SOUND);
-
-    }
-
-    if (input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
-    {
-        if (player2->GetScale().x <= minimum_scaling_limit || player1->GetComponentByTemplate<Physics>()->IsCollided())
-        {
-            return;
-        }
-        vector2 object1OldScale = player1->GetScale();
-        vector2 object2OldScale = player2->GetScale();
-
-        player1->SetScale(player1->GetScale() + scaling_constant);
-        player2->SetScale(player2->GetScale() - scaling_constant);
-        UpdateCollisionBox(player1, player2);
-
-        player1->GetComponentByTemplate<Physics>()->ManageCollision();
-
-        if (player1->GetComponentByTemplate<Physics>()->IsCollided())
-        {
-            player1->SetScale(object1OldScale);
-            player2->SetScale(object2OldScale);
-            UpdateCollisionBox(player1, player2);
-        }
-    }
-
-    if (input.IsKeyReleased(GLFW_KEY_LEFT_SHIFT) || input.IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
-    {
-        TestSoundForCrush.Stop_Sound(SOUNDS::SHAREWEIGHT_SOUND);
-
-    }
-}
-void CrushObjectLevel::UpdateCollisionBox(Object* obj1, Object* obj2)
-{
-    obj1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj1, Physics::ObjectType::RECTANGLE);
-    obj2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(obj2, Physics::ObjectType::RECTANGLE);
 }
 
-
-
-void CrushObjectLevel::InitObject()
+void OneWayPassLevel::Collision()
 {
-    auto objManager = ObjectManager::GetObjectManager();
+    player1->GetComponentByTemplate<Physics>()->ManageCollision();
+}
 
-
+void OneWayPassLevel::InitObject() {
 
     background = new Object();
     background->SetObjectName("background1");
-    background->SetTranslation(vector2{ 0.f,-1050.f });
-    background->SetScale(vector2{ 2000.f,2400.f });
+    background->SetTranslation(vector2{ 1.f });
+    background->SetScale(vector2{ 2000.f,2000.f });
     background->AddComponent(new Sprite(background));
+    background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
     player1 = new Object();
     player1->SetObjectType(Object::ObjectType::PLAYER_1);
     player1->SetObjectName("player1");
-    player1->SetTranslation(vector2{ -200.f, -2000.f });
+    player1->SetTranslation(vector2{ -200.f, -800.f });
     player1->SetScale(vector2{ 150.f });
     player1->AddComponent(new Sprite(player1));
     player1->AddComponent(new Physics(player1));
@@ -272,7 +210,7 @@ void CrushObjectLevel::InitObject()
     player2 = new Object();
     player2->SetObjectName("player2");
     player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    player2->SetTranslation(vector2{ 200.f, -2000.f });
+    player2->SetTranslation(vector2{ 200.f, -800.f });
     player2->SetScale(vector2{ 150.f });
     player2->AddComponent(new Sprite(player2));
     player2->AddComponent(new Physics(player2));
@@ -280,76 +218,86 @@ void CrushObjectLevel::InitObject()
     player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
     player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 
+    //player1 = new Player1("player1", vector2{ -200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, -1.f);
+    //player1->SetObjectType(Object::ObjectType::PLAYER_1);
+    //player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
+    //player2 = new Player2("player2", vector2{ 200.f ,-800.f }, vector2{ 150.f }, Physics::ObjectType::RECTANGLE, 0.f);
+    //player2->SetObjectType(Object::ObjectType::PLAYER_2);
+    //player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
+
     string = new String(player1, player2);
+
+    goalPoint = new Object();
+    goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+    goalPoint->SetObjectName("goalPoint");
+    goalPoint->SetTranslation(vector2{ 0.f, 1000.f });
+    goalPoint->SetScale(vector2{ 150.f });
+    goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "DeadLevel"));
+    goalPoint->AddComponent(new Physics(goalPoint));
+    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+    goalPoint->SetDepth(-1.f);
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     startPoint->SetObjectName("startPoint");
-    startPoint->SetTranslation(vector2{ 0.f, -2175.f });
-    startPoint->SetScale(vector2{ 250.f,150.f });
+    startPoint->SetTranslation(vector2{ 0.f, -1000.f });
+    startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
-    startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
 
-	goalPoint = new Object();
-	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-	goalPoint->SetObjectName("goalPoint");
-	goalPoint->SetTranslation(vector2{ -440.f, -550.f });
-	goalPoint->SetScale(vector2{ 250.f,150.f });
-	goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, ""/*This is a last level in presentation*/));
-	goalPoint->AddComponent(new Physics(goalPoint));
-	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-	goalPoint->SetDepth(-1.f);
-	
+    first_Objects_1 = new Object();
+    first_Objects_1->SetObjectType(Object::ObjectType::OBSTACLE);
+    first_Objects_1->SetObjectName("first_Objects_1");
+    first_Objects_1->SetTranslation(vector2{ -930.f, 0.f });
+    first_Objects_1->SetScale(vector2{ 1000.f, 150.f });
+    first_Objects_1->AddComponent(new Sprite(first_Objects_1));
+    first_Objects_1->AddComponent(new Physics(first_Objects_1));
+    first_Objects_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_1, Physics::ObjectType::RECTANGLE);
+    first_Objects_1->SetDepth(-1.f);
 
-    object1 = new CrushableObject(vector2{ -809.f,-1529.f }, vector2{ 380.f,157.f }, Physics::ObjectType::RECTANGLE, string);
-    object1->SetObjectName("obj_1");
+    first_Objects_2 = new Object();
+    first_Objects_2->SetObjectType(Object::ObjectType::OBSTACLE);
+    first_Objects_2->SetObjectName("first_Objects_2");
+    first_Objects_2->SetTranslation(vector2{ 0.f, 0.f });
+    first_Objects_2->SetScale(vector2{ 500.f, 150.f });
+    first_Objects_2->AddComponent(new Sprite(first_Objects_2));
+    first_Objects_2->AddComponent(new Physics(first_Objects_2));
+    first_Objects_2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_2, Physics::ObjectType::RECTANGLE);
+    first_Objects_2->SetDepth(-1.f);
 
-    object2 = new CrushableObject(vector2{ 413.f,-1535.f }, vector2{ 1176.f,143.f }, Physics::ObjectType::RECTANGLE, string);
-    object2->SetObjectName("obj_2");
+    first_Objects_3 = new Object();
+    first_Objects_3->SetObjectType(Object::ObjectType::OBSTACLE);
+    first_Objects_3->SetObjectName("first_Objects_3");
+    first_Objects_3->SetTranslation(vector2{ 900.f, 0.f });
+    first_Objects_3->SetScale(vector2{ 900.f, 150.f });
+    first_Objects_3->AddComponent(new Sprite(first_Objects_3));
+    first_Objects_3->AddComponent(new Physics(first_Objects_3));
+    first_Objects_3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(first_Objects_3, Physics::ObjectType::RECTANGLE);
+    first_Objects_3->SetDepth(-1.f);
 
-    object3 = new CrushableObject(vector2{ -413.f,-764.f }, vector2{ 1159.f,157.f }, Physics::ObjectType::RECTANGLE, string);
-    object3->SetObjectName("obj_3");
-
-    object4 = new CrushableObject(vector2{ 806.f,-763.f }, vector2{ 394.f,143.f }, Physics::ObjectType::RECTANGLE, string);
-    object4->SetObjectName("obj_4");
-
-    object5 = new CrushableObject(vector2{ -394.f,-1530.f }, vector2{ 173.f,163.f }, Physics::ObjectType::RECTANGLE, string);
-    object5->SetObjectName("obj_5");
-
-    object6 = new CrushableObject(vector2{ 389.f,-766.f }, vector2{ 173.f,159.f }, Physics::ObjectType::RECTANGLE, string);
-    object6->SetObjectName("obj_6");
-
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object3);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object4);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object5);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(object6);
-    objManager->FindLayer(Stage)->AddObject(string);
+    auto objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(background);
+    objManager->FindLayer(Stage)->AddObject(string);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(first_Objects_3);
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
 }
 
-
-void CrushObjectLevel::GameRestart()
+void OneWayPassLevel::SetPlayersPosition(vector2 playerPos1, vector2 playerPos2)
 {
-}
+    player1->GetComponentByTemplate<Physics>()->SetPosition(playerPos1);
+    player2->GetComponentByTemplate<Physics>()->SetPosition(playerPos2);
 
-void CrushObjectLevel::Collision()
-{
-}
-
-void CrushObjectLevel::Unload()
-{
+    player1->SetTranslation(playerPos1);
+    player2->SetTranslation(playerPos2);
 }

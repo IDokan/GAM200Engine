@@ -11,13 +11,13 @@ Creation Date: 08.15.2019
 	Header file for First Level to Test Sprite Component
 ******************************************************************************/
 #pragma once
-#include <States/State.hpp>
+#include <Scenes/Scene.hpp>
 #include <Object/Object.hpp>
 #include <Object/Strings/String.hpp>
 #include <Object/InteractiveObject/CrushableObject.hpp>
 #include <Object/InteractiveObject/ObstacleObject.hpp>
 
-class TestLevel final : public State
+class TestLevel final : public Scene
 {
 public:
 	TestLevel() = default;
