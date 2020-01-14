@@ -13,12 +13,10 @@ Creation Date: 01.13.2020
 
 #include <Component/Component.hpp>
 #include <cassert>
-
-template<class>
-class State;
+#include <States/State.hpp>
 
 template <class object_type>
-class StateMachine : Component
+class StateMachine : public Component
 {
 public:
 	StateMachine(object_type* owner);
@@ -35,11 +33,11 @@ public:
 	State<object_type>* GetGlobalState() const noexcept;
 
 	// call this when FSM is attached or detached on arbitrary object
-	virtual void Init();
-	virtual void Clear();
+	void Init() override;
+	void Clear() override;
 	
 	// call this to update the FSM
-	virtual void Update(float dt);
+	void Update(float dt) override;
 
 	// change to a new state
 	void ChangeState(State<object_type>* pNewState);
@@ -64,4 +62,4 @@ private:
 	State<object_type>* globalState;
 };
 
-#include <FSM/StateMachine.inl>
+#include <Component/StateMachine.inl>

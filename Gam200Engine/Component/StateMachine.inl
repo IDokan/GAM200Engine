@@ -9,6 +9,7 @@ Creation Date: 01.13.2020
 
 	inline file for State Machine that manage each states
 ******************************************************************************/
+#pragma once
 
 template <class object_type>
 StateMachine<object_type>::StateMachine(object_type* owner)
@@ -64,7 +65,7 @@ void StateMachine<object_type>::Clear()
 
 
 template <class object_type>
-void StateMachine<object_type>::Update(float dt)
+void StateMachine<object_type>::Update(float /*dt*/)
 {
 	// if a global state exists, call its execute method
 	if (globalState)

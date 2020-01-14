@@ -202,6 +202,12 @@
     <ClCompile Include="Scenes\TestLevel.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="States\Walking.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp">
+      <Filter>Systems\MessageSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -426,11 +432,26 @@
     <ClInclude Include="Scenes\TestLevel.hpp">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="FSM\State.hpp">
-      <Filter>FSM</Filter>
+    <ClInclude Include="Component\StateMachine.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="FSM\StateMachine.hpp">
-      <Filter>FSM</Filter>
+    <ClInclude Include="States\State.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\Walking.hpp">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\MessageSystem\Message.hpp">
+      <Filter>Systems\MessageSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\MessageSystem\MessageCapableObjectManager.hpp">
+      <Filter>Systems\MessageSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\MessageSystem\MessageDispatcher.hpp">
+      <Filter>Systems\MessageSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\MessageSystem\MessageTypes.h">
+      <Filter>Systems\MessageSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -485,8 +506,11 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FSM">
-      <UniqueIdentifier>{9f5db297-5e8c-4431-824c-dd05bc5e21d2}</UniqueIdentifier>
+    <Filter Include="States">
+      <UniqueIdentifier>{b152cfd2-2c7d-46f9-8a94-5f9691a086c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\MessageSystem">
+      <UniqueIdentifier>{31bcb222-c3c3-4660-b190-4e83764312a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -496,8 +520,8 @@
     <None Include="Graphics\StockBitmapFonts.inl">
       <Filter>Graphics</Filter>
     </None>
-    <None Include="FSM\StateMachine.inl">
-      <Filter>FSM</Filter>
+    <None Include="Component\StateMachine.inl">
+      <Filter>Component</Filter>
     </None>
   </ItemGroup>
 </Project>

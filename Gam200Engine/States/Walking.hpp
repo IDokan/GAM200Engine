@@ -2,28 +2,31 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   State.hpp
+File Name:   Walking.hpp
 Author
 		Kang rtd99062@gmail.com
-Creation Date: 01.13.2020
+Creation Date: 01.14.2020
 
-	Header file for State abstract class
-		Each derived state classes need to be derived from this class
+	Header file for walking state to test FSM works correctly.
 ******************************************************************************/
 #pragma once
+#include <States/State.hpp>
+#include <Object/Object.hpp>
 
-template<class object_type>
-class State
+// for DEBUG
+#include <iostream>
+
+class Walking : public State<Object>
 {
 public:
-	virtual ~State(){}
+	virtual ~Walking();
 
 	// this will execute when  the state is entered
-	virtual void Enter(object_type* obj) = 0;
+	virtual void Enter(Object* obj);
 
 	// this is called by the object's update function in each update step
-	virtual void Update(object_type* obj) = 0;
+	virtual void Execute(Object* obj);
 
 	// this will execute when the state is exited
-	virtual void Exit(object_type* obj) = 0;
+	virtual void Exit(Object* obj);
 };

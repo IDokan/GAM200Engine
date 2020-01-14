@@ -181,9 +181,8 @@
     <ClInclude Include="Component\Sprite\Sprite.hpp" />
     <ClInclude Include="Component\Sprite\StringSprite.hpp" />
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
+    <ClInclude Include="Component\StateMachine.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
-    <ClInclude Include="FSM\State.hpp" />
-    <ClInclude Include="FSM\StateMachine.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -236,9 +235,15 @@
     <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
     <ClInclude Include="Scenes\TestLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
+    <ClInclude Include="States\State.hpp" />
+    <ClInclude Include="States\Walking.hpp" />
     <ClInclude Include="Systems\FileIO.hpp" />
     <ClInclude Include="Systems\Input.hpp" />
     <ClInclude Include="Systems\KeyHelpers.hpp" />
+    <ClInclude Include="Systems\MessageSystem\Message.hpp" />
+    <ClInclude Include="Systems\MessageSystem\MessageCapableObjectManager.hpp" />
+    <ClInclude Include="Systems\MessageSystem\MessageDispatcher.hpp" />
+    <ClInclude Include="Systems\MessageSystem\MessageTypes.h" />
     <ClInclude Include="Systems\Observer.hpp" />
     <ClInclude Include="Systems\Timer.hpp" />
     <ClInclude Include="Timer.hpp" />
@@ -260,10 +265,6 @@
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
-    <None Include="FSM\StateMachine.inl">
-      <FileType>CppCode</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -316,9 +317,11 @@
     <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
     <ClCompile Include="Scenes\TestLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
+    <ClCompile Include="States\Walking.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
     <ClCompile Include="Systems\KeyHelpers.cpp" />
+    <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp" />
     <ClCompile Include="Systems\Observer.cpp" />
     <ClCompile Include="Window\Application.cpp" />
     <ClCompile Include="Window\Demo.cpp" />
@@ -332,6 +335,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Component\StateMachine.inl" />
     <None Include="Graphics\StockBitmapFonts.inl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

@@ -21,6 +21,8 @@ Creation Date: 12.10.2019
 #include <Object/ObjectManager.hpp>
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
+#include <Component/StateMachine.hpp>
+#include <States/Walking.hpp>
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -266,6 +268,18 @@ void BasicMovementLevel::InitObject() {
     objManager->FindLayer(LayerNames::Stage)->AddObject(string);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);   
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
+}
+
+void AddStateTestObject()
+{
+	Object* obj = new Object();
+	obj->SetObjectName("FSM test object");
+	obj->SetDepth(-20.f);
+	obj->AddComponent(new Sprite(obj));
+	obj->AddComponent(new StateMachine<Object>(obj));
+	obj->GetComponentByTemplate<StateMachine<Object>>()->SetGlobalState(new Walking());
+	obj->SetScale(100.f);
+	ObjectManager::GetObjectManager()->FindLayer(Stage)->AddObject(obj);
 }
