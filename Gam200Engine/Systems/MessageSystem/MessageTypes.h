@@ -13,13 +13,15 @@ Creation Date: 01.14.2020
 
 enum class MessageTypes
 {
-	
+	StringAttached,
+	StringDetached,
 	
 	NUM_OF_MESSAGE_TYPES,
 };
 enum class MessageObjects
 {
-
+	String_Object,
+	Test_Crushable_Object,
 
 	NUM_OF_MESSAGE_OBJECTS,
 };

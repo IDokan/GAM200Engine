@@ -208,6 +208,12 @@
     <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp">
       <Filter>Systems\MessageSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\MessageSystem\MessageCapableObjectManager.cpp">
+      <Filter>Systems\MessageSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\MessageCapable.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -452,6 +458,9 @@
     </ClInclude>
     <ClInclude Include="Systems\MessageSystem\MessageTypes.h">
       <Filter>Systems\MessageSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\MessageCapable.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -172,6 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.hpp" />
+    <ClInclude Include="Component\MessageCapable.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Scripts\Accumulating.hpp" />
     <ClInclude Include="Component\Scripts\GoalComponent.hpp" />
@@ -255,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\MessageCapable.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Scripts\Accumulating.cpp" />
     <ClCompile Include="Component\Scripts\GoalComponent.cpp" />
@@ -321,6 +323,7 @@
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
     <ClCompile Include="Systems\KeyHelpers.cpp" />
+    <ClCompile Include="Systems\MessageSystem\MessageCapableObjectManager.cpp" />
     <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp" />
     <ClCompile Include="Systems\Observer.cpp" />
     <ClCompile Include="Window\Application.cpp" />

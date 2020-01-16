@@ -16,6 +16,7 @@ Creation Date: 08.05.2019
 #include <Object/ObjectManager.hpp>
 #include <Scenes/SceneManager.hpp>
 #include <Sounds/SoundManager.hpp>
+#include <Timer.hpp>
 
 Application* app_ = nullptr;
 //SoundManager BGM;
@@ -29,14 +30,15 @@ void Engine::Init()
 
     app_ = Application::GetApplication();
     app_->Init();
-    timer.Reset();
+	Timer* timer = Timer::GetTimer();
+    timer->Reset();
     isRunning = false;
 }
 
 void Engine::Update()
 {
-    dt = static_cast<float>(timer.GetElapsedSeconds());
-    timer.Reset();
+    dt = static_cast<float>(Timer::GetTimer()->GetElapsedSeconds());
+	Timer::GetTimer()->Reset();
 
     app_->Update(dt);
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))

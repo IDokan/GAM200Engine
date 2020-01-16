@@ -37,4 +37,10 @@ struct Message
 
 	// any additional information that may accompany the message
 	void* ExtraInfo;
+
+	constexpr bool operator<(const Message& msg) const
+	{
+		return DispatchTime < msg.DispatchTime;
+	}
+	
 };

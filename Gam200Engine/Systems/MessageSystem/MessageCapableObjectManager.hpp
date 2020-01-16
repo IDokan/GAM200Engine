@@ -13,7 +13,6 @@ Creation Date: 01.14.2020
 ******************************************************************************/
 #pragma once
 #include <map>
-#include <memory>
 enum class MessageObjects;
 class Object;
 
@@ -27,13 +26,8 @@ public:
 
 	// ent_Miner_Bob is declared in "MessageTypes.h"
 	Miner* Bob = new Miner(); // enumerated ID
-	Bob->SetMessageEnum(ent_Miner_Bob);
+	Bob->AddComponent<MessageCapable>(this, ent_Miner_Bob);
 	MsgObjMgr->RegisterEntity(Bob);
-
-	OR
-
-	Miner* Bob = new Miner(); // enumerated ID
-	MsgObjMgr->RegisterEntity(Bob, ent_Miner_Bob);
 	*/
 
 	// this method stores a pointer to the entity in the std::vector
@@ -49,16 +43,15 @@ public:
 	Entity* pBob = MsgObjMgr->GetEntityFromID(ent_Miner_Bob);
 	*/
 	// returns a pointer to the entity with the ID given as a parameter
-	Object* GetObjectFromID(MessageObjects id) const;
+	Object* GetObjectFromID(MessageObjects id);
 
 	// this method removes the entity from the list
-	void RemoveObjectFromList(Object* obj);
 	void RemoveObjectFromList(MessageObjects id);
 	
 	
 private:
 	// to save the ol' fingers
-	using MessageObjectMap = std::map<MessageObjects, std::shared_ptr<Object>>;
+	using MessageObjectMap = std::map<MessageObjects, Object*>;
 
 private:
 	// to facilitate quick lookup the entites are stored in a std::map,

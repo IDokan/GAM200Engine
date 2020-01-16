@@ -14,9 +14,11 @@ Creation Date: 01.14.2020
 #pragma once
 
 #include <set>
-
+#include <Systems/MessageSystem/MessageTypes.h>
 class Message;
 class Object;
+
+
 
 class MessageDispatcher
 {
@@ -24,9 +26,9 @@ public:
 	static MessageDispatcher* GetDispatcher();
 
 	void DispatchMessage(
-		int sender,
-		int receiver,
-		int msg,
+		MessageObjects sender,
+		MessageObjects receiver,
+		MessageTypes msg,
 		double delay = 0.0,
 		void* ExtraInfo = nullptr
 	);
@@ -41,7 +43,7 @@ private:
 	// a std::set is used as the container for the delayed messages
 	// because of the benefit of automatic sorting and avoidance of duplicates.
 	// Messages are sorted by their dispatch time.
-	std::set<Message> delayed_Messages;
+	std::set<Message> delayed_messages;
 
 	// This method is utilized by DispatchMessage or DispatchDelayedMessages.
 	// This method calls the message handling member function of
