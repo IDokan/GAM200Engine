@@ -38,7 +38,37 @@ void TestLevel::Load()
     // Set Layer
     auto objManager = ObjectManager::GetObjectManager();
     //Player* player = new Player( , ,,);
+   
 
+    /*TEST*/
+    rotateObject1 = new Object();
+    rotateObject1->SetObjectType(Object::ObjectType::OBSTACLE);
+    rotateObject1->SetObjectName("rotateObject1");
+    rotateObject1->SetTranslation(vector2{ 275, 10 });
+    rotateObject1->SetScale(vector2{ 100, 200});
+    rotateObject1->SetRotation(45.f);
+    rotateObject1->AddComponent(new Sprite(rotateObject1));
+    rotateObject1->AddComponent(new Physics(rotateObject1));
+    rotateObject1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(rotateObject1, Physics::ObjectType::RECTANGLE);
+    rotateObject1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
+    rotateObject1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
+    rotateObject1->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(rotateObject1);
+
+
+    rotateObject2 = new Object();
+    rotateObject2->SetObjectType(Object::ObjectType::OBSTACLE);
+    rotateObject2->SetObjectName("rotateObject2");
+    rotateObject2->SetTranslation(vector2{100, 10 });
+    rotateObject2->SetScale(vector2{ 100, 200 });
+    rotateObject2->SetRotation(45.f);
+    rotateObject2->AddComponent(new Sprite(rotateObject2));
+    rotateObject2->AddComponent(new Physics(rotateObject2));
+    rotateObject2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(rotateObject2, Physics::ObjectType::RECTANGLE);
+    rotateObject2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
+    rotateObject2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
+    rotateObject2->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(rotateObject2);
 
     background = new Object();
     background->SetObjectName("background1");
@@ -66,6 +96,7 @@ void TestLevel::Load()
     object1->SetObjectName("object1");
     object1->SetTranslation(vector2{ -200.f, -1800.f });
     object1->SetScale(vector2{ 150.f });
+    object1->SetRotation(45.f);
     object1->AddComponent(new Sprite(object1));
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
@@ -276,7 +307,17 @@ void TestLevel::Load()
 bool check_haha = false;
 void TestLevel::Update(float /*dt*/)
 {
-    TestLevel::Collision();
+    //if (object1->GetComponentByTemplate<Physics>()->IsCollideWithRotatedObject(object2) == true)
+    //{
+    //    std::cout << "collision\n";
+    //}
+
+    if (rotateObject1->GetComponentByTemplate<Physics>()->IsCollideWithRotatedObject(rotateObject2) == true)
+    {
+        std::cout << "collision\n";
+    }
+
+    //TestLevel::Collision();
     TestLevel::Input();
 
     vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();

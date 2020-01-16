@@ -31,6 +31,8 @@ BasicMovementLevel::~BasicMovementLevel()
 
 void BasicMovementLevel::Load()
 {
+  
+
     fileIO* a = 0;
     a->Input("../assets/fileIO/saveloadFile.txt");
 

@@ -25,6 +25,7 @@ public:
         vector2 Translation{};
         vector2 Scale{};
         vector2 TranslationAmount{};
+        float Angle;
     };
 
     enum  class ObjectType
@@ -58,6 +59,7 @@ public:
     void SetIsCollide(bool collide);
     void SetVectorTranslation(vector2 translation);
     bool IsCollideWith(Object* object);
+    bool IsCollideWithRotatedObject(Object* object);
     void ManageCollision();
 
     vector2 GetTranslation(const matrix3& matrix) const;

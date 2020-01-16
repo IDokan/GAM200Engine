@@ -13,7 +13,9 @@ Creation Date: 08.15.2019
 #include <Component/Physics.hpp>
 #include <Object/ObjectManager.hpp>
 #include <cmath>
+#include <Angle.hpp>
 #include <iostream>
+#include <vector>
 
 Physics::Physics(Object* obj) : Component(obj)
 {
@@ -120,6 +122,7 @@ void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, v
     collisionBox.TranslationAmount = positionAdj;
     collisionBox.Translation = object->GetTranslation() + positionAdj;
     collisionBox.Scale = object->GetScale() + scaleAdj;
+    collisionBox.Angle = object->GetRotation();
     hasCollisionBox = true;
 }
 
@@ -130,8 +133,9 @@ void Physics::SetCollisionBoxAndObjectType(Object* object, ObjectType objType, f
     collisionBox.TranslationAmount.y = positionY;
     collisionBox.Translation.x = object->GetTranslation().x + positionX;
     collisionBox.Translation.y = object->GetTranslation().y + positionY;
-    collisionBox.Scale.x = scaleX;
-    collisionBox.Scale.y = scaleY;
+    collisionBox.Scale.x = object->GetScale().x + scaleX;
+    collisionBox.Scale.y = object->GetScale().y + scaleY;
+    collisionBox.Angle = object->GetRotation();
     hasCollisionBox = true;
 }
 
@@ -527,6 +531,52 @@ bool Physics::IsCollideWith(Object* object)
     }
 
     return false;
+}
+
+bool Physics::IsCollideWithRotatedObject(Object* object)
+{
+    auto ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    auto objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
+
+    std::vector<vector2> SAT;
+
+    vector2 middlePointVector = ownerCollisionBox.Translation - objectCollisionBox.Translation;
+
+    /*TODO: Make function*/
+    vector2 ownerXaxisVector = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y } - vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
+    vector2 ownerYaxisVector = vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } - vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
+
+    vector2 objectXaxisVector = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y } -vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
+    vector2 objectYaxisVector = vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2} -vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
+
+    /*TODO: Make function*/
+    ownerXaxisVector = vector2{ ownerXaxisVector.x * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f) - ownerXaxisVector.y * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f), ownerXaxisVector.x * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f) + ownerXaxisVector.y * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f)};
+    ownerYaxisVector = vector2{ ownerYaxisVector.x * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f) - ownerYaxisVector.y * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f), ownerYaxisVector.x * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f) + ownerYaxisVector.y * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f)};
+
+    objectXaxisVector = vector2{ objectXaxisVector.x * std::cos(objectCollisionBox.Angle * MATH::PI / 180.f) - objectXaxisVector.y * sin(objectCollisionBox.Angle * MATH::PI / 180.f), objectXaxisVector.x* sin(objectCollisionBox.Angle * MATH::PI / 180.f) + objectXaxisVector.y * cos(objectCollisionBox.Angle * MATH::PI / 180.f)};
+    objectYaxisVector = vector2{ objectYaxisVector.x * std::cos(objectCollisionBox.Angle * MATH::PI / 180.f) - objectYaxisVector.y * sin(objectCollisionBox.Angle * MATH::PI / 180.f), objectYaxisVector.x * sin(objectCollisionBox.Angle * MATH::PI / 180.f) + objectYaxisVector.y * cos(objectCollisionBox.Angle * MATH::PI / 180.f)};
+
+    SAT.push_back(normalize(ownerXaxisVector));
+    SAT.push_back(normalize(ownerYaxisVector));
+    SAT.push_back(normalize(objectXaxisVector));
+    SAT.push_back(normalize(objectYaxisVector));
+
+    for (unsigned int i = 0; i < SAT.size(); i++)
+    {
+        //std::cout << middlePointVector << std::endl;
+        int distance = std::abs(dot(SAT[i], middlePointVector));
+        
+        int ownerDistance = std::abs(dot(SAT[i], ownerXaxisVector)) + std::abs(dot(SAT[i], ownerYaxisVector));
+        int objectDistance = std::abs(dot(SAT[i], objectXaxisVector)) + std::abs(dot(SAT[i], objectYaxisVector));
+
+        if (distance > ownerDistance + objectDistance)
+        {
+            return false;
+        }
+    }
+
+    return true;
+
 }
 
 vector2 Physics::GetTranslation(const matrix3& matrix3) const

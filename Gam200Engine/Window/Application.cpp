@@ -46,6 +46,7 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 #ifdef _DEBUG
+    StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
 	StateManager::GetStateManager()->AddStates("BasicMovementLevel", dynamic_cast<State*>(new BasicMovementLevel()));
 #endif	
 	StateManager::GetStateManager()->AddStates("OneWayPassLevel", dynamic_cast<State*>(new OneWayPassLevel()));
