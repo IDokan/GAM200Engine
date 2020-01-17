@@ -16,6 +16,7 @@ Creation Date: 08.15.2019
 #include <Angle.hpp>
 #include <iostream>
 #include <vector>
+#include <utility>
 
 Physics::Physics(Object* obj) : Component(obj)
 {
@@ -535,48 +536,111 @@ bool Physics::IsCollideWith(Object* object)
 
 bool Physics::IsCollideWithRotatedObject(Object* object)
 {
-    auto ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
-    auto objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    CollisionBox ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    CollisionBox objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
 
-    std::vector<vector2> SAT;
-
-    vector2 middlePointVector = ownerCollisionBox.Translation - objectCollisionBox.Translation;
-
-    /*TODO: Make function*/
-    vector2 ownerXaxisVector = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y } - vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
-    vector2 ownerYaxisVector = vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } - vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
+    vector2 ownerXaxisVector = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y } -vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
+    vector2 ownerYaxisVector = vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
 
     vector2 objectXaxisVector = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y } -vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
-    vector2 objectYaxisVector = vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2} -vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
+    vector2 objectYaxisVector = vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
 
-    /*TODO: Make function*/
-    ownerXaxisVector = vector2{ ownerXaxisVector.x * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f) - ownerXaxisVector.y * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f), ownerXaxisVector.x * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f) + ownerXaxisVector.y * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f)};
-    ownerYaxisVector = vector2{ ownerYaxisVector.x * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f) - ownerYaxisVector.y * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f), ownerYaxisVector.x * std::sin(ownerCollisionBox.Angle * MATH::PI / 180.f) + ownerYaxisVector.y * std::cos(ownerCollisionBox.Angle * MATH::PI / 180.f)};
+    ownerXaxisVector = vector2{ ownerXaxisVector.x * std::cos(ownerCollisionBox.Angle) - ownerXaxisVector.y * std::sin(ownerCollisionBox.Angle), ownerXaxisVector.x * std::sin(ownerCollisionBox.Angle) + ownerXaxisVector.y * std::cos(ownerCollisionBox.Angle) };
+    ownerYaxisVector = vector2{ ownerYaxisVector.x * std::cos(ownerCollisionBox.Angle) - ownerYaxisVector.y * std::sin(ownerCollisionBox.Angle), ownerYaxisVector.x * std::sin(ownerCollisionBox.Angle) + ownerYaxisVector.y * std::cos(ownerCollisionBox.Angle) };
 
-    objectXaxisVector = vector2{ objectXaxisVector.x * std::cos(objectCollisionBox.Angle * MATH::PI / 180.f) - objectXaxisVector.y * sin(objectCollisionBox.Angle * MATH::PI / 180.f), objectXaxisVector.x* sin(objectCollisionBox.Angle * MATH::PI / 180.f) + objectXaxisVector.y * cos(objectCollisionBox.Angle * MATH::PI / 180.f)};
-    objectYaxisVector = vector2{ objectYaxisVector.x * std::cos(objectCollisionBox.Angle * MATH::PI / 180.f) - objectYaxisVector.y * sin(objectCollisionBox.Angle * MATH::PI / 180.f), objectYaxisVector.x * sin(objectCollisionBox.Angle * MATH::PI / 180.f) + objectYaxisVector.y * cos(objectCollisionBox.Angle * MATH::PI / 180.f)};
+    /*objectXaxisVector = vector2{ objectXaxisVector.x * std::cos(objectCollisionBox.Angle) - objectXaxisVector.y * std::sin(objectCollisionBox.Angle), objectXaxisVector.x * std::sin(objectCollisionBox.Angle) + objectXaxisVector.y * std::cos(objectCollisionBox.Angle) };
+    objectYaxisVector = vector2{ objectYaxisVector.x * std::cos(objectCollisionBox.Angle) - objectYaxisVector.y * std::sin(objectCollisionBox.Angle), objectYaxisVector.x * std::sin(objectCollisionBox.Angle) + objectYaxisVector.y * std::cos(objectCollisionBox.Angle) };*/
+    objectXaxisVector = vector2{ 0.f, 50.f };
+    objectYaxisVector = vector2{ -100.f,0.f };
+
+    vector2 ownerLeftTop = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 };
+    vector2 ownerLeftBottom = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 };
+    vector2 ownerRightTop = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 };
+    vector2 ownerRightBottom = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 };
+
+    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
+    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
+    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
+    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
+
+    ownerLeftTop = vector2{ ownerLeftTop.x * std::cos(ownerCollisionBox.Angle) - ownerLeftTop.y * std::sin(ownerCollisionBox.Angle), ownerLeftTop.x * std::sin(ownerCollisionBox.Angle) + ownerLeftTop.y * std::cos(ownerCollisionBox.Angle) };
+    ownerLeftBottom = vector2{ ownerLeftBottom.x * std::cos(ownerCollisionBox.Angle) - ownerLeftBottom.y * std::sin(ownerCollisionBox.Angle), ownerLeftBottom.x * std::sin(ownerCollisionBox.Angle) + ownerLeftBottom.y * std::cos(ownerCollisionBox.Angle) };
+    ownerRightTop = vector2{ ownerRightTop.x * std::cos(ownerCollisionBox.Angle) - ownerRightTop.y * std::sin(ownerCollisionBox.Angle), ownerRightTop.x * std::sin(ownerCollisionBox.Angle) + ownerRightTop.y * std::cos(ownerCollisionBox.Angle) };
+    ownerRightBottom = vector2{ ownerRightBottom.x * std::cos(ownerCollisionBox.Angle) - ownerRightBottom.y * std::sin(ownerCollisionBox.Angle), ownerRightBottom.x * std::sin(ownerCollisionBox.Angle) + ownerRightBottom.y * std::cos(ownerCollisionBox.Angle) };
+
+    /*objectLeftTop = vector2{ objectLeftTop.x * std::cos(objectCollisionBox.Angle) - objectLeftTop.y * std::sin(objectCollisionBox.Angle), objectLeftTop.x * std::sin(objectCollisionBox.Angle) + objectLeftTop.y * std::cos(objectCollisionBox.Angle) };
+    objectLeftBottom = vector2{ objectLeftBottom.x * std::cos(objectCollisionBox.Angle) - objectLeftBottom.y * std::sin(objectCollisionBox.Angle), objectLeftBottom.x * std::sin(objectCollisionBox.Angle) + objectLeftBottom.y * std::cos(objectCollisionBox.Angle) };
+    objectRightTop = vector2{ objectRightTop.x * std::cos(objectCollisionBox.Angle) - objectRightTop.y * std::sin(objectCollisionBox.Angle), objectRightTop.x * std::sin(objectCollisionBox.Angle) + objectRightTop.y * std::cos(objectCollisionBox.Angle) };
+    objectRightBottom = vector2{ objectRightBottom.x * std::cos(objectCollisionBox.Angle) - objectRightBottom.y * std::sin(objectCollisionBox.Angle), objectRightBottom.x * std::sin(objectCollisionBox.Angle) + objectRightBottom.y * std::cos(objectCollisionBox.Angle) };*/
+
+    objectLeftTop = vector2{ 50.f, 50.f };
+    objectLeftBottom = vector2{ 50.f, -50.f };
+    objectRightTop = vector2{ 150.f, 50.f };
+    objectRightBottom = vector2{ 150.f, -50.f };
+
+    std::vector<vector2> ownerCoordinateContainer;
+    std::vector<vector2> objectCoordinateContainer;
+    std::vector<vector2> SAT;
+
+    ownerCoordinateContainer.push_back(ownerLeftTop);
+    ownerCoordinateContainer.push_back(ownerLeftBottom);
+    ownerCoordinateContainer.push_back(ownerRightTop);
+    ownerCoordinateContainer.push_back(ownerRightBottom);
+
+    objectCoordinateContainer.push_back(objectLeftTop);
+    objectCoordinateContainer.push_back(objectLeftBottom);
+    objectCoordinateContainer.push_back(objectRightTop);
+    objectCoordinateContainer.push_back(objectRightBottom);
 
     SAT.push_back(normalize(ownerXaxisVector));
     SAT.push_back(normalize(ownerYaxisVector));
     SAT.push_back(normalize(objectXaxisVector));
     SAT.push_back(normalize(objectYaxisVector));
 
-    for (unsigned int i = 0; i < SAT.size(); i++)
-    {
-        //std::cout << middlePointVector << std::endl;
-        int distance = std::abs(dot(SAT[i], middlePointVector));
-        
-        int ownerDistance = std::abs(dot(SAT[i], ownerXaxisVector)) + std::abs(dot(SAT[i], ownerYaxisVector));
-        int objectDistance = std::abs(dot(SAT[i], objectXaxisVector)) + std::abs(dot(SAT[i], objectYaxisVector));
+    float ownerMax, ownerMin, ownerTemp, objectMax, objectMin, objectTemp;
 
-        if (distance > ownerDistance + objectDistance)
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            ownerTemp = dot(SAT[i], ownerCoordinateContainer[j]);
+            objectTemp = dot(SAT[i], objectCoordinateContainer[j]);
+
+            if (j == 0)
+            {
+                ownerMax = ownerTemp;
+                ownerMin = ownerTemp;
+
+                objectMax = objectTemp;
+                objectMin = objectTemp;
+            }
+            else
+            {
+                if (ownerTemp < ownerMin)
+                {
+                    ownerMin = ownerTemp;
+                }
+                else if (ownerTemp > ownerMax)
+                {
+                    ownerMax = ownerTemp;
+                }
+
+                if (objectTemp < objectMin)
+                {
+                    objectMin = objectTemp;
+                }
+                else if (objectTemp > objectMax)
+                {
+                    objectMax = objectTemp;
+                }
+            }
+        }
+        if (objectMax < ownerMin || ownerMax < objectMin)
         {
             return false;
         }
     }
-
     return true;
-
 }
 
 vector2 Physics::GetTranslation(const matrix3& matrix3) const
