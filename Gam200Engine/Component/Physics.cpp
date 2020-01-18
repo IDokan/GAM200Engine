@@ -548,35 +548,35 @@ bool Physics::IsCollideWithRotatedObject(Object* object)
     ownerXaxisVector = vector2{ ownerXaxisVector.x * std::cos(ownerCollisionBox.Angle) - ownerXaxisVector.y * std::sin(ownerCollisionBox.Angle), ownerXaxisVector.x * std::sin(ownerCollisionBox.Angle) + ownerXaxisVector.y * std::cos(ownerCollisionBox.Angle) };
     ownerYaxisVector = vector2{ ownerYaxisVector.x * std::cos(ownerCollisionBox.Angle) - ownerYaxisVector.y * std::sin(ownerCollisionBox.Angle), ownerYaxisVector.x * std::sin(ownerCollisionBox.Angle) + ownerYaxisVector.y * std::cos(ownerCollisionBox.Angle) };
 
-    /*objectXaxisVector = vector2{ objectXaxisVector.x * std::cos(objectCollisionBox.Angle) - objectXaxisVector.y * std::sin(objectCollisionBox.Angle), objectXaxisVector.x * std::sin(objectCollisionBox.Angle) + objectXaxisVector.y * std::cos(objectCollisionBox.Angle) };
-    objectYaxisVector = vector2{ objectYaxisVector.x * std::cos(objectCollisionBox.Angle) - objectYaxisVector.y * std::sin(objectCollisionBox.Angle), objectYaxisVector.x * std::sin(objectCollisionBox.Angle) + objectYaxisVector.y * std::cos(objectCollisionBox.Angle) };*/
-    objectXaxisVector = vector2{ 0.f, 50.f };
-    objectYaxisVector = vector2{ -100.f,0.f };
+    objectXaxisVector = vector2{ objectXaxisVector.x * std::cos(objectCollisionBox.Angle) - objectXaxisVector.y * std::sin(objectCollisionBox.Angle), objectXaxisVector.x * std::sin(objectCollisionBox.Angle) + objectXaxisVector.y * std::cos(objectCollisionBox.Angle) };
+    objectYaxisVector = vector2{ objectYaxisVector.x * std::cos(objectCollisionBox.Angle) - objectYaxisVector.y * std::sin(objectCollisionBox.Angle), objectYaxisVector.x * std::sin(objectCollisionBox.Angle) + objectYaxisVector.y * std::cos(objectCollisionBox.Angle) };
+    /*objectXaxisVector = vector2{ 0.f, 50.f };
+    objectYaxisVector = vector2{ -100.f,0.f };*/
 
     vector2 ownerLeftTop = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 };
     vector2 ownerLeftBottom = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 };
     vector2 ownerRightTop = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 };
     vector2 ownerRightBottom = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 };
 
-    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
-    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
-    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 };
-    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 };
+    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{objectCollisionBox.Translation.x , objectCollisionBox.Translation.y};
+    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 }- vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
+    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
+    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 }-vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
 
     ownerLeftTop = vector2{ ownerLeftTop.x * std::cos(ownerCollisionBox.Angle) - ownerLeftTop.y * std::sin(ownerCollisionBox.Angle), ownerLeftTop.x * std::sin(ownerCollisionBox.Angle) + ownerLeftTop.y * std::cos(ownerCollisionBox.Angle) };
     ownerLeftBottom = vector2{ ownerLeftBottom.x * std::cos(ownerCollisionBox.Angle) - ownerLeftBottom.y * std::sin(ownerCollisionBox.Angle), ownerLeftBottom.x * std::sin(ownerCollisionBox.Angle) + ownerLeftBottom.y * std::cos(ownerCollisionBox.Angle) };
     ownerRightTop = vector2{ ownerRightTop.x * std::cos(ownerCollisionBox.Angle) - ownerRightTop.y * std::sin(ownerCollisionBox.Angle), ownerRightTop.x * std::sin(ownerCollisionBox.Angle) + ownerRightTop.y * std::cos(ownerCollisionBox.Angle) };
     ownerRightBottom = vector2{ ownerRightBottom.x * std::cos(ownerCollisionBox.Angle) - ownerRightBottom.y * std::sin(ownerCollisionBox.Angle), ownerRightBottom.x * std::sin(ownerCollisionBox.Angle) + ownerRightBottom.y * std::cos(ownerCollisionBox.Angle) };
 
-    /*objectLeftTop = vector2{ objectLeftTop.x * std::cos(objectCollisionBox.Angle) - objectLeftTop.y * std::sin(objectCollisionBox.Angle), objectLeftTop.x * std::sin(objectCollisionBox.Angle) + objectLeftTop.y * std::cos(objectCollisionBox.Angle) };
-    objectLeftBottom = vector2{ objectLeftBottom.x * std::cos(objectCollisionBox.Angle) - objectLeftBottom.y * std::sin(objectCollisionBox.Angle), objectLeftBottom.x * std::sin(objectCollisionBox.Angle) + objectLeftBottom.y * std::cos(objectCollisionBox.Angle) };
-    objectRightTop = vector2{ objectRightTop.x * std::cos(objectCollisionBox.Angle) - objectRightTop.y * std::sin(objectCollisionBox.Angle), objectRightTop.x * std::sin(objectCollisionBox.Angle) + objectRightTop.y * std::cos(objectCollisionBox.Angle) };
-    objectRightBottom = vector2{ objectRightBottom.x * std::cos(objectCollisionBox.Angle) - objectRightBottom.y * std::sin(objectCollisionBox.Angle), objectRightBottom.x * std::sin(objectCollisionBox.Angle) + objectRightBottom.y * std::cos(objectCollisionBox.Angle) };*/
+    objectLeftTop = vector2{ objectLeftTop.x * std::cos(objectCollisionBox.Angle) - objectLeftTop.y * std::sin(objectCollisionBox.Angle), objectLeftTop.x * std::sin(objectCollisionBox.Angle) + objectLeftTop.y * std::cos(objectCollisionBox.Angle) } +vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
+    objectLeftBottom = vector2{ objectLeftBottom.x * std::cos(objectCollisionBox.Angle) - objectLeftBottom.y * std::sin(objectCollisionBox.Angle), objectLeftBottom.x * std::sin(objectCollisionBox.Angle) + objectLeftBottom.y * std::cos(objectCollisionBox.Angle) }+vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };;
+    objectRightTop = vector2{ objectRightTop.x * std::cos(objectCollisionBox.Angle) - objectRightTop.y * std::sin(objectCollisionBox.Angle), objectRightTop.x * std::sin(objectCollisionBox.Angle) + objectRightTop.y * std::cos(objectCollisionBox.Angle) }+vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };;
+    objectRightBottom = vector2{ objectRightBottom.x * std::cos(objectCollisionBox.Angle) - objectRightBottom.y * std::sin(objectCollisionBox.Angle), objectRightBottom.x * std::sin(objectCollisionBox.Angle) + objectRightBottom.y * std::cos(objectCollisionBox.Angle) } +vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };;
 
-    objectLeftTop = vector2{ 50.f, 50.f };
-    objectLeftBottom = vector2{ 50.f, -50.f };
-    objectRightTop = vector2{ 150.f, 50.f };
-    objectRightBottom = vector2{ 150.f, -50.f };
+    //objectLeftTop = vector2{ 50.f, 50.f };
+    //objectLeftBottom = vector2{ 50.f, -50.f };
+    //objectRightTop = vector2{ 150.f, 50.f };
+    //objectRightBottom = vector2{ 150.f, -50.f };
 
     std::vector<vector2> ownerCoordinateContainer;
     std::vector<vector2> objectCoordinateContainer;
