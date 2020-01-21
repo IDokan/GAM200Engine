@@ -106,6 +106,12 @@ public:
     vector2 GetVectorTranslation() const;
     vector2 force{};
 private:
+    void CalculateSeperateAxisVectorOf(Object* obj);
+    void CalculateXaxisVector(Object* obj);
+    void CalculateYaxisVector(Object* obj);
+    void CalculateObjectVertex(Object* obj);
+    vector2 CalculateRotatedObjectVertex(vector2 vertex, float angle);
+
     vector2 velocity{};
     vector2 gravity{};
     vector2 vectorTranslation{};
@@ -121,4 +127,6 @@ private:
     bool hasCollisionBox;
     bool isGhost;
     bool isCollide;
+
+    std::vector<vector2> SAT;
 };
