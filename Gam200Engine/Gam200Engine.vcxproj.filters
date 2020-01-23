@@ -214,6 +214,15 @@
     <ClCompile Include="Component\MessageCapable.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Players\Player.cpp">
+      <Filter>Object\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\Idle.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\Move.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -462,6 +471,21 @@
     <ClInclude Include="Component\MessageCapable.hpp">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="Object\Players\Player.h">
+      <Filter>Object\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\Idle.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Command\Command.hpp">
+      <Filter>Systems\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Command\MoveUp.hpp">
+      <Filter>Systems\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\Move.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -520,6 +544,12 @@
     </Filter>
     <Filter Include="Systems\MessageSystem">
       <UniqueIdentifier>{31bcb222-c3c3-4660-b190-4e83764312a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\PlayerStates">
+      <UniqueIdentifier>{83f23bcd-f3b7-4cb5-a2e1-88cda08289c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Command">
+      <UniqueIdentifier>{6df4bbff-1929-4104-9e7a-f12d4e03686d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

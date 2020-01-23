@@ -220,6 +220,7 @@
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
+    <ClInclude Include="Object\Players\Player.h" />
     <ClInclude Include="Object\Players\Player1.h" />
     <ClInclude Include="Object\Players\Player2.h" />
     <ClInclude Include="Object\Strings\String.hpp" />
@@ -236,8 +237,12 @@
     <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
     <ClInclude Include="Scenes\TestLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
+    <ClInclude Include="States\PlayerStates\Idle.hpp" />
+    <ClInclude Include="States\PlayerStates\Move.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\Walking.hpp" />
+    <ClInclude Include="Systems\Command\Command.hpp" />
+    <ClInclude Include="Systems\Command\MoveUp.hpp" />
     <ClInclude Include="Systems\FileIO.hpp" />
     <ClInclude Include="Systems\Input.hpp" />
     <ClInclude Include="Systems\KeyHelpers.hpp" />
@@ -303,6 +308,7 @@
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
+    <ClCompile Include="Object\Players\Player.cpp" />
     <ClCompile Include="Object\Players\Player1.cpp" />
     <ClCompile Include="Object\Players\Player2.cpp" />
     <ClCompile Include="Object\Strings\String.cpp" />
@@ -319,6 +325,8 @@
     <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
     <ClCompile Include="Scenes\TestLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
+    <ClCompile Include="States\PlayerStates\Idle.cpp" />
+    <ClCompile Include="States\PlayerStates\Move.cpp" />
     <ClCompile Include="States\Walking.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
