@@ -14,6 +14,7 @@ Creation Date: 12.10.2019
 #include <Scenes/Scene.hpp>
 
 class Object;
+class Player;
 class String;
 
 
@@ -38,7 +39,7 @@ private:
     Object* background;
     Object* startPoint{};
     Object* goalPoint{};
-    Object* player1{};
-    Object* player2{};
+    Player* player1{};
+    Player* player2{};
     String* string{};
 };

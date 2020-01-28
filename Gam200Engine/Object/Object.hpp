@@ -15,20 +15,6 @@ Creation Date: 08.12.2019
 #include <vector>
 #include "Component/Component.hpp"
 
-class Depth_Standard
-{
-	float value;
-	Depth_Standard(float arg) : value(arg) {}
-public:
-	static const Depth_Standard HUD;
-	static const Depth_Standard Player;
-	static const Depth_Standard Background;
-	operator float() const { return value; }
-};
-const Depth_Standard Depth_Standard::HUD(-4000.f);
-const Depth_Standard Depth_Standard::Player(-1.f);
-const Depth_Standard Depth_Standard::Background(4000.f);
-
 
 class Object
 {

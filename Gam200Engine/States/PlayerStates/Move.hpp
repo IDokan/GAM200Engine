@@ -23,7 +23,4 @@ public:
 	void Enter(Player* obj) override;
 	void Execute(Player* obj) override;
 	void Exit(Player* obj) override;
-
-private:
-	Move();
 };

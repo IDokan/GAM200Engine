@@ -16,11 +16,11 @@ Creation Date: 23th/Jan/2020
 class Command
 {
 public:
-	Command(unsigned int KEY)
+	Command(int KEY)
 		:GLFW_KEY(KEY)
 	{}
 	virtual ~Command() {}
 	virtual void execute() = 0;
 
-	unsigned int GLFW_KEY = GLFW_KEY_LAST;
+	int GLFW_KEY = GLFW_KEY_LAST;
 };

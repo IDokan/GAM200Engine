@@ -14,33 +14,59 @@ Creation Date: 01.13.2020
 #include <Component/StateMachine.hpp>
 #include <Systems/Input.hpp>
 #include <States/PlayerStates/Move.hpp>
+#include <Systems/Input.hpp>
+
+bool IsPlayer1InputDetected()
+{
+	return input.IsKeyTriggered(GLFW_KEY_W) ||
+		input.IsKeyTriggered(GLFW_KEY_A) ||
+		input.IsKeyTriggered(GLFW_KEY_S) ||
+		input.IsKeyTriggered(GLFW_KEY_D);
+}
+
+bool IsPlayer2InputDetected()
+{
+	return input.IsKeyTriggered(GLFW_KEY_UP) ||
+		input.IsKeyTriggered(GLFW_KEY_RIGHT) ||
+		input.IsKeyTriggered(GLFW_KEY_LEFT) ||
+		input.IsKeyTriggered(GLFW_KEY_DOWN);
+}
 
 Idle* Idle::Get()
 {
 	static Idle* state = new Idle();
+	return state;
 }
 
 Idle::Idle()
 {
 }
 
-void Idle::Enter(Player* obj)
+void Idle::Enter(Player* /*obj*/)
 {
 	// Set appropriate sprite
+	printf("Player enter Idle State\n");
 }
 
 void Idle::Execute(Player* obj)
 {
-	if (input.IsKeyTriggered(GLFW_KEY_W) ||
-		input.IsKeyTriggered(GLFW_KEY_A) ||
-		input.IsKeyTriggered(GLFW_KEY_S) ||
-		input.IsKeyTriggered(GLFW_KEY_D))
+	if (obj->GetID() == Player::Identifier::Player1)
 	{
-		obj->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Move::Get());
-	}	
+		if (IsPlayer1InputDetected())
+		{
+			obj->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Move::Get());
+		}
+	}
+	else if (obj->GetID() == Player::Identifier::Player2)
+	{
+		if (IsPlayer2InputDetected())
+		{
+			obj->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Move::Get());
+		}
+	}
 }
 
-void Idle::Exit(Player* obj)
+void Idle::Exit(Player* /*obj*/)
 {
-	
+	printf("Player exit Idle State\n");
 }

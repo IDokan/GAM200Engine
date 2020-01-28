@@ -486,6 +486,9 @@
     <ClInclude Include="States\PlayerStates\Move.hpp">
       <Filter>States\PlayerStates</Filter>
     </ClInclude>
+    <ClInclude Include="Object\DepthStandard.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

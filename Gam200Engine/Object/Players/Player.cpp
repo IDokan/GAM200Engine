@@ -12,21 +12,24 @@ Creation Date: 23th/Jan/2020
 #include  <Object/Players/Player.h>
 #include <Systems/Input.hpp>
 #include <Component/StateMachine.hpp>
+#include <Object/DepthStandard.hpp>
+#include <States/PlayerStates/Idle.hpp>
 
-Player::Player(Player_Identifier player)
+Player::Player(Identifier player)
 	:Object(), id(player)
 {
 	Object::AddComponent(new StateMachine<Player>(this));
+	GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
 	
 	Object::AddComponent(new Sprite(this));
 	GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
 
 	switch (player)
 	{
-	case Player_Identifier::Player1:
+	case Identifier::Player1:
 		LoadPlayer1Layout();
 		break;
-	case Player_Identifier::Player2:
+	case Identifier::Player2:
 		LoadPlayer2Layout();
 		break;
 	default: ;
@@ -38,7 +41,7 @@ Player::Player(Player_Identifier player)
 
 Player::Player(std::string _playerName, const vector2 playerPos, const vector2 playerScale, Physics::ObjectType _objectType,
     float _depth, Graphics::Color4f _color, vector2 positionAdj, vector2 scaleAdj)
-    :Object()
+    :Object(), id(Identifier::UNDEFINED)
 {
 	Object::SetObjectName(std::move(_playerName));
 
@@ -58,63 +61,9 @@ Player::Player(std::string _playerName, const vector2 playerPos, const vector2 p
 	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 };
 
-
-void Player::Move() noexcept
+Player::Identifier Player::GetID() const noexcept
 {
-    /**********************Moving player 2*******************************************/
-    if (input.IsKeyPressed(GLFW_KEY_UP))
-    {
-        GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-        if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_LEFT))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_LEFT))
-    {
-        GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_UP))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_DOWN))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_DOWN))
-    {
-        GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
-
-        if (input.IsKeyPressed(GLFW_KEY_LEFT))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-    {
-        GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_UP))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_DOWN))
-        {
-            GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
-        }
-    }
-    if (input.IsKeyReleased(GLFW_KEY_UP) && input.IsKeyReleased(GLFW_KEY_LEFT) && input.IsKeyReleased(GLFW_KEY_DOWN) && input.IsKeyReleased(GLFW_KEY_RIGHT))
-    {
-        GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
-    }
+	return id;
 }
 
 void Player::LoadPlayer1Layout()

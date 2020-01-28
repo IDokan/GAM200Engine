@@ -23,6 +23,7 @@ Creation Date: 12.10.2019
 #include <Sounds/SoundManager.hpp>
 #include <Component/StateMachine.hpp>
 #include <States/Walking.hpp>
+#include <Object/Players/Player.h>
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -73,118 +74,6 @@ void BasicMovementLevel::Unload()
 
 void BasicMovementLevel::Input()
 {
-    /**********************Moving Object 1*******************************************/
-    if (input.IsKeyPressed(GLFW_KEY_W))
-    {
-        player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-        if (input.IsKeyPressed(GLFW_KEY_D))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_A))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_A))
-    {
-        player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_W))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_S))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_S))
-    {
-        player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
-
-        if (input.IsKeyPressed(GLFW_KEY_A))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_D))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_D))
-    {
-        player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_W))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_S))
-        {
-            player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
-        }
-    }
-    if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
-    {
-        player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
-    }
-
-
-
-
-    /**********************Moving Object 2*******************************************/
-    if (input.IsKeyPressed(GLFW_KEY_UP))
-    {
-        player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-        if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_LEFT))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_LEFT))
-    {
-        player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_UP))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_DOWN))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_DOWN))
-    {
-        player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
-
-        if (input.IsKeyPressed(GLFW_KEY_LEFT))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
-        }
-    }
-    if (input.IsKeyPressed(GLFW_KEY_RIGHT))
-    {
-        player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
-        if (input.IsKeyPressed(GLFW_KEY_UP))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
-        }
-        else if (input.IsKeyPressed(GLFW_KEY_DOWN))
-        {
-            player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
-        }
-    }
-    if (input.IsKeyReleased(GLFW_KEY_UP) && input.IsKeyReleased(GLFW_KEY_LEFT) && input.IsKeyReleased(GLFW_KEY_DOWN) && input.IsKeyReleased(GLFW_KEY_RIGHT))
-    {
-        player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 0.f);
-    }
     if (input.IsKeyTriggered(GLFW_KEY_G))
     {
         if (player1->GetComponentByTemplate<Physics>()->GetIsGhost() == true)
@@ -214,27 +103,9 @@ void BasicMovementLevel::InitObject() {
     background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
-    player1 = new Object();
-    player1->SetObjectType(Object::ObjectType::PLAYER_1);
-    player1->SetObjectName("player1");
-    player1->SetTranslation(vector2{ -200.f, -400.f });
-    player1->SetScale(vector2{ 150.f });
-    player1->AddComponent(new Sprite(player1));
-    player1->AddComponent(new Physics(player1));
-    player1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
-    player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
-    player1->SetDepth(-1.f);
+	player1 = new Player(Player::Identifier::Player1);
 
-    player2 = new Object();
-    player2->SetObjectName("player2");
-    player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    player2->SetTranslation(vector2{ 200.f, -400.f });
-    player2->SetScale(vector2{ 150.f });
-    player2->AddComponent(new Sprite(player2));
-    player2->AddComponent(new Physics(player2));
-    player2->SetDepth(-1.f);
-    player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
-    player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
+	player2 = new Player(Player::Identifier::Player2);
 
     string = new String(player1, player2);
 
