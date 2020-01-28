@@ -54,6 +54,7 @@ public:
     void SetCollisionBoxPosition(vector2 originPos);
     void SetCollisionBoxScale(vector2 scale);
     void SetFriction(float friction);
+    void SetCollisionResolution(bool condition);
 
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
@@ -103,14 +104,21 @@ public:
         return isCollide;
     }
 
+    bool GetShouldCollisionResolution() const
+    {
+        return shouldResolveResolution;
+    }
     vector2 GetVectorTranslation() const;
     vector2 force{};
 private:
     void CalculateSeperateAxisVectorOf(Object* obj);
     void CalculateXaxisVector(Object* obj);
     void CalculateYaxisVector(Object* obj);
-    void CalculateObjectVertex(Object* obj);
-    vector2 CalculateRotatedObjectVertex(vector2 vertex, float angle);
+
+    void collisionHelperFunction(Object* obj1, Object* obj2);
+
+    vector2 CalculateRotatedObjectVector(vector2 vertex, float angle);
+    vector2 CalculateRotatedObjectVertex(vector2 vertex, CollisionBox collsionBox);
 
     vector2 velocity{};
     vector2 gravity{};
@@ -127,6 +135,7 @@ private:
     bool hasCollisionBox;
     bool isGhost;
     bool isCollide;
+    bool shouldResolveResolution;
 
     std::vector<vector2> SAT;
 };
