@@ -34,6 +34,7 @@ public:
 	// m_Entities at the index position indicated by the entity's ID
 	// (makes for faster access)
 	void RegisterEntity(Object* object);
+	void RegisterEntity(Object* object, MessageObjects id);
 
 	/*	Example of usage of GetEntityFromId()
 	A client can now request a pointer to a specific entity by passing its ID
@@ -58,7 +59,7 @@ private:
 	// in which pointers to entities are cross-referenced by their identifying number
 	MessageObjectMap messageObjectMap;
 
-	MessageCapableObjectManager();
+	MessageCapableObjectManager() = default;
 
 	MessageCapableObjectManager(const MessageCapableObjectManager&) noexcept;
 	MessageCapableObjectManager& operator=(const MessageCapableObjectManager&) noexcept;

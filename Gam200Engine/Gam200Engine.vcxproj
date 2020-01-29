@@ -238,9 +238,13 @@
     <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
     <ClInclude Include="Scenes\TestLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
+    <ClInclude Include="States\PlayerStates\Dead.hpp" />
     <ClInclude Include="States\PlayerStates\Idle.hpp" />
     <ClInclude Include="States\PlayerStates\Move.hpp" />
+    <ClInclude Include="States\PlayerStates\PlayerReachesGoal.hpp" />
     <ClInclude Include="States\State.hpp" />
+    <ClInclude Include="States\StringStates\StringIdle.hpp" />
+    <ClInclude Include="States\StringStates\StringStretched.hpp" />
     <ClInclude Include="States\Walking.hpp" />
     <ClInclude Include="Systems\Command\Command.hpp" />
     <ClInclude Include="Systems\Command\MoveUp.hpp" />
@@ -326,8 +330,12 @@
     <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
     <ClCompile Include="Scenes\TestLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
+    <ClCompile Include="States\PlayerStates\Dead.cpp" />
     <ClCompile Include="States\PlayerStates\Idle.cpp" />
     <ClCompile Include="States\PlayerStates\Move.cpp" />
+    <ClCompile Include="States\PlayerStates\PlayerReachesGoal.cpp" />
+    <ClCompile Include="States\StringStates\StringIdle.cpp" />
+    <ClCompile Include="States\StringStates\StringStretched.cpp" />
     <ClCompile Include="States\Walking.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />

@@ -36,7 +36,7 @@ void MessageDispatcher::DispatchMessage(MessageObjects sender, MessageObjects re
 	Message message(sender, receiver, msg, 0.0, ExtraInfo);
 
 	// if there is no delay, route the telegram immediately
-	if (delay < 0.0)
+	if (delay <= 0.0)
 	{
 		Discharge(objReceiver, message);
 	}
@@ -54,6 +54,12 @@ void MessageDispatcher::DispatchMessage(MessageObjects sender, MessageObjects re
 
 void MessageDispatcher::DispatchDelayedMessages()
 {
+	// when message queue is missing, do nothing for a few of optimizing.
+	if (delayed_messages.empty())
+	{
+		return;
+	}
+	
 	// first get current time
 	double currentTime = Timer::GetTimer()->GetCurrentTime();
 

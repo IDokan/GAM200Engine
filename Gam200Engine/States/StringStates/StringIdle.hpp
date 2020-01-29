@@ -2,29 +2,27 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   Move.hpp
+File Name:   StringIdle.hpp
 Author
-		Kang rtd99062@gmail.com
-Creation Date: 01.13.2020
+		sinil.gang rtd99062@gmail.com
+Creation Date: 01.29.2020
 
-	Header file for Move State
-		This state execute move
+	Header file for StringIdle State
 ******************************************************************************/
 #pragma once
 
 #include <States/State.hpp>
-#include <Object/Players/Player.h>
+#include <Object/Strings/String.hpp>
 
-class Move : public State<Player>
+class StringIdle : public State<String>
 {
 public:
-	static Move* Get();
-	~Move() = default;
+	static StringIdle* Get();
+	~StringIdle() = default;
 	
-	void Enter(Player* obj) override;
-	void Execute(Player* obj) override;
-	void Exit(Player* obj) override;
-
+	void Enter(String* obj) override;
+	void Execute(String* obj) override;
+	void Exit(String* obj) override;
 private:
-	Move() = default;
+	StringIdle() = default;
 };

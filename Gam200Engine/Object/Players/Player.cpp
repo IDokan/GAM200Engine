@@ -14,13 +14,15 @@ Creation Date: 23th/Jan/2020
 #include <Component/StateMachine.hpp>
 #include <Object/DepthStandard.hpp>
 #include <States/PlayerStates/Idle.hpp>
+#include <Component/MessageCapable.hpp>
+#include <Systems/MessageSystem/Message.hpp>
 
 Player::Player(Identifier player)
 	:Object(), id(player)
 {
 	Object::AddComponent(new StateMachine<Player>(this));
 	GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
-	
+
 	Object::AddComponent(new Sprite(this));
 	GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
 
@@ -32,16 +34,16 @@ Player::Player(Identifier player)
 	case Identifier::Player2:
 		LoadPlayer2Layout();
 		break;
-	default: ;
+	default:;
 	}
-	
+
 	Object::AddComponent(new Physics(this));
 	GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE);
 }
 
 Player::Player(std::string _playerName, const vector2 playerPos, const vector2 playerScale, Physics::ObjectType _objectType,
-    float _depth, Graphics::Color4f _color, vector2 positionAdj, vector2 scaleAdj)
-    :Object(), id(Identifier::UNDEFINED)
+	float _depth, Graphics::Color4f _color, vector2 positionAdj, vector2 scaleAdj)
+	:Object(), id(Identifier::UNDEFINED)
 {
 	Object::SetObjectName(std::move(_playerName));
 
@@ -69,12 +71,32 @@ Player::Identifier Player::GetID() const noexcept
 void Player::LoadPlayer1Layout()
 {
 	Object::SetObjectName("Player 1");
-	
+
 	// TODO: Implement with File I/O
 	Object::SetTranslation(vector2{ -200.f, -400.f });
 	SetScale(vector2{ 150.f });
 	SetDepth(Depth_Standard::Player);
 	//
+
+	AddComponent(new MessageCapable(this, MessageObjects::Player1,
+		[&](const Message& msg) -> bool
+		{
+			switch(msg.Msg)
+			{
+			case MessageTypes::PlayerIsDead:
+				break;
+			case MessageTypes::PlayerReachedGoal:
+				break;
+			case MessageTypes::MoveTo:
+				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
+				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
+				break;
+			default:
+				return false;
+			}
+			return true;
+		}
+	));
 
 	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
 }
@@ -88,6 +110,22 @@ void Player::LoadPlayer2Layout()
 	SetScale(vector2{ 150.f });
 	SetDepth(Depth_Standard::Player);
 	//
+	
+	AddComponent(new MessageCapable(this, MessageObjects::Player2,
+		[](const Message& msg) -> bool
+		{
+			switch (msg.Msg)
+			{
+			case MessageTypes::PlayerIsDead:
+				break;
+			case MessageTypes::PlayerReachedGoal:
+				break;
+			default:
+				return false;
+			}
+			return true;
+		}
+	));
 
 	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 }

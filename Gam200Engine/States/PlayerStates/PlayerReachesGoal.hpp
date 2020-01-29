@@ -2,29 +2,30 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   Move.hpp
+File Name:   PlayerReachesGoal.hpp
 Author
 		Kang rtd99062@gmail.com
-Creation Date: 01.13.2020
+Creation Date: 01.29.2020
 
-	Header file for Move State
-		This state execute move
+	Header file for PlayerReachesGoal State
+		Since this event did not designed,
+		We need a team discuss.
 ******************************************************************************/
 #pragma once
 
 #include <States/State.hpp>
 #include <Object/Players/Player.h>
 
-class Move : public State<Player>
+class PlayerReachesGoal : public State<Player>
 {
 public:
-	static Move* Get();
-	~Move() = default;
+	static PlayerReachesGoal* Get();
+	~PlayerReachesGoal() = default;
 	
 	void Enter(Player* obj) override;
 	void Execute(Player* obj) override;
 	void Exit(Player* obj) override;
 
 private:
-	Move() = default;
+	PlayerReachesGoal() = default;
 };

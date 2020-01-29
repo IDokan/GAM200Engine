@@ -28,6 +28,11 @@ void MessageCapableObjectManager::RegisterEntity(Object* object)
 	messageObjectMap[messageCapable->GetMessageObjectType()] = object;
 }
 
+void MessageCapableObjectManager::RegisterEntity(Object* object, MessageObjects id)
+{
+	messageObjectMap[id] = object;
+}
+
 Object* MessageCapableObjectManager::GetObjectFromID(MessageObjects id)
 {
 	return messageObjectMap[id];

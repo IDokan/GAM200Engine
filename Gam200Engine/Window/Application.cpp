@@ -17,6 +17,7 @@ Creation Date: 08.05.2019
 #include "Object/ObjectManager.hpp"
 
 #include <Graphics/ImGui/MyImGui.hpp>
+#include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 // Include States
 #include <Scenes/BasicMovementLevel.hpp>
@@ -77,6 +78,7 @@ void Application::Update(float dt)
 	const auto& stateManager = SceneManager::GetSceneManager();
 	stateManager->Update(dt);
 	ObjectManager::GetObjectManager()->Update(dt);
+	MessageDispatcher::GetDispatcher()->DispatchDelayedMessages();
 	stateManager->Draw();
 
     GetApplication()->Input();

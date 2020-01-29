@@ -13,13 +13,26 @@ Creation Date: 01.14.2020
 
 enum class MessageTypes
 {
+	PlayerIsDead,
+	PlayerReachedGoal,
 	StringAttached,
 	StringDetached,
+	
+	/**
+	 * \brief
+	 * When this message is received, extra information would be required as change based on receiver.
+	 * For example, Receiver would do like a
+	 *		SetTranslation(GetTranslation + ExtraInfo);
+	 */
+	MoveTo,
 	
 	NUM_OF_MESSAGE_TYPES,
 };
 enum class MessageObjects
 {
+	Player1,
+	Player2,
+	
 	String_Object,
 	Test_Crushable_Object,
 

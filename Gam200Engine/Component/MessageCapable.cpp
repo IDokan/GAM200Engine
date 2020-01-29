@@ -12,12 +12,14 @@ Creation Date: 11.16.2019
 			if the objects want to send or receive messages.
 ******************************************************************************/
 #include <Component/MessageCapable.hpp>
+#include <Systems/MessageSystem/MessageCapableObjectManager.hpp>
 #include <utility>
 
 MessageCapable::MessageCapable(Object* obj, MessageObjects objType,
 	std::function<bool(const Message& msg)> handleMsgFunc)
 	: Component(obj), handleMessageFunc(std::move(handleMsgFunc)), objectType(objType)
 {
+	MessageCapableObjectManager::GetMessageObjectManager()->RegisterEntity(obj, objType);
 }
 
 void MessageCapable::Init()

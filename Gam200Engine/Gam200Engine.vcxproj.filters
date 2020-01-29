@@ -223,6 +223,18 @@
     <ClCompile Include="States\PlayerStates\Move.cpp">
       <Filter>States\PlayerStates</Filter>
     </ClCompile>
+    <ClCompile Include="States\StringStates\StringStretched.cpp">
+      <Filter>States\StringStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\Dead.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\PlayerReachesGoal.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\StringStates\StringIdle.cpp">
+      <Filter>States\StringStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -489,6 +501,18 @@
     <ClInclude Include="Object\DepthStandard.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="States\StringStates\StringStretched.hpp">
+      <Filter>States\StringStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\Dead.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\PlayerReachesGoal.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\StringStates\StringIdle.hpp">
+      <Filter>States\StringStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -553,6 +577,9 @@
     </Filter>
     <Filter Include="Systems\Command">
       <UniqueIdentifier>{6df4bbff-1929-4104-9e7a-f12d4e03686d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\StringStates">
+      <UniqueIdentifier>{de2f900b-f9c8-4bb5-af8f-9481b70d8da1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
