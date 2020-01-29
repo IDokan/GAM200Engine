@@ -61,19 +61,48 @@ void StringPhysics::Update(float /*dt*/)
 
                 vector2 center{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
 
-                InteractiveObject* interactiveObject = dynamic_cast<InteractiveObject*>(object.get());
-                // Left-Bottom
-                PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-                    center + vector2{ -objectCollisionBox.Scale.x / 2,  -objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
-                // Left-Top
-                PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-                    center + vector2{ -objectCollisionBox.Scale.x / 2, +objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
-                // Right-Bottom
-                PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-                    center + vector2{ +objectCollisionBox.Scale.x / 2, -objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
-                // Right-Top
-                PushbackIfBended(stringVertex1, stringVertex2, i + 1,
-                    center + vector2{ +objectCollisionBox.Scale.x / 2, +objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
+                if (objectCollisionBox.Angle != 0.f)
+                {
+                    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -center;
+                    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 }-center;
+                    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -center;
+                    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 } -center;
+
+                    objectLeftTop = vector2{ objectLeftTop.x * std::cos(objectCollisionBox.Angle) - objectLeftTop.y * std::sin(objectCollisionBox.Angle), objectLeftTop.x * std::sin(objectCollisionBox.Angle) + objectLeftTop.y * std::cos(objectCollisionBox.Angle) } +center;
+                    objectLeftBottom = vector2{ objectLeftBottom.x * std::cos(objectCollisionBox.Angle) - objectLeftBottom.y * std::sin(objectCollisionBox.Angle), objectLeftBottom.x * std::sin(objectCollisionBox.Angle) + objectLeftBottom.y * std::cos(objectCollisionBox.Angle) } +center;
+                    objectRightTop = vector2{ objectRightTop.x * std::cos(objectCollisionBox.Angle) - objectRightTop.y * std::sin(objectCollisionBox.Angle), objectRightTop.x * std::sin(objectCollisionBox.Angle) + objectRightTop.y * std::cos(objectCollisionBox.Angle) } +center;
+                    objectRightBottom = vector2{ objectRightBottom.x * std::cos(objectCollisionBox.Angle) - objectRightBottom.y * std::sin(objectCollisionBox.Angle), objectRightBottom.x * std::sin(objectCollisionBox.Angle) + objectRightBottom.y * std::cos(objectCollisionBox.Angle) } +center;
+
+                    InteractiveObject* interactiveObject = dynamic_cast<InteractiveObject*>(object.get());
+                    // Left-Bottom
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        objectLeftBottom, center, interactiveObject);
+                    // Left-Top
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        objectLeftTop, center, interactiveObject);
+                    // Right-Bottom
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        objectRightBottom, center, interactiveObject);
+                    // Right-Top
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        objectRightTop, center, interactiveObject);
+                }
+                else
+                {
+                    InteractiveObject* interactiveObject = dynamic_cast<InteractiveObject*>(object.get());
+                    // Left-Bottom
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        center + vector2{ -objectCollisionBox.Scale.x / 2,  -objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
+                    // Left-Top
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        center + vector2{ -objectCollisionBox.Scale.x / 2, +objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
+                    // Right-Bottom
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        center + vector2{ +objectCollisionBox.Scale.x / 2, -objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
+                    // Right-Top
+                    PushbackIfBended(stringVertex1, stringVertex2, i + 1,
+                        center + vector2{ +objectCollisionBox.Scale.x / 2, +objectCollisionBox.Scale.y / 2 }, center, interactiveObject);
+                }
             }
         }
     }
@@ -128,12 +157,12 @@ void StringPhysics::DeletePositionsWithObject(Object* obj)
     // Iteration to find what vertices' attached object is same with given object pointer
     std::for_each(std::begin(stringPhysicsOwner->vertices), std::end(stringPhysicsOwner->vertices),
         [&](const StringVertex& vertex) mutable
-    {
-        if (vertex.attachedObject == obj)
         {
-            deletedVertices.emplace_back(vertex);
-        }
-    });
+            if (vertex.attachedObject == obj)
+            {
+                deletedVertices.emplace_back(vertex);
+            }
+        });
 }
 
 void StringPhysics::DeleteVerticesInContainer()
@@ -141,13 +170,13 @@ void StringPhysics::DeleteVerticesInContainer()
     // Based on saved string vertex, find it in vertices and erase it!
     std::for_each(std::begin(deletedVertices), std::end(deletedVertices),
         [&](const StringVertex& vertex) mutable
-    {
-        if (const auto& it = std::find(std::begin(stringPhysicsOwner->vertices), std::end(stringPhysicsOwner->vertices), vertex);
-            it != stringPhysicsOwner->vertices.end())
         {
-            stringPhysicsOwner->vertices.erase(it);
-        }
-    });
+            if (const auto& it = std::find(std::begin(stringPhysicsOwner->vertices), std::end(stringPhysicsOwner->vertices), vertex);
+                it != stringPhysicsOwner->vertices.end())
+            {
+                stringPhysicsOwner->vertices.erase(it);
+            }
+        });
 
     if (shouldClear)
     {
@@ -252,24 +281,7 @@ bool StringPhysics::IsDetached(StringVertex point1, StringVertex point2, StringV
 
 void StringPhysics::LimitStringLength()
 {
-    if (stringPhysicsOwner->GetStringLength() > limitStringLength)
-    {
-        if (stringPhysicsOwner->oldStringLength < stringPhysicsOwner->stringLength)
-        {
-            int friction = stringPhysicsOwner->stringLength / 100;
-            DetermineFrcition(friction);
-        }
-        else
-        {
-            player1->GetComponentByTemplate<Physics>()->SetFriction(1.f);
-            player2->GetComponentByTemplate<Physics>()->SetFriction(1.f);
-        }
-    }
-    else
-    {
-        player1->GetComponentByTemplate<Physics>()->SetFriction(1.f);
-        player2->GetComponentByTemplate<Physics>()->SetFriction(1.f);
-    }
+
 }
 
 void StringPhysics::SetStringLength(float length)
@@ -285,27 +297,4 @@ void StringPhysics::SetShouldClear(bool should)
 void StringPhysics::Clear()
 {
 
-}
-
-void StringPhysics::DetermineFrcition(int friction)
-{
-    switch(friction)
-    {
-    case 5:
-        player1->GetComponentByTemplate<Physics>()->SetFriction(0.7f);
-        player2->GetComponentByTemplate<Physics>()->SetFriction(0.7f);
-        break;
-    case 6:
-        player1->GetComponentByTemplate<Physics>()->SetFriction(0.5f);
-        player2->GetComponentByTemplate<Physics>()->SetFriction(0.5f);
-        break;
-    case 7:
-        player1->GetComponentByTemplate<Physics>()->SetFriction(0.3f);
-        player2->GetComponentByTemplate<Physics>()->SetFriction(0.3f);
-        break;
-    default:
-        player1->GetComponentByTemplate<Physics>()->SetFriction(0.1f);
-        player2->GetComponentByTemplate<Physics>()->SetFriction(0.1f);
-        break;
-    }
 }
