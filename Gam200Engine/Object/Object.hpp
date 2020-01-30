@@ -30,10 +30,18 @@ public:
         PLAYER_1,
         PLAYER_2,
         OBSTACLE,
+        OBSTACLE_1,
     	TEST,
         STRING,
     };
 
+    enum class ObjectSide
+    {
+        UPSIDE,
+        RIGHT_SIDE,
+        LEFT_SIDE,
+        BOTTOM_SIDE,
+    };
     void SetDead(bool condition) 
     {
         is_dead = condition;
@@ -60,6 +68,11 @@ public:
         return objType;
     }
 
+    ObjectSide GetObjectCollidingSide() const
+    {
+        return objSide;
+    }
+
 public:
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
@@ -73,6 +86,8 @@ public:
     std::string GetObjectName(); // Woo
 
     void SetObjectType(ObjectType objType); // test function Woo
+    void SetObjectCollidingSide(ObjectSide objSide_);
+
     [[nodiscard]] std::string GetStringOfObjectType() const noexcept;
     
     vector2 GetTranslation(); // Woo
@@ -85,7 +100,8 @@ protected:
     std::vector<Component*> component;
     std::string objectName;
     bool is_dead = false;
-    ObjectType objType; // test variable Woo
+    ObjectType objType;
+    ObjectSide objSide;
 };
 
 template <typename COMPONENT>
