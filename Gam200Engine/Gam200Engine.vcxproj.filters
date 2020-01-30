@@ -199,9 +199,6 @@
     <ClCompile Include="Scenes\SizeScalingLevel.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TestLevel.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="States\Walking.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -454,9 +451,6 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\SizeScalingLevel.hpp">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\TestLevel.hpp">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Component\StateMachine.hpp">

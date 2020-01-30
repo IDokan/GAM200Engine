@@ -26,7 +26,6 @@ Creation Date: 08.05.2019
 #include <Scenes/CrushObjectLevel.hpp>
 #include <Scenes/DeadLevel.hpp>
 #include <Scenes/ProtoLevel.hpp>
-#include <Scenes/TestLevel.hpp>
 
 
 Application* Application::GetApplication()
@@ -54,7 +53,6 @@ void Application::Init()
 	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
 	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
     SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
-	SceneManager::GetSceneManager()->AddScenes("TestLevel", dynamic_cast<Scene*>(new TestLevel()));
 	SceneManager::GetSceneManager()->AddScenes("ProtoLevel", dynamic_cast<Scene*>(new ProtoLevel()));
 	
 	 

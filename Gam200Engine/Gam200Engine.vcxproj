@@ -236,7 +236,6 @@
     <ClInclude Include="Scenes\Scene.hpp" />
     <ClInclude Include="Scenes\SceneManager.hpp" />
     <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
-    <ClInclude Include="Scenes\TestLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
     <ClInclude Include="States\PlayerStates\Dead.hpp" />
     <ClInclude Include="States\PlayerStates\Idle.hpp" />
@@ -328,7 +327,6 @@
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
     <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
-    <ClCompile Include="Scenes\TestLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\PlayerStates\Dead.cpp" />
     <ClCompile Include="States\PlayerStates\Idle.cpp" />

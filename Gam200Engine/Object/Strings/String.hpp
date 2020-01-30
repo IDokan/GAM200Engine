@@ -38,6 +38,4 @@ private:
 	std::deque<StringVertex> vertices;
 	Object* player1;
 	Object* player2;
-    float oldStringLength;
-    float stringLength;
 };
