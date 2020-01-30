@@ -49,7 +49,7 @@ public:
     // Getter
     float GetStringLength() const
     {
-        return stringLength;
+        return limitStringLength;
     }
 
 private:
@@ -71,7 +71,7 @@ private:
     Object* player2;
     bool shouldClear;
 
-    float stringLength;
+    float limitStringLength;
     
     std::vector < std::pair<int, StringVertex>> vertexContainer{};
     std::vector <StringVertex> deletedVertices{};

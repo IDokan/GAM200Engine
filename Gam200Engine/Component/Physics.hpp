@@ -25,6 +25,7 @@ public:
         vector2 Translation{};
         vector2 Scale{};
         vector2 TranslationAmount{};
+        float Angle;
     };
 
     enum  class ObjectType
@@ -52,20 +53,25 @@ public:
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
     void SetCollisionBoxScale(vector2 scale);
+    void SetFriction(float friction);
+    void SetCollisionResolution(bool condition);
+    void AddForce(vector2 force_);
 
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
     void SetVectorTranslation(vector2 translation);
     bool IsCollideWith(Object* object);
+    bool IsCollideWithRotatedObject(Object* object);
+    bool IsCollideWithMovedObject(Object* object);
     void ManageCollision();
 
-    vector2 GetTranslation(const matrix3 &matrix) const;
-	vector2 GetVelocity() const noexcept;
-	vector2 GetGravity() const noexcept;
-	bool IsCollided() const noexcept;
-	
+    vector2 GetTranslation(const matrix3& matrix) const;
+    vector2 GetVelocity() const noexcept;
+    vector2 GetGravity() const noexcept;
+    bool IsCollided() const noexcept;
 
-    const CollisionBox &GetCollisionBox() const
+
+    const CollisionBox& GetCollisionBox() const
     {
         return collisionBox;
     }
@@ -99,19 +105,40 @@ public:
     {
         return isCollide;
     }
-    vector2 GetVectorTranslation() const; 
+
+    bool GetShouldCollisionResolution() const
+    {
+        return shouldResolveResolution;
+    }
+    vector2 GetVectorTranslation() const;
 
 private:
+    void CalculateSeperateAxisVectorOf(Object* obj);
+    void CalculateXaxisVector(Object* obj);
+    void CalculateYaxisVector(Object* obj);
+
+    void collisionHelperFunction(Object* obj1, Object* obj2);
+
+    vector2 CalculateRotatedObjectVector(vector2 vertex, float angle);
+    vector2 CalculateRotatedObjectVertex(vector2 vertex, CollisionBox collsionBox);
+
     vector2 velocity{};
     vector2 gravity{};
     vector2 vectorTranslation{};
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
+    vector2 force{};
+
+    float friction;
+
     ObjectType objectType{};
     CollisionBox collisionBox{};
-   
+
     bool hasCollisionBox;
     bool isGhost;
     bool isCollide;
+    bool shouldResolveResolution;
+
+    std::vector<vector2> SAT;
 };
