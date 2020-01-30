@@ -81,6 +81,11 @@ void Object::SetObjectType(ObjectType objType_)
 	objType = objType_;
 }
 
+void Object::SetObjectCollidingSide(ObjectSide objSide_)
+{
+    objSide = objSide_;
+}
+
 std::string Object::GetStringOfObjectType() const noexcept
 {
 	std::string result{};
