@@ -87,10 +87,16 @@ void Player::LoadPlayer1Layout()
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				break;
-			case MessageTypes::MoveTo:
+			case MessageTypes::MoveToRelativePosition:
 				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
 				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
 				break;
+			case MessageTypes::MoveToAbsolutePosition:
+				SetTranslation(*reinterpret_cast<vector2*>(msg.ExtraInfo));
+				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
+				break;
+			case MessageTypes::AddForce:
+				GetComponentByTemplate<Physics>()->AddForce(*reinterpret_cast<vector2*>(msg.ExtraInfo));
 			default:
 				return false;
 			}

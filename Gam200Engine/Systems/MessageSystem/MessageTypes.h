@@ -17,6 +17,14 @@ enum class MessageTypes
 	PlayerReachedGoal,
 	StringAttached,
 	StringDetached,
+
+	/**
+	 * \brief
+	 * When this message is received, extra information would have how many force do apply on receiver.
+	 * For example, Receiver would do like a
+	 *		AddForce(ExtraInfo);
+	 */
+	AddForce,
 	
 	/**
 	 * \brief
@@ -24,7 +32,14 @@ enum class MessageTypes
 	 * For example, Receiver would do like a
 	 *		SetTranslation(GetTranslation + ExtraInfo);
 	 */
-	MoveTo,
+	MoveToRelativePosition,
+	/**
+	 * \brief
+	 * When this message is received, extra information would indicate new position where player would be as a result.
+	 * For example, Receiver would do like a
+	 *		SetTranslation(ExtraInfo);
+	 */
+	MoveToAbsolutePosition,
 	
 	NUM_OF_MESSAGE_TYPES,
 };

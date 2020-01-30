@@ -31,12 +31,17 @@ void StringStretched::Execute(String* obj)
 
 	const auto& vertices = obj->GetVertices();
 
-	// To be calculated
-	vector2 delta{3.f, 0.f};
-	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player1, MessageTypes::MoveTo, 0, &delta);
 	if (stringLength < String::String_Stretching_Length)
 	{
 		obj->GetComponentByTemplate < StateMachine<String>>()->ChangeState(StringIdle::Get());
+	}
+	else
+	{
+		vector2 force{ vertices.at(1).position - vertices.at(0).position };
+		// interpolated value t (500, 800)
+		const float t = (stringLength - String::String_Stretching_Length) / 300.f;
+		force *= t;
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player1, MessageTypes::AddForce, 0, &force);
 	}
 }
 
