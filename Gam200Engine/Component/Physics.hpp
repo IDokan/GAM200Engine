@@ -55,12 +55,14 @@ public:
     void SetCollisionBoxScale(vector2 scale);
     void SetFriction(float friction);
     void SetCollisionResolution(bool condition);
+    void AddForce(vector2 force_);
 
     void ActiveGhostCollision(bool active);
     void SetIsCollide(bool collide);
     void SetVectorTranslation(vector2 translation);
     bool IsCollideWith(Object* object);
     bool IsCollideWithRotatedObject(Object* object);
+    bool IsCollideWithMovedObject(Object* object);
     void ManageCollision();
 
     vector2 GetTranslation(const matrix3& matrix) const;
@@ -109,7 +111,7 @@ public:
         return shouldResolveResolution;
     }
     vector2 GetVectorTranslation() const;
-    vector2 force{};
+
 private:
     void CalculateSeperateAxisVectorOf(Object* obj);
     void CalculateXaxisVector(Object* obj);
@@ -126,6 +128,7 @@ private:
     vector2 position{};
     vector2 oldPosition{};
     vector2 initializedPosition{};
+    vector2 force{};
 
     float friction;
 

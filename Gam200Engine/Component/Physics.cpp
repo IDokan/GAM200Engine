@@ -18,6 +18,7 @@ Creation Date: 08.15.2019
 
 Physics::Physics(Object* obj) : Component(obj)
 {
+    shouldResolveResolution = false;
     hasCollisionBox = false;
     isGhost = false;
     isCollide = false;
@@ -70,6 +71,7 @@ void Physics::Update(float dt)
         shouldResolveResolution = false;
     }
     isCollide = false;
+    force = vector2{ 0.f,0.f };
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
 }
 
@@ -158,6 +160,11 @@ void Physics::SetCollisionResolution(bool condition)
     shouldResolveResolution = condition;
 }
 
+void Physics::AddForce(vector2 force_)
+{
+    force = force_;
+}
+
 void Physics::ActiveGhostCollision(bool active)
 {
     isGhost = active;
@@ -180,11 +187,13 @@ void Physics::collisionHelperFunction(Object* object1, Object* object2)
     if (object1->GetComponentByTemplate<Physics>()->GetIsGhost() != true
         && object2->GetComponentByTemplate<Physics>()->GetIsGhost() != true)
     {
+
         if (object1->GetObjectType() == Object::ObjectType::PLAYER_1)
         {
             object1->GetComponentByTemplate<Physics>()->SetCollisionResolution(true);
             object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
             object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetOldPosition());
+
             for (const auto& object3 : physicsObject)
             {
                 if (object3->GetObjectType() == Object::ObjectType::PLAYER_2)
@@ -221,6 +230,7 @@ void Physics::collisionHelperFunction(Object* object1, Object* object2)
             object2->GetComponentByTemplate<Physics>()->SetCollisionResolution(true);
             object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
             object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+
             for (const auto& object3 : physicsObject)
             {
                 if (object3->GetObjectType() == Object::ObjectType::PLAYER_2)
@@ -239,6 +249,7 @@ void Physics::collisionHelperFunction(Object* object1, Object* object2)
             object2->GetComponentByTemplate<Physics>()->SetCollisionResolution(true);
             object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
             object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
+
             for (const auto& object3 : physicsObject)
             {
                 if (object3->GetObjectType() == Object::ObjectType::PLAYER_1)
@@ -559,18 +570,21 @@ bool Physics::IsCollideWithRotatedObject(Object* object)
     CollisionBox ownerCollisionBox = owner->GetComponentByTemplate<Physics>()->GetCollisionBox();
     CollisionBox objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
 
+    vector2 ownerCollisionBoxCenter = vector2{ ownerCollisionBox.Translation.x, ownerCollisionBox.Translation.y };
+    vector2 objectCollisionBoxCenter = vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
+
     CalculateSeperateAxisVectorOf(owner);
     CalculateSeperateAxisVectorOf(object);
 
-    vector2 ownerLeftTop = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
-    vector2 ownerLeftBottom = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
-    vector2 ownerRightTop = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
-    vector2 ownerRightBottom = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
+    vector2 ownerLeftTop = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -ownerCollisionBoxCenter;
+    vector2 ownerLeftBottom = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 } -ownerCollisionBoxCenter;
+    vector2 ownerRightTop = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -ownerCollisionBoxCenter;
+    vector2 ownerRightBottom = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 } -ownerCollisionBoxCenter;
 
-    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
-    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 }-vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
-    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
-    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
+    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -objectCollisionBoxCenter;
+    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 } -objectCollisionBoxCenter;
+    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -objectCollisionBoxCenter;
+    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 } -objectCollisionBoxCenter;
 
     ownerLeftTop = CalculateRotatedObjectVertex(ownerLeftTop, ownerCollisionBox);
     ownerLeftBottom = CalculateRotatedObjectVertex(ownerLeftBottom, ownerCollisionBox);
@@ -596,10 +610,10 @@ bool Physics::IsCollideWithRotatedObject(Object* object)
     objectCoordinateContainer.push_back(objectRightBottom);
 
     float ownerMax = 0.f;
-    float ownerMin = 0.f; 
+    float ownerMin = 0.f;
     float ownerTemp = 0.f;
     float objectMax = 0.f;
-    float objectMin = 0.f; 
+    float objectMin = 0.f;
     float objectTemp = 0.f;
 
     for (int i = 0; i < 4; i++)
@@ -647,6 +661,38 @@ bool Physics::IsCollideWithRotatedObject(Object* object)
 
     SAT.clear();
     return true;
+}
+
+bool Physics::IsCollideWithMovedObject(Object* object)
+{
+    auto ownerVelocity = owner->GetComponentByTemplate<Physics>()->GetVelocity();
+
+    switch (object->GetObjectCollidingSide())
+    {
+    case Object::ObjectSide::BOTTOM_SIDE:
+    {
+        if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(object) && ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    case Object::ObjectSide::RIGHT_SIDE:
+    {
+        if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(object) && ownerVelocity.y == 0.f && ownerVelocity.x < 0.f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    }
 }
 
 vector2 Physics::GetTranslation(const matrix3& matrix3) const
@@ -702,10 +748,9 @@ vector2 Physics::CalculateRotatedObjectVector(vector2 vertex, float angle)
     return rotatedVertex;
 }
 
-
 vector2 Physics::CalculateRotatedObjectVertex(vector2 vertex, CollisionBox coliisionBox)
 {
-    vector2 rotatedVertex = vector2{ vertex.x * std::cos(coliisionBox.Angle) - vertex.y * std::sin(coliisionBox.Angle), vertex.x * std::sin(coliisionBox.Angle) + vertex.y * std::cos(coliisionBox.Angle) } +vector2{ coliisionBox.Translation.x , coliisionBox.Translation.y };;
+    vector2 rotatedVertex = vector2{ vertex.x * std::cos(coliisionBox.Angle) - vertex.y * std::sin(coliisionBox.Angle), vertex.x * std::sin(coliisionBox.Angle) + vertex.y * std::cos(coliisionBox.Angle) } +vector2{ coliisionBox.Translation.x , coliisionBox.Translation.y };
     return rotatedVertex;
 }
 
