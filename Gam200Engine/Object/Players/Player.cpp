@@ -71,6 +71,7 @@ Player::Identifier Player::GetID() const noexcept
 void Player::LoadPlayer1Layout()
 {
 	Object::SetObjectName("Player 1");
+	Object::SetObjectType(ObjectType::PLAYER_1);
 
 	// TODO: Implement with File I/O
 	Object::SetTranslation(vector2{ -200.f, -400.f });
@@ -110,7 +111,8 @@ void Player::LoadPlayer1Layout()
 void Player::LoadPlayer2Layout()
 {
 	Object::SetObjectName("Player 2");
-
+	Object::SetObjectType(ObjectType::PLAYER_2);
+	
 	// TODO: Implement with File I/O
 	Object::SetTranslation(vector2{ 200.f, -400.f });
 	SetScale(vector2{ 150.f });
@@ -118,7 +120,7 @@ void Player::LoadPlayer2Layout()
 	//
 	
 	AddComponent(new MessageCapable(this, MessageObjects::Player2,
-		[](const Message& msg) -> bool
+		[&](const Message& msg) -> bool
 		{
 			switch (msg.Msg)
 			{
@@ -126,6 +128,16 @@ void Player::LoadPlayer2Layout()
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				break;
+			case MessageTypes::MoveToRelativePosition:
+				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
+				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
+				break;
+			case MessageTypes::MoveToAbsolutePosition:
+				SetTranslation(*reinterpret_cast<vector2*>(msg.ExtraInfo));
+				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
+				break;
+			case MessageTypes::AddForce:
+				GetComponentByTemplate<Physics>()->AddForce(*reinterpret_cast<vector2*>(msg.ExtraInfo));
 			default:
 				return false;
 			}

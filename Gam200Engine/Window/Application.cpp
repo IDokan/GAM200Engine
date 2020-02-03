@@ -30,7 +30,7 @@ Creation Date: 08.05.2019
 
 Application* Application::GetApplication()
 {
-    static Application* app = new Application;
+    static Application* app = new Application();
     return app;
 }
 

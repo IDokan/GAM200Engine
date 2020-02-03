@@ -37,11 +37,19 @@ void StringStretched::Execute(String* obj)
 	}
 	else
 	{
-		vector2 force{ vertices.at(1).position - vertices.at(0).position };
+		vector2 force1{ normalize(vertices.at(1).position - vertices.at(0).position) };
+		vector2 force2{ normalize(vertices.at(vertices.size() - 2).position - vertices.back().position) };
+
 		// interpolated value t (500, 800)
-		const float t = (stringLength - String::String_Stretching_Length) / 300.f;
-		force *= t;
-		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player1, MessageTypes::AddForce, 0, &force);
+		constexpr float maxStringLength = 800.f;
+		constexpr float minStringLength = 500.f;
+		const float t = (stringLength - String::String_Stretching_Length) / (maxStringLength - minStringLength) * 3;
+		
+		force1 *= t;
+		force2 *= t;
+		
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player1, MessageTypes::AddForce, 0, &force1);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player2, MessageTypes::AddForce, 0, &force2);
 	}
 }
 
