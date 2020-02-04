@@ -14,6 +14,7 @@ Creation Date: 08.10.2019
 #include <Vector2.hpp>
 #include <cstddef>
 #include <vector>
+#include <matrix3.hpp>
 
 namespace Graphics
 {
@@ -29,6 +30,7 @@ namespace Graphics
          vector2     GetPoint(std::size_t index) const noexcept;
         Graphics::Color4ub    GetColor(std::size_t index = 0) const noexcept;
          vector2     GetTextureCoordinate(std::size_t index) const noexcept;
+		 matrix3 GetInstancedMatrix(std::size_t index) const noexcept;
 
         PointListPattern GetPointListPattern() const noexcept;
         void             SetPointListType(PointListPattern type) noexcept;
@@ -36,6 +38,7 @@ namespace Graphics
         void AddColor(Graphics::Color4ub color) noexcept;
         void AddPoint( vector2 point) noexcept;
         void AddTextureCoordinate( vector2 texture_coordinate) noexcept;
+		void AddInstancedMatrix(matrix3 matrix) noexcept;
 
         void ClearColors() noexcept;
         bool HasMoreThanOneColor() const noexcept;
@@ -49,6 +52,9 @@ namespace Graphics
         std::vector<Graphics::Color4ub> colors{};
         std::vector< vector2>  textureCoordinates{};
         PointListPattern      pointListType = PointListPattern::Lines;
+
+		/* Below variables are storage to save data to implement with Instancing */
+		std::vector <matrix3> instancedMatrices{};
     };
 
     namespace MESH

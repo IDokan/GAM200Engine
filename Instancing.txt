@@ -1,0 +1,10 @@
+- Introduce Instancing
+- Describe what is a difference between Instancing and InstancedArray (Pros & Cons)
+- Let readers know I'm ready to get a constructive feedback and coding part going to start
+- Codings...
+
+
+Work load
+	- Mesh (Seems done)
+	- Vertices (Not yet)
+		- VertexLayoutDescription (Progressing..)

@@ -1,7 +1,5 @@
-/*  1. sinil.gang
- *  2. Shapes Programming Assignment
- *  3. CS230
- *  4. Spring 2019
+/*  sinil.gang
+ *  CS230 && GAM200
  */
 #include <Graphics/Mesh.hpp>
 #include <Graphics/VertexLayoutDescription.hpp>
@@ -12,64 +10,76 @@
 
 namespace Graphics
 {
-    Graphics::VertexLayoutDescription::VertexLayoutDescription(std::initializer_list<FieldType> fields) noexcept
-    {
-        for (const FieldType& element:fields)
-        {
-            AddField(element);
-        }
-    }
+	Graphics::VertexLayoutDescription::VertexLayoutDescription(std::initializer_list<FieldType> fields) noexcept
+	{
+		for (const FieldType& element : fields)
+		{
+			AddField(element);
+		}
+	}
 
-    void Graphics::VertexLayoutDescription::AddField(FieldType field_type) noexcept
-    { 
-        fields.push_back(field_type);
+	void Graphics::VertexLayoutDescription::AddField(FieldType field_type) noexcept
+	{
+		fields.push_back(field_type);
 
-        field_description temp;
-        
-        switch (field_type) { 
-            case Position2WithFloats:
-                temp.elementType  = GL_FLOAT;
-                temp.elementCount = 2;
-                temp.sizeInBytes  = sizeof(float) * temp.elementCount;
-            break;
+		field_description temp;
 
-            case TextureCoordinates2WithFloats:
-                temp.elementType  = GL_FLOAT;
-                temp.elementCount = 2;
-                temp.sizeInBytes  = sizeof(float) * temp.elementCount;
-            break;
+		switch (field_type) {
+		case Position2WithFloats:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 2;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			break;
 
-            case Color4WithUnsignedBytes:
-                temp.elementType  = GL_UNSIGNED_BYTE;
-                temp.elementCount = 4;
-                temp.sizeInBytes  = sizeof(unsigned char) * temp.elementCount;
-                temp.shouldNormalize = true;
-            break;
+		case TextureCoordinates2WithFloats:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 2;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			break;
 
-            default: 
-            break;
-        }
+		case Color4WithUnsignedBytes:
+			temp.elementType = GL_UNSIGNED_BYTE;
+			temp.elementCount = 4;
+			temp.sizeInBytes = sizeof(unsigned char) * temp.elementCount;
+			temp.shouldNormalize = true;
+			break;
 
-        vertexSize += temp.sizeInBytes;
+		case InstancedMatrix9WithFloats:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 9;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
 
-        vertexDescription.push_back(temp);
-    }
+		default:
+			break;
+		}
 
-    void Graphics::VertexLayoutDescription::SendVertexDescriptionToOpenGL() const noexcept
-    {
-        GLintptr offset = 0;
-        
-        for (int count = 0; count < static_cast<int>(fields.size()); ++count)
-        {
-            glCheck(glEnableVertexAttribArray(count));
+		vertexSize += temp.sizeInBytes;
 
-            field_description temp = vertexDescription.at(count);
+		vertexDescription.push_back(temp);
+	}
+
+	void Graphics::VertexLayoutDescription::SendVertexDescriptionToOpenGL() const noexcept
+	{
+		GLintptr offset = 0;
+
+		for (int count = 0; count < static_cast<int>(fields.size()); ++count)
+		{
+			glCheck(glEnableVertexAttribArray(count));
+
+			const field_description temp = vertexDescription.at(count);
 
 
-                glCheck(glVertexAttribPointer(count, temp.elementCount, temp.elementType, temp.shouldNormalize, vertexSize,
-                                  (void*)offset));
+			glCheck(glVertexAttribPointer(count, temp.elementCount, temp.elementType, temp.shouldNormalize, vertexSize,
+				(void*)offset));
 
-            offset += vertexDescription.at(count).sizeInBytes;
-        }
-    }
+			if (temp.shouldInstanced)
+			{
+				glCheck(glVertexAttribDivisor(count, 1));
+			}
+
+			offset += vertexDescription.at(count).sizeInBytes;
+		}
+	}
 }
