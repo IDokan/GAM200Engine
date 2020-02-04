@@ -30,14 +30,14 @@ public:
         PLAYER_1,
         PLAYER_2,
         OBSTACLE,
-        OBSTACLE_1,
+        MOVING_OBJECT,
     	TEST,
         STRING,
     };
 
     enum class ObjectSide
     {
-        UPSIDE,
+        UP_SIDE,
         RIGHT_SIDE,
         LEFT_SIDE,
         BOTTOM_SIDE,

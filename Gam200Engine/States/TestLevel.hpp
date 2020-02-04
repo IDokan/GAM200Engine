@@ -57,6 +57,8 @@ private:
     // test 
     Object* rotateObject1;
     Object* rotateObject2;
+    Object* movingObj_1;
+    Object* movingOBj_2;
         
 //map objects
     Object* first_Objects_1{};

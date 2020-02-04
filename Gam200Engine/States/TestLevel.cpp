@@ -38,7 +38,6 @@ void TestLevel::Load()
     // Set Layer
     auto objManager = ObjectManager::GetObjectManager();
     //Player* player = new Player( , ,,);
-   
 
     /*TEST*/
     rotateObject1 = new Object();
@@ -70,12 +69,39 @@ void TestLevel::Load()
     rotateObject2->SetDepth(-1.f);
     objManager->FindLayer(LayerNames::Stage)->AddObject(rotateObject2);
 
+    movingObj_1 = new Object();
+    movingObj_1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObj_1->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
+    movingObj_1->SetObjectName("asd");
+    movingObj_1->SetTranslation(vector2{ 0, -1900 });
+    movingObj_1->SetScale(vector2{ 100, 200 });
+    movingObj_1->AddComponent(new Sprite(movingObj_1));
+    movingObj_1->AddComponent(new Physics(movingObj_1));
+    movingObj_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObj_1, Physics::ObjectType::RECTANGLE);
+    movingObj_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
+    movingObj_1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
+    movingObj_1->SetDepth(-1.f);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(movingObj_1);
+
+   movingOBj_2 = new Object();
+   movingOBj_2->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+   movingOBj_2->SetObjectCollidingSide(Object::ObjectSide::LEFT_SIDE);
+   movingOBj_2->SetObjectName("asd");
+   movingOBj_2->SetTranslation(vector2{ 0, -2500 });
+   movingOBj_2->SetScale(vector2{ 100, 200 });
+   movingOBj_2->AddComponent(new Sprite(movingOBj_2));
+   movingOBj_2->AddComponent(new Physics(movingOBj_2));
+   movingOBj_2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingOBj_2, Physics::ObjectType::RECTANGLE);
+   movingOBj_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 1.f, 1.f });
+   movingOBj_2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
+   movingOBj_2->SetDepth(-1.f);
+   objManager->FindLayer(LayerNames::Stage)->AddObject(movingOBj_2);
+
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 0.f });
     background->SetScale(vector2{ 2000.f,4000.f });
     background->AddComponent(new Sprite(background));
-    background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
@@ -96,7 +122,6 @@ void TestLevel::Load()
     object1->SetObjectName("object1");
     object1->SetTranslation(vector2{ -200.f, -1800.f });
     object1->SetScale(vector2{ 150.f });
-    object1->SetRotation(45.f);
     object1->AddComponent(new Sprite(object1));
     object1->AddComponent(new Physics(object1));
     object1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
@@ -119,7 +144,6 @@ void TestLevel::Load()
     string = new String(object1, object2);
     objManager->FindLayer(Stage)->AddObject(string);
 
-
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     goalPoint->SetObjectName("goalPoint");
@@ -135,8 +159,7 @@ void TestLevel::Load()
     fileIO* a = 0;
     a->Input("../assets/fileIO/saveloadFile.txt");
 
-
-    startPoint = new Object();
+    /*startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -2000.f });
@@ -147,7 +170,7 @@ void TestLevel::Load()
     startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);*/
 
     gameClearPopUp = new Object();
     gameClearPopUp->SetObjectName("gameClearPopUp");
@@ -307,17 +330,10 @@ void TestLevel::Load()
 bool check_haha = false;
 void TestLevel::Update(float /*dt*/)
 {
-    //if (object1->GetComponentByTemplate<Physics>()->IsCollideWithRotatedObject(object2) == true)
-    //{
-    //    std::cout << "collision\n";
-    //}
+    object1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+    object2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
 
-    if (rotateObject1->GetComponentByTemplate<Physics>()->IsCollideWithRotatedObject(rotateObject2) == true)
-    {
-        std::cout << "collision\n";
-    }
-
-    //TestLevel::Collision();
+    TestLevel::Collision();
     TestLevel::Input();
 
     vector2 obj1Position = object1->GetComponentByTemplate<Physics>()->GetPosition();
@@ -331,7 +347,6 @@ void TestLevel::Update(float /*dt*/)
 
     auto objManager = ObjectManager::GetObjectManager();
 
-
     //Collision Check with goalPoint and Player 1 or 2
     if (goalPoint->GetComponentByTemplate<Physics>()->IsCollideWith(object1)
         && isCheck_Clear == false)
@@ -341,16 +356,13 @@ void TestLevel::Update(float /*dt*/)
     }
 
     PlayerScaling();
-
     CheckOutofPlace();
-
 }
 
 void TestLevel::Unload()
 {
     fileIO* a = 0;
     a->Output();
-
 }
 
 void TestLevel::Input()
