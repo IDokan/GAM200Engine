@@ -56,18 +56,40 @@ void Scene::Draw() const noexcept
 
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
+		// Before draw it, sort every object in each layer.
+		// TODO: Improve it. Do this when only need
 		element->SortingDepth();
+
+		// Start drawing iteration whole object container.
+		// There are a bunch of case that need different task
+		// 1. A sort of Sprite object
+		// 1-a. Sprite which instancing mode is on.
+		// 2. A sort of Text object
 		for (const auto& obj : element->GetObjContainer())
 		{
 			if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				sprite->UpdateUniforms(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+				if (sprite->isInstancingMode() == false)
+				{
+					// 1.
+					// Update model to NDC matrix as Uniform 
+					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+					sprite->UpdateUniforms(matrix,
+						obj.get()->GetTransform().CalculateWorldDepth());
+					Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+				}
+				else
+				{
+					// 1-a.
+					// Update model to NDC matrix as instanced array ( Change Mesh )
+					sprite->UpdateInstancingValues(nullptr);
+					Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+				}
 			}
-			if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())
+			else if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())
 			{
+				// 2.
+				// Update model to NDC matrix as Uniform value and Call different draw function.
 				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
 				text->Draw(matrix,
 					obj.get()->GetTransform().CalculateWorldDepth());

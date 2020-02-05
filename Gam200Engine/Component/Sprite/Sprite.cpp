@@ -25,7 +25,7 @@ Creation Date: 08.14.2019
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../assets/textures/rect.png"), isBackground(false)
+		imageFilePath("../assets/textures/rect.png"), isBackground(false), isInstancing(false)
 {
 	mesh->Clear();
 }
@@ -149,5 +149,31 @@ unsigned Sprite::GetTextureHandle() const noexcept
 unsigned* Sprite::GetRefTextureHandle() noexcept
 {
 	return texture->GetRefTextureHandle();
+}
+
+void Sprite::SetInstancingMode(bool isOn) noexcept
+{
+	isInstancing = isOn;
+
+	if (isInstancingMode())
+	{
+		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
+	}
+}
+
+bool Sprite::isInstancingMode() const noexcept
+{
+	return isInstancing;
+}
+
+void Sprite::UpdateInstancingValues(std::vector<matrix3>& matrices) const noexcept
+{
+	if (isInstancing == false)
+	{
+		static_assert("UpdateInstancingValues is called in only instancing mode");
+	}
+	
+	mesh->ChangeReferenceInstancedMatrices(&matrices);
+	vertices->UpdateVerticesFromMesh(*mesh);
 }
 #pragma warning (pop)

@@ -78,17 +78,17 @@ namespace Graphics
 
     matrix3 Mesh::GetInstancedMatrix(std::size_t index) const noexcept
     {
-	    if (instancedMatrices.empty())
+	    if (instancedMatrices->empty())
 	    {
 			return matrix3{ vector3{0.f}, vector3{0.f}, vector3{0.f} };
 	    }
-		else if	(index >= instancedMatrices.size())
+		else if	(index >= instancedMatrices->size())
 		{
-			return instancedMatrices.back();
+			return instancedMatrices->back();
 		}
 	    else
 	    {
-			return instancedMatrices.at(index);
+			return instancedMatrices->at(index);
 	    }
     }
 
@@ -108,9 +108,9 @@ namespace Graphics
         textureCoordinates.push_back(texture_coordinate);
     }
 
-    void Mesh::AddInstancedMatrix(matrix3 matrix) noexcept
+    void Mesh::ChangeReferenceInstancedMatrices(std::vector<matrix3>* matrix) noexcept
     {
-		instancedMatrices.push_back(matrix);
+		instancedMatrices = matrix;
     }
 
     void Graphics::Mesh::ClearColors() noexcept

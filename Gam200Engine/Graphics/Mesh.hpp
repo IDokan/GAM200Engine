@@ -38,7 +38,7 @@ namespace Graphics
         void AddColor(Graphics::Color4ub color) noexcept;
         void AddPoint( vector2 point) noexcept;
         void AddTextureCoordinate( vector2 texture_coordinate) noexcept;
-		void AddInstancedMatrix(matrix3 matrix) noexcept;
+		void ChangeReferenceInstancedMatrices(std::vector<matrix3>* matrix) noexcept;
 
         void ClearColors() noexcept;
         bool HasMoreThanOneColor() const noexcept;
@@ -54,7 +54,7 @@ namespace Graphics
         PointListPattern      pointListType = PointListPattern::Lines;
 
 		/* Below variables are storage to save data to implement with Instancing */
-		std::vector <matrix3> instancedMatrices{};
+		std::vector <matrix3>* instancedMatrices = nullptr;
     };
 
     namespace MESH

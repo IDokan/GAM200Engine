@@ -53,6 +53,11 @@ public:
 	unsigned int GetTextureHandle() const noexcept;
 	unsigned int* GetRefTextureHandle() noexcept;
 
+	/*************			Instancing			***********/
+	void SetInstancingMode(bool isOn) noexcept;
+	[[nodiscard]] bool isInstancingMode() const noexcept;
+	void UpdateInstancingValues(std::vector<matrix3>& matrices) const noexcept;
+
 protected:
 
 	std::shared_ptr<Graphics::Mesh> mesh;
@@ -61,5 +66,7 @@ protected:
 	std::shared_ptr<Graphics::Texture> texture;
 	std::string imageFilePath;
 
+	// below setting are all false as a default value.
 	bool isBackground;
+	bool isInstancing;
 };
