@@ -78,7 +78,7 @@ namespace Graphics
 
     matrix3 Mesh::GetInstancedMatrix(std::size_t index) const noexcept
     {
-	    if (instancedMatrices->empty())
+	    if (instancedMatrices == nullptr || instancedMatrices->empty())
 	    {
 			return matrix3{ vector3{0.f}, vector3{0.f}, vector3{0.f} };
 	    }

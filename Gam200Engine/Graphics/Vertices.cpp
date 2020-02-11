@@ -185,9 +185,25 @@ namespace Graphics
 					offset += size;
 					break;
 				}
-				case VertexLayoutDescription::InstancedMatrix9WithFloats:
+				case VertexLayoutDescription::InstancedMatrix9WithFloats1:
 				{
-					matrix3 instancedMatrix = mesh.GetInstancedMatrix(index);
+					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column0;
+					const unsigned long long size = sizeof(instancedMatrix);
+					std::memcpy(destination, &instancedMatrix, size);
+					offset += size;
+					break;
+				}
+				case VertexLayoutDescription::InstancedMatrix9WithFloats2:
+				{
+					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column1;
+					const unsigned long long size = sizeof(instancedMatrix);
+					std::memcpy(destination, &instancedMatrix, size);
+					offset += size;
+					break;
+				}
+				case VertexLayoutDescription::InstancedMatrix9WithFloats3:
+				{
+					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column2;
 					const unsigned long long size = sizeof(instancedMatrix);
 					std::memcpy(destination, &instancedMatrix, size);
 					offset += size;

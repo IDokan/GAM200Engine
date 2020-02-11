@@ -215,6 +215,7 @@
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
+    <ClInclude Include="Object\InstancedObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
@@ -306,6 +307,7 @@
     <ClCompile Include="Graphics\Vertices.cpp" />
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
+    <ClCompile Include="Object\InstancedObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />

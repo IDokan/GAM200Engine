@@ -44,9 +44,23 @@ namespace Graphics
 			temp.shouldNormalize = true;
 			break;
 
-		case InstancedMatrix9WithFloats:
+		case InstancedMatrix9WithFloats1:
 			temp.elementType = GL_FLOAT;
-			temp.elementCount = 9;
+			temp.elementCount = 3;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
+
+		case InstancedMatrix9WithFloats2:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 3;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
+
+		case InstancedMatrix9WithFloats3:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 3;
 			temp.sizeInBytes = sizeof(float) * temp.elementCount;
 			temp.shouldInstanced = true;
 			break;

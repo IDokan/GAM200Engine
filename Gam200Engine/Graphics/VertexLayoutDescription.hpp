@@ -16,7 +16,9 @@ namespace Graphics
             Position2WithFloats,
             TextureCoordinates2WithFloats,
             Color4WithUnsignedBytes,
-        	InstancedMatrix9WithFloats,
+			InstancedMatrix9WithFloats1,
+			InstancedMatrix9WithFloats2,
+			InstancedMatrix9WithFloats3,
         };
 
         constexpr VertexLayoutDescription() noexcept = default;

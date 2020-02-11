@@ -6,17 +6,19 @@
 
 Work load
 	- Mesh (Seems done)
-	- Vertices (I'll implement it in tomorrow)
+	- Vertices (Seems done)
 		- VertexLayoutDescription (Seems done)
-
+	- Special object capable instance drawing (Now Implementing..)
 
 A bunch of drawing functions
 - glDrawArrays
 - glDrawElements
 
 "Since we're not using an element index buffer we're going to call the glDrawArrays.
-It seems there are no difference in docs.gl.
+It seems there are no difference without parameters in docs.gl.
 
 However, in this discussion..
 https://community.khronos.org/t/whats-the-difference-between-gldrawarrays-and-gldrawelement/858
-
+glDrawArrays discharge the vertices in linear order, as they are stored in the vertex arrays.
+glDrawElement make me have to supply an index buffer. Indices allow us to submit the vertices in any order,
+and to reuse vertices that are shared between triangles.

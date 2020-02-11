@@ -232,6 +232,9 @@
     <ClCompile Include="States\StringStates\StringIdle.cpp">
       <Filter>States\StringStates</Filter>
     </ClCompile>
+    <ClCompile Include="Object\InstancedObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -506,6 +509,9 @@
     </ClInclude>
     <ClInclude Include="States\StringStates\StringIdle.hpp">
       <Filter>States\StringStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\InstancedObject.hpp">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

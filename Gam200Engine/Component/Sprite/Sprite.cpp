@@ -158,6 +158,7 @@ void Sprite::SetInstancingMode(bool isOn) noexcept
 	if (isInstancingMode())
 	{
 		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
+		material->shader = &Graphics::SHADER::Instancing();
 	}
 }
 
@@ -166,14 +167,16 @@ bool Sprite::isInstancingMode() const noexcept
 	return isInstancing;
 }
 
-void Sprite::UpdateInstancingValues(std::vector<matrix3>& matrices) const noexcept
+void Sprite::UpdateInstancingValues(std::vector<matrix3>* matrices, float depth) const noexcept
 {
 	if (isInstancing == false)
 	{
 		static_assert("UpdateInstancingValues is called in only instancing mode");
 	}
 	
-	mesh->ChangeReferenceInstancedMatrices(&matrices);
+	mesh->ChangeReferenceInstancedMatrices(matrices);
 	vertices->UpdateVerticesFromMesh(*mesh);
+
+	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
 }
 #pragma warning (pop)

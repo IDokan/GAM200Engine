@@ -82,8 +82,11 @@ void Scene::Draw() const noexcept
 				{
 					// 1-a.
 					// Update model to NDC matrix as instanced array ( Change Mesh )
-					sprite->UpdateInstancingValues(nullptr);
-					Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+					std::vector<matrix3> matrices;
+					matrices.push_back(matrix);
+					sprite->UpdateInstancingValues(&matrices, obj->GetTransform().CalculateWorldDepth());
+					Graphics::GL::drawInstanced(*sprite->GetVertices(), *sprite->GetMaterial());
 				}
 			}
 			else if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())

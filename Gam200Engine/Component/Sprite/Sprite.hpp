@@ -56,7 +56,7 @@ public:
 	/*************			Instancing			***********/
 	void SetInstancingMode(bool isOn) noexcept;
 	[[nodiscard]] bool isInstancingMode() const noexcept;
-	void UpdateInstancingValues(std::vector<matrix3>& matrices) const noexcept;
+	void UpdateInstancingValues(std::vector<matrix3>* matrices, float depth) const noexcept;
 
 protected:
 
