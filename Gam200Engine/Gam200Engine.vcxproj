@@ -234,6 +234,7 @@
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StateManager.hpp" />
     <ClInclude Include="States\TestLevel.hpp" />
+    <ClInclude Include="States\TutorialLevel.hpp" />
     <ClInclude Include="Systems\FileIO.hpp" />
     <ClInclude Include="Systems\Input.hpp" />
     <ClInclude Include="Systems\KeyHelpers.hpp" />
@@ -310,6 +311,7 @@
     <ClCompile Include="States\State.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
     <ClCompile Include="States\TestLevel.cpp" />
+    <ClCompile Include="States\TutorialLevel.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
     <ClCompile Include="Systems\KeyHelpers.cpp" />

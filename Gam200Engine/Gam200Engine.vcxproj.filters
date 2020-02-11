@@ -202,6 +202,7 @@
     <ClCompile Include="Systems\KeyHelpers.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="States\TutorialLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -426,6 +427,7 @@
     <ClInclude Include="Systems\KeyHelpers.hpp">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="States\TutorialLevel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

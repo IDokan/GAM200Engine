@@ -21,6 +21,7 @@ Creation Date: 08.05.2019
 // Include States
 #include <States/BasicMovementLevel.hpp>
 #include <States/OneWayPassLevel.hpp>
+#include <States/TutorialLevel.hpp>
 #include <States/SizeScalingLevel.hpp>
 #include <States/CrushObjectLevel.hpp>
 #include <States/DeadLevel.hpp>
@@ -53,7 +54,7 @@ void Application::Init()
     StateManager::GetStateManager()->AddStates("CrushObjectLevel", dynamic_cast<State*>(new CrushObjectLevel()));
 	StateManager::GetStateManager()->AddStates("TestLevel", dynamic_cast<State*>(new TestLevel()));
 	StateManager::GetStateManager()->AddStates("ProtoLevel", dynamic_cast<State*>(new ProtoLevel()));
-	
+    StateManager::GetStateManager()->AddStates("TutorialLevel", dynamic_cast<State*>(new TutorialLevel()));
 	 
 }
 
