@@ -238,6 +238,12 @@
     <ClCompile Include="Scenes\TutorialLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Particles\ParticleEmitter.cpp">
+      <Filter>Object\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\Particle.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -519,6 +525,12 @@
     <ClInclude Include="Scenes\TutorialLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Object\Particles\ParticleEmitter.hpp">
+      <Filter>Object\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\Particle.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -586,6 +598,9 @@
     </Filter>
     <Filter Include="Scenes">
       <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Particles">
+      <UniqueIdentifier>{64625ed0-0c34-4cda-a969-f3d2e23a88ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

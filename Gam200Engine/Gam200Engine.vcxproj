@@ -179,6 +179,7 @@
     <ClInclude Include="Component\Scripts\Volatile.hpp" />
     <ClInclude Include="Component\Sprite\Animation.hpp" />
     <ClInclude Include="Component\Sprite\CrushableObjectAnimation.hpp" />
+    <ClInclude Include="Component\Sprite\Particle.hpp" />
     <ClInclude Include="Component\Sprite\Sprite.hpp" />
     <ClInclude Include="Component\Sprite\StringSprite.hpp" />
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
+    <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
     <ClInclude Include="Object\Players\Player.h" />
     <ClInclude Include="Object\Players\Player1.h" />
     <ClInclude Include="Object\Players\Player2.h" />
@@ -274,6 +276,7 @@
     <ClCompile Include="Component\Scripts\Volatile.cpp" />
     <ClCompile Include="Component\Sprite\Animation.cpp" />
     <ClCompile Include="Component\Sprite\CrushableObjectAnimation.cpp" />
+    <ClCompile Include="Component\Sprite\Particle.cpp" />
     <ClCompile Include="Component\Sprite\Sprite.cpp" />
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
@@ -315,6 +318,7 @@
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
+    <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="Object\Players\Player.cpp" />
     <ClCompile Include="Object\Players\Player1.cpp" />
     <ClCompile Include="Object\Players\Player2.cpp" />
