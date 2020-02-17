@@ -26,6 +26,7 @@ Creation Date: 08.05.2019
 #include <Scenes/CrushObjectLevel.hpp>
 #include <Scenes/DeadLevel.hpp>
 #include <Scenes/ProtoLevel.hpp>
+#include <Scenes/TutorialLevel.hpp>
 
 
 Application* Application::GetApplication()
@@ -54,7 +55,7 @@ void Application::Init()
 	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
     SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
 	SceneManager::GetSceneManager()->AddScenes("ProtoLevel", dynamic_cast<Scene*>(new ProtoLevel()));
-	
+    SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	 
 }
 

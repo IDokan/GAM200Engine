@@ -19,7 +19,7 @@ class Object;
 class ProtoLevel final :public Scene
 {
 public:
-    ProtoLevel() = default;
+    ProtoLevel();
     virtual ~ProtoLevel(){};
 
     virtual void Update(float dt) override;

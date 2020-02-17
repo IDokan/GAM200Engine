@@ -176,28 +176,28 @@
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\BasicMovementLevel.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\CrushObjectLevel.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\DeadLevel.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\OneWayPassLevel.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\ProtoLevel.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\Scene.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SceneManager.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SizeScalingLevel.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="States\Walking.cpp">
       <Filter>States</Filter>
@@ -234,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="Object\InstancedObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\TutorialLevel.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -433,28 +436,28 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\BasicMovementLevel.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\CrushObjectLevel.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\DeadLevel.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\OneWayPassLevel.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\ProtoLevel.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Scene.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\SceneManager.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\SizeScalingLevel.hpp">
-      <Filter>Scene</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Component\StateMachine.hpp">
       <Filter>Component</Filter>
@@ -513,6 +516,9 @@
     <ClInclude Include="Object\InstancedObject.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\TutorialLevel.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -563,9 +569,6 @@
     <Filter Include="Component\Scripts">
       <UniqueIdentifier>{ed31fa1d-a8c1-47bd-8d2b-5e8157325aa8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
-    </Filter>
     <Filter Include="States">
       <UniqueIdentifier>{b152cfd2-2c7d-46f9-8a94-5f9691a086c9}</UniqueIdentifier>
     </Filter>
@@ -580,6 +583,9 @@
     </Filter>
     <Filter Include="States\StringStates">
       <UniqueIdentifier>{de2f900b-f9c8-4bb5-af8f-9481b70d8da1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

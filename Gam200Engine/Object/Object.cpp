@@ -12,7 +12,7 @@ Creation Date: 08.12.2019
 #include "Object.hpp"
 #include <iostream>
 
-Object::Object()
+Object::Object(): objType(), objSide()
 {
 }
 

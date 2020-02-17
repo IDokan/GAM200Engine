@@ -278,12 +278,18 @@ namespace MyImGui
 
 	void DrawInformation(Object* obj, float dt)
 	{
+		// !Prerequisite! -> object does not a nullptr
+		if (obj == nullptr)
+		{
+			return;
+		}
+		
 		// Draw Object Name first -> It is essential
 		DrawObjectNameSection(obj);
 
 		// Draw special object, after draw it return this function
 		{
-			// Draw level chang button description if given object is that
+			// Draw level change button description if given object is it
 			if (LevelChangeButton* levelChangeButton = dynamic_cast<LevelChangeButton*>(obj);
 				levelChangeButton != nullptr)
 			{
@@ -553,14 +559,14 @@ namespace MyImGui
 		{
 			layerNames.push_back(layerContainer.at(i)->GetNameAsString());
 		}
-		for (size_t i = 0; i < layerNames.size(); ++i)
+		for (int i = 0; i < layerNames.size(); ++i)
 		{
 			ImGui::Begin(layerNames.at(i).c_str());
 			const auto objContainer = layerContainer.at(i)->GetObjContainer();
 			const size_t size = objContainer.size();
 			for (int j = 0; j < static_cast<int>(size); ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && static_cast<size_t>(selectedLayer) == i))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && (selectedLayer) == i))
 				{
 					selectedLayer = static_cast<int>(i);
 					selected = j;

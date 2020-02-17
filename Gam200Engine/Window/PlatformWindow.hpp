@@ -34,9 +34,9 @@ private:
 
     GLFWwindow* window;
     
-    int xPos, yPos;
+    int xPos = 0, yPos = 0;
     int xSize = 1600;
     int ySize = 900;
-    bool isVsyncOn;
+    bool isVsyncOn = true;
      vector2 windowSize{ static_cast<float>(xSize), static_cast<float>(ySize) };
 };

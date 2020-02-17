@@ -17,7 +17,7 @@ Creation Date: 01.14.2020
 #include <Systems/MessageSystem/MessageCapableObjectManager.hpp>
 #include <Systems/MessageSystem/Message.hpp>
 #include <Component/MessageCapable.hpp>
-#include <Timer.hpp>
+#include <Systems/Timer.hpp>
 #include <Object/Object.hpp>
 
 MessageDispatcher* MessageDispatcher::GetDispatcher()

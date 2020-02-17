@@ -62,6 +62,11 @@ void ProtoLevel::Load() {
 
 
 }
+
+ProtoLevel::ProtoLevel(): background(nullptr), startPoint(nullptr), goalPoint(nullptr)
+{
+}
+
 void ProtoLevel::Update(float /*dt*/)
 {
 	//cameraManager.CameraMove(object1, object2, 1.1f);
