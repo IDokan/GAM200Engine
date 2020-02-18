@@ -15,6 +15,7 @@ Creation Date: 08.15.2019
 #include <cmath>
 #include <Angle.hpp>
 #include <vector>
+#include <iostream>
 
 Physics::Physics(Object* obj) : Component(obj)
 {
@@ -251,6 +252,7 @@ void Physics::ManageCollision()
         }
     }
 }
+
 bool Physics::IsCollideWith(Object* object)
 {
     if (owner->GetComponentByTemplate<Physics>() && object->GetComponentByTemplate<Physics>())
@@ -628,18 +630,7 @@ void Physics::IsCollideWithMovedObject()
             {
             case Object::ObjectSide::UP_SIDE:
             {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f)
-                {
-
-                    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{0.f, ownerVelocity.y });
-                    object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                }
-                break;
-            }
-            case Object::ObjectSide::BOTTOM_SIDE:
-            {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y > 0.f)
+                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
                 {
                     object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
                     object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
@@ -647,9 +638,19 @@ void Physics::IsCollideWithMovedObject()
                 }
                 break;
             }
+            case Object::ObjectSide::BOTTOM_SIDE:
+            {
+                 if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
+                 {
+                     object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
+                     object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                 }
+                break;
+            }
             case Object::ObjectSide::RIGHT_SIDE:
             {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x < 0.f)
+                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x < 0.f && ownerVelocity.y == 0.f)
                 {
                     object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
                     object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
@@ -659,7 +660,7 @@ void Physics::IsCollideWithMovedObject()
             }
             case Object::ObjectSide::LEFT_SIDE:
             {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x > 0.f)
+                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x > 0.f && ownerVelocity.y == 0.f)
                 {
                     object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
                     object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
@@ -732,4 +733,3 @@ vector2 Physics::CalculateRotatedObjectVertex(vector2 vertex, CollisionBox colii
     vector2 rotatedVertex = vector2{ vertex.x * std::cos(coliisionBox.Angle) - vertex.y * std::sin(coliisionBox.Angle), vertex.x * std::sin(coliisionBox.Angle) + vertex.y * std::cos(coliisionBox.Angle) } +vector2{ coliisionBox.Translation.x , coliisionBox.Translation.y };
     return rotatedVertex;
 }
-
