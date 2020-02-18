@@ -21,6 +21,7 @@ Creation Date: 12.10.2019
 // Include Special objects
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
+#include <Object/Particles/ParticleEmitter.hpp>
 
 void Scene::GameRestartScene() noexcept
 {
@@ -62,11 +63,29 @@ void Scene::Draw() const noexcept
 
 		// Start drawing iteration whole object container.
 		// There are a bunch of case that need different task
+		// 0. Particle Object
 		// 1. A sort of Sprite object
 		// 1-a. Sprite which instancing mode is on.
 		// 2. A sort of Text object
 		for (const auto& obj : element->GetObjContainer())
 		{
+			if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj.get()))
+			{
+				const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
+				Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
+				
+				std::vector<matrix3> matrices;
+				size_t sizeOfParticle = particleObjects.size();
+				matrices.reserve(sizeOfParticle);
+				for (size_t i = 0; i < sizeOfParticle; ++i)
+				{
+					matrices.emplace_back(cameraManager.GetWorldToNDCTransform() * particleObjects[i].transform.GetModelToWorld());
+					
+				}
+				particle->UpdateInstancingValues(&matrices, particleEmitter->GetDepth());
+				Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
+			}
+			
 			if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
 				if (sprite->isInstancingMode() == false)

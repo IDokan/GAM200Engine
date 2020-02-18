@@ -58,6 +58,7 @@ void Sprite::Init()
 
 void Sprite::Update(float /*dt*/)
 {
+	// If collision is detected, change color for DEBUG
 	if (Physics* p = owner->GetComponentByTemplate<Physics>())
 	{
 		Graphics::Color4f currentColor = GetColor();

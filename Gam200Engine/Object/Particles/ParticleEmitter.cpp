@@ -17,4 +17,10 @@ ParticleEmitter::ParticleEmitter(vector2 speed, vector2 speedOffset, vector2 tra
 	: speed(speed), speedOffset(speedOffset), translationOffset(translationOffset), numOfNewInstancesEachFrame(numOfNewInstancesEachFrame)
 {
 	Object::SetTranslation(translation);
+	AddComponent(new Particle(this, 5.f));
+}
+
+const std::vector<Particle::ParticleObject>& ParticleEmitter::GetParticleObjectsContainer() const
+{
+	return GetComponentByTemplate<Particle>()->GetParticles();
 }

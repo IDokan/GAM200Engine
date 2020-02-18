@@ -14,6 +14,7 @@ Creation Date: 02.17.2020
 #pragma once
 
 #include <Object/Object.hpp>
+#include <Component/Sprite/Particle.hpp>
 
 class ParticleEmitter : public Object
 {
@@ -21,6 +22,8 @@ public:
 	ParticleEmitter(vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, size_t numOfNewInstancesEachFrame = 1);
 
 	void SetParticleImage();
+
+	const std::vector<Particle::ParticleObject>& GetParticleObjectsContainer() const;
 
 	//  Setters
 	void SetSpeed(vector2 speed);
@@ -32,5 +35,4 @@ private:
 	vector2 speed;
 	vector2 speedOffset;
 	vector2 translationOffset;
-	size_t numOfNewInstancesEachFrame;
 };

@@ -21,11 +21,57 @@ class Object;
 class Particle : public Sprite
 {
 public:
-	Particle(Object* obj) noexcept;
+	// Struct of Individual single small localized object
+	struct ParticleObject
+	{
+		Transform transform;
+		vector2 velocity;
+		Graphics::Color4f color;
+		float life;
+
+		ParticleObject()
+			: velocity(0.f), color(1.f), life(0.f)
+		{}
+
+		ParticleObject& operator=(const ParticleObject& rhs)
+		{
+			transform = rhs.transform;
+			velocity = rhs.velocity;
+			color = rhs.color;
+			life = rhs.life;
+
+			return *this;
+		}
+
+		ParticleObject& operator+(const vector2& offset)
+		{
+			transform.SetTranslation(transform.GetTranslation() + offset);
+			return *this;
+		}
+	};
+
+	static const int ERROR_INDEX = -1;
+public:
+	Particle(Object* obj, float life, size_t numOfParticleObjects = 500) noexcept;
 
 	void Init() override;
 	void Update(float dt) override;
 	void Clear() override;
+
+	const std::vector<ParticleObject>& GetParticles() const;
+
+private:
+	void UpdateAllSingleParticles(float dt);
+	void ReviveDeadParticle();
+	long long FirstUnusedParticleObject() const;
+	void RespawnParticleObject(ParticleObject& particleObject, ParticleObject& newObject, vector2 offset = vector2{0.f});	bool IsParticleObjectDead(const ParticleObject& particleObject) const;
 	
 private:
+	float transparencyAdjustValue;
+	
+	size_t numOfNewInstancesEachFrame;
+
+	const size_t sizeOfParticles;
+	const float defaultLife;
+	std::vector<ParticleObject> particles;
 };
