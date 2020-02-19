@@ -55,8 +55,8 @@ namespace MyImGui
 	/* End of helper functions */
 
 	/* Helper global variables */
-	float snapSettingMoveX = 100.f;
-	float snapSettingMoveY = 100.f;
+	float snapSettingMoveX = 10.f;
+	float snapSettingMoveY = 10.f;
 	bool isCollisionBoxShown = false;
 	int stack = 0;
 	/* End of helper global variables */

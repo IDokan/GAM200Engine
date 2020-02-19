@@ -6,7 +6,7 @@ File Name:   BasicMovementLevel.cpp
 Author
     - Hyerin.Jung       junghl0621@gmail.com
 
-Creation Date: 02.11.2019
+Creation Date: 02.11.2020
 
     Source file for level that player learned how to move player
 ******************************************************************************/
@@ -204,52 +204,5 @@ void TutorialLevel::Collision()
 }
 
 void TutorialLevel::InitObject() {
-
-
-    ////=================================   BASIC  = ===================================
-    //auto objManager = ObjectManager::GetObjectManager();
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(string);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-
-    ////================================   BLOCKS   ===================================
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block1);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block2);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block3);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block4);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block5);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block6);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block7);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block8);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block9);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block10);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block11);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block12);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block13);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block14);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block15);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block16);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block17);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block18);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block19);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block20);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block21);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block22);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block23);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block24);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block25);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(block26);
-
-    ////=============================   OBJECTS   ======================================
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(moveBox1);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(lock1);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(lock2);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(key1);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(key2);
-
-    ////===========================================================================
-    //objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
 }

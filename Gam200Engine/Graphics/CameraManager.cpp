@@ -141,8 +141,8 @@ void Graphics::CameraManager::CameraMove(const Object* player1, const Object* pl
 		return;
 	}
 
-	PositionHandling(player1, player2);
-	ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
+	//PositionHandling(player1, player2);
+	//ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 }
 
 vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
