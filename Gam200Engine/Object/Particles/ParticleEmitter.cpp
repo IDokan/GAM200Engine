@@ -14,13 +14,34 @@ Creation Date: 02.17.2020
 
 ParticleEmitter::ParticleEmitter(vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset,
 	size_t numOfNewInstancesEachFrame)
-	: speed(speed), speedOffset(speedOffset), translationOffset(translationOffset), numOfNewInstancesEachFrame(numOfNewInstancesEachFrame)
+	: speed(speed), speedOffset(speedOffset), translationOffset(translationOffset)
 {
 	Object::SetTranslation(translation);
-	AddComponent(new Particle(this, 5.f));
+	AddComponent(new Particle(this, 0.0f, 1.f, 5.f));
+}
+
+void ParticleEmitter::SetParticleImage(const std::filesystem::path& filePath)
+{
+	GetComponentByTemplate<Particle>()->SetImage(filePath);
 }
 
 const std::vector<Particle::ParticleObject>& ParticleEmitter::GetParticleObjectsContainer() const
 {
 	return GetComponentByTemplate<Particle>()->GetParticles();
+}
+
+void ParticleEmitter::SetSpeed(vector2 speed)
+{
+}
+
+void ParticleEmitter::SetSpeedOffset(vector2 speedOffset)
+{
+}
+
+void ParticleEmitter::SetTranslationOffset(vector2 translationOffset)
+{
+}
+
+void ParticleEmitter::SetNumOfNewInstancesEachFrame(size_t numOfNewInstancesEachFrame)
+{
 }

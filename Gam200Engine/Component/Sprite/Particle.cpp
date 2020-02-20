@@ -15,8 +15,19 @@ Creation Date: 02.17.2020
 
 #include <Component/Sprite/Particle.hpp>
 
-Particle::Particle(Object* obj, float life, size_t numOfParticleObjects) noexcept
-	: Sprite(obj), sizeOfParticles(numOfParticleObjects), defaultLife(life)
+/**
+ * \brief parameter input:
+ * speed : vector2 - speed vector that particle would move.
+ * speedOffset : vector2 - turbulence of speed (Specific purpose & description are TBD)
+ * translation : vector2 - translation of particles (Specific purpose & description are TBD)
+ * translationOffset : vector2 - turbulence of translation (Specific purpose & description are TBD)
+ * transparencyAdjustValue : float - how fast particles going to be invisible. (particle.alpha -= dt * transparencyAdjustValue)
+ * newInstancesEachFrame : size_t - how many instances respawn in each frame.
+ * life : float - start life of each particle objects
+ * numOfParticleObjects : size_t - max 
+ */
+Particle::Particle(Object* obj, vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, float transparencyAdjustValue, size_t newInstancesEachFrame, float life, size_t numOfParticleObjects) noexcept
+	: Sprite(obj), speed(speed), speedOffset(speedOffset), translation(translation), translationOffset(translationOffset), transparencyAdjustValue(transparencyAdjustValue), numOfNewInstancesEachFrame(newInstancesEachFrame), defaultLife(life), sizeOfParticles(numOfParticleObjects)
 {
 }
 
@@ -73,9 +84,9 @@ void Particle::ReviveDeadParticle()
 		{
 			break;
 		}
-		/*	Set position, velocity required
-		 *
-		 */
+
+		// TODO: Set position, velocity required
+
 		ParticleObject newObj;
 		RespawnParticleObject(particles[unusedParticleIndex], newObj);
 	}

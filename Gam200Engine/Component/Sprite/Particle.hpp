@@ -52,13 +52,13 @@ public:
 
 	static const int ERROR_INDEX = -1;
 public:
-	Particle(Object* obj, float life, size_t numOfParticleObjects = 500) noexcept;
+	Particle(Object* obj, vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, float transparencyAdjustValue, size_t newInstancesEachFrame, float life, size_t numOfParticleObjects = 500) noexcept;
 
 	void Init() override;
 	void Update(float dt) override;
 	void Clear() override;
 
-	const std::vector<ParticleObject>& GetParticles() const;
+	const std::vector<Particle::ParticleObject>& GetParticles() const;
 
 private:
 	void UpdateAllSingleParticles(float dt);
@@ -67,11 +67,16 @@ private:
 	void RespawnParticleObject(ParticleObject& particleObject, ParticleObject& newObject, vector2 offset = vector2{0.f});	bool IsParticleObjectDead(const ParticleObject& particleObject) const;
 	
 private:
+	vector2 speed;
+	vector2 speedOffset;
+	vector2 translation;
+	vector2 translationOffset;
+
 	float transparencyAdjustValue;
 	
 	size_t numOfNewInstancesEachFrame;
 
-	const size_t sizeOfParticles;
 	const float defaultLife;
+	const size_t sizeOfParticles;
 	std::vector<ParticleObject> particles;
 };

@@ -21,7 +21,7 @@ class ParticleEmitter : public Object
 public:
 	ParticleEmitter(vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, size_t numOfNewInstancesEachFrame = 1);
 
-	void SetParticleImage();
+	void SetParticleImage(const std::filesystem::path& filePath);
 
 	const std::vector<Particle::ParticleObject>& GetParticleObjectsContainer() const;
 
