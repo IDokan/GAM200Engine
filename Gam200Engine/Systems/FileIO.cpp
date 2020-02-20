@@ -81,9 +81,9 @@ void fileIO::Input(const std::filesystem::path& filePath)
 	inStream.close();
 }
 
-void fileIO::Output()
+void fileIO::Output(const std::filesystem::path& outFilePath)
 {
-	std::ofstream saveLoad("../assets/fileIO/saveloadFile.txt");
+	std::ofstream saveLoad(outFilePath);
 
 	int i = 0;
 	const auto& loadsaveObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();

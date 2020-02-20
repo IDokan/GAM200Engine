@@ -32,7 +32,7 @@ TutorialLevel::~TutorialLevel()
 void TutorialLevel::Load()
 {
     fileIO* a = 0;
-    a->Input("../assets/fileIO/tutorialLevelFile.txt");
+    a->Input("../assets/fileIO/savedTutorial.txt");
 
     TutorialLevel::InitObject();
 
@@ -67,7 +67,7 @@ void TutorialLevel::GameRestart()
 void TutorialLevel::Unload()
 {
     fileIO* a = 0;
-    a->Output();
+    a->Output("../assets/fileIO/savedTutorial.txt");
 }
 
 void TutorialLevel::Input()

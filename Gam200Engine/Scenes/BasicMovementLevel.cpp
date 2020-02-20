@@ -69,7 +69,7 @@ void BasicMovementLevel::GameRestart()
 void BasicMovementLevel::Unload()
 {
 	fileIO* a = 0;
-	a->Output();
+	a->Output("../assets/fileIO/saveloadFile.txt");
 }
 
 void BasicMovementLevel::Input()

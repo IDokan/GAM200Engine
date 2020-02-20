@@ -20,6 +20,6 @@ Creation Date: 11.23.2019
 class fileIO
 {
 public:
-	void Input(const std::filesystem::path& filePath); //, const std::filesystem::path& texturePath
-	void Output();
+	void Input(const std::filesystem::path& inFilePath); //, const std::filesystem::path& texturePath
+	void Output(const std::filesystem::path& outFilePath);
 };
