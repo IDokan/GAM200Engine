@@ -12,12 +12,12 @@ Creation Date: 02.17.2020
 ******************************************************************************/
 #include <Object/Particles/ParticleEmitter.hpp>
 
-ParticleEmitter::ParticleEmitter(vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset,
-	size_t numOfNewInstancesEachFrame)
-	: speed(speed), speedOffset(speedOffset), translationOffset(translationOffset)
+ParticleEmitter::ParticleEmitter(vector2 speed, vector2 translation, float transparencyAdjustValue, size_t newInstancesEachFrame, float life, size_t maxParticles)
 {
 	Object::SetTranslation(translation);
-	AddComponent(new Particle(this, 0.0f, 1.f, 5.f));
+	AddComponent(new Particle(this, speed, translation, transparencyAdjustValue, newInstancesEachFrame, life, maxParticles));
+
+	particle = GetComponentByTemplate<Particle>();
 }
 
 void ParticleEmitter::SetParticleImage(const std::filesystem::path& filePath)
@@ -30,18 +30,57 @@ const std::vector<Particle::ParticleObject>& ParticleEmitter::GetParticleObjects
 	return GetComponentByTemplate<Particle>()->GetParticles();
 }
 
-void ParticleEmitter::SetSpeed(vector2 speed)
+void ParticleEmitter::SetSpeed(vector2 speed) noexcept
 {
+	particle->SetSpeed(speed);
 }
 
-void ParticleEmitter::SetSpeedOffset(vector2 speedOffset)
+void ParticleEmitter::SetTranslation(vector2 translation) noexcept
 {
+	particle->SetTranslation(translation);
 }
 
-void ParticleEmitter::SetTranslationOffset(vector2 translationOffset)
+void ParticleEmitter::SetTransparencyAdjustValue(float transparencyAdjustValue) noexcept
 {
+	particle->SetTransparencyAdjustValue(transparencyAdjustValue);
 }
 
-void ParticleEmitter::SetNumOfNewInstancesEachFrame(size_t numOfNewInstancesEachFrame)
+void ParticleEmitter::SetNewInstancesEachFrame(size_t newInstancesEachFrame) noexcept
 {
+	particle->SetNewInstancesEachFrame(newInstancesEachFrame);
+}
+
+void ParticleEmitter::SetStartLife(float startLife) noexcept
+{
+	particle->SetStartLife(startLife);
+}
+
+vector2 ParticleEmitter::GetSpeed() const noexcept
+{
+	return particle->GetSpeed();
+}
+
+vector2 ParticleEmitter::GetTranslation() const noexcept
+{
+	return particle->GetTranslation();
+}
+
+float ParticleEmitter::GetTransparencyAdjustValue() const noexcept
+{
+	return particle->GetTransparencyAdjustValue();
+}
+
+size_t ParticleEmitter::GetNewInstancesEachFrame() const noexcept
+{
+	return particle->GetNewInstancesEachFrame();
+}
+
+float ParticleEmitter::GetStartLife() const noexcept
+{
+	return 0.0f;
+}
+
+size_t ParticleEmitter::GetMaxParticles() const noexcept
+{
+	return particle->GetMaxParticles();
 }

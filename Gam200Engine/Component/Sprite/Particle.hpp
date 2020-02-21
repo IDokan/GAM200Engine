@@ -52,13 +52,28 @@ public:
 
 	static const int ERROR_INDEX = -1;
 public:
-	Particle(Object* obj, vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, float transparencyAdjustValue, size_t newInstancesEachFrame, float life, size_t numOfParticleObjects = 500) noexcept;
+	Particle(Object* obj, vector2 speed, vector2 translation, float transparencyAdjustValue, size_t newInstancesEachFrame, float startLife, size_t maxParticles) noexcept;
 
 	void Init() override;
 	void Update(float dt) override;
 	void Clear() override;
 
 	const std::vector<Particle::ParticleObject>& GetParticles() const;
+
+	// Setters
+	void SetSpeed(vector2 speed_) noexcept;
+	void SetTranslation(vector2 translation_) noexcept;
+	void SetTransparencyAdjustValue(float transparencyAdjustValue_) noexcept;
+	void SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept;
+	void SetStartLife(float startLife_) noexcept;
+
+	// Getters
+	vector2 GetSpeed() const noexcept;
+	vector2 GetTranslation() const noexcept;
+	float GetTransparencyAdjustValue() const noexcept;
+	size_t GetNewInstancesEachFrame() const noexcept;
+	float GetStartLife() const noexcept;
+	size_t GetMaxParticles() const noexcept;
 
 private:
 	void UpdateAllSingleParticles(float dt);
@@ -68,15 +83,13 @@ private:
 	
 private:
 	vector2 speed;
-	vector2 speedOffset;
 	vector2 translation;
-	vector2 translationOffset;
 
 	float transparencyAdjustValue;
 	
-	size_t numOfNewInstancesEachFrame;
+	size_t newInstancesEachFrame;
 
-	const float defaultLife;
-	const size_t sizeOfParticles;
+	float startLife;
+	const size_t maxParticles;
 	std::vector<ParticleObject> particles;
 };

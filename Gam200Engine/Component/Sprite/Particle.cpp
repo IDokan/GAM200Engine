@@ -18,16 +18,14 @@ Creation Date: 02.17.2020
 /**
  * \brief parameter input:
  * speed : vector2 - speed vector that particle would move.
- * speedOffset : vector2 - turbulence of speed (Specific purpose & description are TBD)
  * translation : vector2 - translation of particles (Specific purpose & description are TBD)
- * translationOffset : vector2 - turbulence of translation (Specific purpose & description are TBD)
  * transparencyAdjustValue : float - how fast particles going to be invisible. (particle.alpha -= dt * transparencyAdjustValue)
  * newInstancesEachFrame : size_t - how many instances respawn in each frame.
  * life : float - start life of each particle objects
- * numOfParticleObjects : size_t - max 
+ * numParticles : size_t - maximum size of particle.
  */
-Particle::Particle(Object* obj, vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, float transparencyAdjustValue, size_t newInstancesEachFrame, float life, size_t numOfParticleObjects) noexcept
-	: Sprite(obj), speed(speed), speedOffset(speedOffset), translation(translation), translationOffset(translationOffset), transparencyAdjustValue(transparencyAdjustValue), numOfNewInstancesEachFrame(newInstancesEachFrame), defaultLife(life), sizeOfParticles(numOfParticleObjects)
+Particle::Particle(Object* obj, vector2 speed, vector2 translation, float transparencyAdjustValue, size_t newInstancesEachFrame, float startLife, size_t maxParticles) noexcept
+	: Sprite(obj), speed(speed), translation(translation), transparencyAdjustValue(transparencyAdjustValue), newInstancesEachFrame(newInstancesEachFrame), startLife(startLife), maxParticles(maxParticles)
 {
 }
 
@@ -35,8 +33,8 @@ void Particle::Init()
 {
 	Sprite::SetInstancingMode(true);
 
-	particles.reserve(sizeOfParticles);
-	for (size_t i = 0; i < sizeOfParticles; ++i)
+	particles.reserve(maxParticles);
+	for (size_t i = 0; i < maxParticles; ++i)
 	{
 		particles.emplace_back();
 	}
@@ -60,9 +58,64 @@ const std::vector<Particle::ParticleObject>& Particle::GetParticles() const
 	return particles;
 }
 
+void Particle::SetSpeed(vector2 speed_) noexcept
+{
+	speed = speed_;
+}
+
+void Particle::SetTranslation(vector2 translation_) noexcept
+{
+	translation = translation_;
+}
+
+void Particle::SetTransparencyAdjustValue(float transparencyAdjustValue_) noexcept
+{
+	transparencyAdjustValue = transparencyAdjustValue_;
+}
+
+void Particle::SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept
+{
+	newInstancesEachFrame = newInstancesEachFrame_;
+}
+
+void Particle::SetStartLife(float startLife_) noexcept
+{
+	startLife = startLife_;
+}
+
+vector2 Particle::GetSpeed() const noexcept
+{
+	return speed;
+}
+
+vector2 Particle::GetTranslation() const noexcept
+{
+	return translation;
+}
+
+float Particle::GetTransparencyAdjustValue() const noexcept
+{
+	return transparencyAdjustValue;
+}
+
+size_t Particle::GetNewInstancesEachFrame() const noexcept
+{
+	return newInstancesEachFrame;
+}
+
+float Particle::GetStartLife() const noexcept
+{
+	return startLife;
+}
+
+size_t Particle::GetMaxParticles() const noexcept
+{
+	return maxParticles;
+}
+
 void Particle::UpdateAllSingleParticles(float dt)
 {
-	for (size_t i = 0; i < sizeOfParticles; ++i)
+	for (size_t i = 0; i < maxParticles; ++i)
 	{
 		ParticleObject& p = particles[i];
 		p.life -= dt;
@@ -77,7 +130,7 @@ void Particle::UpdateAllSingleParticles(float dt)
 void Particle::ReviveDeadParticle()
 {
 	// Revive dead particle into new Alive Particle
-	for (unsigned int i = 0; i < numOfNewInstancesEachFrame; ++i)
+	for (unsigned int i = 0; i < newInstancesEachFrame; ++i)
 	{
 		const long long unusedParticleIndex = FirstUnusedParticleObject();
 		if (unusedParticleIndex == ERROR_INDEX)
@@ -97,7 +150,7 @@ long long Particle::FirstUnusedParticleObject() const
 	static size_t lastUsedParticleObject = 0;
 
 	// Search from last used particle, this will usually return almost instantly
-	for (size_t i = lastUsedParticleObject; i < sizeOfParticles; ++i)
+	for (size_t i = lastUsedParticleObject; i < maxParticles; ++i)
 	{
 		if (IsParticleObjectDead(particles[i]))
 		{

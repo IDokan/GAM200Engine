@@ -19,20 +19,27 @@ Creation Date: 02.17.2020
 class ParticleEmitter : public Object
 {
 public:
-	ParticleEmitter(vector2 speed, vector2 speedOffset, vector2 translation, vector2 translationOffset, size_t numOfNewInstancesEachFrame = 1);
+	ParticleEmitter(vector2 speed, vector2 translation, float transparencyAdjustValue = 0.f, size_t newInstancesEachFrame = 1U, float life = 5.f, size_t maxParticles = 500U);
 
 	void SetParticleImage(const std::filesystem::path& filePath);
 
 	const std::vector<Particle::ParticleObject>& GetParticleObjectsContainer() const;
 
 	//  Setters
-	void SetSpeed(vector2 speed);
-	void SetSpeedOffset(vector2 speedOffset);
-	void SetTranslationOffset(vector2 translationOffset);
-	void SetNumOfNewInstancesEachFrame(size_t numOfNewInstancesEachFrame);
+	void SetSpeed(vector2 speed) noexcept;
+	void SetTranslation(vector2 translation) noexcept;
+	void SetTransparencyAdjustValue(float transparencyAdjustValue) noexcept;
+	void SetNewInstancesEachFrame(size_t newInstancesEachFrame) noexcept;
+	void SetStartLife(float startLife) noexcept;
+	
+	// Getters
+	vector2 GetSpeed() const noexcept;
+	vector2 GetTranslation() const noexcept;
+	float GetTransparencyAdjustValue() const noexcept;
+	size_t GetNewInstancesEachFrame() const noexcept;
+	float GetStartLife() const noexcept;
+	size_t GetMaxParticles() const noexcept;
 	
 private:
-	vector2 speed;
-	vector2 speedOffset;
-	vector2 translationOffset;
+	Particle* particle;
 };
