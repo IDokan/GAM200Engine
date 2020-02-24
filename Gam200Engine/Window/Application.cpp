@@ -20,6 +20,7 @@ Creation Date: 08.05.2019
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 // Include States
+#include <Scenes/Editor.hpp>
 #include <Scenes/BasicMovementLevel.hpp>
 #include <Scenes/OneWayPassLevel.hpp>
 #include <Scenes/SizeScalingLevel.hpp>
@@ -49,8 +50,9 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 #ifdef _DEBUG
+	SceneManager::GetSceneManager()->AddScenes("Editor", dynamic_cast<Scene*>(new Editor()));
+#endif
 	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
-#endif									
 	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
 	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
     SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
