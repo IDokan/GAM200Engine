@@ -24,13 +24,14 @@ Creation Date: 02.17.2020
  * life : float - start life of each particle objects
  * numParticles : size_t - maximum size of particle.
  */
-Particle::Particle(Object* obj, vector2 speed, vector2 translation, float transparencyAdjustValue, size_t newInstancesEachFrame, float startLife, size_t maxParticles) noexcept
-	: Sprite(obj), speed(speed), translation(translation), transparencyAdjustValue(transparencyAdjustValue), newInstancesEachFrame(newInstancesEachFrame), startLife(startLife), maxParticles(maxParticles)
+Particle::Particle(Object* obj, size_t newInstancesEachFrame, float startLife, size_t maxParticles, std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&)> updateFunc) noexcept
+	: Sprite(obj), newInstancesEachFrame(newInstancesEachFrame), startLife(startLife), maxParticles(maxParticles), ReviveFunc(reviveFunc), UpdateFunc(updateFunc)
 {
 }
 
 void Particle::Init()
 {
+	Sprite::Init();
 	Sprite::SetInstancingMode(true);
 
 	particles.reserve(maxParticles);
@@ -58,21 +59,6 @@ const std::vector<Particle::ParticleObject>& Particle::GetParticles() const
 	return particles;
 }
 
-void Particle::SetSpeed(vector2 speed_) noexcept
-{
-	speed = speed_;
-}
-
-void Particle::SetTranslation(vector2 translation_) noexcept
-{
-	translation = translation_;
-}
-
-void Particle::SetTransparencyAdjustValue(float transparencyAdjustValue_) noexcept
-{
-	transparencyAdjustValue = transparencyAdjustValue_;
-}
-
 void Particle::SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept
 {
 	newInstancesEachFrame = newInstancesEachFrame_;
@@ -81,21 +67,6 @@ void Particle::SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept
 void Particle::SetStartLife(float startLife_) noexcept
 {
 	startLife = startLife_;
-}
-
-vector2 Particle::GetSpeed() const noexcept
-{
-	return speed;
-}
-
-vector2 Particle::GetTranslation() const noexcept
-{
-	return translation;
-}
-
-float Particle::GetTransparencyAdjustValue() const noexcept
-{
-	return transparencyAdjustValue;
 }
 
 size_t Particle::GetNewInstancesEachFrame() const noexcept
@@ -121,8 +92,7 @@ void Particle::UpdateAllSingleParticles(float dt)
 		p.life -= dt;
 		if (!IsParticleObjectDead(p))
 		{
-			p.transform.SetTranslation(p.transform.GetTranslation() + p.velocity * dt);
-			p.color.alpha -= dt * transparencyAdjustValue;
+			UpdateFunc(p);
 		}
 	}
 }
@@ -138,10 +108,8 @@ void Particle::ReviveDeadParticle()
 			break;
 		}
 
-		// TODO: Set position, velocity required
-
-		ParticleObject newObj;
-		RespawnParticleObject(particles[unusedParticleIndex], newObj);
+		ParticleObject newObj = ReviveFunc();
+		RespawnParticleObject(particles[unusedParticleIndex], newObj, owner->GetTranslation());
 	}
 }
 

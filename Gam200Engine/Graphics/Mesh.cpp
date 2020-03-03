@@ -49,6 +49,10 @@ namespace Graphics
 
      vector2 Graphics::Mesh::GetPoint(std::size_t index) const noexcept
     {
+		 if (index >= points.size())
+		 {
+			 return points.back();
+		 }
         return points.at(index);
     }
     Color4ub Graphics::Mesh::GetColor(std::size_t index) const noexcept 

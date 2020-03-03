@@ -12,10 +12,10 @@ Creation Date: 02.17.2020
 ******************************************************************************/
 #include <Object/Particles/ParticleEmitter.hpp>
 
-ParticleEmitter::ParticleEmitter(vector2 speed, vector2 translation, float transparencyAdjustValue, size_t newInstancesEachFrame, float life, size_t maxParticles)
+ParticleEmitter::ParticleEmitter(size_t newInstancesEachFrame, float life, size_t maxParticles,
+	std::function<Particle::ParticleObject(void)> reviveFunc, std::function<void(Particle::ParticleObject&)> updateFunc)
 {
-	Object::SetTranslation(translation);
-	AddComponent(new Particle(this, speed, translation, transparencyAdjustValue, newInstancesEachFrame, life, maxParticles));
+	AddComponent(new Particle(this, newInstancesEachFrame, life, maxParticles, reviveFunc, updateFunc));
 
 	particle = GetComponentByTemplate<Particle>();
 }
@@ -30,21 +30,6 @@ const std::vector<Particle::ParticleObject>& ParticleEmitter::GetParticleObjects
 	return GetComponentByTemplate<Particle>()->GetParticles();
 }
 
-void ParticleEmitter::SetSpeed(vector2 speed) noexcept
-{
-	particle->SetSpeed(speed);
-}
-
-void ParticleEmitter::SetTranslation(vector2 translation) noexcept
-{
-	particle->SetTranslation(translation);
-}
-
-void ParticleEmitter::SetTransparencyAdjustValue(float transparencyAdjustValue) noexcept
-{
-	particle->SetTransparencyAdjustValue(transparencyAdjustValue);
-}
-
 void ParticleEmitter::SetNewInstancesEachFrame(size_t newInstancesEachFrame) noexcept
 {
 	particle->SetNewInstancesEachFrame(newInstancesEachFrame);
@@ -53,21 +38,6 @@ void ParticleEmitter::SetNewInstancesEachFrame(size_t newInstancesEachFrame) noe
 void ParticleEmitter::SetStartLife(float startLife) noexcept
 {
 	particle->SetStartLife(startLife);
-}
-
-vector2 ParticleEmitter::GetSpeed() const noexcept
-{
-	return particle->GetSpeed();
-}
-
-vector2 ParticleEmitter::GetTranslation() const noexcept
-{
-	return particle->GetTranslation();
-}
-
-float ParticleEmitter::GetTransparencyAdjustValue() const noexcept
-{
-	return particle->GetTransparencyAdjustValue();
 }
 
 size_t ParticleEmitter::GetNewInstancesEachFrame() const noexcept

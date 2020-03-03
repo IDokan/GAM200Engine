@@ -24,6 +24,7 @@ Creation Date: 12.10.2019
 #include <Component/StateMachine.hpp>
 #include <States/Walking.hpp>
 #include <Object/Players/Player.h>
+#include <Object/Particles/ParticleEmitter.hpp>
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -131,6 +132,7 @@ void BasicMovementLevel::InitObject() {
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
+	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(true);
     startPoint->SetDepth(-1.f);
 
     auto objManager = ObjectManager::GetObjectManager();
@@ -141,6 +143,26 @@ void BasicMovementLevel::InitObject() {
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
+	//ParticleEmitter* emitter = new ParticleEmitter(1U, 5.f, 500U, 
+	//	[&]() -> Particle::ParticleObject
+	//	{
+	//		Particle::ParticleObject p;
+	//		p.life = 5.f;
+	//		p.transform.SetTranslation(vector2{ 0.f, 10.f });
+	//		p.transform.SetScale(vector2{ 100.f });
+	//		
+	//		return p;
+	//	},
+	//	[&](Particle::ParticleObject& p) -> void
+	//	{
+	//		p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ 0.f, 1.f });
+	//	}
+	//	);
+	//emitter->SetTranslation(vector2{ 0.f });
+	//emitter->SetDepth(-5.f);
+	//emitter->SetObjectName("Particle Emitter");
+	//
+	//objManager->FindLayer(LayerNames::Stage)->AddObject(emitter);
 }
 
 void AddStateTestObject()

@@ -14,6 +14,7 @@ Creation Date: 02.17.2020
 ******************************************************************************/
 #pragma once
 
+#include <functional>
 #include <Component/Sprite/Sprite.hpp>
 
 class Object;
@@ -33,7 +34,7 @@ public:
 			: velocity(0.f), color(1.f), life(0.f)
 		{}
 
-		ParticleObject& operator=(const ParticleObject& rhs)
+		ParticleObject& operator=(const ParticleObject & rhs)
 		{
 			transform = rhs.transform;
 			velocity = rhs.velocity;
@@ -52,7 +53,8 @@ public:
 
 	static const int ERROR_INDEX = -1;
 public:
-	Particle(Object* obj, vector2 speed, vector2 translation, float transparencyAdjustValue, size_t newInstancesEachFrame, float startLife, size_t maxParticles) noexcept;
+	Particle(Object* obj, size_t newInstancesEachFrame, float startLife, size_t maxParticles, 
+		std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&)> updateFunc) noexcept;
 
 	void Init() override;
 	void Update(float dt) override;
@@ -61,16 +63,10 @@ public:
 	const std::vector<Particle::ParticleObject>& GetParticles() const;
 
 	// Setters
-	void SetSpeed(vector2 speed_) noexcept;
-	void SetTranslation(vector2 translation_) noexcept;
-	void SetTransparencyAdjustValue(float transparencyAdjustValue_) noexcept;
 	void SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept;
 	void SetStartLife(float startLife_) noexcept;
 
 	// Getters
-	vector2 GetSpeed() const noexcept;
-	vector2 GetTranslation() const noexcept;
-	float GetTransparencyAdjustValue() const noexcept;
 	size_t GetNewInstancesEachFrame() const noexcept;
 	float GetStartLife() const noexcept;
 	size_t GetMaxParticles() const noexcept;
@@ -82,14 +78,12 @@ private:
 	void RespawnParticleObject(ParticleObject& particleObject, ParticleObject& newObject, vector2 offset = vector2{0.f});	bool IsParticleObjectDead(const ParticleObject& particleObject) const;
 	
 private:
-	vector2 speed;
-	vector2 translation;
-
-	float transparencyAdjustValue;
-	
 	size_t newInstancesEachFrame;
 
 	float startLife;
 	const size_t maxParticles;
 	std::vector<ParticleObject> particles;
+
+	std::function<ParticleObject(void)> ReviveFunc;
+	std::function<void(ParticleObject&)> UpdateFunc;
 };

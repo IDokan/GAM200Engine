@@ -80,13 +80,12 @@ void Scene::Draw() const noexcept
 				for (size_t i = 0; i < sizeOfParticle; ++i)
 				{
 					matrices.emplace_back(cameraManager.GetWorldToNDCTransform() * particleObjects[i].transform.GetModelToWorld());
-					
 				}
 				particle->UpdateInstancingValues(&matrices, particleEmitter->GetDepth());
 				Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
 			}
 			
-			if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
+			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
 				if (sprite->isInstancingMode() == false)
 				{
