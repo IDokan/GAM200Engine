@@ -176,7 +176,7 @@ void Sprite::UpdateInstancingValues(std::vector<matrix3>* matrices, float depth)
 	}
 	
 	mesh->ChangeReferenceInstancedMatrices(matrices);
-	vertices->UpdateVerticesFromMesh(*mesh);
+	vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
 
 	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
 }

@@ -47,13 +47,18 @@ namespace Graphics
 	{
 		verticesHandle = other.verticesHandle;
 		dataBufferHandle = other.dataBufferHandle;
+		instanceDataBufferHandle = other.instanceDataBufferHandle;
 		verticesCount = other.verticesCount;
+		instanceDataCount = other.instanceDataCount;
 		verticesListPattern = other.verticesListPattern;
-		layout = other.layout;
 		bufferVertexCapacity = other.bufferVertexCapacity;
+		layout = other.layout;
 		other.verticesHandle = 0;
 		other.dataBufferHandle = 0;
+		other.instanceDataBufferHandle = 0;
 		other.verticesCount = 0;
+		other.instanceDataCount = 0;
+		other.verticesListPattern = 0;
 		other.bufferVertexCapacity = 0;
 	}
 
@@ -64,13 +69,16 @@ namespace Graphics
 		DeleteVerticesOnGPU();
 		verticesHandle = other.verticesHandle;
 		dataBufferHandle = other.dataBufferHandle;
+		instanceDataBufferHandle = other.instanceDataBufferHandle;
 		verticesCount = other.verticesCount;
-		verticesListPattern = other.verticesListPattern;
-		layout = other.layout;
+		instanceDataCount = other.instanceDataCount;
 		bufferVertexCapacity = other.bufferVertexCapacity;
+		layout = other.layout;
 		other.verticesHandle = 0;
 		other.dataBufferHandle = 0;
+		other.instanceDataBufferHandle = 0;
 		other.verticesCount = 0;
+		other.instanceDataCount = 0;
 		other.bufferVertexCapacity = 0;
 	}
 
@@ -81,20 +89,30 @@ namespace Graphics
 		layout = vertex_layout;
 
 		verticesListPattern = FindVerticesListPattern(mesh);
-		verticesCount = static_cast<int>(mesh.GetPointCount());
+		instanceDataCount = static_cast<unsigned int>(mesh.GetInstancedMatrixCount());
+		verticesCount = static_cast<unsigned int>(mesh.GetPointCount());
 		bufferVertexCapacity = verticesCount;
 
 		glCheck(glGenVertexArrays(1, &verticesHandle));
 
 		glCheck(glGenBuffers(1, &dataBufferHandle));
 
-		glCheck(glBindBuffer(GL_ARRAY_BUFFER, dataBufferHandle));
-
 		Select(*this);
 
-		glCheck(glBufferData(GL_ARRAY_BUFFER, (verticesCount * layout.GetVertexSize()), nullptr, GL_STATIC_DRAW));
+		glCheck(glBindBuffer(GL_ARRAY_BUFFER, dataBufferHandle));
+		static constexpr GLvoid* NO_COPY = nullptr;
+		glCheck(glBufferData(GL_ARRAY_BUFFER, (static_cast<unsigned long long>(verticesCount) * layout.GetVertexSize()), NO_COPY, GL_STATIC_DRAW));
+		glCheck(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
-		layout.SendVertexDescriptionToOpenGL();
+		if (mesh.IsInstanceMatrixInvalid() == false)
+		{
+			glCheck(glGenBuffers(1, &instanceDataBufferHandle));
+			glCheck(glBindBuffer(GL_ARRAY_BUFFER, instanceDataBufferHandle));
+			glCheck(glBufferData(GL_ARRAY_BUFFER, (static_cast<unsigned long long>(instanceDataCount) * layout.GetInstanceVertexSize()), NO_COPY, GL_STATIC_DRAW));
+			glCheck(glBindBuffer(GL_ARRAY_BUFFER, 0));
+		}
+
+		layout.SendVertexDescriptionToOpenGL(dataBufferHandle, instanceDataBufferHandle);
 
 		WriteMeshDataToVertexBuffer(mesh);
 
@@ -103,9 +121,9 @@ namespace Graphics
 
 	void Vertices::UpdateVerticesFromMesh(const Mesh& mesh)
 	{
-		if (static_cast<int>(mesh.GetPointCount()) <= bufferVertexCapacity)
+		if ((mesh.GetPointCount()) <= bufferVertexCapacity)
 		{
-			verticesCount = static_cast<unsigned int>(mesh.GetPointCount());
+			verticesCount = (mesh.GetPointCount());
 
 			verticesListPattern = FindVerticesListPattern(mesh);
 		}
@@ -121,7 +139,6 @@ namespace Graphics
 	void Vertices::Select(const Vertices& vertices)
 	{
 		glBindVertexArray(vertices.verticesHandle);
-
 	}
 
 	void Vertices::SelectNothing()
@@ -134,8 +151,11 @@ namespace Graphics
 		if (verticesHandle != 0)
 		{
 			glCheck(glDeleteBuffers(1, &verticesHandle));
-			verticesHandle = 0;
 			glCheck(glDeleteVertexArrays(1, &dataBufferHandle));
+			glCheck(glDeleteVertexArrays(1, &instanceDataBufferHandle));
+			verticesHandle = 0;
+			dataBufferHandle = 0;
+			instanceDataBufferHandle = 0;
 		}
 	}
 
@@ -148,20 +168,21 @@ namespace Graphics
 
 		Select(*this);
 
+		// Write vertex data
 		glCheck(glBindBuffer(GL_ARRAY_BUFFER, dataBufferHandle));
 		void* pointer;
 		glCheck(pointer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 
 		GLuint offset = 0;
-		char* destination = nullptr;
-		for (std::size_t index = 0; index < mesh.GetPointCount(); ++index)
+		const size_t pointCount = mesh.GetPointCount();
+		for (std::size_t index = 0; index < pointCount; ++index)
 		{
 			for (const auto& element : layout.GetFieldTypes())
 			{
-				destination = reinterpret_cast<char*>(pointer) + offset;
+				char* destination = reinterpret_cast<char*>(pointer) + offset;
 				switch (element)
 				{
-				case VertexLayoutDescription::Position2WithFloats:
+				case VertexLayoutDescription::FieldType::Position2WithFloats:
 				{
 					vector2 position = mesh.GetPoint(index);
 					const unsigned long long size = sizeof(position);
@@ -169,7 +190,7 @@ namespace Graphics
 					offset += size;
 					break;
 				}
-				case VertexLayoutDescription::TextureCoordinates2WithFloats:
+				case VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats:
 				{
 					vector2 textureCoordinate = mesh.GetTextureCoordinate(index);
 					const unsigned long long size = sizeof(textureCoordinate);
@@ -177,35 +198,11 @@ namespace Graphics
 					offset += size;
 					break;
 				}
-				case VertexLayoutDescription::Color4WithUnsignedBytes:
+				case VertexLayoutDescription::FieldType::Color4WithUnsignedBytes:
 				{
 					Color4ub color = mesh.GetColor(index);
 					const unsigned long long size = sizeof(color);
 					std::memcpy(destination, &color, size);
-					offset += size;
-					break;
-				}
-				case VertexLayoutDescription::InstancedMatrix9WithFloats1:
-				{
-					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column0;
-					const unsigned long long size = sizeof(instancedMatrix);
-					std::memcpy(destination, &instancedMatrix, size);
-					offset += size;
-					break;
-				}
-				case VertexLayoutDescription::InstancedMatrix9WithFloats2:
-				{
-					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column1;
-					const unsigned long long size = sizeof(instancedMatrix);
-					std::memcpy(destination, &instancedMatrix, size);
-					offset += size;
-					break;
-				}
-				case VertexLayoutDescription::InstancedMatrix9WithFloats3:
-				{
-					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column2;
-					const unsigned long long size = sizeof(instancedMatrix);
-					std::memcpy(destination, &instancedMatrix, size);
 					offset += size;
 					break;
 				}
@@ -215,6 +212,59 @@ namespace Graphics
 		}
 
 		glCheck(glUnmapBuffer(GL_ARRAY_BUFFER));
+		glCheck(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+		if (instanceDataBufferHandle == NOT_GENERATED || mesh.IsInstanceMatrixInvalid())
+		{
+			SelectNothing();
+			return;
+		}
+
+		// Write Instance Data
+		glCheck(glBindBuffer(GL_ARRAY_BUFFER, instanceDataBufferHandle));
+		void* instancePointer;
+		glCheck(instancePointer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+
+		offset = 0;
+		const size_t instancedMatrixCount = mesh.GetInstancedMatrixCount();
+		for (size_t index = 0; index < instancedMatrixCount; index++)
+		{
+			for (const auto& element : layout.GetFieldTypes())
+			{
+				char* destination = reinterpret_cast<char*>(instancePointer) + offset;
+				switch (element)
+				{
+				case VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats1:
+				{
+					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column0;
+					const unsigned long long size = sizeof(instancedMatrix);
+					std::memcpy(destination, &instancedMatrix, size);
+					offset += size;
+					break;
+				}
+				case VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats2:
+				{
+					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column1;
+					const unsigned long long size = sizeof(instancedMatrix);
+					std::memcpy(destination, &instancedMatrix, size);
+					offset += size;
+					break;
+				}
+				case VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats3:
+				{
+					vector3 instancedMatrix = mesh.GetInstancedMatrix(index).column2;
+					const unsigned long long size = sizeof(instancedMatrix);
+					std::memcpy(destination, &instancedMatrix, size);
+					offset += size;
+					break;
+				}
+				default:
+					break;
+				}
+			}
+		}
+		glCheck(glUnmapBuffer(GL_ARRAY_BUFFER));
+		glCheck(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 		SelectNothing();
 	}

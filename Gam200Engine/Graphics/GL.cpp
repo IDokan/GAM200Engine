@@ -89,7 +89,7 @@ namespace Graphics
 
 		SendUniforms(material);
 
-		constexpr GLsizei numOfDrawing = 10000;
+		const GLsizei numOfDrawing = vertices.GetInstanceDataCount();
 		glCheck(glDrawArraysInstanced(vertices.GetVerticesListPattern(), 0, vertices.GetVerticesCount(), numOfDrawing));
 	}
 
