@@ -61,6 +61,9 @@ namespace Graphics
 		void MoveRight(float dt, float distance) noexcept;
 
 		void CameraMove(const Object* player1, const Object* player2, const float& zoomSize) noexcept;
+		
+		void EditorCameraMoveUp(float distance) noexcept;
+		void EditorCameraMoveLeft(float distance) noexcept;
 
 		vector2 GetDEBUGCameraRectSize() const noexcept;
 	private:

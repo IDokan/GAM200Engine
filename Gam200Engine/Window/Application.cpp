@@ -21,6 +21,7 @@ Creation Date: 08.05.2019
 
 // Include States
 #include <Scenes/Editor.hpp>
+#include <Scenes/EditorTestLevel.hpp>
 #include <Scenes/BasicMovementLevel.hpp>
 #include <Scenes/OneWayPassLevel.hpp>
 #include <Scenes/SizeScalingLevel.hpp>
@@ -50,7 +51,8 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 #ifdef _DEBUG
-	SceneManager::GetSceneManager()->AddScenes("Editor", dynamic_cast<Scene*>(new Editor()));
+	//SceneManager::GetSceneManager()->AddScenes("Editor", dynamic_cast<Scene*>(new Editor()));
+	SceneManager::GetSceneManager()->AddScenes("EditorTestLevel", dynamic_cast<Scene*>(new EditorTestLevel()));
 #endif
 	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
 	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));

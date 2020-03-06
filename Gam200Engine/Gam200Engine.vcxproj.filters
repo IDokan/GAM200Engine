@@ -238,7 +238,12 @@
     <ClCompile Include="Scenes\TutorialLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Editor.cpp" />
+    <ClCompile Include="Scenes\EditorTestLevel.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Editor.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -520,7 +525,12 @@
     <ClInclude Include="Scenes\TutorialLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Editor.hpp" />
+    <ClInclude Include="Scenes\EditorTestLevel.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Editor.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

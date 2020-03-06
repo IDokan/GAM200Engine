@@ -145,6 +145,17 @@ void Graphics::CameraManager::CameraMove(const Object* player1, const Object* pl
 	//ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 }
 
+void Graphics::CameraManager::EditorCameraMoveUp(float distance) noexcept
+{
+	selectedCamera->camera.MoveUp(distance);
+}
+
+void Graphics::CameraManager::EditorCameraMoveLeft(float distance) noexcept
+{
+	float flip = 0.f - distance;
+	selectedCamera->camera.MoveRight(flip);
+}
+
 vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
 {
 	return cameraDetectRectSize;

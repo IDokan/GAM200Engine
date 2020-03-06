@@ -19,6 +19,8 @@ Creation Date: 1.7.2020
 #include <Object/ObjectManager.hpp>
 #include <Systems/FileIO.hpp>
 
+//void ObjectSelectionChecker(vector2 mousePos);
+
 Editor::Editor(): mousePosX(0.0f), mousePosY(0.0f), background(nullptr), objectSwitch(chosenObject::obstacle)
 {
 
@@ -55,15 +57,16 @@ void Editor::Update(float /*dt*/)
 void Editor::Unload()
 {
 	fileIO* a = 0;
-	a->Output("../assets/fileIO/newLevelFile.txt");
+	a->Output("../assets/fileIO/EditorCheck.txt");
 }
 
 void Editor::Input()
 {
 	auto objManager = ObjectManager::GetObjectManager();
-	mousePosX = input.GetMouseAbsolutePosition().x;
-	mousePosY = input.GetMouseAbsolutePosition().y;
+	mousePosX = input.GetMouseRelativePosition().x;
+	mousePosY = input.GetMouseRelativePosition().y;
 
+	/******************** Object choosing with num pad ********************/
 	if (input.IsKeyPressed(GLFW_KEY_1))
 	{
 		objectSwitch = chosenObject::obstacle;
@@ -89,6 +92,26 @@ void Editor::Input()
 		objectSwitch = chosenObject::adjustment;
 	}
 
+	/********************Camera Movement*********************/
+
+	if (input.IsKeyPressed(GLFW_KEY_UP))
+	{
+		cameraManager.EditorCameraMoveUp(5.f);
+	}
+	else if (input.IsKeyPressed(GLFW_KEY_DOWN))
+	{
+		cameraManager.EditorCameraMoveUp(-5.f);
+	}
+	else if (input.IsKeyPressed(GLFW_KEY_LEFT))
+	{
+		cameraManager.EditorCameraMoveLeft(5.f);
+	}
+	else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
+	{
+		cameraManager.EditorCameraMoveLeft(-5.f);
+	}
+
+	/******************** Creating and Adjusting objects ********************/
 	if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		if (objectSwitch == chosenObject::obstacle)
@@ -97,8 +120,8 @@ void Editor::Input()
 			objectName.append("obj");
 			objectName.append(std::to_string(objectNum));
 			++objectNum;
-			objectName.clear();
 			object->SetObjectName(objectName);
+			objectName.clear();
 			object->SetTranslation(vector2{ mousePosX, mousePosY });
 			object->SetScale(vector2{ 100.f, 100.f });
 			object->AddComponent(new Sprite(object));
@@ -156,7 +179,7 @@ void Editor::Input()
 			player2 = new Object();
 			player2->SetObjectName("player2");
 			player2->SetObjectType(Object::ObjectType::PLAYER_2);
-			player2->SetTranslation(vector2{ 200.f, -400.f });
+			player2->SetTranslation(vector2{ mousePosX, mousePosY });
 			player2->SetScale(vector2{ 150.f });
 			player2->AddComponent(new Sprite(player2));
 			player2->AddComponent(new Physics(player2));
@@ -167,26 +190,20 @@ void Editor::Input()
 
 			string = new String(player1, player2);
 			objManager->FindLayer(LayerNames::Stage)->AddObject(string);
-			
 		}
 		else if (objectSwitch == chosenObject::adjustment)
 		{
-			const auto& objectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-			for (const auto& object : objectContainer)
-			{
-				//check if mouse position was inside of range of object
-				//Scale selected objects
-			}
+			/*vector2 currMousePosition = input.GetMouseRelativePosition();
+			ObjectSelectionChecker(currMousePosition);*/
 		}
 	}
 }
-/* clear this part later*/
 void Editor::InitObject() 
 {
 	background = new Object();
-	background->SetObjectName("background1");
+	background->SetObjectName("background");
 	background->SetTranslation(vector2{ 1.f });
-	background->SetScale(vector2{ 1000.f });
+	background->SetScale(vector2{ 1500.f });
 	background->AddComponent(new Sprite(background));
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
@@ -194,3 +211,38 @@ void Editor::InitObject()
 	auto objManager = ObjectManager::GetObjectManager();
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 }
+
+//void ObjectSelectionChecker(vector2 mousePos)
+//{
+//	std::string objNameException = "background";
+//
+//	const auto& objectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+//	for (const auto& object : objectContainer)
+//	{
+//		if (objNameException != object->GetObjectName())
+//		{
+//			vector2 min{ object->GetTranslation() - (object->GetScale() / 2.f) };
+//			vector2 max{ object->GetTranslation() + (object->GetScale() / 2.f) };
+//
+//			if (mousePos.x < min.x || mousePos.y < min.y ||
+//				mousePos.x > max.x || mousePos.y > max.y)
+//				continue;
+//			else
+//			{
+//				Graphics::Color4f originalColor{};
+//				Graphics::Color4f checkColor{ 0.5f };
+//
+//				originalColor = object->GetComponentByTemplate<Sprite>()->GetColor();
+//
+//				for (int i = 0; i < 3000; ++i)
+//				{
+//					if(i == 0)
+//						object->GetComponentByTemplate<Sprite>()->SetColor(checkColor);
+//				}
+//
+//				object->GetComponentByTemplate<Sprite>()->SetColor(originalColor);
+//			}
+//
+//		} //if (object->GetObjectName != "background")
+//	}
+//} //end of function ObjectSelectionChecker

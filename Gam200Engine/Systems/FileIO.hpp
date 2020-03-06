@@ -22,4 +22,9 @@ class fileIO
 public:
 	void Input(const std::filesystem::path& inFilePath); //, const std::filesystem::path& texturePath
 	void Output(const std::filesystem::path& outFilePath);
+
+//private:
+//	Object* player1{};
+//	Object* player2{};
+//	String* string{};
 };
