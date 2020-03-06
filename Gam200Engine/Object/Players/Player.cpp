@@ -17,28 +17,35 @@ Creation Date: 23th/Jan/2020
 #include <Component/MessageCapable.hpp>
 #include <Systems/MessageSystem/Message.hpp>
 
-Player::Player(Identifier player)
+Player::Player(Identifier player, const Transform& playerTransformData)
 	:Object(), id(player)
 {
+	// Initialize transform data
+	Object::SetTranslation(playerTransformData.GetTranslation());
+	SetScale(playerTransformData.GetScale());
+	SetRotation(playerTransformData.GetRotation());
+	SetDepth(Depth_Standard::Player);
+
+	// Add essential components 
 	Object::AddComponent(new StateMachine<Player>(this));
 	GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
 
 	Object::AddComponent(new Sprite(this));
 	GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
 
+	Object::AddComponent(new Physics(this));
+	GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE);
+
 	switch (player)
 	{
 	case Identifier::Player1:
-		LoadPlayer1Layout();
+		LoadPlayer1Layout(playerTransformData);
 		break;
 	case Identifier::Player2:
-		LoadPlayer2Layout();
+		LoadPlayer2Layout(playerTransformData);
 		break;
 	default:;
 	}
-
-	Object::AddComponent(new Physics(this));
-	GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE);
 }
 
 Player::Player(std::string _playerName, const vector2 playerPos, const vector2 playerScale, Physics::ObjectType _objectType,
@@ -68,16 +75,10 @@ Player::Identifier Player::GetID() const noexcept
 	return id;
 }
 
-void Player::LoadPlayer1Layout()
+void Player::LoadPlayer1Layout(const Transform& playerTransformData)
 {
 	Object::SetObjectName("Player 1");
 	Object::SetObjectType(ObjectType::PLAYER_1);
-
-	// TODO: Implement with File I/O
-	Object::SetTranslation(vector2{ -200.f, -400.f });
-	SetScale(vector2{ 150.f });
-	SetDepth(Depth_Standard::Player);
-	//
 
 	AddComponent(new MessageCapable(this, MessageObjects::Player1,
 		[&](const Message& msg) -> bool
@@ -108,16 +109,10 @@ void Player::LoadPlayer1Layout()
 	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
 }
 
-void Player::LoadPlayer2Layout()
+void Player::LoadPlayer2Layout(const Transform& playerTransformData)
 {
 	Object::SetObjectName("Player 2");
 	Object::SetObjectType(ObjectType::PLAYER_2);
-	
-	// TODO: Implement with File I/O
-	Object::SetTranslation(vector2{ 200.f, -400.f });
-	SetScale(vector2{ 150.f });
-	SetDepth(Depth_Standard::Player);
-	//
 	
 	AddComponent(new MessageCapable(this, MessageObjects::Player2,
 		[&](const Message& msg) -> bool

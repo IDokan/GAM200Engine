@@ -25,7 +25,7 @@ public:
 		UNDEFINED,
 	};
 public:
-	explicit Player(Identifier player);
+	explicit Player(Identifier player, const Transform& playerTransformData = Transform());
     Player(std::string _playerName, const vector2 playerPos, vector2 playerScale
         , Physics::ObjectType _objectType, float _depth = -50.f, Graphics::Color4f _color = { 1.f },
         vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f });
@@ -33,8 +33,8 @@ public:
 	[[nodiscard]] Identifier GetID() const noexcept;
 
 private:
-	void LoadPlayer1Layout();
-	void LoadPlayer2Layout();
+	void LoadPlayer1Layout(const Transform& playerTransformData);
+	void LoadPlayer2Layout(const Transform& playerTransformData);
 	
 private:
 	Identifier id;
