@@ -20,7 +20,7 @@ enum class MessageTypes
 
 	/**
 	 * \brief
-	 * When this message is received, extra information would have how many force do apply on receiver.
+	 * When this message is received, extra information would have how much force do apply on receiver.
 	 * For example, Receiver would do like a
 	 *		AddForce(ExtraInfo);
 	 */

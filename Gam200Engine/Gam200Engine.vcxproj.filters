@@ -244,6 +244,12 @@
     <ClCompile Include="Component\Sprite\Particle.cpp">
       <Filter>Component\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="Object\DepthStandard.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -530,6 +536,9 @@
     </ClInclude>
     <ClInclude Include="Component\Sprite\Particle.hpp">
       <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp">
+      <Filter>States\PlayerStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

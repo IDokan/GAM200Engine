@@ -11,8 +11,8 @@ Creation Date: 23th/Jan/2020
 ******************************************************************************/
 
 #pragma once
-#include <Component/Sprite/Sprite.hpp>
 #include  <Object/Object.hpp>
+#include <Component/Sprite/Animation.hpp>
 #include <Component/Physics.hpp>
 
 class Player : public Object

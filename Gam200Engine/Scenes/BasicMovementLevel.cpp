@@ -143,26 +143,26 @@ void BasicMovementLevel::InitObject() {
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
-	//ParticleEmitter* emitter = new ParticleEmitter(1U, 5.f, 500U, 
-	//	[&]() -> Particle::ParticleObject
-	//	{
-	//		Particle::ParticleObject p;
-	//		p.life = 5.f;
-	//		p.transform.SetTranslation(vector2{ 0.f, 10.f });
-	//		p.transform.SetScale(vector2{ 100.f });
-	//		
-	//		return p;
-	//	},
-	//	[&](Particle::ParticleObject& p) -> void
-	//	{
-	//		p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ 0.f, 1.f });
-	//	}
-	//	);
-	//emitter->SetTranslation(vector2{ 0.f });
-	//emitter->SetDepth(-5.f);
-	//emitter->SetObjectName("Particle Emitter");
-	//
-	//objManager->FindLayer(LayerNames::Stage)->AddObject(emitter);
+	ParticleEmitter* emitter = new ParticleEmitter(1U, 5.f, 500U, 
+		[&]() -> Particle::ParticleObject
+		{
+			Particle::ParticleObject p;
+			p.life = 5.f;
+			p.transform.SetTranslation(vector2{ 0.f, 10.f });
+			p.transform.SetScale(vector2{ 100.f });
+			
+			return p;
+		},
+		[&](Particle::ParticleObject& p) -> void
+		{
+			p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ 0.f, 1.f });
+		}
+		);
+	emitter->SetTranslation(vector2{ 0.f });
+	emitter->SetDepth(-0.5f);
+	emitter->SetObjectName("Particle Emitter");
+	
+	objManager->FindLayer(LayerNames::Stage)->AddObject(emitter);
 }
 
 void AddStateTestObject()
