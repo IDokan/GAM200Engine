@@ -11,6 +11,7 @@ Creation Date: 12.10.2019
 
     Source file for level that player learned how to move player
 ******************************************************************************/
+#include <thread>
 #include <Scenes/BasicMovementLevel.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
@@ -54,13 +55,18 @@ void BasicMovementLevel::Load()
    objManager->FindLayer(LayerNames::Stage)->AddObject(loadingScene);
 
    //Worker Thread here
-
-
+   GLFWwindow* context = glfwGetCurrentContext();
+   glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+   GLFWwindow* offscreen_context = glfwCreateWindow(640, 480, "", NULL, context);
+   std::thread first([&](void* context)
+	   {
+		   glfwMakeContextCurrent(static_cast<GLFWwindow*>(context));
+		   BasicMovementLevel::InitObject();
+	   }, static_cast<void*>(offscreen_context));
    //Delete Image
 
+   first.join();
    
-   
-   BasicMovementLevel::InitObject();
 
     cameraManager.Init();
     TestBGMSoundForDebugMode.Load_Sound();
