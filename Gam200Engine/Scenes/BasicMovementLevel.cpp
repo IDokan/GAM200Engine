@@ -39,7 +39,28 @@ void BasicMovementLevel::Load()
     fileIO* a = 0;
     a->Input("../assets/fileIO/saveloadFile.txt");
 
-    BasicMovementLevel::InitObject();
+    //Loading image only
+   auto objManager = ObjectManager::GetObjectManager();
+
+   loadingScene = new Object();
+   loadingScene->SetObjectName("loadingScene");
+   loadingScene->SetTranslation(vector2{ 1.f });
+   loadingScene->SetScale(vector2{ 2000.f });
+   loadingScene->AddComponent(new Sprite(loadingScene));
+   loadingScene->AddComponent(new Physics(loadingScene));
+   loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(255,0,0));
+   loadingScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+   loadingScene->SetDepth(-2.0f);
+   objManager->FindLayer(LayerNames::Stage)->AddObject(loadingScene);
+
+   //Worker Thread here
+
+
+   //Delete Image
+
+   
+   
+   BasicMovementLevel::InitObject();
 
     cameraManager.Init();
     TestBGMSoundForDebugMode.Load_Sound();
@@ -108,6 +129,7 @@ void BasicMovementLevel::InitObject() {
 	player2 = new Player(Player::Identifier::Player2);
 
     string = new String(player1, player2);
+    string->SetDepth(-1.0f);
 
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
