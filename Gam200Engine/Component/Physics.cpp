@@ -562,15 +562,15 @@ bool Physics::IsCollideWithRotatedObject(Object* object)
     CalculateSeperateAxisVectorOf(owner);
     CalculateSeperateAxisVectorOf(object);
 
-    vector2 ownerLeftTop = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
-    vector2 ownerLeftBottom = vector2{ ownerCollisionBox.Translation.x - ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
-    vector2 ownerRightTop = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y + ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
-    vector2 ownerRightBottom = vector2{ ownerCollisionBox.Translation.x + ownerCollisionBox.Scale.x / 2, ownerCollisionBox.Translation.y - ownerCollisionBox.Scale.y / 2 } -vector2{ ownerCollisionBox.Translation.x , ownerCollisionBox.Translation.y };
+    vector2 ownerLeftTop = CalculateLeftTop(owner);
+    vector2 ownerLeftBottom = CalculateLeftBottom(owner);
+    vector2 ownerRightTop = CalculateRightTop(owner);
+    vector2 ownerRightBottom = CalculateRightBottom(owner);
 
-    vector2 objectLeftTop = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
-    vector2 objectLeftBottom = vector2{ objectCollisionBox.Translation.x - objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 }-vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
-    vector2 objectRightTop = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
-    vector2 objectRightBottom = vector2{ objectCollisionBox.Translation.x + objectCollisionBox.Scale.x / 2, objectCollisionBox.Translation.y - objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x , objectCollisionBox.Translation.y };
+    vector2 objectLeftTop = CalculateLeftTop(object);
+    vector2 objectLeftBottom = CalculateLeftBottom(object);
+    vector2 objectRightTop = CalculateRightTop(object);
+    vector2 objectRightBottom = CalculateRightBottom(object);
 
     ownerLeftTop = CalculateRotatedObjectVertex(ownerLeftTop, ownerCollisionBox);
     ownerLeftBottom = CalculateRotatedObjectVertex(ownerLeftBottom, ownerCollisionBox);
@@ -694,6 +694,34 @@ void Physics::CalculateYaxisVector(Object* obj)
     vector2 yAxisVector = vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y + objectCollisionBox.Scale.y / 2 } -vector2{ objectCollisionBox.Translation.x, objectCollisionBox.Translation.y };
     yAxisVector = CalculateRotatedObjectVector(yAxisVector, objectCollisionBox.Angle);
     SAT.push_back(yAxisVector);
+}
+
+vector2 Physics::CalculateLeftTop(Object* obj)
+{
+    CollisionBox collisionBox = obj->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    vector2 collisionBoxCenter = vector2{ collisionBox.Translation.x, collisionBox.Translation.y };
+    return vector2{ vector2{ collisionBox.Translation.x - collisionBox.Scale.x / 2, collisionBox.Translation.y + collisionBox.Scale.y / 2 } - collisionBoxCenter };
+}
+
+vector2 Physics::CalculateRightTop(Object* obj)
+{
+    CollisionBox collisionBox = obj->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    vector2 collisionBoxCenter = vector2{ collisionBox.Translation.x, collisionBox.Translation.y };
+    return vector2{ vector2{ collisionBox.Translation.x + collisionBox.Scale.x / 2, collisionBox.Translation.y + collisionBox.Scale.y / 2 } -collisionBoxCenter };
+}
+
+vector2 Physics::CalculateLeftBottom(Object* obj)
+{
+    CollisionBox collisionBox = obj->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    vector2 collisionBoxCenter = vector2{ collisionBox.Translation.x, collisionBox.Translation.y };
+    return vector2{ vector2{ collisionBox.Translation.x - collisionBox.Scale.x / 2, collisionBox.Translation.y - collisionBox.Scale.y / 2 } -collisionBoxCenter };
+}
+
+vector2 Physics::CalculateRightBottom(Object* obj)
+{
+    CollisionBox collisionBox = obj->GetComponentByTemplate<Physics>()->GetCollisionBox();
+    vector2 collisionBoxCenter = vector2{ collisionBox.Translation.x, collisionBox.Translation.y };
+    return vector2{ vector2{ collisionBox.Translation.x + collisionBox.Scale.x / 2, collisionBox.Translation.y - collisionBox.Scale.y / 2 } -collisionBoxCenter };
 }
 
 vector2 Physics::CalculateRotatedObjectVector(vector2 vertex, float angle)

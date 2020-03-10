@@ -114,6 +114,10 @@ private:
     void CalculateSeperateAxisVectorOf(Object* obj);
     void CalculateXaxisVector(Object* obj);
     void CalculateYaxisVector(Object* obj);
+    vector2 CalculateLeftTop(Object* obj);
+    vector2 CalculateRightTop(Object* obj);
+    vector2 CalculateLeftBottom(Object* obj);
+    vector2 CalculateRightBottom(Object* obj);
 
     void collisionHelperFunction(Object* obj1, Object* obj2);
 
