@@ -148,20 +148,23 @@ void BasicMovementLevel::InitObject() {
 		{
 			Particle::ParticleObject p;
 			p.life = 5.f;
-			p.transform.SetTranslation(vector2{ 0.f, 10.f });
-			p.transform.SetScale(vector2{ 100.f });
+			float i = (rand() % 2000) - 1000.f;
+			p.transform.SetTranslation(vector2{ i, 100.f });
+			p.transform.SetScale(vector2{ 25.f });
 			
 			return p;
 		},
 		[&](Particle::ParticleObject& p) -> void
 		{
-			p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ 0.f, 1.f });
+			float X = rand() % 25;
+			float Y = rand() % 25;
+			p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ X, Y });
 		}
 		);
 	emitter->SetTranslation(vector2{ 0.f });
 	emitter->SetDepth(-0.5f);
 	emitter->SetObjectName("Particle Emitter");
-	
+	emitter->GetComponentByTemplate<Particle>()->SetImage("../assets/textures/circle.png");
 	objManager->FindLayer(LayerNames::Stage)->AddObject(emitter);
 }
 

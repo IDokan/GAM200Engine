@@ -250,6 +250,9 @@
     <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp">
       <Filter>States\PlayerStates</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -539,6 +542,9 @@
     </ClInclude>
     <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp">
       <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

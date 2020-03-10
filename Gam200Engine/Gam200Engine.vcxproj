@@ -260,6 +260,7 @@
     <ClInclude Include="Systems\MessageSystem\MessageDispatcher.hpp" />
     <ClInclude Include="Systems\MessageSystem\MessageTypes.h" />
     <ClInclude Include="Systems\Observer.hpp" />
+    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
     <ClInclude Include="Systems\Timer.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Window\Application.hpp" />
@@ -352,6 +353,7 @@
     <ClCompile Include="Systems\MessageSystem\MessageCapableObjectManager.cpp" />
     <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp" />
     <ClCompile Include="Systems\Observer.cpp" />
+    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
     <ClCompile Include="Window\Application.cpp" />
     <ClCompile Include="Window\Demo.cpp" />
     <ClCompile Include="Window\Engine.cpp" />

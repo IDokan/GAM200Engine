@@ -22,6 +22,7 @@ Creation Date: 12.10.2019
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/Particles/ParticleEmitter.hpp>
+#include <Systems/ObstaclesDrawingHelper.hpp>
 
 void Scene::GameRestartScene() noexcept
 {
@@ -29,10 +30,13 @@ void Scene::GameRestartScene() noexcept
     cameraManager.InitializeCurrentCameraSetting();
 }
 
+
 void Scene::LoadScene() noexcept
 {
 	InstanceDEBUGObjects();
 	Load();
+
+	ObstaclesDrawingHelper::Get()->Init();
 }
 
 void Scene::UnloadScene() noexcept
@@ -49,11 +53,14 @@ void Scene::UnloadScene() noexcept
 	}
 	
 	Unload();
+	delete ObstaclesDrawingHelper::Get();
 }
 
 void Scene::Draw() const noexcept
 {
 	Graphics::GL::begin_drawing();
+
+	std::vector<matrix3> obstacleMatrices;
 
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
@@ -69,6 +76,13 @@ void Scene::Draw() const noexcept
 		// 2. A sort of Text object
 		for (const auto& obj : element->GetObjContainer())
 		{
+			if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
+			{
+				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+				obstacleMatrices.push_back(matrix);
+				continue;
+			}
+
 			if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj.get()))
 			{
 				const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
@@ -117,6 +131,10 @@ void Scene::Draw() const noexcept
 			}
 		}
 	}
+
+	// Obstacle Instancing draw
+	ObstaclesDrawingHelper::Get()->Draw(&obstacleMatrices);
+
 	Graphics::GL::end_drawing();
 }
 
