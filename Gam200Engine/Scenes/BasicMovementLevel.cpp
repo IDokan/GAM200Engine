@@ -25,6 +25,14 @@ Creation Date: 12.10.2019
 #include <Component/StateMachine.hpp>
 #include <States/Walking.hpp>
 #include <Object/Players/Player.h>
+#include <Component/Sprite/TextComponent.hpp>
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#define GLFW_EXPOSE_NATIVE_WGL
+#include <GLFW/glfw3native.h>
+
+#include <Graphics/GL.hpp>
+
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -41,38 +49,91 @@ void BasicMovementLevel::Load()
     a->Input("../assets/fileIO/saveloadFile.txt");
 
     //Loading image only
+	cameraManager.Init();
    auto objManager = ObjectManager::GetObjectManager();
-
    loadingScene = new Object();
    loadingScene->SetObjectName("loadingScene");
    loadingScene->SetTranslation(vector2{ 1.f });
    loadingScene->SetScale(vector2{ 2000.f });
    loadingScene->AddComponent(new Sprite(loadingScene));
-   loadingScene->AddComponent(new Physics(loadingScene));
-   loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(255,0,0));
+   loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0));
    loadingScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
-   loadingScene->SetDepth(-2.0f);
-   objManager->FindLayer(LayerNames::Stage)->AddObject(loadingScene);
+   loadingScene->SetDepth(-0.f);
+
+   Object* loadingText = new Object();
+   loadingText->SetObjectName("Loading Text");
+   loadingText->SetTranslation(vector2{ -100.f });
+   loadingText->AddComponent(new TextComponent(loadingText));
+   loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+   loadingText->SetDepth(-0.9f);
 
    //Worker Thread here
    GLFWwindow* context = glfwGetCurrentContext();
-   glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-   GLFWwindow* offscreen_context = glfwCreateWindow(640, 480, "", NULL, context);
-   std::thread first([&](void* context)
+   HDC hdc = GetDC(glfwGetWin32Window(context));
+   HGLRC offscreen_context = wglCreateContext(hdc);
+
+   BOOL error = wglShareLists(glfwGetWGLContext(context), offscreen_context);
+   if (error == FALSE)
+   {
+	   printf("Something is wrong!");
+   }
+   glfwMakeContextCurrent(NULL);
+
+   std::thread first([&]()
 	   {
-		   glfwMakeContextCurrent(static_cast<GLFWwindow*>(context));
-		   BasicMovementLevel::InitObject();
-	   }, static_cast<void*>(offscreen_context));
-   //Delete Image
+		   wglMakeCurrent(hdc, offscreen_context);
+		   unsigned int cnt = 0;
+		   unsigned int cnt2 = 0;
+		   while (isLoadingDone == false)
+		   {
+			   // Update loading data
+			   ++cnt;
+			   ++cnt2;
 
-   first.join();
-   
+			   if (cnt2 % 1500 == 0)
+			   {
+				   loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+			   }
+			   if (cnt % 500 == 0)
+			   {
+				   std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
+				   loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");
+			   }
 
-    cameraManager.Init();
+			   Graphics::GL::begin_drawing();
+
+			   // LoadingScene
+			   const auto matrix = cameraManager.GetWorldToNDCTransform() * loadingScene->GetTransform().GetModelToWorld();
+			   Sprite* sprite = loadingScene->GetComponentByTemplate<Sprite>();
+			   sprite->UpdateUniforms(matrix,
+				   loadingScene->GetTransform().CalculateWorldDepth());
+			   Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+
+			   // Loading Text
+			   const auto matrix2 = cameraManager.GetWorldToNDCTransform() * loadingText->GetTransform().GetModelToWorld();
+			   loadingText->GetComponentByTemplate<TextComponent>()->Draw(matrix2,
+				   loadingText->GetTransform().CalculateWorldDepth());
+
+
+			   Graphics::GL::end_drawing();
+
+			   SwapBuffers(hdc);
+		   }
+
+		   wglMakeCurrent(nullptr, nullptr);
+		   wglDeleteContext(offscreen_context);
+	   });
+
+   glfwMakeContextCurrent(context);
+   BasicMovementLevel::InitObject();
+
     TestBGMSoundForDebugMode.Load_Sound();
     TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
     TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
 
+   isLoadingDone = true;
+
+   first.join();
 }
 
 void BasicMovementLevel::Update(float /*dt*/)
@@ -135,7 +196,7 @@ void BasicMovementLevel::InitObject() {
 	player2 = new Player(Player::Identifier::Player2);
 
     string = new String(player1, player2);
-    string->SetDepth(-1.0f);
+    string->SetDepth(-0.9f);
 
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
@@ -161,13 +222,13 @@ void BasicMovementLevel::InitObject() {
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
 
-    auto objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+	ObjectManager* objManager = ObjectManager::GetObjectManager();
+	objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
 }
 

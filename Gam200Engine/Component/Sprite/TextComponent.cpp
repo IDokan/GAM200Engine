@@ -65,6 +65,11 @@ void TextComponent::SetString(std::wstring str) noexcept
 	textPlatform->SetString(str);
 }
 
+std::wstring TextComponent::GetString() const noexcept
+{
+	return textPlatform->GetString();
+}
+
 std::vector<std::pair<const Graphics::Vertices*, const Graphics::Texture*>> TextComponent::GetVerticesWithMatchingTextures() const noexcept
 {
 	return textPlatform->GetVerticesWithMatchingTextures();

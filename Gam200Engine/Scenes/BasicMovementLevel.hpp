@@ -45,4 +45,6 @@ private:
     Object* loadingScene{};
 
     String* string{};
+
+	bool isLoadingDone = false;
 };
