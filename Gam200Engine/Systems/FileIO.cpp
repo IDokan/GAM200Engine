@@ -14,7 +14,7 @@ Creation Date: 11.23.2019
 #include <iostream>
 #include <Component/Scripts/GoalComponent.hpp>
 
-void fileIO::Input(const std::filesystem::path& filePath, Player* player1, Player* player2, String* string)
+void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
 {
 	auto objManager = ObjectManager::GetObjectManager();
 
@@ -53,8 +53,8 @@ void fileIO::Input(const std::filesystem::path& filePath, Player* player1, Playe
 			transform.SetScale(vector2{ xScale, yScale });
 			transform.SetDepth(depth);
 
-			player1 = new Player(Player::Identifier::Player1, transform);
-			objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+			*player1 = new Player(Player::Identifier::Player1, transform);
+			objManager->FindLayer(LayerNames::Stage)->AddObject(*player1);
 		}
 		else if (objectType == "player2")
 		{
@@ -62,11 +62,12 @@ void fileIO::Input(const std::filesystem::path& filePath, Player* player1, Playe
 			transform.SetTranslation(vector2{ xTrans, yTrans });
 			transform.SetScale(vector2{ xScale, yScale });
 			transform.SetDepth(depth);
-			player2 = new Player(Player::Identifier::Player2, transform);
-			objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
+			*player2 = new Player(Player::Identifier::Player2, transform);
 			
-			string = new String(player1, player2);
-			objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+			*string = new String(*player1, *player2);
+
+			objManager->FindLayer(LayerNames::Stage)->AddObject(*player2);
+			objManager->FindLayer(LayerNames::Stage)->AddObject(*string);
 		}
 		else if ((objectType != "player1") && (objectType != "player2"))
 		{

@@ -34,7 +34,7 @@ EditorTestLevel::~EditorTestLevel()
 void EditorTestLevel::Load()
 {
 	fileIO* fileio = new fileIO;
-	fileio->Input("../assets/fileIO/saveloadFile.txt", player1, player2, string);
+	fileio->Input("../assets/fileIO/saveloadFile.txt", &player1, &player2, &string);
 
 	EditorTestLevel::InitObject();
 	cameraManager.Init();
@@ -44,11 +44,11 @@ void EditorTestLevel::Update(float /*dt*/)
 {
 	EditorTestLevel::Input();
 
-	/*vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
+	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
 	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
 
 	player1->SetTranslation(obj1Position);
-	player2->SetTranslation(obj2Position);*/
+	player2->SetTranslation(obj2Position);
 	
 }
 
@@ -59,6 +59,8 @@ void EditorTestLevel::GameRestart()
 
 void EditorTestLevel::Unload()
 {
+	fileIO* fileio = new fileIO;
+	fileio->Output("../assets/fileIO/experimentOutputFile.txt");
 }
 
 void EditorTestLevel::Input()
