@@ -12,9 +12,12 @@ Creation Date: 02.11.2020
 ******************************************************************************/
 #pragma once
 #include <Scenes/Scene.hpp>
+#include <Object/Players/Player.h>
+#include <Object/Strings/String.hpp>
 
 class Object;
 class String;
+class Player;
 
 
 class TutorialLevel : public Scene
@@ -30,7 +33,6 @@ protected:
     void Load() override;
     void Unload() override;
 
-    void Input();
     void Collision();
     void InitObject();
 
@@ -38,8 +40,8 @@ private:
     Object* background;
     Object* startPoint{};
     Object* goalPoint{};
-    Object* player1{};
-    Object* player2{};
+    Player* player1{};
+    Player* player2{};
 
 
     Object* block1{};

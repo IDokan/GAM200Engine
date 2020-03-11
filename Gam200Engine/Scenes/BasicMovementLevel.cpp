@@ -44,8 +44,8 @@ BasicMovementLevel::~BasicMovementLevel()
 
 void BasicMovementLevel::Load()
 {
-    /*fileIO* fileio = new fileIO;
-	fileio->Input("../assets/fileIO/saveloadFile.txt", player1, player2, string);*/
+    fileIO* fileio = new fileIO;
+	fileio->Input("../assets/fileIO/basic.txt", &player1, &player2, &string);
 
     BasicMovementLevel::InitObject();
 
@@ -110,12 +110,12 @@ void BasicMovementLevel::InitObject() {
     background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
-	player1 = new Player(Player::Identifier::Player1);
+	/*player1 = new Player(Player::Identifier::Player1);
 
 	player2 = new Player(Player::Identifier::Player2);
 
     string = new String(player1, player2);
-    string->SetDepth(-0.9f);
+    string->SetDepth(-0.9f);*/
 
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);

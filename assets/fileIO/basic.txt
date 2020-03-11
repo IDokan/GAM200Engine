@@ -1,0 +1,2 @@
+player1 -200 -400 150 150 -1 player1 ../assets/textures/p1.png
+player2 200 -400 150 150 -1 player2 ../assets/textures/p2.png

@@ -67,7 +67,7 @@ void Scene::LoadScene() noexcept
 
 	//Test¡ﬂ...
 	//std::thread performanceTest(&InitLoadingScene);
-	//InitLoadingScene();
+	InitLoadingScene();
 
 	//////////////////////Worker Thread here...
 	GLFWwindow* main_context = glfwGetCurrentContext();
