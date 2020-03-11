@@ -52,6 +52,10 @@ void BasicMovementLevel::Load()
 void BasicMovementLevel::Update(float /*dt*/)
 {
     BasicMovementLevel::Input();
+
+	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+
     BasicMovementLevel::Collision();
 
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
@@ -96,6 +100,8 @@ void BasicMovementLevel::Collision()
 
 void BasicMovementLevel::InitObject() {
 
+	auto objManager = ObjectManager::GetObjectManager();
+
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 1.f });
@@ -135,7 +141,30 @@ void BasicMovementLevel::InitObject() {
 	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(true);
     startPoint->SetDepth(-1.f);
 
-    auto objManager = ObjectManager::GetObjectManager();
+	Object* obbTest = new Object();
+	obbTest->SetObjectName("Obb Test");
+	obbTest->SetScale(vector2{ 150.f });
+	obbTest->SetObjectType(Object::ObjectType::OBSTACLE);
+	obbTest->SetRotation(1.2f);
+	obbTest->AddComponent(new Physics(obbTest));
+	Physics* obbPhysics = obbTest->GetComponentByTemplate<Physics>();
+	obbPhysics->SetCollisionBoxAndObjectType(obbTest, Physics::ObjectType::RECTANGLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(obbTest);
+
+	Object* pushingObj = new Object();
+	pushingObj->SetObjectName("pushing Test");
+	pushingObj->SetTranslation(vector2{ 200.f });
+	pushingObj->SetScale(vector2{ 150.f });
+	pushingObj->AddComponent(new Physics(pushingObj));
+	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
+	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
+	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
+	pushingObj->AddComponent(new Sprite(pushingObj));
+	pushingObj->SetDepth(-0.5f);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(pushingObj);
+	
+
     objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(string);

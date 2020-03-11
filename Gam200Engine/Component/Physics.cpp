@@ -673,19 +673,6 @@ void Physics::IsCollideWithMovedObject()
             }
         }
     }
-    case Object::ObjectSide::RIGHT_SIDE:
-    {
-        if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(object) && ownerVelocity.y == 0.f && ownerVelocity.x < 0.f)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    }
 }
 
 vector2 Physics::GetTranslation(const matrix3& matrix3) const
