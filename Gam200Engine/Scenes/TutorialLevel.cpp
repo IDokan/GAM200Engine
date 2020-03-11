@@ -20,6 +20,13 @@ Creation Date: 02.11.2020
 #include <Object/ObjectManager.hpp>
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
+#include <Object/Players/Player.h>
+//lock and key
+#include<Systems/MessageSystem/Message.hpp>
+#include<Systems/MessageSystem/MessageDispatcher.hpp>
+#include<Component/MessageCapable.hpp>
+
+
 
 TutorialLevel::TutorialLevel() : background(nullptr)
 {
@@ -45,18 +52,35 @@ void TutorialLevel::Load()
 
 void TutorialLevel::Update(float /*dt*/)
 {
-    //TutorialLevel::Input();
-    //TutorialLevel::Collision();
+    TutorialLevel::Input();
 
-    //vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
-    //vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
+    static bool unLock1 = false;
+    static bool unLock2 = false;
+    if (!unLock1)
+        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(key1)
+            || player2->GetComponentByTemplate<Physics>()->IsCollideWith(key1))
+        {
+            MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Key1, MessageObjects::Lock1, MessageTypes::GetKey, 0, 0);
+            key1->SetDead(true);
+            unLock1= true;
+        }
+    if(!unLock2)
+    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(key2)
+        || player2->GetComponentByTemplate<Physics>()->IsCollideWith(key2))
+    {
+        MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Key2, MessageObjects::Lock2, MessageTypes::GetKey, 0, 0);
+        key2->SetDead(true);
+        unLock2 = true;
+    }
 
-    //player1->SetTranslation(obj1Position);
-    //player2->SetTranslation(obj2Position);
-	player1 = new Object();
-	player1->SetTranslation(vector2{ 100.f });
-	player2 = new Object();
-	player2->SetTranslation(vector2{ 200.f });
+    TutorialLevel::Collision();
+
+    vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
+    vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
+
+    player1->SetTranslation(obj1Position);
+    player2->SetTranslation(obj2Position);
+
     cameraManager.CameraMove(player1, player2, 1.1f);
 }
 
@@ -204,33 +228,88 @@ void TutorialLevel::Collision()
 }
 
 void TutorialLevel::InitObject() {
-    player1 = new Object();
-    player1->SetObjectType(Object::ObjectType::PLAYER_1);
-    player1->SetObjectName("player1");
-    player1->SetTranslation(vector2{ -200.f, -800.f });
-    player1->SetScale(vector2{ 150.f });
-    player1->AddComponent(new Sprite(player1));
-    player1->AddComponent(new Physics(player1));
-    player1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
-    player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
-    player1->SetDepth(-1.f);
-
-    player2 = new Object();
-    player2->SetObjectName("player2");
-    player2->SetObjectType(Object::ObjectType::PLAYER_2);
-    player2->SetTranslation(vector2{ 200.f, -800.f });
-    player2->SetScale(vector2{ 150.f });
-    player2->AddComponent(new Sprite(player2));
-    player2->AddComponent(new Physics(player2));
-    player2->SetDepth(-1.f);
-    player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
-    player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
-
+   
+    player1 = new Player(Player::Identifier::Player1);
+    player2 = new Player(Player::Identifier::Player2);
     string = new String(player1, player2);
+
+    key1 = new Object();
+    key1->SetObjectName("key1");
+    key1->SetTranslation(vector2{ 100.f,1450.f });
+    key1->SetObjectType(Object::ObjectType::KEY_1);
+    key1->SetScale(vector2{ 100.f });
+    key1->AddComponent(new Sprite(key1));
+    key1->AddComponent(new Physics(key1));
+    key1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key1.png");
+    key1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key1, Physics::ObjectType::CIRCLE);
+    key1->SetDepth(-1.f);
+
+    key2 = new Object();
+    key2->SetObjectName("key2");
+    key2->SetTranslation(vector2{ -800.f, 600.f });
+    key2->SetObjectType(Object::ObjectType::KEY_2);
+    key2->SetScale(vector2{ 100.f });
+    key2->AddComponent(new Sprite(key2));
+    key2->AddComponent(new Physics(key2));
+    key2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key2.png");
+    key2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key2, Physics::ObjectType::CIRCLE);
+    key2->SetDepth(-1.f);
     
+    lock1 = new Object();
+    lock1->SetObjectName("lock1");
+    lock1->SetTranslation(vector2{ 600.f, 1050.f });
+    lock1->SetObjectType(Object::ObjectType::LOCK_1);
+    lock1->SetScale(100.f);
+    lock1->AddComponent(new Sprite(lock1));
+    lock1->AddComponent(new Physics(lock1));
+    lock1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/lock1.png");
+    lock1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(lock1, Physics::ObjectType::CIRCLE);
+    lock1->SetDepth(-1.f);
+    lock1->AddComponent(new MessageCapable(lock1, MessageObjects::Lock1, [&](const Message& msg)->bool
+    {
+        switch (msg.Msg)
+        {
+        case MessageTypes::GetKey:
+            lock1->SetDead(true);
+            break;
+        default:
+            return false;
+        }
+        return true;
+    }));
+
+    lock2 = new Object();
+    lock2->SetObjectName("lock2");
+    lock2->SetTranslation(vector2{ 760.f,400.f });
+    lock2->SetObjectType(Object::ObjectType::LOCK_2);
+    lock2->SetScale(100.f);
+    lock2->AddComponent(new Sprite(lock2));
+    lock2->AddComponent(new Physics(lock2));
+    lock2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/lock2.png");
+    lock2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(lock2, Physics::ObjectType::CIRCLE);
+    lock2->SetDepth(-1.f);
+    lock2->AddComponent(new MessageCapable(lock2, MessageObjects::Lock2, [&](const Message& msg)->bool
+    {
+        switch (msg.Msg)
+        {
+        case MessageTypes::GetKey:
+            lock2->SetDead(true);
+            break;
+        default:
+            return false;
+        }
+        return true;
+    }));
+
+
     auto objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
     objManager->FindLayer(Stage)->AddObject(string);
+
+    objManager->FindLayer(LayerNames::Stage)->AddObject(key1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(lock1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(key2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(lock2);
 
 }

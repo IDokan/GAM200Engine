@@ -25,6 +25,7 @@ Creation Date: 12.10.2019
 #include <States/Walking.hpp>
 #include <Object/Players/Player.h>
 
+
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
 {
@@ -127,11 +128,12 @@ void BasicMovementLevel::InitObject() {
     startPoint->SetTranslation(vector2{ 0.f, -500.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
-	startPoint->AddComponent(new GoalComponent(startPoint, "OneWayPassLevel"));
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
+
+
 
     auto objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::Stage)->AddObject(player1);

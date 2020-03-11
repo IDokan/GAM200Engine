@@ -4,54 +4,66 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   MessageTypes.h
 Author
-	- sinil.gang rtd99062@gmail.com
+    - sinil.gang rtd99062@gmail.com
 Creation Date: 01.14.2020
 
-	Source file for store message types to use improve code quality
+    Source file for store message types to use improve code quality
 ******************************************************************************/
 #pragma once
 
 enum class MessageTypes
 {
-	PlayerIsDead,
-	PlayerReachedGoal,
-	StringAttached,
-	StringDetached,
+    PlayerIsDead,
+    PlayerReachedGoal,
+    StringAttached,
+    StringDetached,
 
-	/**
-	 * \brief
-	 * When this message is received, extra information would have how many force do apply on receiver.
-	 * For example, Receiver would do like a
-	 *		AddForce(ExtraInfo);
-	 */
-	AddForce,
-	
-	/**
-	 * \brief
-	 * When this message is received, extra information would be required as change based on receiver.
-	 * For example, Receiver would do like a
-	 *		SetTranslation(GetTranslation + ExtraInfo);
-	 */
-	MoveToRelativePosition,
-	/**
-	 * \brief
-	 * When this message is received, extra information would indicate new position where player would be as a result.
-	 * For example, Receiver would do like a
-	 *		SetTranslation(ExtraInfo);
-	 */
-	MoveToAbsolutePosition,
-	
-	NUM_OF_MESSAGE_TYPES,
+    /**
+     * \brief
+     * When this message is received, extra information would have how many force do apply on receiver.
+     * For example, Receiver would do like a
+     *		AddForce(ExtraInfo);
+     */
+     AddForce,
+
+     /**
+      * \brief
+      * When this message is received, extra information would be required as change based on receiver.
+      * For example, Receiver would do like a
+      *		SetTranslation(GetTranslation + ExtraInfo);
+      */
+      MoveToRelativePosition,
+      /**
+       * \brief
+       * When this message is received, extra information would indicate new position where player would be as a result.
+       * For example, Receiver would do like a
+       *		SetTranslation(ExtraInfo);
+       */
+       MoveToAbsolutePosition,
+
+       /**
+  * \brief
+  * When the player collide with key, then key dissappear and send lock the message to dissappear.
+  */
+       GetKey,
+
+       NUM_OF_MESSAGE_TYPES,
 };
 enum class MessageObjects
 {
-	Player1,
-	Player2,
-	
-	String_Object,
-	Test_Crushable_Object,
+    Player1,
+    Player2,
 
-	NUM_OF_MESSAGE_OBJECTS,
+    //for key&lock system
+    Key1,
+    Key2,
+    Lock1,
+    Lock2,
+
+    String_Object,
+    Test_Crushable_Object,
+
+    NUM_OF_MESSAGE_OBJECTS,
 };
 
 inline constexpr double SendImmediately = 0.0;
