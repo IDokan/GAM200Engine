@@ -15,6 +15,7 @@ Creation Date: 08.21.2019
 #include <Systems/Input.hpp>
 #include <Object/Object.hpp>
 #include <Component/Physics.hpp>
+#include <Object/Players/Player.h>
 
 Graphics::CameraManager::CameraManager()
 {
@@ -27,16 +28,23 @@ Graphics::CameraManager::CameraManager()
  * \brief
  * For now, it do only set view size. However, Named for the possibility which do anything else...
  */
-void Graphics::CameraManager::Init() noexcept
+void Graphics::CameraManager::Init(Player* player1, Player* player2) noexcept
 {
-	InitializeCurrentCameraSetting();
+	InitializeCurrentCameraSetting(player1, player2);
 }
 
-void Graphics::CameraManager::InitializeCurrentCameraSetting() noexcept
+void Graphics::CameraManager::InitializeCurrentCameraSetting(Player* player1, Player* player2) noexcept
 {
 	selectedCamera->cameraView.SetZoom(selectedCamera->cameraView.GetInitZoomSize());
 	selectedCamera->cameraView.SetViewSize(Application::GetApplication()->GetWindowSize);
-	selectedCamera->camera.SetCenter(vector2{ 0.f });
+	if (player1 == nullptr || player2 == nullptr)
+	{
+		selectedCamera->camera.SetCenter(vector2{ 0.f });
+	}
+	else
+	{
+		selectedCamera->camera.SetCenter((player1->GetTranslation() + player2->GetTranslation()) / 2.f);
+	}
 	selectedCamera->camera.ResetUp();
 }
 

@@ -16,6 +16,7 @@ Creation Date: 08.21.2019
 #include <unordered_map>
 
 class Object;
+class Player;
 
 namespace Graphics
 {
@@ -32,9 +33,9 @@ namespace Graphics
 		CameraManager();
 		~CameraManager() = default;
 
-		void Init() noexcept;
+		void Init(Player* player1 = nullptr, Player* player2 = nullptr) noexcept;
 
-		void InitializeCurrentCameraSetting() noexcept;
+		void InitializeCurrentCameraSetting(Player* player1 = nullptr, Player* player2 = nullptr) noexcept;
 		
 		// Functions to control camera storage
 		void AddCamera(const std::string&) noexcept;

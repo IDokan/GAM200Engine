@@ -70,8 +70,8 @@ void BasicMovementLevel::GameRestart()
 
 void BasicMovementLevel::Unload()
 {
-	fileIO* a = 0;
-	a->Output("../assets/fileIO/saveloadFile.txt");
+	//fileIO* a = 0;
+	//a->Output("../assets/fileIO/saveloadFile.txt");
 }
 
 void BasicMovementLevel::Input()
@@ -111,7 +111,7 @@ void BasicMovementLevel::InitObject() {
     goalPoint->SetTranslation(vector2{ 0.f, 500.f });
     goalPoint->SetScale(vector2{ 150.f });
     goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, "OneWayPassLevel"));
+	goalPoint->AddComponent(new GoalComponent(goalPoint, "TutorialLevel"));
     goalPoint->AddComponent(new Physics(goalPoint));
     goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
     goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");

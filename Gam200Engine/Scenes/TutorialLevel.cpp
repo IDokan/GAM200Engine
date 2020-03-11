@@ -41,7 +41,7 @@ void TutorialLevel::Load()
 
     TutorialLevel::InitObject();
 
-    cameraManager.Init();
+    cameraManager.Init(player1, player2);
 }
 
 void TutorialLevel::Update(float /*dt*/)
@@ -113,7 +113,6 @@ void TutorialLevel::InitObject() {
     key1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key1.png");
     key1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key1, Physics::ObjectType::CIRCLE);
     key1->SetDepth(-1.f);
-	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
     key2 = new Object();
     key2->SetObjectName("key2");
@@ -172,10 +171,34 @@ void TutorialLevel::InitObject() {
         return true;
     }));
 
+	goalPoint = new Object();
+	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	goalPoint->SetObjectName("goalPoint");
+	goalPoint->SetTranslation(vector2{ 1000.f, -10.f });
+	goalPoint->SetScale(vector2{ 150.f });
+	goalPoint->AddComponent(new Sprite(goalPoint));
+	goalPoint->AddComponent(new Physics(goalPoint));
+	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
+	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+	goalPoint->SetDepth(-1.f);
+
+	startPoint = new Object();
+	startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	startPoint->SetObjectName("startPoint");
+	startPoint->SetTranslation(vector2{ -800.f, -2000.f });
+	startPoint->SetScale(vector2{ 150.f });
+	startPoint->AddComponent(new Sprite(startPoint));
+	startPoint->AddComponent(new Physics(startPoint));
+	startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
+	startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
+	startPoint->SetDepth(-1.f);
 
     auto objManager = ObjectManager::GetObjectManager();
 
-    objManager->FindLayer(LayerNames::Stage)->AddObject(key1);
+	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(key1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(lock1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(key2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(lock2);

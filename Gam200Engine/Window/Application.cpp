@@ -50,11 +50,11 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	
-#endif
+//#endif
 
 	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
 	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
