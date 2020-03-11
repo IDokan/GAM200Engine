@@ -79,30 +79,27 @@ void Scene::LoadScene() noexcept
 	if (error == FALSE)
 	{
 		printf("Something is wrong!");
+
 	}
-	//What does this code do? Kind of Init?
-	//glfwMakeContextCurrent(NULL);
+	glfwMakeContextCurrent(NULL);
 
 
 	std::thread loading_Thread([&]()
 		{
 			wglMakeCurrent(hdc, thread_context);
 
-			//Is there any reason why made two variable?
-			unsigned int cnt = 0;
-			unsigned int cnt2 = 0;
+			unsigned int loadingCount = 0;
 
 			while(isLoadingDone == false)
 			{
 				// Update loading data
-				++cnt;
-				++cnt2;
+				++loadingCount;
 
-				if (cnt % 1500 == 0)
+				if (loadingCount % 1500 == 0)
 				{
 					loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
 				}
-				if (cnt2 % 500 == 0)
+				if (loadingCount % 500 == 0)
 				{
 					std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
 					loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");

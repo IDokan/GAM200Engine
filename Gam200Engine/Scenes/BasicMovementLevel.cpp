@@ -110,13 +110,6 @@ void BasicMovementLevel::InitObject() {
     background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
-	/*player1 = new Player(Player::Identifier::Player1);
-
-	player2 = new Player(Player::Identifier::Player2);
-
-    string = new String(player1, player2);
-    string->SetDepth(-0.9f);*/
-
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     goalPoint->SetObjectName("goalPoint");
@@ -142,9 +135,6 @@ void BasicMovementLevel::InitObject() {
     startPoint->SetDepth(-1.f);
 
 	ObjectManager* objManager = ObjectManager::GetObjectManager();
-	objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
