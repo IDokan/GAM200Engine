@@ -10,9 +10,9 @@ Creation Date:
 	Header file for the String Object
 ******************************************************************************/
 #pragma once
+#include <deque>
 #include "Object/Object.hpp"
 #include "Object/Strings/StringVertex.hpp"
-#include <deque>
 
 class StringPhysics;
 class StringSprite;

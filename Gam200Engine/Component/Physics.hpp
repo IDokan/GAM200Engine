@@ -50,7 +50,7 @@ public:
     void SetPosition(vector2 pos);
     void SetOldPosition(vector2 pos);
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj = vector2{ 0.f,0.f }, vector2 scaleAdj = vector2{ 0.f,0.f });
-    void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float positionX, float positionY = 0.f, float scaleX = 0.f, float scaleY = 0.f);
+    void SetCollisionBoxAndObjectType(Object* object, ObjectType objType,float scaleX, float scaleY = 0.f, float positionX = 0.f, float positionY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
     void SetCollisionBoxScale(vector2 scale);
     void SetFriction(float friction);
@@ -62,7 +62,7 @@ public:
     void SetVectorTranslation(vector2 translation);
     bool IsCollideWith(Object* object);
     bool IsCollideWithRotatedObject(Object* object);
-    bool IsCollideWithMovedObject(Object* object);
+    void IsCollideWithMovedObject();
     void ManageCollision();
 
     vector2 GetTranslation(const matrix3& matrix) const;
@@ -116,6 +116,10 @@ private:
     void CalculateSeperateAxisVectorOf(Object* obj);
     void CalculateXaxisVector(Object* obj);
     void CalculateYaxisVector(Object* obj);
+    vector2 CalculateLeftTop(Object* obj);
+    vector2 CalculateRightTop(Object* obj);
+    vector2 CalculateLeftBottom(Object* obj);
+    vector2 CalculateRightBottom(Object* obj);
 
     void collisionHelperFunction(Object* obj1, Object* obj2);
 

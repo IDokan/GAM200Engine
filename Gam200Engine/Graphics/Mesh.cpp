@@ -49,6 +49,10 @@ namespace Graphics
 
      vector2 Graphics::Mesh::GetPoint(std::size_t index) const noexcept
     {
+		 if (index >= points.size())
+		 {
+			 return points.back();
+		 }
         return points.at(index);
     }
     Color4ub Graphics::Mesh::GetColor(std::size_t index) const noexcept 
@@ -76,9 +80,18 @@ namespace Graphics
         return textureCoordinates.at(index);
     }
 
+	 std::size_t Mesh::GetInstancedMatrixCount() const noexcept
+	 {
+		 if (instancedMatrices == nullptr)
+		 {
+			 return 0;
+		 }
+		 return instancedMatrices->size();
+	 }
+
     matrix3 Mesh::GetInstancedMatrix(std::size_t index) const noexcept
     {
-	    if (instancedMatrices == nullptr || instancedMatrices->empty())
+	    if (IsInstanceMatrixInvalid())
 	    {
 			return matrix3{ vector3{0.f}, vector3{0.f}, vector3{0.f} };
 	    }
@@ -91,6 +104,16 @@ namespace Graphics
 			return instancedMatrices->at(index);
 	    }
     }
+
+	std::vector<matrix3>* Mesh::GetPointerToInstancedMatrix() const noexcept
+	{
+		return instancedMatrices;
+	}
+
+	bool Mesh::IsInstanceMatrixInvalid() const noexcept
+	{
+		return (instancedMatrices == nullptr) || (instancedMatrices->empty());
+	}
 
     PointListPattern Graphics::Mesh::GetPointListPattern() const noexcept { return pointListType; }
     void             Graphics::Mesh::SetPointListType(PointListPattern type) noexcept

@@ -25,7 +25,7 @@ Creation Date: 12.10.2019
 #include <Component/StateMachine.hpp>
 #include <States/Walking.hpp>
 #include <Object/Players/Player.h>
-#include <Component/Sprite/TextComponent.hpp>
+#include <Object/Particles/ParticleEmitter.hpp>
 
 
 SoundManager TestBGMSoundForDebugMode;
@@ -53,6 +53,10 @@ void BasicMovementLevel::Load()
 void BasicMovementLevel::Update(float /*dt*/)
 {
     BasicMovementLevel::Input();
+
+	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+
     BasicMovementLevel::Collision();
 
     vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
@@ -97,6 +101,8 @@ void BasicMovementLevel::Collision()
 
 void BasicMovementLevel::InitObject() {
 
+	auto objManager = ObjectManager::GetObjectManager();
+
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 1.f });
@@ -126,13 +132,65 @@ void BasicMovementLevel::InitObject() {
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
+	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(true);
     startPoint->SetDepth(-1.f);
 
 	ObjectManager* objManager = ObjectManager::GetObjectManager();
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+	Object* obbTest = new Object();
+	obbTest->SetObjectName("Obb Test");
+	obbTest->SetScale(vector2{ 150.f });
+	obbTest->SetObjectType(Object::ObjectType::OBSTACLE);
+	obbTest->SetRotation(1.2f);
+	obbTest->AddComponent(new Physics(obbTest));
+	Physics* obbPhysics = obbTest->GetComponentByTemplate<Physics>();
+	obbPhysics->SetCollisionBoxAndObjectType(obbTest, Physics::ObjectType::RECTANGLE);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(obbTest);
+
+	Object* pushingObj = new Object();
+	pushingObj->SetObjectName("pushing Test");
+	pushingObj->SetTranslation(vector2{ 200.f });
+	pushingObj->SetScale(vector2{ 150.f });
+	pushingObj->AddComponent(new Physics(pushingObj));
+	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
+	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
+	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
+	pushingObj->AddComponent(new Sprite(pushingObj));
+	pushingObj->SetDepth(-0.5f);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(pushingObj);
+	
+
+    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
+	ParticleEmitter* emitter = new ParticleEmitter(1U, 5.f, 500U, 
+		[&]() -> Particle::ParticleObject
+		{
+			Particle::ParticleObject p;
+			p.life = 5.f;
+			float i = (rand() % 2000) - 1000.f;
+			p.transform.SetTranslation(vector2{ i, 100.f });
+			p.transform.SetScale(vector2{ 25.f });
+			
+			return p;
+		},
+		[&](Particle::ParticleObject& p) -> void
+		{
+			float X = rand() % 25;
+			float Y = rand() % 25;
+			p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ X, Y });
+		}
+		);
+	emitter->SetTranslation(vector2{ 0.f });
+	emitter->SetDepth(-0.5f);
+	emitter->SetObjectName("Particle Emitter");
+	emitter->GetComponentByTemplate<Particle>()->SetImage("../assets/textures/circle.png");
+	objManager->FindLayer(LayerNames::Stage)->AddObject(emitter);
 }
 
 void AddStateTestObject()

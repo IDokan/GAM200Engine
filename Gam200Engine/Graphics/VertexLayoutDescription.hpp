@@ -11,7 +11,7 @@ namespace Graphics
     class [[nodiscard]] VertexLayoutDescription
     {
     public:
-        enum FieldType
+        enum class FieldType
         {
             Position2WithFloats,
             TextureCoordinates2WithFloats,
@@ -26,8 +26,9 @@ namespace Graphics
 
 
         void                                    AddField(FieldType field_type) noexcept;
-        void                                    SendVertexDescriptionToOpenGL() const noexcept;
-        [[nodiscard]] constexpr unsigned                      GetVertexSize() const noexcept { return vertexSize; }
+        void                                    SendVertexDescriptionToOpenGL(unsigned int dataBufferHandle, unsigned int instanceDataBufferHandle) const noexcept;
+		[[nodiscard]] constexpr unsigned                      GetVertexSize() const noexcept { return vertexSize; }
+		[[nodiscard]] constexpr unsigned                      GetInstanceVertexSize() const noexcept { return instanceVertexSize; }
         [[nodiscard]] constexpr const std::vector<FieldType>& GetFieldTypes() const noexcept { return fields; }
 
     private:
@@ -40,7 +41,9 @@ namespace Graphics
 			bool		shouldInstanced = false;
         };
         unsigned                       vertexSize = 0;
-        std::vector<field_description> vertexDescription{};
+		unsigned						instanceVertexSize = 0;
+		std::vector<field_description> vertexDescription{};
+		std::vector<field_description> instanceVertexDescription{};
         std::vector<FieldType>         fields{};
     };
 }

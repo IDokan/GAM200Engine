@@ -19,6 +19,7 @@ Creation Date:
 #include <Component/StateMachine.hpp>
 #include <States/StringStates/StringIdle.hpp>
 #include <Component/MessageCapable.hpp>
+#include <Object/DepthStandard.hpp>
 
 String::String(Object* player1, Object* player2)
 	: player1(player1), player2(player2)
@@ -38,7 +39,7 @@ String::String(Object* player1, Object* player2)
 	// Basic property initialize
 	SetObjectName("String");
 	SetObjectType(Object::ObjectType::STRING);
-	SetDepth(-4500.f);
+	SetDepth(Depth_Standard::String);
 }
 
 void String::InitString()

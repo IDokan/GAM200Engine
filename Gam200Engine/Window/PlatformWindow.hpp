@@ -30,9 +30,7 @@ public:
 	 void ClearWindow() const noexcept;
 
 private:
-	void InitImGui(void) const noexcept;
-
-    GLFWwindow* window;
+    GLFWwindow* window = nullptr;
     
     int xPos = 0, yPos = 0;
     int xSize = 1600;

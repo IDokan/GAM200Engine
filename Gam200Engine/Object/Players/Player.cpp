@@ -12,10 +12,11 @@ Creation Date: 23th/Jan/2020
 #include  <Object/Players/Player.h>
 #include <Systems/Input.hpp>
 #include <Component/StateMachine.hpp>
-#include <Object/DepthStandard.hpp>
 #include <States/PlayerStates/Idle.hpp>
 #include <Component/MessageCapable.hpp>
 #include <Systems/MessageSystem/Message.hpp>
+#include <Object/DepthStandard.hpp>
+#include <States/PlayerStates/UpdateAnimation.hpp>
 
 Player::Player(Identifier player, const Transform& playerTransformData)
 	:Object(), id(player)
@@ -29,9 +30,15 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	// Add essential components 
 	Object::AddComponent(new StateMachine<Player>(this));
 	GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
+	GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(UpdateAnimation::Get());
 
-	Object::AddComponent(new Sprite(this));
-	GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
+	Animation* playerAnimation = new Animation(this);
+	Object::AddComponent(playerAnimation);
+	playerAnimation->SetFrame(8);
+	playerAnimation->SetNumOfState(3);
+	playerAnimation->SetImage("../assets/textures/Cheese/cheese_move.png");
+	playerAnimation->SetSpeed(5.f);
+	
 
 	Object::AddComponent(new Physics(this));
 	GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE);
@@ -105,8 +112,6 @@ void Player::LoadPlayer1Layout(const Transform& playerTransformData)
 			return true;
 		}
 	));
-
-	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
 }
 
 void Player::LoadPlayer2Layout(const Transform& playerTransformData)
@@ -139,6 +144,4 @@ void Player::LoadPlayer2Layout(const Transform& playerTransformData)
 			return true;
 		}
 	));
-
-	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 }

@@ -599,6 +599,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{becef489-02f2-4515-86c2-201938016053}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Particles">
+      <UniqueIdentifier>{64625ed0-0c34-4cda-a969-f3d2e23a88ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">

@@ -22,6 +22,8 @@ Creation Date: 12.10.2019
 // Include Special objects
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
+#include <Object/Particles/ParticleEmitter.hpp>
+#include <Systems/ObstaclesDrawingHelper.hpp>
 
 
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -65,7 +67,7 @@ void Scene::LoadScene() noexcept
 
 	///////////////////////Init Loading Scene image & text data...
 
-	//TestÁß...
+	//Testï¿½ï¿½...
 	//std::thread performanceTest(&InitLoadingScene);
 	InitLoadingScene();
 
@@ -139,6 +141,7 @@ void Scene::LoadScene() noexcept
 	if (loading_Thread.joinable()) {
 		loading_Thread.join();
 	}
+	ObstaclesDrawingHelper::Get()->Init();
 }
 
 void Scene::UnloadScene() noexcept
@@ -155,11 +158,14 @@ void Scene::UnloadScene() noexcept
 	}
 
 	Unload();
+	delete ObstaclesDrawingHelper::Get();
 }
 
 void Scene::Draw() const noexcept
 {
 	Graphics::GL::begin_drawing();
+
+	std::vector<matrix3> obstacleMatrices;
 
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
@@ -169,12 +175,36 @@ void Scene::Draw() const noexcept
 
 		// Start drawing iteration whole object container.
 		// There are a bunch of case that need different task
+		// 0. Particle Object
 		// 1. A sort of Sprite object
 		// 1-a. Sprite which instancing mode is on.
 		// 2. A sort of Text object
 		for (const auto& obj : element->GetObjContainer())
 		{
-			if (const auto& sprite = obj.get()->GetComponentByTemplate<Sprite>())
+			if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
+			{
+				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
+				obstacleMatrices.push_back(matrix);
+				continue;
+			}
+
+			if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj.get()))
+			{
+				const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
+				Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
+				
+				std::vector<matrix3> matrices;
+				size_t sizeOfParticle = particleObjects.size();
+				matrices.reserve(sizeOfParticle);
+				for (size_t i = 0; i < sizeOfParticle; ++i)
+				{
+					matrices.emplace_back(cameraManager.GetWorldToNDCTransform() * particleObjects[i].transform.GetModelToWorld());
+				}
+				particle->UpdateInstancingValues(&matrices, particleEmitter->GetDepth());
+				Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
+			}
+			
+			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
 				if (sprite->isInstancingMode() == false)
 				{
@@ -206,6 +236,10 @@ void Scene::Draw() const noexcept
 			}
 		}
 	}
+
+	// Obstacle Instancing draw
+	ObstaclesDrawingHelper::Get()->Draw(&obstacleMatrices);
+
 	Graphics::GL::end_drawing();
 }
 

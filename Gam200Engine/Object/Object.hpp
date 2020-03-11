@@ -34,13 +34,14 @@ public:
         KEY_2,
         LOCK_1,
         LOCK_2,
+        MOVING_OBJECT,
     	TEST,
         STRING,
     };
 
     enum class ObjectSide
     {
-        UPSIDE,
+        UP_SIDE,
         RIGHT_SIDE,
         LEFT_SIDE,
         BOTTOM_SIDE,

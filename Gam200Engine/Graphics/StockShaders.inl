@@ -45,7 +45,7 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::solid_color_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats };
+		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats };
 		return layout;
 	}
 
@@ -86,8 +86,8 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::interpolated_colors_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
-											  VertexLayoutDescription::Color4WithUnsignedBytes };
+		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats,
+											  VertexLayoutDescription::FieldType::Color4WithUnsignedBytes };
 		return layout;
 	}
 
@@ -136,8 +136,8 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::textured_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
-											  VertexLayoutDescription::TextureCoordinates2WithFloats };
+		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats,
+											  VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats };
 		return layout;
 	}
 
@@ -362,8 +362,8 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::StringVertexLayout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::Position2WithFloats,
-											  VertexLayoutDescription::TextureCoordinates2WithFloats };
+		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats,
+											  VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats };
 		return layout;
 	}
 
@@ -412,11 +412,11 @@ void main()
 	inline const VertexLayoutDescription& SHADER::instancing_vertex_layout() noexcept
 	{
 		static VertexLayoutDescription layout{
-			VertexLayoutDescription::Position2WithFloats,
-		VertexLayoutDescription::TextureCoordinates2WithFloats,
-		VertexLayoutDescription::InstancedMatrix9WithFloats1,
-		VertexLayoutDescription::InstancedMatrix9WithFloats2,
-		VertexLayoutDescription::InstancedMatrix9WithFloats3,
+			VertexLayoutDescription::FieldType::Position2WithFloats,
+		VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats,
+		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats1,
+		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats2,
+		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats3,
 		};
 		return layout;
 	}
