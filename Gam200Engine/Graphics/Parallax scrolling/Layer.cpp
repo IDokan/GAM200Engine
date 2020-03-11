@@ -126,9 +126,8 @@ std::string Layer::GetNameAsString() const
 		result = "HUD";
 		break;
 	case NumOfLayers:
-		result = "Error";
-		break;
-	default: ;
+    default:
+        result = "Error";
 	}
 	return result;
 }
