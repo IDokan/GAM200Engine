@@ -204,5 +204,33 @@ void TutorialLevel::Collision()
 }
 
 void TutorialLevel::InitObject() {
+    player1 = new Object();
+    player1->SetObjectType(Object::ObjectType::PLAYER_1);
+    player1->SetObjectName("player1");
+    player1->SetTranslation(vector2{ -200.f, -800.f });
+    player1->SetScale(vector2{ 150.f });
+    player1->AddComponent(new Sprite(player1));
+    player1->AddComponent(new Physics(player1));
+    player1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
+    player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
+    player1->SetDepth(-1.f);
+
+    player2 = new Object();
+    player2->SetObjectName("player2");
+    player2->SetObjectType(Object::ObjectType::PLAYER_2);
+    player2->SetTranslation(vector2{ 200.f, -800.f });
+    player2->SetScale(vector2{ 150.f });
+    player2->AddComponent(new Sprite(player2));
+    player2->AddComponent(new Physics(player2));
+    player2->SetDepth(-1.f);
+    player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
+    player2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
+
+    string = new String(player1, player2);
+    
+    auto objManager = ObjectManager::GetObjectManager();
+    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
+    objManager->FindLayer(Stage)->AddObject(string);
 
 }

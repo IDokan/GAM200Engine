@@ -41,5 +41,12 @@ private:
     Object* goalPoint{};
     Player* player1{};
     Player* player2{};
+
+
     String* string{};
+
+
+ //   Object* loadingScene{};
+	//bool isLoadingDone = false;
+
 };

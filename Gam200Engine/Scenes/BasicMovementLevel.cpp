@@ -11,6 +11,7 @@ Creation Date: 12.10.2019
 
     Source file for level that player learned how to move player
 ******************************************************************************/
+#include <thread>
 #include <Scenes/BasicMovementLevel.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
@@ -24,6 +25,13 @@ Creation Date: 12.10.2019
 #include <Component/StateMachine.hpp>
 #include <States/Walking.hpp>
 #include <Object/Players/Player.h>
+#include <Component/Sprite/TextComponent.hpp>
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#define GLFW_EXPOSE_NATIVE_WGL
+#include <GLFW/glfw3native.h>
+#include <Graphics/GL.hpp>
+
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -41,11 +49,10 @@ void BasicMovementLevel::Load()
 
     BasicMovementLevel::InitObject();
 
-    cameraManager.Init();
+ 
     TestBGMSoundForDebugMode.Load_Sound();
     TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
     TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
-
 }
 
 void BasicMovementLevel::Update(float /*dt*/)
@@ -108,6 +115,7 @@ void BasicMovementLevel::InitObject() {
 	player2 = new Player(Player::Identifier::Player2);
 
     string = new String(player1, player2);
+    string->SetDepth(-0.9f);
 
     goalPoint = new Object();
     goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
@@ -133,13 +141,13 @@ void BasicMovementLevel::InitObject() {
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
 
-    auto objManager = ObjectManager::GetObjectManager();
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+	ObjectManager* objManager = ObjectManager::GetObjectManager();
+	objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(string);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
 }
 

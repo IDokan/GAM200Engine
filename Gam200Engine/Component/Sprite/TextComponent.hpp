@@ -37,6 +37,7 @@ public:
 	
 	void SetFonts(Graphics::BITMAPFONTS::FONTTYPE fontType);
 	void SetString(std::wstring str) noexcept;
+	std::wstring GetString() const noexcept;
 
 	std::vector<std::pair<const Graphics::Vertices*, const Graphics::Texture*>> GetVerticesWithMatchingTextures() const noexcept;
 private:

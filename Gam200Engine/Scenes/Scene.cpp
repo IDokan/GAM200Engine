@@ -9,10 +9,11 @@ Creation Date: 12.10.2019
 
 	Source file for the abstract class for all of Scene
 ******************************************************************************/
+#include <thread>
 #include <Scenes/Scene.hpp>
 
 #include <Object/ObjectManager.hpp>
-#include <Graphics/GL.hpp>
+
 // Include Components
 #include <Component/Sprite/Sprite.hpp>
 #include <Component/Sprite/StringSprite.hpp>
@@ -22,16 +23,125 @@ Creation Date: 12.10.2019
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#define GLFW_EXPOSE_NATIVE_WGL
+#include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
+#include <Graphics/GL.hpp>
+#include <Scenes/SceneManager.hpp>
+
 void Scene::GameRestartScene() noexcept
 {
-    GameRestart();
-    cameraManager.InitializeCurrentCameraSetting();
+	GameRestart();
+	cameraManager.InitializeCurrentCameraSetting();
 }
+
+//Init LoadingSceneImage
+void Scene::InitLoadingScene()
+{
+	cameraManager.Init();
+	loadingScene = new Object();
+	loadingScene->SetObjectName("loadingScene");
+	loadingScene->SetTranslation(vector2{ 1.f });
+	loadingScene->SetScale(vector2{ 2000.f });
+	loadingScene->AddComponent(new Sprite(loadingScene));
+	loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0));
+	loadingScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+	loadingScene->SetDepth(-0.f);
+
+	loadingText = new Object();
+	loadingText->SetObjectName("Loading Text");
+	loadingText->SetTranslation(vector2{ -100.f ,-20.f});
+	loadingText->AddComponent(new TextComponent(loadingText));
+	loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+	loadingText->SetDepth(-0.9f);
+}
+
 
 void Scene::LoadScene() noexcept
 {
 	InstanceDEBUGObjects();
-	Load();
+
+	///////////////////////Init Loading Scene image & text data...
+
+	//TestÁß...
+	//std::thread performanceTest(&InitLoadingScene);
+	//InitLoadingScene();
+
+	//////////////////////Worker Thread here...
+	GLFWwindow* main_context = glfwGetCurrentContext();
+	HDC hdc = GetDC(glfwGetWin32Window(main_context));
+	HGLRC thread_context = wglCreateContext(hdc);
+
+	BOOL error = wglShareLists(glfwGetWGLContext(main_context), thread_context);
+
+	if (error == FALSE)
+	{
+		printf("Something is wrong!");
+	}
+	//What does this code do? Kind of Init?
+	//glfwMakeContextCurrent(NULL);
+
+
+	std::thread loading_Thread([&]()
+		{
+			wglMakeCurrent(hdc, thread_context);
+
+			//Is there any reason why made two variable?
+			unsigned int cnt = 0;
+			unsigned int cnt2 = 0;
+
+			while(isLoadingDone == false)
+			{
+				// Update loading data
+				++cnt;
+				++cnt2;
+
+				if (cnt % 1500 == 0)
+				{
+					loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+				}
+				if (cnt2 % 500 == 0)
+				{
+					std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
+					loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");
+				}
+
+				Graphics::GL::begin_drawing();
+
+				// LoadingScene
+				const auto matrix = cameraManager.GetWorldToNDCTransform() * loadingScene->GetTransform().GetModelToWorld();
+				Sprite* sprite = loadingScene->GetComponentByTemplate<Sprite>();
+				sprite->UpdateUniforms(matrix,
+					loadingScene->GetTransform().CalculateWorldDepth());
+				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+
+				// Loading Text
+				const auto matrix2 = cameraManager.GetWorldToNDCTransform() * loadingText->GetTransform().GetModelToWorld();
+				loadingText->GetComponentByTemplate<TextComponent>()->Draw(matrix2,
+					loadingText->GetTransform().CalculateWorldDepth());
+
+
+				Graphics::GL::end_drawing();
+
+				SwapBuffers(hdc);
+			}
+
+			wglMakeCurrent(nullptr, nullptr);
+			wglDeleteContext(thread_context);
+		});
+
+	glfwMakeContextCurrent(main_context);
+
+	///////////////////////Init(huge work) Working here..
+	Load(); 
+
+	isLoadingDone = true;
+
+	if (loading_Thread.joinable()) {
+		loading_Thread.join();
+	}
 }
 
 void Scene::UnloadScene() noexcept
@@ -46,7 +156,7 @@ void Scene::UnloadScene() noexcept
 			obj->SetDead(true);
 		}
 	}
-	
+
 	Unload();
 }
 
@@ -67,7 +177,7 @@ void Scene::Draw() const noexcept
 		// 2. A sort of Text object
 		for (const auto& obj : element->GetObjContainer())
 		{
-			if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
+			if (const auto& sprite = obj.get()->GetComponentByTemplate<Sprite>())
 			{
 				if (sprite->isInstancingMode() == false)
 				{
@@ -89,7 +199,7 @@ void Scene::Draw() const noexcept
 					Graphics::GL::drawInstanced(*sprite->GetVertices(), *sprite->GetMaterial());
 				}
 			}
-			else if (const auto & text = obj.get()->GetComponentByTemplate<TextComponent>())
+			else if (const auto& text = obj.get()->GetComponentByTemplate<TextComponent>())
 			{
 				// 2.
 				// Update model to NDC matrix as Uniform value and Call different draw function.
@@ -132,6 +242,7 @@ GameScenes Scene::GetSceneInfo()
 
 
 
+
 void Scene::InstanceDEBUGObjects()
 {
 #ifdef _DEBUG
@@ -142,6 +253,6 @@ void Scene::InstanceDEBUGObjects()
 	objManager->FindLayer(HUD)->AddObject(tmp);
 	WallSpawner* wallSpawner = new WallSpawner();
 	objManager->FindLayer(HUD)->AddObject(wallSpawner);
-	
+
 #endif
 }

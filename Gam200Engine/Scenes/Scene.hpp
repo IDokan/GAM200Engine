@@ -13,6 +13,7 @@ Creation Date: 08.12.2019
 #pragma once
 #include <string>
 #include <Graphics/CameraManager.hpp>
+#include <Graphics/GL.hpp>
 
 enum class GameScenes 
 {
@@ -27,7 +28,7 @@ public:
 	{}
 	virtual ~Scene() = default;
     void GameRestartScene() noexcept;
-    virtual void Update(float dt) = 0;
+	virtual void Update(float dt) = 0;
 	void LoadScene() noexcept;
 	void UnloadScene() noexcept;
 
@@ -42,6 +43,10 @@ public:
 	bool isNextLevel();
 	GameScenes GetSceneInfo();
 
+	//Thread work for loading
+	void InitLoadingScene();
+
+
 protected:
     virtual void GameRestart() = 0;
 	virtual void Load() = 0;
@@ -55,4 +60,9 @@ protected:
 
 private:
 	void InstanceDEBUGObjects();
+
+	//Loading...
+	Object* loadingScene{};
+	Object* loadingText{};
+	bool isLoadingDone = false;
 };
