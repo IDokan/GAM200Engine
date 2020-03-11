@@ -12,10 +12,8 @@ Creation Date: 02.27.2020
 ******************************************************************************/
 #pragma once
 #include <Scenes/Scene.hpp>
-
-//class Object;
-//class Player;
-//class String;
+#include <Object/Players/Player.h>
+#include <Object/Strings/String.hpp>
 
 class EditorTestLevel : public Scene
 {
@@ -36,4 +34,7 @@ protected:
 
 private:
 	Object* background;
+	Player* player1{};
+	Player* player2{};
+	String* string{};
 };

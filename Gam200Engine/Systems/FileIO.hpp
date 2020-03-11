@@ -16,15 +16,13 @@ Creation Date: 11.23.2019
 #include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
 #include <string>
+#include <Object/Players/Player.h>
+#include <Object/Strings/String.hpp>
 
 class fileIO
 {
 public:
-	void Input(const std::filesystem::path& inFilePath); //, const std::filesystem::path& texturePath
+	void Input(const std::filesystem::path& filePath, Player* player1, Player* player2, String* string); //, const std::filesystem::path& texturePath
 	void Output(const std::filesystem::path& outFilePath);
 
-//private:
-//	Object* player1{};
-//	Object* player2{};
-//	String* string{};
 };

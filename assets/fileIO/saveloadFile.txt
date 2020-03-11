@@ -1,7 +1,4 @@
+startPoint 0 -500 150 150 -1 startpoint OneWayPassLevel
+goalPoint 0 500 150 150 -1 goalpoint OneWayPassLevel
 player1 -190.94 -241 150 150 -1 player1 ../assets/textures/p1.png
 player2 137.957 -248 150 150 -1 player2 ../assets/textures/p2.png
-obj0 -215.932 219 100 100 -1 obstacle ../assets/textures/rect.png
-obj1 71.9775 232 100 100 -1 obstacle ../assets/textures/rect.png
-obj2 205.936 64 100 100 -1 obstacle ../assets/textures/rect.png
-obj3 -75.9763 16 100 100 -1 obstacle ../assets/textures/rect.png
-obj4 -399.875 -16 100 100 -1 obstacle ../assets/textures/rect.png

@@ -14,7 +14,6 @@ Creation Date: 02.27.2020
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <Object/Object.hpp>
-#include <Object/Strings/String.hpp>
 #include <Systems/Input.hpp>
 #include <Component/Sprite/Sprite.hpp>
 #include <Object/ObjectManager.hpp>
@@ -22,7 +21,7 @@ Creation Date: 02.27.2020
 #include <Sounds/SoundManager.hpp>
 #include <Component/StateMachine.hpp>
 #include <States/Walking.hpp>
-#include <Object/Players/Player.h>
+
 
 EditorTestLevel::EditorTestLevel(): background(nullptr)
 {
@@ -34,34 +33,22 @@ EditorTestLevel::~EditorTestLevel()
 
 void EditorTestLevel::Load()
 {
-	fileIO* a = 0;
-	a->Input("../assets/fileIO/saveloadFile.txt");
+	fileIO* fileio = new fileIO;
+	fileio->Input("../assets/fileIO/saveloadFile.txt", player1, player2, string);
 
 	EditorTestLevel::InitObject();
 	cameraManager.Init();
 }
 
-
 void EditorTestLevel::Update(float /*dt*/)
 {
 	EditorTestLevel::Input();
 
-	vector2 obj1Position, obj2Position;
+	/*vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
+	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
 
-	const auto& testObjectContainer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
-	for (const auto& object : testObjectContainer)
-	{
-		if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
-		{
-			obj1Position = object->GetComponentByTemplate<Physics>()->GetPosition();
-			object->SetTranslation(obj1Position);
-		}
-		else if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
-		{
-			obj2Position = object->GetComponentByTemplate<Physics>()->GetPosition();
-			object->SetTranslation(obj2Position);
-		}
-	}
+	player1->SetTranslation(obj1Position);
+	player2->SetTranslation(obj2Position);*/
 	
 }
 

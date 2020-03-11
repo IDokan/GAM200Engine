@@ -31,8 +31,8 @@ TutorialLevel::~TutorialLevel()
 
 void TutorialLevel::Load()
 {
-    fileIO* a = 0;
-    a->Input("../assets/fileIO/savedTutorial.txt");
+    /*fileIO* fileio = new fileIO;
+	fileio->Input("../assets/fileIO/saveloadFile.txt", player1, player2, string);*/
 
     TutorialLevel::InitObject();
 

@@ -38,8 +38,8 @@ void Editor::GameRestart()
 
 void Editor::Load()
 {
-	fileIO* a = 0;
-	a->Input("../assets/fileIO/saveloadFile.txt");
+	//fileIO* a = 0;
+	//a->Input("../assets/fileIO/saveloadFile.txt");
 	
 	Editor::InitObject();
 

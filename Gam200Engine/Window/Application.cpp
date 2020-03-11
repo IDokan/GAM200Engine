@@ -53,6 +53,7 @@ void Application::Init()
 #ifdef _DEBUG
 	//SceneManager::GetSceneManager()->AddScenes("Editor", dynamic_cast<Scene*>(new Editor()));
 	SceneManager::GetSceneManager()->AddScenes("EditorTestLevel", dynamic_cast<Scene*>(new EditorTestLevel()));
+	
 #endif
 	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
 	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
