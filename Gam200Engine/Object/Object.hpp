@@ -30,6 +30,10 @@ public:
         PLAYER_2,
         OBSTACLE,
         OBSTACLE_1,
+        KEY_1,
+        KEY_2,
+        LOCK_1,
+        LOCK_2,
     	TEST,
         STRING,
     };

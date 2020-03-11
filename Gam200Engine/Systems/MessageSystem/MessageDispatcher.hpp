@@ -15,7 +15,7 @@ Creation Date: 01.14.2020
 
 #include <set>
 #include <Systems/MessageSystem/MessageTypes.h>
-class Message;
+struct Message;
 class Object;
 
 

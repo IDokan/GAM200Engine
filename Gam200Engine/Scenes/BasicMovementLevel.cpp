@@ -27,11 +27,6 @@ Creation Date: 12.10.2019
 #include <Object/Players/Player.h>
 #include <Component/Sprite/TextComponent.hpp>
 
-#define GLFW_EXPOSE_NATIVE_WIN32
-#define GLFW_EXPOSE_NATIVE_WGL
-#include <GLFW/glfw3native.h>
-#include <Graphics/GL.hpp>
-
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -128,7 +123,6 @@ void BasicMovementLevel::InitObject() {
     startPoint->SetTranslation(vector2{ 0.f, -500.f });
     startPoint->SetScale(vector2{ 150.f });
     startPoint->AddComponent(new Sprite(startPoint));
-	startPoint->AddComponent(new GoalComponent(startPoint, "OneWayPassLevel"));
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
