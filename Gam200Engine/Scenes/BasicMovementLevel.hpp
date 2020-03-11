@@ -42,9 +42,11 @@ private:
     Player* player1{};
     Player* player2{};
 
-    Object* loadingScene{};
 
     String* string{};
 
-	bool isLoadingDone = false;
+
+ //   Object* loadingScene{};
+	//bool isLoadingDone = false;
+
 };

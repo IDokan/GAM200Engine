@@ -249,8 +249,6 @@ void CrushObjectLevel::InitObject()
 {
     auto objManager = ObjectManager::GetObjectManager();
 
-
-
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 0.f,-1050.f });
