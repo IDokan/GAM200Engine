@@ -44,13 +44,7 @@ public:
 	void DeletePositionsWithObject(Object* obj);
 
     // Setter
-    void SetStringLength(float length);
     void SetShouldClear(bool should);
-    // Getter
-    float GetStringLength() const
-    {
-        return limitStringLength;
-    }
 
 private:
     void DeleteVerticesInContainer();
@@ -61,8 +55,6 @@ private:
 
 	void PushbackIfBended(vector2 point1, vector2 point2, size_t index, vector2 targetPoint, vector2 centerPosition, InteractiveObject* objPtr = nullptr);
 	bool IsDetached(StringVertex point1, StringVertex point2, StringVertex targetPoint) const;
-
-    void LimitStringLength();
 private:
     ObjectPoint objectPoint{};
     vector2 norVector{};
@@ -71,8 +63,6 @@ private:
     Object* player2;
     bool shouldClear;
 
-    float limitStringLength;
-    
     std::vector < std::pair<int, StringVertex>> vertexContainer{};
     std::vector <StringVertex> deletedVertices{};
 };

@@ -12,8 +12,8 @@ Creation Date: DEC/11st/2019
 
 
 #include <Object/InteractiveObject/ObstacleObject.hpp>
-#include <Component/Sprite.hpp>
-#include <States/StateManager.hpp>
+#include <Component/Sprite/Sprite.hpp>
+#include <Scenes/SceneManager.hpp>
 
 ObstacleObject::ObstacleObject(vector2 _objPos, vector2 _objScale,
     Physics::ObjectType _objType):
@@ -33,7 +33,7 @@ ObstacleObject::~ObstacleObject()
 
 void ObstacleObject::DoSomethingWhenAttached()
 {
-    StateManager::GetStateManager()->GameRestart();
+    SceneManager::GetSceneManager()->GameRestart();
 }
 
 void ObstacleObject::DoSomethingWhenDetached()

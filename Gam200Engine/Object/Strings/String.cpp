@@ -12,18 +12,25 @@ Creation Date:
 #include <algorithm>
 #include <numeric>
 #include <Object/Strings/String.hpp>
-#include "Component/StringSprite.hpp"
+#include <Component/Sprite/StringSprite.hpp>
 #include <Component/StringPhysics.hpp>
 #include <Object/ObjectManager.hpp>
-#include "Component/Physics.hpp"
+#include <Component/Physics.hpp>
+#include <Component/StateMachine.hpp>
+#include <States/StringStates/StringIdle.hpp>
+#include <Component/MessageCapable.hpp>
+#include <Object/DepthStandard.hpp>
 
 String::String(Object* player1, Object* player2)
-	: player1(player1), player2(player2), stringLength(0.f)
+	: player1(player1), player2(player2)
 {
 	Object::AddComponent(new StringSprite(this));
 	// should ctor need three pointers?
 	//string->AddComponent(new StringPhysics(string, object1, object2));
 	Object::AddComponent(new StringPhysics(this, player1, player2));
+	Object::AddComponent(new StateMachine<String>(this));
+	GetComponentByTemplate<StateMachine<String>>()->SetCurrentState(StringIdle::Get());
+	Object::AddComponent(new MessageCapable(this, MessageObjects::String_Object));
 
 	
 	vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
@@ -32,7 +39,7 @@ String::String(Object* player1, Object* player2)
 	// Basic property initialize
 	SetObjectName("String");
 	SetObjectType(Object::ObjectType::STRING);
-	SetDepth(-4500.f);
+	SetDepth(Depth_Standard::String);
 }
 
 void String::InitString()
@@ -46,12 +53,12 @@ void String::Update(float /*dt*/)
 
 float String::GetStringLength()
 {
-    oldStringLength = stringLength;
+	float totalLength = 0.f;
 	for (size_t i = 0; i < vertices.size() - 1; ++i)
 	{
-		stringLength = distance_between(vertices.at(i).position, vertices.at(i + 1).position);
+		totalLength += distance_between(vertices.at(i).position, vertices.at(i + 1).position);
 	}
-	return stringLength;
+	return totalLength;
 }
 
 const std::deque<StringVertex>& String::GetVertices() const noexcept

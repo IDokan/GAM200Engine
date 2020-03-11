@@ -64,15 +64,6 @@ void Layer::AddObject(Object* obj)
 
 bool Layer::DeleteObject(Object* obj)
 {
-	//const auto tmp = std::find(layer.second.begin(), layer.second.end(), obj);
-	//if (tmp == layer.second.end())
-	//{
-	//	return false;
-	//}
-	//layer.second.erase(tmp);
-	//return true;
-	//
-	//
 	size_t index = 0;
 	for (auto iterator = layer.second.begin(); iterator < layer.second.end(); ++iterator)
 	{

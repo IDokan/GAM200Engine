@@ -16,7 +16,6 @@ Creation Date: 08.12.2019
 #include "Component/Component.hpp"
 
 
-
 class Object
 {
 public:
@@ -24,7 +23,7 @@ public:
     Object();
 
 public:
-
+	
     enum class ObjectType
     {
         PLAYER_1,
@@ -90,10 +89,10 @@ public:
 
     [[nodiscard]] std::string GetStringOfObjectType() const noexcept;
     
-    vector2 GetTranslation(); // Woo
-    vector2 GetScale(); // Woo
+    vector2 GetTranslation() const noexcept; // Woo
+    vector2 GetScale() const noexcept; // Woo
 	float GetRotation() const noexcept; // Sinil
-	float GetDepth(); //Jiwon
+	float GetDepth() const noexcept; //Jiwon
 
 protected:
     Transform transform;

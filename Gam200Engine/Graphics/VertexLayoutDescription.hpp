@@ -1,7 +1,7 @@
 /*
- * Rudy Castan
+ * sinil.gang
  * Graphics Library
- * CS230
+ * CS230 && GAM200
  */
 #pragma once
 #include <vector>
@@ -11,11 +11,14 @@ namespace Graphics
     class [[nodiscard]] VertexLayoutDescription
     {
     public:
-        enum FieldType
+        enum class FieldType
         {
             Position2WithFloats,
             TextureCoordinates2WithFloats,
-            Color4WithUnsignedBytes
+            Color4WithUnsignedBytes,
+			InstancedMatrix9WithFloats1,
+			InstancedMatrix9WithFloats2,
+			InstancedMatrix9WithFloats3,
         };
 
         constexpr VertexLayoutDescription() noexcept = default;
@@ -23,9 +26,10 @@ namespace Graphics
 
 
         void                                    AddField(FieldType field_type) noexcept;
-        void                                    SendVertexDescriptionToOpenGL() const noexcept;
-        constexpr unsigned                      GetVertexSize() const noexcept { return vertexSize; }
-        constexpr const std::vector<FieldType>& GetFieldTypes() const noexcept { return fields; }
+        void                                    SendVertexDescriptionToOpenGL(unsigned int dataBufferHandle, unsigned int instanceDataBufferHandle) const noexcept;
+		[[nodiscard]] constexpr unsigned                      GetVertexSize() const noexcept { return vertexSize; }
+		[[nodiscard]] constexpr unsigned                      GetInstanceVertexSize() const noexcept { return instanceVertexSize; }
+        [[nodiscard]] constexpr const std::vector<FieldType>& GetFieldTypes() const noexcept { return fields; }
 
     private:
         struct field_description
@@ -34,9 +38,12 @@ namespace Graphics
             unsigned elementCount    = 0;
             unsigned sizeInBytes     = 0;
             bool     shouldNormalize = false;
+			bool		shouldInstanced = false;
         };
         unsigned                       vertexSize = 0;
-        std::vector<field_description> vertexDescription{};
+		unsigned						instanceVertexSize = 0;
+		std::vector<field_description> vertexDescription{};
+		std::vector<field_description> instanceVertexDescription{};
         std::vector<FieldType>         fields{};
     };
 }

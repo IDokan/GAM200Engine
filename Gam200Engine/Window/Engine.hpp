@@ -10,7 +10,6 @@ Creation Date: 08.05.2019
     Header file for the Engine.cpp
 ******************************************************************************/
 #pragma once
-#include <Systems/Timer.hpp>
 
 class Application;
 
@@ -32,5 +31,4 @@ private:
     float timea = 0;
     bool isRunning = false;
     float dt=0;
-    Timer timer;
 };

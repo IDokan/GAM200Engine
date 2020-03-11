@@ -10,9 +10,9 @@ Creation Date:
 	Header file for the String Object
 ******************************************************************************/
 #pragma once
+#include <deque>
 #include "Object/Object.hpp"
 #include "Object/Strings/StringVertex.hpp"
-#include <deque>
 
 class StringPhysics;
 class StringSprite;
@@ -23,6 +23,7 @@ class String : public Object
     friend StringSprite;
 public:
     static constexpr const size_t maxVertexSize = 60;
+	static constexpr const float String_Stretching_Length = 500.f;
 	
 public:
 	String(Object* player1, Object* player2);
@@ -37,6 +38,4 @@ private:
 	std::deque<StringVertex> vertices;
 	Object* player1;
 	Object* player2;
-    float oldStringLength;
-    float stringLength;
 };

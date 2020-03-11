@@ -12,7 +12,7 @@ Creation Date: 12.12.2019
 ******************************************************************************/
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/ObjectManager.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
 
 WallSpawner::WallSpawner()

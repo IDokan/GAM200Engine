@@ -10,9 +10,11 @@ Creation Date: 08.21.2019
 	Header file for Camera Manager that Manage whole functions of camera things
 ******************************************************************************/
 
-#include "CameraManager.hpp"
+#include <Graphics/CameraManager.hpp>
 #include <Window/Application.hpp>
 #include <Systems/Input.hpp>
+#include <Object/Object.hpp>
+#include <Component/Physics.hpp>
 
 Graphics::CameraManager::CameraManager()
 {
@@ -124,19 +126,22 @@ void Graphics::CameraManager::MoveRight(float dt, float distance) noexcept
 	selectedCamera->camera.MoveRight(dt * distance);
 }
 
-void Graphics::CameraManager::CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept
+void Graphics::CameraManager::CameraMove(const Object* player1, const Object* player2, const float& zoomSize) noexcept
 {
+	vector2 position1 = player1->GetTranslation();
+	vector2 position2 = player2->GetTranslation();
+
 	DEBUGCameraMove(zoomSize);
 
-    if (position1.x == -1.f ||
-        position1.y == -1.f ||
-        position2.x == -1.f ||
-        position2.y == -1.f)
-    {
-        return;
-    }
+	if (position1.x == -1.f ||
+		position1.y == -1.f ||
+		position2.x == -1.f ||
+		position2.y == -1.f)
+	{
+		return;
+	}
 
-	PositionHandling(position1, position2);
+	PositionHandling(player1, player2);
 	ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 }
 
@@ -156,12 +161,12 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& /*zoomSize*/) noexcep
 	// Camera Movement
 	if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
-		input.SetPresentMousePosition(input.GetMousePosition());
+		input.SetPresentMousePosition(input.GetMouseAbsolutePosition());
 	}
 	if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		// Get an relative distance with current zoom size
-		const vector2& mousePosition = input.GetMousePosition();
+		const vector2& mousePosition = input.GetMouseAbsolutePosition();
 		const vector2& distance = (input.GetPresentMousePosition() - mousePosition) / selectedCamera->cameraView.GetZoom();
 
 		// Apply distance into current Up and Right vector
@@ -226,7 +231,7 @@ void Graphics::CameraManager::ZoomAndCollisionRegionHandling(vector2 distanceBet
 	// Zoom Out part
 	if (distanceBetweenPlayer.x > 2 * cameraDetectRectSize.x)
 	{
-		SetZoom(GetZoom()*((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
+		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
 		cameraDetectRectSize.x = distanceBetweenPlayer.x / 2;
 	}
 	if (distanceBetweenPlayer.y > 2 * cameraDetectRectSize.y)
@@ -238,7 +243,7 @@ void Graphics::CameraManager::ZoomAndCollisionRegionHandling(vector2 distanceBet
 	// Zoom In part
 	if (cameraDetectRectSize.x > initCameraDetectRectSize.x)
 	{
-		if (distanceBetweenPlayer.x< 2 * cameraDetectRectSize.x)
+		if (distanceBetweenPlayer.x < 2 * cameraDetectRectSize.x)
 		{
 			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
 			cameraDetectRectSize.x = distanceBetweenPlayer.x / 2;
@@ -263,17 +268,85 @@ void Graphics::CameraManager::ZoomAndCollisionRegionHandling(vector2 distanceBet
 	}
 }
 
-void Graphics::CameraManager::PositionHandling(vector2 position1, vector2 position2) noexcept
+void Graphics::CameraManager::PositionHandling(const Object* player1, const Object* player2) noexcept
 {
-	vector2 cameraPosition = GetPosition();
+	static vector2 eyesightOffset{};
 
-	vector2 player1Delta = CalculateDeltaBetweenCameraAndPlayer(position1 - cameraPosition, cameraDetectRectSize);
+	vector2 position1 = player1->GetTranslation();
+	vector2 position2 = player2->GetTranslation();
 
-	vector2 player2Delta = CalculateDeltaBetweenCameraAndPlayer(position2 - cameraPosition, cameraDetectRectSize);
+	CalculateDirectionOffset(player1, player2, 10.f, eyesightOffset);
 
-	vector2 totalDelta{player1Delta + player2Delta};
+	vector2 totalDelta{ (position1 + position2)/2.f + eyesightOffset};
 
-	SetPosition(cameraPosition + totalDelta);
+	SetPosition(totalDelta);
+}
+
+void Graphics::CameraManager::CalculateDirectionOffset(const Object* player1, const Object* player2, float offset, vector2& resultOffset) noexcept
+{
+	EyesightTypeCode direction = CalculateEyesightType(player1->GetComponentByTemplate<Physics>()->GetVelocity());
+	direction |= CalculateEyesightType(player2->GetComponentByTemplate<Physics>()->GetVelocity());
+
+	vector2 resultDelta = GetUnitVectorWithGivenCode(direction) * offset;
+	resultOffset += resultDelta;
+
+	// If result offset is maximum, remove changes..
+	if (abs(resultOffset.x) > maximumEyesightOffset_X)
+	{
+		resultOffset.x -= resultDelta.x;
+	}
+	if (abs(resultOffset.y) > maximumEyesightOffset_Y)
+	{
+		resultOffset.y -= resultDelta.y;
+	}
+}
+
+Graphics::CameraManager::EyesightTypeCode Graphics::CameraManager::CalculateEyesightType(vector2 velocity) noexcept
+{
+	int result = 0;
+	if (velocity.x > 0.f)
+	{
+		result |= RIGHT;
+	}
+	else if(velocity.x < 0.f)
+	{
+		result |= LEFT;
+	}
+
+	if (velocity.y > 0.f)
+	{
+		result |= UP;
+	}
+	else if (velocity.y < 0.f)
+	{
+		result |= DOWN;
+	}
+
+	return result;
+}
+
+vector2 Graphics::CameraManager::GetUnitVectorWithGivenCode(EyesightTypeCode code) noexcept
+{
+	vector2 result;
+
+	if (code & UP)
+	{
+		result.y += 1.f;
+	}
+	if (code & RIGHT)
+	{
+		result.x += 1.f;
+	}
+	if (code & DOWN)
+	{
+		result.y -= 1.f;
+	}
+	if (code & LEFT)
+	{
+		result.x -= 1.f;
+	}
+
+	return result;
 }
 
 

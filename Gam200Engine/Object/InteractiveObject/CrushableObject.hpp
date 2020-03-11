@@ -26,6 +26,9 @@ public:
     void DoSomethingWhenAttached() override;
     void DoSomethingWhenDetached() override;
 
+	//
+	void Crushed() noexcept;
+
 private:
     vector2 objPos;
     vector2 objScale;

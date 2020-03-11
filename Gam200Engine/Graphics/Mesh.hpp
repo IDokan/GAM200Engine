@@ -14,6 +14,7 @@ Creation Date: 08.10.2019
 #include <Vector2.hpp>
 #include <cstddef>
 #include <vector>
+#include <matrix3.hpp>
 
 namespace Graphics
 {
@@ -29,6 +30,10 @@ namespace Graphics
          vector2     GetPoint(std::size_t index) const noexcept;
         Graphics::Color4ub    GetColor(std::size_t index = 0) const noexcept;
          vector2     GetTextureCoordinate(std::size_t index) const noexcept;
+		 std::size_t GetInstancedMatrixCount() const noexcept;
+		 matrix3 GetInstancedMatrix(std::size_t index) const noexcept;
+		 std::vector <matrix3>* GetPointerToInstancedMatrix() const noexcept;
+		 bool IsInstanceMatrixInvalid() const noexcept;
 
         PointListPattern GetPointListPattern() const noexcept;
         void             SetPointListType(PointListPattern type) noexcept;
@@ -36,6 +41,7 @@ namespace Graphics
         void AddColor(Graphics::Color4ub color) noexcept;
         void AddPoint( vector2 point) noexcept;
         void AddTextureCoordinate( vector2 texture_coordinate) noexcept;
+		void ChangeReferenceInstancedMatrices(std::vector<matrix3>* matrix) noexcept;
 
         void ClearColors() noexcept;
         bool HasMoreThanOneColor() const noexcept;
@@ -45,10 +51,13 @@ namespace Graphics
         void Clear() noexcept;
 
     private:
-        std::vector< vector2>  points{};
+        std::vector<vector2>  points{};
         std::vector<Graphics::Color4ub> colors{};
-        std::vector< vector2>  textureCoordinates{};
+        std::vector<vector2>  textureCoordinates{};
         PointListPattern      pointListType = PointListPattern::Lines;
+
+		/* Below variables are storage to save data to implement with Instancing */
+		std::vector <matrix3>* instancedMatrices = nullptr;
     };
 
     namespace MESH

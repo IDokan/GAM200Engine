@@ -15,10 +15,19 @@ Creation Date: 08.21.2019
 #include <Graphics/CameraView.hpp>
 #include <unordered_map>
 
+class Object;
+
 namespace Graphics
 {
 	class CameraManager final
 	{
+	private:
+		typedef int EyesightTypeCode;
+		#define	UP 1 << 0
+		#define	RIGHT 1 << 1
+		#define	DOWN 1 << 2
+		#define	LEFT 1 << 3
+
 	public:
 		CameraManager();
 		~CameraManager() = default;
@@ -51,14 +60,18 @@ namespace Graphics
 		void MoveUp(float dt, float distance) noexcept;
 		void MoveRight(float dt, float distance) noexcept;
 
-		void CameraMove(const vector2& position1, const vector2& position2, const float& zoomSize) noexcept;
+		void CameraMove(const Object* player1, const Object* player2, const float& zoomSize) noexcept;
 
 		vector2 GetDEBUGCameraRectSize() const noexcept;
 	private:
 		void DEBUGCameraMove(const float& zoomSize) noexcept;
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
 		void ZoomAndCollisionRegionHandling(vector2 distanceBetweenPlayer) noexcept;
-		void PositionHandling(vector2 position1, vector2 position2) noexcept;
+		void PositionHandling(const Object* player1, const Object* player2) noexcept;
+		
+		void CalculateDirectionOffset(const Object* player1, const Object* player2, float offset, vector2& resultOffset) noexcept;
+		EyesightTypeCode CalculateEyesightType(vector2 velocity) noexcept;
+		vector2 GetUnitVectorWithGivenCode(EyesightTypeCode code) noexcept;
 	private:
 		struct CameraSet
 		{
@@ -71,6 +84,9 @@ namespace Graphics
 
 		vector2 initCameraDetectRectSize{ 500.f, 300.f };
 		vector2 cameraDetectRectSize{ initCameraDetectRectSize };
+
+		constexpr static float maximumEyesightOffset_X{ 400.f };
+		constexpr static float maximumEyesightOffset_Y{ 225.f };
 	};
 
 	constexpr float CameraManager::GetInitZoomSize() const noexcept

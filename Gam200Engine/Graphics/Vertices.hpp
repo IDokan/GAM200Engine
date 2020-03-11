@@ -12,6 +12,8 @@ namespace Graphics
 
     class [[nodiscard]] Vertices
     {
+	public:
+		static constexpr unsigned int NOT_GENERATED = 0U;
     public:
         Vertices() noexcept = default;
         Vertices(const Mesh& mesh, const VertexLayoutDescription& vertex_layout) noexcept;
@@ -24,7 +26,8 @@ namespace Graphics
 
         static void        Select(const Vertices& vertices);
         constexpr unsigned GetVerticesListPattern() const noexcept { return verticesListPattern; }
-        constexpr int      GetVerticesCount() const noexcept { return verticesCount; }
+		constexpr int      GetVerticesCount() const noexcept { return static_cast<int>(verticesCount); }
+		constexpr int      GetInstanceDataCount() const noexcept { return static_cast<int>(instanceDataCount); }
         static void        SelectNothing();
 
     public:
@@ -36,11 +39,13 @@ namespace Graphics
         void WriteMeshDataToVertexBuffer(const Mesh& mesh) const noexcept;
 
     private:
-        unsigned int            verticesHandle       = 0;
-        unsigned int            dataBufferHandle     = 0;
-        int                     verticesCount        = 0;
+        unsigned int            verticesHandle       = NOT_GENERATED;
+        unsigned int            dataBufferHandle     = NOT_GENERATED;
+		unsigned int			instanceDataBufferHandle = NOT_GENERATED;
+        size_t                     verticesCount        = 0;
+		size_t						instanceDataCount = 0;
         unsigned int            verticesListPattern  = 0;
-        int                     bufferVertexCapacity = 0;
+		size_t                     bufferVertexCapacity = 0;
         VertexLayoutDescription layout{};
     };
 }

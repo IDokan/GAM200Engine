@@ -10,7 +10,7 @@ Creation Date: 12.09.2019
 	Source file for the test object whether interact work or not
 ******************************************************************************/
 #include <Object/InteractiveObject/TestInteractionObject.hpp>
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
 
 TestInteractionObject::TestInteractionObject()

@@ -12,7 +12,7 @@ Creation Date: 12.11.2019
 ******************************************************************************/
 
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
-#include <States/StateManager.hpp>
+#include <Scenes/SceneManager.hpp>
 #include <utility>
 
 LevelChangeButton::LevelChangeButton()
@@ -26,10 +26,10 @@ LevelChangeButton::~LevelChangeButton()
 
 std::vector<std::string> LevelChangeButton::GetStateNames() const noexcept
 {
-	return StateManager::GetStateManager()->GetStateNames();
+	return SceneManager::GetSceneManager()->GetSceneNames();
 }
 
 void LevelChangeButton::ChangeLevel(const std::string& nextLevelName) noexcept
 {
-	StateManager::GetStateManager()->SetNextLevel(nextLevelName);
+	SceneManager::GetSceneManager()->SetNextScene(nextLevelName);
 }

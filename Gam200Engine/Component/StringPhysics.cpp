@@ -15,7 +15,7 @@ Creation Date: 11.04.2019
 #include "Component/Physics.hpp"
 #include "Object/ObjectManager.hpp"
 #include <vector>
-#include <Component/StringSprite.hpp>
+#include <Component/Sprite/StringSprite.hpp>
 #include <Object/InteractiveObject/InteractiveObject.hpp>
 
 #include <iostream>
@@ -32,7 +32,6 @@ StringPhysics::~StringPhysics()
 
 void StringPhysics::Init()
 {
-    limitStringLength = 500.f;
 }
 
 void StringPhysics::Update(float /*dt*/)
@@ -114,8 +113,6 @@ void StringPhysics::Update(float /*dt*/)
 
     *stringPhysicsOwner->vertices.begin() = player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
     *(stringPhysicsOwner->vertices.end() - 1) = player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
-    LimitStringLength();
-
 
     Detach();
 }
@@ -277,16 +274,6 @@ bool StringPhysics::IsDetached(StringVertex point1, StringVertex point2, StringV
     {
         return true;
     }
-}
-
-void StringPhysics::LimitStringLength()
-{
-
-}
-
-void StringPhysics::SetStringLength(float length)
-{
-    limitStringLength = length;
 }
 
 void StringPhysics::SetShouldClear(bool should)

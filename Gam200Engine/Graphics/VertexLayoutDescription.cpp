@@ -1,75 +1,135 @@
-/*  1. sinil.gang
- *  2. Shapes Programming Assignment
- *  3. CS230
- *  4. Spring 2019
+/*  sinil.gang
+ *  CS230 && GAM200
  */
+#include <cassert>
+#include <cstdint>
 #include <Graphics/Mesh.hpp>
 #include <Graphics/VertexLayoutDescription.hpp>
 #include <Graphics/glCheck.hpp>
 #include <GL/glew.h>
-#include <cassert>
-#include <cstdint>
+#include <Graphics/Vertices.hpp>
 
 namespace Graphics
 {
-    Graphics::VertexLayoutDescription::VertexLayoutDescription(std::initializer_list<FieldType> fields) noexcept
-    {
-        for (const FieldType& element:fields)
-        {
-            AddField(element);
-        }
-    }
+	Graphics::VertexLayoutDescription::VertexLayoutDescription(std::initializer_list<FieldType> fields) noexcept
+	{
+		for (const VertexLayoutDescription::FieldType& element : fields)
+		{
+			AddField(element);
+		}
+	}
 
-    void Graphics::VertexLayoutDescription::AddField(FieldType field_type) noexcept
-    { 
-        fields.push_back(field_type);
+	void Graphics::VertexLayoutDescription::AddField(FieldType field_type) noexcept
+	{
+		fields.push_back(field_type);
 
-        field_description temp;
-        
-        switch (field_type) { 
-            case Position2WithFloats:
-                temp.elementType  = GL_FLOAT;
-                temp.elementCount = 2;
-                temp.sizeInBytes  = sizeof(float) * temp.elementCount;
-            break;
+		field_description temp;
 
-            case TextureCoordinates2WithFloats:
-                temp.elementType  = GL_FLOAT;
-                temp.elementCount = 2;
-                temp.sizeInBytes  = sizeof(float) * temp.elementCount;
-            break;
+		switch (field_type) {
+		case FieldType::Position2WithFloats:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 2;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			break;
 
-            case Color4WithUnsignedBytes:
-                temp.elementType  = GL_UNSIGNED_BYTE;
-                temp.elementCount = 4;
-                temp.sizeInBytes  = sizeof(unsigned char) * temp.elementCount;
-                temp.shouldNormalize = true;
-            break;
+		case FieldType::TextureCoordinates2WithFloats:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 2;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			break;
 
-            default: 
-            break;
-        }
+		case FieldType::Color4WithUnsignedBytes:
+			temp.elementType = GL_UNSIGNED_BYTE;
+			temp.elementCount = 4;
+			temp.sizeInBytes = sizeof(unsigned char) * temp.elementCount;
+			temp.shouldNormalize = true;
+			break;
 
-        vertexSize += temp.sizeInBytes;
+		case FieldType::InstancedMatrix9WithFloats1:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 3;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
 
-        vertexDescription.push_back(temp);
-    }
+		case FieldType::InstancedMatrix9WithFloats2:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 3;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
 
-    void Graphics::VertexLayoutDescription::SendVertexDescriptionToOpenGL() const noexcept
-    {
-        GLintptr offset = 0;
-        
-        for (int count = 0; count < static_cast<int>(fields.size()); ++count)
-        {
-            glCheck(glEnableVertexAttribArray(count));
+		case FieldType::InstancedMatrix9WithFloats3:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 3;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
 
-            field_description temp = vertexDescription.at(count);
+		default:
+			break;
+		}
+
+		if (temp.shouldInstanced == false)
+		{
+			vertexSize += temp.sizeInBytes;
+
+			vertexDescription.push_back(temp);
+		}
+		else
+		{
+			instanceVertexSize += temp.sizeInBytes;
+
+			instanceVertexDescription.push_back(temp);
+		}
+	}
+
+	void Graphics::VertexLayoutDescription::SendVertexDescriptionToOpenGL(unsigned int dataBufferHandle, unsigned int instanceDataBufferHandle) const noexcept
+	{
+		GLintptr offset = 0;
+		GLuint count = 0;
+		GLuint sizeOfVertexDescription = static_cast<GLuint>(vertexDescription.size());
+
+		glBindBuffer(GL_ARRAY_BUFFER, dataBufferHandle);
+
+		// send vertex data
+		for (; count < sizeOfVertexDescription; ++count)
+		{
+			glCheck(glEnableVertexAttribArray(count));
+
+			const field_description temp = vertexDescription.at(count);
 
 
-                glCheck(glVertexAttribPointer(count, temp.elementCount, temp.elementType, temp.shouldNormalize, vertexSize,
-                                  (void*)offset));
+			glCheck(glVertexAttribPointer(count, temp.elementCount, temp.elementType, temp.shouldNormalize, vertexSize,
+				(void*)offset));
 
-            offset += vertexDescription.at(count).sizeInBytes;
-        }
-    }
+			offset += vertexDescription.at(count).sizeInBytes;
+		}
+
+		if (instanceDataBufferHandle == Vertices::NOT_GENERATED)
+		{
+			return;
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, instanceDataBufferHandle);
+
+		 
+		offset = 0;
+		GLuint sizeOfVertexANDInstanceVertexDescription = sizeOfVertexDescription + static_cast<GLuint>(instanceVertexDescription.size());
+		// send instance data
+		for (; count < sizeOfVertexANDInstanceVertexDescription; ++count)
+		{
+			glCheck(glEnableVertexAttribArray(count));
+
+			const field_description temp = instanceVertexDescription.at(count - sizeOfVertexDescription);
+
+
+			glCheck(glVertexAttribPointer(count, temp.elementCount, temp.elementType, temp.shouldNormalize, instanceVertexSize,
+				(void*)offset));
+
+			glCheck(glVertexAttribDivisor(count, 1));
+
+			offset += instanceVertexDescription.at(count - sizeOfVertexDescription).sizeInBytes;
+		}
+	}
 }

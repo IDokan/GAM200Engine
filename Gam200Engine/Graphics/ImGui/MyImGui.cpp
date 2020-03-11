@@ -22,12 +22,14 @@ Creation Date: 08.23.2019
 #pragma warning (pop)
 #include <Window/Application.hpp>
 #include <Object/ObjectManager.hpp>
-#include <Object/InteractiveObject/InteractiveObject.hpp>
+#include <Systems/Input.hpp>
+#include <Systems/KeyHelpers.hpp>
 // Include special objects
+#include <Object/InteractiveObject/InteractiveObject.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 // Include Components
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
 
 namespace MyImGui
@@ -46,20 +48,22 @@ namespace MyImGui
 	void HighlightSelectedObject(Object* obj, float dt);
 	void DrawLevelChangeSection(LevelChangeButton* levelChangeButton);
 	void DrawWallSpawnerSection(WallSpawner* wallSpawner);
+	void UpdateObjectTranslationWithMouse(Object* obj);
+	bool IsMouseOnTheObject(Object* obj, vector2 mousePos);
+	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, vector2& initialMousePosition, bool& isMoving);
+	void DrawMainMenuBar();
 	/* End of helper functions */
 
-
+	/* Helper global variables */
+	float snapSettingMoveX = 100.f;
+	float snapSettingMoveY = 100.f;
 	bool isCollisionBoxShown = false;
 	int stack = 0;
+	/* End of helper global variables */
 
 	static Object* collisionBox;
 	void AddCollisionBox(Object* obj, Physics* physics)
 	{
-		//if (isCollisionBoxShown == true)
-		//{
-		//	return;
-		//}
-
 		Layer* hudLayer = ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD);
 		if (hudLayer != nullptr)
 		{
@@ -121,7 +125,7 @@ namespace MyImGui
 
 		ImGui::Spacing();
 
-        static int resultPrintFlag = 0;
+		static int resultPrintFlag = 0;
 
 		static constexpr size_t BUFFER_SIZE = 128;
 		static char* filePath{};
@@ -129,26 +133,26 @@ namespace MyImGui
 		ImGui::InputText("file path", filePath, BUFFER_SIZE);
 		if (ImGui::Button("Change sprite!"))
 		{
-            if (sprite->SetImage(filePath))
-            {
-                resultPrintFlag = 1;
-            }
-            else
-            {
-                resultPrintFlag = -1;
-            }
+			if (sprite->SetImage(filePath))
+			{
+				resultPrintFlag = 1;
+			}
+			else
+			{
+				resultPrintFlag = -1;
+			}
 		}
 
-        if (resultPrintFlag > 0)
-        {
-            ImGui::SameLine();
-            ImGui::Text("Image Loading succeed! :D");
-        }
-        else if (resultPrintFlag < 0)
-        {
-            ImGui::SameLine();
-            ImGui::Text("Image Loading Failed.. :(");
-        }
+		if (resultPrintFlag > 0)
+		{
+			ImGui::SameLine();
+			ImGui::Text("Image Loading succeed! :D");
+		}
+		else if (resultPrintFlag < 0)
+		{
+			ImGui::SameLine();
+			ImGui::Text("Image Loading Failed.. :(");
+		}
 	}
 
 	void DrawPhysicsSection(Object* object, Physics* physics)
@@ -274,13 +278,19 @@ namespace MyImGui
 
 	void DrawInformation(Object* obj, float dt)
 	{
+		// !Prerequisite! -> object does not a nullptr
+		if (obj == nullptr)
+		{
+			return;
+		}
+		
 		// Draw Object Name first -> It is essential
 		DrawObjectNameSection(obj);
 
 		// Draw special object, after draw it return this function
 		{
-			// Draw level chang button description if given object is that
-			if (LevelChangeButton * levelChangeButton = dynamic_cast<LevelChangeButton*>(obj);
+			// Draw level change button description if given object is it
+			if (LevelChangeButton* levelChangeButton = dynamic_cast<LevelChangeButton*>(obj);
 				levelChangeButton != nullptr)
 			{
 				DrawLevelChangeSection(levelChangeButton);
@@ -288,7 +298,7 @@ namespace MyImGui
 			}
 
 			// Draw string object description if given object is that
-			if (String * string = dynamic_cast<String*>(obj);
+			if (String* string = dynamic_cast<String*>(obj);
 				string != nullptr)
 			{
 				DrawStringSection(string);
@@ -300,14 +310,14 @@ namespace MyImGui
 
 		{
 			// If object have special components display them.
-			if (Sprite * sprite = obj->GetComponentByTemplate<Sprite>();
+			if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>();
 				sprite != nullptr)
 			{
 				HighlightSelectedObject(obj, dt);
 
 				DrawSpriteSection(sprite);
 			}
-			if (Physics * physics = obj->GetComponentByTemplate<Physics>())
+			if (Physics* physics = obj->GetComponentByTemplate<Physics>())
 			{
 				DrawPhysicsSection(obj, physics);
 			}
@@ -385,10 +395,117 @@ namespace MyImGui
 			wallSpawner->SpawnWall();
 		}
 	}
+	void UpdateObjectTranslationWithMouse(Object* obj)
+	{
+		static vector2 initialMousePosition{};
+		static vector2 presentMousePosition{};
+		static bool isMoving = false;
+		const vector2 currentMousePosition = input.GetMouseRelativePosition();
+		if (KeyHelpers::IsMoveButtonTriggered())
+		{
+			if (IsMouseOnTheObject(obj, currentMousePosition))
+			{
+				presentMousePosition = currentMousePosition;
+				initialMousePosition = obj->GetTranslation();
+
+				isMoving = true;
+			}
+		}
+
+		if (isMoving == true)
+		{
+			MoveObject(obj, currentMousePosition, presentMousePosition, initialMousePosition, isMoving);
+		}
+	}
+	bool IsMouseOnTheObject(Object* obj, vector2 mousePos)
+	{
+		vector2 min{ obj->GetTranslation() - (obj->GetScale() / 2.f) };
+		vector2 max{ obj->GetTranslation() + (obj->GetScale() / 2.f) };
+		return !(
+			mousePos.x < min.x ||
+			mousePos.y < min.y ||
+			max.x < mousePos.x ||
+			max.y < mousePos.y
+			)
+			;
+	}
+	void MoveObject(Object* obj, vector2 currentMousePosition, vector2& presentMousePosition, vector2& initialMousePosition, bool& isMoving)
+	{
+		vector2 distance = (currentMousePosition - presentMousePosition);
+		vector2 newPosition = obj->GetTranslation();
+		// If shift button is pressed,
+		if (KeyHelpers::IsSnapButtonPressed())
+		{
+			// snapping
+			if (abs(distance.x) > snapSettingMoveX)
+			{
+				distance.x -= fmod(distance.x, snapSettingMoveX);
+				newPosition.x += distance.x;
+				presentMousePosition.x = newPosition.x;
+			}
+			if (abs(distance.y) > snapSettingMoveY)
+			{
+				distance.y -= fmod(distance.y, snapSettingMoveY);
+				newPosition.y += distance.y;
+				presentMousePosition.y = newPosition.y;
+			}
+
+			obj->SetTranslation(newPosition);
+		}
+		else
+		{
+			newPosition += distance;
+			obj->SetTranslation(newPosition);
+
+			// Update present mouse position
+			presentMousePosition = currentMousePosition;
+		}
+
+		if (KeyHelpers::IsSnapButtonTriggered())
+		{
+			obj->SetTranslation(initialMousePosition);
+			presentMousePosition = initialMousePosition;
+		}
+
+		if (KeyHelpers::IsMoveButtonReleased())
+		{
+			isMoving = false;
+		}
+	}
+	void DrawMainMenuBar()
+	{
+		if (ImGui::BeginMainMenuBar())
+		{
+			if (ImGui::BeginMenu("ImGUi Configurations"))
+			{
+				if (ImGui::BeginMenu("Snap Settings"))
+				{
+					ImGui::InputFloat("Move X", &snapSettingMoveX, 0.5f);
+					// Simple Clamping
+					if (snapSettingMoveX < 0.f)
+					{
+						snapSettingMoveX = 0.f;
+					}
+
+					ImGui::InputFloat("Move Y", &snapSettingMoveY, 0.5f);
+					// Simple Clamping
+					if (snapSettingMoveY < 0.f)
+					{
+						snapSettingMoveY = 0.f;
+					}
+
+					ImGui::EndMenu();
+				}
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMainMenuBar();
+		}
+	}
 #ifdef _DEBUG
 	void InitImGui(GLFWwindow* window) noexcept
 #else
-    void InitImGui(GLFWwindow* /*window*/) noexcept
+	void InitImGui(GLFWwindow* /*window*/) noexcept
 #endif
 	{
 #ifdef _DEBUG
@@ -397,7 +514,7 @@ namespace MyImGui
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	
+
 
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -411,13 +528,13 @@ namespace MyImGui
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 #endif
-	}
+}
 
 	// Merge at one or make it separate kind of Begin, Update, End...
 #ifdef _DEBUG
 	void UpdateImGui(bool /*isShowWindow*/, float dt) noexcept
 #else
-    void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
+	void UpdateImGui(bool /*isShowWindow*/, float /*dt*/) noexcept
 #endif
 	{
 #ifdef _DEBUG
@@ -431,6 +548,9 @@ namespace MyImGui
 		//	ImGui::ShowDemoWindow(&isShowWindow);
 
 		// 2. Let's make my own window with ImGui Tutorial!
+
+		DrawMainMenuBar();
+
 		static int selectedLayer = -1;
 		static int selected = -1;
 		auto& layerContainer = ObjectManager::GetObjectManager()->GetLayerContainer();
@@ -439,14 +559,14 @@ namespace MyImGui
 		{
 			layerNames.push_back(layerContainer.at(i)->GetNameAsString());
 		}
-		for (size_t i = 0; i < layerNames.size(); ++i)
+		for (int i = 0; i < layerNames.size(); ++i)
 		{
 			ImGui::Begin(layerNames.at(i).c_str());
 			const auto objContainer = layerContainer.at(i)->GetObjContainer();
 			const size_t size = objContainer.size();
 			for (int j = 0; j < static_cast<int>(size); ++j)
 			{
-				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && static_cast<size_t>(selectedLayer) == i))
+				if (ImGui::Selectable(objContainer.at(j)->GetObjectName().c_str(), selected == j && (selectedLayer) == i))
 				{
 					selectedLayer = static_cast<int>(i);
 					selected = j;
@@ -466,6 +586,8 @@ namespace MyImGui
 
 				// Draw all information about selected object in here!
 				DrawInformation(obj, dt);
+
+				UpdateObjectTranslationWithMouse(obj);
 			}
 			else
 			{

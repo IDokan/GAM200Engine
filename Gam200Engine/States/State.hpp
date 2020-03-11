@@ -4,52 +4,26 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   State.hpp
 Author
-		rtd99062@gmail.com
-Creation Date: 08.12.2019
+		Kang rtd99062@gmail.com
+Creation Date: 01.13.2020
 
-	Header file for the abstract class for all of state
+	Header file for State abstract class
+		Each derived state classes need to be derived from this class
 ******************************************************************************/
-
 #pragma once
-#include <string>
-#include <Graphics/CameraManager.hpp>
 
-enum class GameStates 
-{
-    Menu, Game, Proto, Test, Credit, None
-};
-
-class State abstract
+template<class object_type>
+class State
 {
 public:
-	State()
-		:current_state_info(GameStates::None), next_level({}), is_next(false), cameraManager({})
-	{}
-	virtual ~State() = default;
-    void GameRestartState() noexcept;
-    virtual void Update(float dt) = 0;
-	void LoadState() noexcept;
-	void UnloadState() noexcept;
+	virtual ~State(){}
 
-	virtual void Draw() const noexcept;
+	// this will execute when  the state is entered
+	virtual void Enter(object_type* obj) = 0;
 
-public:
-	void LevelChangeTo(std::string name);
-	std::string GetChangedLevelName();
-	bool isNextLevel();
-	GameStates GetStateInfo();
+	// this is called by the object's update function in each update step
+	virtual void Execute(object_type* obj) = 0;
 
-protected:
-    virtual void GameRestart() = 0;
-	virtual void Load() = 0;
-	virtual void Unload() = 0;
-    GameStates current_state_info;
-    std::string next_level;
-    bool is_next;
-
-
-	Graphics::CameraManager cameraManager{};
-
-private:
-	void InstanceDEBUGObjects();
+	// this will execute when the state is exited
+	virtual void Exit(object_type* obj) = 0;
 };

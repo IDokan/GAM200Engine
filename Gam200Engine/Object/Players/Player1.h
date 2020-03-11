@@ -11,7 +11,7 @@ Creation Date: 11th/Nov/2019
 ******************************************************************************/
 
 #pragma once
-#include <Component/Sprite.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include  <Object/Object.hpp>
 #include <Component/Physics.hpp>
 #include <utility>
