@@ -46,9 +46,6 @@ void TutorialLevel::Load()
 
 void TutorialLevel::Update(float /*dt*/)
 {
-    //TutorialLevel::Input();
-    //TutorialLevel::Collision();
-
     static bool unLock1 = false;
     static bool unLock2 = false;
     if (!unLock1)
@@ -67,6 +64,9 @@ void TutorialLevel::Update(float /*dt*/)
         key2->SetDead(true);
         unLock2 = true;
     }
+	
+	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
 
     TutorialLevel::Collision();
 
@@ -172,7 +172,7 @@ void TutorialLevel::InitObject() {
     }));
 
 	goalPoint = new Object();
-	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	goalPoint->SetObjectType(Object::ObjectType::TEST);
 	goalPoint->SetObjectName("goalPoint");
 	goalPoint->SetTranslation(vector2{ 1000.f, -10.f });
 	goalPoint->SetScale(vector2{ 150.f });
@@ -183,7 +183,7 @@ void TutorialLevel::InitObject() {
 	goalPoint->SetDepth(-1.f);
 
 	startPoint = new Object();
-	startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+	startPoint->SetObjectType(Object::ObjectType::TEST);
 	startPoint->SetObjectName("startPoint");
 	startPoint->SetTranslation(vector2{ -800.f, -2000.f });
 	startPoint->SetScale(vector2{ 150.f });
@@ -193,8 +193,23 @@ void TutorialLevel::InitObject() {
 	startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
 	startPoint->SetDepth(-1.f);
 
+
+
+	Object* pushingObj = new Object();
+	pushingObj->SetObjectName("pushing Test");
+	pushingObj->SetTranslation(vector2{ 700.f, -1200.f });
+	pushingObj->SetScale(vector2{ 150.f });
+	pushingObj->AddComponent(new Physics(pushingObj));
+	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
+	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
+	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
+	pushingObj->AddComponent(new Sprite(pushingObj));
+	pushingObj->SetDepth(-0.5f);
+
     auto objManager = ObjectManager::GetObjectManager();
 
+	objManager->FindLayer(LayerNames::Stage)->AddObject(pushingObj);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);

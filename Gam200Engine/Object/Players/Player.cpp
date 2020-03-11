@@ -46,10 +46,10 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	switch (player)
 	{
 	case Identifier::Player1:
-		LoadPlayer1Layout(playerTransformData);
+		LoadPlayer1Layout();
 		break;
 	case Identifier::Player2:
-		LoadPlayer2Layout(playerTransformData);
+		LoadPlayer2Layout();
 		break;
 	default:;
 	}
@@ -82,7 +82,7 @@ Player::Identifier Player::GetID() const noexcept
 	return id;
 }
 
-void Player::LoadPlayer1Layout(const Transform& playerTransformData)
+void Player::LoadPlayer1Layout()
 {
 	Object::SetObjectName("Player 1");
 	Object::SetObjectType(ObjectType::PLAYER_1);
@@ -114,7 +114,7 @@ void Player::LoadPlayer1Layout(const Transform& playerTransformData)
 	));
 }
 
-void Player::LoadPlayer2Layout(const Transform& playerTransformData)
+void Player::LoadPlayer2Layout()
 {
 	Object::SetObjectName("Player 2");
 	Object::SetObjectType(ObjectType::PLAYER_2);

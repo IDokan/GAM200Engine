@@ -30,6 +30,8 @@ Creation Date: 08.05.2019
 #include <Scenes/ProtoLevel.hpp>
 #include <Scenes/TutorialLevel.hpp>
 
+#include <Systems/ObstaclesDrawingHelper.hpp>
+
 
 Application* Application::GetApplication()
 {
@@ -51,7 +53,7 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 //#ifdef _DEBUG
-	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
+	//SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	
 //#endif
@@ -61,7 +63,8 @@ void Application::Init()
     SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
 	SceneManager::GetSceneManager()->AddScenes("ProtoLevel", dynamic_cast<Scene*>(new ProtoLevel()));
     
-	 
+
+	ObstaclesDrawingHelper::Get()->Init();
 }
 
 void Application::Update(float dt)

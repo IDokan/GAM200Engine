@@ -33,8 +33,8 @@ public:
 	[[nodiscard]] Identifier GetID() const noexcept;
 
 private:
-	void LoadPlayer1Layout(const Transform& playerTransformData);
-	void LoadPlayer2Layout(const Transform& playerTransformData);
+	void LoadPlayer1Layout();
+	void LoadPlayer2Layout();
 	
 private:
 	Identifier id;

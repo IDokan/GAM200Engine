@@ -39,7 +39,7 @@ BasicMovementLevel::~BasicMovementLevel()
 
 void BasicMovementLevel::Load()
 {
-    fileIO* fileio = new fileIO;
+    fileIO* fileio = new fileIO();
 	fileio->Input("../assets/fileIO/basic.txt", &player1, &player2, &string);
 
     BasicMovementLevel::InitObject();
@@ -108,11 +108,10 @@ void BasicMovementLevel::InitObject() {
     background->SetTranslation(vector2{ 1.f });
     background->SetScale(vector2{ 1000.f });
     background->AddComponent(new Sprite(background));
-    background->AddComponent(new Physics(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
     goalPoint = new Object();
-    goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+    goalPoint->SetObjectType(Object::ObjectType::TEST);
     goalPoint->SetObjectName("goalPoint");
     goalPoint->SetTranslation(vector2{ 0.f, 500.f });
     goalPoint->SetScale(vector2{ 150.f });
@@ -124,7 +123,7 @@ void BasicMovementLevel::InitObject() {
     goalPoint->SetDepth(-1.f);
 
     startPoint = new Object();
-    startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
+    startPoint->SetObjectType(Object::ObjectType::TEST);
     startPoint->SetObjectName("startPoint");
     startPoint->SetTranslation(vector2{ 0.f, -500.f });
     startPoint->SetScale(vector2{ 150.f });
@@ -135,35 +134,6 @@ void BasicMovementLevel::InitObject() {
 	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(true);
     startPoint->SetDepth(-1.f);
 
-	ObjectManager* objManager = ObjectManager::GetObjectManager();
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-	Object* obbTest = new Object();
-	obbTest->SetObjectName("Obb Test");
-	obbTest->SetScale(vector2{ 150.f });
-	obbTest->SetObjectType(Object::ObjectType::OBSTACLE);
-	obbTest->SetRotation(1.2f);
-	obbTest->AddComponent(new Physics(obbTest));
-	Physics* obbPhysics = obbTest->GetComponentByTemplate<Physics>();
-	obbPhysics->SetCollisionBoxAndObjectType(obbTest, Physics::ObjectType::RECTANGLE);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(obbTest);
-
-	Object* pushingObj = new Object();
-	pushingObj->SetObjectName("pushing Test");
-	pushingObj->SetTranslation(vector2{ 200.f });
-	pushingObj->SetScale(vector2{ 150.f });
-	pushingObj->AddComponent(new Physics(pushingObj));
-	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
-	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
-	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
-	pushingObj->AddComponent(new Sprite(pushingObj));
-	pushingObj->SetDepth(-0.5f);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(pushingObj);
-	
-
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(player2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(string);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
@@ -173,16 +143,17 @@ void BasicMovementLevel::InitObject() {
 		{
 			Particle::ParticleObject p;
 			p.life = 5.f;
-			float i = (rand() % 2000) - 1000.f;
+			float i = static_cast<float>((rand() % 2000) - 1000.f);
+			float scale = static_cast<float>(rand() % 25);
 			p.transform.SetTranslation(vector2{ i, 100.f });
-			p.transform.SetScale(vector2{ 25.f });
+			p.transform.SetScale(vector2{ scale });
 			
 			return p;
 		},
 		[&](Particle::ParticleObject& p) -> void
 		{
-			float X = rand() % 25;
-			float Y = rand() % 25;
+			float X = static_cast<float>(rand() % 25);
+			float Y = static_cast<float>(rand() % 25);
 			p.transform.SetTranslation(p.transform.GetTranslation() - vector2{ X, Y });
 		}
 		);

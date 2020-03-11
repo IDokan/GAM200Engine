@@ -141,7 +141,6 @@ void Scene::LoadScene() noexcept
 	if (loading_Thread.joinable()) {
 		loading_Thread.join();
 	}
-	ObstaclesDrawingHelper::Get()->Init();
 }
 
 void Scene::UnloadScene() noexcept
@@ -158,7 +157,6 @@ void Scene::UnloadScene() noexcept
 	}
 
 	Unload();
-	delete ObstaclesDrawingHelper::Get();
 }
 
 void Scene::Draw() const noexcept
