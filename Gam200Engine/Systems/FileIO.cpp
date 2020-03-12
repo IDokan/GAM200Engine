@@ -88,10 +88,10 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			object->SetTranslation(vector2{ xTrans, yTrans });
 			object->SetScale(vector2{ xScale, yScale });
 			object->AddComponent(new Sprite(object));
-			object->AddComponent(new Physics(object));
 
 			if (objectType == "obstacle")
 			{
+				object->AddComponent(new Physics(object));
 				object->SetObjectType(Object::ObjectType::OBSTACLE);
 
 				if (spriteFileName != "no")
@@ -101,6 +101,7 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			}
 			else if (objectType == "test")
 			{
+				object->AddComponent(new Physics(object));
 				object->SetObjectType(Object::ObjectType::TEST);
 
 				if (spriteFileName != "no")
@@ -110,18 +111,18 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			}
 			else if (objectType == "startpoint")
 			{
-				object->SetObjectType(Object::ObjectType::OBSTACLE);
-				object->AddComponent(new GoalComponent(object, spriteFileName));
+				object->AddComponent(new Physics(object));
+				object->SetObjectType(Object::ObjectType::TEST);
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
 			}
 			else if (objectType == "goalpoint")
 			{
-				object->SetObjectType(Object::ObjectType::OBSTACLE);
 				object->AddComponent(new GoalComponent(object, spriteFileName));
+				object->AddComponent(new Physics(object));
+				object->SetObjectType(Object::ObjectType::TEST);
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
 			}
 			
-
 			object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::RECTANGLE);
 			object->SetDepth(depth);
 			objManager->FindLayer(LayerNames::Stage)->AddObject(object);
@@ -164,6 +165,10 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
 			}
+			else
+			{
+				saveLoad << "no";
+			}
 			if (i != j)
 			{
 				saveLoad << '\n';
@@ -178,11 +183,29 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			saveLoad << object->GetScale().x << ' ';
 			saveLoad << object->GetScale().y << ' ';
 			saveLoad << object->GetDepth() << ' ';
-			saveLoad << "test" << ' ';
+			
+			if (object->GetObjectName() == "goalPoint")
+			{
+				saveLoad << "goalpoint" << ' ';
+			}
+			else if (object->GetObjectName() == "startPoint")
+			{
+				saveLoad << "startpoint" << ' ';
+			}
+			else
+			{
+				saveLoad << "test" << ' ';
+			}
+
 			if (object->GetComponentByTemplate<Sprite>() != nullptr)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
 			}
+			else
+			{
+				saveLoad << "no";
+			}
+
 			if (i != j)
 			{
 				saveLoad << '\n';
@@ -202,6 +225,10 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
 			}
+			else
+			{
+				saveLoad << "no";
+			}
 			if (i != j)
 			{
 				saveLoad << '\n';
@@ -220,6 +247,10 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			if (object->GetComponentByTemplate<Sprite>() != nullptr)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+			}
+			else
+			{
+				saveLoad << "no";
 			}
 			if (i != j)
 			{
