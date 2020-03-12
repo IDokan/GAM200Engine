@@ -43,6 +43,7 @@ void EditorTestLevel::Load()
 void EditorTestLevel::Update(float /*dt*/)
 {
 	EditorTestLevel::Input();
+	EditorTestLevel::Collision();
 
 	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
 	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
@@ -69,18 +70,9 @@ void EditorTestLevel::Input()
 
 void EditorTestLevel::Collision()
 {
+	player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
 void EditorTestLevel::InitObject()
 {
-	background = new Object();
-	background->SetObjectName("background1");
-	background->SetTranslation(vector2{ 1.f });
-	background->SetScale(vector2{ 1000.f });
-	background->AddComponent(new Sprite(background));
-	background->AddComponent(new Physics(background));
-	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
-
-	auto objManager = ObjectManager::GetObjectManager();
-	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 }
