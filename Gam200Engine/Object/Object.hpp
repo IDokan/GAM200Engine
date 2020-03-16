@@ -37,6 +37,7 @@ public:
         MOVING_OBJECT,
     	TEST,
         STRING,
+		BUTTON,
     };
 
     enum class ObjectSide

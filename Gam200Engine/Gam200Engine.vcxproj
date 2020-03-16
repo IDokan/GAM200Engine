@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -213,6 +213,7 @@
     <ClInclude Include="Graphics\Texture.hpp" />
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
+    <ClInclude Include="Object\Button.hpp" />
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Scenes\DeadLevel.hpp" />
     <ClInclude Include="Scenes\Editor.hpp" />
     <ClInclude Include="Scenes\EditorTestLevel.hpp" />
+    <ClInclude Include="Scenes\MenuScene.hpp" />
     <ClInclude Include="Scenes\OneWayPassLevel.hpp" />
     <ClInclude Include="Scenes\ProtoLevel.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
@@ -313,6 +315,7 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
+    <ClCompile Include="Object\Button.cpp" />
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
     <ClCompile Include="Object\DepthStandard.cpp" />
@@ -336,6 +339,7 @@
     <ClCompile Include="Scenes\DeadLevel.cpp" />
     <ClCompile Include="Scenes\Editor.cpp" />
     <ClCompile Include="Scenes\EditorTestLevel.cpp" />
+    <ClCompile Include="Scenes\MenuScene.cpp" />
     <ClCompile Include="Scenes\OneWayPassLevel.cpp" />
     <ClCompile Include="Scenes\ProtoLevel.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />

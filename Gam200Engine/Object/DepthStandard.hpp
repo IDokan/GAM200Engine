@@ -21,6 +21,8 @@ public:
 	static const Depth_Standard HUD;
 	static const Depth_Standard String;
 	static const Depth_Standard Player;
+	static const Depth_Standard Obstacle;
+	static const Depth_Standard Button;
 	static const Depth_Standard Background;
 	static const Depth_Standard Particles;
 	operator float() const { return value; }
