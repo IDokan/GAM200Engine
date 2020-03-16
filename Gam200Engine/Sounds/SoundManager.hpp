@@ -9,6 +9,7 @@ Creation Date: 12.OCT.2019
 
 	Header file for the Application.cpp
 ******************************************************************************/
+#pragma once
 #include "fmod.hpp"
 #include "fmod_errors.h"
 #include <iostream>
