@@ -28,7 +28,6 @@ Creation Date: 12.10.2019
 #include <Object/Particles/ParticleEmitter.hpp>
 
 
-SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
 {
 }
@@ -44,10 +43,9 @@ void BasicMovementLevel::Load()
 
     BasicMovementLevel::InitObject();
 
- 
-    TestBGMSoundForDebugMode.Load_Sound();
-    TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
+    soundManager.Load_Sound();
+    soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    soundManager.SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void BasicMovementLevel::Update(float /*dt*/)

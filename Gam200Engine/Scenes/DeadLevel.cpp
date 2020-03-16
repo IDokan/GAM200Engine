@@ -18,7 +18,7 @@ Creation Date: DEC/11th/2019
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Sounds/SoundManager.hpp>
 
-SoundManager testSoundForDead;
+//SoundManager testSoundForDead;
 DeadLevel::DeadLevel(): background(nullptr), obj_1(nullptr), obj_2(nullptr), obj_3(nullptr)
 {
 }
@@ -50,7 +50,7 @@ void DeadLevel::Update(float /*dt*/)
 void DeadLevel::GameRestart()
 {
 
-    testSoundForDead.Play_Sound(SOUNDS::FALLING_SOUND);
+    soundManager.Play_Sound(SOUNDS::FALLING_SOUND);
     player1->SetTranslation(vector2{ -200.f, -2000.f });
     player2->SetTranslation(vector2{ 200.f, -2000.f }); //change actual location
     player1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(player1->GetTranslation());
@@ -66,8 +66,8 @@ void DeadLevel::Load()
 {
     DeadLevel::InitObject();
     cameraManager.Init();
-    testSoundForDead.Load_Sound();
-    testSoundForDead.SetVolume(FALLING_SOUND, 1);
+    soundManager.Load_Sound();
+    soundManager.SetVolume(FALLING_SOUND, 1);
 }
 
 void DeadLevel::Unload()
