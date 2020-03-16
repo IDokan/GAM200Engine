@@ -227,6 +227,7 @@
     <ClInclude Include="Object\Players\Player.h" />
     <ClInclude Include="Object\Players\Player1.h" />
     <ClInclude Include="Object\Players\Player2.h" />
+    <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp" />
     <ClInclude Include="Object\Strings\String.hpp" />
     <ClInclude Include="Object\Strings\StringPiece.hpp" />
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
@@ -248,6 +249,9 @@
     <ClInclude Include="States\PlayerStates\Move.hpp" />
     <ClInclude Include="States\PlayerStates\PlayerReachesGoal.hpp" />
     <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
+    <ClInclude Include="States\SceneStates\GamsIsRunning.hpp" />
+    <ClInclude Include="States\SceneStates\PlayerIsDead.hpp" />
+    <ClInclude Include="States\SceneStates\SceneComplete.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StringStates\StringIdle.hpp" />
     <ClInclude Include="States\StringStates\StringStretched.hpp" />
@@ -263,6 +267,7 @@
     <ClInclude Include="Systems\MessageSystem\MessageTypes.h" />
     <ClInclude Include="Systems\Observer.hpp" />
     <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
+    <ClInclude Include="Systems\SceneStateManager.hpp" />
     <ClInclude Include="Systems\Timer.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Window\Application.hpp" />
@@ -327,6 +332,7 @@
     <ClCompile Include="Object\Players\Player.cpp" />
     <ClCompile Include="Object\Players\Player1.cpp" />
     <ClCompile Include="Object\Players\Player2.cpp" />
+    <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp" />
     <ClCompile Include="Object\Strings\String.cpp" />
     <ClCompile Include="Object\Strings\StringPiece.cpp" />
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
@@ -348,6 +354,9 @@
     <ClCompile Include="States\PlayerStates\Move.cpp" />
     <ClCompile Include="States\PlayerStates\PlayerReachesGoal.cpp" />
     <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
+    <ClCompile Include="States\SceneStates\GamsIsRunning.cpp" />
+    <ClCompile Include="States\SceneStates\PlayerIsDead.cpp" />
+    <ClCompile Include="States\SceneStates\SceneComplete.cpp" />
     <ClCompile Include="States\StringStates\StringIdle.cpp" />
     <ClCompile Include="States\StringStates\StringStretched.cpp" />
     <ClCompile Include="States\Walking.cpp" />
@@ -358,6 +367,7 @@
     <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp" />
     <ClCompile Include="Systems\Observer.cpp" />
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
+    <ClCompile Include="Systems\SceneStateManager.cpp" />
     <ClCompile Include="Window\Application.cpp" />
     <ClCompile Include="Window\Demo.cpp" />
     <ClCompile Include="Window\Engine.cpp" />

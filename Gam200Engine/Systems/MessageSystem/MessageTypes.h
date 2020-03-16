@@ -47,8 +47,33 @@ enum class MessageTypes
   */
        GetKey,
 
+	   /**
+		* \brief
+		* When this message is received, no extra information may be supplied.
+		*		If message sent to SceneStateManager, receiver will change its state into PlayerIsDead State.
+		*/
+	   PlayerIsDead,
+
+	   /**
+		* \brief
+		* When this message is received, no extra information may be supplied.
+		*		If message sent to SceneStateManager which is current scene is PlayerIsDead, receiver will change its state into GameIsRunning State.
+		*/
+	   GameRestarted,
+
+	   /**
+		* \brief
+		* When this message is received, no extra information may be supplied.
+		*		If message sent to SceneStateManager, receiver will change its state into SceneComplete State.
+		*/
+	   SceneComplete,
+
        NUM_OF_MESSAGE_TYPES,
 };
+
+
+// In Message Objects, if you have any issue about it.
+// Look up in Object::ObjectType
 enum class MessageObjects
 {
     Player1,
@@ -62,6 +87,8 @@ enum class MessageObjects
 
     String_Object,
     Test_Crushable_Object,
+
+	SceneStateManager,
 
     NUM_OF_MESSAGE_OBJECTS,
 };

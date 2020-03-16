@@ -244,6 +244,26 @@
     <ClCompile Include="Scenes\Editor.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Sprite\Particle.cpp" />
+    <ClCompile Include="Object\DepthStandard.cpp" />
+    <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
+    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
+    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
+    <ClCompile Include="Systems\SceneStateManager.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp">
+      <Filter>Object\SceneStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SceneStates\GamsIsRunning.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SceneStates\PlayerIsDead.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SceneStates\SceneComplete.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -531,6 +551,25 @@
     <ClInclude Include="Scenes\Editor.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Sprite\Particle.hpp" />
+    <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
+    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
+    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
+    <ClInclude Include="Systems\SceneStateManager.hpp">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp">
+      <Filter>Object\SceneStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="States\SceneStates\GamsIsRunning.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\SceneStates\PlayerIsDead.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\SceneStates\SceneComplete.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -601,6 +640,12 @@
     </Filter>
     <Filter Include="Object\Particles">
       <UniqueIdentifier>{64625ed0-0c34-4cda-a969-f3d2e23a88ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\SceneStateManager">
+      <UniqueIdentifier>{59a2330a-0d67-4498-a5fa-06623cc62910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\SceneStates">
+      <UniqueIdentifier>{78dec8ef-cd39-43fd-bb20-56aa74ea85ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

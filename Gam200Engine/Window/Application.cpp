@@ -53,7 +53,7 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 //#ifdef _DEBUG
-	//SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
+	SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	
 //#endif
@@ -82,11 +82,11 @@ void Application::Update(float dt)
 
     window.PollEvent();
 
-	const auto& stateManager = SceneManager::GetSceneManager();
-	stateManager->Update(dt);
+	const auto& sceneManager = SceneManager::GetSceneManager();
+	sceneManager->Update(dt);
 	ObjectManager::GetObjectManager()->Update(dt);
 	MessageDispatcher::GetDispatcher()->DispatchDelayedMessages();
-	stateManager->Draw();
+	sceneManager->Draw();
 
     GetApplication()->Input();
 

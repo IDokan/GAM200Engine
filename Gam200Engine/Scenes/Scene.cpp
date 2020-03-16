@@ -243,7 +243,6 @@ void Scene::Draw() const noexcept
 
 const Graphics::CameraManager& Scene::GetCameraManager() const noexcept
 {
-	// TODO: insert return Scenement here
 	return cameraManager;
 }
 

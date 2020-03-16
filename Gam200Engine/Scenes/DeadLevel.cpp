@@ -49,7 +49,6 @@ void DeadLevel::Update(float /*dt*/)
 
 void DeadLevel::GameRestart()
 {
-
     testSoundForDead.Play_Sound(SOUNDS::FALLING_SOUND);
     player1->SetTranslation(vector2{ -200.f, -2000.f });
     player2->SetTranslation(vector2{ 200.f, -2000.f }); //change actual location

@@ -26,8 +26,11 @@ public:
 	
     enum class ObjectType
     {
+		// Below 2 object types are for Player class
+		// Location: <Object/Players/Player.h>
         PLAYER_1,
         PLAYER_2,
+
         OBSTACLE,
         OBSTACLE_1,
         KEY_1,
@@ -36,7 +39,13 @@ public:
         LOCK_2,
         MOVING_OBJECT,
     	TEST,
+		// This is type to designate for String Object
+		// Location: <Object/Strings/String.hpp>
         STRING,
+		// Only Scene state manager can hold this type
+		// Location: <Object/SceneStateManager>
+		SCENE_STATE_MANAGER,
+		NUM_OF_OBJECT_TYPE,
     };
 
     enum class ObjectSide
