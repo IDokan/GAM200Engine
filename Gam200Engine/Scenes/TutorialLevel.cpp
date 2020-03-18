@@ -202,7 +202,7 @@ void TutorialLevel::InitObject() {
 	pushingObj->AddComponent(new Physics(pushingObj));
 	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
 	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
-	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
+	pushingPhysics->SetObjectCollidingSide(Physics::ObjectSide::BOTTOM_SIDE);
 	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
 	pushingObj->AddComponent(new Sprite(pushingObj));
 	pushingObj->SetDepth(-0.5f);

@@ -181,6 +181,11 @@ void Physics::SetVectorTranslation(vector2 translation)
 	vectorTranslation = translation;
 }
 
+void Physics::SetObjectCollidingSide(ObjectSide objSide_)
+{
+    objSide = objSide_;
+}
+
 void Physics::collisionHelperFunction(Object* object1, Object* object2)
 {
 	const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
@@ -626,9 +631,9 @@ void Physics::IsCollideWithMovedObject()
 	{
 		if (object1->GetObjectType() == Object::ObjectType::MOVING_OBJECT)
 		{
-			switch (object1->GetObjectCollidingSide())
+			switch (object1->GetComponentByTemplate<Physics>()->GetObjectCollidingSide())
 			{
-			case Object::ObjectSide::UP_SIDE:
+			case Physics::ObjectSide::UP_SIDE:
 			{
 				if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
 				{
@@ -638,7 +643,7 @@ void Physics::IsCollideWithMovedObject()
 				}
 				break;
 			}
-			case Object::ObjectSide::BOTTOM_SIDE:
+			case Physics::ObjectSide::BOTTOM_SIDE:
 			{
 				if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
 				{
@@ -648,7 +653,7 @@ void Physics::IsCollideWithMovedObject()
 				}
 				break;
 			}
-			case Object::ObjectSide::RIGHT_SIDE:
+            case Physics::ObjectSide::RIGHT_SIDE:
 			{
 				if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x < 0.f && ownerVelocity.y == 0.f)
 				{
@@ -658,7 +663,7 @@ void Physics::IsCollideWithMovedObject()
 				}
 				break;
 			}
-			case Object::ObjectSide::LEFT_SIDE:
+            case Physics::ObjectSide::LEFT_SIDE:
 			{
 				if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x > 0.f && ownerVelocity.y == 0.f)
 				{

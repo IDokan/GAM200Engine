@@ -28,6 +28,14 @@ public:
         float Angle;
     };
 
+    enum class ObjectSide
+    {
+        UP_SIDE,
+        RIGHT_SIDE,
+        LEFT_SIDE,
+        BOTTOM_SIDE,
+    };
+
     enum  class ObjectType
     {
         CIRCLE,
@@ -70,6 +78,12 @@ public:
     vector2 GetGravity() const noexcept;
     bool IsCollided() const noexcept;
 
+    void SetObjectCollidingSide(Physics::ObjectSide objSide_);
+
+    ObjectSide GetObjectCollidingSide() const
+    {
+        return objSide;
+    }
 
     const CollisionBox& GetCollisionBox() const
     {
@@ -143,6 +157,7 @@ private:
     bool isGhost;
     bool isCollide;
     bool shouldResolveResolution;
+    ObjectSide objSide;
 
     std::vector<vector2> SAT;
 };

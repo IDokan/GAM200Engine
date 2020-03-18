@@ -12,7 +12,7 @@ Creation Date: 08.12.2019
 #include "Object.hpp"
 #include <iostream>
 
-Object::Object() : objType(), objSide()
+Object::Object() : objType()
 {
 }
 
@@ -79,11 +79,6 @@ std::string Object::GetObjectName()
 void Object::SetObjectType(ObjectType objType_)
 {
     objType = objType_;
-}
-
-void Object::SetObjectCollidingSide(ObjectSide objSide_)
-{
-    objSide = objSide_;
 }
 
 std::string Object::GetStringOfObjectType() const noexcept

@@ -28,24 +28,21 @@ public:
     {
         PLAYER_1,
         PLAYER_2,
+        /*  For collision check
+            Physics.cpp*/
         OBSTACLE,
-        OBSTACLE_1,
         KEY_1,
         KEY_2,
         LOCK_1,
         LOCK_2,
+        /*  For moving object
+            Physics.cpp
+        */
         MOVING_OBJECT,
     	TEST,
         STRING,
     };
 
-    enum class ObjectSide
-    {
-        UP_SIDE,
-        RIGHT_SIDE,
-        LEFT_SIDE,
-        BOTTOM_SIDE,
-    };
     void SetDead(bool condition) 
     {
         is_dead = condition;
@@ -72,11 +69,6 @@ public:
         return objType;
     }
 
-    ObjectSide GetObjectCollidingSide() const
-    {
-        return objSide;
-    }
-
 public:
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
@@ -90,7 +82,6 @@ public:
     std::string GetObjectName(); // Woo
 
     void SetObjectType(ObjectType objType); // test function Woo
-    void SetObjectCollidingSide(ObjectSide objSide_);
 
     [[nodiscard]] std::string GetStringOfObjectType() const noexcept;
     
@@ -105,7 +96,7 @@ protected:
     std::string objectName;
     bool is_dead = false;
     ObjectType objType;
-    ObjectSide objSide;
+
 };
 
 template <typename COMPONENT>
