@@ -13,7 +13,6 @@ Creation Date: 01.14.2020
 
 enum class MessageTypes
 {
-    PlayerIsDead,
     PlayerReachedGoal,
     StringAttached,
     StringDetached,
@@ -50,21 +49,32 @@ enum class MessageTypes
 	   /**
 		* \brief
 		* When this message is received, no extra information may be supplied.
-		*		If message sent to SceneStateManager, receiver will change its state into PlayerIsDead State.
+		*
+		* @Predictable receiver and function
+		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
+		*		Players: receiver will change its state into Dead State.
 		*/
 	   PlayerIsDead,
 
 	   /**
 		* \brief
 		* When this message is received, no extra information may be supplied.
-		*		If message sent to SceneStateManager which is current scene is PlayerIsDead, receiver will change its state into GameIsRunning State.
+		* 
+		* @Predictable receiver and function
+		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
+		*		Players: receiver will change its state into (Idle or LevelStart) State. (Will be implemented)
 		*/
 	   GameRestarted,
 
 	   /**
 		* \brief
-		* When this message is received, no extra information may be supplied.
-		*		If message sent to SceneStateManager, receiver will change its state into SceneComplete State.
+		* @extraInfo:
+		*		string value of next Level.
+		*
+		*
+		* @Predictable receiver and function
+		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
+		*		Players: receiver will change its state into SceneComplete State. (Will be implemented)
 		*/
 	   SceneComplete,
 

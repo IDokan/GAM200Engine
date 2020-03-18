@@ -21,6 +21,8 @@ Creation Date: 03.16.2020
 #include <Component/StateMachine.hpp>
 
 #include <States/SceneStates/GamsIsRunning.hpp>
+#include <States/SceneStates/PlayerIsDead.hpp>
+#include <States/SceneStates/SceneComplete.hpp>
 #include <Component/MessageCapable.hpp>
 
 #include <Systems/MessageSystem/Message.hpp>
@@ -30,14 +32,28 @@ SceneStateManager::SceneStateManager()
 	AddComponent(new MessageCapable(this, MessageObjects::SceneStateManager, 
 		[&](const Message& msg) -> bool
 		{
+			StateMachine<SceneStateManager>* stateMachine = GetComponentByTemplate<StateMachine<SceneStateManager>>();
 			switch (msg.Msg)
 			{
+			case MessageTypes::PlayerIsDead:
+				stateMachine->ChangeState(PlayerIsDead::Get());
+				break;
+			case MessageTypes::GameRestarted:
+				stateMachine->ChangeState(GameIsRunning::Get());
+				break;
+			case MessageTypes::SceneComplete:
+				stateMachine->ChangeState(SceneComplete::Get());
+				break;
 			default:
+				return false;
 				break;
 			}
+			return true;
 		}
 	));
 
 	AddComponent(new StateMachine<SceneStateManager>(this));
 	GetComponentByTemplate<StateMachine<SceneStateManager>>()->SetCurrentState(GameIsRunning::Get());
+
+	SetObjectName("SceneStateManager");
 }

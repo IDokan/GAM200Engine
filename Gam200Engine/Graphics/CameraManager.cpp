@@ -124,6 +124,11 @@ matrix3 Graphics::CameraManager::GetCameraToWorldTransform() const noexcept
 	return selectedCamera->camera.CameraToWorld();
 }
 
+matrix3 Graphics::CameraManager::GetCameraToNDCTransform() const noexcept
+{
+	return selectedCamera->cameraView.GetCameraToNDCTransform();
+}
+
 void Graphics::CameraManager::MoveUp(float dt, float distance) noexcept
 {
 	selectedCamera->camera.MoveUp(dt * distance);

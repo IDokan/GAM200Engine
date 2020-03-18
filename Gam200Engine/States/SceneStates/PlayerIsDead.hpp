@@ -15,6 +15,8 @@ Creation Date: 03.16.2020
 #include <States/State.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 
+class Object;
+
 class PlayerIsDead : public State<SceneStateManager>
 {
 public:
@@ -26,6 +28,11 @@ public:
 
 
 private:
+	// Since it use a single-ton design pattern, ctor need to be private.
 	PlayerIsDead();
+
+	void PrepareAssets() noexcept;
+
+	Object* playerIsDeadText;
 };
 

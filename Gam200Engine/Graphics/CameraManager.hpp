@@ -57,6 +57,7 @@ namespace Graphics
 
 		matrix3 GetWorldToNDCTransform() const noexcept;
 		matrix3 GetCameraToWorldTransform() const noexcept;
+		matrix3 GetCameraToNDCTransform() const noexcept;
 
 		void MoveUp(float dt, float distance) noexcept;
 		void MoveRight(float dt, float distance) noexcept;

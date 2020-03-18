@@ -76,7 +76,7 @@ void ProtoLevel::Unload()
 
 }
 
-void ProtoLevel::Draw() const noexcept {
+void ProtoLevel::Draw() noexcept {
 
     Graphics::GL::begin_drawing();
 

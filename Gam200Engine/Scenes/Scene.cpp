@@ -23,6 +23,7 @@ Creation Date: 12.10.2019
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
 #include <Object/DEBUGObject/WallSpawner.hpp>
 #include <Object/Particles/ParticleEmitter.hpp>
+#include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
 
@@ -63,7 +64,6 @@ void Scene::InitLoadingScene()
 
 void Scene::LoadScene() noexcept
 {
-	InstanceDEBUGObjects();
 
 	///////////////////////Init Loading Scene image & text data...
 
@@ -134,6 +134,8 @@ void Scene::LoadScene() noexcept
 	glfwMakeContextCurrent(main_context);
 
 	///////////////////////Init(huge work) Working here..
+	InitRequiredObjects();
+	InitDEBUGObjects();
 	Load(); 
 
 	isLoadingDone = true;
@@ -159,11 +161,13 @@ void Scene::UnloadScene() noexcept
 	Unload();
 }
 
-void Scene::Draw() const noexcept
+void Scene::Draw() noexcept
 {
-	Graphics::GL::begin_drawing();
+	// Clear obstacle matrices buffer for instancing.
+	obstacleMatrices.clear();
 
-	std::vector<matrix3> obstacleMatrices;
+
+	Graphics::GL::begin_drawing();
 
 	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
@@ -171,66 +175,19 @@ void Scene::Draw() const noexcept
 		// TODO: Improve it. Do this when only need
 		element->SortingDepth();
 
-		// Start drawing iteration whole object container.
-		// There are a bunch of case that need different task
-		// 0. Particle Object
-		// 1. A sort of Sprite object
-		// 1-a. Sprite which instancing mode is on.
-		// 2. A sort of Text object
-		for (const auto& obj : element->GetObjContainer())
+		if (element->GetName() == LayerNames::HUD)
 		{
-			if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
+			for (const auto& obj : element->GetObjContainer())
 			{
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				obstacleMatrices.push_back(matrix);
-				continue;
+				DrawObject(obj.get());
 			}
 
-			if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj.get()))
+		}
+		else
+		{
+			for (const auto& obj : element->GetObjContainer())
 			{
-				const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
-				Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
-				
-				std::vector<matrix3> matrices;
-				size_t sizeOfParticle = particleObjects.size();
-				matrices.reserve(sizeOfParticle);
-				for (size_t i = 0; i < sizeOfParticle; ++i)
-				{
-					matrices.emplace_back(cameraManager.GetWorldToNDCTransform() * particleObjects[i].transform.GetModelToWorld());
-				}
-				particle->UpdateInstancingValues(&matrices, particleEmitter->GetDepth());
-				Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
-			}
-			
-			else if (const auto & sprite = obj.get()->GetComponentByTemplate<Sprite>())
-			{
-				if (sprite->isInstancingMode() == false)
-				{
-					// 1.
-					// Update model to NDC matrix as Uniform 
-					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-					sprite->UpdateUniforms(matrix,
-						obj.get()->GetTransform().CalculateWorldDepth());
-					Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
-				}
-				else
-				{
-					// 1-a.
-					// Update model to NDC matrix as instanced array ( Change Mesh )
-					const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-					std::vector<matrix3> matrices;
-					matrices.push_back(matrix);
-					sprite->UpdateInstancingValues(&matrices, obj->GetTransform().CalculateWorldDepth());
-					Graphics::GL::drawInstanced(*sprite->GetVertices(), *sprite->GetMaterial());
-				}
-			}
-			else if (const auto& text = obj.get()->GetComponentByTemplate<TextComponent>())
-			{
-				// 2.
-				// Update model to NDC matrix as Uniform value and Call different draw function.
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * obj.get()->GetTransform().GetModelToWorld();
-				text->Draw(matrix,
-					obj.get()->GetTransform().CalculateWorldDepth());
+				DrawObject(obj.get(), cameraManager.GetWorldToNDCTransform());
 			}
 		}
 	}
@@ -271,7 +228,72 @@ GameScenes Scene::GetSceneInfo()
 
 
 
-void Scene::InstanceDEBUGObjects()
+// Start drawing iteration whole object container.
+// There are a bunch of case that need different task
+// 0. Obstacle objects
+// 1. Particle Object
+// 2. A sort of Sprite object
+// 2-a. Sprite which instancing mode is on. (incomplete)
+// 3. A sort of Text object
+void Scene::DrawObject(Object* obj, matrix3 offset) noexcept
+{
+	if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
+	{
+		const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+		obstacleMatrices.push_back(matrix);
+		return;
+	}
+
+	// 1. Particle Object
+	if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj))
+	{
+		const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
+		Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
+
+		std::vector<matrix3> matrices;
+		size_t sizeOfParticle = particleObjects.size();
+		matrices.reserve(sizeOfParticle);
+		for (size_t i = 0; i < sizeOfParticle; ++i)
+		{
+			matrices.emplace_back(offset * particleObjects[i].transform.GetModelToWorld());
+		}
+		particle->UpdateInstancingValues(&matrices, particleEmitter->GetDepth());
+		Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
+	}
+
+	else if (const auto& sprite = obj->GetComponentByTemplate<Sprite>())
+	{
+		if (sprite->isInstancingMode() == false)
+		{
+			// 2. (Incomplete, need to be improved)
+			// Update model to NDC matrix as Uniform 
+			const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+			sprite->UpdateUniforms(matrix,
+				obj->GetTransform().CalculateWorldDepth());
+			Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+		}
+		else
+		{
+			// 2-a.
+			// Update model to NDC matrix as instanced array ( Change Mesh )
+			const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+			std::vector<matrix3> matrices;
+			matrices.push_back(matrix);
+			sprite->UpdateInstancingValues(&matrices, obj->GetTransform().CalculateWorldDepth());
+			Graphics::GL::drawInstanced(*sprite->GetVertices(), *sprite->GetMaterial());
+		}
+	}
+	else if (const auto& text = obj->GetComponentByTemplate<TextComponent>())
+	{
+		// 4.
+		// Update model to NDC matrix as Uniform value and Call different draw function.
+		const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+		text->Draw(matrix,
+			obj->GetTransform().CalculateWorldDepth());
+	}
+}
+
+void Scene::InitDEBUGObjects()
 {
 #ifdef _DEBUG
 	ObjectManager* objManager = ObjectManager::GetObjectManager();
@@ -283,4 +305,10 @@ void Scene::InstanceDEBUGObjects()
 	objManager->FindLayer(HUD)->AddObject(wallSpawner);
 
 #endif
+}
+
+void Scene::InitRequiredObjects()
+{
+	SceneStateManager* sceneStateManager = new SceneStateManager();
+	ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObject(sceneStateManager);
 }

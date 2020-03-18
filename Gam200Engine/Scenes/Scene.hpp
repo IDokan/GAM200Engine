@@ -32,7 +32,7 @@ public:
 	void LoadScene() noexcept;
 	void UnloadScene() noexcept;
 
-	virtual void Draw() const noexcept;
+	virtual void Draw() noexcept;
 
 	// Getters
 	const Graphics::CameraManager& GetCameraManager() const noexcept;
@@ -59,7 +59,11 @@ protected:
 	Graphics::CameraManager cameraManager{};
 
 private:
-	void InstanceDEBUGObjects();
+	std::vector<matrix3> obstacleMatrices;
+	void DrawObject(Object* obj, matrix3 offset = MATRIX3::build_identity()) noexcept;
+private:
+	void InitDEBUGObjects();
+	void InitRequiredObjects();
 
 	//Loading...
 	Object* loadingScene{};

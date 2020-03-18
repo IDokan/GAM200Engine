@@ -16,6 +16,8 @@ Creation Date: 03.16.2020
 #include <States/State.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 
+class Object;
+
 class SceneComplete : public State<SceneStateManager>
 {
 public:
@@ -28,5 +30,11 @@ public:
 
 private:
 	SceneComplete();
+
+	void PrepareAssets() noexcept;
+
+	Object* menuBackground;
+	Object* backToMain;
+	Object* goToNextLevel;
 };
 

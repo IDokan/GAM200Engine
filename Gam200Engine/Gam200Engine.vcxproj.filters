@@ -245,13 +245,9 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Component\Sprite\Particle.cpp" />
-    <ClCompile Include="Object\DepthStandard.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
-    <ClCompile Include="Systems\SceneStateManager.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
     <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp">
       <Filter>Object\SceneStateManager</Filter>
     </ClCompile>
@@ -263,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="States\SceneStates\SceneComplete.cpp">
       <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DepthStandard.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -555,9 +554,6 @@
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
     <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
     <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
-    <ClInclude Include="Systems\SceneStateManager.hpp">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp">
       <Filter>Object\SceneStateManager</Filter>
     </ClInclude>

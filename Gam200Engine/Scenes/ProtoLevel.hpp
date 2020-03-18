@@ -24,7 +24,7 @@ public:
 
     virtual void Update(float dt) override;
 
-    void Draw() const noexcept override;
+    void Draw() noexcept;
 
 protected:
     virtual void GameRestart() override;

@@ -16,7 +16,9 @@ Creation Date: 23th/Jan/2020
 #include <Component/MessageCapable.hpp>
 #include <Systems/MessageSystem/Message.hpp>
 #include <Object/DepthStandard.hpp>
+
 #include <States/PlayerStates/UpdateAnimation.hpp>
+#include <States/PlayerStates/Dead.hpp>
 
 Player::Player(Identifier player, const Transform& playerTransformData)
 	:Object(), id(player)
@@ -93,6 +95,7 @@ void Player::LoadPlayer1Layout()
 			switch(msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Dead::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				break;
