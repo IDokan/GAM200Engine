@@ -244,6 +244,14 @@
     <ClCompile Include="Scenes\Editor.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Sprite\Particle.cpp" />
+    <ClCompile Include="Object\DepthStandard.cpp" />
+    <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
+    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
+    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel1.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel2.cpp" />
+    <ClCompile Include="Object\KeyLock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -447,9 +455,6 @@
     <ClInclude Include="Scenes\CrushObjectLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\DeadLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\OneWayPassLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -531,6 +536,13 @@
     <ClInclude Include="Scenes\Editor.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Sprite\Particle.hpp" />
+    <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
+    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
+    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel1.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel2.hpp" />
+    <ClInclude Include="Object\KeyLock.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

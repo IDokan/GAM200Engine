@@ -21,14 +21,9 @@ Creation Date: 08.05.2019
 
 // Include States
 #include <Scenes/Editor.hpp>
-#include <Scenes/EditorTestLevel.hpp>
-#include <Scenes/BasicMovementLevel.hpp>
-#include <Scenes/OneWayPassLevel.hpp>
-#include <Scenes/SizeScalingLevel.hpp>
-#include <Scenes/CrushObjectLevel.hpp>
-#include <Scenes/DeadLevel.hpp>
-#include <Scenes/ProtoLevel.hpp>
 #include <Scenes/TutorialLevel.hpp>
+#include <Scenes/TutorialLevel1.hpp>
+#include <Scenes/TutorialLevel2.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -53,15 +48,12 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 //#ifdef _DEBUG
-	//SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
-	SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
+	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
 	
 //#endif
+    SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
+    SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 
-	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
-	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
-    SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
-	SceneManager::GetSceneManager()->AddScenes("ProtoLevel", dynamic_cast<Scene*>(new ProtoLevel()));
     
 
 	ObstaclesDrawingHelper::Get()->Init();

@@ -1,0 +1,8 @@
+player1 -350 -300 100 100 -1 player1 ../assets/textures/p1.png
+player2 -235 -300 100 100 -1 player2 ../assets/textures/p2.png
+block1 0 350 10 100 -1 obstacle no
+block2 0 50 10 100 -1 obstacle no
+block3 0 -200 10 400 -1 obstacle no
+block4 25 0 50 10 -1 obstacle no
+block5 240 0 150 10 -1 obstacle no
+block6 445 0 70 10 -1 obstacle no
