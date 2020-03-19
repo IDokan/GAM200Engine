@@ -23,6 +23,8 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
+	std::string GetTargetStage();
+
 private:
 	std::string targetStage;
 	Object* targetObject;

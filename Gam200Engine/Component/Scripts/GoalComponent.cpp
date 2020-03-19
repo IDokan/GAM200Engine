@@ -49,3 +49,8 @@ void GoalComponent::Update(float /*dt*/)
 void GoalComponent::Clear()
 {
 }
+
+std::string GoalComponent::GetTargetStage()
+{
+	return targetStage;
+}

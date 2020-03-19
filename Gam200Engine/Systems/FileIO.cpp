@@ -187,6 +187,7 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			if (object->GetObjectName() == "goalPoint")
 			{
 				saveLoad << "goalpoint" << ' ';
+				saveLoad << object->GetComponentByTemplate<GoalComponent>()->GetTargetStage();
 			}
 			else if (object->GetObjectName() == "startPoint")
 			{
@@ -197,15 +198,18 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 				saveLoad << "test" << ' ';
 			}
 
-			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			if (object->GetObjectName() != "goalPoint")
 			{
-				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+				if (object->GetComponentByTemplate<Sprite>() != nullptr)
+				{
+					saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+				}
+				else
+				{
+					saveLoad << "no";
+				}
 			}
-			else
-			{
-				saveLoad << "no";
-			}
-
+			
 			if (i != j)
 			{
 				saveLoad << '\n';
