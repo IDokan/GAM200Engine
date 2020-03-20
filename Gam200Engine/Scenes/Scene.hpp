@@ -15,6 +15,8 @@ Creation Date: 08.12.2019
 #include <Graphics/CameraManager.hpp>
 #include <Graphics/GL.hpp>
 
+class SceneStateManager;
+
 enum class GameScenes 
 {
     Menu, Game, Proto, Test, Credit, None
@@ -57,6 +59,7 @@ protected:
 
 
 	Graphics::CameraManager cameraManager{};
+	SceneStateManager* sceneStateManager;
 
 private:
 	std::vector<matrix3> obstacleMatrices;
@@ -64,6 +67,7 @@ private:
 private:
 	void InitDEBUGObjects();
 	void InitRequiredObjects();
+	void CleanRequiredObjects();
 
 	//Loading...
 	Object* loadingScene{};

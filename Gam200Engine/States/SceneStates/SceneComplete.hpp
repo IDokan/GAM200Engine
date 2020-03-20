@@ -28,10 +28,11 @@ public:
 	void Exit(SceneStateManager* manager) override;
 
 
+	void PrepareAssets() noexcept;
+	void CleanAssets() noexcept;
+
 private:
 	SceneComplete();
-
-	void PrepareAssets() noexcept;
 
 	Object* menuBackground;
 	Object* backToMain;

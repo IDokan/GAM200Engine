@@ -19,4 +19,5 @@ const Depth_Standard Depth_Standard::HUD(-4000.f);
 const Depth_Standard Depth_Standard::Particles(-500.f);
 const Depth_Standard Depth_Standard::String(-0.999f);
 const Depth_Standard Depth_Standard::Player(-11.5f);
+const Depth_Standard Depth_Standard::GoalPoints(1000.f);
 const Depth_Standard Depth_Standard::Background(4000.f);

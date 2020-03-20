@@ -145,21 +145,6 @@ void Editor::Input()
 			startPoint->SetDepth(-1.f);
 			objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 		}
-		else if (objectSwitch == chosenObject::goalpoint)
-		{
-			goalPoint = new Object();
-			goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-			goalPoint->SetObjectName("goalPoint");
-			goalPoint->SetTranslation(vector2{ mousePosX, mousePosY });
-			goalPoint->SetScale(vector2{ 150.f });
-			goalPoint->AddComponent(new Sprite(goalPoint));
-			goalPoint->AddComponent(new GoalComponent(goalPoint, "BasicmovementLevel"));
-			goalPoint->AddComponent(new Physics(goalPoint));
-			goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-			goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-			goalPoint->SetDepth(-1.f);
-			objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-		}
 		else if (objectSwitch == chosenObject::player1)
 		{
 			player1 = new Object();

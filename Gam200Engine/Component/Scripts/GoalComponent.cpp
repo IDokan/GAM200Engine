@@ -13,14 +13,14 @@ Creation Date: 12.13.2019
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <Scenes/SceneManager.hpp>
-#include <iostream>
+#include <Object/Players/Player.h>
+#include <Vector2.hpp>
+#include <Sounds/SoundManager.hpp>
 
+#include <Systems/MessageSystem/MessageDispatcher.hpp>
 
-#include "Sounds/SoundManager.hpp"
-
-SoundManager testSoundforGoalPoint;
-GoalComponent::GoalComponent(Object* obj, const std::string& targetStage_)
-	: Component(obj), targetStage(targetStage_)
+GoalComponent::GoalComponent(Object* obj, Player* targetPlayer, Graphics::Color4f color)
+	: Component(obj), targetPlayer(targetPlayer), isPlayerOnGoal(false), highlightedColor(color)
 {
 }
 
@@ -30,22 +30,59 @@ GoalComponent::~GoalComponent()
 
 void GoalComponent::Init()
 {
-    testSoundforGoalPoint.Load_Sound();
+    //testSoundforGoalPoint.Load_Sound();
 }
 
 void GoalComponent::Update(float /*dt*/)
 {
-	if (owner->GetComponentByTemplate<Physics>()->GetIsCollide())
-	{
-        testSoundforGoalPoint.Play_Sound(SOUNDS::GOAL_SOUND);
-        testSoundforGoalPoint.SetVolume(GOAL_SOUND, 0.5);
+	vector2 playerMin{ targetPlayer->GetTranslation() - (targetPlayer->GetScale() / 2.f)};
+	vector2 playerMax{ targetPlayer->GetTranslation() + (targetPlayer->GetScale() / 2.f) };
+	vector2 ownerMin{ owner->GetTranslation() - (owner->GetScale() / 2.f) };
+	vector2 ownerMax{ owner->GetTranslation() + (owner->GetScale() / 2.f) };
 
-        
-        // TODO: Add Music
-		SceneManager::GetSceneManager()->SetNextScene(targetStage);
+	if (isPlayerOnGoal)
+	{
+		// Check isNotPlayerOnGoal
+		if (IsAInsideB(playerMin, playerMax, ownerMin, ownerMax) == false)
+		{
+			DispatchMessage(MessageTypes::PlayerExitedFromGoal);
+			isPlayerOnGoal = false;
+			owner->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
+		}
+	}
+	else
+	{
+		// Check isPlayerInsideGoal
+		if (IsAInsideB(playerMin, playerMax, ownerMin, ownerMax))
+		{
+			DispatchMessage(MessageTypes::PlayerReachedGoal);
+			isPlayerOnGoal = true;
+			owner->GetComponentByTemplate<Sprite>()->SetColor(highlightedColor);
+		}
 	}
 }
 
 void GoalComponent::Clear()
 {
+}
+
+bool GoalComponent::IsAInsideB(const vector2& minOfA, const vector2& maxOfA, const vector2& minOfB, const vector2& maxOfB) const noexcept
+{
+	return minOfA.x > minOfB.x && minOfA.y > minOfB.y &&
+		maxOfA.x < maxOfB.x && maxOfA.y < maxOfB.y;
+}
+
+void GoalComponent::DispatchMessage(MessageTypes msg)
+{
+	switch (Player::Identifier id = targetPlayer->GetID())
+	{
+	case Player::Identifier::Player1:
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player1, MessageObjects::SceneStateManager, msg);
+		break;
+	case Player::Identifier::Player2:
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player2, MessageObjects::SceneStateManager, msg);
+		break;
+	default:
+		break;
+	}
 }

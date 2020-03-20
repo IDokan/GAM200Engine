@@ -31,12 +31,13 @@ void Layer::Update(float dt)
 	willBeAdded.second.clear();
 
 	for (const auto& obj : layer.second) {
+		if (obj->GetDead()) {
+			delete_obj.push_back(obj);
+			continue;
+		}
 		for (const auto& comp : obj->GetComponentContainer())
 		{
 			comp->Update(dt);
-		}
-		if (obj->GetDead()) {
-			delete_obj.push_back(obj);
 		}
 	}
 

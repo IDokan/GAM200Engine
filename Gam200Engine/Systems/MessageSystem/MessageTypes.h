@@ -13,7 +13,28 @@ Creation Date: 01.14.2020
 
 enum class MessageTypes
 {
+    /**
+     * \brief
+     * @extraInfo:
+     *		no extraInfo
+     *
+     * @Predictable receiver and function
+     *		SceneStateManager: Save which player is in goal position.
+                                            Change its state into SceneComplete state, if both players are in goal position.
+     */
     PlayerReachedGoal,
+
+
+    /**
+     * \brief
+     * @extraInfo:
+     *		no extraInfo
+     *
+     * @Predictable receiver and function
+     *		SceneStateManager: Save which player is not in goal position.
+     */
+    PlayerExitedFromGoal,
+
     StringAttached,
     StringDetached,
 
@@ -73,7 +94,6 @@ enum class MessageTypes
 		*
 		*
 		* @Predictable receiver and function
-		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
 		*		Players: receiver will change its state into SceneComplete State. (Will be implemented)
 		*/
 	   SceneComplete,

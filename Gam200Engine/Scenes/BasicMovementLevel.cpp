@@ -26,7 +26,9 @@ Creation Date: 12.10.2019
 #include <States/Walking.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Particles/ParticleEmitter.hpp>
-
+#include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Object/Points/GoalPoint.hpp>
+#include <Object/DepthStandard.hpp>
 
 SoundManager TestBGMSoundForDebugMode;
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
@@ -44,6 +46,7 @@ void BasicMovementLevel::Load()
 
     BasicMovementLevel::InitObject();
 
+    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
  
     TestBGMSoundForDebugMode.Load_Sound();
     TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
@@ -109,18 +112,18 @@ void BasicMovementLevel::InitObject() {
     background->SetScale(vector2{ 1000.f });
     background->AddComponent(new Sprite(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+    background->SetDepth(Depth_Standard::Background);
 
-    goalPoint = new Object();
-    goalPoint->SetObjectType(Object::ObjectType::TEST);
-    goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 0.f, 500.f });
-    goalPoint->SetScale(vector2{ 150.f });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, "TutorialLevel"));
-    goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-    goalPoint->SetDepth(-1.f);
+    Transform g1;
+    g1.SetScale(vector2{ 250.f });
+    g1.SetTranslation(vector2{ 250.f, 500.f });
+    Object* goal1 = new GoalPoint(g1, player1);
+    Transform g2;
+    g2.SetScale(vector2{ 250.f });
+    g2.SetTranslation(vector2{ -250.f, 500.f });
+    Object* goal2 = new GoalPoint(g2, player2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goal1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goal2);
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::TEST);
@@ -134,7 +137,6 @@ void BasicMovementLevel::InitObject() {
 	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(true);
     startPoint->SetDepth(-1.f);
 
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 

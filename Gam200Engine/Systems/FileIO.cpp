@@ -99,13 +99,13 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			else if (objectType == "startpoint")
 			{
 				object->SetObjectType(Object::ObjectType::OBSTACLE);
-				object->AddComponent(new GoalComponent(object, spriteFileName));
+				//object->AddComponent(new GoalComponent(object, spriteFileName));
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
 			}
 			else if (objectType == "goalpoint")
 			{
 				object->SetObjectType(Object::ObjectType::OBSTACLE);
-				object->AddComponent(new GoalComponent(object, spriteFileName));
+				//object->AddComponent(new GoalComponent(object, spriteFileName));
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
 			}
 			

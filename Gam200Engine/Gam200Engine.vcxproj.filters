@@ -263,6 +263,9 @@
     <ClCompile Include="Object\DepthStandard.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Points\GoalPoint.cpp">
+      <Filter>Object\Points</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -566,6 +569,9 @@
     <ClInclude Include="States\SceneStates\SceneComplete.hpp">
       <Filter>States\SceneStates</Filter>
     </ClInclude>
+    <ClInclude Include="Object\Points\GoalPoint.hpp">
+      <Filter>Object\Points</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -642,6 +648,9 @@
     </Filter>
     <Filter Include="States\SceneStates">
       <UniqueIdentifier>{78dec8ef-cd39-43fd-bb20-56aa74ea85ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Points">
+      <UniqueIdentifier>{cb8ce136-3d46-47c5-8c97-7a8a4537e574}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

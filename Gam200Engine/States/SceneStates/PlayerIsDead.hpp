@@ -27,11 +27,12 @@ public:
 	void Exit(SceneStateManager* manager) override;
 
 
+	void PrepareAssets() noexcept;
+	void CleanAssets() noexcept;
+
 private:
 	// Since it use a single-ton design pattern, ctor need to be private.
 	PlayerIsDead();
-
-	void PrepareAssets() noexcept;
 
 	Object* playerIsDeadText;
 };

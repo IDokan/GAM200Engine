@@ -227,18 +227,6 @@ void OneWayPassLevel::InitObject() {
 
     string = new String(player1, player2);
 
-    goalPoint = new Object();
-    goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-    goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 0.f, 1000.f });
-    goalPoint->SetScale(vector2{ 150.f });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, "DeadLevel"));
-    goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-    goalPoint->SetDepth(-1.f);
-
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::OBSTACLE);
     startPoint->SetObjectName("startPoint");

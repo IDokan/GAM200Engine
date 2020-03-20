@@ -26,6 +26,11 @@ Creation Date: 12.10.2019
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
+// Include Scene States
+#include <States/SceneStates/PlayerIsDead.hpp>
+#include <States/SceneStates/SceneComplete.hpp>
+#include <States/SceneStates/GamsIsRunning.hpp>
+
 
 #define GLFW_EXPOSE_NATIVE_WIN32
 #define GLFW_EXPOSE_NATIVE_WGL
@@ -149,6 +154,9 @@ void Scene::UnloadScene() noexcept
 {
 	is_next = false;
 
+	CleanRequiredObjects();
+	Unload();
+
 	ObjectManager* objManager = ObjectManager::GetObjectManager();
 	for (const auto& layers : objManager->GetLayerContainer())
 	{
@@ -158,7 +166,8 @@ void Scene::UnloadScene() noexcept
 		}
 	}
 
-	Unload();
+	// Clearly remove
+	objManager->Update(0.f);
 }
 
 void Scene::Draw() noexcept
@@ -309,6 +318,16 @@ void Scene::InitDEBUGObjects()
 
 void Scene::InitRequiredObjects()
 {
-	SceneStateManager* sceneStateManager = new SceneStateManager();
+	sceneStateManager = new SceneStateManager();
 	ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObject(sceneStateManager);
+
+	PlayerIsDead::Get()->PrepareAssets();
+	SceneComplete::Get()->PrepareAssets();
+}
+
+void Scene::CleanRequiredObjects()
+{
+	GameIsRunning::Get()->CleanAssets();
+	SceneComplete::Get()->CleanAssets();
+	PlayerIsDead::Get()->CleanAssets();
 }

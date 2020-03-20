@@ -16,6 +16,8 @@ Creation Date: 03.16.2020
 #include <States/State.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 
+#include <Object/Players/Player.h>
+
 class GameIsRunning : public State<SceneStateManager>
 {
 public:
@@ -25,8 +27,15 @@ public:
 	void Execute(SceneStateManager* manager) override;
 	void Exit(SceneStateManager* manager) override;
 
+	void SetPlayerIsInGoal(Player::Identifier playerID, bool inGoal) noexcept;
+	bool GetPlayerIsInGoal(Player::Identifier playerID) const noexcept;
+
+	void CleanAssets() noexcept;
 
 private:
 	GameIsRunning();
+
+	bool player1IsInGoal;
+	bool player2IsInGoal;
 };
 

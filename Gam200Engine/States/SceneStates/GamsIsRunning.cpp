@@ -21,6 +21,8 @@ Creation Date: 03.16.2020
 			- Nothing to do.
 ******************************************************************************/
 #include <States/SceneStates/GamsIsRunning.hpp>
+#include <Component/StateMachine.hpp>
+#include <States/SceneStates/SceneComplete.hpp>
 
 GameIsRunning* GameIsRunning::Get()
 {
@@ -33,9 +35,12 @@ void GameIsRunning::Enter(SceneStateManager* /*manager*/)
 	// Do nothing
 }
 
-void GameIsRunning::Execute(SceneStateManager* /*manager*/)
+void GameIsRunning::Execute(SceneStateManager* manager)
 {
-	// Do nothing
+	if (player1IsInGoal && player2IsInGoal)
+	{
+		manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(SceneComplete::Get());
+	}
 }
 
 void GameIsRunning::Exit(SceneStateManager* /*manager*/)
@@ -43,6 +48,44 @@ void GameIsRunning::Exit(SceneStateManager* /*manager*/)
 	printf("Scene State Manger: GameIsRunning state is exited");
 }
 
+void GameIsRunning::SetPlayerIsInGoal(Player::Identifier playerID, bool inGoal) noexcept
+{
+	switch (playerID)
+	{
+	case Player::Identifier::Player1:
+		player1IsInGoal = inGoal;
+		break;
+	case Player::Identifier::Player2:
+		player2IsInGoal = inGoal;
+		break;
+	default:
+		break;
+	}
+}
+
+bool GameIsRunning::GetPlayerIsInGoal(Player::Identifier playerID) const noexcept
+{
+	switch (playerID)
+	{
+	case Player::Identifier::Player1:
+		return player1IsInGoal;
+		break;
+	case Player::Identifier::Player2:
+		return player2IsInGoal;
+		break;
+	default:
+		break;
+	}
+	return false;
+}
+
+void GameIsRunning::CleanAssets() noexcept
+{
+	player1IsInGoal = false;
+	player2IsInGoal = false;
+}
+
 GameIsRunning::GameIsRunning()
+	: player1IsInGoal(false), player2IsInGoal(false)
 {
 }

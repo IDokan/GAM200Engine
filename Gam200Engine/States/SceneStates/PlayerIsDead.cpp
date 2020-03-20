@@ -28,7 +28,7 @@ Creation Date: 03.16.2020
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 #include <Object/ObjectManager.hpp>
-#include <Component/Sprite/TextComponent.hpp>
+#include <Component/Sprite/Sprite.hpp>
 #include <Object/DepthStandard.hpp>
 
 PlayerIsDead* PlayerIsDead::Get()
@@ -79,10 +79,15 @@ void PlayerIsDead::PrepareAssets() noexcept
 	if (playerIsDeadText == nullptr)
 	{
 		playerIsDeadText = new Object();
-		playerIsDeadText->SetObjectName("PlayerIsDead Text");
-		playerIsDeadText->SetScale(0.5f);
-		playerIsDeadText->AddComponent(new TextComponent(playerIsDeadText));
-		playerIsDeadText->GetComponentByTemplate<TextComponent>()->SetString(L"Player Is Dead!\n Press 'R' to restart");
-		playerIsDeadText->SetDepth(Depth_Standard::HUDText);
+		playerIsDeadText->SetObjectName("PlayerIsDead Image");
+		playerIsDeadText->SetScale(vector2{ 2.f, 1.f });
+		playerIsDeadText->AddComponent(new Sprite(playerIsDeadText));
+		playerIsDeadText->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/playerIsDead.png");
+		playerIsDeadText->SetDepth(Depth_Standard::HUDImage);
 	}
+}
+
+void PlayerIsDead::CleanAssets() noexcept
+{
+	playerIsDeadText = nullptr;
 }

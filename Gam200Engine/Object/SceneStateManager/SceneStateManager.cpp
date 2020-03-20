@@ -28,6 +28,7 @@ Creation Date: 03.16.2020
 #include <Systems/MessageSystem/Message.hpp>
 
 SceneStateManager::SceneStateManager()
+	: nameOfSelectedLevel("BasicMovementLevel")
 {
 	AddComponent(new MessageCapable(this, MessageObjects::SceneStateManager, 
 		[&](const Message& msg) -> bool
@@ -41,9 +42,41 @@ SceneStateManager::SceneStateManager()
 			case MessageTypes::GameRestarted:
 				stateMachine->ChangeState(GameIsRunning::Get());
 				break;
-			case MessageTypes::SceneComplete:
-				stateMachine->ChangeState(SceneComplete::Get());
+			case MessageTypes::PlayerReachedGoal:
+				// if currentState is GameIsRunning
+				if (GameIsRunning* state = GameIsRunning::Get();
+					state == stateMachine->GetCurrentState())
+				{
+					switch (msg.Sender)
+					{
+					case MessageObjects::Player1:
+						state->SetPlayerIsInGoal(Player::Identifier::Player1, true);
+						break;
+					case MessageObjects::Player2:
+						state->SetPlayerIsInGoal(Player::Identifier::Player2, true);
+						break;
+					default:
+						break;
+					}
+				}
 				break;
+			case MessageTypes::PlayerExitedFromGoal:
+				// if currentState is GameIsRunning
+				if (GameIsRunning* state = GameIsRunning::Get();
+					state == stateMachine->GetCurrentState())
+				{
+					switch (msg.Sender)
+					{
+					case MessageObjects::Player1:
+						state->SetPlayerIsInGoal(Player::Identifier::Player1, false);
+						break;
+					case MessageObjects::Player2:
+						state->SetPlayerIsInGoal(Player::Identifier::Player2, false);
+						break;
+					default:
+						break;
+					}
+				}
 			default:
 				return false;
 				break;
@@ -56,4 +89,14 @@ SceneStateManager::SceneStateManager()
 	GetComponentByTemplate<StateMachine<SceneStateManager>>()->SetCurrentState(GameIsRunning::Get());
 
 	SetObjectName("SceneStateManager");
+}
+
+void SceneStateManager::SetNameOfSelectedLevel(std::string name) noexcept
+{
+	nameOfSelectedLevel = name;
+}
+
+std::string SceneStateManager::GetNameOfSelectedLevel() const noexcept
+{
+	return nameOfSelectedLevel;
 }

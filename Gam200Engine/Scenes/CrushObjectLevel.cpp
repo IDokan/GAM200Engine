@@ -291,19 +291,6 @@ void CrushObjectLevel::InitObject()
     startPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
     startPoint->SetDepth(-1.f);
-
-	goalPoint = new Object();
-	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-	goalPoint->SetObjectName("goalPoint");
-	goalPoint->SetTranslation(vector2{ -440.f, -550.f });
-	goalPoint->SetScale(vector2{ 250.f,150.f });
-	goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, ""/*This is a last level in presentation*/));
-	goalPoint->AddComponent(new Physics(goalPoint));
-	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-	goalPoint->SetDepth(-1.f);
 	
 
     object1 = new CrushableObject(vector2{ -809.f,-1529.f }, vector2{ 380.f,157.f }, Physics::ObjectType::RECTANGLE, string);

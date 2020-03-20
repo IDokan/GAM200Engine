@@ -33,5 +33,8 @@ public:
 
 	SceneStateManager();
 
+	void SetNameOfSelectedLevel(std::string name) noexcept;
+	std::string GetNameOfSelectedLevel() const noexcept;
 private:
+	std::string nameOfSelectedLevel;
 };

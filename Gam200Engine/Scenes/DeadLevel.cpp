@@ -272,19 +272,6 @@ void DeadLevel::InitObject()
 	startPoint->SetDepth(-1.f);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 
-	goalPoint = new Object();
-	goalPoint->SetObjectType(Object::ObjectType::OBSTACLE);
-	goalPoint->SetObjectName("goalPoint");
-	goalPoint->SetTranslation(vector2{ 0.f, -400.f });
-	goalPoint->SetScale(vector2{ 250.f,150.f });
-	goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new GoalComponent(goalPoint, "CrushObjectLevel"));
-	goalPoint->AddComponent(new Physics(goalPoint));
-	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-	goalPoint->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-	goalPoint->SetDepth(-1.f);
-
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
     
 }
