@@ -72,6 +72,7 @@ namespace Graphics
 		instanceDataBufferHandle = other.instanceDataBufferHandle;
 		verticesCount = other.verticesCount;
 		instanceDataCount = other.instanceDataCount;
+		verticesListPattern = other.verticesListPattern;
 		bufferVertexCapacity = other.bufferVertexCapacity;
 		layout = other.layout;
 		other.verticesHandle = 0;
