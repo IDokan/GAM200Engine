@@ -21,21 +21,17 @@ SoundManager::SoundManager()
 
 void SoundManager::Load_Sound()
 {
-	//theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/bgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[JAMJAMTEST_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
-	//ERRCHECK(theResult, "Load Sound");
-	//theResult = FMOD_System_CreateSound(fmod_system, "SoundAssets/dash.mp3", FMOD_DEFAULT, nullptr, &sound[DASH_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
-	//ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Cartoon_Boing.mp3", FMOD_DEFAULT, nullptr, &sound[COLLISION_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Cartoon_Boing.mp3", FMOD_DEFAULT, nullptr, &sound[COLLISION_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Missive.mp3", FMOD_DEFAULT, nullptr, &sound[BACKGROUND_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Missive.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Siren_Whistle.mp3", FMOD_DEFAULT, nullptr, &sound[FALLING_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Siren_Whistle.mp3", FMOD_DEFAULT, nullptr, &sound[FALLING_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Magic_Chime.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Magic_Chime.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Dog_Drinking_Close_Up.mp3", FMOD_DEFAULT, nullptr, &sound[SHAREWEIGHT_SOUND]);//fmod_system->createSound("SoundAssets/jamjam.mp3", FMOD_DEFAULT, nullptr, &sound[JAMJAMTEST_SOUND]);//Guess...we can know what kinds of sound it is by the last parameter
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Dog_Drinking_Close_Up.mp3", FMOD_DEFAULT, nullptr, &sound[SHAREWEIGHT_SOUND]);
     ERRCHECK(theResult, "Load Sound");
 
 }
@@ -43,7 +39,7 @@ void SoundManager::Load_Sound()
 void SoundManager::Play_Sound(SOUNDS sound_name)
 {
 	FMOD_System_Update(fmod_system);
-	theResult = FMOD_System_PlaySound(fmod_system, sound[sound_name], nullptr, false, &ch[sound_name]); //fmod_system->playSound(sound[sound_name], nullptr, false, &ch[sound_name]);
+	theResult = FMOD_System_PlaySound(fmod_system, sound[sound_name], nullptr, false, &ch[sound_name]); 
 	ERRCHECK(theResult, "Play Sound");
 }
 
@@ -64,6 +60,13 @@ void SoundManager::ERRCHECK(FMOD_RESULT _theResult, const std::string errorReaso
 	if (_theResult != FMOD_OK)
 	{
 		//std::cout << errorReason << " Error!\n";
+	}
+}
+
+void SoundManager::TEST_MASTER()
+{
+	for (int i = 0; i < SOUNDS::NONE; i++) {
+		FMOD_Channel_Stop(ch[i]);
 	}
 }
 
