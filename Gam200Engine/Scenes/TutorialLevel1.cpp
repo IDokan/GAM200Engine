@@ -20,10 +20,7 @@ Creation Date: 03.15.2020
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
-//lock and key
-#include<Systems/MessageSystem/Message.hpp>
-#include<Systems/MessageSystem/MessageDispatcher.hpp>
-#include<Component/MessageCapable.hpp>
+
 
 TutorialLevel1::TutorialLevel1() : background(nullptr)
 {
