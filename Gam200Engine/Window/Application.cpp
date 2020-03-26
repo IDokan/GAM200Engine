@@ -24,7 +24,6 @@ Creation Date: 08.05.2019
 #include <Scenes/TutorialLevel.hpp>
 #include <Scenes/TutorialLevel1.hpp>
 #include <Scenes/TutorialLevel2.hpp>
-#include <Scenes/Level1.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -49,12 +48,12 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 //#ifdef _DEBUG
+    SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
 	
 //#endif
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
-    SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
-    SceneManager::GetSceneManager()->AddScenes("Level1", dynamic_cast<Scene*>(new Level1()));
+
     
 
 	ObstaclesDrawingHelper::Get()->Init();

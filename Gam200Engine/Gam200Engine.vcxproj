@@ -236,7 +236,6 @@
     <ClInclude Include="Scenes\CrushObjectLevel.hpp" />
     <ClInclude Include="Scenes\Editor.hpp" />
     <ClInclude Include="Scenes\EditorTestLevel.hpp" />
-    <ClInclude Include="Scenes\Level1.hpp" />
     <ClInclude Include="Scenes\OneWayPassLevel.hpp" />
     <ClInclude Include="Scenes\ProtoLevel.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
@@ -340,7 +339,6 @@
     <ClCompile Include="Scenes\DeadLevel.cpp" />
     <ClCompile Include="Scenes\Editor.cpp" />
     <ClCompile Include="Scenes\EditorTestLevel.cpp" />
-    <ClCompile Include="Scenes\Level1.cpp" />
     <ClCompile Include="Scenes\OneWayPassLevel.cpp" />
     <ClCompile Include="Scenes\ProtoLevel.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
