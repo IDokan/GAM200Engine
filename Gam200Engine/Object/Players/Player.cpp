@@ -84,7 +84,7 @@ Player::Identifier Player::GetID() const noexcept
 
 void Player::LoadPlayer1Layout()
 {
-	Object::SetObjectName("Player 1");
+	Object::SetObjectName("Player1");
 	Object::SetObjectType(ObjectType::PLAYER_1);
 
 	AddComponent(new MessageCapable(this, MessageObjects::Player1,
@@ -116,7 +116,7 @@ void Player::LoadPlayer1Layout()
 
 void Player::LoadPlayer2Layout()
 {
-	Object::SetObjectName("Player 2");
+	Object::SetObjectName("Player2");
 	Object::SetObjectType(ObjectType::PLAYER_2);
 	
 	AddComponent(new MessageCapable(this, MessageObjects::Player2,
