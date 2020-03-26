@@ -27,6 +27,8 @@ public:
         return isRunning;
     }
 
+    void ChangeStatus();
+
 private:
     float timea = 0;
     bool isRunning = false;

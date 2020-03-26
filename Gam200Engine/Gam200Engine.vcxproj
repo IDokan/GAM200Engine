@@ -171,6 +171,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Button.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\MessageCapable.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
@@ -213,7 +214,6 @@
     <ClInclude Include="Graphics\Texture.hpp" />
     <ClInclude Include="Graphics\VertexLayoutDescription.hpp" />
     <ClInclude Include="Graphics\Vertices.hpp" />
-    <ClInclude Include="Object\Button.hpp" />
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
@@ -274,6 +274,7 @@
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Button.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\MessageCapable.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
@@ -315,7 +316,6 @@
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\VertexLayoutDescription.cpp" />
     <ClCompile Include="Graphics\Vertices.cpp" />
-    <ClCompile Include="Object\Button.cpp" />
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
     <ClCompile Include="Object\DepthStandard.cpp" />

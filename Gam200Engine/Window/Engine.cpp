@@ -44,14 +44,25 @@ void Engine::Update()
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
         //throw "Hello nice to meet you :)";
-        app_->GetApplication()->Clear();
+        
         isRunning = true;
     }
 }
 
+void Engine::ChangeStatus()
+{
+    if (isRunning == false)
+        isRunning = true;
+    else
+        isRunning = false;
+}
+
+
 void Engine::Clear()
 {
+    app_->GetApplication()->Clear();
 	delete Application::GetApplication();
 	delete ObjectManager::GetObjectManager();
 	delete SceneManager::GetSceneManager();
 }
+

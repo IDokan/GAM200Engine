@@ -29,6 +29,7 @@ Creation Date: 08.05.2019
 #include <Scenes/DeadLevel.hpp>
 #include <Scenes/ProtoLevel.hpp>
 #include <Scenes/TutorialLevel.hpp>
+#include <Scenes/MenuScene.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -53,8 +54,9 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
 //#ifdef _DEBUG
-	SceneManager::GetSceneManager()->AddScenes("EditorTestLevel", dynamic_cast<Scene*>(new EditorTestLevel()));
+	//SceneManager::GetSceneManager()->AddScenes("EditorTestLevel", dynamic_cast<Scene*>(new EditorTestLevel()));
 	//SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
+    SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	
 //#endif

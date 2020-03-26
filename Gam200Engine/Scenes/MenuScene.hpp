@@ -13,7 +13,8 @@ Creation Date: 03.13.2020
 #include <Scenes/Scene.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
-#include <Object/Button.hpp>
+
+class Object;
 
 class MenuScene : public Scene
 {
@@ -33,12 +34,11 @@ protected:
 	void InitObject();
 
 private:
-	Object* background;
-	Player* player1{};
-	Player* player2{};
-	String* string{};
 
-	Button* startGame{};
-	Button* settings{};
-	Button* quitGame{};
+	Object* nextLevelButton{};
+	Object* howToPlayButton{};
+	Object* settingButton{};
+	Object* creditButton{};
+	Object* quitButton{};
+
 };

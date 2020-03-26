@@ -1,0 +1,4 @@
+startPoint 0 -500 150 150 -1 startpoint ../assets/textures/startPoint.png
+goalPoint 0 500 150 150 -1 goalpoint TutorialLevel
+Player 1 -19.6889 349.253 150 150 -11.5 player1 ../assets/textures/Cheese/cheese_move.png
+Player 2 131.606 -144.927 150 150 -11.5 player2 ../assets/textures/Cheese/cheese_move.png
