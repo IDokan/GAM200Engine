@@ -76,6 +76,11 @@ std::string Object::GetObjectName()
     return objectName;
 }
 
+void Object::SetDirtyFlag(bool flag)
+{
+    dirtyFlagForDoor = flag;
+}
+
 void Object::SetObjectType(ObjectType objType_)
 {
     objType = objType_;
@@ -121,4 +126,9 @@ float Object::GetRotation() const noexcept
 float Object::GetDepth() const noexcept
 {
     return transform.GetDepth() * 5000.f;
+}
+
+bool Object::GetDirtyFlag() const
+{
+    return dirtyFlagForDoor;
 }

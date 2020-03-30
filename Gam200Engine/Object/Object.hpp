@@ -80,6 +80,8 @@ public:
     void SetDepth(float depth);
     void SetObjectName(std::string name); // Woo
     std::string GetObjectName(); // Woo
+    void SetDirtyFlag(bool flag);
+
 
     void SetObjectType(ObjectType objType); // test function Woo
 
@@ -89,12 +91,15 @@ public:
     vector2 GetScale() const noexcept; // Woo
 	float GetRotation() const noexcept; // Sinil
 	float GetDepth() const noexcept; //Jiwon
+    bool GetDirtyFlag() const;
 
 protected:
     Transform transform;
     std::vector<Component*> component;
     std::string objectName;
     bool is_dead = false;
+
+    bool dirtyFlagForDoor = true;
     ObjectType objType;
 
 };

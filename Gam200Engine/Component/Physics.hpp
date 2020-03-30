@@ -72,6 +72,10 @@ public:
     bool IsCollideWithRotatedObject(Object* object);
     void IsCollideWithMovedObject();
     void ManageCollision();
+    bool GetActiveGhostCollision()
+    {
+        return isGhost;
+    }
 
     vector2 GetTranslation(const matrix3& matrix) const;
     vector2 GetVelocity() const noexcept;
