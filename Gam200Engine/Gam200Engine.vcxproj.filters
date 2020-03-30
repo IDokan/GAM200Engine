@@ -246,7 +246,6 @@
     </ClCompile>
     <ClCompile Include="Component\Sprite\Particle.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
-    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
     <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp">
       <Filter>Object\SceneStateManager</Filter>
@@ -265,6 +264,15 @@
     </ClCompile>
     <ClCompile Include="Object\Points\GoalPoint.cpp">
       <Filter>Object\Points</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\StringLengthUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\StringLengthUIHandler.cpp">
+      <Filter>Component\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -555,7 +563,6 @@
     </ClInclude>
     <ClInclude Include="Component\Sprite\Particle.hpp" />
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
-    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
     <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
     <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp">
       <Filter>Object\SceneStateManager</Filter>
@@ -571,6 +578,15 @@
     </ClInclude>
     <ClInclude Include="Object\Points\GoalPoint.hpp">
       <Filter>Object\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\StringLengthUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\StringLengthUIHandler.hpp">
+      <Filter>Component\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -651,6 +667,9 @@
     </Filter>
     <Filter Include="Object\Points">
       <UniqueIdentifier>{cb8ce136-3d46-47c5-8c97-7a8a4537e574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\UI">
+      <UniqueIdentifier>{248ebc20-876a-41eb-8a59-4d0b06b5500e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

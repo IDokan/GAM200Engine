@@ -185,6 +185,7 @@
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
     <ClInclude Include="Component\StateMachine.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
+    <ClInclude Include="Component\UI\StringLengthUIHandler.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
+    <ClInclude Include="Object\HUD\StringLengthUI.hpp" />
     <ClInclude Include="Object\InstancedObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
@@ -290,6 +292,7 @@
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
+    <ClCompile Include="Component\UI\StringLengthUIHandler.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -321,6 +324,7 @@
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
     <ClCompile Include="Object\DepthStandard.cpp" />
+    <ClCompile Include="Object\HUD\StringLengthUI.cpp" />
     <ClCompile Include="Object\InstancedObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />

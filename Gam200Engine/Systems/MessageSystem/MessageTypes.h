@@ -44,7 +44,7 @@ enum class MessageTypes
      * For example, Receiver would do like a
      *		AddForce(ExtraInfo);
      */
-     AddForce,
+     AddStringForce,
 
      /**
       * \brief
@@ -60,6 +60,14 @@ enum class MessageTypes
        *		SetTranslation(ExtraInfo);
        */
        MoveToAbsolutePosition,
+       /**
+        * \brief
+        * When this message is received, extra information would be a length of current string.
+        *
+		* @Predictable receiver and function
+		*		StringLengthUI: receiver will do an appropriate calculation. Let them know about current state of string.
+        */
+        StringIsStreching,
 
        /**
   * \brief
@@ -119,6 +127,9 @@ enum class MessageObjects
     Test_Crushable_Object,
 
 	SceneStateManager,
+
+    // Object type for StringLengthUI
+    StringLengthUI,
 
     NUM_OF_MESSAGE_OBJECTS,
 };

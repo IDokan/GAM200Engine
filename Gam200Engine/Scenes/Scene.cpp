@@ -25,6 +25,7 @@ Creation Date: 12.10.2019
 #include <Object/Particles/ParticleEmitter.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Systems/ObstaclesDrawingHelper.hpp>
+#include <Object/HUD/StringLengthUI.hpp>
 
 // Include Scene States
 #include <States/SceneStates/PlayerIsDead.hpp>
@@ -323,6 +324,10 @@ void Scene::InitRequiredObjects()
 
 	PlayerIsDead::Get()->PrepareAssets();
 	SceneComplete::Get()->PrepareAssets();
+
+	StringLengthUI* ui = new StringLengthUI();
+	ui->SetObjectName("StringLength UI");
+	ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObject(ui);
 }
 
 void Scene::CleanRequiredObjects()

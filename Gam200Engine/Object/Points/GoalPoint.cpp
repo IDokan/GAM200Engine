@@ -48,12 +48,12 @@ void GoalPoint::LoadGoalPoint1Layout() noexcept
 {
 	SetObjectName("GoalPoint - Player1");
 	// Set appropriate image
-	//GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/");
+	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p1.png");
 }
 
 void GoalPoint::LoadGoalPoint2Layout() noexcept
 {
 	SetObjectName("GoalPoint - Player2");
 	// Set appropriate image
-	//GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/");
+	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/p2.png");
 }
