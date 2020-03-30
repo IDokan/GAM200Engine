@@ -163,7 +163,6 @@ void BasicMovementLevel::InitObject() {
 	emitter->SetDepth(-0.5f);
 	emitter->SetObjectName("Particle Emitter");
 	emitter->GetComponentByTemplate<Particle>()->SetImage("../assets/textures/circle.png");
-	objManager->FindLayer(LayerNames::Stage)->AddObject(emitter);
 }
 
 void AddStateTestObject()

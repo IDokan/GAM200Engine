@@ -146,14 +146,6 @@ void Graphics::CameraManager::CameraMove(const Object* player1, const Object* pl
 
 	DEBUGCameraMove(zoomSize);
 
-	if (position1.x == -1.f ||
-		position1.y == -1.f ||
-		position2.x == -1.f ||
-		position2.y == -1.f)
-	{
-		return;
-	}
-
 	PositionHandling(player1, player2);
 	ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 }
@@ -205,13 +197,13 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& /*zoomSize*/) noexcep
 	{
 		selectedCamera->cameraView.SetZoom(
 			selectedCamera->cameraView.GetZoom() * zoomSize
-		);
+			);
 	}
 	if (input.MouseWheelScroll() < 0)
 	{
 		selectedCamera->cameraView.SetZoom(
 			selectedCamera->cameraView.GetZoom() / zoomSize
-		);
+			);
 	}
 
 	// Disable camera rotation
@@ -253,32 +245,32 @@ void Graphics::CameraManager::ZoomAndCollisionRegionHandling(vector2 distanceBet
 {
 
 	// Zoom Out part
-	if (distanceBetweenPlayer.x > 2 * cameraDetectRectSize.x)
+	if (distanceBetweenPlayer.x > cameraDetectRectSize.x)
 	{
-		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
-		cameraDetectRectSize.x = distanceBetweenPlayer.x / 2;
+		SetZoom(GetZoom() * ((cameraDetectRectSize.x) / distanceBetweenPlayer.x));
+		cameraDetectRectSize.x = distanceBetweenPlayer.x;
 	}
-	if (distanceBetweenPlayer.y > 2 * cameraDetectRectSize.y)
+	if (distanceBetweenPlayer.y > cameraDetectRectSize.y)
 	{
-		SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / distanceBetweenPlayer.y));
-		cameraDetectRectSize.y = distanceBetweenPlayer.y / 2;
+		SetZoom(GetZoom() * ((cameraDetectRectSize.y) / distanceBetweenPlayer.y));
+		cameraDetectRectSize.y = distanceBetweenPlayer.y;
 	}
 
 	// Zoom In part
 	if (cameraDetectRectSize.x > initCameraDetectRectSize.x)
 	{
-		if (distanceBetweenPlayer.x < 2 * cameraDetectRectSize.x)
+		if (distanceBetweenPlayer.x < cameraDetectRectSize.x)
 		{
-			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.x) / distanceBetweenPlayer.x));
-			cameraDetectRectSize.x = distanceBetweenPlayer.x / 2;
+			SetZoom(GetZoom() * ((cameraDetectRectSize.x) / distanceBetweenPlayer.x));
+			cameraDetectRectSize.x = distanceBetweenPlayer.x;
 		}
 	}
 	if (cameraDetectRectSize.y > initCameraDetectRectSize.y)
 	{
-		if (distanceBetweenPlayer.y < 2 * cameraDetectRectSize.y)
+		if (distanceBetweenPlayer.y < cameraDetectRectSize.y)
 		{
-			SetZoom(GetZoom() * ((2 * cameraDetectRectSize.y) / distanceBetweenPlayer.y));
-			cameraDetectRectSize.y = distanceBetweenPlayer.y / 2;
+			SetZoom(GetZoom() * ((cameraDetectRectSize.y) / distanceBetweenPlayer.y));
+			cameraDetectRectSize.y = distanceBetweenPlayer.y;
 		}
 	}
 
@@ -299,13 +291,13 @@ void Graphics::CameraManager::PositionHandling(const Object* player1, const Obje
 	vector2 position1 = player1->GetTranslation();
 	vector2 position2 = player2->GetTranslation();
 
-	CalculateDirectionOffset(player1, player2, 10.f, eyesightOffset);
-
-	vector2 totalDelta{ (position1 + position2)/2.f + eyesightOffset};
+	static constexpr float scaler = 0.1f;
+	vector2 totalDelta = LinearInterpolation(GetPosition(), (position1 + position2) / 2.f, scaler);
 
 	SetPosition(totalDelta);
 }
 
+// Deprecated function
 void Graphics::CameraManager::CalculateDirectionOffset(const Object* player1, const Object* player2, float offset, vector2& resultOffset) noexcept
 {
 	EyesightTypeCode direction = CalculateEyesightType(player1->GetComponentByTemplate<Physics>()->GetVelocity());
@@ -332,7 +324,7 @@ Graphics::CameraManager::EyesightTypeCode Graphics::CameraManager::CalculateEyes
 	{
 		result |= RIGHT;
 	}
-	else if(velocity.x < 0.f)
+	else if (velocity.x < 0.f)
 	{
 		result |= LEFT;
 	}
@@ -371,6 +363,13 @@ vector2 Graphics::CameraManager::GetUnitVectorWithGivenCode(EyesightTypeCode cod
 	}
 
 	return result;
+}
+
+vector2 Graphics::CameraManager::LinearInterpolation(vector2 currentPosition, vector2 targetPosition, float t)
+{
+	vector2 displacement = targetPosition - currentPosition;
+	magnitude_squared(displacement);
+	return currentPosition + t * (targetPosition - currentPosition);
 }
 
 

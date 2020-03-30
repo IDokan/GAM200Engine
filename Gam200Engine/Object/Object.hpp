@@ -69,6 +69,11 @@ public:
         return transform;
     }
 
+    Transform& GetTransform()
+    {
+        return transform;
+    }
+
     std::vector<Component*> GetComponentContainer() 
     {
         return component;

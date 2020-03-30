@@ -92,6 +92,10 @@ void Player::LoadPlayer1Layout()
 	AddComponent(new MessageCapable(this, MessageObjects::Player1,
 		[&](const Message& msg) -> bool
 		{
+			const float scalerWhenPlayerIsStopping = (String::String_Max_Length - String::String_Stretching_Length) / 10.f;
+			vector2 force{};
+			vector2 velocity{};
+			float scalerBasedOnVelocity = 0;
 			switch(msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
@@ -107,8 +111,22 @@ void Player::LoadPlayer1Layout()
 				SetTranslation(*reinterpret_cast<vector2*>(msg.ExtraInfo));
 				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
 				break;
-			case MessageTypes::AddForce:
-				GetComponentByTemplate<Physics>()->AddForce(*reinterpret_cast<vector2*>(msg.ExtraInfo));
+			case MessageTypes::AddStringForce:
+				velocity = GetComponentByTemplate<Physics>()->GetVelocity();
+				force = *reinterpret_cast<vector2*>(msg.ExtraInfo);
+				scalerBasedOnVelocity = magnitude(velocity);
+
+				// When player stop, force much more stronger dramatically..
+				if ((scalerBasedOnVelocity <= 0.1f)
+					&& (GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() && Idle::Get())
+					)
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
+				}
+				else
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
+				}
 			default:
 				return false;
 			}
@@ -125,9 +143,14 @@ void Player::LoadPlayer2Layout()
 	AddComponent(new MessageCapable(this, MessageObjects::Player2,
 		[&](const Message& msg) -> bool
 		{
+			const float scalerWhenPlayerIsStopping = (String::String_Max_Length - String::String_Stretching_Length) / 10.f;
+			vector2 force{};
+			vector2 velocity{};
+			float scalerBasedOnVelocity = 0;
 			switch (msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Dead::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				break;
@@ -139,8 +162,22 @@ void Player::LoadPlayer2Layout()
 				SetTranslation(*reinterpret_cast<vector2*>(msg.ExtraInfo));
 				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
 				break;
-			case MessageTypes::AddForce:
-				GetComponentByTemplate<Physics>()->AddForce(*reinterpret_cast<vector2*>(msg.ExtraInfo));
+			case MessageTypes::AddStringForce:
+				velocity = GetComponentByTemplate<Physics>()->GetVelocity();
+				force = *reinterpret_cast<vector2*>(msg.ExtraInfo);
+				scalerBasedOnVelocity = magnitude(velocity);
+
+				// When player stop, force much more stronger dramatically..
+				if ((scalerBasedOnVelocity <= 0.1f)
+					&& (GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() && Idle::Get())
+					)
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
+				}
+				else
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
+				}
 			default:
 				return false;
 			}

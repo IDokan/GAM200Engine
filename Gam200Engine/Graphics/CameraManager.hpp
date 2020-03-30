@@ -73,7 +73,10 @@ namespace Graphics
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
 		void ZoomAndCollisionRegionHandling(vector2 distanceBetweenPlayer) noexcept;
 		void PositionHandling(const Object* player1, const Object* player2) noexcept;
+
+		vector2 LinearInterpolation(vector2 currentPosition, vector2 targetPosition, float t);
 		
+		// Deprecated function
 		void CalculateDirectionOffset(const Object* player1, const Object* player2, float offset, vector2& resultOffset) noexcept;
 		EyesightTypeCode CalculateEyesightType(vector2 velocity) noexcept;
 		vector2 GetUnitVectorWithGivenCode(EyesightTypeCode code) noexcept;
@@ -87,7 +90,7 @@ namespace Graphics
 		CameraSet* selectedCamera = nullptr;
 		std::unordered_map<std::string, std::shared_ptr<CameraSet>> cameraStorage;
 
-		vector2 initCameraDetectRectSize{ 500.f, 300.f };
+		vector2 initCameraDetectRectSize{ 550.f, 400.f };
 		vector2 cameraDetectRectSize{ initCameraDetectRectSize };
 
 		constexpr static float maximumEyesightOffset_X{ 400.f };

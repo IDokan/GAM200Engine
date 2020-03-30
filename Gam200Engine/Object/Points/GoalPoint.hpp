@@ -18,7 +18,7 @@ class Player;
 class GoalPoint : public Object
 {
 public:
-	GoalPoint(const Transform& transform, Player* ptrToPlayer, Graphics::Color4f highlightedColor = Graphics::Color4f{ 1.f, 0.f, 0.f });
+	GoalPoint(const Transform& transform, Player* ptrToPlayer, Graphics::Color4f highlightedColor = Graphics::Color4f{ 0.f, 1.f, 0.f });
 
 private:
 	void LoadGoalPoint1Layout() noexcept;

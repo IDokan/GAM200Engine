@@ -40,16 +40,22 @@ void StringStretched::Execute(String* obj)
 		vector2 force1{ normalize(vertices.at(1).position - vertices.at(0).position) };
 		vector2 force2{ normalize(vertices.at(vertices.size() - 2).position - vertices.back().position) };
 
-		// interpolated value t (500, 800)
-		constexpr float maxStringLength = 800.f;
-		constexpr float minStringLength = 500.f;
-		const float t = (stringLength - String::String_Stretching_Length) / (maxStringLength - minStringLength) * 3;
+		float t = (stringLength - String::String_Stretching_Length) / (String::String_Max_Length - String::String_Stretching_Length);
+		// I can be happy when there is a minimum value.
+		static const float MinimumScale = (String::String_Max_Length - String::String_Stretching_Length) / (String::String_Max_Length * 100.f);
+		if (t < MinimumScale)
+		{
+			t = MinimumScale;
+		}
 		
 		force1 *= t;
 		force2 *= t;
 		
-		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player1, MessageTypes::AddForce, 0, &force1);
-		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player2, MessageTypes::AddForce, 0, &force2);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player1, MessageTypes::AddStringForce, 0, &force1);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::Player2, MessageTypes::AddStringForce, 0, &force2);
+
+		float currentStringLength = obj->GetStringLength();
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::StringLengthUI, MessageTypes::StringIsStreching, 0, &currentStringLength);
 	}
 }
 
