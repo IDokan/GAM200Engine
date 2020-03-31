@@ -42,9 +42,17 @@ private:
     Player* player1{};
     Player* player2{};
 
+    Object* movingObject_1;
+    Object* movingObject_2;
+
     Object* button;
     Object* wall1;
     Object* wall2;
 
+    Object* button1;
+    Object* wall3;
+    Object* wall4;
+
+    Graphics::Color4f color;
     String* string{};
 };

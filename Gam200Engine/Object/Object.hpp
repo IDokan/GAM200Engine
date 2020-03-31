@@ -39,6 +39,8 @@ public:
             Physics.cpp
         */
         MOVING_OBJECT,
+        /*For door*/
+        DOOR,
     	TEST,
         STRING,
     };
