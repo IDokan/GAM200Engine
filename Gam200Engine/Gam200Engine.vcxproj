@@ -224,6 +224,7 @@
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
     <ClInclude Include="Object\KeyLock.hpp" />
+    <ClInclude Include="Object\Mouse\Mouse.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
@@ -335,6 +336,7 @@
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
     <ClCompile Include="Object\KeyLock.cpp" />
+    <ClCompile Include="Object\Mouse\Mouse.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
