@@ -53,6 +53,22 @@ private:
     Object* wall3;
     Object* wall4;
 
+
+    Object* button2;
+    Object* wall5;
+    Object* wall6;
+
+    Object* wall7;
+    Object* wall8;
+    Object* wall9;
+
+    Object* button3;
+    Object* button4;
+
+
+
+
+
     Graphics::Color4f color;
     String* string{};
 };
