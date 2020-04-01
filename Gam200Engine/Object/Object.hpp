@@ -30,14 +30,21 @@ public:
 		// Location: <Object/Players/Player.h>
         PLAYER_1,
         PLAYER_2,
-
+        /*  For collision check
+            Physics.cpp*/
         OBSTACLE,
-        OBSTACLE_1,
         KEY_1,
         KEY_2,
         LOCK_1,
         LOCK_2,
+        /*  For moving object
+            Physics.cpp
+        */
         MOVING_OBJECT,
+        /*For button*/\
+        BUTTON,
+        /*For door*/
+        DOOR,
     	TEST,
 		// This is type to designate for String Object
 		// Location: <Object/Strings/String.hpp>
@@ -48,13 +55,6 @@ public:
 		NUM_OF_OBJECT_TYPE,
     };
 
-    enum class ObjectSide
-    {
-        UP_SIDE,
-        RIGHT_SIDE,
-        LEFT_SIDE,
-        BOTTOM_SIDE,
-    };
     void SetDead(bool condition) 
     {
         is_dead = condition;
@@ -86,11 +86,6 @@ public:
         return objType;
     }
 
-    ObjectSide GetObjectCollidingSide() const
-    {
-        return objSide;
-    }
-
 public:
     virtual void AddComponent(Component* comp);
     virtual void DeleteComponent(Component* comp);
@@ -102,9 +97,10 @@ public:
     void SetDepth(float depth);
     void SetObjectName(std::string name); // Woo
     std::string GetObjectName(); // Woo
+    void SetDirtyFlag(bool flag);
+
 
     void SetObjectType(ObjectType objType); // test function Woo
-    void SetObjectCollidingSide(ObjectSide objSide_);
 
     [[nodiscard]] std::string GetStringOfObjectType() const noexcept;
     
@@ -112,14 +108,17 @@ public:
     vector2 GetScale() const noexcept; // Woo
 	float GetRotation() const noexcept; // Sinil
 	float GetDepth() const noexcept; //Jiwon
+    bool GetDirtyFlag() const;
 
 protected:
     Transform transform;
     std::vector<Component*> component;
     std::string objectName;
     bool is_dead = false;
+
+    bool dirtyFlagForDoor = true;
     ObjectType objType;
-    ObjectSide objSide;
+
 };
 
 template <typename COMPONENT>

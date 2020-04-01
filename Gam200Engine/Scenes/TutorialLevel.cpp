@@ -26,7 +26,7 @@ Creation Date: 02.11.2020
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
 #include<Component/MessageCapable.hpp>
 
-TutorialLevel::TutorialLevel() : background(nullptr)
+TutorialLevel::TutorialLevel() : background(nullptr), button(nullptr), button1(nullptr), wall1(nullptr), wall2(nullptr), wall3(nullptr), wall4(nullptr)
 {
 }
 
@@ -37,7 +37,7 @@ TutorialLevel::~TutorialLevel()
 void TutorialLevel::Load()
 {
     fileIO* fileio = new fileIO;
-	fileio->Input("../assets/fileIO/savedTutorial.txt", &player1, &player2, &string);
+    fileio->Input("../assets/fileIO/savedTutorial.txt", &player1, &player2, &string);
 
     TutorialLevel::InitObject();
 
@@ -46,27 +46,8 @@ void TutorialLevel::Load()
 
 void TutorialLevel::Update(float /*dt*/)
 {
-    static bool unLock1 = false;
-    static bool unLock2 = false;
-    if (!unLock1)
-        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(key1)
-            || player2->GetComponentByTemplate<Physics>()->IsCollideWith(key1))
-        {
-            MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Key1, MessageObjects::Lock1, MessageTypes::GetKey, 0, 0);
-            key1->SetDead(true);
-            unLock1= true;
-        }
-    if(!unLock2)
-    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(key2)
-        || player2->GetComponentByTemplate<Physics>()->IsCollideWith(key2))
-    {
-        MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Key2, MessageObjects::Lock2, MessageTypes::GetKey, 0, 0);
-        key2->SetDead(true);
-        unLock2 = true;
-    }
-	
-	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
-	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+    player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+    player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
 
     TutorialLevel::Collision();
 
@@ -77,6 +58,12 @@ void TutorialLevel::Update(float /*dt*/)
     player2->SetTranslation(obj2Position);
 
     cameraManager.CameraMove(player1, player2, 1.1f);
+
+    TriggerButton(button, wall1, wall2);
+    TriggerButton(button1, wall3, wall4);
+    TriggerButton(button2, wall6, wall9);
+    TriggerButton(button4, wall5, wall7);
+    TriggerButton(button3, wall8);
 }
 
 void TutorialLevel::GameRestart()
@@ -85,8 +72,8 @@ void TutorialLevel::GameRestart()
 
 void TutorialLevel::Unload()
 {
-    /*fileIO* a = 0;
-    a->Output("../assets/fileIO/savedTutorial.txt");*/
+    //fileIO* a = 0;
+    //a->Output("../assets/fileIO/savedTutorial.txt");
 }
 
 void TutorialLevel::Collision()
@@ -95,127 +82,344 @@ void TutorialLevel::Collision()
 }
 
 void TutorialLevel::InitObject() {
-	background = new Object();
-	background->SetObjectName("background1");
-	background->SetTranslation(vector2{ 1.f });
-	background->SetScale(vector2{ 2000.f, 4000.f });
-	background->AddComponent(new Sprite(background));
-	background->AddComponent(new Physics(background));
-	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+    background = new Object();
+    background->SetObjectName("background1");
+    background->SetTranslation(vector2{ 1.f });
+    background->SetScale(vector2{ 2000.f, 4000.f });
+    background->AddComponent(new Sprite(background));
+    background->AddComponent(new Physics(background));
+    background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
-    key1 = new Object();
-    key1->SetObjectName("key1");
-    key1->SetTranslation(vector2{ 100.f,1450.f });
-    key1->SetObjectType(Object::ObjectType::KEY_1);
-    key1->SetScale(vector2{ 100.f });
-    key1->AddComponent(new Sprite(key1));
-    key1->AddComponent(new Physics(key1));
-    key1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key1.png");
-    key1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key1, Physics::ObjectType::CIRCLE);
-    key1->SetDepth(-1.f);
+    movingObject_1 = new Object();
+    movingObject_1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject_1->SetObjectName("movingObject_1");
+    movingObject_1->SetTranslation(vector2{ 340.f, 850.f });
+    movingObject_1->SetScale(vector2{ 100.f, 100.f });
+    movingObject_1->AddComponent(new Sprite(movingObject_1));
+    movingObject_1->AddComponent(new Physics(movingObject_1));
+    movingObject_1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+    movingObject_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject_1, Physics::ObjectType::RECTANGLE);
+    movingObject_1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    movingObject_1->SetDepth(-1.f);
 
-    key2 = new Object();
-    key2->SetObjectName("key2");
-    key2->SetTranslation(vector2{ -800.f, 600.f });
-    key2->SetObjectType(Object::ObjectType::KEY_2);
-    key2->SetScale(vector2{ 100.f });
-    key2->AddComponent(new Sprite(key2));
-    key2->AddComponent(new Physics(key2));
-    key2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key2.png");
-    key2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key2, Physics::ObjectType::CIRCLE);
-    key2->SetDepth(-1.f);
-    
-    lock1 = new Object();
-    lock1->SetObjectName("lock1");
-    lock1->SetTranslation(vector2{ 600.f, 1050.f });
-    lock1->SetObjectType(Object::ObjectType::LOCK_1);
-    lock1->SetScale(100.f);
-    lock1->AddComponent(new Sprite(lock1));
-    lock1->AddComponent(new Physics(lock1));
-    lock1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/lock1.png");
-    lock1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(lock1, Physics::ObjectType::CIRCLE);
-    lock1->SetDepth(-1.f);
-    lock1->AddComponent(new MessageCapable(lock1, MessageObjects::Lock1, [&](const Message& msg)->bool
-    {
-        switch (msg.Msg)
-        {
-        case MessageTypes::GetKey:
-            lock1->SetDead(true);
-            break;
-        default:
-            return false;
-        }
-        return true;
-    }));
-
-    lock2 = new Object();
-    lock2->SetObjectName("lock2");
-    lock2->SetTranslation(vector2{ 760.f,400.f });
-    lock2->SetObjectType(Object::ObjectType::LOCK_2);
-    lock2->SetScale(100.f);
-    lock2->AddComponent(new Sprite(lock2));
-    lock2->AddComponent(new Physics(lock2));
-    lock2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/lock2.png");
-    lock2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(lock2, Physics::ObjectType::CIRCLE);
-    lock2->SetDepth(-1.f);
-    lock2->AddComponent(new MessageCapable(lock2, MessageObjects::Lock2, [&](const Message& msg)->bool
-    {
-        switch (msg.Msg)
-        {
-        case MessageTypes::GetKey:
-            lock2->SetDead(true);
-            break;
-        default:
-            return false;
-        }
-        return true;
-    }));
-
-	goalPoint = new Object();
-	goalPoint->SetObjectType(Object::ObjectType::TEST);
-	goalPoint->SetObjectName("goalPoint");
-	goalPoint->SetTranslation(vector2{ 1000.f, -10.f });
-	goalPoint->SetScale(vector2{ 150.f });
-	goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new Physics(goalPoint));
-	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-	goalPoint->SetDepth(-1.f);
-
-	startPoint = new Object();
-	startPoint->SetObjectType(Object::ObjectType::TEST);
-	startPoint->SetObjectName("startPoint");
-	startPoint->SetTranslation(vector2{ -800.f, -2000.f });
-	startPoint->SetScale(vector2{ 150.f });
-	startPoint->AddComponent(new Sprite(startPoint));
-	startPoint->AddComponent(new Physics(startPoint));
-	startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
-	startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
-	startPoint->SetDepth(-1.f);
+    movingObject_2 = new Object();
+    movingObject_2->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject_2->SetObjectName("movingObject_2");
+    movingObject_2->SetTranslation(vector2{ 340.f, 1140.f });
+    movingObject_2->SetScale(vector2{ 100.f, 100.f });
+    movingObject_2->AddComponent(new Sprite(movingObject_2));
+    movingObject_2->AddComponent(new Physics(movingObject_2));
+    movingObject_2->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+    movingObject_2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject_2, Physics::ObjectType::RECTANGLE);
+    movingObject_2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    movingObject_2->SetDepth(-1.f);
 
 
+    //==================================================== YELLOW ==================================================================
 
-	Object* pushingObj = new Object();
-	pushingObj->SetObjectName("pushing Test");
-	pushingObj->SetTranslation(vector2{ 700.f, -1200.f });
-	pushingObj->SetScale(vector2{ 150.f });
-	pushingObj->AddComponent(new Physics(pushingObj));
-	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
-	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
-	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
-	pushingObj->AddComponent(new Sprite(pushingObj));
-	pushingObj->SetDepth(-0.5f);
+    button = new Object();
+    button->SetObjectType(Object::ObjectType::BUTTON);
+    button->SetObjectName("button");
+    button->SetTranslation(vector2{ -870.f, 255 });
+    button->SetScale(vector2{ 100.f, 100.f });
+    button->AddComponent(new Sprite(button));
+    button->AddComponent(new Physics(button));
+    button->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
+    button->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button, Physics::ObjectType::RECTANGLE);
+    button->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    button->SetDepth(-1.f);
+
+    wall1 = new Object();
+    wall1->SetObjectType(Object::ObjectType::DOOR);
+    wall1->SetObjectName("wall1");
+    wall1->SetTranslation(vector2{ -725.f, 695.f });
+    wall1->SetScale(vector2{ 10.f, 100.f });
+    wall1->AddComponent(new Sprite(wall1));
+    wall1->AddComponent(new Physics(wall1));
+    wall1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    wall1->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
+    color = wall1->GetComponentByTemplate<Sprite>()->GetColor();
+    color.alpha = 0.5f;
+    wall1->GetComponentByTemplate<Sprite>()->SetColor(color);
+    wall1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall1, Physics::ObjectType::RECTANGLE);
+    wall1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall1->SetDepth(-1.f);
+
+    wall2 = new Object();
+    wall2->SetObjectType(Object::ObjectType::DOOR);
+    wall2->SetObjectName("wall2");
+    wall2->SetTranslation(vector2{ -360.f, -300.f });
+    wall2->SetScale(vector2{ 10.f, 200.f });
+    wall2->AddComponent(new Sprite(wall2));
+    wall2->AddComponent(new Physics(wall2));
+    wall2->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
+    wall2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    wall2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall2, Physics::ObjectType::RECTANGLE);
+    wall2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall2->SetDepth(-1.f);
+
+
+    //==================================================== RED ==================================================================
+
+    button1 = new Object();
+    button1->SetObjectType(Object::ObjectType::BUTTON);
+    button1->SetObjectName("button1");
+    button1->SetTranslation(vector2{ -345.f, -5.f });
+    button1->SetScale(vector2{ 100.f, 100.f });
+    button1->AddComponent(new Sprite(button1));
+    button1->AddComponent(new Physics(button1));
+    button1->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+    button1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button1, Physics::ObjectType::RECTANGLE);
+    button1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    button1->SetDepth(-1.f);
+
+    wall3 = new Object();
+    wall3->SetObjectType(Object::ObjectType::DOOR);
+    wall3->SetObjectName("wall3");
+    wall3->SetTranslation(vector2{ -600.f, 860.f });
+    wall3->SetScale(vector2{ 100.f, 10.f });
+    wall3->AddComponent(new Sprite(wall3));
+    wall3->AddComponent(new Physics(wall3));
+    wall3->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    wall3->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+    color = wall3->GetComponentByTemplate<Sprite>()->GetColor();
+    color.alpha = 0.2f;
+    wall3->GetComponentByTemplate<Sprite>()->SetColor(color);
+    wall3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall3, Physics::ObjectType::RECTANGLE);
+    wall3->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall3->SetDepth(-1.f);
+
+    wall4 = new Object();
+    wall4->SetObjectType(Object::ObjectType::DOOR);
+    wall4->SetObjectName("wall4");
+    wall4->SetTranslation(vector2{ -480.f, -300.f });
+    wall4->SetScale(vector2{ 10.f, 200.f });
+    wall4->AddComponent(new Sprite(wall4));
+    wall4->AddComponent(new Physics(wall4));
+    wall4->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+    wall4->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    wall4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall4, Physics::ObjectType::RECTANGLE);
+    wall4->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall4->SetDepth(-1.f);
+
+
+
+    //==================================================== ORANGE ==================================================================
+
+    button2 = new Object();
+    button2->SetObjectType(Object::ObjectType::BUTTON);
+    button2->SetObjectName("button2");
+    button2->SetTranslation(vector2{ -630.f, 1750.f });
+    button2->SetScale(vector2{ 100.f, 100.f });
+    button2->AddComponent(new Sprite(button2));
+    button2->AddComponent(new Physics(button2));
+    button2->GetComponentByTemplate<Sprite>()->SetColor({ 0.50f, 0.5f, 0.f, 1.0f });
+    button2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button2, Physics::ObjectType::RECTANGLE);
+    button2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    button2->SetDepth(-1.f);
+
+    wall6 = new Object();
+    wall6->SetObjectType(Object::ObjectType::DOOR);
+    wall6->SetObjectName("wall6");
+    wall6->SetTranslation(vector2{ 520.f, 1775.f });
+    wall6->SetScale(vector2{ 10.f, 150.f });
+    wall6->AddComponent(new Sprite(wall6));
+    wall6->AddComponent(new Physics(wall6));
+    wall6->GetComponentByTemplate<Sprite>()->SetColor({ 0.5f, 0.5f, 0.0f, 1.0f });
+    color = wall6->GetComponentByTemplate<Sprite>()->GetColor();
+    color.alpha = 0.2f;
+    wall6->GetComponentByTemplate<Sprite>()->SetColor(color);
+    wall6->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall6->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall6, Physics::ObjectType::RECTANGLE);
+    wall6->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall6->SetDepth(-1.f);
+
+    wall9 = new Object();
+    wall9->SetObjectType(Object::ObjectType::DOOR);
+    wall9->SetObjectName("wall9");
+    wall9->SetTranslation(vector2{ 670.f, 555.f });
+    wall9->SetScale(vector2{ 150.f, 10.f });
+    wall9->AddComponent(new Sprite(wall9));
+    wall9->AddComponent(new Physics(wall9));
+    wall9->GetComponentByTemplate<Sprite>()->SetColor({ 0.5f, 0.5f, 0.0f, 1.0f });
+    wall9->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall9->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall9, Physics::ObjectType::RECTANGLE);
+    wall9->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall9->SetDepth(-1.f);
+
+
+    //==================================================== WHITE ==================================================================
+    button4 = new Object();
+    button4->SetObjectType(Object::ObjectType::BUTTON);
+    button4->SetObjectName("button4");
+    button4->SetTranslation(vector2{ 650.f, 1350.f });
+    button4->SetScale(vector2{ 100.f, 100.f });
+    button4->AddComponent(new Sprite(button4));
+    button4->AddComponent(new Physics(button4));
+    button4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button4, Physics::ObjectType::RECTANGLE);
+    button4->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    button4->SetDepth(-1.f);
+
+    wall5 = new Object();
+    wall5->SetObjectType(Object::ObjectType::DOOR);
+    wall5->SetObjectName("wall5");
+    wall5->SetTranslation(vector2{ -530.f, 1935.f });
+    wall5->SetScale(vector2{ 10.f, 100.f });
+    wall5->AddComponent(new Sprite(wall5));
+    wall5->AddComponent(new Physics(wall5));
+    wall5->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall5->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall5, Physics::ObjectType::RECTANGLE);
+    wall5->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall5->SetDepth(-1.f);
+
+    wall7 = new Object();
+    wall7->SetObjectType(Object::ObjectType::DOOR);
+    wall7->SetObjectName("wall7");
+    wall7->SetTranslation(vector2{ 190.f, 1225.f });
+    wall7->SetScale(vector2{ 100.f, 10.f });
+    wall7->AddComponent(new Sprite(wall7));
+    wall7->AddComponent(new Physics(wall7));
+    color = wall7->GetComponentByTemplate<Sprite>()->GetColor();
+    color.alpha = 0.2f;
+    wall7->GetComponentByTemplate<Sprite>()->SetColor(color);
+    wall7->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall7->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall7, Physics::ObjectType::RECTANGLE);
+    wall7->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall7->SetDepth(-1.f);
+
+
+
+    //==================================================== PurPle ==================================================================
+
+    button3 = new Object();
+    button3->SetObjectType(Object::ObjectType::BUTTON);
+    button3->SetObjectName("button3");
+    button3->SetTranslation(vector2{ 1230.f, -360.f });
+    button3->SetScale(vector2{ 100.f, 100.f });
+    button3->AddComponent(new Sprite(button3));
+    button3->AddComponent(new Physics(button3));
+    button3->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 1.0f, 1.0f });
+    button3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button3, Physics::ObjectType::RECTANGLE);
+    button3->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    button3->SetDepth(-1.f);
+
+    wall8 = new Object();
+    wall8->SetObjectType(Object::ObjectType::DOOR);
+    wall8->SetObjectName("wall8");
+    wall8->SetTranslation(vector2{ 1000.f, 1075.f });
+    wall8->SetScale(vector2{ 10.f, 100.f });
+    wall8->AddComponent(new Sprite(wall8));
+    wall8->AddComponent(new Physics(wall8));
+    wall8->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 1.0f, 1.0f });
+    wall8->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall8->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall8, Physics::ObjectType::RECTANGLE);
+    wall8->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall8->SetDepth(-1.f);
+
+
+
+
 
     auto objManager = ObjectManager::GetObjectManager();
 
-	objManager->FindLayer(LayerNames::Stage)->AddObject(pushingObj);
-	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(key1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(lock1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(key2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(lock2);
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(button);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall2);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall3);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall4);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall5);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall6);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall7);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall8);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(wall9);
+}
 
+void TutorialLevel::TriggerButton(Object* button_, Object* door_1, Object* door_2)
+{
+    if ((player1->GetComponentByTemplate<Physics>()->IsCollideWith(button_) == true || player2->GetComponentByTemplate<Physics>()->IsCollideWith(button_) == true))
+    {
+        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_2) == false && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_2) == false)
+        {
+            Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
+            Graphics::Color4f color2 = door_2->GetComponentByTemplate<Sprite>()->GetColor();
+            if (button_->GetDirtyFlag() == true)
+            {
+
+                if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+                {
+                    color.alpha = 1.f;
+                    door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                    door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+
+                    color2.alpha = 0.2f;
+                    door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                    door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                }
+                else
+                {
+                    if (button_->GetDirtyFlag() == true)
+                    {
+                        color.alpha = 0.2f;
+                        door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                        door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+
+                        color2.alpha = 1.f;
+                        door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                        door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                    }
+                }
+                button_->SetDirtyFlag(false);
+            }
+        }
+        else
+        {
+            button_->SetDirtyFlag(false);
+        }
+    }
+    else
+    {
+        button_->SetDirtyFlag(true);
+    }
+}
+
+void TutorialLevel::TriggerButton(Object* button_, Object* door_1)
+{
+    if ((player1->GetComponentByTemplate<Physics>()->IsCollideWith(button_) == true || player2->GetComponentByTemplate<Physics>()->IsCollideWith(button_) == true))
+    {
+        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false)
+        {
+            if (button_->GetDirtyFlag())
+            {
+                Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
+                if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+                {
+                    color.alpha = 1.f;
+                    door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                    door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                }
+                else
+                {
+                    color.alpha = 0.2f;
+                    door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                    door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                }
+                button_->SetDirtyFlag(false);
+            }
+        }
+        else
+        {
+            button_->SetDirtyFlag(false);
+        }
+    }
+    else
+    {
+        button_->SetDirtyFlag(true);
+    }
 }

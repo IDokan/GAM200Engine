@@ -245,44 +245,13 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Component\Sprite\Particle.cpp" />
+    <ClCompile Include="Object\DepthStandard.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
+    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
-    <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp">
-      <Filter>Object\SceneStateManager</Filter>
-    </ClCompile>
-    <ClCompile Include="States\SceneStates\GamsIsRunning.cpp">
-      <Filter>States\SceneStates</Filter>
-    </ClCompile>
-    <ClCompile Include="States\SceneStates\PlayerIsDead.cpp">
-      <Filter>States\SceneStates</Filter>
-    </ClCompile>
-    <ClCompile Include="States\SceneStates\SceneComplete.cpp">
-      <Filter>States\SceneStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\DepthStandard.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Points\GoalPoint.cpp">
-      <Filter>Object\Points</Filter>
-    </ClCompile>
-    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp">
-      <Filter>States\PlayerStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\HUD\StringLengthUI.cpp">
-      <Filter>Object\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\UI\StringLengthUIHandler.cpp">
-      <Filter>Component\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Mouse\Mouse.cpp">
-      <Filter>Object\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="States\AIStates\Patrol.cpp">
-      <Filter>States\AIStates</Filter>
-    </ClCompile>
-    <ClCompile Include="States\AIStates\MouseIdle.cpp">
-      <Filter>States\AIStates</Filter>
-    </ClCompile>
+    <ClCompile Include="Scenes\TutorialLevel1.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel2.cpp" />
+    <ClCompile Include="Object\KeyLock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -486,9 +455,6 @@
     <ClInclude Include="Scenes\CrushObjectLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\DeadLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\OneWayPassLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -572,40 +538,11 @@
     </ClInclude>
     <ClInclude Include="Component\Sprite\Particle.hpp" />
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
+    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
     <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
-    <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp">
-      <Filter>Object\SceneStateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="States\SceneStates\GamsIsRunning.hpp">
-      <Filter>States\SceneStates</Filter>
-    </ClInclude>
-    <ClInclude Include="States\SceneStates\PlayerIsDead.hpp">
-      <Filter>States\SceneStates</Filter>
-    </ClInclude>
-    <ClInclude Include="States\SceneStates\SceneComplete.hpp">
-      <Filter>States\SceneStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Points\GoalPoint.hpp">
-      <Filter>Object\Points</Filter>
-    </ClInclude>
-    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp">
-      <Filter>States\PlayerStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\HUD\StringLengthUI.hpp">
-      <Filter>Object\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\UI\StringLengthUIHandler.hpp">
-      <Filter>Component\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Mouse\Mouse.hpp">
-      <Filter>Object\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="States\AIStates\Patrol.hpp">
-      <Filter>States\AIStates</Filter>
-    </ClInclude>
-    <ClInclude Include="States\AIStates\MouseIdle.hpp">
-      <Filter>States\AIStates</Filter>
-    </ClInclude>
+    <ClInclude Include="Scenes\TutorialLevel1.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel2.hpp" />
+    <ClInclude Include="Object\KeyLock.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

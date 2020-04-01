@@ -223,7 +223,7 @@
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
-    <ClInclude Include="Object\Mouse\Mouse.hpp" />
+    <ClInclude Include="Object\KeyLock.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
@@ -238,7 +238,6 @@
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
     <ClInclude Include="Scenes\CrushObjectLevel.hpp" />
-    <ClInclude Include="Scenes\DeadLevel.hpp" />
     <ClInclude Include="Scenes\Editor.hpp" />
     <ClInclude Include="Scenes\EditorTestLevel.hpp" />
     <ClInclude Include="Scenes\OneWayPassLevel.hpp" />
@@ -247,6 +246,8 @@
     <ClInclude Include="Scenes\SceneManager.hpp" />
     <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
     <ClInclude Include="Scenes\TutorialLevel.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel1.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel2.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
     <ClInclude Include="States\AIStates\MouseIdle.hpp" />
     <ClInclude Include="States\AIStates\Patrol.hpp" />
@@ -333,7 +334,7 @@
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
-    <ClCompile Include="Object\Mouse\Mouse.cpp" />
+    <ClCompile Include="Object\KeyLock.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
@@ -357,6 +358,8 @@
     <ClCompile Include="Scenes\SceneManager.cpp" />
     <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
     <ClCompile Include="Scenes\TutorialLevel.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel1.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel2.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
     <ClCompile Include="States\AIStates\MouseIdle.cpp" />
     <ClCompile Include="States\AIStates\Patrol.cpp" />

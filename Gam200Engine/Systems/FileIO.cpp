@@ -128,6 +128,7 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 	for (const auto& object : loadsaveObjectContainer)
 	{
 		if ((object->GetObjectType() == Object::ObjectType::OBSTACLE)
+			|| (object->GetObjectType() == Object::ObjectType::TEST)
 			|| (object->GetObjectType() == Object::ObjectType::PLAYER_1)
 			|| (object->GetObjectType() == Object::ObjectType::PLAYER_2))
 		{
@@ -137,24 +138,7 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 	int j = 0;
 	for(const auto& object : loadsaveObjectContainer)
 	{
-		if(object->GetObjectType() == Object::ObjectType::OBSTACLE)
-		{
-			++j;
-			saveLoad << object->GetObjectName() << ' ';
-			saveLoad << object->GetTranslation().x << ' ';
-			saveLoad << object->GetTranslation().y << ' ';
-			saveLoad << object->GetScale().x << ' ';
-			saveLoad << object->GetScale().y << ' ';
-			saveLoad << object->GetDepth() << ' ';
-			saveLoad << "obstacle" << ' ';
-			if (object->GetComponentByTemplate<Sprite>() != nullptr)
-			{
-				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
-			}
-			if(i != j)
-				saveLoad << '\n';
-		}
-		else if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
+		if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
 		{
 			++j;
 			saveLoad << object->GetObjectName() << ' ';
@@ -170,8 +154,13 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			}
 			if (i != j)
 				saveLoad << '\n';
+			break;
 		}
-		else if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
+		
+	}
+	for (const auto& object : loadsaveObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
 		{
 			++j;
 			saveLoad << object->GetObjectName() << ' ';
@@ -181,6 +170,44 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			saveLoad << object->GetScale().y << ' ';
 			saveLoad << object->GetDepth() << ' ';
 			saveLoad << "player2" << ' ';
+			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			{
+				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+			}
+			if (i != j)
+				saveLoad << '\n';
+			break;
+		}
+	}
+	for (const auto& object : loadsaveObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::OBSTACLE)
+		{
+			++j;
+			saveLoad << object->GetObjectName() << ' ';
+			saveLoad << object->GetTranslation().x << ' ';
+			saveLoad << object->GetTranslation().y << ' ';
+			saveLoad << object->GetScale().x << ' ';
+			saveLoad << object->GetScale().y << ' ';
+			saveLoad << object->GetDepth() << ' ';
+			saveLoad << "obstacle" << ' ';
+			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			{
+				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+			}
+			if (i != j)
+				saveLoad << '\n';
+		}
+		else if (object->GetObjectType() == Object::ObjectType::TEST)
+		{
+			++j;
+			saveLoad << object->GetObjectName() << ' ';
+			saveLoad << object->GetTranslation().x << ' ';
+			saveLoad << object->GetTranslation().y << ' ';
+			saveLoad << object->GetScale().x << ' ';
+			saveLoad << object->GetScale().y << ' ';
+			saveLoad << object->GetDepth() << ' ';
+			saveLoad << "test" << ' ';
 			if (object->GetComponentByTemplate<Sprite>() != nullptr)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
