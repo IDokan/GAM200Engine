@@ -34,7 +34,7 @@ block26 186 -110 347 50 -1 obstacle ../assets/textures/rect.png
 block27 600 810 50 110 -1 obstacle ../assets/textures/rect.png
 block28 540 760 464 50 -1 obstacle ../assets/textures/rect.png
 block29 745 1120 50 674 -1 obstacle ../assets/textures/rect.png
-block30 560 220 50 719 -1 obstacle ../assets/textures/rect.png
-block31 870 -115 584 50 -1 obstacle ../assets/textures/rect.png
-block32 1137 236 50 693 -1 obstacle ../assets/textures/rect.png
-block33 939 558 351 50 -1 obstacle ../assets/textures/rect.png
+block30 560 100 50 719 -1 obstacle ../assets/textures/rect.png
+block31 870 -235 584 50 -1 obstacle ../assets/textures/rect.png
+block32 1137 126 50 693 -1 obstacle ../assets/textures/rect.png
+block33 939 448 351 50 -1 obstacle ../assets/textures/rect.png

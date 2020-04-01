@@ -236,18 +236,18 @@ void TutorialLevel::InitObject() {
 	wall6->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
 	wall6->SetDepth(-1.f);
 
-	wall9 = new Object();
-	wall9->SetObjectType(Object::ObjectType::DOOR);
-	wall9->SetObjectName("wall9");
-	wall9->SetTranslation(vector2{ 670.f, 555.f });
-	wall9->SetScale(vector2{ 150.f, 10.f });
-	wall9->AddComponent(new Sprite(wall9));
-	wall9->AddComponent(new Physics(wall9));
-	wall9->GetComponentByTemplate<Sprite>()->SetColor({ 0.5f, 0.5f, 0.0f, 1.0f });
-	wall9->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
-	wall9->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall9, Physics::ObjectType::RECTANGLE);
-	wall9->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
-	wall9->SetDepth(-1.f);
+    wall9 = new Object();
+    wall9->SetObjectType(Object::ObjectType::DOOR);
+    wall9->SetObjectName("wall9");
+    wall9->SetTranslation(vector2{ 675.f, 450.f });
+    wall9->SetScale(vector2{ 150.f, 10.f });
+    wall9->AddComponent(new Sprite(wall9));
+    wall9->AddComponent(new Physics(wall9));
+    wall9->GetComponentByTemplate<Sprite>()->SetColor({ 0.5f, 0.5f, 0.0f, 1.0f });
+    wall9->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall9->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall9, Physics::ObjectType::RECTANGLE);
+    wall9->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    wall9->SetDepth(-1.f);
 
 
 	//==================================================== WHITE ==================================================================
