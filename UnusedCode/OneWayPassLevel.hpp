@@ -57,8 +57,4 @@ private:
     Object* first_Objects_1{};
     Object* first_Objects_2{};
     Object* first_Objects_3{};
-
-    Object* player1{};
-    Object* player2{};
-    String* string{};
 };

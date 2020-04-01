@@ -23,12 +23,14 @@ Creation Date: 02.11.2020
 #include <Object/Players/Player.h>
 #include <Object/Mouse/Mouse.hpp>
 #include <Object/Points/GoalPoint.hpp>
+#include <Object/SceneStateManager/SceneStateManager.hpp>
 //lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
 #include<Component/MessageCapable.hpp>
 
-TutorialLevel::TutorialLevel() : background(nullptr), button(nullptr), button1(nullptr), wall1(nullptr), wall2(nullptr), wall3(nullptr), wall4(nullptr)
+TutorialLevel::TutorialLevel() : background(nullptr), button(nullptr), button1(nullptr), wall1(nullptr), wall2(nullptr), wall3(nullptr), wall4(nullptr),
+button2(nullptr), button3(nullptr), button4(nullptr), movingObject_1(nullptr), movingObject_2(nullptr), wall5(nullptr), wall6(nullptr), wall7(nullptr), wall8(nullptr), wall9(nullptr)
 {
 }
 
@@ -42,8 +44,9 @@ void TutorialLevel::Load()
 	fileio->Input("../assets/fileIO/savedTutorial.txt", &player1, &player2, &string);
 
 	TutorialLevel::InitObject();
-
+	
 	cameraManager.Init(player1, player2);
+	sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 }
 
 void TutorialLevel::Update(float /*dt*/)
@@ -155,7 +158,7 @@ void TutorialLevel::InitObject() {
 	wall2->AddComponent(new Sprite(wall2));
 	wall2->AddComponent(new Physics(wall2));
 	wall2->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
-	wall2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+	wall2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
 	wall2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall2, Physics::ObjectType::RECTANGLE);
 	wall2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
 	wall2->SetDepth(-1.f);

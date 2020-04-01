@@ -20,6 +20,7 @@ Creation Date: 03.15.2020
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
+#include <Object/Points/GoalPoint.hpp>
 //lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
@@ -103,16 +104,11 @@ void TutorialLevel2::InitObject() {
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
 
-    goalPoint = new Object();
-    goalPoint->SetObjectType(Object::ObjectType::TEST);
-    goalPoint->SetObjectName("goalPoint");
-    goalPoint->SetTranslation(vector2{ 480.f, 400.f });
-    goalPoint->SetScale(vector2{ 100.f });
-    goalPoint->AddComponent(new Sprite(goalPoint));
-    goalPoint->AddComponent(new Physics(goalPoint));
-    goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-    goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-    goalPoint->SetDepth(-1.f);
+    Transform goalTransform;
+    goalTransform.SetTranslation(vector2{ 480.f, 400.f });
+    goalTransform.SetScale(vector2{ 200.f });
+    goalPoint = new GoalPoint(goalTransform, player1);
+    Object* goalPoint2 = new GoalPoint(goalTransform, player2);
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::TEST);
@@ -205,5 +201,6 @@ void TutorialLevel2::InitObject() {
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
     objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
 
 }

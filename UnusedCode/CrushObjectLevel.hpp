@@ -39,15 +39,10 @@ private:
     Object* startPoint{};
     Object* goalPoint{};
 
-    Object* player1{};
-    Object* player2{};
-
     CrushableObject* object1;
     CrushableObject* object2;
     CrushableObject* object3;
     CrushableObject* object4;
     CrushableObject* object5;
     CrushableObject* object6;
-
-    String* string{};
 };

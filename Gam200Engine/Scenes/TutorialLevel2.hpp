@@ -41,15 +41,10 @@ private:
     Object* startPoint{};
     Object* goalPoint{};
 
-    Player* player1{};
-    Player* player2{};
-
     //key and lock system
     Object* key1{};
     Object* key2{};
 
     Object* lock1{};
     Object* lock2{};
-
-    String* string{};
 };

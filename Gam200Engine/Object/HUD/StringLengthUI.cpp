@@ -27,7 +27,7 @@ StringLengthUI::StringLengthUI()
 {
     SetObjectName("StringLengthUI");
     SetTranslation(vector2{ 0.f, -1.05f });
-    SetScale(vector2{ 1.f });
+    SetScale(vector2{ 0.8f, 1.f });
     // No depth
 
     AddComponent(new StringLengthUIHandler(this));

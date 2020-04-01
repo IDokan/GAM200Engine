@@ -42,6 +42,14 @@ Creation Date: 12.10.2019
 
 void Scene::GameRestartScene() noexcept
 {
+	player1->SetTranslation(player1SpawnPosition);
+	player1->GetComponentByTemplate<Physics>()->SetPosition(player1SpawnPosition);
+	player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+	player2->SetTranslation(player2SpawnPosition);
+	player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
+	player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+	string->InitString();
+
 	GameRestart();
 	cameraManager.InitializeCurrentCameraSetting();
 }
@@ -65,6 +73,12 @@ void Scene::InitLoadingScene()
 	loadingText->AddComponent(new TextComponent(loadingText));
 	loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
 	loadingText->SetDepth(-0.9f);
+}
+
+void Scene::SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position)
+{
+	player1SpawnPosition = player1Position;
+	player2SpawnPosition = player2Position;
 }
 
 
@@ -144,6 +158,8 @@ void Scene::LoadScene() noexcept
 	InitDEBUGObjects();
 	Load(); 
 
+	SetPlayerSpawnPosition(player1->GetTranslation(), player2->GetTranslation());
+
 	isLoadingDone = true;
 
 	if (loading_Thread.joinable()) {
@@ -166,9 +182,6 @@ void Scene::UnloadScene() noexcept
 			obj->SetDead(true);
 		}
 	}
-
-	// Clearly remove
-	objManager->Update(0.f);
 }
 
 void Scene::Draw() noexcept

@@ -20,7 +20,7 @@ Creation Date: 03.15.2020
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
-
+#include <Object/SceneStateManager/SceneStateManager.hpp>
 
 TutorialLevel1::TutorialLevel1() : background(nullptr)
 {
@@ -38,6 +38,7 @@ void TutorialLevel1::Load()
     TutorialLevel1::InitObject();
 
     cameraManager.Init(player1, player2);
+    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 }
 
 void TutorialLevel1::Update(float /*dt*/)

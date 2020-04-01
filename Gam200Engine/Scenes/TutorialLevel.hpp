@@ -40,8 +40,6 @@ private:
     void TriggerButton(Object* button_, Object* door_1);
     Object* background;
 
-    Player* player1{};
-    Player* player2{};
 
     Object* movingObject_1;
     Object* movingObject_2;
@@ -71,5 +69,4 @@ private:
 
 
     Graphics::Color4f color;
-    String* string{};
 };

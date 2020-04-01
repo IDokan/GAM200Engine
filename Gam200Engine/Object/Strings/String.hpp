@@ -23,8 +23,8 @@ class String : public Object
     friend StringSprite;
 public:
     static constexpr const size_t maxVertexSize = 60;
-	static constexpr const float String_Stretching_Length = 500.f;
-	static constexpr const float String_Max_Length = 900.f;
+	static constexpr const float String_Stretching_Length = 300.f;
+	static constexpr const float String_Max_Length = 650.f;
 	
 public:
 	String(Object* player1, Object* player2);

@@ -20,7 +20,6 @@ Creation Date: 08.05.2019
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 // Include States
-#include <Scenes/Editor.hpp>
 #include <Scenes/TutorialLevel.hpp>
 #include <Scenes/TutorialLevel1.hpp>
 #include <Scenes/TutorialLevel2.hpp>

@@ -16,6 +16,8 @@ Creation Date: 08.12.2019
 #include <Graphics/GL.hpp>
 
 class SceneStateManager;
+class String;
+class Player;
 
 enum class GameScenes 
 {
@@ -26,7 +28,7 @@ class Scene abstract
 {
 public:
 	Scene()
-		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({})
+		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr)
 	{}
 	virtual ~Scene() = default;
     void GameRestartScene() noexcept;
@@ -53,6 +55,7 @@ protected:
     virtual void GameRestart() = 0;
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
+	void SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position);
     GameScenes current_scene_info;
     std::string next_level;
     bool is_next;
@@ -60,6 +63,14 @@ protected:
 
 	Graphics::CameraManager cameraManager{};
 	SceneStateManager* sceneStateManager;
+
+	vector2 player1SpawnPosition{};
+	vector2 player2SpawnPosition{};
+
+	Player* player1{};
+	Player* player2{};
+
+	String* string{};
 
 private:
 	std::vector<matrix3> obstacleMatrices;

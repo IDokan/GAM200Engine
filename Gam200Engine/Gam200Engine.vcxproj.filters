@@ -178,25 +178,10 @@
     <ClCompile Include="Scenes\BasicMovementLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\CrushObjectLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\DeadLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\OneWayPassLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\ProtoLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SceneManager.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\SizeScalingLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="States\Walking.cpp">
@@ -238,14 +223,7 @@
     <ClCompile Include="Scenes\TutorialLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\EditorTestLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\Editor.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Object\KeyLock.cpp" />
-    <ClCompile Include="Object\Points\GoalPoint.cpp" />
     <ClCompile Include="Scenes\TutorialLevel1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -291,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp">
       <Filter>Object\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Points\GoalPoint.cpp">
+      <Filter>Object\Points</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -492,22 +473,10 @@
     <ClInclude Include="Scenes\BasicMovementLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\CrushObjectLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\OneWayPassLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\ProtoLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\Scene.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\SceneManager.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\SizeScalingLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Component\StateMachine.hpp">
@@ -570,14 +539,7 @@
     <ClInclude Include="Scenes\TutorialLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\EditorTestLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\Editor.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Object\KeyLock.hpp" />
-    <ClInclude Include="Object\Points\GoalPoint.hpp" />
     <ClInclude Include="Scenes\TutorialLevel1.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -620,6 +582,9 @@
     </ClInclude>
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp">
       <Filter>Object\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Points\GoalPoint.hpp">
+      <Filter>Object\Points</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
