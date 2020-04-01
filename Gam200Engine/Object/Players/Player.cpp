@@ -127,6 +127,10 @@ void Player::LoadPlayer1Layout()
 				{
 					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
 				}
+				break;
+			case MessageTypes::GameRestarted:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				break;
 			default:
 				return false;
 			}
@@ -178,6 +182,10 @@ void Player::LoadPlayer2Layout()
 				{
 					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
 				}
+				break;
+			case MessageTypes::GameRestarted:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				break;
 			default:
 				return false;
 			}

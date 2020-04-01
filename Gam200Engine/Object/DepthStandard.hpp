@@ -21,6 +21,7 @@ public:
 	static const Depth_Standard HUD;
 	static const Depth_Standard String;
 	static const Depth_Standard Player;
+	static const Depth_Standard MouseAI;
 	static const Depth_Standard GoalPoints;
 	static const Depth_Standard Background;
 	static const Depth_Standard Particles;

@@ -223,6 +223,7 @@
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
+    <ClInclude Include="Object\Mouse\Mouse.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
@@ -247,6 +248,8 @@
     <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
     <ClInclude Include="Scenes\TutorialLevel.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
+    <ClInclude Include="States\AIStates\MouseIdle.hpp" />
+    <ClInclude Include="States\AIStates\Patrol.hpp" />
     <ClInclude Include="States\PlayerStates\Dead.hpp" />
     <ClInclude Include="States\PlayerStates\Idle.hpp" />
     <ClInclude Include="States\PlayerStates\Move.hpp" />
@@ -330,6 +333,7 @@
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
+    <ClCompile Include="Object\Mouse\Mouse.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
@@ -354,6 +358,8 @@
     <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
     <ClCompile Include="Scenes\TutorialLevel.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
+    <ClCompile Include="States\AIStates\MouseIdle.cpp" />
+    <ClCompile Include="States\AIStates\Patrol.cpp" />
     <ClCompile Include="States\PlayerStates\Dead.cpp" />
     <ClCompile Include="States\PlayerStates\Idle.cpp" />
     <ClCompile Include="States\PlayerStates\Move.cpp" />

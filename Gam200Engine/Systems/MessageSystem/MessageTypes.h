@@ -131,6 +131,9 @@ enum class MessageObjects
     // Object type for StringLengthUI
     StringLengthUI,
 
+    // Mouse Object! This is a main enemy of player..
+    Mouse,
+
     NUM_OF_MESSAGE_OBJECTS,
 };
 

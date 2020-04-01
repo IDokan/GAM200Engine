@@ -73,6 +73,15 @@ void BasicMovementLevel::Update(float /*dt*/)
 
 void BasicMovementLevel::GameRestart()
 {
+    player1->SetTranslation(vector2{ -200.f, -200.f });
+    player1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player1, Physics::ObjectType::RECTANGLE);
+    player1->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -200.f, -200.f });
+    player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+    player2->SetTranslation(vector2{ 200.f, -200.f });
+    player2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player2, Physics::ObjectType::RECTANGLE);
+    player2->GetComponentByTemplate<Physics>()->SetPosition(vector2{ 200.f, -200.f });
+    player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+    string->InitString();
 }
 
 void BasicMovementLevel::Unload()
@@ -163,6 +172,9 @@ void BasicMovementLevel::InitObject() {
 	emitter->SetDepth(-0.5f);
 	emitter->SetObjectName("Particle Emitter");
 	emitter->GetComponentByTemplate<Particle>()->SetImage("../assets/textures/circle.png");
+
+
+    
 }
 
 void AddStateTestObject()

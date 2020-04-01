@@ -26,6 +26,7 @@ Creation Date: 03.16.2020
 #include <Component/MessageCapable.hpp>
 
 #include <Systems/MessageSystem/Message.hpp>
+#include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 SceneStateManager::SceneStateManager()
 	: nameOfSelectedLevel("BasicMovementLevel")
@@ -41,6 +42,8 @@ SceneStateManager::SceneStateManager()
 				break;
 			case MessageTypes::GameRestarted:
 				stateMachine->ChangeState(GameIsRunning::Get());
+				MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::GameRestarted);
+				MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::GameRestarted);
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				// if currentState is GameIsRunning

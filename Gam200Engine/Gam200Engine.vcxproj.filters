@@ -274,6 +274,15 @@
     <ClCompile Include="Component\UI\StringLengthUIHandler.cpp">
       <Filter>Component\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Mouse\Mouse.cpp">
+      <Filter>Object\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="States\AIStates\Patrol.cpp">
+      <Filter>States\AIStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\AIStates\MouseIdle.cpp">
+      <Filter>States\AIStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -588,6 +597,15 @@
     <ClInclude Include="Component\UI\StringLengthUIHandler.hpp">
       <Filter>Component\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Object\Mouse\Mouse.hpp">
+      <Filter>Object\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="States\AIStates\Patrol.hpp">
+      <Filter>States\AIStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\AIStates\MouseIdle.hpp">
+      <Filter>States\AIStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -670,6 +688,12 @@
     </Filter>
     <Filter Include="Component\UI">
       <UniqueIdentifier>{248ebc20-876a-41eb-8a59-4d0b06b5500e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Mouse">
+      <UniqueIdentifier>{b6dd9a02-0a86-4d18-b843-749f5e39105d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\AIStates">
+      <UniqueIdentifier>{09e35bc1-b5a7-4da2-bb59-83d529d63d96}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -39,15 +39,17 @@ PlayerIsDead* PlayerIsDead::Get()
 
 void PlayerIsDead::Enter(SceneStateManager* /*manager*/)
 {
-	printf("Scene enter PlayerIsDead state");
+	printf("Scene enter PlayerIsDead state\n");
 
 	// Send message that make both players die.
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::PlayerIsDead);
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::PlayerIsDead);
 
 	// Display Image that indicate ¡°You are dead.Press ¡®R¡¯ to restart¡±
-	PrepareAssets();
-	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(playerIsDeadText);
+	if (playerIsDeadText != nullptr)
+	{
+		playerIsDeadText->SetTranslation(vector2{ 0.f });
+	}
 
 	// Play ¡°PlayerIsDead¡± sound.
 	// TODO: with Robin
@@ -65,8 +67,10 @@ void PlayerIsDead::Execute(SceneStateManager* /*manager*/)
 
 void PlayerIsDead::Exit(SceneStateManager* /*manager*/)
 {
-	playerIsDeadText->SetDead(true);
-	playerIsDeadText = nullptr;
+	if (playerIsDeadText != nullptr)
+	{
+		playerIsDeadText->SetTranslation(vector2{-99.f});
+	}
 }
 
 PlayerIsDead::PlayerIsDead()
@@ -80,10 +84,12 @@ void PlayerIsDead::PrepareAssets() noexcept
 	{
 		playerIsDeadText = new Object();
 		playerIsDeadText->SetObjectName("PlayerIsDead Image");
-		playerIsDeadText->SetScale(vector2{ 2.f, 1.f });
+		playerIsDeadText->SetTranslation(vector2{ -99.f });
 		playerIsDeadText->AddComponent(new Sprite(playerIsDeadText));
 		playerIsDeadText->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/playerIsDead.png");
 		playerIsDeadText->SetDepth(Depth_Standard::HUDImage);
+
+		ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObject(playerIsDeadText);
 	}
 }
 
