@@ -36,7 +36,8 @@ protected:
     void InitObject();
 
 private:
-    void TriggerButton(Object* button, Object* door_1, Object* door_2);
+    void TriggerButton(Object* button_, Object* door_1, Object* door_2);
+    void TriggerButton(Object* button_, Object* door_1);
     Object* background;
 
     Player* player1{};

@@ -239,6 +239,45 @@ void TutorialLevel::TriggerButton(Object* button_, Object* door_1, Object* door_
                 button_->SetDirtyFlag(false);
             }
         }
+        else
+        {
+            button_->SetDirtyFlag(false);
+        }
+    }
+    else
+    {
+        button_->SetDirtyFlag(true);
+    }
+}
+
+void TutorialLevel::TriggerButton(Object* button_, Object* door_1)
+{
+    if ((player1->GetComponentByTemplate<Physics>()->IsCollideWith(button_) == true || player2->GetComponentByTemplate<Physics>()->IsCollideWith(button_) == true))
+    {
+        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false)
+        {
+            if (button_->GetDirtyFlag())
+            {
+                Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
+                if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+                {
+                    color.alpha = 1.f;
+                    door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                    door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                }
+                else
+                {
+                    color.alpha = 0.f;
+                    door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                    door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                }
+                button_->SetDirtyFlag(false);
+            }
+        }
+        else
+        {
+            button_->SetDirtyFlag(false);
+        }
     }
     else
     {
