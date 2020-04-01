@@ -15,10 +15,22 @@ Creation Date: 03.13.2020
 #include <Object/Strings/String.hpp>
 
 class Object;
+class Player;
+class String;
 
 class MenuScene : public Scene
 {
 public:
+
+	enum ButtonRow
+	{
+		PLAY,
+		HOWTOPLAY,
+		SETTINGS,
+		CREDIT,
+		QUIT,
+	};
+
 	MenuScene();
 	virtual ~MenuScene();
 
@@ -34,6 +46,12 @@ protected:
 	void InitObject();
 
 private:
+	Object* background;
+	Player* player1{};
+	Player* player2{};
+	String* string{};
+
+	Object* gameTitle{};
 
 	Object* nextLevelButton{};
 	Object* howToPlayButton{};
@@ -41,4 +59,6 @@ private:
 	Object* creditButton{};
 	Object* quitButton{};
 
+	Object* selectionArrow{};
+	int selection;
 };

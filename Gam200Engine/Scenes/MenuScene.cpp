@@ -22,10 +22,11 @@ Creation Date: 03.13.2020
 #include <States/Walking.hpp>
 #include "Component/Button.hpp"
 #include "Object/DepthStandard.hpp"
+#include <Scenes/SceneManager.hpp>
 
-MenuScene::MenuScene() //: background(nullptr)
+MenuScene::MenuScene(): background(nullptr)
 {
-
+	selection = 0;
 }
 
 MenuScene::~MenuScene()
@@ -35,8 +36,8 @@ MenuScene::~MenuScene()
 
 void MenuScene::Load()
 {
-	/*fileIO* fileio = new fileIO;
-	fileio->Input("../assets/fileIO/menuSettings.txt", &player1, &player2, &string);*/
+	fileIO* fileio = new fileIO;
+	fileio->Input("../assets/fileIO/menuSettings.txt", &player1, &player2, &string);
 
 	MenuScene::InitObject();
 	cameraManager.Init();
@@ -45,7 +46,7 @@ void MenuScene::Load()
 void MenuScene::Update(float /*dt*/)
 {
 	MenuScene::Input();
-	
+
 }
 
 void MenuScene::GameRestart()
@@ -60,6 +61,83 @@ void MenuScene::Unload()
 
 void MenuScene::Input()
 {
+	if (input.IsKeyTriggered(GLFW_KEY_UP))
+	{
+		--selection;
+		if (selection < 0)
+			selection += 5;
+
+		if ((selection % 5) == ButtonRow::PLAY)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, 100 });
+		}
+		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, 0 });
+		}
+		else if ((selection % 5) == ButtonRow::SETTINGS)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, -100 });
+		}
+		else if ((selection % 5) == ButtonRow::CREDIT)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, -200 });
+		}
+		else if ((selection % 5) == ButtonRow::QUIT)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, -300 });
+		}
+	}
+	else if (input.IsKeyTriggered(GLFW_KEY_DOWN))
+	{
+		++selection;
+
+		if ((selection % 5) == ButtonRow::PLAY)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, 100 });
+		}
+		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, 0 });
+		}
+		else if ((selection % 5) == ButtonRow::SETTINGS)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, -100 });
+		}
+		else if ((selection % 5) == ButtonRow::CREDIT)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, -200 });
+		}
+		else if ((selection % 5) == ButtonRow::QUIT)
+		{
+			selectionArrow->SetTranslation(vector2{ 450, -300 });
+		}
+	}
+
+	if (input.IsKeyPressed(GLFW_KEY_ENTER))
+	{
+		if ((selection % 5) == ButtonRow::PLAY)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel");
+		}
+		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("OneWayPassLevel");
+		}
+		else if ((selection % 5) == ButtonRow::SETTINGS)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel");
+		}
+		else if ((selection % 5) == ButtonRow::CREDIT)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("OneWayPassLevel");
+		}
+		else if ((selection % 5) == ButtonRow::QUIT)
+		{
+
+		}
+	}
+
 }
 
 void MenuScene::Collision()
@@ -68,6 +146,15 @@ void MenuScene::Collision()
 
 void MenuScene::InitObject()
 {
+	gameTitle = new Object();
+	gameTitle->SetObjectName("gametitle");
+	gameTitle->SetTranslation(vector2{ 0, 300 });
+	gameTitle->SetScale(vector2{ 600, 100 });
+	gameTitle->SetObjectType(Object::ObjectType::TEST);
+	gameTitle->AddComponent(new Sprite(gameTitle));
+	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameTitle.png");
+	gameTitle->SetDepth(Depth_Standard::Button);
+
 	Transform transform;
 	transform.SetTranslation(vector2(600, 100));
 	transform.SetScale(vector2(200, 75));
@@ -133,14 +220,26 @@ void MenuScene::InitObject()
 	quitButton->AddComponent(new Button(quitButton, Button::Identifier::Quit, "TutorialLevel", transform));
 	quitButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/QuitButton.png");
 	quitButton->SetDepth(Depth_Standard::Button);
+	
+	selectionArrow = new Object();
+	selectionArrow->SetObjectName("selectionBox");
+	selectionArrow->SetTranslation(vector2{ 450, 100 });
+	selectionArrow->SetScale(vector2{50, 50});
+	selectionArrow->SetObjectType(Object::ObjectType::TEST);
+	selectionArrow->AddComponent(new Sprite(selectionArrow));
+	selectionArrow->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Arrow.png");
+	selectionArrow->SetDepth(Depth_Standard::Button);
+
 
 	auto objManager = ObjectManager::GetObjectManager();
+
+	objManager->FindLayer(LayerNames::HUD)->AddObject(gameTitle);
 	objManager->FindLayer(LayerNames::HUD)->AddObject(nextLevelButton);
 	objManager->FindLayer(LayerNames::HUD)->AddObject(howToPlayButton);
 	objManager->FindLayer(LayerNames::HUD)->AddObject(settingButton);
 	objManager->FindLayer(LayerNames::HUD)->AddObject(creditButton);
 	objManager->FindLayer(LayerNames::HUD)->AddObject(quitButton);
-
+	objManager->FindLayer(LayerNames::HUD)->AddObject(selectionArrow);
 }
 
 
