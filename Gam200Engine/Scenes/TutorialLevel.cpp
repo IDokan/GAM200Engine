@@ -63,6 +63,7 @@ void TutorialLevel::Update(float /*dt*/)
     TriggerButton(button1, wall3, wall4);
     TriggerButton(button2, wall6, wall9);
     TriggerButton(button4, wall5, wall7);
+    TriggerButton(button3, wall8);
 }
 
 void TutorialLevel::GameRestart()
@@ -182,7 +183,7 @@ void TutorialLevel::InitObject() {
     wall3->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     wall3->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
     color = wall3->GetComponentByTemplate<Sprite>()->GetColor();
-    color.alpha = 0.5f;
+    color.alpha = 0.2f;
     wall3->GetComponentByTemplate<Sprite>()->SetColor(color);
     wall3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall3, Physics::ObjectType::RECTANGLE);
     wall3->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
@@ -226,7 +227,7 @@ void TutorialLevel::InitObject() {
     wall6->AddComponent(new Physics(wall6));
     wall6->GetComponentByTemplate<Sprite>()->SetColor({ 0.5f, 0.5f, 0.0f, 1.0f });
     color = wall6->GetComponentByTemplate<Sprite>()->GetColor();
-    color.alpha = 0.5f;
+    color.alpha = 0.2f;
     wall6->GetComponentByTemplate<Sprite>()->SetColor(color);
     wall6->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
     wall6->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall6, Physics::ObjectType::RECTANGLE);
@@ -279,7 +280,7 @@ void TutorialLevel::InitObject() {
     wall7->AddComponent(new Sprite(wall7));
     wall7->AddComponent(new Physics(wall7));
     color = wall7->GetComponentByTemplate<Sprite>()->GetColor();
-    color.alpha = 0.5f;
+    color.alpha = 0.2f;
     wall7->GetComponentByTemplate<Sprite>()->SetColor(color);
     wall7->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
     wall7->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall7, Physics::ObjectType::RECTANGLE);
@@ -357,7 +358,7 @@ void TutorialLevel::TriggerButton(Object* button_, Object* door_1, Object* door_
                     door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                     door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
 
-                    color2.alpha = 0.5f;
+                    color2.alpha = 0.2f;
                     door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                 }
@@ -365,7 +366,7 @@ void TutorialLevel::TriggerButton(Object* button_, Object* door_1, Object* door_
                 {
                     if (button_->GetDirtyFlag() == true)
                     {
-                        color.alpha = 0.5f;
+                        color.alpha = 0.2f;
                         door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                         door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
 
@@ -405,7 +406,7 @@ void TutorialLevel::TriggerButton(Object* button_, Object* door_1)
                 }
                 else
                 {
-                    color.alpha = 0.f;
+                    color.alpha = 0.2f;
                     door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
                 }
