@@ -139,7 +139,7 @@ void TutorialLevel::InitObject() {
     wall1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     wall1->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
     color = wall1->GetComponentByTemplate<Sprite>()->GetColor();
-    color.alpha = 0.5f;
+    color.alpha = 0.2f;
     wall1->GetComponentByTemplate<Sprite>()->SetColor(color);
     wall1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall1, Physics::ObjectType::RECTANGLE);
     wall1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
@@ -153,7 +153,7 @@ void TutorialLevel::InitObject() {
     wall2->AddComponent(new Sprite(wall2));
     wall2->AddComponent(new Physics(wall2));
     wall2->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
-    wall2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    wall2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
     wall2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall2, Physics::ObjectType::RECTANGLE);
     wall2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
     wall2->SetDepth(-1.f);
@@ -197,7 +197,7 @@ void TutorialLevel::InitObject() {
     wall4->AddComponent(new Sprite(wall4));
     wall4->AddComponent(new Physics(wall4));
     wall4->GetComponentByTemplate<Sprite>()->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
-    wall4->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    wall4->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
     wall4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall4, Physics::ObjectType::RECTANGLE);
     wall4->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
     wall4->SetDepth(-1.f);
@@ -282,7 +282,7 @@ void TutorialLevel::InitObject() {
     color = wall7->GetComponentByTemplate<Sprite>()->GetColor();
     color.alpha = 0.2f;
     wall7->GetComponentByTemplate<Sprite>()->SetColor(color);
-    wall7->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    wall7->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     wall7->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall7, Physics::ObjectType::RECTANGLE);
     wall7->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
     wall7->SetDepth(-1.f);
