@@ -237,7 +237,7 @@ void TutorialLevel::InitObject() {
     wall9 = new Object();
     wall9->SetObjectType(Object::ObjectType::DOOR);
     wall9->SetObjectName("wall9");
-    wall9->SetTranslation(vector2{ 670.f, 555.f });
+    wall9->SetTranslation(vector2{ 675.f, 450.f });
     wall9->SetScale(vector2{ 150.f, 10.f });
     wall9->AddComponent(new Sprite(wall9));
     wall9->AddComponent(new Physics(wall9));
