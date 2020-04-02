@@ -61,4 +61,5 @@ private:
 
 	Object* selectionArrow{};
 	int selection;
+	float totalDT;
 };

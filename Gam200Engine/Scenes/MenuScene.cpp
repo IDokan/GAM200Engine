@@ -27,6 +27,7 @@ Creation Date: 03.13.2020
 MenuScene::MenuScene(): background(nullptr)
 {
 	selection = 0;
+	totalDT = 0.f;
 }
 
 MenuScene::~MenuScene()
@@ -43,9 +44,29 @@ void MenuScene::Load()
 	cameraManager.Init();
 }
 
-void MenuScene::Update(float /*dt*/)
+void MenuScene::Update(float dt)
 {
 	MenuScene::Input();
+
+	totalDT += dt;
+	
+	if ((static_cast<int>(totalDT) % 2) == 1)
+	{
+		player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+	}
+	else
+	{
+		player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+	}
+
+	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
+	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
+
+	player1->SetTranslation(obj1Position);
+	player2->SetTranslation(obj2Position);
+	
 
 }
 

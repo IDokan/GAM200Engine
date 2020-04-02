@@ -13,6 +13,7 @@ Creation Date: 11.23.2019
 #include "Vector2.hpp"
 #include <iostream>
 #include <Component/Scripts/GoalComponent.hpp>
+#include <Object/DepthStandard.hpp>
 
 void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
 {
