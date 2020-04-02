@@ -25,7 +25,7 @@ void CrushableObjectAnimation::Init()
 
 	constexpr int numOfStateInCrushableImage = 5;
 	SetNumOfState(numOfStateInCrushableImage);
-	SetImage("../assets/textures/crushable_object.png");
+	SetImage("../assets/textures/Jail.png");
 }
 
 void CrushableObjectAnimation::Update(float dt)

@@ -14,6 +14,7 @@ Creation Date: 02.11.2020
 #include <Scenes/Scene.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
+#include <Object/InteractiveObject/CrushableObject.hpp>
 
 class Object;
 class String;
@@ -49,5 +50,24 @@ private:
     Object* lock2{};
 
 
+
+    Object* button2;
+    Object* wall5;
+    Object* wall6;
+
+    Object* wall7;
+    Object* wall8;
+    Object* wall9;
+
+    Object* button3;
+    Object* button4;
+
+    Object* cheese;
+
+    CrushableObject* jail;
+
+    bool canGoNextLevel;
+
+    Graphics::Color4f color;
     String* string{};
 };

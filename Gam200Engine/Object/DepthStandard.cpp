@@ -17,3 +17,5 @@ const Depth_Standard Depth_Standard::Particles(-500.f);
 const Depth_Standard Depth_Standard::String(-0.999f);
 const Depth_Standard Depth_Standard::Player(-11.5f);
 const Depth_Standard Depth_Standard::Background(4000.f);
+const Depth_Standard Depth_Standard::Jail(-2.f);
+const Depth_Standard Depth_Standard::SavedCheese(-1.f);

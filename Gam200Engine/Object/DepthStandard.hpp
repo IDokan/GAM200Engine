@@ -23,5 +23,7 @@ public:
 	static const Depth_Standard Player;
 	static const Depth_Standard Background;
 	static const Depth_Standard Particles;
+	static const Depth_Standard Jail;
+	static const Depth_Standard SavedCheese;
 	operator float() const { return value; }
 };

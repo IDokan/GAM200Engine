@@ -39,6 +39,12 @@ public:
             Physics.cpp
         */
         MOVING_OBJECT,
+        /*For button*/\
+        BUTTON,
+        /*For door*/
+        DOOR,
+        CRUSHABLEOBJECT,
+        SavedCheese,
     	TEST,
         STRING,
     };

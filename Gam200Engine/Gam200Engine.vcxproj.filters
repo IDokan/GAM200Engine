@@ -245,13 +245,15 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Component\Sprite\Particle.cpp" />
-    <ClCompile Include="Object\DepthStandard.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
     <ClCompile Include="Scenes\TutorialLevel1.cpp" />
     <ClCompile Include="Scenes\TutorialLevel2.cpp" />
     <ClCompile Include="Object\KeyLock.cpp" />
+    <ClCompile Include="Object\DepthStandard.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
