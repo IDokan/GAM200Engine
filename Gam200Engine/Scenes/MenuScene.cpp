@@ -170,10 +170,10 @@ void MenuScene::InitObject()
 	gameTitle = new Object();
 	gameTitle->SetObjectName("gametitle");
 	gameTitle->SetTranslation(vector2{ 0, 300 });
-	gameTitle->SetScale(vector2{ 600, 100 });
+	gameTitle->SetScale(vector2{ 600, 300 });
 	gameTitle->SetObjectType(Object::ObjectType::TEST);
 	gameTitle->AddComponent(new Sprite(gameTitle));
-	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GameTitle.png");
+	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GAME_NAME.png");
 	gameTitle->SetDepth(Depth_Standard::Button);
 
 	Transform transform;
@@ -187,7 +187,7 @@ void MenuScene::InitObject()
 	nextLevelButton->SetObjectType(Object::ObjectType::BUTTON);
 	nextLevelButton->AddComponent(new Sprite(nextLevelButton));
 	nextLevelButton->AddComponent(new Button(nextLevelButton, Button::Identifier::NextScene, "TutorialLevel", transform));
-	nextLevelButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/PlayButton.png");
+	nextLevelButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/play.png");
 	nextLevelButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, 0));
@@ -200,7 +200,7 @@ void MenuScene::InitObject()
 	howToPlayButton->SetObjectType(Object::ObjectType::BUTTON);
 	howToPlayButton->AddComponent(new Sprite(howToPlayButton));
 	howToPlayButton->AddComponent(new Button(howToPlayButton, Button::Identifier::NextScene, "TutorialLevel", transform));
-	howToPlayButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/HowToPlayButton.png");
+	howToPlayButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/how_to_play.png");
 	howToPlayButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, -100));
@@ -213,7 +213,7 @@ void MenuScene::InitObject()
 	settingButton->SetObjectType(Object::ObjectType::BUTTON);
 	settingButton->AddComponent(new Sprite(settingButton));
 	settingButton->AddComponent(new Button(settingButton, Button::Identifier::NextScene, "TutorialLevel", transform));
-	settingButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SettingButton.png");
+	settingButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/setting.png");
 	settingButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, -200));
@@ -226,7 +226,7 @@ void MenuScene::InitObject()
 	creditButton->SetObjectType(Object::ObjectType::BUTTON);
 	creditButton->AddComponent(new Sprite(creditButton));
 	creditButton->AddComponent(new Button(creditButton, Button::Identifier::NextScene, "TutorialLevel", transform));
-	creditButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/CreditButton.png");
+	creditButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit.png");
 	creditButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, -300));
@@ -239,7 +239,7 @@ void MenuScene::InitObject()
 	quitButton->SetObjectType(Object::ObjectType::BUTTON);
 	quitButton->AddComponent(new Sprite(quitButton));
 	quitButton->AddComponent(new Button(quitButton, Button::Identifier::Quit, "TutorialLevel", transform));
-	quitButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/QuitButton.png");
+	quitButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/quit.png");
 	quitButton->SetDepth(Depth_Standard::Button);
 	
 	selectionArrow = new Object();
