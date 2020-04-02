@@ -35,60 +35,27 @@ void VolumeSettingBar::InitUIObjects()
 {
     ObjectManager* objManager = ObjectManager::GetObjectManager();
 
-    outline = new Object();
-    outline->SetObjectName("Volume Outline");
-    outline->SetScale(vector2{ 1037.f, 79.f });
-    outline->SetDepth(Depth_Standard::HUDBackground);
-    outline->SetObjectType(ObjectType::UI);
-    outline->AddComponent(new Sprite(outline));
-    outline->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f });
-    outline->GetTransform().SetParent(&GetTransform());
-    objManager->FindLayer(Stage)->AddObject(outline);
+    increaseButton = new Object();
+    increaseButton->SetObjectName("Volume Up");
+    increaseButton->SetTranslation(vector2{ 200.f, -50.f });
+    increaseButton->SetScale(vector2{ 200.f });
+    increaseButton->SetDepth(Depth_Standard::HUDImage);
+    increaseButton->SetObjectType(ObjectType::UI);
+    increaseButton->AddComponent(new Sprite(increaseButton));
+    increaseButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/IncreaseButton.png");
+    increaseButton->GetTransform().SetParent(&GetTransform());
+    objManager->FindLayer(Stage)->AddObject(increaseButton);
 
-
-
-    bar = new Object();
-    bar->SetObjectName("Volume Bar");
-    bar->SetScale(vector2{ 1000.f, 50.f });
-    bar->SetDepth(Depth_Standard::HUDImage);
-    bar->SetObjectType(ObjectType::UI);
-    bar->AddComponent(new Sprite(bar));
-    bar->GetTransform().SetParent(&GetTransform());
-    objManager->FindLayer(Stage)->AddObject(bar);
-
-    fillBar = new Object();
-    fillBar->SetObjectName("Volume Fill Bar");
-    fillBar->SetScale(vector2{ 1000.f, 50.f });
-    fillBar->SetDepth(Depth_Standard::HUDImage - 1.f);
-    fillBar->SetObjectType(ObjectType::UI);
-    fillBar->AddComponent(new Sprite(fillBar));
-    fillBar->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.65f, 0.f });
-    fillBar->GetTransform().SetParent(&GetTransform());
-    objManager->FindLayer(Stage)->AddObject(fillBar);
-
-
-    circle = new Object();
-    circle->SetObjectName("Volume Circle");
-    circle->SetScale(vector2{ 100.f, 100.f });
-    circle->SetDepth(Depth_Standard::HUDImage - 15.f);
-    circle->SetObjectType(ObjectType::UI);
-    circle->AddComponent(new Sprite(circle));
-    circle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/circle.png");
-    circle->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f, 0.f, 0.f });
-    circle->GetTransform().SetParent(&GetTransform());
-    objManager->FindLayer(Stage)->AddObject(circle);
-
-
-    circleOutline = new Object();
-    circleOutline->SetObjectName("Volume Circle Outline");
-    circleOutline->SetScale(vector2{ 1.25f, 1.25f });
-    circleOutline->SetDepth(10.f);
-    circleOutline->SetObjectType(ObjectType::UI);
-    circleOutline->AddComponent(new Sprite(circleOutline));
-    circleOutline->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/circle.png");
-    circleOutline->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f });
-    circleOutline->GetTransform().SetParent(&circle->GetTransform());
-    objManager->FindLayer(Stage)->AddObject(circleOutline);
+    decreaseButton = new Object();
+    decreaseButton->SetObjectName("Volume Down");
+    decreaseButton->SetTranslation(vector2{ -200.f, -50.f });
+    decreaseButton->SetScale(vector2{ 200.f });
+    decreaseButton->SetDepth(Depth_Standard::HUDImage);
+    decreaseButton->SetObjectType(ObjectType::UI);
+    decreaseButton->AddComponent(new Sprite(decreaseButton));
+    decreaseButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/DecreaseButton.png");
+    decreaseButton->GetTransform().SetParent(&GetTransform());
+    objManager->FindLayer(Stage)->AddObject(decreaseButton);
 
 
     text = new Object();

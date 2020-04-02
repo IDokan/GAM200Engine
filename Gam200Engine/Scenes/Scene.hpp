@@ -41,7 +41,7 @@ public:
 
 	// Getters
 	const Graphics::CameraManager& GetCameraManager() const noexcept;
-	const SoundManager& GetSoundManager() const noexcept;
+	SoundManager& GetSoundManager() noexcept;
 
 public:
 	void LevelChangeTo(std::string name);

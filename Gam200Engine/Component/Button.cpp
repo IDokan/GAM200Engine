@@ -59,8 +59,7 @@ void Button::Input()
             }
             else
             {
-                //Add Quit features in here
-
+                input.SetIsRunning(false);
             }
         }
     }

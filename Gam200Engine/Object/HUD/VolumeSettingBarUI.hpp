@@ -28,11 +28,7 @@ public:
 private:
     void InitUIObjects();
 
-    Object* outline;
-    Object* background;
-    Object* bar;
-    Object* fillBar;
-    Object* circle;
-    Object* circleOutline;
+    Object* increaseButton;
+    Object* decreaseButton;
     Object* text;
 };

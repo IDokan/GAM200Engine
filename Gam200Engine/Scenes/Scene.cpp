@@ -229,7 +229,7 @@ const Graphics::CameraManager& Scene::GetCameraManager() const noexcept
 	return cameraManager;
 }
 
-const SoundManager& Scene::GetSoundManager() const noexcept
+SoundManager& Scene::GetSoundManager() noexcept
 {
 	return soundManager;
 }

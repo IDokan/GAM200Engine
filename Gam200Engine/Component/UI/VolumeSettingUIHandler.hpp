@@ -24,5 +24,7 @@ public:
 	virtual void Clear();
 
 private:
+	void ButtonHandle(int key, Object* button) noexcept;
+
 	VolumeSettingBar* ui;
 };

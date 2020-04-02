@@ -63,11 +63,15 @@ void OptionLevel::Load()
 {
 	InitObjects();
 	volume->SetIsSelected(true);
+
+	soundManager.Load_Sound();
+	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+	soundManager.SetVolume(SOUNDS::BACKGROUND_SOUND, 0.2f);
 }
 
 void OptionLevel::Unload()
 {	
-
+	soundManager.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
 }
 
 void OptionLevel::SetArrowsYPosition(float y) noexcept
