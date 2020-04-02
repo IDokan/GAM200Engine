@@ -8,7 +8,7 @@ int main()
 
     try {
         engine.Init();
-        while (!engine.GetIsRunnig())
+        while (engine.GetIsRunnig() == true)
         {
             engine.Update();
         }

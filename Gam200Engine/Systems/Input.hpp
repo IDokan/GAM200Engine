@@ -40,6 +40,12 @@ public:
 	bool IsMouseButtonReleased(int button);
 	bool IsMouseDoubleClicked(int button);
 
+	bool IsRunning() const noexcept;
+	void SetIsRunning(bool is) noexcept;
+
+	bool GetShouldToggleWindow() const noexcept;
+	void SetShouldToggleWindow(bool should) noexcept;
+
 private:
 	std::bitset<GLFW_KEY_LAST> keyTriggered;
 	std::bitset<GLFW_KEY_LAST> keyPressed;
@@ -54,6 +60,9 @@ private:
 
 	double xOffset = 0.0;
 	double yOffset = 0.0;
+
+	bool isRunning = true;
+	bool shouldToggleWindow = false;
 };
 
 extern Input input;

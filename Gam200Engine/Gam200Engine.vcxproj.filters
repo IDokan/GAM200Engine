@@ -273,6 +273,24 @@
     <ClCompile Include="Object\Points\GoalPoint.cpp">
       <Filter>Object\Points</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\Option.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\VolumeSettingBarUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\SelectableObject.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\VolumeSettingUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\FullScreenSettingUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\FullScreenUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -585,6 +603,24 @@
     </ClInclude>
     <ClInclude Include="Object\Points\GoalPoint.hpp">
       <Filter>Object\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Option.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\VolumeSettingBarUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\SelectableObject.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\VolumeSettingUIHandler.hpp">
+      <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\FullScreenSettingUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\FullScreenUIHandler.hpp">
+      <Filter>Component\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

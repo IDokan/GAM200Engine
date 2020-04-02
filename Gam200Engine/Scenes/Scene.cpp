@@ -158,7 +158,10 @@ void Scene::LoadScene() noexcept
 	InitDEBUGObjects();
 	Load(); 
 
-	SetPlayerSpawnPosition(player1->GetTranslation(), player2->GetTranslation());
+	if (player1 != nullptr && player2 != nullptr)
+	{
+		SetPlayerSpawnPosition(player1->GetTranslation(), player2->GetTranslation());
+	}
 
 	isLoadingDone = true;
 

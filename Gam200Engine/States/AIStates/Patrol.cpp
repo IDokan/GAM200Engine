@@ -26,7 +26,35 @@ Creation Date: 03.31.2020
 
 void Patrol::Enter(Mouse* mouse)
 {
-	mouse->GetComponentByTemplate<Animation>()->SetState(1);
+	if (Mouse::Patrol_Info& patrol_info = mouse->GetPatrolInfo();
+		patrol_info.isGoingTOA == true)
+	{
+		vector2 direction = patrol_info.positionA - mouse->GetTranslation();
+		int x = direction.x;
+		int y = direction.y;
+		if (x < 0 || y < 0)
+		{
+			mouse->GetComponentByTemplate<Animation>()->SetState(0);
+		}
+		else
+		{
+			mouse->GetComponentByTemplate<Animation>()->SetState(1);
+		}
+	}
+	else
+	{
+		vector2 direction = patrol_info.positionB - mouse->GetTranslation();
+		int x = direction.x;
+		int y = direction.y;
+		if (x < 0 || y < 0)
+		{
+			mouse->GetComponentByTemplate<Animation>()->SetState(0);
+		}
+		else
+		{
+			mouse->GetComponentByTemplate<Animation>()->SetState(1);
+		}
+	}
 }
 
 void Patrol::Execute(Mouse* mouse)
@@ -78,7 +106,12 @@ void Patrol::MoveMouse(Mouse* mouse, vector2 position)
 
 	if (canMouseSeePlayer(mouse) == true)
 	{
+		mouse->GetComponentByTemplate<Animation>()->SetSpeed(10.f);
 		physics->SetVelocity(targetVector * 2.f);
+	}
+	else
+	{
+		mouse->GetComponentByTemplate<Animation>()->SetSpeed(5.f);
 	}
 }
 
@@ -88,19 +121,17 @@ bool Patrol::canMouseSeePlayer(Mouse* mouse)
 	velocity = normalize(velocity);
 
 	vector2 mouseEye = mouse->GetPlayers().player1->GetTranslation() - mouse->GetTranslation();
-	mouseEye = normalize(mouseEye);
 
 	if (dot(velocity, mouseEye) > 0.f
-		&& magnitude_squared(mouseEye) < 50.f)
+		&& magnitude_squared(mouseEye) < 240000.f)
 	{
 		return true;
 	}
 
 	mouseEye = mouse->GetPlayers().player2->GetTranslation() - mouse->GetTranslation();
-	mouseEye = normalize(mouseEye);
 
 	if (dot(velocity, mouseEye) > 0.f
-		&& magnitude_squared(mouseEye) < 50.f)
+		&& magnitude_squared(mouseEye) < 240000.f)
 	{
 		return true;
 	}
@@ -117,10 +148,8 @@ void Patrol::AttackPlayers(Mouse* mouse)
 	{
 		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::SceneStateManager, MessageTypes::PlayerIsDead);
 		mouse->GetComponentByTemplate<StateMachine<Mouse>>()->ChangeState(MouseIdle::Get());
-		mouse->GetComponentByTemplate<Animation>()->SetState(2);
 	}
 	else
 	{
-		mouse->GetComponentByTemplate<Animation>()->SetState(1);
 	}
 }

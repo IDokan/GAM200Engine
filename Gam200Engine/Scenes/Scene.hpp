@@ -83,5 +83,6 @@ private:
 	//Loading...
 	Object* loadingScene{};
 	Object* loadingText{};
+	Object* loadingAnimation{};
 	bool isLoadingDone = false;
 };

@@ -185,7 +185,9 @@
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
     <ClInclude Include="Component\StateMachine.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
+    <ClInclude Include="Component\UI\FullScreenUIHandler.hpp" />
     <ClInclude Include="Component\UI\StringLengthUIHandler.hpp" />
+    <ClInclude Include="Component\UI\VolumeSettingUIHandler.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -217,7 +219,10 @@
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
+    <ClInclude Include="Object\HUD\FullScreenSettingUI.hpp" />
+    <ClInclude Include="Object\HUD\SelectableObject.hpp" />
     <ClInclude Include="Object\HUD\StringLengthUI.hpp" />
+    <ClInclude Include="Object\HUD\VolumeSettingBarUI.hpp" />
     <ClInclude Include="Object\InstancedObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
@@ -238,6 +243,7 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
+    <ClInclude Include="Scenes\Option.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
     <ClInclude Include="Scenes\SceneManager.hpp" />
     <ClInclude Include="Scenes\TutorialLevel.hpp" />
@@ -291,7 +297,9 @@
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
+    <ClCompile Include="Component\UI\FullScreenUIHandler.cpp" />
     <ClCompile Include="Component\UI\StringLengthUIHandler.cpp" />
+    <ClCompile Include="Component\UI\VolumeSettingUIHandler.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -323,7 +331,10 @@
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
     <ClCompile Include="Object\DepthStandard.cpp" />
+    <ClCompile Include="Object\HUD\FullScreenSettingUI.cpp" />
+    <ClCompile Include="Object\HUD\SelectableObject.cpp" />
     <ClCompile Include="Object\HUD\StringLengthUI.cpp" />
+    <ClCompile Include="Object\HUD\VolumeSettingBarUI.cpp" />
     <ClCompile Include="Object\InstancedObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
@@ -344,6 +355,7 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Scenes\BasicMovementLevel.cpp" />
+    <ClCompile Include="Scenes\Option.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
     <ClCompile Include="Scenes\TutorialLevel.cpp" />

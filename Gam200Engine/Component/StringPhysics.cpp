@@ -182,6 +182,7 @@ void StringPhysics::DeleteVerticesInContainer()
         stringPhysicsOwner->vertices.clear();
         stringPhysicsOwner->vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
         stringPhysicsOwner->vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+        shouldClear = false;
     }
 }
 

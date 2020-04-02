@@ -26,6 +26,7 @@ public:
 	
     enum class ObjectType
     {
+        Default,
 		// Below 2 object types are for Player class
 		// Location: <Object/Players/Player.h>
         PLAYER_1,
@@ -52,6 +53,8 @@ public:
 		// Only Scene state manager can hold this type
 		// Location: <Object/SceneStateManager>
 		SCENE_STATE_MANAGER,
+        // All UI object have this type.
+        UI,
 		NUM_OF_OBJECT_TYPE,
     };
 

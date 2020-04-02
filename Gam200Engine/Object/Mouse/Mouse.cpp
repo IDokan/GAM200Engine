@@ -35,7 +35,10 @@ Mouse::Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* play
 
     Animation* animation = new Animation(this);
     AddComponent(animation);
-    animation->SetNumOfState(3);
+    animation->SetImage("../assets/textures/Mouse/mouse_sprite.png");
+    animation->SetFrame(8);
+    animation->SetSpeed(5.f);
+    animation->SetNumOfState(2);
 
     Physics* physics = new Physics(this);
     AddComponent(physics);

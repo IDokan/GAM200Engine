@@ -32,7 +32,7 @@ void Engine::Init()
     app_->Init();
 	Timer* timer = Timer::GetTimer();
     timer->Reset();
-    isRunning = false;
+    isRunning = true;
 }
 
 void Engine::Update()
@@ -41,11 +41,11 @@ void Engine::Update()
 	Timer::GetTimer()->Reset();
 
     app_->Update(dt);
-    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE) || input.IsRunning() == false)
     {
         //throw "Hello nice to meet you :)";
         app_->GetApplication()->Clear();
-        isRunning = true;
+        isRunning = false;
     }
 }
 

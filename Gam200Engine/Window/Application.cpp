@@ -23,6 +23,7 @@ Creation Date: 08.05.2019
 #include <Scenes/TutorialLevel.hpp>
 #include <Scenes/TutorialLevel1.hpp>
 #include <Scenes/TutorialLevel2.hpp>
+#include <Scenes/Option.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -52,6 +53,7 @@ void Application::Init()
 	
 //#endif
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
+    SceneManager::GetSceneManager()->AddScenes("Option", dynamic_cast<Scene*>(new OptionLevel()));
 
     
 
@@ -96,9 +98,10 @@ void Application::Input()
     {
         window.TurnOnMonitorVerticalSynchronization(!window.IsMonitorVerticalSynchronizationOn());
     }  
-    if (input.IsKeyTriggered(GLFW_KEY_F))
+    if (input.GetShouldToggleWindow() == true)
     {
         window.ToggleFullscreen();
+        input.SetShouldToggleWindow(false);
     }  
 }
 
