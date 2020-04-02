@@ -14,6 +14,8 @@ Creation Date: 02.11.2020
 #include <Scenes/Scene.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
+#include <Object/InteractiveObject/CrushableObject.hpp>
+#include <Object/DepthStandard.hpp>
 
 class Object;
 class String;
@@ -65,7 +67,8 @@ private:
     Object* button4;
 
 
-
+    Object* cheese;
+    CrushableObject* jail;
 
 
     Graphics::Color4f color;

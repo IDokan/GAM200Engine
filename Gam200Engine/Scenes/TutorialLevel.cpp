@@ -231,9 +231,6 @@ void TutorialLevel::InitObject() {
 	wall6->AddComponent(new Sprite(wall6));
 	wall6->AddComponent(new Physics(wall6));
 	wall6->GetComponentByTemplate<Sprite>()->SetColor({ 0.5f, 0.5f, 0.0f, 1.0f });
-	color = wall6->GetComponentByTemplate<Sprite>()->GetColor();
-	color.alpha = 0.2f;
-	wall6->GetComponentByTemplate<Sprite>()->SetColor(color);
 	wall6->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
 	wall6->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(wall6, Physics::ObjectType::RECTANGLE);
 	wall6->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
@@ -321,6 +318,24 @@ void TutorialLevel::InitObject() {
 	wall8->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
 	wall8->SetDepth(-1.f);
 
+    cheese = new Object();
+    cheese->SetObjectType(Object::ObjectType::SavedCheese);
+    cheese->SetObjectName("cheese");
+    cheese->SetTranslation(vector2{ 860.f, 100.f });
+    cheese->SetScale(vector2{ 50.f, 50.f });
+    Animation* getAnimationComponenet = new Animation(cheese);
+    getAnimationComponenet->SetFrame(6);
+    getAnimationComponenet->SetSpeed(5.f);
+    cheese->AddComponent(getAnimationComponenet);
+    cheese->AddComponent(new Physics(cheese));
+    cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
+    cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
+    cheese->SetDepth(Depth_Standard::SavedCheese);
+
+    jail = new CrushableObject(vector2{ 860.f,100.f }, vector2{ 100.f,100.f }, Physics::ObjectType::RECTANGLE, string);
+    jail->SetDepth(Depth_Standard::Jail);
+    jail->SetObjectName("jail");
 
 	// Mouse
 	Mouse* mouse1 = new Mouse(vector2{ -88.f, 405.f }, vector2{ -88.f, -290.f }, vector2{ -88.f, 1100.f }, player1, player2);
@@ -355,6 +370,8 @@ void TutorialLevel::InitObject() {
 	objManager->FindLayer(LayerNames::Stage)->AddObject(wall7);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(wall8);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(wall9);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(jail);
 }
 
 void TutorialLevel::TriggerButton(Object* button_, Object* door_1, Object* door_2)
