@@ -69,7 +69,7 @@ void Scene::InitLoadingScene()
 
 	loadingText = new Object();
 	loadingText->SetObjectName("Loading Text");
-	loadingText->SetTranslation(vector2{ -100.f ,-20.f});
+	loadingText->SetTranslation(vector2{ -100.f ,-20.f });
 	loadingText->AddComponent(new TextComponent(loadingText));
 	loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
 	loadingText->SetDepth(-0.9f);
@@ -114,6 +114,7 @@ void Scene::LoadScene() noexcept
 
 			while(isLoadingDone == false)
 			{
+
 				// Update loading data
 				++loadingCount;
 
@@ -140,7 +141,6 @@ void Scene::LoadScene() noexcept
 				const auto matrix2 = cameraManager.GetWorldToNDCTransform() * loadingText->GetTransform().GetModelToWorld();
 				loadingText->GetComponentByTemplate<TextComponent>()->Draw(matrix2,
 					loadingText->GetTransform().CalculateWorldDepth());
-
 
 				Graphics::GL::end_drawing();
 

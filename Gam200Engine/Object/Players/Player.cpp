@@ -89,6 +89,8 @@ void Player::LoadPlayer1Layout()
 	Object::SetObjectName("Player1");
 	Object::SetObjectType(ObjectType::PLAYER_1);
 
+	GetComponentByTemplate<Animation>()->SetColor(Graphics::Color4f{ 1.f, 0.95f, 0.f });
+
 	AddComponent(new MessageCapable(this, MessageObjects::Player1,
 		[&](const Message& msg) -> bool
 		{

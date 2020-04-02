@@ -16,7 +16,7 @@ Creation Date: DEC/11st/2019
 #include <Sounds/SoundManager.hpp>
 #include <Component/Scripts/Accumulating.hpp>
 
-SoundManager TestSoundforCrush;
+#include <Scenes/SceneManager.hpp>
 
 CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     Physics::ObjectType _objType, String  *_currentString ) : InteractiveObject(),
@@ -32,8 +32,9 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     SetDepth(-0.1f);
 
     /////
-    TestSoundforCrush.Load_Sound();
-    TestSoundforCrush.SetVolume(CRUSH_SOUND, 1);
+    SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+    sm.Load_Sound();
+    sm.SetVolume(CRUSH_SOUND, 0.35f);
 }
 
 CrushableObject::~CrushableObject()
@@ -58,7 +59,8 @@ void CrushableObject::DoSomethingWhenDetached()
 
 void CrushableObject::Crushed() noexcept
 {
-	TestSoundforCrush.Play_Sound(SOUNDS::CRUSH_SOUND);
+    SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+	sm.Play_Sound(SOUNDS::CRUSH_SOUND);
 	SetDead(true);
 	currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);
 }

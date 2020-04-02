@@ -64,6 +64,8 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 
 	// Play "Scene Complete Sound"
 	// TODO:
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::GOAL_SOUND);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::GOAL_SOUND, 0.4f);
 }
 
 void SceneComplete::Execute(SceneStateManager* manager)
@@ -74,7 +76,7 @@ void SceneComplete::Execute(SceneStateManager* manager)
 	{
 		if (input.IsMouseButtonTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			printf("Back To Mainmenu button is triggered\n");
+			SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 		}
 		else	if (input.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
 		{

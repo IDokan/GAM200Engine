@@ -35,6 +35,7 @@ void ObstaclesDrawingHelper::Init() noexcept
 	obstacles->SetDepth(-0.5f);
 	obstaclesSprite->Init();
 	obstaclesSprite->SetInstancingMode(true);
+	obstaclesSprite->SetImage("../assets/textures/BLOCK_W.png");
 }
 
 void ObstaclesDrawingHelper::Draw(std::vector<matrix3>* obstaclesMatrix) noexcept

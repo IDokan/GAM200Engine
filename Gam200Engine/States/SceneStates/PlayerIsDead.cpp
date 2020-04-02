@@ -86,7 +86,7 @@ void PlayerIsDead::PrepareAssets() noexcept
 		playerIsDeadText->SetObjectName("PlayerIsDead Image");
 		playerIsDeadText->SetTranslation(vector2{ -99.f });
 		playerIsDeadText->AddComponent(new Sprite(playerIsDeadText));
-		playerIsDeadText->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/playerIsDead.png");
+		playerIsDeadText->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/game_over.png");
 		playerIsDeadText->SetDepth(Depth_Standard::HUDImage);
 
 		ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObject(playerIsDeadText);
