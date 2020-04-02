@@ -194,7 +194,8 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			if (i != j)
 			{
 				saveLoad << '\n';
-			break;
+				break;
+			}
 		}
 	}
 	for (const auto& object : loadsaveObjectContainer)
