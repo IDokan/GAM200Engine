@@ -9,6 +9,7 @@ Creation Date: 12.OCT.2019
 
 	Header file for the Application.cpp
 ******************************************************************************/
+#pragma once
 #include "fmod.hpp"
 #include "fmod_errors.h"
 #include <iostream>
@@ -19,14 +20,13 @@ using  namespace  FMOD;
 
 enum  SOUNDS
 {
-   // JAMJAMTEST_SOUND =0 ,
-	//DASH_SOUND ,
 	COLLISION_SOUND	=0,
     BACKGROUND_SOUND,
     CRUSH_SOUND,
     FALLING_SOUND,
     GOAL_SOUND,
     SHAREWEIGHT_SOUND,
+    NONE
 };
 
 class SoundManager 
@@ -44,10 +44,18 @@ public:
 
 	void ERRCHECK(FMOD_RESULT _r, const std::string errorReason);
 
+    float GetCurrentChVolume(int sound_name);
+
+    void MASTER_VOLUME_DOWN();
+
+    void MASTER_VOLUME_UP();
+
 private:
     FMOD_SYSTEM*		fmod_system;					
     FMOD_SOUND*        sound[MAX_SOUND_TRACK];          
     FMOD_CHANNEL*      ch[MAX_SOUND_TRACK];
 	FMOD_RESULT         theResult;
-	
+    float current_ch_volume[MAX_SOUND_TRACK];
+    float initialVolume = 0.2f;
+    float contorolVolumeSize = 0.2f;
 };

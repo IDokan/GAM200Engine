@@ -14,7 +14,6 @@ Creation Date: 12.10.2019
 #include <Component/Scripts/GoalComponent.hpp>
 
 
-SoundManager bgm;
 OneWayPassLevel::OneWayPassLevel(): background(nullptr)
 {
 }
@@ -27,9 +26,9 @@ void OneWayPassLevel::Load()
 {
     OneWayPassLevel::InitObject();
     cameraManager.Init();
-    bgm.Load_Sound();
-    bgm.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    bgm.SetVolume(BACKGROUND_SOUND, 0.2f);
+    soundManager.Load_Sound();
+    soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    soundManager.SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void OneWayPassLevel::Update(float /*dt*/)

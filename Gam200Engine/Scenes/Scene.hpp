@@ -13,6 +13,7 @@ Creation Date: 08.12.2019
 #pragma once
 #include <string>
 #include <Graphics/CameraManager.hpp>
+#include <Sounds/SoundManager.hpp>
 #include <Graphics/GL.hpp>
 
 class SceneStateManager;
@@ -28,10 +29,11 @@ class Scene abstract
 {
 public:
 	Scene()
+		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({})
 		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr)
 	{}
 	virtual ~Scene() = default;
-    void GameRestartScene() noexcept;
+	void GameRestartScene() noexcept;
 	virtual void Update(float dt) = 0;
 	void LoadScene() noexcept;
 	void UnloadScene() noexcept;
@@ -40,6 +42,7 @@ public:
 
 	// Getters
 	const Graphics::CameraManager& GetCameraManager() const noexcept;
+	const SoundManager& GetSoundManager() const noexcept;
 
 public:
 	void LevelChangeTo(std::string name);
@@ -52,7 +55,7 @@ public:
 
 
 protected:
-    virtual void GameRestart() = 0;
+	virtual void GameRestart() = 0;
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
 	void SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position);
@@ -62,6 +65,7 @@ protected:
 
 
 	Graphics::CameraManager cameraManager{};
+	SoundManager soundManager{};
 	SceneStateManager* sceneStateManager;
 
 	vector2 player1SpawnPosition{};

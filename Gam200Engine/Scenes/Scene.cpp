@@ -229,6 +229,11 @@ const Graphics::CameraManager& Scene::GetCameraManager() const noexcept
 	return cameraManager;
 }
 
+const SoundManager& Scene::GetSoundManager() const noexcept
+{
+	return soundManager;
+}
+
 void Scene::LevelChangeTo(std::string name)
 {
 	is_next = true;

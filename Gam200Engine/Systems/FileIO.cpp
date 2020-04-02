@@ -69,17 +69,29 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			objManager->FindLayer(LayerNames::Stage)->AddObject(*player2);
 			objManager->FindLayer(LayerNames::Stage)->AddObject(*string);
 		}
-		else if ((objectType != "player1") && (objectType != "player2"))
+		else if (objectType == "background")
+		{
+			Object* object = new Object();
+			object->SetObjectName(objectName);
+			object->SetTranslation(vector2{ xTrans, yTrans });
+			object->SetScale(vector2{ xScale, yScale });
+			object->AddComponent(new Sprite(object));
+			object->AddComponent(new Physics(object));
+			object->GetComponentByTemplate<Sprite>()->SetImage(spriteFileName);
+
+			objManager->FindLayer(LayerNames::BackGround)->AddObject(object);
+		}
+		else if ((objectType != "player1") && (objectType != "player2") && (objectType != "background"))
 		{
 			Object* object = new Object(); // Make new object
 			object->SetObjectName(objectName);
 			object->SetTranslation(vector2{ xTrans, yTrans });
 			object->SetScale(vector2{ xScale, yScale });
 			object->AddComponent(new Sprite(object));
-			object->AddComponent(new Physics(object));
 
 			if (objectType == "obstacle")
 			{
+				object->AddComponent(new Physics(object));
 				object->SetObjectType(Object::ObjectType::OBSTACLE);
 
 				if (spriteFileName != "no")
@@ -89,6 +101,7 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			}
 			else if (objectType == "test")
 			{
+				object->AddComponent(new Physics(object));
 				object->SetObjectType(Object::ObjectType::TEST);
 
 				if (spriteFileName != "no")
@@ -109,7 +122,6 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
 			}
 			
-
 			object->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(object, Physics::ObjectType::RECTANGLE);
 			object->SetDepth(depth);
 			objManager->FindLayer(LayerNames::Stage)->AddObject(object);
@@ -130,7 +142,8 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 		if ((object->GetObjectType() == Object::ObjectType::OBSTACLE)
 			|| (object->GetObjectType() == Object::ObjectType::TEST)
 			|| (object->GetObjectType() == Object::ObjectType::PLAYER_1)
-			|| (object->GetObjectType() == Object::ObjectType::PLAYER_2))
+			|| (object->GetObjectType() == Object::ObjectType::PLAYER_2)
+			|| (object->GetObjectType() == Object::ObjectType::TEST))
 		{
 			++i;
 		}
@@ -174,7 +187,12 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
 			}
+			else
+			{
+				saveLoad << "no";
+			}
 			if (i != j)
+			{
 				saveLoad << '\n';
 			break;
 		}
@@ -195,8 +213,14 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			{
 				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
 			}
+			else
+			{
+				saveLoad << "no";
+			}
 			if (i != j)
+			{
 				saveLoad << '\n';
+			}
 		}
 		else if (object->GetObjectType() == Object::ObjectType::TEST)
 		{

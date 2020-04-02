@@ -30,7 +30,7 @@ Creation Date: 12.10.2019
 #include <Object/Points/GoalPoint.hpp>
 #include <Object/DepthStandard.hpp>
 
-SoundManager TestBGMSoundForDebugMode;
+
 BasicMovementLevel::BasicMovementLevel(): background(nullptr)
 {
 }
@@ -46,11 +46,11 @@ void BasicMovementLevel::Load()
 
     BasicMovementLevel::InitObject();
 
+    soundManager.Load_Sound();
+    soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    soundManager.SetVolume(BACKGROUND_SOUND, 0.2f);
+  
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
- 
-    TestBGMSoundForDebugMode.Load_Sound();
-    TestBGMSoundForDebugMode.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    TestBGMSoundForDebugMode.SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void BasicMovementLevel::Update(float /*dt*/)
@@ -81,6 +81,7 @@ void BasicMovementLevel::Unload()
 	//a->Output("../assets/fileIO/saveloadFile.txt");
 }
 
+bool isPlaying = true;
 void BasicMovementLevel::Input()
 {
     if (input.IsKeyTriggered(GLFW_KEY_G))
@@ -94,7 +95,14 @@ void BasicMovementLevel::Input()
             player1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
         }
     }
+    //Master Volume Test
+    if (input.IsKeyTriggered(GLFW_KEY_0)) {
+        soundManager.MASTER_VOLUME_DOWN();
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_9)) {
 
+        soundManager.MASTER_VOLUME_UP();
+    }
 }
 
 void BasicMovementLevel::Collision()
