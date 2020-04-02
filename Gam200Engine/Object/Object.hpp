@@ -46,6 +46,8 @@ public:
         BUTTON,
         /*For door*/
         DOOR,
+        JAIL,
+        SavedCheese,
     	TEST,
 		// This is type to designate for String Object
 		// Location: <Object/Strings/String.hpp>
