@@ -21,6 +21,7 @@ Creation Date: 04.02.2020
 #include <Object/DepthStandard.hpp>
 
 #include <Systems/Input.hpp>
+#include <Scenes/SceneManager.hpp>
 
 #include <Angle.hpp>
 
@@ -50,7 +51,7 @@ void OptionLevel::Update(float /*dt*/)
 
 	if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
 	{
-		// Set Next Scene
+		SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 	}
 }
 
@@ -60,18 +61,13 @@ void OptionLevel::GameRestart()
 
 void OptionLevel::Load()
 {
-	fileIO* fileio = new fileIO();
-	fileio->Input("../assets/fileIO/option.txt", &player1, &player2, &string);
-	delete fileio;
-
 	InitObjects();
-	fullScreen->SetIsSelected(true);
+	volume->SetIsSelected(true);
 }
 
 void OptionLevel::Unload()
 {	
-	fileIO* a = 0;
-	a->Output("../assets/fileIO/option.txt");
+
 }
 
 void OptionLevel::SetArrowsYPosition(float y) noexcept
@@ -92,7 +88,7 @@ void OptionLevel::InitObjects()
 	leftArrow = new Object();
 	leftArrow->SetObjectName("Left Arrow");
 	leftArrow->SetObjectType(Object::ObjectType::UI);
-	leftArrow->SetTranslation(vector2{ -600.f, fullScreen->GetTranslation().y });
+	leftArrow->SetTranslation(vector2{ -600.f, volume->GetTranslation().y });
 	leftArrow->SetScale(vector2{ 100.f });
 	leftArrow->AddComponent(new Sprite(leftArrow));
 	leftArrow->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Arrow.png");
@@ -102,7 +98,7 @@ void OptionLevel::InitObjects()
 	rightArrow = new Object();
 	rightArrow->SetObjectName("Left Arrow");
 	rightArrow->SetObjectType(Object::ObjectType::UI);
-	rightArrow->SetTranslation(vector2{ 600.f, fullScreen->GetTranslation().y });
+	rightArrow->SetTranslation(vector2{ 600.f, volume->GetTranslation().y });
 	rightArrow->SetScale(vector2{ 100.f });
 	rightArrow->AddComponent(new Sprite(rightArrow));
 	rightArrow->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Arrow.png");

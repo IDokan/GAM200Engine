@@ -291,6 +291,10 @@
     <ClCompile Include="Component\UI\FullScreenUIHandler.cpp">
       <Filter>Component\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Button.cpp" />
+    <ClCompile Include="Scenes\MenuScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -621,6 +625,10 @@
     </ClInclude>
     <ClInclude Include="Component\UI\FullScreenUIHandler.hpp">
       <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Button.hpp" />
+    <ClInclude Include="Scenes\MenuScene.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

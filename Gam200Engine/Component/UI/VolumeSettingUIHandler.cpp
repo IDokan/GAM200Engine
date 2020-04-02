@@ -15,6 +15,9 @@ Creation Date: 03.30.2020
 #include <Systems/Input.hpp>
 #include <Vector2.hpp>
 
+#include <Scenes/SceneManager.hpp>
+#include <Sounds/SoundManager.hpp>
+
 VolumeSettingUIHandler::VolumeSettingUIHandler(VolumeSettingBar* owner)
 	: Component(reinterpret_cast<Object*>(owner)), ui(owner)
 {
@@ -63,6 +66,9 @@ void VolumeSettingUIHandler::Update(float dt)
 			ui->circle->SetTranslation(vector2{ circleTranslation.x + 10.f, circleTranslation.y });
 		}
 	}
+
+	const SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+	
 }
 
 void VolumeSettingUIHandler::Clear()

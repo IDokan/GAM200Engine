@@ -27,10 +27,13 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
+	std::string GetTargetStage();
+
 private:
 	bool IsAInsideB(const vector2& minOfA, const vector2& maxOfA, const vector2& minOfB, const vector2& maxOfB) const noexcept;
 	void DispatchMessage(MessageTypes msg);
 private:
+	std::string targetStage;
 	Player* targetPlayer;
 	bool isPlayerOnGoal;
 	Graphics::Color4f highlightedColor;

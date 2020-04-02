@@ -24,6 +24,7 @@ Creation Date: 08.05.2019
 #include <Scenes/TutorialLevel1.hpp>
 #include <Scenes/TutorialLevel2.hpp>
 #include <Scenes/Option.hpp>
+#include <Scenes/MenuScene.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -47,11 +48,9 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
-//#ifdef _DEBUG
+    SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
-	
-//#endif
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("Option", dynamic_cast<Scene*>(new OptionLevel()));
 

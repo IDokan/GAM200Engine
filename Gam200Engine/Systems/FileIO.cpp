@@ -13,6 +13,7 @@ Creation Date: 11.23.2019
 #include "Vector2.hpp"
 #include <iostream>
 #include <Component/Scripts/GoalComponent.hpp>
+#include <Object/DepthStandard.hpp>
 
 void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
 {
@@ -191,6 +192,7 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			{
 				saveLoad << "no";
 			}
+			
 			if (i != j)
 			{
 				saveLoad << '\n';
@@ -232,11 +234,34 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			saveLoad << object->GetScale().x << ' ';
 			saveLoad << object->GetScale().y << ' ';
 			saveLoad << object->GetDepth() << ' ';
-			saveLoad << "test" << ' ';
-			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			
+
+			if (object->GetObjectName() == "goalPoint")
 			{
-				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+				saveLoad << "goalpoint" << ' ';
+				saveLoad << object->GetComponentByTemplate<GoalComponent>()->GetTargetStage();
 			}
+			else if (object->GetObjectName() == "startPoint")
+			{
+				saveLoad << "startpoint" << ' ';
+			}
+			else
+			{
+				saveLoad << "test" << ' ';
+			}
+
+			if (object->GetObjectName() != "goalPoint")
+			{
+				if (object->GetComponentByTemplate<Sprite>() != nullptr)
+				{
+					saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+				}
+				else
+				{
+					saveLoad << "no";
+				}
+			}
+
 			if (i != j)
 				saveLoad << '\n';
 		}

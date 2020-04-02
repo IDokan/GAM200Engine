@@ -10,6 +10,7 @@ Creation Date: 12.13.2019
 	Source file for goal component that will be attached at goal object
 ******************************************************************************/
 #include <cassert>
+#include <string>
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <Scenes/SceneManager.hpp>
@@ -18,6 +19,7 @@ Creation Date: 12.13.2019
 #include <Sounds/SoundManager.hpp>
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
+
 
 GoalComponent::GoalComponent(Object* obj, Player* targetPlayer, Graphics::Color4f color)
 	: Component(obj), targetPlayer(targetPlayer), isPlayerOnGoal(false), highlightedColor(color)
@@ -64,6 +66,11 @@ void GoalComponent::Update(float /*dt*/)
 
 void GoalComponent::Clear()
 {
+}
+
+std::string GoalComponent::GetTargetStage()
+{
+	return targetStage;
 }
 
 bool GoalComponent::IsAInsideB(const vector2& minOfA, const vector2& maxOfA, const vector2& minOfB, const vector2& maxOfB) const noexcept
