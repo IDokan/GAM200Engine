@@ -25,7 +25,7 @@ Creation Date: 08.14.2019
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../assets/textures/rect.png"), isBackground(false), isInstancing(false)
+		imageFilePath("../assets/textures/rect.png"), isBackground(false), isInstancing(InstanceModes::OFF)
 {
 	mesh->Clear();
 }
@@ -146,32 +146,93 @@ unsigned* Sprite::GetRefTextureHandle() noexcept
 	return texture->GetRefTextureHandle();
 }
 
-void Sprite::SetInstancingMode(bool isOn) noexcept
+void Sprite::SetInstancingMode(InstanceModes isOn) noexcept
 {
 	isInstancing = isOn;
 
-	if (isInstancingMode())
+	switch (isInstancing)
 	{
+	case Sprite::InstanceModes::OFF:
+		break;
+	case Sprite::InstanceModes::ON:
 		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
 		material->shader = &Graphics::SHADER::Instancing();
+		break;
+	case Sprite::InstanceModes::ADVANCED:
+		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::Advanced_instancing_vertex_layout());
+		material->shader = &Graphics::SHADER::AdvancedInstancing();
+		break;
+	default:
+		break;
 	}
 }
 
 bool Sprite::isInstancingMode() const noexcept
 {
-	return isInstancing;
+	if (isInstancing == InstanceModes::OFF)
+	{
+		return false;
+	}
+	return true;
 }
 
 void Sprite::UpdateInstancingValues(std::vector<matrix3>* matrices, float depth) const noexcept
 {
-	if (isInstancing == false)
-	{
-		static_assert("UpdateInstancingValues is called in only instancing mode");
-	}
-	
-	mesh->ChangeReferenceInstancedMatrices(matrices);
-	vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
+	std::vector < Graphics::Color4ub> colors;
+	colors.emplace_back(Graphics::Color4ub{ 255 });
 
-	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+	std::vector <vector2> textureCoordinates;
+	textureCoordinates.emplace_back(vector2{ 0.f });
+	textureCoordinates.emplace_back(vector2{ 1.f, 0.f });
+	textureCoordinates.emplace_back(vector2{ 1.f });
+	textureCoordinates.emplace_back(vector2{ 0.f, 1.f });
+
+	switch (isInstancing)
+	{
+	case Sprite::InstanceModes::OFF:
+		static_assert("UpdateInstancingValues is called in only instancing mode");
+		break;
+	case Sprite::InstanceModes::ON:
+		mesh->ChangeReferenceInstancedMatrices(matrices);
+		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
+
+		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+		break;
+	case Sprite::InstanceModes::ADVANCED:
+		mesh->ChangeReferenceInstancedMatrices(matrices);
+		mesh->ChangeReferenceInstancedColors(&colors);
+		mesh->ChangeReferenceInstancedTextureCoordinates(&textureCoordinates);
+		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::Advanced_instancing_vertex_layout());
+
+		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+		break;
+	default:
+		break;
+	}
+}
+void Sprite::UpdateInstancingValues(std::vector<vector2>* textureCoordinates, std::vector<Graphics::Color4ub>* colors, std::vector<matrix3>* matrices, float depth) const noexcept
+{
+	switch (isInstancing)
+	{
+	case Sprite::InstanceModes::OFF:
+		static_assert("UpdateInstancingValues is called in only instancing mode");
+		break;
+	case Sprite::InstanceModes::ON:
+		mesh->ChangeReferenceInstancedMatrices(matrices);
+		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::instancing_vertex_layout());
+
+		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+		break;
+	case Sprite::InstanceModes::ADVANCED:
+		mesh->ChangeReferenceInstancedMatrices(matrices);
+		mesh->ChangeReferenceInstancedColors(colors);
+		mesh->ChangeReferenceInstancedTextureCoordinates(textureCoordinates);
+		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::Advanced_instancing_vertex_layout());
+
+		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+		break;
+	default:
+		break;
+	}
 }
 #pragma warning (pop)

@@ -259,6 +259,22 @@ namespace Graphics
 					offset += size;
 					break;
 				}
+				case VertexLayoutDescription::FieldType::InstancedTextureCoordinateScaler2WithFloats:
+				{
+					vector2 instancedTextureCoordinate = mesh.GetInstancedTextureCoordinate(index);
+					const unsigned long long size = sizeof(instancedTextureCoordinate);
+					std::memcpy(destination, &instancedTextureCoordinate, size);
+					offset += size;
+					break;
+				}
+				case VertexLayoutDescription::FieldType::InstancedColor4WithUnsignedBytes:
+				{
+					Color4ub instancedColor = mesh.GetInstancedColors(index);
+					const unsigned long long size = sizeof(instancedColor);
+					std::memcpy(destination, &instancedColor, size);
+					offset += size;
+					break;
+				}
 				default:
 					break;
 				}

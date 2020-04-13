@@ -15,6 +15,7 @@ Creation Date: 08.12.2019
 #include <Graphics/CameraManager.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Graphics/GL.hpp>
+#include <Graphics/Color4ub.hpp>
 
 class SceneStateManager;
 class String;
@@ -77,6 +78,8 @@ protected:
 
 private:
 	std::vector<matrix3> obstacleMatrices;
+	std::vector<vector2> obstacleTextureCoordinateScaler;
+	std::vector<Graphics::Color4ub> obstacleColors;
 	void DrawObject(Object* obj, matrix3 offset = MATRIX3::build_identity()) noexcept;
 private:
 	void InitDEBUGObjects();

@@ -29,6 +29,13 @@ class Sprite :
 	public Component
 {
 public:
+	enum class InstanceModes
+	{
+		OFF,
+		ON,
+		ADVANCED,
+	};
+public:
 	Sprite(Object*) noexcept;
 	virtual ~Sprite() noexcept = default;
 
@@ -54,9 +61,11 @@ public:
 	unsigned int* GetRefTextureHandle() noexcept;
 
 	/*************			Instancing			***********/
-	void SetInstancingMode(bool isOn) noexcept;
+	void SetInstancingMode(InstanceModes isOn) noexcept;
 	[[nodiscard]] bool isInstancingMode() const noexcept;
 	void UpdateInstancingValues(std::vector<matrix3>* matrices, float depth) const noexcept;
+	void UpdateInstancingValues(std::vector<vector2>* textureCoordinates, std::vector<Graphics::Color4ub>* colors, std::vector<matrix3>* matrices, float depth) const noexcept;
+
 
 protected:
 
@@ -68,5 +77,5 @@ protected:
 
 	// below setting are all false as a default value.
 	bool isBackground;
-	bool isInstancing;
+	InstanceModes isInstancing;
 };

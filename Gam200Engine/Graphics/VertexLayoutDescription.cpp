@@ -66,6 +66,21 @@ namespace Graphics
 			temp.shouldInstanced = true;
 			break;
 
+		case FieldType::InstancedTextureCoordinateScaler2WithFloats:
+			temp.elementType = GL_FLOAT;
+			temp.elementCount = 2;
+			temp.sizeInBytes = sizeof(float) * temp.elementCount;
+			temp.shouldInstanced = true;
+			break;
+
+		case FieldType::InstancedColor4WithUnsignedBytes:
+			temp.elementType = GL_UNSIGNED_BYTE;
+			temp.elementCount = 4;
+			temp.sizeInBytes = sizeof(unsigned char) * temp.elementCount;
+			temp.shouldNormalize = true;
+			temp.shouldInstanced = true;
+			break;
+
 		default:
 			break;
 		}

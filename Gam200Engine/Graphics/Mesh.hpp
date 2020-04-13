@@ -30,10 +30,6 @@ namespace Graphics
          vector2     GetPoint(std::size_t index) const noexcept;
         Graphics::Color4ub    GetColor(std::size_t index = 0) const noexcept;
          vector2     GetTextureCoordinate(std::size_t index) const noexcept;
-		 std::size_t GetInstancedMatrixCount() const noexcept;
-		 matrix3 GetInstancedMatrix(std::size_t index) const noexcept;
-		 std::vector <matrix3>* GetPointerToInstancedMatrix() const noexcept;
-		 bool IsInstanceMatrixInvalid() const noexcept;
 
         PointListPattern GetPointListPattern() const noexcept;
         void             SetPointListType(PointListPattern type) noexcept;
@@ -41,7 +37,6 @@ namespace Graphics
         void AddColor(Graphics::Color4ub color) noexcept;
         void AddPoint( vector2 point) noexcept;
         void AddTextureCoordinate( vector2 texture_coordinate) noexcept;
-		void ChangeReferenceInstancedMatrices(std::vector<matrix3>* matrix) noexcept;
 
         void ClearColors() noexcept;
         bool HasMoreThanOneColor() const noexcept;
@@ -49,6 +44,25 @@ namespace Graphics
         void ClearTextureCoordinates() noexcept;
         void ClearPoints() noexcept;
         void Clear() noexcept;
+
+        // Instancing functions
+        std::size_t GetInstancedMatrixCount() const noexcept;
+        matrix3 GetInstancedMatrix(std::size_t index) const noexcept;
+        std::vector <matrix3>* GetPointerToInstancedMatrix() const noexcept;
+        bool IsInstanceMatrixInvalid() const noexcept;
+        void ChangeReferenceInstancedMatrices(std::vector<matrix3>* matrix) noexcept;
+
+        std::size_t GetInstancedTextureCoordinateCount() const noexcept;
+        vector2 GetInstancedTextureCoordinate(std::size_t index) const noexcept;
+        std::vector<vector2>* GetPointerToInstancedTextureCoordinate() const noexcept;
+        bool IsInstanceTextureCoordinateInvalid() const noexcept;
+        void ChangeReferenceInstancedTextureCoordinates(std::vector<vector2>* newReference) noexcept;
+
+        std::size_t GetInstancedColorCount() const noexcept;
+        Graphics::Color4ub GetInstancedColors(std::size_t index) const noexcept;
+        std::vector<Graphics::Color4ub>* GetPointerToInstancedColors() const noexcept;
+        bool IsInstancedColorsInvalid() const noexcept;
+        void ChangeReferenceInstancedColors(std::vector<Graphics::Color4ub>* newReference) noexcept;
 
     private:
         std::vector<vector2>  points{};
@@ -58,6 +72,8 @@ namespace Graphics
 
 		/* Below variables are storage to save data to implement with Instancing */
 		std::vector <matrix3>* instancedMatrices = nullptr;
+        std::vector<vector2>* instancedTextureCoordinates = nullptr;
+        std::vector <Graphics::Color4ub>* instancedColors = nullptr;
     };
 
     namespace MESH

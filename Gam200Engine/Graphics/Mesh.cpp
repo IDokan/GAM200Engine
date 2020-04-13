@@ -233,4 +233,68 @@ namespace Graphics
 
         return line;
     }
+    vector2 Mesh::GetInstancedTextureCoordinate(std::size_t index) const noexcept
+    {
+        if (IsInstanceTextureCoordinateInvalid())
+        {
+            return vector2{ 0.f };
+        }
+        else if (index >= instancedTextureCoordinates->size())
+        {
+            return instancedTextureCoordinates->at(index % 4);
+        }
+        return instancedTextureCoordinates->at(index);
+    }
+    std::vector<vector2>* Mesh::GetPointerToInstancedTextureCoordinate() const noexcept
+    {
+        return instancedTextureCoordinates;
+    }
+    bool Mesh::IsInstanceTextureCoordinateInvalid() const noexcept
+    {
+        return (instancedTextureCoordinates == nullptr) || (instancedTextureCoordinates->empty());
+    }
+    void Mesh::ChangeReferenceInstancedTextureCoordinates(std::vector<vector2>* newReference) noexcept
+    {
+        instancedTextureCoordinates = newReference;
+    }
+    Graphics::Color4ub Mesh::GetInstancedColors(std::size_t index) const noexcept
+    {
+        if (IsInstancedColorsInvalid())
+        {
+            return Graphics::Color4ub{ 0 };
+        }
+        else if (index >= instancedColors->size())
+        {
+            return instancedColors->back();
+        }
+        return instancedColors->at(index);
+    }
+    std::vector<Graphics::Color4ub>* Mesh::GetPointerToInstancedColors() const noexcept
+    {
+        return instancedColors;
+    }
+    bool Mesh::IsInstancedColorsInvalid() const noexcept
+    {
+        return (instancedColors == nullptr) || (instancedColors->empty());
+    }
+    void Mesh::ChangeReferenceInstancedColors(std::vector<Graphics::Color4ub>* newReference) noexcept
+    {
+        instancedColors = newReference;
+    }
+    std::size_t Mesh::GetInstancedColorCount() const noexcept
+    {
+        if (instancedColors == nullptr)
+        {
+            return 0;
+        }
+        return instancedColors->size();
+    }
+    std::size_t Mesh::GetInstancedTextureCoordinateCount() const noexcept
+    {
+        if (instancedTextureCoordinates == nullptr)
+        {
+            return 0;
+        }
+        return instancedTextureCoordinates->size();
+    }
 }

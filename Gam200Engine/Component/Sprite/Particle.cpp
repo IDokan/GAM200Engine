@@ -32,7 +32,7 @@ Particle::Particle(Object* obj, size_t newInstancesEachFrame, float startLife, s
 void Particle::Init()
 {
 	Sprite::Init();
-	Sprite::SetInstancingMode(true);
+	Sprite::SetInstancingMode(Sprite::InstanceModes::ON);
 
 	particles.reserve(maxParticles);
 	for (size_t i = 0; i < maxParticles; ++i)

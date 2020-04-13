@@ -142,7 +142,7 @@ void BasicMovementLevel::InitObject() {
     startPoint->AddComponent(new Physics(startPoint));
     startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
     startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
-	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(true);
+	startPoint->GetComponentByTemplate<Sprite>()->SetInstancingMode(Sprite::InstanceModes::ON);
     startPoint->SetDepth(-1.f);
 
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);

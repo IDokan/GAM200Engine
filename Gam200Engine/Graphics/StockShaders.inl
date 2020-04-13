@@ -1,3 +1,4 @@
+#include "StockShaders.hpp"
 /******************************************************************************
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -417,6 +418,71 @@ void main()
 		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats1,
 		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats2,
 		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats3,
+		};
+		return layout;
+	}
+	inline Shader& SHADER::AdvancedInstancing() noexcept
+	{
+		static Shader shader{ R"(
+#version 330
+
+layout(location = 0) in vec2 position;
+layout(location = 1) in vec2 texture_coordinate;
+layout(location = 2) in vec2 texture_coordinate_scaler;
+layout(location = 3) in vec4 color;
+layout(location = 4) in mat3 to_ndc;
+
+uniform float depth;
+
+out vec2 interpolated_texture_coordinate;
+out vec4 interpolated_color;
+
+void main()
+{
+    vec3 position = to_ndc * vec3(position, 1.0f);
+    gl_Position = vec4(position.xy, depth, 1.0);
+
+	// Scale Texture coordinate
+	vec2 TC;
+	TC.x = texture_coordinate.x * texture_coordinate_scaler.x;
+	TC.y = texture_coordinate.y * texture_coordinate_scaler.y;
+
+    interpolated_texture_coordinate = TC;
+	interpolated_color = color;
+}
+)",
+R"(
+#version 330
+
+in vec2 interpolated_texture_coordinate;
+in vec4 interpolated_color;
+
+uniform sampler2D texture_to_sample;
+
+out vec4 output_color;
+
+void main()
+{
+    vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
+    vec4 new_color = interpolated_color * texel;
+    if(new_color.a <= 0.0f)
+        discard;
+    output_color = new_color;
+}
+)" };
+		return shader;
+	}
+	inline const VertexLayoutDescription& SHADER::Advanced_instancing_vertex_layout() noexcept
+	{
+		static VertexLayoutDescription layout
+		{
+			VertexLayoutDescription::FieldType::Position2WithFloats,
+			VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats,
+			VertexLayoutDescription::FieldType::InstancedTextureCoordinateScaler2WithFloats,
+			VertexLayoutDescription::FieldType::InstancedColor4WithUnsignedBytes,
+			VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats1,
+			VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats2,
+			VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats3,
 		};
 		return layout;
 	}

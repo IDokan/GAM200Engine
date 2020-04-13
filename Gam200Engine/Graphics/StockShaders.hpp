@@ -126,6 +126,26 @@ namespace Graphics
 		Shader& Instancing() noexcept;
 		const VertexLayoutDescription& instancing_vertex_layout() noexcept;
 
+		/**
+		 * \brief uniform input:
+		 * depth             : float     - Used to define the meshes depth. Assumed to be in the range of [-1,1)
+		 * texture_to_sample : sampler2D - The texture to be applied to the mesh
+		 * Assumes a Vertex structure of:
+		 * struct Vertex{
+		 *  vector2 position;
+		 *
+		 *  // Since this is instancing shader, model to ndc matrix is in mesh data.
+		 *  vector2 texture_coordinate;
+		 *  Color4 color;
+		 *  mat3 to_ndc         - To transform the mesh's local positions into Normalized Device Coordinates.
+		 * };
+		 * \return Globally accessible Shader for drawing meshes with a texture.
+		 */
+		Shader& AdvancedInstancing() noexcept;
+		const VertexLayoutDescription& Advanced_instancing_vertex_layout() noexcept;
+
+
+
 		// Sprite Uniform Variables
 		constexpr const char* Uniform_ToNDC = "to_ndc";
 		constexpr const char* Uniform_Depth = "depth";

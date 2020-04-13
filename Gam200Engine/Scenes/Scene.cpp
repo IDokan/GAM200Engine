@@ -190,6 +190,8 @@ void Scene::UnloadScene() noexcept
 void Scene::Draw() noexcept
 {
 	// Clear obstacle matrices buffer for instancing.
+	obstacleTextureCoordinateScaler.clear();
+	obstacleColors.clear();
 	obstacleMatrices.clear();
 
 
@@ -219,7 +221,7 @@ void Scene::Draw() noexcept
 	}
 
 	// Obstacle Instancing draw
-	ObstaclesDrawingHelper::Get()->Draw(&obstacleMatrices);
+	ObstaclesDrawingHelper::Get()->Draw(&obstacleTextureCoordinateScaler, &obstacleColors, &obstacleMatrices);
 
 	Graphics::GL::end_drawing();
 }
@@ -271,6 +273,9 @@ void Scene::DrawObject(Object* obj, matrix3 offset) noexcept
 	if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
 	{
 		const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+		static constexpr float TextureCoordinateScalerAdjustValue = 75.f;
+		obstacleTextureCoordinateScaler.push_back(obj->GetScale() / TextureCoordinateScalerAdjustValue);
+		obstacleColors.push_back(Graphics::to_color4ub(obj->GetComponentByTemplate<Sprite>()->GetColor()));
 		obstacleMatrices.push_back(matrix);
 		return;
 	}

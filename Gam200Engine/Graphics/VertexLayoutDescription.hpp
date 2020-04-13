@@ -19,6 +19,8 @@ namespace Graphics
 			InstancedMatrix9WithFloats1,
 			InstancedMatrix9WithFloats2,
 			InstancedMatrix9WithFloats3,
+            InstancedTextureCoordinateScaler2WithFloats,
+            InstancedColor4WithUnsignedBytes,
         };
 
         constexpr VertexLayoutDescription() noexcept = default;
