@@ -287,13 +287,16 @@ void Scene::DrawObject(Object* obj, matrix3 offset) noexcept
 		Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
 
 		std::vector<matrix3> matrices;
+		std::vector<Graphics::Color4ub> colors;
+		std::vector<vector2> tmp;
 		size_t sizeOfParticle = particleObjects.size();
 		matrices.reserve(sizeOfParticle);
 		for (size_t i = 0; i < sizeOfParticle; ++i)
 		{
 			matrices.emplace_back(offset * particleObjects[i].transform.GetModelToWorld());
+			colors.emplace_back(Graphics::to_color4ub(particleObjects[i].color));
 		}
-		particle->UpdateInstancingValues(&matrices, particleEmitter->GetDepth());
+		particle->UpdateInstancingValues(&tmp, &colors, &matrices, particleEmitter->GetDepth());
 		Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
 	}
 

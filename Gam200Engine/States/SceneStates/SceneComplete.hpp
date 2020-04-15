@@ -17,6 +17,7 @@ Creation Date: 03.16.2020
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 
 class Object;
+class ParticleEmitter;
 
 class SceneComplete : public State<SceneStateManager>
 {
@@ -37,5 +38,6 @@ private:
 	Object* menuBackground;
 	Object* backToMain;
 	Object* goToNextLevel;
+	ParticleEmitter* confetti;
 };
 

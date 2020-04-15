@@ -18,6 +18,7 @@ class Depth_Standard
 	float value;
 	Depth_Standard(float arg) : value(arg) {}
 public:
+	static const Depth_Standard HUDFrontVFX;
 	static const Depth_Standard HUD;
 	static const Depth_Standard String;
 	static const Depth_Standard Player;
@@ -27,7 +28,9 @@ public:
 	static const Depth_Standard Jail;
 	static const Depth_Standard SavedCheese;
 	static const Depth_Standard Button;
+	static const Depth_Standard NearBackground;
 	static const Depth_Standard Background;
+	static const Depth_Standard FurtherBackground;
 	static const Depth_Standard Particles;
 	static const Depth_Standard HUDBackground;
 	static const Depth_Standard HUDImage;

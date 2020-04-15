@@ -24,7 +24,7 @@ Creation Date: 02.17.2020
  * life : float - start life of each particle objects
  * numParticles : size_t - maximum size of particle.
  */
-Particle::Particle(Object* obj, size_t newInstancesEachFrame, float startLife, size_t maxParticles, std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&)> updateFunc) noexcept
+Particle::Particle(Object* obj, float newInstancesEachFrame, float startLife, size_t maxParticles, std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&, float)> updateFunc) noexcept
 	: Sprite(obj), newInstancesEachFrame(newInstancesEachFrame), startLife(startLife), maxParticles(maxParticles), ReviveFunc(reviveFunc), UpdateFunc(updateFunc)
 {
 }
@@ -32,7 +32,7 @@ Particle::Particle(Object* obj, size_t newInstancesEachFrame, float startLife, s
 void Particle::Init()
 {
 	Sprite::Init();
-	Sprite::SetInstancingMode(Sprite::InstanceModes::ON);
+	Sprite::SetInstancingMode(Sprite::InstanceModes::ADVANCED);
 
 	particles.reserve(maxParticles);
 	for (size_t i = 0; i < maxParticles; ++i)
@@ -45,7 +45,7 @@ void Particle::Update(float dt)
 {
 	Sprite::Update(dt);
 
-	ReviveDeadParticle();
+	ReviveDeadParticle(dt);
 
 	UpdateAllSingleParticles(dt);
 }
@@ -59,7 +59,7 @@ const std::vector<Particle::ParticleObject>& Particle::GetParticles() const
 	return particles;
 }
 
-void Particle::SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept
+void Particle::SetNewInstancesEachFrame(float newInstancesEachFrame_) noexcept
 {
 	newInstancesEachFrame = newInstancesEachFrame_;
 }
@@ -69,7 +69,7 @@ void Particle::SetStartLife(float startLife_) noexcept
 	startLife = startLife_;
 }
 
-size_t Particle::GetNewInstancesEachFrame() const noexcept
+float Particle::GetNewInstancesEachFrame() const noexcept
 {
 	return newInstancesEachFrame;
 }
@@ -92,15 +92,22 @@ void Particle::UpdateAllSingleParticles(float dt)
 		p.life -= dt;
 		if (!IsParticleObjectDead(p))
 		{
-			UpdateFunc(p);
+			UpdateFunc(p, dt);
 		}
 	}
 }
 
-void Particle::ReviveDeadParticle()
+void Particle::ReviveDeadParticle(float dt)
 {
 	// Revive dead particle into new Alive Particle
-	for (unsigned int i = 0; i < newInstancesEachFrame; ++i)
+
+	static float timer = 0.f;
+	timer += newInstancesEachFrame * dt;
+
+
+	std::size_t newInstances = static_cast<int>(timer);
+
+	for (unsigned int i = 0; i < newInstances; ++i)
 	{
 		const long long unusedParticleIndex = FirstUnusedParticleObject();
 		if (unusedParticleIndex == ERROR_INDEX)
@@ -110,6 +117,11 @@ void Particle::ReviveDeadParticle()
 
 		ParticleObject newObj = ReviveFunc();
 		RespawnParticleObject(particles[unusedParticleIndex], newObj, owner->GetTranslation());
+	}
+
+	if (timer >= 1.f)
+	{
+		timer = timer - static_cast<int>(timer);
 	}
 }
 

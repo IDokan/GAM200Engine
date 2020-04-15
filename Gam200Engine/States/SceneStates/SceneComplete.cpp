@@ -28,6 +28,7 @@ Creation Date: 03.16.2020
 #include <Component/Sprite/Sprite.hpp>
 #include <Object/DepthStandard.hpp>
 #include <Object/ObjectManager.hpp>
+#include <Object/Particles/ParticleEmitter.hpp>
 #include <Systems/Input.hpp>
 #include <Scenes/SceneManager.hpp>
 
@@ -61,6 +62,8 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(menuBackground);
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(backToMain);
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(goToNextLevel);
+	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(confetti);
+
 
 	// Play "Scene Complete Sound"
 	// TODO:
@@ -112,11 +115,13 @@ void SceneComplete::Exit(SceneStateManager* /*manager*/)
 	backToMain = nullptr;
 	goToNextLevel->SetDead(true);
 	goToNextLevel = nullptr;
+	confetti->SetDead(true);
+	confetti = nullptr;
 	// Stop "Scene Complete Sound"
 }
 
 SceneComplete::SceneComplete()
-	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr)
+	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr)
 {
 }
 
@@ -172,6 +177,38 @@ void SceneComplete::PrepareAssets() noexcept
 		goToNextLevel->SetDepth(Depth_Standard::HUDImage);
 	}
 
+
+	if (confetti == nullptr)
+	{
+
+		confetti = new ParticleEmitter(15.f, 80.f, 100, [&]() ->Particle::ParticleObject
+			{
+				Graphics::Color4f colors[3];
+				colors[0] = Graphics::Color4f(1.f, 0.f, 0.f);
+				colors[1] = Graphics::Color4f(0.f, 1.f, 0.f);
+				colors[2] = Graphics::Color4f(0.f, 0.f, 1.f);
+				float startX = (static_cast<float>(rand() % 250) - 125) / 125.f;
+				Particle::ParticleObject p;
+				p.transform.SetScale(vector2{ 0.025f, 0.025f });
+				p.transform.SetTranslation(vector2{ startX, 1.f });
+				float rotation = static_cast<float>(rand() % 314) / 100.f;
+				p.transform.SetRotation(rotation);
+				p.transform.SetDepth(Depth_Standard::HUD);
+				p.life = 1.f;
+				p.color = colors[rand() % 3];
+				p.velocity = vector2{ 0.f, -2.5f };
+
+				return p;
+			},
+			[&](Particle::ParticleObject& p, float dt)
+			{
+				p.transform.SetTranslation(p.transform.GetTranslation() + (dt * p.velocity));
+			}
+			);
+		confetti->SetObjectName("Confetti Emitter");
+		confetti->SetParticleImage("../assets/textures/circle.png");
+		confetti->SetDepth(Depth_Standard::HUDFrontVFX);
+	}
 }
 
 void SceneComplete::CleanAssets() noexcept
@@ -179,4 +216,5 @@ void SceneComplete::CleanAssets() noexcept
 	menuBackground = nullptr;
 	backToMain = nullptr;
 	goToNextLevel = nullptr;
+	confetti = nullptr;
 }

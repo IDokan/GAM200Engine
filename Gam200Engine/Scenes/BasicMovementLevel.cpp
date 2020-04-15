@@ -148,7 +148,7 @@ void BasicMovementLevel::InitObject() {
 	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 
-	ParticleEmitter* emitter = new ParticleEmitter(1U, 5.f, 500U, 
+	ParticleEmitter* emitter = new ParticleEmitter(1.f, 5.f, 500U, 
 		[&]() -> Particle::ParticleObject
 		{
 			Particle::ParticleObject p;
@@ -160,7 +160,7 @@ void BasicMovementLevel::InitObject() {
 			
 			return p;
 		},
-		[&](Particle::ParticleObject& p) -> void
+		[&](Particle::ParticleObject& p, float /*dt*/) -> void
 		{
 			float X = static_cast<float>(rand() % 25);
 			float Y = static_cast<float>(rand() % 25);
@@ -172,8 +172,6 @@ void BasicMovementLevel::InitObject() {
 	emitter->SetObjectName("Particle Emitter");
 	emitter->GetComponentByTemplate<Particle>()->SetImage("../assets/textures/circle.png");
 
-
-    
 }
 
 void AddStateTestObject()

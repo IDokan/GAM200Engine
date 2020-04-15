@@ -98,7 +98,20 @@ void TutorialLevel::Collision()
 	player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
+#include <Object/Particles/ParticleEmitter.hpp>
 void TutorialLevel::InitObject() {
+	Object* ground = new Object();
+	ground->SetObjectName("Ground");
+	ground->SetTranslation(vector2{ 150.f, 780.f });
+	ground->SetScale(vector2{2350.f, 2500.f});
+	Sprite* groundSprite = new Sprite(ground);
+	groundSprite->SetImage("../assets/textures/Ground_Background.png");
+	ground->AddComponent(groundSprite);
+	groundSprite->ExpandTextureCoordinate(3.f);
+	ground->SetDepth(Depth_Standard::Background);
+	ObjectManager::GetObjectManager()->FindLayer(BackGround)->AddObject(ground);
+
+
 	background = new Object();
 	background->SetObjectName("background1");
 	background->SetTranslation(vector2{ 1.f });
@@ -107,7 +120,7 @@ void TutorialLevel::InitObject() {
 	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(50.f);
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
-	background->SetDepth(Depth_Standard::Background);
+	background->SetDepth(Depth_Standard::FurtherBackground);
 
 	movingObject_1 = new Object();
 	movingObject_1->SetObjectType(Object::ObjectType::MOVING_OBJECT);

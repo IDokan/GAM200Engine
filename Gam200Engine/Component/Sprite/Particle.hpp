@@ -32,7 +32,9 @@ public:
 
 		ParticleObject()
 			: velocity(0.f), color(1.f), life(0.f)
-		{}
+		{
+			transform.SetScale(vector2{ 0.f });
+		}
 
 		ParticleObject& operator=(const ParticleObject & rhs)
 		{
@@ -53,8 +55,8 @@ public:
 
 	static const int ERROR_INDEX = -1;
 public:
-	Particle(Object* obj, size_t newInstancesEachFrame, float startLife, size_t maxParticles, 
-		std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&)> updateFunc) noexcept;
+	Particle(Object* obj, float newInstancesEachFrame, float startLife, size_t maxParticles, 
+		std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&, float dt)> updateFunc) noexcept;
 
 	void Init() override;
 	void Update(float dt) override;
@@ -63,27 +65,27 @@ public:
 	const std::vector<Particle::ParticleObject>& GetParticles() const;
 
 	// Setters
-	void SetNewInstancesEachFrame(size_t newInstancesEachFrame_) noexcept;
+	void SetNewInstancesEachFrame(float newInstancesEachFrame_) noexcept;
 	void SetStartLife(float startLife_) noexcept;
 
 	// Getters
-	size_t GetNewInstancesEachFrame() const noexcept;
+	float GetNewInstancesEachFrame() const noexcept;
 	float GetStartLife() const noexcept;
 	size_t GetMaxParticles() const noexcept;
 
 private:
 	void UpdateAllSingleParticles(float dt);
-	void ReviveDeadParticle();
+	void ReviveDeadParticle(float dt);
 	long long FirstUnusedParticleObject() const;
 	void RespawnParticleObject(ParticleObject& particleObject, ParticleObject& newObject, vector2 offset = vector2{0.f});	bool IsParticleObjectDead(const ParticleObject& particleObject) const;
 	
 private:
-	size_t newInstancesEachFrame;
+	float newInstancesEachFrame;
 
 	float startLife;
 	const size_t maxParticles;
 	std::vector<ParticleObject> particles;
 
 	std::function<ParticleObject(void)> ReviveFunc;
-	std::function<void(ParticleObject&)> UpdateFunc;
+	std::function<void(ParticleObject&, float dt)> UpdateFunc;
 };

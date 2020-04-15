@@ -113,7 +113,7 @@ void Sprite::ExpandTextureCoordinate(float scale) noexcept
 void Sprite::UpdateUniforms(const matrix3& toNDC, float depth) noexcept
 {
 	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = toNDC;
-	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth / 5000.f;
 }
 
 Graphics::Vertices* Sprite::GetVertices() const noexcept
@@ -204,7 +204,7 @@ void Sprite::UpdateInstancingValues(std::vector<matrix3>* matrices, float depth)
 		mesh->ChangeReferenceInstancedTextureCoordinates(&textureCoordinates);
 		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::Advanced_instancing_vertex_layout());
 
-		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth / 5000.f;
 		break;
 	default:
 		break;
@@ -229,7 +229,7 @@ void Sprite::UpdateInstancingValues(std::vector<vector2>* textureCoordinates, st
 		mesh->ChangeReferenceInstancedTextureCoordinates(textureCoordinates);
 		vertices->InitializeWithMeshAndLayout(*mesh, Graphics::SHADER::Advanced_instancing_vertex_layout());
 
-		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth;
+		material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth / 5000.f;
 		break;
 	default:
 		break;

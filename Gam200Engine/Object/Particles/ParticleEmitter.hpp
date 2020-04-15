@@ -20,18 +20,18 @@ class ParticleEmitter : public Object
 {
 public:
 	// TODO: Add comment that what each parameters meant to.
-	ParticleEmitter(size_t newInstancesEachFrame, float life, size_t maxParticles, std::function<Particle::ParticleObject(void)> reviveFunc, std::function<void(Particle::ParticleObject&)> updateFunc);
+	ParticleEmitter(float newInstancesEachFrame, float life, size_t maxParticles, std::function<Particle::ParticleObject(void)> reviveFunc, std::function<void(Particle::ParticleObject&, float)> updateFunc);
 
 	void SetParticleImage(const std::filesystem::path& filePath);
 
 	const std::vector<Particle::ParticleObject>& GetParticleObjectsContainer() const;
 
 	//  Setters
-	void SetNewInstancesEachFrame(size_t newInstancesEachFrame) noexcept;
+	void SetNewInstancesEachFrame(float newInstancesEachFrame) noexcept;
 	void SetStartLife(float startLife) noexcept;
 	
 	// Getters
-	size_t GetNewInstancesEachFrame() const noexcept;
+	float GetNewInstancesEachFrame() const noexcept;
 	float GetStartLife() const noexcept;
 	size_t GetMaxParticles() const noexcept;
 	

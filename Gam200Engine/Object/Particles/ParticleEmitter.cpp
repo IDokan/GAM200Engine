@@ -12,8 +12,8 @@ Creation Date: 02.17.2020
 ******************************************************************************/
 #include <Object/Particles/ParticleEmitter.hpp>
 
-ParticleEmitter::ParticleEmitter(size_t newInstancesEachFrame, float life, size_t maxParticles,
-	std::function<Particle::ParticleObject(void)> reviveFunc, std::function<void(Particle::ParticleObject&)> updateFunc)
+ParticleEmitter::ParticleEmitter(float newInstancesEachFrame, float life, size_t maxParticles,
+	std::function<Particle::ParticleObject(void)> reviveFunc, std::function<void(Particle::ParticleObject&, float)> updateFunc)
 {
 	AddComponent(new Particle(this, newInstancesEachFrame, life, maxParticles, reviveFunc, updateFunc));
 
@@ -30,7 +30,7 @@ const std::vector<Particle::ParticleObject>& ParticleEmitter::GetParticleObjects
 	return GetComponentByTemplate<Particle>()->GetParticles();
 }
 
-void ParticleEmitter::SetNewInstancesEachFrame(size_t newInstancesEachFrame) noexcept
+void ParticleEmitter::SetNewInstancesEachFrame(float newInstancesEachFrame) noexcept
 {
 	particle->SetNewInstancesEachFrame(newInstancesEachFrame);
 }
@@ -40,7 +40,7 @@ void ParticleEmitter::SetStartLife(float startLife) noexcept
 	particle->SetStartLife(startLife);
 }
 
-size_t ParticleEmitter::GetNewInstancesEachFrame() const noexcept
+float ParticleEmitter::GetNewInstancesEachFrame() const noexcept
 {
 	return particle->GetNewInstancesEachFrame();
 }

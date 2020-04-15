@@ -237,7 +237,7 @@ namespace Graphics
     {
         if (IsInstanceTextureCoordinateInvalid())
         {
-            return vector2{ 0.f };
+            return vector2{ 1.f };
         }
         else if (index >= instancedTextureCoordinates->size())
         {
@@ -261,7 +261,7 @@ namespace Graphics
     {
         if (IsInstancedColorsInvalid())
         {
-            return Graphics::Color4ub{ 0 };
+            return Graphics::Color4ub{ 255 };
         }
         else if (index >= instancedColors->size())
         {

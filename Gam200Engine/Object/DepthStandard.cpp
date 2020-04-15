@@ -12,6 +12,7 @@ Creation Date: 8th/March/2020
 ******************************************************************************/
 #include <Object/DepthStandard.hpp>
 
+const Depth_Standard Depth_Standard::HUDFrontVFX(-4600.f);
 const Depth_Standard Depth_Standard::HUDText(-4500.f);
 const Depth_Standard Depth_Standard::HUDImage(-4450.f);
 const Depth_Standard Depth_Standard::HUDBackground(-4400.f);
@@ -25,4 +26,6 @@ const Depth_Standard Depth_Standard::MouseAI(-11.5f);
 const Depth_Standard Depth_Standard::GoalPoints(-5.f);
 const Depth_Standard Depth_Standard::Obstacle(-11.5f);
 const Depth_Standard Depth_Standard::Button(-3000.f);
-const Depth_Standard Depth_Standard::Background(4000.f);
+const Depth_Standard Depth_Standard::NearBackground(3500.f);
+const Depth_Standard Depth_Standard::Background(3500.f);
+const Depth_Standard Depth_Standard::FurtherBackground(4000.f);
