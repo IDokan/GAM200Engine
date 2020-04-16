@@ -295,6 +295,12 @@
     <ClCompile Include="Scenes\MenuScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Object\DoorSystem.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\TriggerButton.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -629,6 +635,12 @@
     <ClInclude Include="Component\Button.hpp" />
     <ClInclude Include="Scenes\MenuScene.hpp">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DoorSystem.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TriggerButton.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@ Creation Date: 02.11.2020
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
 #include <Object/InteractiveObject/CrushableObject.hpp>
+#include <Object/DoorSystem.hpp>
 #include <Object/DepthStandard.hpp>
 
 class Object;
@@ -38,38 +39,20 @@ protected:
     void InitObject();
 
 private:
-    void TriggerButton(Object* button_, Object* door_1, Object* door_2);
-    void TriggerButton(Object* button_, Object* door_1);
     Object* background;
 
 
     Object* movingObject_1;
     Object* movingObject_2;
 
-    Object* button;
-    Object* wall1;
-    Object* wall2;
-
-    Object* button1;
-    Object* wall3;
-    Object* wall4;
-
-
-    Object* button2;
-    Object* wall5;
-    Object* wall6;
-
-    Object* wall7;
-    Object* wall8;
-    Object* wall9;
-
-    Object* button3;
-    Object* button4;
 
 
     Object* cheese;
     CrushableObject* jail;
-
-
-    Graphics::Color4f color;
+    DoorSystem* button1;
+    DoorSystem* button2;
+    DoorSystem* button3;
+    DoorSystem* button4;
+    DoorSystem* button5;
+    DoorSystem* button6;
 };

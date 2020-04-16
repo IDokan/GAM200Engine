@@ -73,7 +73,9 @@ void Physics::Update(float dt)
     }
     isCollide = false;
     force = vector2{ 0.f,0.f };
+    friction = 1.f;
     owner->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(position);
+    owner->GetComponentByTemplate<Physics>()->collisionBox.Angle = owner->GetRotation();
 }
 
 void Physics::Clear()
