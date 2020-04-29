@@ -35,8 +35,15 @@ void SoundManager::Load_Sound()
 	ERRCHECK(theResult, "Load Sound");
 	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Magic_Chime.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Dog_Drinking_Close_Up.mp3", FMOD_DEFAULT, nullptr, &sound[SHAREWEIGHT_SOUND]);
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.ogg", FMOD_DEFAULT, nullptr, &sound[CURSORMOVE_SOUND]);
+	ERRCHECK(theResult, "Load Sound"); 
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/LevelClearSound.wav", FMOD_DEFAULT, nullptr, &sound[LEVEL_CLEAR_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/MousePatrolSound.wav", FMOD_DEFAULT, nullptr, &sound[MOUSE_PATROL_SOUND]);
+	ERRCHECK(theResult, "Load Sound"); 
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.ogg", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+
 	for (int sound = 0; sound < SOUNDS::NONE; sound++) {
 		current_ch_volume[sound] = initialVolume;
 	}

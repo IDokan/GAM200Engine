@@ -99,6 +99,23 @@ void BasicMovementLevel::Input()
 
         soundManager.MASTER_VOLUME_UP();
     }
+
+    if (input.IsKeyTriggered(GLFW_KEY_1)) {
+
+        soundManager.Play_Sound(CURSORMOVE_SOUND);
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_2)) {
+
+        soundManager.Play_Sound(LEVEL_CLEAR_SOUND);
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_3)) {
+
+        soundManager.Play_Sound(MOUSE_PATROL_SOUND);
+    }  
+    if (input.IsKeyTriggered(GLFW_KEY_4)) {
+
+        soundManager.Play_Sound(SELECT_SOUND);
+    }
 }
 
 void BasicMovementLevel::Collision()
