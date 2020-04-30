@@ -142,7 +142,7 @@ void TutorialLevel::InitObject() {
 
 	//==================================================== YELLOW ==================================================================
 
-    button1 = new DoorSystem(player1, player2, vector2{ -870.f, 255 }, vector2{ 100.f, 100.f }, vector2{ -725.f, 695.f }, vector2{ 10.f, 100.f }, vector2{ -360.f, -300.f }, vector2{ 10.f, 200.f });
+    button1 = new DoorSystem(player1, player2, vector2{ -870.f, 255 }, vector2{ 100.f, 100.f }, vector2{ -730.f, 706.f }, vector2{ 50.f, 242.f }, vector2{ -300.f, -290.f }, vector2{ 50.f, 310.f });
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 0.0f, 0.2f }, { 1.0f, 1.0f, 0.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "door_1", "door_2");
 

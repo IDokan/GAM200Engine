@@ -110,6 +110,16 @@ void Sprite::ExpandTextureCoordinate(float scale) noexcept
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
+void Sprite::ExpandTextureCoordinate(vector2 scale) noexcept
+{
+	mesh->ClearTextureCoordinates();
+	mesh->AddTextureCoordinate(vector2{ 0.f });
+	mesh->AddTextureCoordinate(vector2{ scale.x, 0.f });
+	mesh->AddTextureCoordinate(scale);
+	mesh->AddTextureCoordinate(vector2{ 0.f, scale.y });
+	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
+}
+
 void Sprite::UpdateUniforms(const matrix3& toNDC, float depth) noexcept
 {
 	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = toNDC;

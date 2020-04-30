@@ -24,7 +24,8 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     openDoor->AddComponent(new Physics(openDoor));
     openDoor->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     openDoor->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(openDoor, Physics::ObjectType::RECTANGLE);
-    openDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    openDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/BLOCK_W.png");
+    openDoor->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(openDoor->GetScale() / 75.f);
     openDoor->SetDepth(-1.f);
 
     closeDoor = new Object();
@@ -35,7 +36,8 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     closeDoor->AddComponent(new Physics(closeDoor));
     closeDoor->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
     closeDoor->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(closeDoor, Physics::ObjectType::RECTANGLE);
-    closeDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    closeDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/BLOCK_W.png");
+    closeDoor->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(closeDoor->GetScale() / 75.f);
     closeDoor->SetDepth(-1.f);
     
     auto objManager = ObjectManager::GetObjectManager();
@@ -48,9 +50,11 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
             Particle::ParticleObject p;
             p.color = Graphics::Color4f(1.f);
             p.transform.SetScale(vector2{ 10.f });
-            p.transform.SetTranslation(button->GetTranslation());
             float x = ((rand() % 100) / 100.f) - 0.5f;
             float y = ((rand() % 100) / 100.f) - 0.5f;
+
+            p.transform.SetTranslation(FindPositionOfParticle(vector2{x, y }, button->GetTranslation(), button->GetScale()));
+
             p.velocity = vector2{x, y};
             p.life = 5.f;
             return p;
@@ -125,4 +129,44 @@ void DoorSystem::SetButtonAndDoorName(std::string buttonName, std::string doorNa
     button->SetObjectName(buttonName);
     openDoor->SetObjectName(doorName);
     //particleEmitter->SetObjectName(std::string("ParticleEmitter"));
+}
+
+vector2 DoorSystem::FindPositionOfParticle(vector2 velocity, vector2 doorPosition, vector2 doorScale)
+{
+    vector2 velocityIn1stSquare{ abs(velocity.x), abs(velocity.y) };
+
+    // Calculate offset under assume velocity vector is on 1st square
+    vector2 resultOffset{ -1.f };
+    vector2 compareVector{ doorScale / 2.f };
+
+    float compareAngle = angle_between(compareVector, vector2{ 1.f, 0.f });
+    float angleBetweenX = angle_between(velocityIn1stSquare, vector2{ 1.f, 0.f });
+    if (angleBetweenX < compareAngle)
+    {
+        resultOffset.y = atan(angleBetweenX) * doorScale.x;
+    }
+    else
+    {
+        resultOffset.x = atan(angle_between(velocityIn1stSquare, vector2{ 0.f, 1.f })) * doorScale.y;
+    }
+
+    // Init result vector
+    // Initial value of resultOffset is -1, 
+    // it means if the value which less than 0 does not have valid value
+    // Thus, initialize it into half of scale value.
+    if (resultOffset.x < 0.f)
+    {
+        resultOffset.x = doorScale.x / 2.f;
+    }
+    else
+    {
+        resultOffset.y = doorScale.y / 2.f;
+    }
+
+    // now, resultOffset should have valid x, y values.
+    vector2 resultPosition = doorPosition;
+    resultPosition.x += (velocity.x >= 0.f) ? resultOffset.x : -resultOffset.x;
+    resultPosition.y += (velocity.y >= 0.f) ? resultOffset.y : -resultOffset.y;
+
+    return resultPosition;
 }

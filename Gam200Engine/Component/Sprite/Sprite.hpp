@@ -51,6 +51,7 @@ public:
 	// Test function they should be implemented specifically later...
 	void SetIsBackground(bool isBackGround) noexcept;
 	void ExpandTextureCoordinate(float scale) noexcept;
+	void ExpandTextureCoordinate(vector2 scale) noexcept;
 
 	Graphics::Vertices* GetVertices() const noexcept;
 	Graphics::material* GetMaterial() const noexcept;

@@ -17,6 +17,8 @@ public:
     void SetButtonAndDoorName(std::string buttonName, std::string doorName);
 
 private:
+    vector2 FindPositionOfParticle(vector2 velocity, vector2 doorPosition, vector2 doorScale);
+private:
 
     Object* button;
     Object* button1;
