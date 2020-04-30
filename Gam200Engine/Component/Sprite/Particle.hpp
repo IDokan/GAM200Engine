@@ -67,19 +67,28 @@ public:
 	// Setters
 	void SetNewInstancesEachFrame(float newInstancesEachFrame_) noexcept;
 	void SetStartLife(float startLife_) noexcept;
+	void SetShouldReviveLikeTrigger(bool should) noexcept;
+	void SetTriggerFlag(bool flag) noexcept;
 
 	// Getters
 	float GetNewInstancesEachFrame() const noexcept;
 	float GetStartLife() const noexcept;
 	size_t GetMaxParticles() const noexcept;
 
+
 private:
 	void UpdateAllSingleParticles(float dt);
 	void ReviveDeadParticle(float dt);
+	void ReviveDeadParticle(bool& flag);
 	long long FirstUnusedParticleObject() const;
 	void RespawnParticleObject(ParticleObject& particleObject, ParticleObject& newObject, vector2 offset = vector2{0.f});	bool IsParticleObjectDead(const ParticleObject& particleObject) const;
 	
 private:
+	bool shouldReviveLikeTrigger;
+	bool triggerFlag;
+
+	float timer;
+
 	float newInstancesEachFrame;
 
 	float startLife;

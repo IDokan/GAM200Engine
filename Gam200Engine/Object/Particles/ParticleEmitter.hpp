@@ -29,6 +29,8 @@ public:
 	//  Setters
 	void SetNewInstancesEachFrame(float newInstancesEachFrame) noexcept;
 	void SetStartLife(float startLife) noexcept;
+	void SetShouldReviveLikeTrigger(bool should) noexcept;
+	void SetTriggerFlag(bool flag) noexcept;
 	
 	// Getters
 	float GetNewInstancesEachFrame() const noexcept;

@@ -186,6 +186,7 @@
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
     <ClInclude Include="Component\StateMachine.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
+    <ClInclude Include="Component\TriggerButton.hpp" />
     <ClInclude Include="Component\UI\FullScreenUIHandler.hpp" />
     <ClInclude Include="Component\UI\StringLengthUIHandler.hpp" />
     <ClInclude Include="Component\UI\VolumeSettingUIHandler.hpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
+    <ClInclude Include="Object\DoorSystem.hpp" />
     <ClInclude Include="Object\HUD\FullScreenSettingUI.hpp" />
     <ClInclude Include="Object\HUD\SelectableObject.hpp" />
     <ClInclude Include="Object\HUD\StringLengthUI.hpp" />
@@ -300,6 +302,7 @@
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
+    <ClCompile Include="Component\TriggerButton.cpp" />
     <ClCompile Include="Component\UI\FullScreenUIHandler.cpp" />
     <ClCompile Include="Component\UI\StringLengthUIHandler.cpp" />
     <ClCompile Include="Component\UI\VolumeSettingUIHandler.cpp" />
@@ -334,6 +337,7 @@
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
     <ClCompile Include="Object\DepthStandard.cpp" />
+    <ClCompile Include="Object\DoorSystem.cpp" />
     <ClCompile Include="Object\HUD\FullScreenSettingUI.cpp" />
     <ClCompile Include="Object\HUD\SelectableObject.cpp" />
     <ClCompile Include="Object\HUD\StringLengthUI.cpp" />

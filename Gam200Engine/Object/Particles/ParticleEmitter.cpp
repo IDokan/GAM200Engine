@@ -40,6 +40,16 @@ void ParticleEmitter::SetStartLife(float startLife) noexcept
 	particle->SetStartLife(startLife);
 }
 
+void ParticleEmitter::SetShouldReviveLikeTrigger(bool should) noexcept
+{
+	particle->SetShouldReviveLikeTrigger(should);
+}
+
+void ParticleEmitter::SetTriggerFlag(bool flag) noexcept
+{
+	particle->SetTriggerFlag(flag);
+}
+
 float ParticleEmitter::GetNewInstancesEachFrame() const noexcept
 {
 	return particle->GetNewInstancesEachFrame();
