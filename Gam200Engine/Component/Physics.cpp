@@ -698,7 +698,6 @@ void Physics::IsCollideWithMovedObject()
                     if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f)
                     {
                         //dirtyFlag = true;
-                        std::cout << "asd\n";
                     }
                 }
 
