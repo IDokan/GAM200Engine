@@ -643,10 +643,25 @@ void Physics::IsCollideWithMovedObject()
             {
                 if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
                 {
+                //    if (dirtyFlag == true)
+                //    {
+                //        playSound();
+                //    }
                     object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
                     object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
                     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+
+                    //dirtyFlag = false;
                 }
+                //if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                //{
+                //    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0.f)
+                //    {
+                //        //dirtyFlag = true;
+                //        std::cout << "asd\n";
+                //    }
+                //}
+
                 break;
             }
             case Physics::ObjectSide::BOTTOM_SIDE:
@@ -677,6 +692,16 @@ void Physics::IsCollideWithMovedObject()
                     object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
                     object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                 }
+
+                if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                {
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f)
+                    {
+                        //dirtyFlag = true;
+                        std::cout << "asd\n";
+                    }
+                }
+
                 break;
             }
             default:

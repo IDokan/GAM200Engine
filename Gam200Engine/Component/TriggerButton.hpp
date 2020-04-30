@@ -15,6 +15,7 @@ public:
 
     void OpenTwoDoorWithOneButton();
     void OpenOneDoorWithOneButton();
+    void OpenTwoDoorWithTwoButton();
 private:
     Object* button;
     Object* button1;
