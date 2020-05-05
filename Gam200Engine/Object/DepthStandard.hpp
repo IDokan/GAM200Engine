@@ -30,6 +30,7 @@ public:
 	static const Depth_Standard Button;
 	static const Depth_Standard NearBackground;
 	static const Depth_Standard Background;
+	static const Depth_Standard DustVFX;
 	static const Depth_Standard FurtherBackground;
 	static const Depth_Standard Particles;
 	static const Depth_Standard HUDBackground;

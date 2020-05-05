@@ -91,20 +91,34 @@ enum class MessageTypes
 		* 
 		* @Predictable receiver and function
 		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
-		*		Players: receiver will change its state into (Idle or LevelStart) State. (Will be implemented)
+		*		Players: receiver will change its state into (Idle or LevelStart) State.
 		*/
 	   GameRestarted,
 
-	   /**
-		* \brief
-		* @extraInfo:
-		*		string value of next Level.
-		*
-		*
-		* @Predictable receiver and function
-		*		Players: receiver will change its state into SceneComplete State. (Will be implemented)
-		*/
-	   SceneComplete,
+       /**
+        * \brief
+        * @extraInfo:
+        *		string value of next Level.
+        *
+        *
+        * @Predictable receiver and function
+        *		Players: receiver will change its state into SceneComplete State.
+        */
+        SceneComplete,
+
+        /**
+         * \brief
+         * @Predictable receiver and function
+         *		SceneStateManager: receiver will turn on isHostageRescused.
+         */
+         HostageRescued,
+
+        /**
+         * \brief
+         * @Predictable receiver and function
+         *		HostageAlertsUI: receiver will update their position.
+         */
+        HostageNotRescuedYet,
 
        NUM_OF_MESSAGE_TYPES,
 };
@@ -116,6 +130,10 @@ enum class MessageObjects
 {
     Player1,
     Player2,
+
+    // Hostage who is a little cheese in jail
+    // In some what perspective, it might be a goal of each round
+    Hostage,
 
     //for key&lock system
     Key1,
@@ -130,6 +148,8 @@ enum class MessageObjects
 
     // Object type for StringLengthUI
     StringLengthUI,
+    // Object type for HostageAlertsUI
+    HostageAlertsUI,
 
     // Mouse Object! This is a main enemy of player..
     Mouse,

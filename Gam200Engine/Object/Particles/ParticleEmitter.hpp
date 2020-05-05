@@ -31,6 +31,7 @@ public:
 	void SetStartLife(float startLife) noexcept;
 	void SetShouldReviveLikeTrigger(bool should) noexcept;
 	void SetTriggerFlag(bool flag) noexcept;
+	void SetShouldReviveParticle(bool should) noexcept;
 	
 	// Getters
 	float GetNewInstancesEachFrame() const noexcept;

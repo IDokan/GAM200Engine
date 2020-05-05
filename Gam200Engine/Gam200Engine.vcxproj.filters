@@ -297,6 +297,17 @@
     <ClCompile Include="Component\Button.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\TriggerButton.cpp" />
+    <ClCompile Include="Object\DoorSystem.cpp" />
+    <ClCompile Include="Component\Scripts\Hostage.cpp">
+      <Filter>Component\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\HostageAlertsUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\HostageAlertsUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -633,6 +644,17 @@
     </ClInclude>
     <ClInclude Include="Component\Button.hpp">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TriggerButton.hpp" />
+    <ClInclude Include="Object\DoorSystem.hpp" />
+    <ClInclude Include="Component\Scripts\Hostage.hpp">
+      <Filter>Component\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\HostageAlertsUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\HostageAlertsUIHandler.hpp">
+      <Filter>Component\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

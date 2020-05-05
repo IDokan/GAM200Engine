@@ -26,6 +26,7 @@ Creation Date: 12.10.2019
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Systems/ObstaclesDrawingHelper.hpp>
 #include <Object/HUD/StringLengthUI.hpp>
+#include <Object/HUD/HostageAlertsUI.hpp>
 
 // Include Scene States
 #include <States/SceneStates/PlayerIsDead.hpp>
@@ -348,15 +349,18 @@ void Scene::InitDEBUGObjects()
 
 void Scene::InitRequiredObjects()
 {
+	Layer* hud = ObjectManager::GetObjectManager()->FindLayer(HUD);
 	sceneStateManager = new SceneStateManager();
-	ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObject(sceneStateManager);
+	hud->AddObject(sceneStateManager);
 
 	PlayerIsDead::Get()->PrepareAssets();
 	SceneComplete::Get()->PrepareAssets();
 
-	StringLengthUI* ui = new StringLengthUI();
-	ui->SetObjectName("StringLength UI");
-	ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObject(ui);
+	StringLengthUI* slUI = new StringLengthUI();
+	hud->AddObject(slUI);
+
+	HostageAlertsUI* haUI = new HostageAlertsUI();
+	hud->AddObject(haUI);
 }
 
 void Scene::CleanRequiredObjects()

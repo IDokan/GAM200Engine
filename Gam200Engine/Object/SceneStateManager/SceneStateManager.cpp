@@ -45,6 +45,13 @@ SceneStateManager::SceneStateManager()
 				MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::GameRestarted);
 				MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::GameRestarted);
 				break;
+			case MessageTypes::HostageRescued:
+				if (GameIsRunning* state = GameIsRunning::Get();
+					state == stateMachine->GetCurrentState())
+				{
+					state->SetIsHostageRescued(true);
+				}
+				break;
 			case MessageTypes::PlayerReachedGoal:
 				// if currentState is GameIsRunning
 				if (GameIsRunning* state = GameIsRunning::Get();

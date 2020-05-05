@@ -50,6 +50,11 @@ void ParticleEmitter::SetTriggerFlag(bool flag) noexcept
 	particle->SetTriggerFlag(flag);
 }
 
+void ParticleEmitter::SetShouldReviveParticle(bool should) noexcept
+{
+	particle->SetShouldReviveParticle(should);
+}
+
 float ParticleEmitter::GetNewInstancesEachFrame() const noexcept
 {
 	return particle->GetNewInstancesEachFrame();

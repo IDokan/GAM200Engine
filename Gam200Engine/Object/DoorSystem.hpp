@@ -24,5 +24,6 @@ private:
     Object* button1;
     Object* openDoor;
     Object* closeDoor;
-    ParticleEmitter* particleEmitter;
+    ParticleEmitter* openEmitter;
+    ParticleEmitter* closeEmitter;
 };

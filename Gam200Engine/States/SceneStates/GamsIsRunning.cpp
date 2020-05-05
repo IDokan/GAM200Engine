@@ -24,6 +24,8 @@ Creation Date: 03.16.2020
 #include <Component/StateMachine.hpp>
 #include <States/SceneStates/SceneComplete.hpp>
 
+#include <Systems/MessageSystem/MessageDispatcher.hpp>
+
 GameIsRunning* GameIsRunning::Get()
 {
 	static GameIsRunning* state = new GameIsRunning();
@@ -32,20 +34,37 @@ GameIsRunning* GameIsRunning::Get()
 
 void GameIsRunning::Enter(SceneStateManager* /*manager*/)
 {
-	// Do nothing
+	CleanAssets();
 }
 
 void GameIsRunning::Execute(SceneStateManager* manager)
 {
 	if (player1IsInGoal && player2IsInGoal)
 	{
-		manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(SceneComplete::Get());
+		if (isHostageRescued)
+		{
+			manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(SceneComplete::Get());
+		}
+		else
+		{
+			MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::HostageAlertsUI, MessageTypes::HostageNotRescuedYet);
+		}
 	}
 }
 
 void GameIsRunning::Exit(SceneStateManager* /*manager*/)
 {
 	printf("Scene State Manger: GameIsRunning state is exited");
+}
+
+void GameIsRunning::SetIsHostageRescued(bool is) noexcept
+{
+	isHostageRescued = is;
+}
+
+bool GameIsRunning::GetIsHostageRescued() noexcept
+{
+	return isHostageRescued;
 }
 
 void GameIsRunning::SetPlayerIsInGoal(Player::Identifier playerID, bool inGoal) noexcept
@@ -81,11 +100,12 @@ bool GameIsRunning::GetPlayerIsInGoal(Player::Identifier playerID) const noexcep
 
 void GameIsRunning::CleanAssets() noexcept
 {
+	isHostageRescued = false;
 	player1IsInGoal = false;
 	player2IsInGoal = false;
 }
 
 GameIsRunning::GameIsRunning()
-	: player1IsInGoal(false), player2IsInGoal(false)
+	: isHostageRescued(false), player1IsInGoal(false), player2IsInGoal(false)
 {
 }

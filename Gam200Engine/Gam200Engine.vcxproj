@@ -177,6 +177,7 @@
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Scripts\Accumulating.hpp" />
     <ClInclude Include="Component\Scripts\GoalComponent.hpp" />
+    <ClInclude Include="Component\Scripts\Hostage.hpp" />
     <ClInclude Include="Component\Scripts\Volatile.hpp" />
     <ClInclude Include="Component\Sprite\Animation.hpp" />
     <ClInclude Include="Component\Sprite\CrushableObjectAnimation.hpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Component\StringPhysics.hpp" />
     <ClInclude Include="Component\TriggerButton.hpp" />
     <ClInclude Include="Component\UI\FullScreenUIHandler.hpp" />
+    <ClInclude Include="Component\UI\HostageAlertsUIHandler.hpp" />
     <ClInclude Include="Component\UI\StringLengthUIHandler.hpp" />
     <ClInclude Include="Component\UI\VolumeSettingUIHandler.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
@@ -223,6 +225,7 @@
     <ClInclude Include="Object\DepthStandard.hpp" />
     <ClInclude Include="Object\DoorSystem.hpp" />
     <ClInclude Include="Object\HUD\FullScreenSettingUI.hpp" />
+    <ClInclude Include="Object\HUD\HostageAlertsUI.hpp" />
     <ClInclude Include="Object\HUD\SelectableObject.hpp" />
     <ClInclude Include="Object\HUD\StringLengthUI.hpp" />
     <ClInclude Include="Object\HUD\VolumeSettingBarUI.hpp" />
@@ -294,6 +297,7 @@
     <ClCompile Include="Component\Physics.cpp" />
     <ClCompile Include="Component\Scripts\Accumulating.cpp" />
     <ClCompile Include="Component\Scripts\GoalComponent.cpp" />
+    <ClCompile Include="Component\Scripts\Hostage.cpp" />
     <ClCompile Include="Component\Scripts\Volatile.cpp" />
     <ClCompile Include="Component\Sprite\Animation.cpp" />
     <ClCompile Include="Component\Sprite\CrushableObjectAnimation.cpp" />
@@ -304,6 +308,7 @@
     <ClCompile Include="Component\StringPhysics.cpp" />
     <ClCompile Include="Component\TriggerButton.cpp" />
     <ClCompile Include="Component\UI\FullScreenUIHandler.cpp" />
+    <ClCompile Include="Component\UI\HostageAlertsUIHandler.cpp" />
     <ClCompile Include="Component\UI\StringLengthUIHandler.cpp" />
     <ClCompile Include="Component\UI\VolumeSettingUIHandler.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />
@@ -339,6 +344,7 @@
     <ClCompile Include="Object\DepthStandard.cpp" />
     <ClCompile Include="Object\DoorSystem.cpp" />
     <ClCompile Include="Object\HUD\FullScreenSettingUI.cpp" />
+    <ClCompile Include="Object\HUD\HostageAlertsUI.cpp" />
     <ClCompile Include="Object\HUD\SelectableObject.cpp" />
     <ClCompile Include="Object\HUD\StringLengthUI.cpp" />
     <ClCompile Include="Object\HUD\VolumeSettingBarUI.cpp" />

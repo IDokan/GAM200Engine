@@ -25,7 +25,7 @@ Creation Date: 02.17.2020
  * numParticles : size_t - maximum size of particle.
  */
 Particle::Particle(Object* obj, float newInstancesEachFrame, float startLife, size_t maxParticles, std::function<ParticleObject(void)> reviveFunc, std::function<void(ParticleObject&, float)> updateFunc) noexcept
-	: Sprite(obj), shouldReviveLikeTrigger(false), triggerFlag(false), newInstancesEachFrame(newInstancesEachFrame), startLife(startLife), maxParticles(maxParticles), ReviveFunc(reviveFunc), UpdateFunc(updateFunc), timer(0.f)
+	: Sprite(obj), shouldReviveLikeTrigger(false), triggerFlag(false), newInstancesEachFrame(newInstancesEachFrame), startLife(startLife), maxParticles(maxParticles), ReviveFunc(reviveFunc), UpdateFunc(updateFunc), timer(0.f), shouldReviveParticle(true), lastUsedParticleObject(0)
 {
 }
 
@@ -45,14 +45,17 @@ void Particle::Update(float dt)
 {
 
 	Sprite::Update(dt);
-	
-	if (shouldReviveLikeTrigger == true)
+
+	if (shouldReviveParticle)
 	{
-		ReviveDeadParticle(triggerFlag);
-	}
-	else
-	{
-		ReviveDeadParticle(dt);
+		if (shouldReviveLikeTrigger == true)
+		{
+			ReviveDeadParticle(triggerFlag);
+		}
+		else
+		{
+			ReviveDeadParticle(dt);
+		}
 	}
 
 	UpdateAllSingleParticles(dt);
@@ -85,6 +88,11 @@ void Particle::SetShouldReviveLikeTrigger(bool should) noexcept
 void Particle::SetTriggerFlag(bool flag) noexcept
 {
 	triggerFlag = flag;
+}
+
+void Particle::SetShouldReviveParticle(bool should) noexcept
+{
+	shouldReviveParticle = should;
 }
 
 float Particle::GetNewInstancesEachFrame() const noexcept
@@ -123,11 +131,11 @@ void Particle::ReviveDeadParticle(float dt)
 {
 	// Revive dead particle into new Alive Particle
 
-	timer += dt;
+	timer += newInstancesEachFrame * dt;
 
 	std::size_t newInstances = static_cast<int>(timer);
 
-	for (unsigned int i = 0; i < newInstancesEachFrame * newInstances; ++i)
+	for (unsigned int i = 0; i < newInstances; ++i)
 	{
 		const long long unusedParticleIndex = FirstUnusedParticleObject();
 		if (unusedParticleIndex == ERROR_INDEX)
@@ -168,10 +176,8 @@ void Particle::ReviveDeadParticle(bool& flag)
 	flag = false;
 }
 
-long long Particle::FirstUnusedParticleObject() const
+long long Particle::FirstUnusedParticleObject()
 {
-	static size_t lastUsedParticleObject = 0;
-
 	// Search from last used particle, this will usually return almost instantly
 	for (size_t i = lastUsedParticleObject; i < maxParticles; ++i)
 	{

@@ -24,10 +24,10 @@ Creation Date: 02.11.2020
 #include <Object/Mouse/Mouse.hpp>
 #include <Object/Points/GoalPoint.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
-//lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
 #include<Component/MessageCapable.hpp>
+#include <Component/Scripts/Hostage.hpp>
 
 TutorialLevel::TutorialLevel() : background(nullptr), movingObject_1(nullptr), movingObject_2(nullptr)
 {
@@ -91,7 +91,6 @@ void TutorialLevel::Collision()
 	player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
-#include <Object/Particles/ParticleEmitter.hpp>
 void TutorialLevel::InitObject() {
 	Object* ground = new Object();
 	ground->SetObjectName("Ground");
@@ -184,6 +183,7 @@ void TutorialLevel::InitObject() {
     cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
     cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
+	cheese->AddComponent(new Hostage(cheese, player1, player2));
     cheese->SetDepth(Depth_Standard::SavedCheese);
 
     jail = new CrushableObject(vector2{ 860.f,100.f }, vector2{ 100.f,100.f }, Physics::ObjectType::RECTANGLE, string);

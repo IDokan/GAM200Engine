@@ -125,7 +125,7 @@ float Object::GetRotation() const noexcept
 
 float Object::GetDepth() const noexcept
 {
-    return transform.GetDepth() * 5000.f;
+    return transform.CalculateWorldDepth();
 }
 
 bool Object::GetDirtyFlag() const

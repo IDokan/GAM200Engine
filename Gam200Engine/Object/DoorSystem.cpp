@@ -45,32 +45,59 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     objManager->FindLayer(LayerNames::Stage)->AddObject(openDoor);
     objManager->FindLayer(LayerNames::Stage)->AddObject(closeDoor);
 
-    particleEmitter = new ParticleEmitter(10.f, 5.f, 500, [&]()
+    openEmitter = new ParticleEmitter(7.5f, 5.f, 35, [&]()
         {
             Particle::ParticleObject p;
-            p.color = Graphics::Color4f(1.f);
+            p.color = Graphics::Color4f(0.65f);
             p.transform.SetScale(vector2{ 10.f });
             float x = ((rand() % 100) / 100.f) - 0.5f;
             float y = ((rand() % 100) / 100.f) - 0.5f;
 
-            p.transform.SetTranslation(FindPositionOfParticle(vector2{x, y }, button->GetTranslation(), button->GetScale()));
+            p.transform.SetTranslation(FindPositionOfParticle(vector2{ x, y }, openDoor->GetTranslation(), openDoor->GetScale()));
 
-            p.velocity = vector2{x, y};
+            p.velocity = vector2{ x, y };
             p.life = 5.f;
             return p;
         }
         ,
-            [&](Particle::ParticleObject& p, float dt) 
+            [&](Particle::ParticleObject& p, float dt)
         {
             p.transform.SetTranslation(p.transform.GetTranslation() + (p.velocity * 50.f * dt));
+            p.color.alpha -= dt * 0.3f;
         }
         );
-    particleEmitter->SetParticleImage("../assets/textures/circle.png");
-    particleEmitter->SetDepth(Depth_Standard::HUDFrontVFX);
-    particleEmitter->SetShouldReviveLikeTrigger(true);
+    openEmitter->SetParticleImage("../assets/textures/circle.png");
+    openEmitter->SetDepth(Depth_Standard::DustVFX);
+    openEmitter->SetShouldReviveParticle(false);
 
-    Object::AddComponent(new TriggerButton(this, player1, player2, button, nullptr, openDoor, closeDoor, particleEmitter));
-    objManager->FindLayer(LayerNames::Stage)->AddObject(particleEmitter);
+    closeEmitter = new ParticleEmitter(7.5f, 5.f, 35, [&]()
+        {
+            Particle::ParticleObject p;
+            p.color = Graphics::Color4f(0.65f);
+            p.transform.SetScale(vector2{ 10.f });
+            float x = ((rand() % 100) / 100.f) - 0.5f;
+            float y = ((rand() % 100) / 100.f) - 0.5f;
+
+            p.transform.SetTranslation(FindPositionOfParticle(vector2{ x, y }, closeDoor->GetTranslation(), closeDoor->GetScale()));
+
+            p.velocity = vector2{ x, y };
+            p.life = 5.f;
+            return p;
+        }
+        ,
+            [&](Particle::ParticleObject& p, float dt)
+        {
+            p.transform.SetTranslation(p.transform.GetTranslation() + (p.velocity * 50.f * dt));
+            p.color.alpha -= dt * 0.3f;
+        }
+        );
+    closeEmitter->SetParticleImage("../assets/textures/circle.png");
+    closeEmitter->SetDepth(Depth_Standard::DustVFX);
+    closeEmitter->SetShouldReviveParticle(true);
+
+    Object::AddComponent(new TriggerButton(this, player1, player2, button, nullptr, openDoor, closeDoor, openEmitter, closeEmitter));
+    objManager->FindLayer(LayerNames::Stage)->AddObject(openEmitter);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(closeEmitter);
 }
 
 DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vector2 buttonScale, vector2 doorPos, vector2 doorScale, bool isOpen)

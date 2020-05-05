@@ -27,6 +27,8 @@ public:
 	void Execute(SceneStateManager* manager) override;
 	void Exit(SceneStateManager* manager) override;
 
+	void SetIsHostageRescued(bool is) noexcept;
+	bool GetIsHostageRescued() noexcept;
 	void SetPlayerIsInGoal(Player::Identifier playerID, bool inGoal) noexcept;
 	bool GetPlayerIsInGoal(Player::Identifier playerID) const noexcept;
 
@@ -35,6 +37,7 @@ public:
 private:
 	GameIsRunning();
 
+	bool isHostageRescued;
 	bool player1IsInGoal;
 	bool player2IsInGoal;
 };

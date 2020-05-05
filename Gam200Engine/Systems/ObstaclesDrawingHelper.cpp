@@ -15,6 +15,8 @@ Creation Date: 03.10.2020
 #include <Component/Sprite/Sprite.hpp>
 #include <Graphics/GL.hpp>
 
+#include <Object/DepthStandard.hpp>
+
 ObstaclesDrawingHelper* ObstaclesDrawingHelper::Get()
 {
 	static ObstaclesDrawingHelper* helper = new ObstaclesDrawingHelper();
@@ -32,7 +34,7 @@ void ObstaclesDrawingHelper::Init() noexcept
 		obstaclesSprite = new Sprite(obstacles);
 	}
 
-	obstacles->SetDepth(-0.5f);
+	obstacles->SetDepth(Depth_Standard::Obstacle);
 	obstaclesSprite->Init();
 	obstaclesSprite->SetInstancingMode(Sprite::InstanceModes::ADVANCED);
 	obstaclesSprite->SetImage("../assets/textures/BLOCK_W.png");
@@ -40,7 +42,7 @@ void ObstaclesDrawingHelper::Init() noexcept
 
 void ObstaclesDrawingHelper::Draw(std::vector<vector2>* obstaclesTextureCoordinates, std::vector<Graphics::Color4ub>* obstacleColors, std::vector<matrix3>* obstaclesMatrix) noexcept
 {
-	obstaclesSprite->UpdateInstancingValues(obstaclesTextureCoordinates, obstacleColors, obstaclesMatrix, obstacles->GetTransform().CalculateWorldDepth());
+	obstaclesSprite->UpdateInstancingValues(obstaclesTextureCoordinates, obstacleColors, obstaclesMatrix, obstacles->GetDepth());
 	Graphics::GL::drawInstanced(*obstaclesSprite->GetVertices(), *obstaclesSprite->GetMaterial());
 }
 
