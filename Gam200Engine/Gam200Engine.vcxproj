@@ -172,6 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component\Button.hpp" />
+    <ClInclude Include="Component\Checkpoint.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\MessageCapable.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
@@ -287,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Button.cpp" />
+    <ClCompile Include="Component\Checkpoint.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\MessageCapable.cpp" />
     <ClCompile Include="Component\Physics.cpp" />

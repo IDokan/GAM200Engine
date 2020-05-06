@@ -297,6 +297,7 @@
     <ClCompile Include="Component\Button.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Checkpoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -634,6 +635,7 @@
     <ClInclude Include="Component\Button.hpp">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Checkpoint.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
