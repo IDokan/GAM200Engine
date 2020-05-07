@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -171,6 +171,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Button.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\MessageCapable.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
@@ -185,6 +186,10 @@
     <ClInclude Include="Component\Sprite\TextComponent.hpp" />
     <ClInclude Include="Component\StateMachine.hpp" />
     <ClInclude Include="Component\StringPhysics.hpp" />
+    <ClInclude Include="Component\TriggerButton.hpp" />
+    <ClInclude Include="Component\UI\FullScreenUIHandler.hpp" />
+    <ClInclude Include="Component\UI\StringLengthUIHandler.hpp" />
+    <ClInclude Include="Component\UI\VolumeSettingUIHandler.hpp" />
     <ClInclude Include="Graphics\BitmapFont.hpp" />
     <ClInclude Include="Graphics\Camera.hpp" />
     <ClInclude Include="Graphics\CameraManager.hpp" />
@@ -216,38 +221,49 @@
     <ClInclude Include="Object\DEBUGObject\LevelChangeButton.hpp" />
     <ClInclude Include="Object\DEBUGObject\WallSpawner.hpp" />
     <ClInclude Include="Object\DepthStandard.hpp" />
+    <ClInclude Include="Object\DoorSystem.hpp" />
+    <ClInclude Include="Object\HUD\FullScreenSettingUI.hpp" />
+    <ClInclude Include="Object\HUD\SelectableObject.hpp" />
+    <ClInclude Include="Object\HUD\StringLengthUI.hpp" />
+    <ClInclude Include="Object\HUD\VolumeSettingBarUI.hpp" />
     <ClInclude Include="Object\InstancedObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp" />
+    <ClInclude Include="Object\KeyLock.hpp" />
+    <ClInclude Include="Object\Mouse\Mouse.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
     <ClInclude Include="Object\Particles\ParticleEmitter.hpp" />
     <ClInclude Include="Object\Players\Player.h" />
     <ClInclude Include="Object\Players\Player1.h" />
     <ClInclude Include="Object\Players\Player2.h" />
+    <ClInclude Include="Object\Points\GoalPoint.hpp" />
+    <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp" />
     <ClInclude Include="Object\Strings\String.hpp" />
     <ClInclude Include="Object\Strings\StringPiece.hpp" />
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
-    <ClInclude Include="Scenes\CrushObjectLevel.hpp" />
-    <ClInclude Include="Scenes\DeadLevel.hpp" />
-    <ClInclude Include="Scenes\Editor.hpp" />
-    <ClInclude Include="Scenes\EditorTestLevel.hpp" />
-    <ClInclude Include="Scenes\OneWayPassLevel.hpp" />
-    <ClInclude Include="Scenes\ProtoLevel.hpp" />
+    <ClInclude Include="Scenes\MenuScene.hpp" />
+    <ClInclude Include="Scenes\Option.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
     <ClInclude Include="Scenes\SceneManager.hpp" />
-    <ClInclude Include="Scenes\SizeScalingLevel.hpp" />
     <ClInclude Include="Scenes\TutorialLevel.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel1.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel2.hpp" />
     <ClInclude Include="Sounds\SoundManager.hpp" />
+    <ClInclude Include="States\AIStates\MouseIdle.hpp" />
+    <ClInclude Include="States\AIStates\Patrol.hpp" />
     <ClInclude Include="States\PlayerStates\Dead.hpp" />
     <ClInclude Include="States\PlayerStates\Idle.hpp" />
     <ClInclude Include="States\PlayerStates\Move.hpp" />
     <ClInclude Include="States\PlayerStates\PlayerReachesGoal.hpp" />
     <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp" />
+    <ClInclude Include="States\SceneStates\GamsIsRunning.hpp" />
+    <ClInclude Include="States\SceneStates\PlayerIsDead.hpp" />
+    <ClInclude Include="States\SceneStates\SceneComplete.hpp" />
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StringStates\StringIdle.hpp" />
     <ClInclude Include="States\StringStates\StringStretched.hpp" />
@@ -272,6 +288,7 @@
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Button.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\MessageCapable.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
@@ -285,6 +302,10 @@
     <ClCompile Include="Component\Sprite\StringSprite.cpp" />
     <ClCompile Include="Component\Sprite\TextComponent.cpp" />
     <ClCompile Include="Component\StringPhysics.cpp" />
+    <ClCompile Include="Component\TriggerButton.cpp" />
+    <ClCompile Include="Component\UI\FullScreenUIHandler.cpp" />
+    <ClCompile Include="Component\UI\StringLengthUIHandler.cpp" />
+    <ClCompile Include="Component\UI\VolumeSettingUIHandler.cpp" />
     <ClCompile Include="Graphics\BitmapFont.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraManager.cpp" />
@@ -316,38 +337,49 @@
     <ClCompile Include="Object\DEBUGObject\LevelChangeButton.cpp" />
     <ClCompile Include="Object\DEBUGObject\WallSpawner.cpp" />
     <ClCompile Include="Object\DepthStandard.cpp" />
+    <ClCompile Include="Object\DoorSystem.cpp" />
+    <ClCompile Include="Object\HUD\FullScreenSettingUI.cpp" />
+    <ClCompile Include="Object\HUD\SelectableObject.cpp" />
+    <ClCompile Include="Object\HUD\StringLengthUI.cpp" />
+    <ClCompile Include="Object\HUD\VolumeSettingBarUI.cpp" />
     <ClCompile Include="Object\InstancedObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp" />
+    <ClCompile Include="Object\KeyLock.cpp" />
+    <ClCompile Include="Object\Mouse\Mouse.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="Object\Players\Player.cpp" />
     <ClCompile Include="Object\Players\Player1.cpp" />
     <ClCompile Include="Object\Players\Player2.cpp" />
+    <ClCompile Include="Object\Points\GoalPoint.cpp" />
+    <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp" />
     <ClCompile Include="Object\Strings\String.cpp" />
     <ClCompile Include="Object\Strings\StringPiece.cpp" />
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Scenes\BasicMovementLevel.cpp" />
-    <ClCompile Include="Scenes\CrushObjectLevel.cpp" />
-    <ClCompile Include="Scenes\DeadLevel.cpp" />
-    <ClCompile Include="Scenes\Editor.cpp" />
-    <ClCompile Include="Scenes\EditorTestLevel.cpp" />
-    <ClCompile Include="Scenes\OneWayPassLevel.cpp" />
-    <ClCompile Include="Scenes\ProtoLevel.cpp" />
+    <ClCompile Include="Scenes\MenuScene.cpp" />
+    <ClCompile Include="Scenes\Option.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
-    <ClCompile Include="Scenes\SizeScalingLevel.cpp" />
     <ClCompile Include="Scenes\TutorialLevel.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel1.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel2.cpp" />
     <ClCompile Include="Sounds\SoundManager.cpp" />
+    <ClCompile Include="States\AIStates\MouseIdle.cpp" />
+    <ClCompile Include="States\AIStates\Patrol.cpp" />
     <ClCompile Include="States\PlayerStates\Dead.cpp" />
     <ClCompile Include="States\PlayerStates\Idle.cpp" />
     <ClCompile Include="States\PlayerStates\Move.cpp" />
     <ClCompile Include="States\PlayerStates\PlayerReachesGoal.cpp" />
     <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp" />
+    <ClCompile Include="States\SceneStates\GamsIsRunning.cpp" />
+    <ClCompile Include="States\SceneStates\PlayerIsDead.cpp" />
+    <ClCompile Include="States\SceneStates\SceneComplete.cpp" />
     <ClCompile Include="States\StringStates\StringIdle.cpp" />
     <ClCompile Include="States\StringStates\StringStretched.cpp" />
     <ClCompile Include="States\Walking.cpp" />

@@ -20,15 +20,11 @@ Creation Date: 08.05.2019
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 // Include States
-#include <Scenes/Editor.hpp>
-#include <Scenes/EditorTestLevel.hpp>
-#include <Scenes/BasicMovementLevel.hpp>
-#include <Scenes/OneWayPassLevel.hpp>
-#include <Scenes/SizeScalingLevel.hpp>
-#include <Scenes/CrushObjectLevel.hpp>
-#include <Scenes/DeadLevel.hpp>
-#include <Scenes/ProtoLevel.hpp>
 #include <Scenes/TutorialLevel.hpp>
+#include <Scenes/TutorialLevel1.hpp>
+#include <Scenes/TutorialLevel2.hpp>
+#include <Scenes/Option.hpp>
+#include <Scenes/MenuScene.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -52,17 +48,12 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
-#ifdef _DEBUG
-    SceneManager::GetSceneManager()->AddScenes("BasicMovementLevel", dynamic_cast<Scene*>(new BasicMovementLevel()));
+    SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
+    SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
+	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
+    SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
+    SceneManager::GetSceneManager()->AddScenes("Option", dynamic_cast<Scene*>(new OptionLevel()));
 
-	SceneManager::GetSceneManager()->AddScenes("EditorTestLevel", dynamic_cast<Scene*>(new EditorTestLevel()));
-	SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
-	
-#endif
-	SceneManager::GetSceneManager()->AddScenes("OneWayPassLevel", dynamic_cast<Scene*>(new OneWayPassLevel()));
-	SceneManager::GetSceneManager()->AddScenes("DeadLevel", dynamic_cast<Scene*>(new DeadLevel()));
-    SceneManager::GetSceneManager()->AddScenes("CrushObjectLevel", dynamic_cast<Scene*>(new CrushObjectLevel()));
-	SceneManager::GetSceneManager()->AddScenes("ProtoLevel", dynamic_cast<Scene*>(new ProtoLevel()));
     
 
 	ObstaclesDrawingHelper::Get()->Init();
@@ -83,11 +74,11 @@ void Application::Update(float dt)
 
     window.PollEvent();
 
-	const auto& stateManager = SceneManager::GetSceneManager();
-	stateManager->Update(dt);
+	const auto& sceneManager = SceneManager::GetSceneManager();
+	sceneManager->Update(dt);
 	ObjectManager::GetObjectManager()->Update(dt);
 	MessageDispatcher::GetDispatcher()->DispatchDelayedMessages();
-	stateManager->Draw();
+	sceneManager->Draw();
 
     GetApplication()->Input();
 
@@ -106,9 +97,10 @@ void Application::Input()
     {
         window.TurnOnMonitorVerticalSynchronization(!window.IsMonitorVerticalSynchronizationOn());
     }  
-    if (input.IsKeyTriggered(GLFW_KEY_F))
+    if (input.GetShouldToggleWindow() == true)
     {
         window.ToggleFullscreen();
+        input.SetShouldToggleWindow(false);
     }  
 }
 

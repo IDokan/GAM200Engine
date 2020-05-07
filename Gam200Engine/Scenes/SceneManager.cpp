@@ -13,6 +13,7 @@ Creation Date: 08.12.2019
 #include <algorithm>
 #include <Scenes/SceneManager.hpp>
 
+#include  <Systems/Input.hpp>
 
 SceneManager * SceneManager::GetSceneManager()
 {
@@ -33,6 +34,11 @@ void SceneManager::Init()
 
 void SceneManager::Update(float dt)
 {
+    if (input.IsKeyTriggered(GLFW_KEY_R))
+    {
+        GameRestart();
+    }
+
     if (!is_restart) 
     {
         currentScene->Update(dt);

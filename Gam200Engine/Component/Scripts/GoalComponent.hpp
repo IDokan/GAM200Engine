@@ -10,20 +10,31 @@ Creation Date: 12.13.2019
 	Header file for goal component that will be attached at goal object
 ******************************************************************************/
 #pragma once
-#include <string>
 #include <Component/Component.hpp>
+#include <Graphics/Color4f.hpp>
+
+class Player;
+struct vector2;
+enum class MessageTypes;
 
 class GoalComponent : public Component
 {
 public:
-	GoalComponent(Object* obj, const std::string& targetStage_);
+	GoalComponent(Object* obj, Player* targetPlayer, Graphics::Color4f color);
 	virtual ~GoalComponent();
 	
 	virtual void Init() override;
 	virtual void Update(float dt) override;
 	virtual void Clear() override;
 
+	std::string GetTargetStage();
+
+private:
+	bool IsAInsideB(const vector2& minOfA, const vector2& maxOfA, const vector2& minOfB, const vector2& maxOfB) const noexcept;
+	void DispatchMessage(MessageTypes msg);
 private:
 	std::string targetStage;
-	Object* targetObject;
+	Player* targetPlayer;
+	bool isPlayerOnGoal;
+	Graphics::Color4f highlightedColor;
 };

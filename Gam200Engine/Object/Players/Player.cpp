@@ -16,7 +16,9 @@ Creation Date: 23th/Jan/2020
 #include <Component/MessageCapable.hpp>
 #include <Systems/MessageSystem/Message.hpp>
 #include <Object/DepthStandard.hpp>
+
 #include <States/PlayerStates/UpdateAnimation.hpp>
+#include <States/PlayerStates/Dead.hpp>
 
 Player::Player(Identifier player, const Transform& playerTransformData)
 	:Object(), id(player)
@@ -41,7 +43,7 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	
 
 	Object::AddComponent(new Physics(this));
-	GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE);
+    GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f,0.f }, vector2{-20.f,-20.f});
 
 	switch (player)
 	{
@@ -84,15 +86,20 @@ Player::Identifier Player::GetID() const noexcept
 
 void Player::LoadPlayer1Layout()
 {
-	Object::SetObjectName("Player 1");
+	Object::SetObjectName("Player1");
 	Object::SetObjectType(ObjectType::PLAYER_1);
 
 	AddComponent(new MessageCapable(this, MessageObjects::Player1,
 		[&](const Message& msg) -> bool
 		{
+			const float scalerWhenPlayerIsStopping = (String::String_Max_Length - String::String_Stretching_Length) / 10.f;
+			vector2 force{};
+			vector2 velocity{};
+			float scalerBasedOnVelocity = 0;
 			switch(msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Dead::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				break;
@@ -104,8 +111,26 @@ void Player::LoadPlayer1Layout()
 				SetTranslation(*reinterpret_cast<vector2*>(msg.ExtraInfo));
 				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
 				break;
-			case MessageTypes::AddForce:
-				GetComponentByTemplate<Physics>()->AddForce(*reinterpret_cast<vector2*>(msg.ExtraInfo));
+			case MessageTypes::AddStringForce:
+				velocity = GetComponentByTemplate<Physics>()->GetVelocity();
+				force = *reinterpret_cast<vector2*>(msg.ExtraInfo);
+				scalerBasedOnVelocity = magnitude(velocity);
+
+				// When player stop, force much more stronger dramatically..
+				if ((scalerBasedOnVelocity <= 0.1f)
+					&& (GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() && Idle::Get())
+					)
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
+				}
+				else
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
+				}
+				break;
+			case MessageTypes::GameRestarted:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				break;
 			default:
 				return false;
 			}
@@ -116,15 +141,20 @@ void Player::LoadPlayer1Layout()
 
 void Player::LoadPlayer2Layout()
 {
-	Object::SetObjectName("Player 2");
+	Object::SetObjectName("Player2");
 	Object::SetObjectType(ObjectType::PLAYER_2);
 	
 	AddComponent(new MessageCapable(this, MessageObjects::Player2,
 		[&](const Message& msg) -> bool
 		{
+			const float scalerWhenPlayerIsStopping = (String::String_Max_Length - String::String_Stretching_Length) / 10.f;
+			vector2 force{};
+			vector2 velocity{};
+			float scalerBasedOnVelocity = 0;
 			switch (msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Dead::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
 				break;
@@ -136,8 +166,26 @@ void Player::LoadPlayer2Layout()
 				SetTranslation(*reinterpret_cast<vector2*>(msg.ExtraInfo));
 				GetComponentByTemplate<Physics>()->SetPosition(GetTranslation());
 				break;
-			case MessageTypes::AddForce:
-				GetComponentByTemplate<Physics>()->AddForce(*reinterpret_cast<vector2*>(msg.ExtraInfo));
+			case MessageTypes::AddStringForce:
+				velocity = GetComponentByTemplate<Physics>()->GetVelocity();
+				force = *reinterpret_cast<vector2*>(msg.ExtraInfo);
+				scalerBasedOnVelocity = magnitude(velocity);
+
+				// When player stop, force much more stronger dramatically..
+				if ((scalerBasedOnVelocity <= 0.1f)
+					&& (GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() && Idle::Get())
+					)
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
+				}
+				else
+				{
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
+				}
+				break;
+			case MessageTypes::GameRestarted:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				break;
 			default:
 				return false;
 			}

@@ -4,11 +4,11 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   BasicMovementLevel.cpp
 Author
-    - Hyerin.Jung       junghl0621@gmail.com
+	- Hyerin.Jung       junghl0621@gmail.com
 
 Creation Date: 02.11.2020
 
-    Source file for level that player learned how to move player
+	Source file for level that player learned how to move player
 ******************************************************************************/
 #include <Scenes/TutorialLevel.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
@@ -21,12 +21,15 @@ Creation Date: 02.11.2020
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
+#include <Object/Mouse/Mouse.hpp>
+#include <Object/Points/GoalPoint.hpp>
+#include <Object/SceneStateManager/SceneStateManager.hpp>
 //lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
 #include<Component/MessageCapable.hpp>
 
-TutorialLevel::TutorialLevel() : background(nullptr)
+TutorialLevel::TutorialLevel() : background(nullptr), movingObject_1(nullptr), movingObject_2(nullptr)
 {
 }
 
@@ -36,47 +39,29 @@ TutorialLevel::~TutorialLevel()
 
 void TutorialLevel::Load()
 {
-    fileIO* fileio = new fileIO;
+	fileIO* fileio = new fileIO;
 	fileio->Input("../assets/fileIO/savedTutorial.txt", &player1, &player2, &string);
 
-    TutorialLevel::InitObject();
-
-    cameraManager.Init(player1, player2);
+	TutorialLevel::InitObject();
+	
+	cameraManager.Init(player1, player2);
+	sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 }
 
 void TutorialLevel::Update(float /*dt*/)
 {
-    static bool unLock1 = false;
-    static bool unLock2 = false;
-    if (!unLock1)
-        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(key1)
-            || player2->GetComponentByTemplate<Physics>()->IsCollideWith(key1))
-        {
-            MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Key1, MessageObjects::Lock1, MessageTypes::GetKey, 0, 0);
-            key1->SetDead(true);
-            unLock1= true;
-        }
-    if(!unLock2)
-    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(key2)
-        || player2->GetComponentByTemplate<Physics>()->IsCollideWith(key2))
-    {
-        MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Key2, MessageObjects::Lock2, MessageTypes::GetKey, 0, 0);
-        key2->SetDead(true);
-        unLock2 = true;
-    }
-	
 	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
 	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
 
-    TutorialLevel::Collision();
+	TutorialLevel::Collision();
 
-    vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
-    vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
+	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
+	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
 
-    player1->SetTranslation(obj1Position);
-    player2->SetTranslation(obj2Position);
+	player1->SetTranslation(obj1Position);
+	player2->SetTranslation(obj2Position);
 
-    cameraManager.CameraMove(player1, player2, 1.1f);
+	cameraManager.CameraMove(player1, player2, 1.1f);
 }
 
 void TutorialLevel::GameRestart()
@@ -85,13 +70,13 @@ void TutorialLevel::GameRestart()
 
 void TutorialLevel::Unload()
 {
-    /*fileIO* a = 0;
-    a->Output("../assets/fileIO/savedTutorial.txt");*/
+	//fileIO* a = 0;
+	//a->Output("../assets/fileIO/savedTutorial.txt");
 }
 
 void TutorialLevel::Collision()
 {
-    player1->GetComponentByTemplate<Physics>()->ManageCollision();
+	player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
 void TutorialLevel::InitObject() {
@@ -103,119 +88,107 @@ void TutorialLevel::InitObject() {
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 
-    key1 = new Object();
-    key1->SetObjectName("key1");
-    key1->SetTranslation(vector2{ 100.f,1450.f });
-    key1->SetObjectType(Object::ObjectType::KEY_1);
-    key1->SetScale(vector2{ 100.f });
-    key1->AddComponent(new Sprite(key1));
-    key1->AddComponent(new Physics(key1));
-    key1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key1.png");
-    key1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key1, Physics::ObjectType::CIRCLE);
-    key1->SetDepth(-1.f);
+	movingObject_1 = new Object();
+	movingObject_1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+	movingObject_1->SetObjectName("movingObject_1");
+	movingObject_1->SetTranslation(vector2{ 340.f, 850.f });
+	movingObject_1->SetScale(vector2{ 100.f, 100.f });
+	movingObject_1->AddComponent(new Sprite(movingObject_1));
+	movingObject_1->AddComponent(new Physics(movingObject_1));
+	movingObject_1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+	movingObject_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject_1, Physics::ObjectType::RECTANGLE);
+	movingObject_1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+	movingObject_1->SetDepth(-1.f);
 
-    key2 = new Object();
-    key2->SetObjectName("key2");
-    key2->SetTranslation(vector2{ -800.f, 600.f });
-    key2->SetObjectType(Object::ObjectType::KEY_2);
-    key2->SetScale(vector2{ 100.f });
-    key2->AddComponent(new Sprite(key2));
-    key2->AddComponent(new Physics(key2));
-    key2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/key2.png");
-    key2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(key2, Physics::ObjectType::CIRCLE);
-    key2->SetDepth(-1.f);
-    
-    lock1 = new Object();
-    lock1->SetObjectName("lock1");
-    lock1->SetTranslation(vector2{ 600.f, 1050.f });
-    lock1->SetObjectType(Object::ObjectType::LOCK_1);
-    lock1->SetScale(100.f);
-    lock1->AddComponent(new Sprite(lock1));
-    lock1->AddComponent(new Physics(lock1));
-    lock1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/lock1.png");
-    lock1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(lock1, Physics::ObjectType::CIRCLE);
-    lock1->SetDepth(-1.f);
-    lock1->AddComponent(new MessageCapable(lock1, MessageObjects::Lock1, [&](const Message& msg)->bool
-    {
-        switch (msg.Msg)
-        {
-        case MessageTypes::GetKey:
-            lock1->SetDead(true);
-            break;
-        default:
-            return false;
-        }
-        return true;
-    }));
-
-    lock2 = new Object();
-    lock2->SetObjectName("lock2");
-    lock2->SetTranslation(vector2{ 760.f,400.f });
-    lock2->SetObjectType(Object::ObjectType::LOCK_2);
-    lock2->SetScale(100.f);
-    lock2->AddComponent(new Sprite(lock2));
-    lock2->AddComponent(new Physics(lock2));
-    lock2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/lock2.png");
-    lock2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(lock2, Physics::ObjectType::CIRCLE);
-    lock2->SetDepth(-1.f);
-    lock2->AddComponent(new MessageCapable(lock2, MessageObjects::Lock2, [&](const Message& msg)->bool
-    {
-        switch (msg.Msg)
-        {
-        case MessageTypes::GetKey:
-            lock2->SetDead(true);
-            break;
-        default:
-            return false;
-        }
-        return true;
-    }));
-
-	goalPoint = new Object();
-	goalPoint->SetObjectType(Object::ObjectType::TEST);
-	goalPoint->SetObjectName("goalPoint");
-	goalPoint->SetTranslation(vector2{ 1000.f, -10.f });
-	goalPoint->SetScale(vector2{ 150.f });
-	goalPoint->AddComponent(new Sprite(goalPoint));
-	goalPoint->AddComponent(new Physics(goalPoint));
-	goalPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(goalPoint, Physics::ObjectType::RECTANGLE);
-	goalPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-	goalPoint->SetDepth(-1.f);
-
-	startPoint = new Object();
-	startPoint->SetObjectType(Object::ObjectType::TEST);
-	startPoint->SetObjectName("startPoint");
-	startPoint->SetTranslation(vector2{ -800.f, -2000.f });
-	startPoint->SetScale(vector2{ 150.f });
-	startPoint->AddComponent(new Sprite(startPoint));
-	startPoint->AddComponent(new Physics(startPoint));
-	startPoint->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(startPoint, Physics::ObjectType::RECTANGLE);
-	startPoint->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
-	startPoint->SetDepth(-1.f);
+	movingObject_2 = new Object();
+	movingObject_2->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+	movingObject_2->SetObjectName("movingObject_2");
+	movingObject_2->SetTranslation(vector2{ 340.f, 1140.f });
+	movingObject_2->SetScale(vector2{ 100.f, 100.f });
+	movingObject_2->AddComponent(new Sprite(movingObject_2));
+	movingObject_2->AddComponent(new Physics(movingObject_2));
+	movingObject_2->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+	movingObject_2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject_2, Physics::ObjectType::RECTANGLE);
+	movingObject_2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+	movingObject_2->SetDepth(-1.f);
 
 
+	//==================================================== YELLOW ==================================================================
 
-	Object* pushingObj = new Object();
-	pushingObj->SetObjectName("pushing Test");
-	pushingObj->SetTranslation(vector2{ 700.f, -1200.f });
-	pushingObj->SetScale(vector2{ 150.f });
-	pushingObj->AddComponent(new Physics(pushingObj));
-	pushingObj->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-	Physics* pushingPhysics = pushingObj->GetComponentByTemplate<Physics>();
-	pushingObj->SetObjectCollidingSide(Object::ObjectSide::BOTTOM_SIDE);
-	pushingPhysics->SetCollisionBoxAndObjectType(pushingObj, Physics::ObjectType::RECTANGLE);
-	pushingObj->AddComponent(new Sprite(pushingObj));
-	pushingObj->SetDepth(-0.5f);
+    button1 = new DoorSystem(player1, player2, vector2{ -870.f, 255 }, vector2{ 100.f, 100.f }, vector2{ -725.f, 695.f }, vector2{ 10.f, 100.f }, vector2{ -360.f, -300.f }, vector2{ 10.f, 200.f });
+    button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 0.0f, 0.2f }, { 1.0f, 1.0f, 0.0f, 1.0f });
+    button1->SetButtonAndDoorName("button1", "door_1", "door_2");
 
-    auto objManager = ObjectManager::GetObjectManager();
+    //==================================================== RED ==================================================================
 
-	objManager->FindLayer(LayerNames::Stage)->AddObject(pushingObj);
+    button2 = new DoorSystem(player1, player2, vector2{ -345.f, -5.f }, vector2{ 100.f, 100.f }, vector2{ -600.f, 860.f }, vector2{ 100.f, 10.f }, vector2{ -480.f, -300.f }, vector2{ 10.f, 200.f });
+    button2->SetButtonAndDoorColor({ 1.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 0.2f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+    button2->SetButtonAndDoorName("button2", "door_3", "door_4");
+
+	//==================================================== ORANGE ==================================================================
+
+    button3 =new DoorSystem(player1, player2, vector2{ -630.f, 1750.f }, vector2{ 100.f, 100.f }, vector2{ 520.f, 1775.f }, vector2{ 10.f, 150.f }, vector2{ 675.f, 450.f }, vector2{ 150.f, 10.f });
+    button3->SetButtonAndDoorColor({ 0.50f, 0.5f, 0.f, 1.0f }, { 0.5f, 0.5f, 0.0f, 0.2f }, { 0.5f, 0.5f, 0.0f, 1.0f });
+    button3->SetButtonAndDoorName("button3", "door_5", "door_6");
+
+
+	//==================================================== WHITE ==================================================================
+
+    button4 = new DoorSystem(player1, player2, vector2{ 650.f, 1350.f }, vector2{ 100.f, 100.f }, vector2{ 190.f, 1225.f }, vector2{ 100.f, 10.f }, vector2{ -530.f, 1935.f }, vector2{ 10.f, 100.f });
+    button4->SetButtonAndDoorColor({ 1.f,1.f ,1.f,1.0f }, { 1.f,1.f, 1.f,0.2f }, { 1.f, 1.f, 1.f, 1.0f });
+    button4->SetButtonAndDoorName("button4", "door_7", "door_8");
+
+	//==================================================== PurPle ==================================================================
+
+    button5 = new DoorSystem(player1, player2, vector2{ 1230.f, -360.f }, vector2{ 100.f, 100.f }, vector2{ 1000.f, 1075.f }, vector2{ 10.f, 100.f }, false);
+    button5->SetButtonAndDoorColor({ 1.0f, 0.0f, 1.0f, 1.0f }, { 1.0f, 0.0f, 1.0f, 1.0f });
+    button5->SetButtonAndDoorName("button5", "door_9");
+
+    cheese = new Object();
+    cheese->SetObjectType(Object::ObjectType::SavedCheese);
+    cheese->SetObjectName("cheese");
+    cheese->SetTranslation(vector2{ 860.f, 100.f });
+    cheese->SetScale(vector2{ 50.f, 50.f });
+    Animation* getAnimationComponenet = new Animation(cheese);
+    getAnimationComponenet->SetFrame(6);
+    getAnimationComponenet->SetSpeed(5.f);
+    cheese->AddComponent(getAnimationComponenet);
+    cheese->AddComponent(new Physics(cheese));
+    cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
+    cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
+    cheese->SetDepth(Depth_Standard::SavedCheese);
+
+    jail = new CrushableObject(vector2{ 860.f,100.f }, vector2{ 100.f,100.f }, Physics::ObjectType::RECTANGLE, string);
+    jail->SetDepth(Depth_Standard::Jail);
+    jail->SetObjectName("jail");
+
+
+	// Mouse
+	Mouse* mouse1 = new Mouse(vector2{ -88.f, 405.f }, vector2{ -88.f, -290.f }, vector2{ -88.f, 1100.f }, player1, player2);
+	Mouse* mouse2 = new Mouse(vector2{ 820.f, 630.f }, vector2{ 445.f, 630.f }, vector2{ 1200.f, 630.f }, player1, player2);
+
+	Transform goalTransform;
+	goalTransform.SetTranslation(vector2{ 1050.f, 1750.f });
+	goalTransform.SetScale(vector2{ 350.f });
+	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
+	GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
+
+	auto objManager = ObjectManager::GetObjectManager();
+
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(startPoint);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(key1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(lock1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(key2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(lock2);
-
+	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button5);
+	
+    objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(jail);
 }

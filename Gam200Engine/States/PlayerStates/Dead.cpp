@@ -33,3 +33,7 @@ void Dead::Exit(Player* /*obj*/)
 {
 	printf("Player exit Dead State\n");
 }
+
+Dead::Dead()
+{
+}

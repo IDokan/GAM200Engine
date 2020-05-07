@@ -52,7 +52,9 @@ void StringPhysics::Update(float /*dt*/)
                 continue;
             }
 
-            if (object->GetComponentByTemplate<Physics>() != 0 && object->GetComponentByTemplate<Physics>()->GetHasCollisionBox() == true)
+            if (Physics* physics = object->GetComponentByTemplate<Physics>();
+                physics != nullptr && physics->GetHasCollisionBox() == true
+                && physics->GetIsGhost() == false)
             {
                 const auto objectCollisionBox = object->GetComponentByTemplate<Physics>()->GetCollisionBox();
                 vector2 stringVertex1 = stringPhysicsOwner->vertices.at(i).position;
@@ -180,6 +182,7 @@ void StringPhysics::DeleteVerticesInContainer()
         stringPhysicsOwner->vertices.clear();
         stringPhysicsOwner->vertices.emplace_back(player1->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
         stringPhysicsOwner->vertices.emplace_back(player2->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation);
+        shouldClear = false;
     }
 }
 

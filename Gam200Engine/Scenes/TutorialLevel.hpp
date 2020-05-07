@@ -14,6 +14,9 @@ Creation Date: 02.11.2020
 #include <Scenes/Scene.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
+#include <Object/InteractiveObject/CrushableObject.hpp>
+#include <Object/DoorSystem.hpp>
+#include <Object/DepthStandard.hpp>
 
 class Object;
 class String;
@@ -37,17 +40,19 @@ protected:
 
 private:
     Object* background;
-    Object* startPoint{};
-    Object* goalPoint{};
-    Player* player1{};
-    Player* player2{};
-
-    Object* key1{};
-    Object* key2{};
-
-    Object* lock1{};
-    Object* lock2{};
 
 
-    String* string{};
+    Object* movingObject_1;
+    Object* movingObject_2;
+
+
+
+    Object* cheese;
+    CrushableObject* jail;
+    DoorSystem* button1;
+    DoorSystem* button2;
+    DoorSystem* button3;
+    DoorSystem* button4;
+    DoorSystem* button5;
+    DoorSystem* button6;
 };

@@ -13,6 +13,7 @@ Creation Date: 11.23.2019
 #include "Vector2.hpp"
 #include <iostream>
 #include <Component/Scripts/GoalComponent.hpp>
+#include <Object/DepthStandard.hpp>
 
 void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
 {
@@ -111,15 +112,14 @@ void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Play
 			}
 			else if (objectType == "startpoint")
 			{
-				object->AddComponent(new Physics(object));
-				object->SetObjectType(Object::ObjectType::TEST);
+				object->SetObjectType(Object::ObjectType::OBSTACLE);
+				//object->AddComponent(new GoalComponent(object, spriteFileName));
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/startPoint.png");
 			}
 			else if (objectType == "goalpoint")
 			{
-				object->AddComponent(new GoalComponent(object, spriteFileName));
-				object->AddComponent(new Physics(object));
-				object->SetObjectType(Object::ObjectType::TEST);
+				object->SetObjectType(Object::ObjectType::OBSTACLE);
+				//object->AddComponent(new GoalComponent(object, spriteFileName));
 				object->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
 			}
 			
@@ -141,6 +141,7 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 	for (const auto& object : loadsaveObjectContainer)
 	{
 		if ((object->GetObjectType() == Object::ObjectType::OBSTACLE)
+			|| (object->GetObjectType() == Object::ObjectType::TEST)
 			|| (object->GetObjectType() == Object::ObjectType::PLAYER_1)
 			|| (object->GetObjectType() == Object::ObjectType::PLAYER_2)
 			|| (object->GetObjectType() == Object::ObjectType::TEST))
@@ -151,7 +152,57 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 	int j = 0;
 	for(const auto& object : loadsaveObjectContainer)
 	{
-		if(object->GetObjectType() == Object::ObjectType::OBSTACLE)
+		if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
+		{
+			++j;
+			saveLoad << object->GetObjectName() << ' ';
+			saveLoad << object->GetTranslation().x << ' ';
+			saveLoad << object->GetTranslation().y << ' ';
+			saveLoad << object->GetScale().x << ' ';
+			saveLoad << object->GetScale().y << ' ';
+			saveLoad << object->GetDepth() << ' ';
+			saveLoad << "player1" << ' ';
+			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			{
+				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+			}
+			if (i != j)
+				saveLoad << '\n';
+			break;
+		}
+		
+	}
+	for (const auto& object : loadsaveObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
+		{
+			++j;
+			saveLoad << object->GetObjectName() << ' ';
+			saveLoad << object->GetTranslation().x << ' ';
+			saveLoad << object->GetTranslation().y << ' ';
+			saveLoad << object->GetScale().x << ' ';
+			saveLoad << object->GetScale().y << ' ';
+			saveLoad << object->GetDepth() << ' ';
+			saveLoad << "player2" << ' ';
+			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			{
+				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+			}
+			else
+			{
+				saveLoad << "no";
+			}
+			
+			if (i != j)
+			{
+				saveLoad << '\n';
+				break;
+			}
+		}
+	}
+	for (const auto& object : loadsaveObjectContainer)
+	{
+		if (object->GetObjectType() == Object::ObjectType::OBSTACLE)
 		{
 			++j;
 			saveLoad << object->GetObjectName() << ' ';
@@ -184,9 +235,11 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 			saveLoad << object->GetScale().y << ' ';
 			saveLoad << object->GetDepth() << ' ';
 			
+
 			if (object->GetObjectName() == "goalPoint")
 			{
 				saveLoad << "goalpoint" << ' ';
+				saveLoad << object->GetComponentByTemplate<GoalComponent>()->GetTargetStage();
 			}
 			else if (object->GetObjectName() == "startPoint")
 			{
@@ -197,65 +250,20 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 				saveLoad << "test" << ' ';
 			}
 
-			if (object->GetComponentByTemplate<Sprite>() != nullptr)
+			if (object->GetObjectName() != "goalPoint")
 			{
-				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
-			}
-			else
-			{
-				saveLoad << "no";
+				if (object->GetComponentByTemplate<Sprite>() != nullptr)
+				{
+					saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
+				}
+				else
+				{
+					saveLoad << "no";
+				}
 			}
 
 			if (i != j)
-			{
 				saveLoad << '\n';
-			}
-		}
-		else if (object->GetObjectType() == Object::ObjectType::PLAYER_1)
-		{
-			++j;
-			saveLoad << object->GetObjectName() << ' ';
-			saveLoad << object->GetTranslation().x << ' ';
-			saveLoad << object->GetTranslation().y << ' ';
-			saveLoad << object->GetScale().x << ' ';
-			saveLoad << object->GetScale().y << ' ';
-			saveLoad << object->GetDepth() << ' ';
-			saveLoad << "player1" << ' ';
-			if (object->GetComponentByTemplate<Sprite>() != nullptr)
-			{
-				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
-			}
-			else
-			{
-				saveLoad << "no";
-			}
-			if (i != j)
-			{
-				saveLoad << '\n';
-			}
-		}
-		else if (object->GetObjectType() == Object::ObjectType::PLAYER_2)
-		{
-			++j;
-			saveLoad << object->GetObjectName() << ' ';
-			saveLoad << object->GetTranslation().x << ' ';
-			saveLoad << object->GetTranslation().y << ' ';
-			saveLoad << object->GetScale().x << ' ';
-			saveLoad << object->GetScale().y << ' ';
-			saveLoad << object->GetDepth() << ' ';
-			saveLoad << "player2" << ' ';
-			if (object->GetComponentByTemplate<Sprite>() != nullptr)
-			{
-				saveLoad << object->GetComponentByTemplate<Sprite>()->GetImagePath();
-			}
-			else
-			{
-				saveLoad << "no";
-			}
-			if (i != j)
-			{
-				saveLoad << '\n';
-			}
 		}
 	}
 

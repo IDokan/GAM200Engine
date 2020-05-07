@@ -178,25 +178,10 @@
     <ClCompile Include="Scenes\BasicMovementLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\CrushObjectLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\DeadLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\OneWayPassLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\ProtoLevel.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SceneManager.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\SizeScalingLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="States\Walking.cpp">
@@ -238,11 +223,83 @@
     <ClCompile Include="Scenes\TutorialLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\EditorTestLevel.cpp">
+    <ClCompile Include="Object\KeyLock.cpp" />
+    <ClCompile Include="Scenes\TutorialLevel1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Editor.cpp">
+    <ClCompile Include="Scenes\TutorialLevel2.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="States\AIStates\MouseIdle.cpp">
+      <Filter>States\AIStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\AIStates\Patrol.cpp">
+      <Filter>States\AIStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DepthStandard.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SceneStates\GamsIsRunning.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
+    <ClCompile Include="States\SceneStates\PlayerIsDead.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SceneStates\SceneComplete.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\UpdateAnimation.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\StringLengthUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\StringLengthUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite\Particle.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\SceneStateManager\SceneStateManager.cpp">
+      <Filter>Object\SceneStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Mouse\Mouse.cpp">
+      <Filter>Object\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Particles\ParticleEmitter.cpp">
+      <Filter>Object\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Points\GoalPoint.cpp">
+      <Filter>Object\Points</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Option.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\VolumeSettingBarUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\SelectableObject.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\VolumeSettingUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HUD\FullScreenSettingUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\FullScreenUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Button.cpp" />
+    <ClCompile Include="Scenes\MenuScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DoorSystem.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\TriggerButton.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,25 +501,10 @@
     <ClInclude Include="Scenes\BasicMovementLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\CrushObjectLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\DeadLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\OneWayPassLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\ProtoLevel.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\Scene.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\SceneManager.hpp">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\SizeScalingLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Component\StateMachine.hpp">
@@ -525,11 +567,80 @@
     <ClInclude Include="Scenes\TutorialLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\EditorTestLevel.hpp">
+    <ClInclude Include="Object\KeyLock.hpp" />
+    <ClInclude Include="Scenes\TutorialLevel1.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Editor.hpp">
+    <ClInclude Include="Scenes\TutorialLevel2.hpp">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="States\AIStates\MouseIdle.hpp">
+      <Filter>States\AIStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\AIStates\Patrol.hpp">
+      <Filter>States\AIStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\SceneStates\GamsIsRunning.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
+    <ClInclude Include="States\SceneStates\PlayerIsDead.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\SceneStates\SceneComplete.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\UpdateAnimation.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\StringLengthUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\StringLengthUIHandler.hpp">
+      <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite\Particle.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SceneStateManager\SceneStateManager.hpp">
+      <Filter>Object\SceneStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Mouse\Mouse.hpp">
+      <Filter>Object\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Particles\ParticleEmitter.hpp">
+      <Filter>Object\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Points\GoalPoint.hpp">
+      <Filter>Object\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Option.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\VolumeSettingBarUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\SelectableObject.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\VolumeSettingUIHandler.hpp">
+      <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\FullScreenSettingUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\FullScreenUIHandler.hpp">
+      <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Button.hpp" />
+    <ClInclude Include="Scenes\MenuScene.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DoorSystem.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TriggerButton.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -601,6 +712,24 @@
     </Filter>
     <Filter Include="Object\Particles">
       <UniqueIdentifier>{64625ed0-0c34-4cda-a969-f3d2e23a88ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\SceneStateManager">
+      <UniqueIdentifier>{59a2330a-0d67-4498-a5fa-06623cc62910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\SceneStates">
+      <UniqueIdentifier>{78dec8ef-cd39-43fd-bb20-56aa74ea85ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Points">
+      <UniqueIdentifier>{cb8ce136-3d46-47c5-8c97-7a8a4537e574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\UI">
+      <UniqueIdentifier>{248ebc20-876a-41eb-8a59-4d0b06b5500e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Mouse">
+      <UniqueIdentifier>{b6dd9a02-0a86-4d18-b843-749f5e39105d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\AIStates">
+      <UniqueIdentifier>{09e35bc1-b5a7-4da2-bb59-83d529d63d96}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

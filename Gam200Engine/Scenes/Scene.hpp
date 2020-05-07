@@ -16,6 +16,10 @@ Creation Date: 08.12.2019
 #include <Sounds/SoundManager.hpp>
 #include <Graphics/GL.hpp>
 
+class SceneStateManager;
+class String;
+class Player;
+
 enum class GameScenes 
 {
     Menu, Game, Proto, Test, Credit, None
@@ -25,7 +29,7 @@ class Scene abstract
 {
 public:
 	Scene()
-		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({})
+		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr)
 	{}
 	virtual ~Scene() = default;
 	void GameRestartScene() noexcept;
@@ -33,7 +37,7 @@ public:
 	void LoadScene() noexcept;
 	void UnloadScene() noexcept;
 
-	virtual void Draw() const noexcept;
+	virtual void Draw() noexcept;
 
 	// Getters
 	const Graphics::CameraManager& GetCameraManager() const noexcept;
@@ -53,19 +57,35 @@ protected:
 	virtual void GameRestart() = 0;
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
-	GameScenes current_scene_info;
-	std::string next_level;
-	bool is_next;
+	void SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position);
+    GameScenes current_scene_info;
+    std::string next_level;
+    bool is_next;
 
 
 	Graphics::CameraManager cameraManager{};
 	SoundManager soundManager{};
+	SceneStateManager* sceneStateManager;
+
+	vector2 player1SpawnPosition{};
+	vector2 player2SpawnPosition{};
+
+	Player* player1{};
+	Player* player2{};
+
+	String* string{};
 
 private:
-	void InstanceDEBUGObjects();
+	std::vector<matrix3> obstacleMatrices;
+	void DrawObject(Object* obj, matrix3 offset = MATRIX3::build_identity()) noexcept;
+private:
+	void InitDEBUGObjects();
+	void InitRequiredObjects();
+	void CleanRequiredObjects();
 
 	//Loading...
 	Object* loadingScene{};
 	Object* loadingText{};
+	Object* loadingAnimation{};
 	bool isLoadingDone = false;
 };

@@ -13,8 +13,28 @@ Creation Date: 01.14.2020
 
 enum class MessageTypes
 {
-    PlayerIsDead,
+    /**
+     * \brief
+     * @extraInfo:
+     *		no extraInfo
+     *
+     * @Predictable receiver and function
+     *		SceneStateManager: Save which player is in goal position.
+                                            Change its state into SceneComplete state, if both players are in goal position.
+     */
     PlayerReachedGoal,
+
+
+    /**
+     * \brief
+     * @extraInfo:
+     *		no extraInfo
+     *
+     * @Predictable receiver and function
+     *		SceneStateManager: Save which player is not in goal position.
+     */
+    PlayerExitedFromGoal,
+
     StringAttached,
     StringDetached,
 
@@ -24,7 +44,7 @@ enum class MessageTypes
      * For example, Receiver would do like a
      *		AddForce(ExtraInfo);
      */
-     AddForce,
+     AddStringForce,
 
      /**
       * \brief
@@ -40,6 +60,14 @@ enum class MessageTypes
        *		SetTranslation(ExtraInfo);
        */
        MoveToAbsolutePosition,
+       /**
+        * \brief
+        * When this message is received, extra information would be a length of current string.
+        *
+		* @Predictable receiver and function
+		*		StringLengthUI: receiver will do an appropriate calculation. Let them know about current state of string.
+        */
+        StringIsStreching,
 
        /**
   * \brief
@@ -47,8 +75,43 @@ enum class MessageTypes
   */
        GetKey,
 
+	   /**
+		* \brief
+		* When this message is received, no extra information may be supplied.
+		*
+		* @Predictable receiver and function
+		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
+		*		Players: receiver will change its state into Dead State.
+		*/
+	   PlayerIsDead,
+
+	   /**
+		* \brief
+		* When this message is received, no extra information may be supplied.
+		* 
+		* @Predictable receiver and function
+		*		SceneStateManager: receiver will change its state into PlayerIsDead State.
+		*		Players: receiver will change its state into (Idle or LevelStart) State. (Will be implemented)
+		*/
+	   GameRestarted,
+
+	   /**
+		* \brief
+		* @extraInfo:
+		*		string value of next Level.
+		*
+		*
+		* @Predictable receiver and function
+		*		Players: receiver will change its state into SceneComplete State. (Will be implemented)
+		*/
+	   SceneComplete,
+
        NUM_OF_MESSAGE_TYPES,
 };
+
+
+// In Message Objects, if you have any issue about it.
+// Look up in Object::ObjectType
 enum class MessageObjects
 {
     Player1,
@@ -62,6 +125,14 @@ enum class MessageObjects
 
     String_Object,
     Test_Crushable_Object,
+
+	SceneStateManager,
+
+    // Object type for StringLengthUI
+    StringLengthUI,
+
+    // Mouse Object! This is a main enemy of player..
+    Mouse,
 
     NUM_OF_MESSAGE_OBJECTS,
 };

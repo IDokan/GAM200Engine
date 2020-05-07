@@ -12,7 +12,7 @@ Creation Date: 08.12.2019
 #include "Object.hpp"
 #include <iostream>
 
-Object::Object() : objType(), objSide()
+Object::Object() : objType()
 {
 }
 
@@ -76,14 +76,24 @@ std::string Object::GetObjectName()
     return objectName;
 }
 
+void Object::SetDirtyFlag(bool flag)
+{
+    dirtyFlagForDoor = flag;
+}
+
+void Object::SetTimer(float dt)
+{
+    timer += dt;
+}
+
+void Object::ResetTimer()
+{
+    timer = 0.f;
+}
+
 void Object::SetObjectType(ObjectType objType_)
 {
     objType = objType_;
-}
-
-void Object::SetObjectCollidingSide(ObjectSide objSide_)
-{
-    objSide = objSide_;
 }
 
 std::string Object::GetStringOfObjectType() const noexcept
@@ -126,4 +136,14 @@ float Object::GetRotation() const noexcept
 float Object::GetDepth() const noexcept
 {
     return transform.GetDepth() * 5000.f;
+}
+
+bool Object::GetDirtyFlag() const
+{
+    return dirtyFlagForDoor;
+}
+
+float Object::GetTimer() const
+{
+    return timer;
 }

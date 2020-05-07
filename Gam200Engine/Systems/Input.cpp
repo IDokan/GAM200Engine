@@ -40,6 +40,10 @@ void Input::TriggeredReset()
 
 void Input::SetKeyboardInput(int key, int action)
 {
+    if (key >= GLFW_KEY_LAST || key < 0)
+    {
+        return;
+    }
     switch (action)
     {
         case GLFW_PRESS:
@@ -155,6 +159,26 @@ bool Input::IsMouseButtonReleased(int button)
 bool Input::IsMouseDoubleClicked(int button)
 {
     return mouseButtonDoubleClicked[button];
+}
+
+bool Input::IsRunning() const noexcept
+{
+    return isRunning;
+}
+
+void Input::SetIsRunning(bool is) noexcept
+{
+    isRunning = is;
+}
+
+bool Input::GetShouldToggleWindow() const noexcept
+{
+    return shouldToggleWindow;
+}
+
+void Input::SetShouldToggleWindow(bool should) noexcept
+{
+    shouldToggleWindow = should;
 }
 
 double Input::MouseWheelScroll()

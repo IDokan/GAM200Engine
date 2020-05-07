@@ -39,11 +39,6 @@ private:
     Object* background;
     Object* startPoint{};
     Object* goalPoint{};
-    Player* player1{};
-    Player* player2{};
-
-
-    String* string{};
 
 
 };
