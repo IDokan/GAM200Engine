@@ -223,7 +223,6 @@
     <ClCompile Include="Scenes\TutorialLevel.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Object\KeyLock.cpp" />
     <ClCompile Include="Scenes\TutorialLevel1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -242,7 +241,6 @@
     <ClCompile Include="States\SceneStates\GamsIsRunning.cpp">
       <Filter>States\SceneStates</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp" />
     <ClCompile Include="States\SceneStates\PlayerIsDead.cpp">
       <Filter>States\SceneStates</Filter>
     </ClCompile>
@@ -298,7 +296,6 @@
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\TriggerButton.cpp" />
-    <ClCompile Include="Object\DoorSystem.cpp" />
     <ClCompile Include="Component\Scripts\Hostage.cpp">
       <Filter>Component\Scripts</Filter>
     </ClCompile>
@@ -307,6 +304,15 @@
     </ClCompile>
     <ClCompile Include="Component\UI\HostageAlertsUIHandler.cpp">
       <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DoorSystem.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\KeyLock.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -574,7 +580,6 @@
     <ClInclude Include="Scenes\TutorialLevel.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Object\KeyLock.hpp" />
     <ClInclude Include="Scenes\TutorialLevel1.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -590,7 +595,6 @@
     <ClInclude Include="States\SceneStates\GamsIsRunning.hpp">
       <Filter>States\SceneStates</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp" />
     <ClInclude Include="States\SceneStates\PlayerIsDead.hpp">
       <Filter>States\SceneStates</Filter>
     </ClInclude>
@@ -646,7 +650,6 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\TriggerButton.hpp" />
-    <ClInclude Include="Object\DoorSystem.hpp" />
     <ClInclude Include="Component\Scripts\Hostage.hpp">
       <Filter>Component\Scripts</Filter>
     </ClInclude>
@@ -655,6 +658,15 @@
     </ClInclude>
     <ClInclude Include="Component\UI\HostageAlertsUIHandler.hpp">
       <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DoorSystem.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\KeyLock.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

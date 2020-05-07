@@ -10,7 +10,12 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     button->SetObjectType(Object::ObjectType::BUTTON);
     button->SetTranslation(buttonPos);
     button->SetScale(buttonScale);
-    button->AddComponent(new Sprite(button));
+    Animation* buttonAnimation = new Animation(button);
+    button->AddComponent(buttonAnimation);
+    buttonAnimation->SetImage("../assets/textures/lever.png");
+    buttonAnimation->SetNumOfState(2);
+    buttonAnimation->SetSpeed(0.f);
+    buttonAnimation->SetState(0);
     button->AddComponent(new Physics(button));
     button->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button, Physics::ObjectType::RECTANGLE);
     button->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
@@ -123,9 +128,35 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     openDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
     openDoor->SetDepth(-1.f);
 
+    openEmitter = new ParticleEmitter(7.5f, 5.f, 35, [&]()
+        {
+            Particle::ParticleObject p;
+            p.color = Graphics::Color4f(0.65f);
+            p.transform.SetScale(vector2{ 10.f });
+            float x = ((rand() % 100) / 100.f) - 0.5f;
+            float y = ((rand() % 100) / 100.f) - 0.5f;
+
+            p.transform.SetTranslation(FindPositionOfParticle(vector2{ x, y }, openDoor->GetTranslation(), openDoor->GetScale()));
+
+            p.velocity = vector2{ x, y };
+            p.life = 5.f;
+            return p;
+        }
+        ,
+            [&](Particle::ParticleObject& p, float dt)
+        {
+            p.transform.SetTranslation(p.transform.GetTranslation() + (p.velocity * 50.f * dt));
+            p.color.alpha -= dt * 0.3f;
+        }
+        );
+    openEmitter->SetParticleImage("../assets/textures/circle.png");
+    openEmitter->SetDepth(Depth_Standard::DustVFX);
+    openEmitter->SetShouldReviveParticle(false);
+
     auto objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::Stage)->AddObject(button);
     objManager->FindLayer(LayerNames::Stage)->AddObject(openDoor);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(openEmitter);
 
     Object::AddComponent(new TriggerButton(this, player1, player2, button, openDoor));
 }

@@ -1,5 +1,0 @@
-player1 -190.94 -241 150 150 -1 player1 ../assets/textures/p1.png
-player2 137.957 -248 150 150 -1 player2 ../assets/textures/p2.png
-background 1 1 1000 1000 -1 background ../assets/textures/table.png
-startPoint 0 -500 150 150 -1 startpoint TutorialLevel
-goalPoint 0 500 150 150 -1 goalpoint TutorialLevel

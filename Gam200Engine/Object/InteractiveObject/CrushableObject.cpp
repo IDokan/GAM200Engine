@@ -34,7 +34,7 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     /////
     SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
     sm.Load_Sound();
-    sm.SetVolume(CRUSH_SOUND, 0.35f);
+    sm.Play_Sound(CRUSH_SOUND);
 }
 
 CrushableObject::~CrushableObject()

@@ -62,17 +62,19 @@ namespace Graphics
 		void MoveUp(float dt, float distance) noexcept;
 		void MoveRight(float dt, float distance) noexcept;
 
-		void CameraMove(const Object* player1, const Object* player2, const float& zoomSize) noexcept;
+		void CameraMove(float dt, const Object* player1, const Object* player2, const float& zoomSize) noexcept;
 		
 		void EditorCameraMoveUp(float distance) noexcept;
 		void EditorCameraMoveLeft(float distance) noexcept;
 
 		vector2 GetDEBUGCameraRectSize() const noexcept;
+
+		void StartShakingCamera(float time, float magnitude);
 	private:
 		void DEBUGCameraMove(const float& zoomSize) noexcept;
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
 		void ZoomAndCollisionRegionHandling(vector2 distanceBetweenPlayer) noexcept;
-		void PositionHandling(const Object* player1, const Object* player2) noexcept;
+		void PositionHandling(float dt, const Object* player1, const Object* player2) noexcept;
 
 		vector2 LinearInterpolation(vector2 currentPosition, vector2 targetPosition, float t);
 		
@@ -80,6 +82,10 @@ namespace Graphics
 		void CalculateDirectionOffset(const Object* player1, const Object* player2, float offset, vector2& resultOffset) noexcept;
 		EyesightTypeCode CalculateEyesightType(vector2 velocity) noexcept;
 		vector2 GetUnitVectorWithGivenCode(EyesightTypeCode code) noexcept;
+
+		void ShakeCameraWhenAppropriate(float dt);
+		float EaseOutQuint(float dt);
+		bool IsShaking() const;
 	private:
 		struct CameraSet
 		{
@@ -95,6 +101,10 @@ namespace Graphics
 
 		constexpr static float maximumEyesightOffset_X{ 400.f };
 		constexpr static float maximumEyesightOffset_Y{ 225.f };
+
+		float initialShakingTime;
+		float shakingTime;
+		float shakingMagnitude;
 	};
 
 	constexpr float CameraManager::GetInitZoomSize() const noexcept

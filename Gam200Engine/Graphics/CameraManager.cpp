@@ -18,6 +18,7 @@ Creation Date: 08.21.2019
 #include <Object/Players/Player.h>
 
 Graphics::CameraManager::CameraManager()
+	: initialShakingTime(0.f), shakingTime(0.f), shakingMagnitude(0.f)
 {
 	cameraStorage.clear();
 	AddCamera("MainCamera");
@@ -139,15 +140,17 @@ void Graphics::CameraManager::MoveRight(float dt, float distance) noexcept
 	selectedCamera->camera.MoveRight(dt * distance);
 }
 
-void Graphics::CameraManager::CameraMove(const Object* player1, const Object* player2, const float& zoomSize) noexcept
+void Graphics::CameraManager::CameraMove(float dt, const Object* player1, const Object* player2, const float& zoomSize) noexcept
 {
 	vector2 position1 = player1->GetTranslation();
 	vector2 position2 = player2->GetTranslation();
 
 	DEBUGCameraMove(zoomSize);
 
-	PositionHandling(player1, player2);
+	PositionHandling(dt, player1, player2);
 	ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
+
+	ShakeCameraWhenAppropriate(dt);
 }
 
 void Graphics::CameraManager::EditorCameraMoveUp(float distance) noexcept
@@ -164,6 +167,13 @@ void Graphics::CameraManager::EditorCameraMoveLeft(float distance) noexcept
 vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
 {
 	return cameraDetectRectSize;
+}
+
+void Graphics::CameraManager::StartShakingCamera(float time, float magnitude)
+{
+	initialShakingTime = time;
+	shakingTime = time;
+	shakingMagnitude = magnitude;
 }
 
 #ifdef _DEBUG
@@ -284,15 +294,24 @@ void Graphics::CameraManager::ZoomAndCollisionRegionHandling(vector2 distanceBet
 	}
 }
 
-void Graphics::CameraManager::PositionHandling(const Object* player1, const Object* player2) noexcept
+void Graphics::CameraManager::PositionHandling(float dt, const Object* player1, const Object* player2) noexcept
 {
 	static vector2 eyesightOffset{};
 
 	vector2 position1 = player1->GetTranslation();
 	vector2 position2 = player2->GetTranslation();
 
-	static constexpr float scaler = 0.1f;
-	vector2 totalDelta = LinearInterpolation(GetPosition(), (position1 + position2) / 2.f, scaler);
+	// Do not Lerp when only camera is shaking,
+
+	vector2 totalDelta;
+	if (IsShaking())
+	{
+		totalDelta = (position1 + position2) / 2.f;
+	}
+	else
+	{
+		totalDelta = LinearInterpolation(GetPosition(), (position1 + position2) / 2.f, dt);
+	}
 
 	SetPosition(totalDelta);
 }
@@ -363,6 +382,39 @@ vector2 Graphics::CameraManager::GetUnitVectorWithGivenCode(EyesightTypeCode cod
 	}
 
 	return result;
+}
+
+void Graphics::CameraManager::ShakeCameraWhenAppropriate(float dt)
+{
+	if (!IsShaking())
+	{
+		return;
+	}
+
+	const float scaler = EaseOutQuint(shakingTime / initialShakingTime);
+	// Call random and get X, Y offset
+	float xOffset = (((rand() % 200) / 100.f) - 1.f) * scaler * shakingMagnitude;
+	float yOffset = (((rand() % 200) / 100.f) - 1.f) * scaler * shakingMagnitude;
+	// Set Translation of camera based on offset
+	SetPosition(GetPosition() + vector2{ xOffset, yOffset });
+	// Decrement shakingTime
+	shakingTime -= dt;
+}
+
+float Graphics::CameraManager::EaseOutQuint(float t)
+{
+	if (t > 1.f || t < 0.f)
+	{
+		return 0.f;
+	}
+
+	const float oneMinusT = 1 - t;
+	return 1 - (oneMinusT * oneMinusT * oneMinusT * oneMinusT * oneMinusT);
+}
+
+bool Graphics::CameraManager::IsShaking() const
+{
+	return shakingTime > 0.f;
 }
 
 vector2 Graphics::CameraManager::LinearInterpolation(vector2 currentPosition, vector2 targetPosition, float t)

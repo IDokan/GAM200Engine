@@ -5,7 +5,7 @@ TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Obje
 {
 }
 
-TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* door_1, ParticleEmitter* openEmitter, ParticleEmitter* closeEmitter) : Component(obj), player1(player1), player2(player2), button(button), button1(nullptr), door_1(door_1), door_2(nullptr), openEmitter(openEmitter), closeEmitter(closeEmitter)
+TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* door_1, ParticleEmitter* openEmitter) : Component(obj), player1(player1), player2(player2), button(button), button1(nullptr), door_1(door_1), door_2(nullptr), openEmitter(openEmitter), closeEmitter(nullptr)
 {
 }
 
@@ -52,6 +52,8 @@ void TriggerButton::OpenTwoDoorWithOneButton()
                     door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                     closeEmitter->SetShouldReviveParticle(false);
+
+                    button->GetComponentByTemplate<Animation>()->SetState(1);
                 }
                 else
                 {
@@ -66,6 +68,8 @@ void TriggerButton::OpenTwoDoorWithOneButton()
                         door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                         door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                         closeEmitter->SetShouldReviveParticle(true);
+
+                        button->GetComponentByTemplate<Animation>()->SetState(0);
                     }
                 }
                 button->SetDirtyFlag(false);
@@ -96,12 +100,14 @@ void TriggerButton::OpenOneDoorWithOneButton()
                     color.alpha = 1.f;
                     door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                     door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                    openEmitter->SetShouldReviveParticle(true);
                 }
                 else
                 {
                     color.alpha = 0.2f;
                     door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                    openEmitter->SetShouldReviveParticle(false);
                 }
                 button->SetDirtyFlag(false);
             }

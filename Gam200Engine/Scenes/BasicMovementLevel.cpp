@@ -53,7 +53,7 @@ void BasicMovementLevel::Load()
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
 }
 
-void BasicMovementLevel::Update(float /*dt*/)
+void BasicMovementLevel::Update(float dt)
 {
     BasicMovementLevel::Input();
 
@@ -68,7 +68,7 @@ void BasicMovementLevel::Update(float /*dt*/)
     player1->SetTranslation(obj1Position);
     player2->SetTranslation(obj2Position);
 
-    cameraManager.CameraMove(player1, player2, 1.1f);
+    cameraManager.CameraMove(dt, player1, player2, 1.1f);
 }
 
 void BasicMovementLevel::GameRestart()

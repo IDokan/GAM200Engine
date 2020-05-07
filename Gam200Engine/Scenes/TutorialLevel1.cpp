@@ -41,7 +41,7 @@ void TutorialLevel1::Load()
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 }
 
-void TutorialLevel1::Update(float /*dt*/)
+void TutorialLevel1::Update(float dt)
 {
     player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
     player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
@@ -54,7 +54,7 @@ void TutorialLevel1::Update(float /*dt*/)
     player1->SetTranslation(obj1Position);
     player2->SetTranslation(obj2Position);
     
-    cameraManager.CameraMove(player1, player2, 1.1f);
+    cameraManager.CameraMove(dt, player1, player2, 1.1f);
 }
 
 void TutorialLevel1::GameRestart()

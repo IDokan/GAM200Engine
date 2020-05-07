@@ -44,7 +44,7 @@ void TutorialLevel2::Load()
     cameraManager.Init(player1, player2);
 }
 
-void TutorialLevel2::Update(float /*dt*/)
+void TutorialLevel2::Update(float dt)
 {
     static bool unLock1 = false;
     static bool unLock2 = false;
@@ -76,7 +76,7 @@ void TutorialLevel2::Update(float /*dt*/)
     player1->SetTranslation(obj1Position);
     player2->SetTranslation(obj2Position);
 
-    cameraManager.CameraMove(player1, player2, 1.1f);
+    cameraManager.CameraMove(dt, player1, player2, 1.1f);
 }
 
 void TutorialLevel2::GameRestart()

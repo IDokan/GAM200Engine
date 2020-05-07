@@ -9,7 +9,7 @@ class TriggerButton : public Component
 {
 public:
     TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, ParticleEmitter* openEmitter = nullptr, ParticleEmitter* closeEmitter = nullptr);
-    TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* door_1, ParticleEmitter* openEmitter = nullptr, ParticleEmitter* closeEmitter = nullptr);
+    TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* door_1, ParticleEmitter* openEmitter = nullptr);
     ~TriggerButton() = default;
     virtual void Init();
     virtual void Update(float dt);

@@ -53,11 +53,38 @@ void TutorialLevel::Load()
 	soundManager.SetVolume(SOUNDS::BACKGROUND_SOUND, 0.1f);
 }
 
-void TutorialLevel::Update(float /*dt*/)
+void TutorialLevel::Update(float dt)
 {
 	if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
 	{
 		input.SetIsRunning(false);
+	}
+
+
+	static float time = 0.f;
+	static float magnitude = 0.f;
+	if (input.IsKeyTriggered(GLFW_KEY_2))
+	{
+		time += 0.1f;
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_1))
+	{
+		time -= 0.1f;
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_4))
+	{
+		magnitude += 0.1f;
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_3))
+	{
+		magnitude -= 0.1f;
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_0))
+	{
+		// In my opinion 0.6, 6 is pretty nice.
+		std::cout << "time : " << time << '\n';
+		std::cout << "magnitude : " << magnitude << '\n';
+		cameraManager.StartShakingCamera(time, magnitude);
 	}
 
 	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
@@ -71,7 +98,7 @@ void TutorialLevel::Update(float /*dt*/)
 	player1->SetTranslation(obj1Position);
 	player2->SetTranslation(obj2Position);
 
-	cameraManager.CameraMove(player1, player2, 1.1f);
+	cameraManager.CameraMove(dt, player1, player2, 1.1f);
 }
 
 void TutorialLevel::GameRestart()
