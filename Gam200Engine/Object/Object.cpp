@@ -81,6 +81,16 @@ void Object::SetDirtyFlag(bool flag)
     dirtyFlagForDoor = flag;
 }
 
+void Object::SetTimer(float dt)
+{
+    timer += dt;
+}
+
+void Object::ResetTimer()
+{
+    timer = 0.f;
+}
+
 void Object::SetObjectType(ObjectType objType_)
 {
     objType = objType_;
@@ -131,4 +141,9 @@ float Object::GetDepth() const noexcept
 bool Object::GetDirtyFlag() const
 {
     return dirtyFlagForDoor;
+}
+
+float Object::GetTimer() const
+{
+    return timer;
 }

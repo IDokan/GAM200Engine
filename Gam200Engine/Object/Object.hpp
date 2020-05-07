@@ -103,7 +103,8 @@ public:
     void SetObjectName(std::string name); // Woo
     std::string GetObjectName(); // Woo
     void SetDirtyFlag(bool flag);
-
+    void SetTimer(float dt);
+    void ResetTimer();
 
     void SetObjectType(ObjectType objType); // test function Woo
 
@@ -114,6 +115,7 @@ public:
 	float GetRotation() const noexcept; // Sinil
 	float GetDepth() const noexcept; //Jiwon
     bool GetDirtyFlag() const;
+    float GetTimer() const;
 
 protected:
     Transform transform;
@@ -122,6 +124,7 @@ protected:
     bool is_dead = false;
 
     bool dirtyFlagForDoor = true;
+    float timer = 0.f;
     ObjectType objType;
 
 };
