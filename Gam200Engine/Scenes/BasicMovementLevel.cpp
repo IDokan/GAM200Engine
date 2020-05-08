@@ -106,7 +106,7 @@ void BasicMovementLevel::Input()
 
     if (input.IsKeyTriggered(GLFW_KEY_1)) {
 
-        soundManager.Play_Sound(CURSORMOVE_SOUND);
+        soundManager.Play_Sound(CURSOR_MOVEMENT_SOUND);
     }
     if (input.IsKeyTriggered(GLFW_KEY_2)) {
 

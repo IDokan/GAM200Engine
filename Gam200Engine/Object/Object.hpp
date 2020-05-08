@@ -16,7 +16,7 @@ Creation Date: 08.12.2019
 #include "Component/Component.hpp"
 
 
-class Object
+class Object 
 {
 public:
     virtual ~Object();
