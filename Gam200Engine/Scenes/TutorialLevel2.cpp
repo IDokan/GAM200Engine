@@ -81,6 +81,18 @@ void TutorialLevel2::Collision()
 
 void TutorialLevel2::InitObject() {
 
+    //movingObject_1 = new Object();
+    //movingObject_1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    //movingObject_1->SetObjectName("movingObject_1");
+    //movingObject_1->SetTranslation(vector2{ -400, 0.f });
+    //movingObject_1->SetScale(vector2{ 100.f, 100.f });
+    //movingObject_1->AddComponent(new Sprite(movingObject_1));
+    //movingObject_1->AddComponent(new Physics(movingObject_1));
+    //movingObject_1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+    //movingObject_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject_1, Physics::ObjectType::RECTANGLE);
+    //movingObject_1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    //movingObject_1->SetDepth(-1.f);
+
     jailText = new Object();
     jailText->SetObjectName("JailText");
     jailText->SetTranslation(vector2{ 1800.f, -150.f });
@@ -129,6 +141,10 @@ void TutorialLevel2::InitObject() {
     button3->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, {1.0f, 1.0f, 1.0f, 1.0f });
     button3->SetButtonAndDoorName("button4", "door_5");
     
+    button4 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 1350.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f }, true);
+    button4->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
+    button4->SetButtonAndDoorName("button2", "button3", "door_3", "door_4");
+
     Transform goalTransform;
     goalTransform.SetTranslation(vector2{ 3550.f, 0.f });
     goalTransform.SetScale(vector2{ 150.f });
@@ -146,6 +162,7 @@ void TutorialLevel2::InitObject() {
     objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
+    //objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);

@@ -7,6 +7,7 @@ class TriggerButton : public Component
 {
 public:
     TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2);
+    TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, bool isTimerButton);
     TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, Object* movingObject);
     TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* door_1);
     ~TriggerButton() = default;
@@ -27,4 +28,6 @@ private:
     
     Player* player1;
     Player* player2;
+
+    bool isTimerButton;
 };

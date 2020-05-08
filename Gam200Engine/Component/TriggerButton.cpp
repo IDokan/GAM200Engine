@@ -1,6 +1,10 @@
 #include "TriggerButton.hpp"
 #include <iostream>
-TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(nullptr)
+TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(nullptr), isTimerButton(false)
+{
+}
+
+TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, bool isTimerButton) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(nullptr), isTimerButton(isTimerButton)
 {
 }
 
@@ -31,6 +35,10 @@ void TriggerButton::Update(float dt)
     else if (button1 == nullptr)
     {
         OpenAndCloseDoorsWithOneButton();
+    }
+    else if (isTimerButton == true)
+    {
+        OpenAndCloseDoorsWithTwoButtonOnTime(dt);
     }
     else
     {

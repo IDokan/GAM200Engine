@@ -63,6 +63,7 @@ public:
     void SetCollisionBoxScale(vector2 scale);
     void SetFriction(float friction);
     void SetCollisionResolution(bool condition);
+    void SetDirtFlag(bool condition);
     void AddForce(vector2 force_);
 
     void ActiveGhostCollision(bool active);
@@ -128,6 +129,11 @@ public:
     {
         return shouldResolveResolution;
     }
+
+    bool GetDirtyFlag() const
+    {
+        return dirtyFlag;
+    }
     vector2 GetVectorTranslation() const;
 
 private:
@@ -161,6 +167,7 @@ private:
     bool isGhost;
     bool isCollide;
     bool shouldResolveResolution;
+    bool dirtyFlag = true;
     ObjectSide objSide;
 
     std::vector<vector2> SAT;
