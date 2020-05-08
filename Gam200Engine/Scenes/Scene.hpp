@@ -41,7 +41,7 @@ public:
 	virtual void Draw() noexcept;
 
 	// Getters
-	const Graphics::CameraManager& GetCameraManager() const noexcept;
+	Graphics::CameraManager& GetCameraManager() noexcept;
 	SoundManager& GetSoundManager() noexcept;
 
 public:

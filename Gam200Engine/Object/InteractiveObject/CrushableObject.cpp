@@ -34,7 +34,6 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     /////
     SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
     sm.Load_Sound();
-    sm.Play_Sound(CRUSH_SOUND);
 }
 
 CrushableObject::~CrushableObject()
@@ -61,6 +60,8 @@ void CrushableObject::Crushed() noexcept
 {
     SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 	sm.Play_Sound(SOUNDS::CRUSH_SOUND);
+
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartShakingCamera(0.6f, 6.f);
 	SetDead(true);
 	currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);
 }

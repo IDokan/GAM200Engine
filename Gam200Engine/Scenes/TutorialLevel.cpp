@@ -59,32 +59,10 @@ void TutorialLevel::Update(float dt)
 	{
 		input.SetIsRunning(false);
 	}
-
-
-	static float time = 0.f;
-	static float magnitude = 0.f;
-	if (input.IsKeyTriggered(GLFW_KEY_2))
-	{
-		time += 0.1f;
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_1))
-	{
-		time -= 0.1f;
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_4))
-	{
-		magnitude += 0.1f;
-	}
-	if (input.IsKeyTriggered(GLFW_KEY_3))
-	{
-		magnitude -= 0.1f;
-	}
 	if (input.IsKeyTriggered(GLFW_KEY_0))
 	{
-		// In my opinion 0.6, 6 is pretty nice.
-		std::cout << "time : " << time << '\n';
-		std::cout << "magnitude : " << magnitude << '\n';
-		cameraManager.StartShakingCamera(time, magnitude);
+		player1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+		player2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
 	}
 
 	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();

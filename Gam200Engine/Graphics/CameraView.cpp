@@ -83,10 +83,17 @@ Creation Date: 08.12.2019
 
     void CameraView::SetZoom(float new_zoom) noexcept
     {
-	    if (new_zoom > initZoomSize)
-	    {
-			return;
-	    }
+        if (new_zoom > initZoomSize)
+        {
+            return;
+        }
+        zoom = new_zoom;
+
+        cameraToNDC = CalculateMatrix(*this, displaySize);
+    }
+
+    void CameraView::SetZoomIgnoreInitialZoomSize(float new_zoom) noexcept
+    {
         zoom = new_zoom;
 
         cameraToNDC = CalculateMatrix(*this, displaySize);

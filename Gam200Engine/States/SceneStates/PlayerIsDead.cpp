@@ -51,6 +51,8 @@ void PlayerIsDead::Enter(SceneStateManager* /*manager*/)
 		playerIsDeadText->SetTranslation(vector2{ 0.f });
 	}
 
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartShakingCamera(0.75f, 3.5f);
+
 	// Play ¡°PlayerIsDead¡± sound.
 	// TODO: with Robin
 }

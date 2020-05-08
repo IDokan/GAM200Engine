@@ -227,7 +227,7 @@ void Scene::Draw() noexcept
 	Graphics::GL::end_drawing();
 }
 
-const Graphics::CameraManager& Scene::GetCameraManager() const noexcept
+Graphics::CameraManager& Scene::GetCameraManager() noexcept
 {
 	return cameraManager;
 }

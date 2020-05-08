@@ -18,7 +18,7 @@ Creation Date: 08.21.2019
 #include <Object/Players/Player.h>
 
 Graphics::CameraManager::CameraManager()
-	: initialShakingTime(0.f), shakingTime(0.f), shakingMagnitude(0.f)
+	: initialShakingTime(0.f), shakingTime(0.f), shakingMagnitude(0.f), isZoomingFromOutside(false)
 {
 	cameraStorage.clear();
 	AddCamera("MainCamera");
@@ -148,9 +148,18 @@ void Graphics::CameraManager::CameraMove(float dt, const Object* player1, const 
 	DEBUGCameraMove(zoomSize);
 
 	PositionHandling(dt, player1, player2);
+	if (selectedCamera->cameraView.GetZoom() >= GetInitZoomSize())
+	{
+		selectedCamera->cameraView.SetZoom(GetInitZoomSize());
+	}
 	ZoomAndCollisionRegionHandling(vector2{ abs(position1.x - position2.x), abs(position1.y - position2.y) });
 
 	ShakeCameraWhenAppropriate(dt);
+
+	if (isZoomingFromOutside)
+	{
+		ZoomInLerpFromOutsize();
+	}
 }
 
 void Graphics::CameraManager::EditorCameraMoveUp(float distance) noexcept
@@ -174,6 +183,25 @@ void Graphics::CameraManager::StartShakingCamera(float time, float magnitude)
 	initialShakingTime = time;
 	shakingTime = time;
 	shakingMagnitude = magnitude;
+}
+
+void Graphics::CameraManager::StartZoomFromOutside(bool isStart, float t)
+{
+	isZoomingFromOutside = isStart;
+	zoomT = t;
+}
+
+// It will be called at the last part of zoom updating..
+void Graphics::CameraManager::ZoomInLerpFromOutsize()
+{
+	float initZoom = selectedCamera->cameraView.GetInitZoomSize();
+	float maxZoom = 1.25f;
+
+	selectedCamera->cameraView.SetZoomIgnoreInitialZoomSize((1.f - zoomT) * initZoom + zoomT * maxZoom);
+
+
+	// Toggle flag again. I want to zoom only in the frame when SetZoom function is called.
+	isZoomingFromOutside = false;
 }
 
 #ifdef _DEBUG

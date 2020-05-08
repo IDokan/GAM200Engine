@@ -110,7 +110,7 @@ std::vector<std::string> SceneManager::GetSceneNames() const noexcept
 	return SceneNames;
 }
 
-Scene* SceneManager::GetCurrentScene() const noexcept
+Scene* SceneManager::GetCurrentScene() noexcept
 {
 	return currentScene;
 }

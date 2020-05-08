@@ -39,7 +39,6 @@ void Hostage::Update(float dt)
 			owner->GetComponentByTemplate<Physics>()->IsCollideWith(player2)
 			)
 		{
-			DispatchMessage(MessageTypes::HostageRescued);
 			isRescued = true;
 		}
 	}
@@ -50,6 +49,7 @@ void Hostage::Update(float dt)
 		sprite->SetColor(Graphics::Color4f(currentColor.red, currentColor.green, currentColor.blue, currentColor.alpha - ((currentColor.alpha) * 2.5f * dt)));
 		if (sprite->GetColor().alpha <= 0.f)
 		{
+			DispatchMessage(MessageTypes::HostageRescued);
 			owner->SetDead(true);
 		}
 	}

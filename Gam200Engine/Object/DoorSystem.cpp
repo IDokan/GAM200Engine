@@ -111,7 +111,12 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     button->SetObjectType(Object::ObjectType::BUTTON);
     button->SetTranslation(buttonPos);
     button->SetScale(buttonScale);
-    button->AddComponent(new Sprite(button));
+    Animation* buttonAnimation = new Animation(button);
+    button->AddComponent(buttonAnimation);
+    buttonAnimation->SetImage("../assets/textures/lever.png");
+    buttonAnimation->SetNumOfState(2);
+    buttonAnimation->SetSpeed(0.f);
+    buttonAnimation->SetState(0);
     button->AddComponent(new Physics(button));
     button->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(button, Physics::ObjectType::RECTANGLE);
     button->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);

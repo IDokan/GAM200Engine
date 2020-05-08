@@ -70,6 +70,9 @@ namespace Graphics
 		vector2 GetDEBUGCameraRectSize() const noexcept;
 
 		void StartShakingCamera(float time, float magnitude);
+
+		void StartZoomFromOutside(bool isStart, float t);
+		void ZoomInLerpFromOutsize();
 	private:
 		void DEBUGCameraMove(const float& zoomSize) noexcept;
 		vector2 CalculateDeltaBetweenCameraAndPlayer(vector2 objDistance, vector2 playgroundSize) noexcept;
@@ -83,9 +86,12 @@ namespace Graphics
 		EyesightTypeCode CalculateEyesightType(vector2 velocity) noexcept;
 		vector2 GetUnitVectorWithGivenCode(EyesightTypeCode code) noexcept;
 
+		// Camera shaking functions
 		void ShakeCameraWhenAppropriate(float dt);
 		float EaseOutQuint(float dt);
 		bool IsShaking() const;
+
+
 	private:
 		struct CameraSet
 		{
@@ -105,6 +111,9 @@ namespace Graphics
 		float initialShakingTime;
 		float shakingTime;
 		float shakingMagnitude;
+
+		bool isZoomingFromOutside;
+		float zoomT;
 	};
 
 	constexpr float CameraManager::GetInitZoomSize() const noexcept

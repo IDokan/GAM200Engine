@@ -10,6 +10,7 @@ Creation Date: 12.27.2019
 	Header file for accumulating.
 ******************************************************************************/
 #include <Component/Scripts/Accumulating.hpp>
+#include <Scenes/SceneManager.hpp>
 
 Accumulating::Accumulating(Object* obj, float maximum, bool turnOn) noexcept
 	:Component(obj), maximum(maximum), isAccumulating(turnOn), accumulation(0.f)
@@ -19,6 +20,7 @@ Accumulating::Accumulating(Object* obj, float maximum, bool turnOn) noexcept
 void Accumulating::Init()
 {
 }
+
 
 void Accumulating::Update(float dt)
 {
@@ -30,6 +32,12 @@ void Accumulating::Update(float dt)
 	if (isAccumulating == true)
 	{
 		accumulation += dt;
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartZoomFromOutside(true, accumulation / maximum);
+	}
+	else
+	{
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartZoomFromOutside(false, 1.f);
+		accumulation = 0.f;
 	}
 }
 

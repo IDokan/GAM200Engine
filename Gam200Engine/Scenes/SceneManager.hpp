@@ -33,7 +33,7 @@ public:
 
 	// Getters
 	std::vector<std::string> GetSceneNames() const noexcept;
-	Scene* GetCurrentScene() const noexcept;
+	Scene* GetCurrentScene() noexcept;
 	
     bool is_restart = false;
      
