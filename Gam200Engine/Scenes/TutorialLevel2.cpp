@@ -105,7 +105,7 @@ void TutorialLevel2::InitObject() {
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 1500.f, 0.f });
-    background->SetScale(vector2{ 4950.f,800.f });
+    background->SetScale(vector2{ 6300.f,800.f });
     background->AddComponent(new Sprite(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
     background->SetDepth(Depth_Standard::Background);
@@ -129,7 +129,7 @@ void TutorialLevel2::InitObject() {
     jail->SetDepth(Depth_Standard::Jail);
     jail->SetObjectName("jail");
 
-    button1 = new DoorSystem(player1, player2, vector2{ 100.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ -350, 0.f }, vector2{ 100.f, 180.f }, vector2{ 450.f, 0.f }, vector2{ 100.f, 180.f });
+    button1 = new DoorSystem(player1, player2, vector2{ -660.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ -975, 0.f }, vector2{ 100.f, 180.f }, vector2{ -400.f, 0.f }, vector2{ 100.f, 180.f });
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "door_1", "door_2");
 
@@ -141,9 +141,9 @@ void TutorialLevel2::InitObject() {
     button3->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, {1.0f, 1.0f, 1.0f, 1.0f });
     button3->SetButtonAndDoorName("button4", "door_5");
     
-    button4 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 1350.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f }, true);
+    button4 = new DoorSystem(player1, player2, vector2{ -155.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 310.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ -300, 0.f }, vector2{ 100.f, 180.f }, vector2{ 450.f, 0.f }, vector2{ 100.f, 180.f }, true);
     button4->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
-    button4->SetButtonAndDoorName("button2", "button3", "door_3", "door_4");
+    button4->SetButtonAndDoorName("button5", "button6", "door_6", "door_7");
 
     Transform goalTransform;
     goalTransform.SetTranslation(vector2{ 3550.f, 0.f });
