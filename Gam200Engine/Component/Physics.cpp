@@ -16,7 +16,10 @@ Creation Date: 08.15.2019
 #include <Angle.hpp>
 #include <vector>
 #include <iostream>
+#include <Scenes/SceneManager.hpp>
 
+SoundManager soundManager;
+//SoundManger
 Physics::Physics(Object* obj) : Component(obj)
 {
     shouldResolveResolution = false;
@@ -33,6 +36,9 @@ Physics::Physics(Object* obj) : Component(obj)
     hasCollisionBox = true;
     isGhost = false;
     isCollide = false;
+
+    soundManager = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+    soundManager.Load_Sound();
 }
 
 Physics::~Physics()
@@ -161,6 +167,11 @@ void Physics::SetFriction(float fric)
 void Physics::SetCollisionResolution(bool condition)
 {
     shouldResolveResolution = condition;
+}
+
+void Physics::SetDirtFlag(bool condition)
+{
+    dirtyFlag = condition;
 }
 
 void Physics::AddForce(vector2 force_)
@@ -645,34 +656,39 @@ void Physics::IsCollideWithMovedObject()
                 {
                     if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
                     {
-                        //    if (dirtyFlag == true)
-                        //    {
-                        //        playSound();
-                        //    }
+                        if (dirtyFlag == true)
+                        {
+                            soundManager.Play_Sound(PUSHABLE_BOX_SOUND);
+                        }
                         object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
                         object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
                         object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
 
-                        //dirtyFlag = false;
+                        dirtyFlag = false;
                     }
-                    //if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
-                    //{
-                    //    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0.f)
-                    //    {
-                    //        //dirtyFlag = true;
-                    //        std::cout << "asd\n";
-                    //    }
-                    //}
-
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0.f && dirtyFlag == false)
+                    {
+                        dirtyFlag = true;
+                        soundManager.Stop_Sound(PUSHABLE_BOX_SOUND);
+                    }
                     break;
                 }
                 case Physics::ObjectSide::BOTTOM_SIDE:
                 {
                     if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
                     {
+                        if (dirtyFlag == true)
+                        {
+                            soundManager.Play_Sound(PUSHABLE_BOX_SOUND);
+                        }
                         object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
                         object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
                         object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    }
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0.f && dirtyFlag == false)
+                    {
+                        soundManager.Stop_Sound(PUSHABLE_BOX_SOUND);
+                        dirtyFlag = true;
                     }
                     break;
                 }
@@ -680,9 +696,18 @@ void Physics::IsCollideWithMovedObject()
                 {
                     if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x < 0.f && ownerVelocity.y == 0.f)
                     {
+                        if (dirtyFlag == true)
+                        {
+                            soundManager.Play_Sound(PUSHABLE_BOX_SOUND);
+                        }
                         object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
                         object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
                         object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    }
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f && dirtyFlag == false)
+                    {
+                        dirtyFlag = true;
+                        soundManager.Stop_Sound(PUSHABLE_BOX_SOUND);
                     }
                     break;
                 }
@@ -690,19 +715,22 @@ void Physics::IsCollideWithMovedObject()
                 {
                     if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x > 0.f && ownerVelocity.y == 0.f)
                     {
+                        if (dirtyFlag == true)
+                        {
+                            soundManager.Play_Sound(PUSHABLE_BOX_SOUND);
+                        }
+
                         object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
                         object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
                         object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                        dirtyFlag = false;
                     }
 
-                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f && dirtyFlag == false)
                     {
-                        if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f)
-                        {
-                            //dirtyFlag = true;
-                        }
+                        dirtyFlag = true;
+                        soundManager.Stop_Sound(PUSHABLE_BOX_SOUND);
                     }
-
                     break;
                 }
                 default:
@@ -710,7 +738,6 @@ void Physics::IsCollideWithMovedObject()
                 }
             }
         }
-        
     }
 }
 
