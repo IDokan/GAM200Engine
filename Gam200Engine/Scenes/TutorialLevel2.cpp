@@ -133,17 +133,14 @@ void TutorialLevel2::InitObject() {
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "door_1", "door_2");
 
-    button2 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{1350.f, -230.f}, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f });
+    button2 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{1350.f, -230.f}, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f }, true);
     button2->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button2->SetButtonAndDoorName("button2", "button3", "door_3", "door_4");
 
     button3 = new DoorSystem(player1, player2, vector2{ 2850.f, 260.f }, vector2{ 100.f, 100.f }, vector2{ 3050.f, 0.f }, vector2{ 100.f, 180.f }, false);
     button3->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, {1.0f, 1.0f, 1.0f, 1.0f });
     button3->SetButtonAndDoorName("button4", "door_5");
-    
-    button4 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 1350.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f }, true);
-    button4->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
-    button4->SetButtonAndDoorName("button2", "button3", "door_3", "door_4");
+
 
     Transform goalTransform;
     goalTransform.SetTranslation(vector2{ 3550.f, 0.f });

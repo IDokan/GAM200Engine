@@ -189,7 +189,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, v
     objManager->FindLayer(LayerNames::Stage)->AddObject(openDoor);
     objManager->FindLayer(LayerNames::Stage)->AddObject(closeDoor);
 
-    Object::AddComponent(new TriggerButton(this, player1, player2, button, button1, openDoor, closeDoor));
+    Object::AddComponent(new TriggerButton(this, player1, player2, button, button1, openDoor, closeDoor, timerButton));
 }
 
 DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vector2 buttonScale, vector2 doorPos, vector2 doorScale, bool isOpen)
