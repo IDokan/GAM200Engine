@@ -314,6 +314,9 @@
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -667,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

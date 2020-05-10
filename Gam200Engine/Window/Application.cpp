@@ -25,6 +25,7 @@ Creation Date: 08.05.2019
 #include <Scenes/TutorialLevel2.hpp>
 #include <Scenes/Option.hpp>
 #include <Scenes/MenuScene.hpp>
+#include <Scenes/AlphaTutorialLevel1.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -48,6 +49,7 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+    SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));

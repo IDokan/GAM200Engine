@@ -1,0 +1,8 @@
+Player1 661 -84 100 100 -0.0023 player1 ../assets/textures/Cheese/cheese_move.png
+Player2 571 3 100 100 -0.0023 player2 ../assets/textures/Cheese/cheese_move.png
+Block1 505 65.5847 50 530 -0.0002 test ../assets/textures/rect.png
+Block2 723.999 347.951 2800 50 -0.0002 test ../assets/textures/rect.png
+Block3 -650.676 24.8935 50 600 -0.0002 test ../assets/textures/rect.png
+Block4 723.486 -299.532 2800 50 -0.0002 test ../assets/textures/rect.png
+Block5 900.099 -68.7053 50 420 -0.0002 test ../assets/textures/rect.png
+Block6 2098.82 23.9329 50 600 -0.0002 test ../assets/textures/rect.png
