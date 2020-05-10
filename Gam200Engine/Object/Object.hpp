@@ -104,6 +104,7 @@ public:
     std::string GetObjectName(); // Woo
     void SetDirtyFlag(bool flag);
     void SetTimer(float dt);
+    void SetIsTimerOn(bool flag);
     void ResetTimer();
 
     void SetObjectType(ObjectType objType); // test function Woo
@@ -115,6 +116,7 @@ public:
 	float GetRotation() const noexcept; // Sinil
 	float GetDepth() const noexcept; //Jiwon
     bool GetDirtyFlag() const;
+    bool GetIsTImerOn() const;
     float GetTimer() const;
 
 protected:
@@ -124,6 +126,7 @@ protected:
     bool is_dead = false;
 
     bool dirtyFlagForDoor = true;
+    bool isTimerOn = false;
     float timer = 0.f;
     ObjectType objType;
 

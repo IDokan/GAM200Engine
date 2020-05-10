@@ -168,58 +168,66 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
 
 void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
 {
-    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true)
+    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true) // when player trigger button, timer is started
     {
         if (button->GetTimer() == 0.f)
         {
             button->SetDirtyFlag(false);
-            button->SetTimer(dt);
+            button->SetIsTimerOn(true);
         }
     }
-    else if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button1) == true)
+    else if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button1) == true) // when player trigger button, timer is started
     {
         if (button1->GetTimer() == 0.f)
         {
             button1->SetDirtyFlag(false);
-            button1->SetTimer(dt);
+            button1->SetIsTimerOn(true);
         }
     }
 
-
-    if (player2->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true)
+    if (player2->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true) // when player trigger button, timer is started
     {
         if (button->GetTimer() == 0.f)
         {
             button->SetDirtyFlag(false);
-            button->SetTimer(dt);
+            button->SetIsTimerOn(true);
         }
     }
-    else if (player2->GetComponentByTemplate<Physics>()->IsCollideWith(button1) == true)
+    else if (player2->GetComponentByTemplate<Physics>()->IsCollideWith(button1) == true) // when player trigger button, timer is started
     {
         if (button1->GetTimer() == 0.f)
         {
             button1->SetDirtyFlag(false);
-            button1->SetTimer(dt);
+            button1->SetIsTimerOn(true);
         }
     }
 
-    if (button->GetTimer() != 0)
+    if (button->GetIsTImerOn() == true)  // keep timer 
     {
         button->SetTimer(dt);
     }
 
-    if (button1->GetTimer() != 0)
+    if (button1->GetIsTImerOn() == true) 
     {
         button1->SetTimer(dt);
     }
 
-    if (button->GetDirtyFlag() == false)
+    if (button->GetIsTImerOn() == true)
     {
-        // Image
+        // Image on
     }
-    if (button1->GetDirtyFlag() == false)
+    else if (button->GetIsTImerOn() == false)
     {
-        // Image
+        // Image  off
+    }
+
+    if (button1->GetIsTImerOn() == true)
+    {
+        // Image on
+    }
+    else if (button1->GetIsTImerOn() == false)
+    {
+        // Image off
     }
 
     if (button->GetDirtyFlag() == false && button1->GetDirtyFlag() == false)
@@ -248,16 +256,21 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         }
         button->SetDirtyFlag(true);
         button1->SetDirtyFlag(true);
+
+        //button->ResetTimer(); // to be determine delete this line or not.
+        //button1->ResetTimer();  // to be determine delete this line or not.
     }
 
     if (button->GetTimer() >= 3.f)
     {
         button->SetDirtyFlag(true);
+        button->SetIsTimerOn(false);
         button->ResetTimer();
     }
     if (button1->GetTimer() >= 3.f)
     {
         button1->SetDirtyFlag(true);
+        button1->SetIsTimerOn(false);
         button1->ResetTimer();
     }
 }
