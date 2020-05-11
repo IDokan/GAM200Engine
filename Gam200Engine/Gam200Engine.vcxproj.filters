@@ -208,9 +208,6 @@
     <ClCompile Include="States\StringStates\StringStretched.cpp">
       <Filter>States\StringStates</Filter>
     </ClCompile>
-    <ClCompile Include="States\PlayerStates\Dead.cpp">
-      <Filter>States\PlayerStates</Filter>
-    </ClCompile>
     <ClCompile Include="States\PlayerStates\PlayerReachesGoal.cpp">
       <Filter>States\PlayerStates</Filter>
     </ClCompile>
@@ -313,6 +310,21 @@
     </ClCompile>
     <ClCompile Include="Systems\ObstaclesDrawingHelper.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="States\SceneStates\PauseAndMenu.cpp">
+      <Filter>States\SceneStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Menu\MenuObject.cpp">
+      <Filter>Object\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Menu\BaseMenu.cpp">
+      <Filter>Object\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PlayerStates\Pause.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Menu\OptionMenu.cpp">
+      <Filter>Object\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -565,9 +577,6 @@
     <ClInclude Include="States\StringStates\StringStretched.hpp">
       <Filter>States\StringStates</Filter>
     </ClInclude>
-    <ClInclude Include="States\PlayerStates\Dead.hpp">
-      <Filter>States\PlayerStates</Filter>
-    </ClInclude>
     <ClInclude Include="States\PlayerStates\PlayerReachesGoal.hpp">
       <Filter>States\PlayerStates</Filter>
     </ClInclude>
@@ -668,6 +677,21 @@
     <ClInclude Include="Systems\ObstaclesDrawingHelper.hpp">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="States\SceneStates\PauseAndMenu.hpp">
+      <Filter>States\SceneStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\MenuObject.hpp">
+      <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\BaseMenu.hpp">
+      <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PlayerStates\Pause.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\OptionMenu.hpp">
+      <Filter>Object\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -756,6 +780,9 @@
     </Filter>
     <Filter Include="States\AIStates">
       <UniqueIdentifier>{09e35bc1-b5a7-4da2-bb59-83d529d63d96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Menu">
+      <UniqueIdentifier>{0d26df1a-814b-450c-9cad-ea33fa147f25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

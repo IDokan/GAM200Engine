@@ -27,7 +27,7 @@ void UpdateAnimation::Enter(Player* /*obj*/)
 {
 }
 
-void UpdateAnimation::Execute(Player* obj)
+void UpdateAnimation::Execute(Player* obj, float /*dt*/)
 {
 	// TODO: Change Mechs with Co-developer's feedbacks.
 	vector2 playerDistance = obj->GetComponentByTemplate<Physics>()->GetVelocity();

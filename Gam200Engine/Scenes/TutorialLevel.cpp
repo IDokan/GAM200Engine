@@ -55,14 +55,12 @@ void TutorialLevel::Load()
 
 void TutorialLevel::Update(float dt)
 {
-	if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
-	{
-		input.SetIsRunning(false);
-	}
 	if (input.IsKeyTriggered(GLFW_KEY_0))
 	{
-		player1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-		player2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+		Physics* player1Physics = player1->GetComponentByTemplate<Physics>();
+		player1Physics->ActiveGhostCollision(!player1Physics->GetIsGhost());
+		Physics* player2Physics = player2->GetComponentByTemplate<Physics>();
+		player2Physics->ActiveGhostCollision(!player2Physics->GetIsGhost());
 	}
 
 	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();

@@ -19,7 +19,7 @@ class MouseIdle : public State<Mouse>
 {
 public:
 	virtual void Enter(Mouse* mouse);
-	virtual void Execute(Mouse* mouse);
+	virtual void Execute(Mouse* mouse, float dt);
 	virtual void Exit(Mouse* mouse);
 
 	static MouseIdle* Get();

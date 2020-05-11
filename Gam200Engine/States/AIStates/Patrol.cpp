@@ -57,7 +57,7 @@ void Patrol::Enter(Mouse* mouse)
 	}
 }
 
-void Patrol::Execute(Mouse* mouse)
+void Patrol::Execute(Mouse* mouse, float /*dt*/)
 {
 	Mouse::Patrol_Info& patrol_info = mouse->GetPatrolInfo();
 	if (patrol_info.isGoingTOA == true)

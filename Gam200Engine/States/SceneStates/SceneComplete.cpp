@@ -63,7 +63,7 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(backToMain);
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(goToNextLevel);
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(confetti);
-
+	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(selectionHighlight);
 
 	// Play "Scene Complete Sound"
 	// TODO:
@@ -71,9 +71,9 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::GOAL_SOUND, 0.4f);
 }
 
-void SceneComplete::Execute(SceneStateManager* manager)
+void SceneComplete::Execute(SceneStateManager* manager, float dt)
 {
-	// Wait until player do anything with buttons.
+	// Mouse input which is not good because our game is typically controlled by key board.
 	vector2 mousePos = input.GetMouseAbsolutePosition();
 	if (IsMousePositionInBox(mousePos, vector2{ -200.f, 0.f }, vector2{ 160.f, 180.f }))
 	{
@@ -105,6 +105,25 @@ void SceneComplete::Execute(SceneStateManager* manager)
 			printf("Go to Next Level button is hovered!\n");
 		}
 	}
+
+	UpdateSelection();
+	UpdateSelectionHighlightTransparency(dt);
+
+	if (input.IsKeyTriggered(GLFW_KEY_ENTER) || input.IsKeyTriggered(GLFW_KEY_LEFT_SHIFT) || input.IsKeyTriggered(GLFW_KEY_RIGHT_SHIFT))
+	{
+		GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0.3f));
+		switch (currentSelection)
+		{
+		case SceneComplete::Back2Main:
+			SceneManager::GetSceneManager()->SetNextScene("MenuScene");
+			break;
+		case SceneComplete::Go2NextLevel:
+			SceneManager::GetSceneManager()->SetNextScene(manager->GetNameOfSelectedLevel());
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void SceneComplete::Exit(SceneStateManager* /*manager*/)
@@ -117,12 +136,106 @@ void SceneComplete::Exit(SceneStateManager* /*manager*/)
 	goToNextLevel = nullptr;
 	confetti->SetDead(true);
 	confetti = nullptr;
+	selectionHighlight = nullptr;
+	currentSelection = Back2Main;
+	isTransparency = true;
 	// Stop "Scene Complete Sound"
 }
 
 SceneComplete::SceneComplete()
-	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr)
+	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr), selectionHighlight(nullptr), currentSelection(Back2Main), isTransparency(true)
 {
+}
+
+void SceneComplete::SetCurrentSelection(SelectionEnum newValue)
+{
+	if (newValue >= OutOfEnum)
+	{
+		currentSelection = Back2Main;
+	}
+	else if (newValue < Back2Main)
+	{
+		currentSelection = Go2NextLevel;
+	}
+	else
+	{
+		currentSelection = newValue;
+	}
+}
+
+void SceneComplete::UpdateSelection() noexcept
+{
+	if (input.IsKeyTriggered(GLFW_KEY_RIGHT))
+	{
+		SetCurrentSelection(static_cast<SelectionEnum>(currentSelection + 1));
+	}
+	else if (input.IsKeyTriggered(GLFW_KEY_LEFT)) 
+	{
+		SetCurrentSelection(static_cast<SelectionEnum>(currentSelection - 1));
+	}
+	else
+	{
+		return;
+	}
+
+	UpdateSelectionHighlightTransformation();
+}
+
+Object* SceneComplete::GetSelectedObject()
+{
+	switch (currentSelection)
+	{
+	case SceneComplete::Back2Main:
+		return backToMain;
+		break;
+	case SceneComplete::Go2NextLevel:
+		return goToNextLevel;
+		break;
+	case SceneComplete::OutOfEnum:
+		break;
+	default:
+		break;
+	}
+	return nullptr;
+}
+
+void SceneComplete::UpdateSelectionHighlightTransformation()
+{
+	Object* selectedObject = GetSelectedObject();
+	selectionHighlight->SetTranslation(selectedObject->GetTranslation());
+	selectionHighlight->SetScale(1.2f * selectedObject->GetScale());
+}
+
+void SceneComplete::UpdateSelectionHighlightTransparency(float dt)
+{
+	Sprite* selectionSprite = selectionHighlight->GetComponentByTemplate<Sprite>();
+	Graphics::Color4f color = selectionSprite->GetColor();
+
+	// When a flag is on, decrease as mush as given dt
+	if (isTransparency)
+	{
+		color.alpha = color.alpha - dt;
+
+		// if the alpha value is smaller than minimum capacity
+		if (color.alpha < 0.f)
+		{
+			color.alpha = 0.f;
+			isTransparency = !isTransparency;
+		}
+	}
+	// and increase when the flag is off 
+	else
+	{
+		color.alpha = color.alpha + dt;
+
+		// if the alpha value is bigger than maximum capacity
+		if (color.alpha > 1.f)
+		{
+			color.alpha = 1.f;
+			isTransparency = !isTransparency;
+		}
+	}
+	selectionSprite->SetColor(color);
 }
 
 void SceneComplete::PrepareAssets() noexcept
@@ -209,6 +322,20 @@ void SceneComplete::PrepareAssets() noexcept
 		confetti->SetParticleImage("../assets/textures/circle.png");
 		confetti->SetDepth(Depth_Standard::HUDFrontVFX);
 	}
+
+	currentSelection = Back2Main;
+
+	if (selectionHighlight == nullptr)
+	{
+		selectionHighlight = new Object();
+		Sprite* spriteOfSelectionHighlight = new Sprite(selectionHighlight);
+		selectionHighlight->AddComponent(spriteOfSelectionHighlight);
+		selectionHighlight->SetObjectName("Selection Highlight");
+		selectionHighlight->SetDepth(Depth_Standard::HUDBackImage);
+		// Update transforms of this object based on currentSelection
+		UpdateSelectionHighlightTransformation();
+		// Transparency and other stuff
+	}
 }
 
 void SceneComplete::CleanAssets() noexcept
@@ -217,4 +344,7 @@ void SceneComplete::CleanAssets() noexcept
 	backToMain = nullptr;
 	goToNextLevel = nullptr;
 	confetti = nullptr;
+	selectionHighlight = nullptr;
+	currentSelection = Back2Main;
+	isTransparency = true;
 }

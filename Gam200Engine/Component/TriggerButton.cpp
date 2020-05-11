@@ -52,8 +52,6 @@ void TriggerButton::OpenTwoDoorWithOneButton()
                     door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                     closeEmitter->SetShouldReviveParticle(false);
-
-                    button->GetComponentByTemplate<Animation>()->SetState(1);
                 }
                 else
                 {
@@ -68,8 +66,6 @@ void TriggerButton::OpenTwoDoorWithOneButton()
                         door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                         door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                         closeEmitter->SetShouldReviveParticle(true);
-
-                        button->GetComponentByTemplate<Animation>()->SetState(0);
                     }
                 }
                 button->SetDirtyFlag(false);
@@ -83,6 +79,15 @@ void TriggerButton::OpenTwoDoorWithOneButton()
     else
     {
         button->SetDirtyFlag(true);
+    }
+
+    if (button->GetDirtyFlag())
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(0);
+    }
+    else
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(1);
     }
 }
 
@@ -120,5 +125,14 @@ void TriggerButton::OpenOneDoorWithOneButton()
     else
     {
         button->SetDirtyFlag(true);
+    }
+
+    if (button->GetDirtyFlag())
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(0);
+    }
+    else
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(1);
     }
 }

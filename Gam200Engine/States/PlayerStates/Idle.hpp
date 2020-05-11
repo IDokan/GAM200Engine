@@ -21,7 +21,7 @@ public:
 	static Idle* Get();
 	
 	void Enter(Player* obj) override;
-	void Execute(Player* obj) override;
+	void Execute(Player* obj, float dt) override;
 	void Exit(Player* obj) override;
 
 private:

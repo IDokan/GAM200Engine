@@ -20,7 +20,7 @@ class Patrol : public State<Mouse>
 {
 public:
 	void Enter(Mouse* mouse);
-	void Execute(Mouse* mouse);
+	void Execute(Mouse* mouse, float dt);
 	void Exit(Mouse* mouse);
 
 	static Patrol* Get();

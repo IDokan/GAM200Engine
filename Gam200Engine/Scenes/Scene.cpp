@@ -32,6 +32,7 @@ Creation Date: 12.10.2019
 #include <States/SceneStates/PlayerIsDead.hpp>
 #include <States/SceneStates/SceneComplete.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
+#include <States/SceneStates/PauseAndMenu.hpp>
 
 
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -355,6 +356,7 @@ void Scene::InitRequiredObjects()
 
 	PlayerIsDead::Get()->PrepareAssets();
 	SceneComplete::Get()->PrepareAssets();
+	PauseAndMenu::Get()->PrepareAssets();
 
 	StringLengthUI* slUI = new StringLengthUI();
 	hud->AddObject(slUI);
@@ -368,4 +370,5 @@ void Scene::CleanRequiredObjects()
 	GameIsRunning::Get()->CleanAssets();
 	SceneComplete::Get()->CleanAssets();
 	PlayerIsDead::Get()->CleanAssets();
+	PauseAndMenu::Get()->CleanAssets();
 }

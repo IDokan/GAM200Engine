@@ -24,7 +24,7 @@ public:
 	static GameIsRunning* Get();
 
 	void Enter(SceneStateManager* manager) override;
-	void Execute(SceneStateManager* manager) override;
+	void Execute(SceneStateManager* manager, float dt) override;
 	void Exit(SceneStateManager* manager) override;
 
 	void SetIsHostageRescued(bool is) noexcept;

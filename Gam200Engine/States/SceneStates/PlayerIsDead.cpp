@@ -57,7 +57,7 @@ void PlayerIsDead::Enter(SceneStateManager* /*manager*/)
 	// TODO: with Robin
 }
 
-void PlayerIsDead::Execute(SceneStateManager* /*manager*/)
+void PlayerIsDead::Execute(SceneStateManager* /*manager*/, float /*dt*/)
 {
 	if (input.IsKeyPressed(GLFW_KEY_R))
 	{

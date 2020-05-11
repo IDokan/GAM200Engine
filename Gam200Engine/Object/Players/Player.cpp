@@ -18,7 +18,8 @@ Creation Date: 23th/Jan/2020
 #include <Object/DepthStandard.hpp>
 
 #include <States/PlayerStates/UpdateAnimation.hpp>
-#include <States/PlayerStates/Dead.hpp>
+#include <States/PlayerStates/Pause.hpp>
+#include <States/PlayerStates/PlayerReachesGoal.hpp>
 
 Player::Player(Identifier player, const Transform& playerTransformData)
 	:Object(), id(player)
@@ -101,9 +102,10 @@ void Player::LoadPlayer1Layout()
 			switch(msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Dead::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 				break;
 			case MessageTypes::MoveToRelativePosition:
 				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
@@ -131,6 +133,12 @@ void Player::LoadPlayer1Layout()
 				}
 				break;
 			case MessageTypes::GameRestarted:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				break;
+			case MessageTypes::Pause:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
+				break;
+			case MessageTypes::Resume:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
 				break;
 			default:
@@ -156,9 +164,10 @@ void Player::LoadPlayer2Layout()
 			switch (msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Dead::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 				break;
 			case MessageTypes::MoveToRelativePosition:
 				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
@@ -188,6 +197,11 @@ void Player::LoadPlayer2Layout()
 			case MessageTypes::GameRestarted:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
 				break;
+			case MessageTypes::Pause:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
+				break;
+			case MessageTypes::Resume:
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
 			default:
 				return false;
 			}

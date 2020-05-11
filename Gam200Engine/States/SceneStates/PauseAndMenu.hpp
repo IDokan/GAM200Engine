@@ -2,25 +2,28 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   PlayerIsDead.hpp
+File Name:   PauseAndMenu.hpp
 Author
 		Kang rtd99062@gmail.com
-Creation Date: 03.16.2020
+Creation Date: 05.11.2020
 
-	Header file for PlayerIsDead State
-		When Any player is dead, scene become this state.
+	Header file for PauseAndMenu State
+		When player pressed escape button, scane state manager change current state into this.
+		Player is going to stop and menu is going to pop up
 ******************************************************************************/
 #pragma once
+#include <stack>
 
 #include <States/State.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 
 class Object;
+class MenuObject;
 
-class PlayerIsDead : public State<SceneStateManager>
+class PauseAndMenu : public State<SceneStateManager>
 {
 public:
-	static PlayerIsDead* Get();
+	static PauseAndMenu* Get();
 
 	void Enter(SceneStateManager* manager) override;
 	void Execute(SceneStateManager* manager, float dt) override;
@@ -31,9 +34,9 @@ public:
 	void CleanAssets() noexcept;
 
 private:
-	// Since it use a single-ton design pattern, ctor need to be private.
-	PlayerIsDead();
+	PauseAndMenu();
 
-	Object* playerIsDeadText;
+	std::stack<MenuObject*> menuStack;
+	MenuObject* baseMenu;
 };
 

@@ -25,7 +25,7 @@ void StringStretched::Enter(String* /*obj*/)
 	printf("String is began to stretched!\n");
 }
 
-void StringStretched::Execute(String* obj)
+void StringStretched::Execute(String* obj, float /*dt*/)
 {
 	const float stringLength = obj->GetStringLength();
 

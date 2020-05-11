@@ -33,7 +33,7 @@ void PlayerReachesGoal::Enter(Player* obj)
 	}
 }
 
-void PlayerReachesGoal::Execute(Player* /*obj*/)
+void PlayerReachesGoal::Execute(Player* /*obj*/, float /*dt*/)
 {
 	// TODO: Have a team discuss and implement it!
 }

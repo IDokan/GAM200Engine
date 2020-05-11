@@ -29,7 +29,7 @@ void Move::Enter(Player* /*obj*/)
 	printf("Player enter Move State\n");
 }
 
-void Move::Execute(Player* obj)
+void Move::Execute(Player* obj, float /*dt*/)
 {
 	if (obj->GetID() == Player::Identifier::Player1)
 	{

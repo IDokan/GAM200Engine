@@ -21,7 +21,7 @@ public:
 	~StringIdle() = default;
 	
 	void Enter(String* obj) override;
-	void Execute(String* obj) override;
+	void Execute(String* obj, float dt) override;
 	void Exit(String* obj) override;
 private:
 	StringIdle() = default;

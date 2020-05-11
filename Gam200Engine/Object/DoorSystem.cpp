@@ -12,7 +12,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     button->SetScale(buttonScale);
     Animation* buttonAnimation = new Animation(button);
     button->AddComponent(buttonAnimation);
-    buttonAnimation->SetImage("../assets/textures/lever.png");
+    buttonAnimation->SetImage("../assets/textures/pressurePlate.png");
     buttonAnimation->SetNumOfState(2);
     buttonAnimation->SetSpeed(0.f);
     buttonAnimation->SetState(0);
@@ -113,7 +113,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     button->SetScale(buttonScale);
     Animation* buttonAnimation = new Animation(button);
     button->AddComponent(buttonAnimation);
-    buttonAnimation->SetImage("../assets/textures/lever.png");
+    buttonAnimation->SetImage("../assets/textures/pressurePlate.png");
     buttonAnimation->SetNumOfState(2);
     buttonAnimation->SetSpeed(0.f);
     buttonAnimation->SetState(0);
@@ -163,7 +163,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     objManager->FindLayer(LayerNames::Stage)->AddObject(openDoor);
     objManager->FindLayer(LayerNames::Stage)->AddObject(openEmitter);
 
-    Object::AddComponent(new TriggerButton(this, player1, player2, button, openDoor));
+    Object::AddComponent(new TriggerButton(this, player1, player2, button, openDoor, openEmitter));
 }
 
 void DoorSystem::SetButtonAndDoorColor(Graphics::Color4f buttonColor, Graphics::Color4f openDoorColor, Graphics::Color4f closeDoorColor)

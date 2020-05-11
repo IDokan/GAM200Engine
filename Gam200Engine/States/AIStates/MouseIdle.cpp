@@ -25,7 +25,7 @@ void MouseIdle::Enter(Mouse* mouse)
 	mouse->SetLocalTimer(0.0);
 }
 
-void MouseIdle::Execute(Mouse* mouse)
+void MouseIdle::Execute(Mouse* mouse, float /*dt*/)
 {
 	mouse->SetLocalTimer(mouse->GetLocalTimer() + Timer::GetTimer()->GetElapsedSeconds());
 	

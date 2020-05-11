@@ -22,7 +22,7 @@ public:
 	virtual void Enter(object_type* obj) = 0;
 
 	// this is called by the object's update function in each update step
-	virtual void Execute(object_type* obj) = 0;
+	virtual void Execute(object_type* obj, float dt) = 0;
 
 	// this will execute when the state is exited
 	virtual void Exit(object_type* obj) = 0;

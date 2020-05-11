@@ -57,6 +57,9 @@ public:
 		SCENE_STATE_MANAGER,
         // All UI object have this type.
         UI,
+        // The object that derived by MenuObject should be declared this type.
+        // Location: <Object/Menu/>
+        Menu,
 		NUM_OF_OBJECT_TYPE,
     };
 

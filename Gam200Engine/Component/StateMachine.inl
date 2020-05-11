@@ -65,17 +65,17 @@ void StateMachine<object_type>::Clear()
 
 
 template <class object_type>
-void StateMachine<object_type>::Update(float /*dt*/)
+void StateMachine<object_type>::Update(float dt)
 {
 	// if a global state exists, call its execute method
 	if (globalState)
 	{
-		globalState->Execute(originalOwner);
+		globalState->Execute(originalOwner, dt);
 	}
 
 	if (currentState)
 	{
-		currentState->Execute(originalOwner);
+		currentState->Execute(originalOwner, dt);
 	}
 }
 

@@ -15,6 +15,7 @@ Creation Date: 8th/March/2020
 const Depth_Standard Depth_Standard::HUDFrontVFX(-4600.f);
 const Depth_Standard Depth_Standard::HUDText(-4500.f);
 const Depth_Standard Depth_Standard::HUDImage(-4450.f);
+const Depth_Standard Depth_Standard::HUDBackImage(-4425.f);
 const Depth_Standard Depth_Standard::HUDBackground(-4400.f);
 const Depth_Standard Depth_Standard::HUD(-4000.f);
 const Depth_Standard Depth_Standard::Button(-3000.f);

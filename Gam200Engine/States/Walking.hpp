@@ -25,7 +25,7 @@ public:
 	virtual void Enter(Object* obj);
 
 	// this is called by the object's update function in each update step
-	virtual void Execute(Object* obj);
+	virtual void Execute(Object* obj, float dt);
 
 	// this will execute when the state is exited
 	virtual void Exit(Object* obj);

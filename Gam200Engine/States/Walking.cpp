@@ -21,7 +21,7 @@ void Walking::Enter(Object* /*obj*/)
 	std::cout << "Enter an Walking state!\n";
 }
 
-void Walking::Execute(Object* obj)
+void Walking::Execute(Object* obj, float /*dt*/)
 {
 	obj->SetTranslation(obj->GetTranslation() + vector2{ -2.f, 0.f });
 }

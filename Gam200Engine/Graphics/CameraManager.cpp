@@ -195,7 +195,7 @@ void Graphics::CameraManager::StartZoomFromOutside(bool isStart, float t)
 void Graphics::CameraManager::ZoomInLerpFromOutsize()
 {
 	float initZoom = selectedCamera->cameraView.GetInitZoomSize();
-	float maxZoom = 1.25f;
+	float maxZoom = 1.6f;
 
 	selectedCamera->cameraView.SetZoomIgnoreInitialZoomSize((1.f - zoomT) * initZoom + zoomT * maxZoom);
 

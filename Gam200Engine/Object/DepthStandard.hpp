@@ -34,6 +34,7 @@ public:
 	static const Depth_Standard FurtherBackground;
 	static const Depth_Standard Particles;
 	static const Depth_Standard HUDBackground;
+	static const Depth_Standard HUDBackImage;
 	static const Depth_Standard HUDImage;
 	static const Depth_Standard HUDText;
 	operator float() const { return value; }

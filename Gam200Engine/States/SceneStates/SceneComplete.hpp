@@ -22,10 +22,17 @@ class ParticleEmitter;
 class SceneComplete : public State<SceneStateManager>
 {
 public:
+	enum SelectionEnum
+	{
+		Back2Main,
+		Go2NextLevel,
+		OutOfEnum,
+	};
+public:
 	static SceneComplete* Get();
 
 	void Enter(SceneStateManager* manager) override;
-	void Execute(SceneStateManager* manager) override;
+	void Execute(SceneStateManager* manager, float dt) override;
 	void Exit(SceneStateManager* manager) override;
 
 
@@ -34,10 +41,19 @@ public:
 
 private:
 	SceneComplete();
+	void SetCurrentSelection(SelectionEnum newValue);
+	void UpdateSelection() noexcept;
+	Object* GetSelectedObject();
+	void UpdateSelectionHighlightTransformation();
+	void UpdateSelectionHighlightTransparency(float dt);
 
 	Object* menuBackground;
 	Object* backToMain;
 	Object* goToNextLevel;
 	ParticleEmitter* confetti;
+	Object* selectionHighlight;
+	SelectionEnum currentSelection;
+
+	bool isTransparency;
 };
 

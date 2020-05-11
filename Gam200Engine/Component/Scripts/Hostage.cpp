@@ -40,6 +40,7 @@ void Hostage::Update(float dt)
 			)
 		{
 			isRescued = true;
+			DispatchMessage(MessageTypes::HostageRescued);
 		}
 	}
 	else
@@ -49,7 +50,6 @@ void Hostage::Update(float dt)
 		sprite->SetColor(Graphics::Color4f(currentColor.red, currentColor.green, currentColor.blue, currentColor.alpha - ((currentColor.alpha) * 2.5f * dt)));
 		if (sprite->GetColor().alpha <= 0.f)
 		{
-			DispatchMessage(MessageTypes::HostageRescued);
 			owner->SetDead(true);
 		}
 	}

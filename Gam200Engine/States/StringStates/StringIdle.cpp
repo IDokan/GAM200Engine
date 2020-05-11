@@ -24,7 +24,7 @@ void StringIdle::Enter(String* /*obj*/)
 	printf("String enter StringIdle State\n");
 }
 
-void StringIdle::Execute(String* obj)
+void StringIdle::Execute(String* obj, float /*dt*/)
 {
 	const float stringLength = obj->GetStringLength();
 	

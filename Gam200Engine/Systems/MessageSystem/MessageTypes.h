@@ -120,6 +120,20 @@ enum class MessageTypes
          */
         HostageNotRescuedYet,
 
+        /**
+         * \brief
+         * @Predictable receiver and function
+         *		Player: player will change their state into Pause State
+         */
+        Pause,
+
+        /**
+         * \brief
+         * @Predictable receiver and function
+         *		Player: player will change their state into Idle State
+         */
+        Resume,
+
        NUM_OF_MESSAGE_TYPES,
 };
 

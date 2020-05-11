@@ -26,6 +26,9 @@ Creation Date: 03.16.2020
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
+#include <States/SceneStates/PauseAndMenu.hpp>
+#include <Systems/Input.hpp>
+
 GameIsRunning* GameIsRunning::Get()
 {
 	static GameIsRunning* state = new GameIsRunning();
@@ -37,8 +40,13 @@ void GameIsRunning::Enter(SceneStateManager* /*manager*/)
 	CleanAssets();
 }
 
-void GameIsRunning::Execute(SceneStateManager* manager)
+void GameIsRunning::Execute(SceneStateManager* manager, float /*dt*/)
 {
+	if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+	{
+		manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(PauseAndMenu::Get());
+	}
+
 	if (player1IsInGoal && player2IsInGoal)
 	{
 		if (isHostageRescued)

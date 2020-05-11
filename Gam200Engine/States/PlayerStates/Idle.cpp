@@ -48,7 +48,7 @@ void Idle::Enter(Player* /*obj*/)
 	printf("Player enter Idle State\n");
 }
 
-void Idle::Execute(Player* obj)
+void Idle::Execute(Player* obj, float /*dt*/)
 {
 	if (obj->GetID() == Player::Identifier::Player1)
 	{
