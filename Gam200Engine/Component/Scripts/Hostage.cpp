@@ -40,6 +40,7 @@ void Hostage::Update(float dt)
 			)
 		{
 			isRescued = true;
+			DispatchMessage(MessageTypes::HostageRescued);
 		}
 	}
 	else

@@ -92,6 +92,17 @@ void AlphaTutorialLevel1::Collision()
 
 void AlphaTutorialLevel1::InitObject()
 {
+	Object* ground = new Object();
+	ground->SetObjectName("Ground");
+	ground->SetTranslation(vector2{ 712.f, 20.f });
+	ground->SetScale(vector2{ 2770.f, 630.f });
+	Sprite* groundSprite = new Sprite(ground);
+	groundSprite->SetImage("../assets/textures/Ground_Background.png");
+	ground->AddComponent(groundSprite);
+	groundSprite->ExpandTextureCoordinate(3.f);
+	ground->SetDepth(Depth_Standard::Background);
+	ObjectManager::GetObjectManager()->FindLayer(BackGround)->AddObject(ground);
+
 	background = new Object();
 	background->SetObjectName("background1");
 	background->SetTranslation(vector2{ 1.f });
@@ -111,7 +122,7 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject->AddComponent(new Physics(movingObject));
 	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
 	movingObject->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject, Physics::ObjectType::RECTANGLE);
-	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
 	movingObject->SetDepth(-1.f);
 
 	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1330, 217 }, player1, player2);
@@ -135,8 +146,24 @@ void AlphaTutorialLevel1::InitObject()
 	cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
 	cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
 	cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
+	cheese->AddComponent(new Hostage(cheese, player1, player2));
 	cheese->SetDepth(Depth_Standard::SavedCheese);
 
+	Object* p1Indicator = new Object();
+	p1Indicator->SetObjectName("p1Indicator");
+	p1Indicator->SetTranslation(vector2{ -380, 140 });
+	p1Indicator->SetScale(vector2{ 200.f, 200.f });
+	p1Indicator->AddComponent(new Sprite(p1Indicator));
+	p1Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P1.png");
+	p1Indicator->SetObjectType(Object::ObjectType::TEST);
+
+	Object* p2Indicator = new Object();
+	p2Indicator->SetObjectName("p2Indicator");
+	p2Indicator->SetTranslation(vector2{ -150, 140 });
+	p2Indicator->SetScale(vector2{ 200.f, 200.f });
+	p2Indicator->AddComponent(new Sprite(p2Indicator));
+	p2Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P2.png");
+	p2Indicator->SetObjectType(Object::ObjectType::TEST);
 
 	auto objManager = ObjectManager::GetObjectManager();
 
@@ -146,5 +173,6 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
-
+	objManager->FindLayer(LayerNames::Stage)->AddObject(p1Indicator);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(p2Indicator);
 }
