@@ -144,6 +144,12 @@ void TutorialLevel::InitObject() {
     button5->SetButtonAndDoorColor({ 1.0f, 0.0f, 1.0f, 1.0f }, { 1.0f, 0.0f, 1.0f, 1.0f });
     button5->SetButtonAndDoorName("button5", "door_9");
 
+	//==================================================== GREEN ==================================================================
+
+	button5 = new DoorSystem(player1, player2, vector2{ -630.f, 1925.f }, vector2{ 100.f, 100.f }, vector2{ -211.f, 1105.f }, vector2{ 50.f, 200.f }, false);
+	button5->SetButtonAndDoorColor({ 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
+	button5->SetButtonAndDoorName("shotcutButton", "shotcutDoor");
+
     cheese = new Object();
     cheese->SetObjectType(Object::ObjectType::SavedCheese);
     cheese->SetObjectName("cheese");
