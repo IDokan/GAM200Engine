@@ -18,7 +18,43 @@ MenuObject::~MenuObject()
 }
 
 MenuObject::MenuObject()
-    :Object()
+    :Object(), isLerpIn(false), isLerpOut(false), lerpTimer(0.f)
 {
     SetObjectType(ObjectType::Menu);
+}
+
+MenuObject* MenuObject::Update(float dt)
+{
+    // Only update lerp when lerpTimer is valid
+    if (lerpTimer >= 0.f && lerpTimer < 1.f)
+    {
+        lerpTimer += dt;
+        // If isLerpOut is true,
+        if (isLerpOut)
+        {
+            LerpOut(lerpTimer);
+        }
+        // In order to LerpIn, isLerpOut should be false, and isLerpIn is true
+        else if (isLerpIn)
+        {
+            LerpIn(lerpTimer);
+        }
+    }
+
+    // Else then, do an Update
+    return MenuUpdate(dt);
+}
+
+void MenuObject::StartLerpIn()
+{
+    isLerpIn = true;
+    isLerpOut = false;
+    lerpTimer = 0.f;
+}
+
+void MenuObject::StartLerpOut()
+{
+    isLerpIn = false;
+    isLerpOut = true;
+    lerpTimer = 0.f;
 }

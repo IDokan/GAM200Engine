@@ -37,7 +37,6 @@ GameIsRunning* GameIsRunning::Get()
 
 void GameIsRunning::Enter(SceneStateManager* /*manager*/)
 {
-	CleanAssets();
 }
 
 void GameIsRunning::Execute(SceneStateManager* manager, float /*dt*/)

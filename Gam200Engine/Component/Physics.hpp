@@ -76,6 +76,7 @@ public:
     {
         return isGhost;
     }
+    vector2 GetForce();
 
     vector2 GetTranslation(const matrix3& matrix) const;
     vector2 GetVelocity() const noexcept;

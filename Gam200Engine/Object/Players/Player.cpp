@@ -121,8 +121,7 @@ void Player::LoadPlayer1Layout()
 				scalerBasedOnVelocity = magnitude(velocity);
 
 				// When player stop, force much more stronger dramatically..
-				if ((scalerBasedOnVelocity <= 0.1f)
-					&& (GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() && Idle::Get())
+				if ((GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() == Idle::Get())
 					)
 				{
 					GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
@@ -186,15 +185,14 @@ void Player::LoadPlayer2Layout()
 				scalerBasedOnVelocity = magnitude(velocity);
 
 				// When player stop, force much more stronger dramatically..
-				if ((scalerBasedOnVelocity <= 0.1f)
-					&& (GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() && Idle::Get())
+				if ((GetComponentByTemplate<StateMachine<Player>>()->GetCurrentState() == Idle::Get())
 					)
 				{
-					GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
+						GetComponentByTemplate<Physics>()->AddForce(force * scalerWhenPlayerIsStopping);
 				}
 				else
 				{
-					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity);
+					GetComponentByTemplate<Physics>()->AddForce(force * scalerBasedOnVelocity	);
 				}
 				break;
 			case MessageTypes::SceneComplete:

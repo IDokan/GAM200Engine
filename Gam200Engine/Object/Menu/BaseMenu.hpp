@@ -29,6 +29,9 @@ public:
     virtual void AddChildObjectsDynamically();
     virtual void CleanChildObjects();
 
+    virtual void LerpIn(float timer);
+    virtual void LerpOut(float timer);
+
 private:
     void SetCurrentSelection(MenuEnum newValue);
     void UpdateSelection() noexcept;
@@ -36,13 +39,18 @@ private:
     void UpdateSelectionHighlightTransformation();
     void UpdateSelectionHighlightTransparency(float dt);
 
+    float EaseInBounce(float timer);
+    float EaseOutBounce(float timer);
+
 private:
     Object* menuBackground;
     Object* resumeButton;
     Object* optionButton;
-    Object* quitButton;
+    Object* exitButton;
     Object* selectionHighlight;
     MenuEnum currentSelection;
 
     bool isTransparency;
+
+    bool playerPressEnter;
 };

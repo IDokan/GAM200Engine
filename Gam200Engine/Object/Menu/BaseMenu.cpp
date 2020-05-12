@@ -20,13 +20,13 @@ Creation Date: 05.11.2020
 #include <Systems/Input.hpp>
 
 BaseMenu::BaseMenu()
-    : MenuObject(), menuBackground(nullptr), resumeButton(nullptr), optionButton(nullptr), quitButton(nullptr), selectionHighlight(nullptr), currentSelection(Resume), isTransparency(true)
+    : MenuObject(), menuBackground(nullptr), resumeButton(nullptr), optionButton(nullptr), exitButton(nullptr), selectionHighlight(nullptr), currentSelection(Resume), isTransparency(true), playerPressEnter(false)
 {
     menuBackground = new Object();
     menuBackground->GetTransform().SetParent(&GetTransform());
     Sprite* menuBackgroundSprite = new Sprite(menuBackground);
     menuBackground->AddComponent(menuBackgroundSprite);
-    menuBackgroundSprite->SetColor(Graphics::Color4f{ 0.5f });
+    menuBackgroundSprite->SetImage("../assets/textures/UI/MenuBackground.png");
     menuBackground->SetScale(vector2{ 1.f, 1.5f });
     menuBackground->SetObjectName("MenuBackground");
     menuBackground->SetDepth(Depth_Standard::HUDBackground);
@@ -39,7 +39,7 @@ BaseMenu::BaseMenu()
     resumeButton->GetTransform().SetParent(&GetTransform());
     Sprite* resumeButtonSprite = new Sprite(resumeButton);
     resumeButton->AddComponent(resumeButtonSprite);
-    resumeButtonSprite->SetColor(Graphics::Color4f{ 0.f, 0.5f, 1.f });
+    resumeButtonSprite->SetImage("../assets/textures/UI/Resume.png");
     resumeButton->SetObjectName("ResumeButton");
     resumeButton->SetDepth(Depth_Standard::HUDImage);
     resumeButton->SetObjectType(ObjectType::Menu);
@@ -50,21 +50,21 @@ BaseMenu::BaseMenu()
     optionButton->GetTransform().SetParent(&GetTransform());
     Sprite* optionButtonSprite = new Sprite(optionButton);
     optionButton->AddComponent(optionButtonSprite);
-    optionButtonSprite->SetColor(Graphics::Color4f{ 1.f, 0.f, 1.f });
+    optionButtonSprite->SetImage("../assets/textures/UI/Option.png");
     optionButton->SetObjectName("OptionButton");
     optionButton->SetDepth(Depth_Standard::HUDImage);
     optionButton->SetObjectType(ObjectType::Menu);
 
-    quitButton = new Object();
-    quitButton->SetTranslation(vector2{ 0.f, -0.5f });
-    quitButton->SetScale(vector2{ 0.5f, 0.2f });
-    quitButton->GetTransform().SetParent(&GetTransform());
-    Sprite* quitButtonSprite = new Sprite(quitButton);
-    quitButton->AddComponent(quitButtonSprite);
-    quitButtonSprite->SetColor(Graphics::Color4f{ 1.f, 1.f, 0.f });
-    quitButton->SetObjectName("QuitButton");
-    quitButton->SetDepth(Depth_Standard::HUDImage);
-    quitButton->SetObjectType(ObjectType::Menu);
+    exitButton = new Object();
+    exitButton->SetTranslation(vector2{ 0.f, -0.5f });
+    exitButton->SetScale(vector2{ 0.5f, 0.2f });
+    exitButton->GetTransform().SetParent(&GetTransform());
+    Sprite* exitButtonSprite = new Sprite(exitButton);
+    exitButton->AddComponent(exitButtonSprite);
+    exitButtonSprite->SetImage("../assets/textures/UI/Exit.png");
+    exitButton->SetObjectName("QuitButton");
+    exitButton->SetDepth(Depth_Standard::HUDImage);
+    exitButton->SetObjectType(ObjectType::Menu);
 
 
 
@@ -95,9 +95,15 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
         return nullptr;
     }
 
-    if (input.IsKeyTriggered(GLFW_KEY_ENTER))
+    if (input.IsKeyPressed(GLFW_KEY_ENTER))
     {
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0.3f));
+        playerPressEnter = true;
+    }
+    else if (playerPressEnter)
+    {
+        playerPressEnter = false;
+        GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
         switch (currentSelection)
         {
         case BaseMenu::Resume:
@@ -122,7 +128,7 @@ void BaseMenu::AddChildObjectsDynamically()
     HUDLayer->AddObjectDynamically(menuBackground);
     HUDLayer->AddObjectDynamically(resumeButton);
     HUDLayer->AddObjectDynamically(optionButton);
-    HUDLayer->AddObjectDynamically(quitButton);
+    HUDLayer->AddObjectDynamically(exitButton);
     HUDLayer->AddObjectDynamically(selectionHighlight);
 }
 
@@ -131,8 +137,25 @@ void BaseMenu::CleanChildObjects()
     menuBackground->SetDead(true);
     resumeButton->SetDead(true);
     optionButton->SetDead(true);
-    quitButton->SetDead(true);
+    exitButton->SetDead(true);
     selectionHighlight->SetDead(true);
+}
+
+void BaseMenu::LerpIn(float timer)
+{
+    SetScale(EaseOutBounce(timer));
+}
+
+void BaseMenu::LerpOut(float timer)
+{
+    float scaler = 1.f - EaseOutBounce(timer);
+
+    if (scaler < 0.f)
+    {
+        scaler = 0.f;
+    }
+
+    SetScale(scaler);
 }
 
 void BaseMenu::SetCurrentSelection(MenuEnum newValue)
@@ -180,7 +203,7 @@ Object* BaseMenu::GetSelectedObject()
         return optionButton;
         break;
     case BaseMenu::MenuEnum::Quit:
-        return quitButton;
+        return exitButton;
         break;
     default:
         break;
@@ -225,4 +248,32 @@ void BaseMenu::UpdateSelectionHighlightTransparency(float dt)
         }
     }
     selectionSprite->SetColor(color);
+}
+
+float BaseMenu::EaseInBounce(float timer)
+{
+    return 1.f - EaseOutBounce(1.f - timer);
+}
+
+float BaseMenu::EaseOutBounce(float timer)
+{
+    const float n1 = 7.5625f;
+    const float d1 = 2.75f;
+
+    if (timer < (1.f / d1))
+    {
+        return n1 * timer * timer;
+    }
+    else if (timer < (2.f / d1))
+    {
+        return n1 * (timer -= 1.5f / d1) * timer + 0.75f;
+    }
+    else if (timer < (2.5f / d1))
+    {
+        return n1 * (timer -= 2.25f / d1) * timer + 0.9375f;
+    }
+    else
+    {
+        return n1 * (timer -= 2.625f / d1) * timer + 0.984375f;
+    }
 }

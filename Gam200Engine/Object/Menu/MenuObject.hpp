@@ -12,14 +12,19 @@ Creation Date: 05.11.2020
 #pragma once
 #include <Object/Object.hpp>
 
+#include <States/SceneStates/PauseAndMenu.hpp>
+
 
 class MenuObject : public Object
 {
+public:
+    friend PauseAndMenu;
 public:
     virtual ~MenuObject();
     MenuObject();
 
 public:
+    virtual MenuObject* Update(float dt);
     // Return value is various
         // nullptr -> Pop once
         // ptr to this -> Do nothing
@@ -28,6 +33,16 @@ public:
     virtual void AddChildObjectsDynamically() = 0;
     virtual void CleanChildObjects() = 0;
 
-protected:
+    virtual void StartLerpIn();
+    virtual void StartLerpOut();
 
+    // Do an appropriate lerp animations
+    virtual void LerpIn(float timer) = 0;
+    virtual void LerpOut(float timer) = 0;
+
+protected:
+    bool isLerpIn;
+    bool isLerpOut;
+
+    float lerpTimer;
 };
