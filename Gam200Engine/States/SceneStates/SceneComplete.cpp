@@ -67,8 +67,8 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 
 	// Play "Scene Complete Sound"
 	// TODO:
-	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::GOAL_SOUND);
-	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::GOAL_SOUND, 0.4f);
+	//SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::GOAL_SOUND);
+	//SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::GOAL_SOUND, 0.4f);
 }
 
 void SceneComplete::Execute(SceneStateManager* manager, float dt)

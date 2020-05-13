@@ -48,4 +48,5 @@ private:
     DoorSystem* button1;
     DoorSystem* button2;
     DoorSystem* button3;
+    DoorSystem* button4;
 };

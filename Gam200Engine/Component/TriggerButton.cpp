@@ -166,20 +166,24 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
                 color.alpha = 1.f;
                 door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                 door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                openEmitter->SetShouldReviveParticle(true);
 
                 color2.alpha = 0.2f;
                 door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                 door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                closeEmitter->SetShouldReviveParticle(false);
             }
             else
             {
                 color.alpha = 0.2f;
                 door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                 door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                openEmitter->SetShouldReviveParticle(false);
 
                 color2.alpha = 1.f;
                 door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                 door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                closeEmitter->SetShouldReviveParticle(true);
             }
             button->SetDirtyFlag(false);
             button1->SetDirtyFlag(false);

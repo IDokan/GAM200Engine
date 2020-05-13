@@ -172,9 +172,9 @@ void TutorialLevel::InitObject() {
 
 	//==================================================== GREEN ==================================================================
 
-	button5 = new DoorSystem(player1, player2, vector2{ -630.f, 1925.f }, vector2{ 100.f, 100.f }, vector2{ -211.f, 1105.f }, vector2{ 50.f, 200.f }, false);
-	button5->SetButtonAndDoorColor({ 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
-	button5->SetButtonAndDoorName("shotcutButton", "shotcutDoor");
+	buttonShortcut = new DoorSystem(player1, player2, vector2{ -630.f, 1925.f }, vector2{ 100.f, 100.f }, vector2{ -211.f, 1105.f }, vector2{ 50.f, 200.f }, false);
+	buttonShortcut->SetButtonAndDoorColor({ 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
+	buttonShortcut->SetButtonAndDoorName("shotcutButton", "shotcutDoor");
 
     cheese = new Object();
     cheese->SetObjectType(Object::ObjectType::SavedCheese);
@@ -189,7 +189,8 @@ void TutorialLevel::InitObject() {
     cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
     cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
-    cheese->SetDepth(Depth_Standard::SavedCheese);
+	cheese->AddComponent(new Hostage(cheese, player1, player2));
+	cheese->SetDepth(Depth_Standard::SavedCheese);
 
     jail = new CrushableObject(vector2{ 860.f,100.f }, vector2{ 100.f,100.f }, Physics::ObjectType::RECTANGLE, string);
     jail->SetDepth(Depth_Standard::Jail);
@@ -220,6 +221,7 @@ void TutorialLevel::InitObject() {
 	objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(button5);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(buttonShortcut);
 	
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail);

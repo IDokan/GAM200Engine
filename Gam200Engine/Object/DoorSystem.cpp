@@ -409,7 +409,8 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     openDoor->AddComponent(new Physics(openDoor));
     openDoor->GetComponentByTemplate<Physics>()->ActiveGhostCollision(isOpen);
     openDoor->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(openDoor, Physics::ObjectType::RECTANGLE);
-    openDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
+    openDoor->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/BLOCK_W.png");
+    openDoor->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(openDoor->GetScale() / 75.f);
     openDoor->SetDepth(-1.f);
 
     openEmitter = new ParticleEmitter(7.5f, 5.f, 35, [&]()
