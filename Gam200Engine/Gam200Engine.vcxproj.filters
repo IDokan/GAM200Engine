@@ -328,6 +328,9 @@
     <ClCompile Include="Component\TriggerButton.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -695,6 +698,9 @@
     </ClInclude>
     <ClInclude Include="Component\TriggerButton.hpp">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

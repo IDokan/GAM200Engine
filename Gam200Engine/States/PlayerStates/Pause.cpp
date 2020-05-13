@@ -23,9 +23,9 @@ void Pause::Enter(Player* /*obj*/)
 	printf("Player enter Pause State\n");
 }
 
-void Pause::Execute(Player* /*obj*/, float /*dt*/)
+void Pause::Execute(Player* obj, float /*dt*/)
 {
-	// Do nothing.
+	obj->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
 }
 
 void Pause::Exit(Player* /*obj*/)
