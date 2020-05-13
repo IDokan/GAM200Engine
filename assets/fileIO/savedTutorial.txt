@@ -1,6 +1,6 @@
-Player1 -900 1760 100 100 -11.5 player1 ../assets/textures/Cheese/cheese_move.png
-Player2 -852 1911 100 100 -11.5 player2 ../assets/textures/Cheese/cheese_move.png
-block13 -211 680 50 1544 -1 obstacle ../assets/textures/rect.png
+Player1 -917 357 100 100 -11.5 player1 ../assets/textures/Cheese/cheese_move.png
+Player2 -886 659 100 100 -11.5 player2 ../assets/textures/Cheese/cheese_move.png
+block13 -211 435 50 1140 -1 obstacle ../assets/textures/rect.png
 block34 830 1158 376 50 -1 obstacle ../assets/textures/rect.png
 block40 140 -475 2351 50 -1 obstacle ../assets/textures/rect.png
 block16 316 1338 50 242 -1 obstacle ../assets/textures/rect.png
@@ -24,7 +24,7 @@ block14 -342 870 288 50 -1 obstacle ../assets/textures/rect.png
 block37 -1020 750 50 2502 -1 obstacle ../assets/textures/rect.png
 block17 520 1934 50 139 -1 obstacle ../assets/textures/rect.png
 block39 1330 750 50 2501 -1 obstacle ../assets/textures/rect.png
-block19 -57 1230 289 50 -1 obstacle ../assets/textures/rect.png
+block19 -73 1230 325 50 -1 obstacle ../assets/textures/rect.png
 block1 -731 1815 50 368 -1 obstacle ../assets/textures/rect.png
 block22 700 1158 252 50 -1 obstacle ../assets/textures/rect.png
 block23 530 1470 480 50 -1 obstacle ../assets/textures/rect.png
@@ -38,3 +38,4 @@ block30 560 100 50 719 -1 obstacle ../assets/textures/rect.png
 block31 870 -235 584 50 -1 obstacle ../assets/textures/rect.png
 block32 1137 126 50 693 -1 obstacle ../assets/textures/rect.png
 block33 939 448 351 50 -1 obstacle ../assets/textures/rect.png
+block40 -211 1350 50 200 -1 obstacle ../assets/textures/rect.png

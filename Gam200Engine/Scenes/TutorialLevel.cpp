@@ -170,6 +170,12 @@ void TutorialLevel::InitObject() {
     button5->SetButtonAndDoorColor({ 1.0f, 0.0f, 1.0f, 1.0f }, { 1.0f, 0.0f, 1.0f, 1.0f });
     button5->SetButtonAndDoorName("button6", "door_9");
 
+	//==================================================== GREEN ==================================================================
+
+	button5 = new DoorSystem(player1, player2, vector2{ -630.f, 1925.f }, vector2{ 100.f, 100.f }, vector2{ -211.f, 1105.f }, vector2{ 50.f, 200.f }, false);
+	button5->SetButtonAndDoorColor({ 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f });
+	button5->SetButtonAndDoorName("shotcutButton", "shotcutDoor");
+
     cheese = new Object();
     cheese->SetObjectType(Object::ObjectType::SavedCheese);
     cheese->SetObjectName("cheese");
@@ -183,7 +189,6 @@ void TutorialLevel::InitObject() {
     cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
     cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
-	cheese->AddComponent(new Hostage(cheese, player1, player2));
     cheese->SetDepth(Depth_Standard::SavedCheese);
 
     jail = new CrushableObject(vector2{ 860.f,100.f }, vector2{ 100.f,100.f }, Physics::ObjectType::RECTANGLE, string);
@@ -203,19 +208,19 @@ void TutorialLevel::InitObject() {
 
     auto objManager = ObjectManager::GetObjectManager();
 
-    objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(button5);
-
+	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(button5);
+	
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail);
 }
