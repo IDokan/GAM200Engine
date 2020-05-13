@@ -15,6 +15,8 @@ Creation Date: 03.15.2020
 #include <Scenes/Scene.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
+#include <Object/DoorSystem.hpp>
+
 
 class Object;
 class String;
@@ -38,13 +40,12 @@ protected:
 
 private:
     Object* background;
-    Object* startPoint{};
-    Object* goalPoint{};
+    Object* cheese;
+    Object* jail;
+    Object* jailText;
+    Object* movingObject_1;
 
-    //key and lock system
-    Object* key1{};
-    Object* key2{};
-
-    Object* lock1{};
-    Object* lock2{};
+    DoorSystem* button1;
+    DoorSystem* button2;
+    DoorSystem* button3;
 };

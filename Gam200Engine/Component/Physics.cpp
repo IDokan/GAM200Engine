@@ -163,6 +163,11 @@ void Physics::SetCollisionResolution(bool condition)
     shouldResolveResolution = condition;
 }
 
+void Physics::SetDirtFlag(bool condition)
+{
+    dirtyFlag = condition;
+}
+
 void Physics::AddForce(vector2 force_)
 {
     force = force_;
@@ -635,52 +640,92 @@ void Physics::IsCollideWithMovedObject()
     const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
     for (auto object1 : physicsObject)
     {
-        if (object1->GetObjectType() == Object::ObjectType::MOVING_OBJECT)
+        if (object1->GetComponentByTemplate<Physics>())
         {
-            switch (object1->GetComponentByTemplate<Physics>()->GetObjectCollidingSide())
+            if (object1->GetObjectType() == Object::ObjectType::MOVING_OBJECT)
             {
-            case Physics::ObjectSide::UP_SIDE:
-            {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
+                switch (object1->GetComponentByTemplate<Physics>()->GetObjectCollidingSide())
                 {
-                    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
-                    object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                }
-                break;
-            }
-            case Physics::ObjectSide::BOTTOM_SIDE:
-            {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
+                case Physics::ObjectSide::UP_SIDE:
                 {
-                    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
-                    object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
+                    {
+                        if (dirtyFlag == true)
+                        {
+                            //playSound();
+                        }
+                        object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
+                        object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                        object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+
+                        dirtyFlag = false;
+                    }
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0.f && dirtyFlag == false)
+                    {
+                        dirtyFlag = true;
+                    }
+                    break;
                 }
-                break;
-            }
-            case Physics::ObjectSide::RIGHT_SIDE:
-            {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x < 0.f && ownerVelocity.y == 0.f)
+                case Physics::ObjectSide::BOTTOM_SIDE:
                 {
-                    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
-                    object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
+                    {
+                        if (dirtyFlag == true)
+                        {
+                            //playSound();
+                        }
+                        object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
+                        object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                        object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    }
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().y== 0.f && dirtyFlag == false)
+                    {
+                        dirtyFlag = true;
+                    }
+                    break;
                 }
-                break;
-            }
-            case Physics::ObjectSide::LEFT_SIDE:
-            {
-                if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x > 0.f && ownerVelocity.y == 0.f)
+                case Physics::ObjectSide::RIGHT_SIDE:
                 {
-                    object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
-                    object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
-                    object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x < 0.f && ownerVelocity.y == 0.f)
+                    {
+                        if (dirtyFlag == true)
+                        {
+                            //playSound();
+                        }
+                        object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
+                        object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                        object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                    }
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f && dirtyFlag == false)
+                    {
+                        dirtyFlag = true;
+                    }
+                    break;
                 }
-                break;
-            }
-            default:
-                break;
+                case Physics::ObjectSide::LEFT_SIDE:
+                {
+                    if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1) && ownerVelocity.x > 0.f && ownerVelocity.y == 0.f)
+                    {
+                        if (dirtyFlag == true)
+                        {
+                            //playSound();
+                        }
+
+                        object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ ownerVelocity.x, 0.f });
+                        object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                        object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
+                        dirtyFlag = false;
+                    }
+
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0.f && dirtyFlag == false)
+                    {
+                        dirtyFlag = true;
+                    }
+                    break;
+                }
+                default:
+                    break;
+                }
             }
         }
     }

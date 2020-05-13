@@ -292,7 +292,6 @@
     <ClCompile Include="Component\Button.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\TriggerButton.cpp" />
     <ClCompile Include="Component\Scripts\Hostage.cpp">
       <Filter>Component\Scripts</Filter>
     </ClCompile>
@@ -325,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="Object\Menu\OptionMenu.cpp">
       <Filter>Object\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\TriggerButton.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -658,7 +660,6 @@
     <ClInclude Include="Component\Button.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\TriggerButton.hpp" />
     <ClInclude Include="Component\Scripts\Hostage.hpp">
       <Filter>Component\Scripts</Filter>
     </ClInclude>
@@ -691,6 +692,9 @@
     </ClInclude>
     <ClInclude Include="Object\Menu\OptionMenu.hpp">
       <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TriggerButton.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
