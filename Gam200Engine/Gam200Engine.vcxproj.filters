@@ -331,6 +331,9 @@
     <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Checkpoint.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -701,6 +704,9 @@
     </ClInclude>
     <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Checkpoint.hpp">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

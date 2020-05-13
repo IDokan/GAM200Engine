@@ -38,7 +38,11 @@ SceneStateManager::SceneStateManager()
 			switch (msg.Msg)
 			{
 			case MessageTypes::PlayerIsDead:
-				stateMachine->ChangeState(PlayerIsDead::Get());
+				if (GameIsRunning* state = GameIsRunning::Get();
+					state == stateMachine->GetCurrentState())
+				{
+					stateMachine->ChangeState(PlayerIsDead::Get());
+				}
 				break;
 			case MessageTypes::GameRestarted:
 				stateMachine->ChangeState(GameIsRunning::Get());

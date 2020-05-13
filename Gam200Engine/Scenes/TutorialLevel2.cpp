@@ -29,6 +29,8 @@ Creation Date: 05.06.2020
 #include <Object/InteractiveObject/CrushableObject.hpp>
 #include <Component/Sprite/TextComponent.hpp>
 #include <Graphics/StockBitmapFonts.hpp>
+#include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Component/Scripts/Hostage.hpp>
 TutorialLevel2::TutorialLevel2() : background(nullptr)
 {
 }
@@ -45,6 +47,7 @@ void TutorialLevel2::Load()
     TutorialLevel2::InitObject();
 
     cameraManager.Init(player1, player2);
+    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
 }
 
 void TutorialLevel2::Update(float dt)
@@ -79,20 +82,8 @@ void TutorialLevel2::Collision()
     player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
-void TutorialLevel2::InitObject() {
-
-    //movingObject_1 = new Object();
-    //movingObject_1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-    //movingObject_1->SetObjectName("movingObject_1");
-    //movingObject_1->SetTranslation(vector2{ -400, 0.f });
-    //movingObject_1->SetScale(vector2{ 100.f, 100.f });
-    //movingObject_1->AddComponent(new Sprite(movingObject_1));
-    //movingObject_1->AddComponent(new Physics(movingObject_1));
-    //movingObject_1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
-    //movingObject_1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject_1, Physics::ObjectType::RECTANGLE);
-    //movingObject_1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/rect.png");
-    //movingObject_1->SetDepth(-1.f);
-
+void TutorialLevel2::InitObject() 
+{
     jailText = new Object();
     jailText->SetObjectName("JailText");
     jailText->SetTranslation(vector2{ 1800.f, -150.f });
@@ -123,6 +114,7 @@ void TutorialLevel2::InitObject() {
     cheese->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
     cheese->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(cheese, Physics::ObjectType::RECTANGLE);
     cheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/SavedCheese.png");
+    cheese->AddComponent(new Hostage(cheese, player1, player2));
     cheese->SetDepth(Depth_Standard::SavedCheese);
 
     jail = new CrushableObject(vector2{ 2100.f, 0.f }, vector2{ 50.f, 50.f }, Physics::ObjectType::RECTANGLE, string);
@@ -133,7 +125,7 @@ void TutorialLevel2::InitObject() {
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "door_1", "door_2");
 
-    button2 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{1350.f, -230.f}, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f }, true);
+    button2 = new DoorSystem(player1, player2, vector2{ 680.f, -230.f }, vector2{ 100.f, 100.f }, vector2{1350.f, -230.f}, vector2{ 100.f, 100.f }, vector2{ 550, 0.f }, vector2{ 100.f, 180.f }, vector2{ 1500.f, 0.f }, vector2{ 100.f, 180.f });
     button2->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button2->SetButtonAndDoorName("button2", "button3", "door_3", "door_4");
 
@@ -163,6 +155,7 @@ void TutorialLevel2::InitObject() {
     objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
     //objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);

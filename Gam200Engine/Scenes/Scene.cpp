@@ -238,6 +238,11 @@ SoundManager& Scene::GetSoundManager() noexcept
 	return soundManager;
 }
 
+SceneStateManager* Scene::GetSceneStateManager() noexcept
+{
+	return sceneStateManager;
+}
+
 void Scene::LevelChangeTo(std::string name)
 {
 	is_next = true;

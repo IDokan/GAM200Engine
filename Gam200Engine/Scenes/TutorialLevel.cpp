@@ -102,7 +102,9 @@ void TutorialLevel::InitObject() {
 	Sprite* groundSprite = new Sprite(ground);
 	groundSprite->SetImage("../assets/textures/Ground_Background.png");
 	ground->AddComponent(groundSprite);
-	groundSprite->ExpandTextureCoordinate(3.f);
+	vector2 scale = ground->GetScale();
+	groundSprite->ExpandTextureCoordinate(vector2{scale.x / 783.f, scale.y / 833.f});
+	// 783, 833
 	ground->SetDepth(Depth_Standard::Background);
 	ObjectManager::GetObjectManager()->FindLayer(BackGround)->AddObject(ground);
 

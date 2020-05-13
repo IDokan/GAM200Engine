@@ -139,7 +139,7 @@ void MenuScene::Input()
 	{
 		if ((selection % 5) == ButtonRow::PLAY)
 		{
-			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel");
+			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
 		}
 		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
 		{

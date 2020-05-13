@@ -12,7 +12,7 @@ Creation Date: 08.12.2019
 #include <iostream>
 #include <algorithm>
 #include <Scenes/SceneManager.hpp>
-
+#include <Object/SceneStateManager/SceneStateManager.hpp>
 #include  <Systems/Input.hpp>
 
 SceneManager * SceneManager::GetSceneManager()
@@ -37,6 +37,10 @@ void SceneManager::Update(float dt)
     if (input.IsKeyTriggered(GLFW_KEY_R))
     {
         GameRestart();
+    }
+    if (input.IsKeyTriggered(GLFW_KEY_N))
+    {
+        SetNextScene(currentScene->GetSceneStateManager()->GetNameOfSelectedLevel());
     }
 
     if (!is_restart) 

@@ -12,9 +12,9 @@ Creation Date: 08.12.2019
 
 #pragma once
 
-#include <Scenes/Scene.hpp>
 #include <unordered_map>
 #include <memory>
+#include <Scenes/Scene.hpp>
 
 class SceneManager
 {

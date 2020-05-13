@@ -18,6 +18,7 @@ Creation Date: 05.11.2020
 
 #include <Object/ObjectManager.hpp>
 #include <Systems/Input.hpp>
+#include <Scenes/SceneManager.hpp>
 
 BaseMenu::BaseMenu()
     : MenuObject(), menuBackground(nullptr), resumeButton(nullptr), optionButton(nullptr), exitButton(nullptr), selectionHighlight(nullptr), currentSelection(Resume), isTransparency(true), playerPressEnter(false)
@@ -113,7 +114,7 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
             // return ptr to OptionMenu
             break;
         case BaseMenu::Quit:
-            input.SetIsRunning(false);
+            SceneManager::GetSceneManager()->SetNextScene("MenuScene");
             break;
         default:
             break;

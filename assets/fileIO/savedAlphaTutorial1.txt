@@ -1,5 +1,5 @@
-Player1 -94 -72 100 100 -0.0023 player1 ../assets/textures/Cheese/cheese_move.png
-Player2 -104 -98 100 100 -0.0023 player2 ../assets/textures/Cheese/cheese_move.png
+Player1 1168.14 -99.398 100 100 -0.0023 player1 ../assets/textures/Cheese/cheese_move.png
+Player2 750.396 -373.973 100 100 -0.0023 player2 ../assets/textures/Cheese/cheese_move.png
 p1Indicator -380 140 200 200 0 test ../assets/textures/movement_P1.png
 p2Indicator -150 140 200 200 0 test ../assets/textures/movement_P2.png
 Block1 508 63 50 520 -0.0002 obstacle ../assets/textures/BLOCK_W.png

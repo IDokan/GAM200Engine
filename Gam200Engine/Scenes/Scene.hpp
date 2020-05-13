@@ -43,6 +43,7 @@ public:
 	// Getters
 	Graphics::CameraManager& GetCameraManager() noexcept;
 	SoundManager& GetSoundManager() noexcept;
+	SceneStateManager* GetSceneStateManager() noexcept;
 
 public:
 	void LevelChangeTo(std::string name);
