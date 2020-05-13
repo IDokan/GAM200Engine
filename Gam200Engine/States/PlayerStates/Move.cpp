@@ -36,51 +36,51 @@ void Move::Execute(Player* obj, float /*dt*/)
 		/**********************Moving Object 1*******************************************/
 		if (input.IsKeyPressed(GLFW_KEY_W))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerUpMoveSpeed);
 			if (input.IsKeyPressed(GLFW_KEY_D))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightUpMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_A))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftUpMoveSpeed);
 			}
 		}
 		if (input.IsKeyPressed(GLFW_KEY_A))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftMoveSpeed);
 			if (input.IsKeyPressed(GLFW_KEY_W))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftUpMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_S))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftDownMoveSpeed);
 			}
 		}
 		if (input.IsKeyPressed(GLFW_KEY_S))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerDownMoveSpeed);
 
 			if (input.IsKeyPressed(GLFW_KEY_A))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftDownMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_D))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightDownMoveSpeed);
 			}
 		}
 		if (input.IsKeyPressed(GLFW_KEY_D))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightMoveSpeed);
 			if (input.IsKeyPressed(GLFW_KEY_W))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightUpMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_S))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightDownMoveSpeed);
 			}
 		}
 		if (input.IsKeyReleased(GLFW_KEY_W) && input.IsKeyReleased(GLFW_KEY_A) && input.IsKeyReleased(GLFW_KEY_S) && input.IsKeyReleased(GLFW_KEY_D))
@@ -95,51 +95,51 @@ void Move::Execute(Player* obj, float /*dt*/)
 		/**********************Moving Object 2*******************************************/
 		if (input.IsKeyPressed(GLFW_KEY_UP))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerUpMoveSpeed);
 			if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightUpMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_LEFT))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftUpMoveSpeed);
 			}
 		}
 		if (input.IsKeyPressed(GLFW_KEY_LEFT))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftMoveSpeed);
 			if (input.IsKeyPressed(GLFW_KEY_UP))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftUpMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_DOWN))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftDownMoveSpeed);
 			}
 		}
 		if (input.IsKeyPressed(GLFW_KEY_DOWN))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerDownMoveSpeed);
 
 			if (input.IsKeyPressed(GLFW_KEY_LEFT))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerLeftDownMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightDownMoveSpeed);
 			}
 		}
 		if (input.IsKeyPressed(GLFW_KEY_RIGHT))
 		{
-			obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
+			obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightMoveSpeed);
 			if (input.IsKeyPressed(GLFW_KEY_UP))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightUpMoveSpeed);
 			}
 			else if (input.IsKeyPressed(GLFW_KEY_DOWN))
 			{
-				obj->GetComponentByTemplate<Physics>()->SetVelocity(3.f, -3.f);
+				obj->GetComponentByTemplate<Physics>()->SetVelocity(playerRightDownMoveSpeed);
 			}
 		}
 		if (input.IsKeyReleased(GLFW_KEY_UP) && input.IsKeyReleased(GLFW_KEY_LEFT) && input.IsKeyReleased(GLFW_KEY_DOWN) && input.IsKeyReleased(GLFW_KEY_RIGHT))
@@ -153,4 +153,26 @@ void Move::Execute(Player* obj, float /*dt*/)
 void Move::Exit(Player* /*obj*/)
 {
 	printf("Player exit Move State\n");
+}
+
+void Move::SetPlayerMoveSpeed(float amount)
+{
+    playerUpMoveSpeed = vector2{ 0.f, amount };
+    playerLeftUpMoveSpeed = vector2{ -amount, amount };
+    playerRightUpMoveSpeed = vector2{ amount, amount };
+    playerDownMoveSpeed = vector2{ 0.f, -amount };
+    playerLeftDownMoveSpeed = vector2{ -amount, -amount };
+    playerRightDownMoveSpeed = vector2{ amount, -amount };
+    playerLeftMoveSpeed = vector2{ -amount, 0.f };
+    playerRightMoveSpeed = vector2{ amount, 0.f };
+}
+
+void Move::SetIsCheatCodeActivated(bool flag)
+{
+    isCheatCodeActivated = flag;
+}
+
+bool Move::GetIsCheatCodeActivated() const 
+{
+    return isCheatCodeActivated;
 }

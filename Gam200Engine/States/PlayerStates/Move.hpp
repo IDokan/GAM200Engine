@@ -24,7 +24,20 @@ public:
 	void Enter(Player* obj) override;
 	void Execute(Player* obj, float dt) override;
 	void Exit(Player* obj) override;
+    void SetPlayerMoveSpeed(float amount);
+    void SetIsCheatCodeActivated(bool flag);
+    bool GetIsCheatCodeActivated() const;
 
 private:
 	Move() = default;
+    vector2 playerUpMoveSpeed = vector2{ 0.f, 200.f };
+    vector2 playerLeftUpMoveSpeed = vector2{ -200.f, 200.f };
+    vector2 playerRightUpMoveSpeed = vector2{ 200.f, 200.f };
+    vector2 playerDownMoveSpeed = vector2{ 0.f, -200.f };
+    vector2 playerLeftDownMoveSpeed = vector2{ -200.f, -200.f };
+    vector2 playerRightDownMoveSpeed = vector2{ 200.f, -200.f };
+    vector2 playerLeftMoveSpeed = vector2{ -200.f, 0.f };
+    vector2 playerRightMoveSpeed = vector2{ 200.f, 0.f };
+
+    bool isCheatCodeActivated = false;
 };
