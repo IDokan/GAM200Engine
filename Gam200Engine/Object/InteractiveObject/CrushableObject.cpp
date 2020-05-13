@@ -13,6 +13,8 @@ Creation Date: DEC/11st/2019
 #include <Object/InteractiveObject/CrushableObject.hpp>
 #include <Component/Sprite/CrushableObjectAnimation.hpp>
 #include <Component/Physics.hpp>
+#include <Scenes/Scene.hpp>//
+#include <Scenes/SceneManager.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Component/Scripts/Accumulating.hpp>
 
@@ -31,9 +33,11 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, objType);
     SetDepth(-0.1f);
 
-    /////
-    SoundManager& sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-    sm.Load_Sound();
+  
+     SoundManager soundManager = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+     soundManager.Load_Sound();
+     soundManager.Play_Sound(CRUSH_SOUND);
+     soundManager.SetVolume(CRUSH_SOUND,1);
 }
 
 CrushableObject::~CrushableObject()

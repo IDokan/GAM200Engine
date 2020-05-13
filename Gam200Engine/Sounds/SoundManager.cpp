@@ -35,8 +35,24 @@ void SoundManager::Load_Sound()
 	ERRCHECK(theResult, "Load Sound");
 	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Magic_Chime.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Dog_Drinking_Close_Up.mp3", FMOD_DEFAULT, nullptr, &sound[SHAREWEIGHT_SOUND]);
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.ogg", FMOD_DEFAULT, nullptr, &sound[CURSOR_MOVEMENT_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/LevelClearSound.wav", FMOD_DEFAULT, nullptr, &sound[LEVEL_CLEAR_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/MousePatrolSound.wav", FMOD_DEFAULT, nullptr, &sound[MOUSE_PATROL_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.ogg", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DoorSound.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[DOOR_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[UNDO_SOUND]);
+	ERRCHECK(theResult, "Load Sound");
+
+
 	for (int sound = 0; sound < SOUNDS::NONE; sound++) {
 		current_ch_volume[sound] = initialVolume;
 	}
@@ -60,7 +76,7 @@ void SoundManager::SetVolume(int sound_name, float volume)
 {
 	//masterVolume = volume;
 	current_ch_volume[sound_name] = volume;
-	theResult = FMOD_Channel_SetVolume(ch[sound_name], volume);   /* ERRCHECK(theResult,"Set Volume");*/
+	theResult = FMOD_Channel_SetVolume(ch[sound_name], volume);
 	ERRCHECK(theResult, "Set Volume");
 }
 
@@ -68,7 +84,7 @@ void SoundManager::ERRCHECK(FMOD_RESULT _theResult, const std::string errorReaso
 {
 	if (_theResult != FMOD_OK)
 	{
-		//std::cout << errorReason << " Error!\n";
+			std::cout << errorReason << " Error!\n";
 	}
 }
 
@@ -80,9 +96,9 @@ float SoundManager::GetCurrentChVolume(int sound_name)
 void SoundManager::MASTER_VOLUME_DOWN()
 {
 	float newVolume = 0.f;
-	float checkVolumeSize = (GetCurrentChVolume(0)* contorolVolumeSize);
+	float checkVolumeSize = (GetCurrentChVolume(0) * contorolVolumeSize);
 
-	if (static_cast<int>(GetCurrentChVolume(0)*100) > static_cast<int>(checkVolumeSize * 100)) {
+	if (static_cast<int>(GetCurrentChVolume(0) * 100) > static_cast<int>(checkVolumeSize * 100)) {
 		for (int currentSound = 0; currentSound < SOUNDS::NONE; currentSound++) {
 			newVolume = GetCurrentChVolume(currentSound);
 			newVolume -= newVolume * contorolVolumeSize;
@@ -99,7 +115,7 @@ void SoundManager::MASTER_VOLUME_UP()
 	float newVolume = 0;
 	float checkVolumeSize = (GetCurrentChVolume(0) * contorolVolumeSize);
 
-	if (GetCurrentChVolume(0)+ checkVolumeSize  < 1.0f)
+	if (GetCurrentChVolume(0) + checkVolumeSize < 1.0f)
 	{
 		for (int currentSound = 0; currentSound < SOUNDS::NONE; currentSound++) {
 			newVolume = GetCurrentChVolume(currentSound);
@@ -110,5 +126,3 @@ void SoundManager::MASTER_VOLUME_UP()
 		}
 	}
 }
-
-

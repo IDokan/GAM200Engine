@@ -15,6 +15,7 @@ Creation Date: 08.15.2019
 #include <matrix3.hpp>
 #include <Component/Component.hpp>
 #include <Object/Object.hpp>
+#include <Sounds/SoundManager.hpp>
 
 class Physics : public Component
 {
@@ -58,7 +59,7 @@ public:
     void SetPosition(vector2 pos);
     void SetOldPosition(vector2 pos);
     void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, vector2 positionAdj = vector2{ 0.f,0.f }, vector2 scaleAdj = vector2{ 0.f,0.f });
-    void SetCollisionBoxAndObjectType(Object* object, ObjectType objType,float scaleX, float scaleY = 0.f, float positionX = 0.f, float positionY = 0.f);
+    void SetCollisionBoxAndObjectType(Object* object, ObjectType objType, float scaleX, float scaleY = 0.f, float positionX = 0.f, float positionY = 0.f);
     void SetCollisionBoxPosition(vector2 originPos);
     void SetCollisionBoxScale(vector2 scale);
     void SetFriction(float friction);
@@ -172,4 +173,7 @@ private:
     ObjectSide objSide;
 
     std::vector<vector2> SAT;
+
+    //soundManager
+    //SoundManager soundManager{};
 };

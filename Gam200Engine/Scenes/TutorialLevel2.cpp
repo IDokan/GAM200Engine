@@ -73,8 +73,7 @@ void TutorialLevel2::GameRestart()
 
 void TutorialLevel2::Unload()
 {
-        fileIO* a = 0;
-        a->Output("../assets/fileIO/tutorialLevelFile2.txt");
+
 }
 
 void TutorialLevel2::Collision()
@@ -98,8 +97,21 @@ void TutorialLevel2::InitObject()
     background->SetTranslation(vector2{ 1500.f, 0.f });
     background->SetScale(vector2{ 6300.f,800.f });
     background->AddComponent(new Sprite(background));
-    background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+    background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Ground_Background.png");
+    vector2 scale = background->GetScale();
+    background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(vector2{ scale.x / 780.f, scale.y / 800.f });
     background->SetDepth(Depth_Standard::Background);
+
+    Object* outGround;
+    outGround = new Object();
+    outGround->SetObjectName("outGround");
+    outGround->SetTranslation(vector2{ 1.f });
+    outGround->SetScale(vector2{ 10000.f });
+    outGround->AddComponent(new Sprite(outGround));
+    outGround->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(50.f);
+    outGround->AddComponent(new Physics(outGround));
+    outGround->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/background.png");
+    outGround->SetDepth(Depth_Standard::FurtherBackground);
 
     cheese = new Object();
     cheese->SetObjectType(Object::ObjectType::SavedCheese);
@@ -152,6 +164,7 @@ void TutorialLevel2::InitObject()
 
 
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
+    objManager->FindLayer(LayerNames::BackGround)->AddObject(outGround);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
