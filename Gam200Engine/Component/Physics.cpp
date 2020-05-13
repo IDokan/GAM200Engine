@@ -62,7 +62,7 @@ void Physics::Update(float dt)
     if (shouldResolveResolution == false)
     {
         oldPosition = owner->GetComponentByTemplate<Physics>()->GetCollisionBox().Translation;
-        vectorTranslation = GetTranslation(finalTranslation) * friction;
+        vectorTranslation = GetTranslation(finalTranslation) * dt * friction;
         position = owner->GetTranslation() + vectorTranslation + force;
     }
     else
