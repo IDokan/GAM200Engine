@@ -94,8 +94,8 @@ void TutorialLevel2::InitObject()
 
     background = new Object();
     background->SetObjectName("background1");
-    background->SetTranslation(vector2{ 1500.f, 0.f });
-    background->SetScale(vector2{ 6300.f,800.f });
+    background->SetTranslation(vector2{ 1165.f, 0.f });
+    background->SetScale(vector2{ 5600.f,800.f });
     background->AddComponent(new Sprite(background));
     background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Ground_Background.png");
     vector2 scale = background->GetScale();
