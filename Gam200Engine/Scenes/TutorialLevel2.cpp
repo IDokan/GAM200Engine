@@ -129,7 +129,7 @@ void TutorialLevel2::InitObject()
     cheese->AddComponent(new Hostage(cheese, player1, player2));
     cheese->SetDepth(Depth_Standard::SavedCheese);
 
-    jail = new CrushableObject(vector2{ 2100.f, 0.f }, vector2{ 50.f, 50.f }, Physics::ObjectType::RECTANGLE, string);
+    jail = new CrushableObject(vector2{ 2100.f, 0.f }, vector2{ 100.f, 100.f }, Physics::ObjectType::RECTANGLE, string);
     jail->SetDepth(Depth_Standard::Jail);
     jail->SetObjectName("jail");
 
