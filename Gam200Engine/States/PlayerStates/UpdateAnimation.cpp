@@ -168,7 +168,7 @@ UpdateAnimation::UpdateAnimation()
 
 void UpdateAnimation::UpdateCollisionBox(Player* player)
 {
-        player->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player, Physics::ObjectType::RECTANGLE);
+    player->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{-50.f, -50.f});
 }
 
 void UpdateAnimation::Enter(Player* /*obj*/)
