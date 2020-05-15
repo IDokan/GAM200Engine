@@ -79,8 +79,7 @@ void AlphaTutorialLevel1::GameRestart()
 
 void AlphaTutorialLevel1::Unload()
 {
-	fileIO* fileio = new fileIO;
-	fileio->Output("../assets/fileIO/savedAlphaTutorial1.txt");
+
 }
 
 void AlphaTutorialLevel1::Collision()

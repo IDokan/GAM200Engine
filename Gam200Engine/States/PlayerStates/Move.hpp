@@ -30,14 +30,14 @@ public:
 
 private:
 	Move() = default;
-    vector2 playerUpMoveSpeed = vector2{ 0.f, 200.f };
-    vector2 playerLeftUpMoveSpeed = vector2{ -200.f, 200.f };
-    vector2 playerRightUpMoveSpeed = vector2{ 200.f, 200.f };
-    vector2 playerDownMoveSpeed = vector2{ 0.f, -200.f };
-    vector2 playerLeftDownMoveSpeed = vector2{ -200.f, -200.f };
-    vector2 playerRightDownMoveSpeed = vector2{ 200.f, -200.f };
-    vector2 playerLeftMoveSpeed = vector2{ -200.f, 0.f };
-    vector2 playerRightMoveSpeed = vector2{ 200.f, 0.f };
+    vector2 playerUpMoveSpeed = vector2{ 0.f, 3.f };
+    vector2 playerLeftUpMoveSpeed = vector2{ -3.f, 3.f };
+    vector2 playerRightUpMoveSpeed = vector2{ 3.f, 3.f };
+    vector2 playerDownMoveSpeed = vector2{ 0.f, -3.f };
+    vector2 playerLeftDownMoveSpeed = vector2{ -3.f, -3.f };
+    vector2 playerRightDownMoveSpeed = vector2{ 3.f, -3.f };
+    vector2 playerLeftMoveSpeed = vector2{ -3.f, 0.f };
+    vector2 playerRightMoveSpeed = vector2{ 3.f, 0.f };
 
     bool isCheatCodeActivated = false;
 };
