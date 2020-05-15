@@ -114,7 +114,7 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject = new Object();
 	movingObject->SetObjectType(Object::ObjectType::MOVING_OBJECT);
 	movingObject->SetObjectName("movingObject");
-	movingObject->SetTranslation(vector2{ 505.f, -240.f });
+	movingObject->SetTranslation(vector2{ 505.f, -245.f });
 	movingObject->SetScale(vector2{ 50.f, 50.f });
 	movingObject->AddComponent(new Sprite(movingObject));
 	movingObject->AddComponent(new Physics(movingObject));
@@ -123,7 +123,7 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
 	movingObject->SetDepth(-1.f);
 
-	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1330, 217 }, player1, player2);
+	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1600, 217 }, player1, player2);
 
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 1330, -85 });

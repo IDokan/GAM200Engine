@@ -44,7 +44,7 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	
 
 	Object::AddComponent(new Physics(this));
-    GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f,0.f }, vector2{-50.f,-50.f});
+    GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f,0.f }, vector2{-40.f,-40.f});
 
 	switch (player)
 	{
