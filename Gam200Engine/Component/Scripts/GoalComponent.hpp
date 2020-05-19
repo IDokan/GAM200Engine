@@ -12,15 +12,15 @@ Creation Date: 12.13.2019
 #pragma once
 #include <Component/Component.hpp>
 #include <Graphics/Color4f.hpp>
+#include <Object/Players/Player.h>
 
-class Player;
 struct vector2;
 enum class MessageTypes;
 
 class GoalComponent : public Component
 {
 public:
-	GoalComponent(Object* obj, Player* targetPlayer, Graphics::Color4f color);
+	GoalComponent(Object* obj, Player* targetPlayer1, Player* targetPlayer2);
 	virtual ~GoalComponent();
 	
 	virtual void Init() override;
@@ -30,11 +30,13 @@ public:
 	std::string GetTargetStage();
 
 private:
+	void CheckPlayerIsInGoal(Player::Identifier id);
 	bool IsAInsideB(const vector2& minOfA, const vector2& maxOfA, const vector2& minOfB, const vector2& maxOfB) const noexcept;
-	void DispatchMessage(MessageTypes msg);
+	void DispatchMessage(Player::Identifier id, MessageTypes msg);
 private:
 	std::string targetStage;
-	Player* targetPlayer;
-	bool isPlayerOnGoal;
-	Graphics::Color4f highlightedColor;
+	Player* targetPlayer1;
+	Player* targetPlayer2;
+	bool isPlayerOnGoal1;
+	bool isPlayerOnGoal2;
 };

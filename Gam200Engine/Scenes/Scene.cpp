@@ -18,6 +18,7 @@ Creation Date: 12.10.2019
 #include <Component/Sprite/Sprite.hpp>
 #include <Component/Sprite/StringSprite.hpp>
 #include <Component/Sprite/TextComponent.hpp>
+#include <Component/StateMachine.hpp>
 
 // Include Special objects
 #include <Object/DEBUGObject/LevelChangeButton.hpp>
@@ -355,6 +356,11 @@ void Scene::InitDEBUGObjects()
 
 void Scene::InitRequiredObjects()
 {
+	if (isMenu == true)
+	{
+		return;
+	}
+
 	Layer* hud = ObjectManager::GetObjectManager()->FindLayer(HUD);
 	sceneStateManager = new SceneStateManager();
 	hud->AddObject(sceneStateManager);

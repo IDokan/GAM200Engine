@@ -17,10 +17,11 @@ Creation Date: 03.08.2020
 
 class UpdateAnimation : public State<Player>
 {
-private:
+public:
 	constexpr static float maximum_scaling_limit = 125.f;
 	constexpr static float minimum_scaling_limit = 75.f;
-	constexpr static float scaling_constant = 1.f;
+	constexpr static float scaling_constant = 3.f;
+	constexpr static float collisionBoxOffset = -40.f;
 
 public:
 	static UpdateAnimation* Get();

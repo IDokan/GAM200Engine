@@ -28,6 +28,7 @@ MenuScene::MenuScene(): background(nullptr)
 {
 	selection = 0;
 	totalDT = 0.f;
+	isMenu = true;
 }
 
 MenuScene::~MenuScene()
@@ -37,9 +38,9 @@ MenuScene::~MenuScene()
 
 void MenuScene::Load()
 {
+
 	fileIO* fileio = new fileIO;
 	fileio->Input("../assets/fileIO/menuSettings.txt", &player1, &player2, &string);
-
 	MenuScene::InitObject();
 	cameraManager.Init();
 }

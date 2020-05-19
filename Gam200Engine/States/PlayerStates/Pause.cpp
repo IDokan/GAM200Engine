@@ -18,14 +18,16 @@ Pause* Pause::Get()
 	return state;
 }
 
-void Pause::Enter(Player* /*obj*/)
+void Pause::Enter(Player* obj)
 {
 	printf("Player enter Pause State\n");
+	pausedPosition = obj->GetTranslation();
 }
 
 void Pause::Execute(Player* obj, float /*dt*/)
 {
 	obj->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+	obj->GetComponentByTemplate<Physics>()->SetVectorTranslation(pausedPosition);
 }
 
 void Pause::Exit(Player* /*obj*/)

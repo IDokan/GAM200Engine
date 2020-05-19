@@ -26,5 +26,6 @@ public:
 	void Exit(Player* obj) override;
 
 private:
+	vector2 pausedPosition;
 	Pause();
 };

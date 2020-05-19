@@ -28,6 +28,7 @@ Creation Date: 04.02.2020
 OptionLevel::OptionLevel()
 	: fullScreen(nullptr), volume(nullptr), leftArrow(nullptr), rightArrow(nullptr)
 {
+	isMenu = true;
 }
 
 OptionLevel::~OptionLevel()
@@ -61,6 +62,7 @@ void OptionLevel::GameRestart()
 
 void OptionLevel::Load()
 {
+
 	InitObjects();
 	volume->SetIsSelected(true);
 

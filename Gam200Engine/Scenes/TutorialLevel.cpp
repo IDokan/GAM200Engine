@@ -205,9 +205,8 @@ void TutorialLevel::InitObject() {
 
     Transform goalTransform;
     goalTransform.SetTranslation(vector2{ 1050.f, 1750.f });
-    goalTransform.SetScale(vector2{ 350.f });
-    GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
-    GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
+    goalTransform.SetScale(vector2{ 400.f });
+    GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
     auto objManager = ObjectManager::GetObjectManager();
 
@@ -215,7 +214,6 @@ void TutorialLevel::InitObject() {
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(button1);

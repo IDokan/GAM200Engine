@@ -14,15 +14,14 @@ Creation Date: 12.13.2019
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>
 #include <Scenes/SceneManager.hpp>
-#include <Object/Players/Player.h>
 #include <Vector2.hpp>
 #include <Sounds/SoundManager.hpp>
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 
-GoalComponent::GoalComponent(Object* obj, Player* targetPlayer, Graphics::Color4f color)
-	: Component(obj), targetPlayer(targetPlayer), isPlayerOnGoal(false), highlightedColor(color)
+GoalComponent::GoalComponent(Object* obj, Player* targetPlayer1, Player* targetPlayer2)
+	: Component(obj), targetPlayer1(targetPlayer1), targetPlayer2(targetPlayer2), isPlayerOnGoal1(false), isPlayerOnGoal2(false)
 {
 }
 
@@ -37,30 +36,20 @@ void GoalComponent::Init()
 
 void GoalComponent::Update(float /*dt*/)
 {
-	vector2 playerMin{ targetPlayer->GetTranslation() - (targetPlayer->GetScale() / 2.f)};
-	vector2 playerMax{ targetPlayer->GetTranslation() + (targetPlayer->GetScale() / 2.f) };
-	vector2 ownerMin{ owner->GetTranslation() - (owner->GetScale() / 2.f) };
-	vector2 ownerMax{ owner->GetTranslation() + (owner->GetScale() / 2.f) };
+	CheckPlayerIsInGoal(Player::Identifier::Player1);
+	CheckPlayerIsInGoal(Player::Identifier::Player2);
 
-	if (isPlayerOnGoal)
+	if (isPlayerOnGoal1 == false && isPlayerOnGoal2 == false)
 	{
-		// Check isNotPlayerOnGoal
-		if (IsAInsideB(playerMin, playerMax, ownerMin, ownerMax) == false)
-		{
-			DispatchMessage(MessageTypes::PlayerExitedFromGoal);
-			isPlayerOnGoal = false;
-			owner->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
-		}
+		owner->GetComponentByTemplate<Animation>()->SetState(0);
+	}
+	else if (isPlayerOnGoal1 == true && isPlayerOnGoal2 == true)
+	{
+		owner->GetComponentByTemplate<Animation>()->SetState(2);
 	}
 	else
 	{
-		// Check isPlayerInsideGoal
-		if (IsAInsideB(playerMin, playerMax, ownerMin, ownerMax))
-		{
-			DispatchMessage(MessageTypes::PlayerReachedGoal);
-			isPlayerOnGoal = true;
-			owner->GetComponentByTemplate<Sprite>()->SetColor(highlightedColor);
-		}
+		owner->GetComponentByTemplate<Animation>()->SetState(1);
 	}
 }
 
@@ -73,15 +62,59 @@ std::string GoalComponent::GetTargetStage()
 	return targetStage;
 }
 
+void GoalComponent::CheckPlayerIsInGoal(Player::Identifier id)
+{
+	Player* player;
+	bool& isPlayerOnGoal = (id == Player::Identifier::Player1) ? isPlayerOnGoal1 : isPlayerOnGoal2;
+	switch (id)
+	{
+	case Player::Identifier::Player1:
+		player = targetPlayer1;
+		break;
+	case Player::Identifier::Player2:
+		player = targetPlayer2;
+		break;
+	case Player::Identifier::UNDEFINED:
+		break;
+	default:
+		break;
+	}
+
+
+	vector2 playerMin{ player->GetTranslation() - (player->GetScale() / 2.f) };
+	vector2 playerMax{ player->GetTranslation() + (player->GetScale() / 2.f) };
+	vector2 ownerMin{ owner->GetTranslation() - (owner->GetScale() / 2.f) };
+	vector2 ownerMax{ owner->GetTranslation() + (owner->GetScale() / 2.f) };
+
+	if (isPlayerOnGoal)
+	{
+		// Check isNotPlayerOnGoal
+		if (IsAInsideB(playerMin, playerMax, ownerMin, ownerMax) == false)
+		{
+			DispatchMessage(id, MessageTypes::PlayerExitedFromGoal);
+			isPlayerOnGoal = false;
+		}
+	}
+	else
+	{
+		// Check isPlayerInsideGoal
+		if (IsAInsideB(playerMin, playerMax, ownerMin, ownerMax))
+		{
+			DispatchMessage(id, MessageTypes::PlayerReachedGoal);
+			isPlayerOnGoal = true;
+		}
+	}
+}
+
 bool GoalComponent::IsAInsideB(const vector2& minOfA, const vector2& maxOfA, const vector2& minOfB, const vector2& maxOfB) const noexcept
 {
 	return minOfA.x > minOfB.x && minOfA.y > minOfB.y &&
 		maxOfA.x < maxOfB.x && maxOfA.y < maxOfB.y;
 }
 
-void GoalComponent::DispatchMessage(MessageTypes msg)
+void GoalComponent::DispatchMessage(Player::Identifier id, MessageTypes msg)
 {
-	switch (Player::Identifier id = targetPlayer->GetID())
+	switch (id)
 	{
 	case Player::Identifier::Player1:
 		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player1, MessageObjects::SceneStateManager, msg);

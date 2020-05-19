@@ -126,10 +126,9 @@ void AlphaTutorialLevel1::InitObject()
 	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1600, 217 }, player1, player2);
 
 	Transform goalTransform;
-	goalTransform.SetTranslation(vector2{ 1330, -85 });
-	goalTransform.SetScale(vector2{ 200, 200 });
-	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
-	GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
+	goalTransform.SetTranslation(vector2{ 1330.f, -85.f });
+	goalTransform.SetScale(vector2{ 400, 400 });
+	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
 	cheese = new Object();
 	cheese->SetObjectType(Object::ObjectType::SavedCheese);
@@ -169,7 +168,6 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p1Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p2Indicator);

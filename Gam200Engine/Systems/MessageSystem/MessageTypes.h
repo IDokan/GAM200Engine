@@ -134,6 +134,13 @@ enum class MessageTypes
          */
         Resume,
 
+        /**
+         * \brief
+         * @Predictable receiver and function
+         *		Player: player will change their scale again to get a previous scale
+         */
+        CancelScaling,
+
        NUM_OF_MESSAGE_TYPES,
 };
 
