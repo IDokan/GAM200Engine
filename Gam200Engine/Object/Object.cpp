@@ -91,9 +91,9 @@ void Object::SetIsTimerOn(bool flag)
     isTimerOn = flag;
 }
 
-void Object::ResetTimer()
+void Object::ResetTimer(float time)
 {
-    timer = 0.f;
+    timer = time;
 }
 
 void Object::SetObjectType(ObjectType objType_)

@@ -21,6 +21,7 @@ public:
     void OpenOneDoorWithOneButton();
     void OpenAndCloseDoorsWithTwoButton();
     void OpenAndCloseDoorsWithTwoButtonOnTime(float dt);
+    void IndicateTimerButton(Object* button, Object* button1);
 private:
     Object* movingObject;
     Object* button;

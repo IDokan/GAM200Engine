@@ -41,6 +41,8 @@ private:
     Object* background;
 
     Object* movingObject;
+    Object* movingObject1;
+    Object* movingObject2;
 
     Object* cheese;
 };

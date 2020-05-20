@@ -91,8 +91,8 @@ void AlphaTutorialLevel1::InitObject()
 {
 	Object* ground = new Object();
 	ground->SetObjectName("Ground");
-	ground->SetTranslation(vector2{ 712.f, 20.f });
-	ground->SetScale(vector2{ 2770.f, 630.f });
+	ground->SetTranslation(vector2{ 1550.f, 20.f });
+	ground->SetScale(vector2{ 4450, 630.f });
 	Sprite* groundSprite = new Sprite(ground);
 	groundSprite->SetImage("../assets/textures/Ground_Background.png");
 	ground->AddComponent(groundSprite);
@@ -114,19 +114,44 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject = new Object();
 	movingObject->SetObjectType(Object::ObjectType::MOVING_OBJECT);
 	movingObject->SetObjectName("movingObject");
-	movingObject->SetTranslation(vector2{ 505.f, -245.f });
-	movingObject->SetScale(vector2{ 50.f, 50.f });
+	movingObject->SetTranslation(vector2{ 2200.f, -70.f });
+	movingObject->SetScale(vector2{ 80.f, 80.f });
 	movingObject->AddComponent(new Sprite(movingObject));
 	movingObject->AddComponent(new Physics(movingObject));
-	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::UP_SIDE);
 	movingObject->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject, Physics::ObjectType::RECTANGLE);
 	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
 	movingObject->SetDepth(-1.f);
 
-	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1600, 217 }, player1, player2);
+    movingObject1 = new Object();
+    movingObject1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject1->SetObjectName("movingObject");
+    movingObject1->SetTranslation(vector2{ 2200.f, 40.f });
+    movingObject1->SetScale(vector2{ 80.f, 80.f });
+    movingObject1->AddComponent(new Sprite(movingObject1));
+    movingObject1->AddComponent(new Physics(movingObject1));
+    movingObject1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::BOTTOM_SIDE);
+    movingObject1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject1, Physics::ObjectType::RECTANGLE);
+    movingObject1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_DOWN.png");
+    movingObject1->SetDepth(-1.f);
+
+    movingObject2 = new Object();
+    movingObject2->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject2->SetObjectName("movingObject");
+    movingObject2->SetTranslation(vector2{ 2200.f, 150.f });
+    movingObject2->SetScale(vector2{ 80.f, 80.f });
+    movingObject2->AddComponent(new Sprite(movingObject2));
+    movingObject2->AddComponent(new Physics(movingObject2));
+    movingObject2->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+    movingObject2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject2, Physics::ObjectType::RECTANGLE);
+    movingObject2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_UP.png");
+    movingObject2->SetDepth(-1.f);
+
+	Mouse* mouse = new Mouse(vector2{ 950, -100 }, vector2{ 950, 200 }, vector2{ 950, -160 }, player1, player2);
+    Mouse* mouse1 = new Mouse(vector2{ 1640, -100 }, vector2{ 1640, 200 }, vector2{ 1640, -160 }, player1, player2);
 
 	Transform goalTransform;
-	goalTransform.SetTranslation(vector2{ 1330, -85 });
+	goalTransform.SetTranslation(vector2{ 2900, -55 });
 	goalTransform.SetScale(vector2{ 200, 200 });
 	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
 	GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
@@ -134,7 +159,7 @@ void AlphaTutorialLevel1::InitObject()
 	cheese = new Object();
 	cheese->SetObjectType(Object::ObjectType::SavedCheese);
 	cheese->SetObjectName("cheese");
-	cheese->SetTranslation(vector2{ 1920.f, 180.f });
+	cheese->SetTranslation(vector2{ 3550.f, -100.f });
 	cheese->SetScale(vector2{ 50.f, 50.f });
 	Animation* getAnimationComponent = new Animation(cheese);
 	getAnimationComponent->SetFrame(6);
@@ -167,7 +192,10 @@ void AlphaTutorialLevel1::InitObject()
 
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);

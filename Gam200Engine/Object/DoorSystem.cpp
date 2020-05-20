@@ -4,6 +4,7 @@
 #include <Object/Particles/ParticleEmitter.hpp>
 #include <Object/DepthStandard.hpp>
 
+/*OPEN TWO DOOR WITH ONE BUTTON*/
 DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vector2 buttonScale, vector2 openDoorPos, vector2 openDoorScale, vector2 closeDoorPos, vector2 closeDoorScale) : button1(nullptr)
 {
     button = new Object();
@@ -148,6 +149,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vect
     Object::AddComponent(new TriggerButton(this, player1, player2, button, nullptr, openDoor, closeDoor, movingObject));
 }
 
+/*OPEN TWO DOOR WITH TWO BUTTON NOT A TIMER*/
 DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, vector2 button_1_Scale, vector2 button_2_Pos, vector2 button_2_Scale, vector2 openDoorPos, vector2 openDoorScale, vector2 closeDoorPos, vector2 closeDoorScale)
 {
     button = new Object();
@@ -266,6 +268,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, v
     objManager->FindLayer(LayerNames::Stage)->AddObject(closeEmitter);
 }
 
+/*OPEN TWO DOOR WITH TWO TIMER BUTTON*/
 DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, vector2 button_1_Scale, vector2 button_2_Pos, vector2 button_2_Scale, vector2 openDoorPos, vector2 openDoorScale, vector2 closeDoorPos, vector2 closeDoorScale, bool timerButton)
 {
     button = new Object();
@@ -384,6 +387,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, v
     objManager->FindLayer(LayerNames::Stage)->AddObject(closeEmitter);
 }
 
+/*OPEN ONE DOOR WITH ONE BUTTON*/
 DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 buttonPos, vector2 buttonScale, vector2 doorPos, vector2 doorScale, bool isOpen)
 {
     button = new Object();

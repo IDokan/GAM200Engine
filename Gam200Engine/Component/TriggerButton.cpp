@@ -215,7 +215,8 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
 }
 
 void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
-{    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true) // when player trigger button, timer is started
+{
+    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true) // when player trigger button, timer is started
     {
         if (button->GetDirtyFlag() == true)
         {
@@ -223,7 +224,6 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
             button->SetIsTimerOn(true);
         }
     }
-    
     else if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button1) == true) // when player trigger button, timer is started
     {
         if (button1->GetDirtyFlag() == true)
@@ -250,32 +250,16 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         }
     }
 
-    if (button->GetIsTImerOn() == true || button->GetDirtyFlag() == false)  // keep timer 
+    IndicateTimerButton(button, button1);
+
+    if (button->GetDirtyFlag() == false)  // keep timer 
     {
         button->SetTimer(dt);
     }
 
-    if (button1->GetIsTImerOn() == true || button1->GetDirtyFlag() == false)
+    if (button1->GetDirtyFlag() == false)
     {
         button1->SetTimer(dt);
-    }
-
-    if (button->GetIsTImerOn() == true)
-    {
-        button->GetComponentByTemplate<Animation>()->SetState(1);
-    }
-    else if (button->GetIsTImerOn() == false)
-    {
-        button->GetComponentByTemplate<Animation>()->SetState(0);
-    }
-
-    if (button1->GetIsTImerOn() == true)
-    {
-        button1->GetComponentByTemplate<Animation>()->SetState(1);
-    }
-    else if (button1->GetIsTImerOn() == false)
-    {
-        button1->GetComponentByTemplate<Animation>()->SetState(0);
     }
 
     if (button->GetIsTImerOn() == true && button1->GetIsTImerOn() == true)
@@ -305,20 +289,56 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         button->SetIsTimerOn(false);
         button1->SetIsTimerOn(false);
 
-        button->ResetTimer(); // to be determine delete this line or not.
-        button1->ResetTimer();  // to be determine delete this line or not.
+        button->ResetTimer(2.f);
+        button1->ResetTimer(2.f);
     }
 
     if (button->GetTimer() >= 3.f)
     {
         button->SetDirtyFlag(true);
         button->SetIsTimerOn(false);
-        button->ResetTimer();
+        button->ResetTimer(0.f);
     }
     if (button1->GetTimer() >= 3.f)
     {
         button1->SetDirtyFlag(true);
         button1->SetIsTimerOn(false);
-        button1->ResetTimer();
+        button1->ResetTimer(0.f);
+    }
+}
+
+void TriggerButton::IndicateTimerButton(Object* button, Object* button1)
+{
+    if (button->GetDirtyFlag() && button1->GetDirtyFlag()) // both buttons are not set timer 
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(0);
+        button1->GetComponentByTemplate<Animation>()->SetState(0);
+        std::cout << "not trigerred\n";
+        // set redImage
+    }
+    else if (button->GetDirtyFlag() == false && button1->GetDirtyFlag() == false) // both buttons are triggered.
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(1);
+        button1->GetComponentByTemplate<Animation>()->SetState(1);
+        std::cout << "both trigerred\n";
+        //set greenImage
+    }
+    else // one of two buttons is trigger but others not triggered.
+    {
+        if (button->GetDirtyFlag() == false)
+        {
+            button->GetComponentByTemplate<Animation>()->SetState(1);
+            button1->GetComponentByTemplate<Animation>()->SetState(0);
+            // set button is triggered image
+            // set button1 is not triggered image
+        }
+        else
+        {
+            button->GetComponentByTemplate<Animation>()->SetState(0);
+            button1->GetComponentByTemplate<Animation>()->SetState(1);
+            // set button is not triggered image
+            // set button1 is triggered image
+        }
+        std::cout << "one of them trigerred\n";
     }
 }
