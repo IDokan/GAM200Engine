@@ -47,10 +47,7 @@ void TutorialLevel::Load()
 	cameraManager.Init(player1, player2);
 	sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 
-
-	soundManager.Load_Sound();
 	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-	soundManager.SetVolume(SOUNDS::BACKGROUND_SOUND, 0.1f);
 }
 
 void TutorialLevel::Update(float dt)

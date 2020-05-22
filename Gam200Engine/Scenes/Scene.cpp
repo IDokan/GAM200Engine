@@ -156,6 +156,7 @@ void Scene::LoadScene() noexcept
 	glfwMakeContextCurrent(main_context);
 
 	///////////////////////Init(huge work) Working here..
+	soundManager.Load_Sound();
 	InitRequiredObjects();
 	InitDEBUGObjects();
 	Load(); 

@@ -47,6 +47,11 @@ void AlphaTutorialLevel1::Load()
 
     cameraManager.Init(player1, player2);
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
+
+	//BGM
+	soundManager.Load_Sound();
+	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+	soundManager.SetVolume(BACKGROUND_SOUND, 0.1f);
 }
 
 void AlphaTutorialLevel1::Update(float dt)

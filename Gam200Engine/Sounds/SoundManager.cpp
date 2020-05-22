@@ -68,7 +68,8 @@ void SoundManager::Play_Sound(SOUNDS sound_name)
 
 void SoundManager::Stop_Sound(int _chNum)
 {
-	FMOD_Channel_Stop(ch[_chNum]);
+	theResult = FMOD_Channel_Stop(ch[_chNum]);
+	ERRCHECK(theResult, "Stop Sound");
 }
 
 //The volume bound is between 0 ~ 1 
