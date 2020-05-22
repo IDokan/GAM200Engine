@@ -45,11 +45,11 @@ void SoundManager::Load_Sound()
 	ERRCHECK(theResult, "Load Sound");
 	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.ogg", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DoorSound.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[DOOR_SOUND]);
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DoorSound.ogg", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
-	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[UNDO_SOUND]);
+	theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
 	ERRCHECK(theResult, "Load Sound");
 
 

@@ -20,8 +20,11 @@ Creation Date: 05.11.2020
 #include <Systems/Input.hpp>
 #include <Scenes/SceneManager.hpp>
 
+
+SoundManager smInBaseMenu;
 BaseMenu::BaseMenu()
     : MenuObject(), menuBackground(nullptr), resumeButton(nullptr), optionButton(nullptr), exitButton(nullptr), selectionHighlight(nullptr), currentSelection(Resume), isTransparency(true), playerPressEnter(false)
+    //  smInBaseMenu(SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager())
 {
     menuBackground = new Object();
     menuBackground->GetTransform().SetParent(&GetTransform());
@@ -78,7 +81,7 @@ BaseMenu::BaseMenu()
     selectionHighlight->SetObjectType(ObjectType::Menu);
     UpdateSelectionHighlightTransformation();
 
-    
+    smInBaseMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 BaseMenu::~BaseMenu()
@@ -93,6 +96,8 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
     // When esc key is pressed, return to game
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
+        smInBaseMenu.Play_Sound(UNDO_SOUND);
+        //   smInBaseMenu.Play_Sound(UNDO_SOUND);
         return nullptr;
     }
 
@@ -105,6 +110,7 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
+        smInBaseMenu.Play_Sound(BUTTON_TRIGGERED_SOUND);
         switch (currentSelection)
         {
         case BaseMenu::Resume:
@@ -179,10 +185,12 @@ void BaseMenu::UpdateSelection() noexcept
 {
     if (input.IsKeyTriggered(GLFW_KEY_DOWN))
     {
+        smInBaseMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
     }
     else if (input.IsKeyTriggered(GLFW_KEY_UP))
     {
+        smInBaseMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));
     }
     else
@@ -229,7 +237,7 @@ void BaseMenu::UpdateSelectionHighlightTransparency(float dt)
     {
         color.alpha = color.alpha - dt;
 
-        // if the alpha value is smaller than minimum capacity
+        // if the alpha value is smInBaseMenualler than minimum capacity
         if (color.alpha < 0.f)
         {
             color.alpha = 0.f;

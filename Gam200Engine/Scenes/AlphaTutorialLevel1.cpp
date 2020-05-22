@@ -49,7 +49,6 @@ void AlphaTutorialLevel1::Load()
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 
 	//BGM
-	soundManager.Load_Sound();
 	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
 	soundManager.SetVolume(BACKGROUND_SOUND, 0.1f);
 }

@@ -1,24 +1,31 @@
 #include <Component/TriggerButton.hpp>
 #include <Object/Particles/ParticleEmitter.hpp>
+#include <Scenes/SceneManager.hpp>
+class SoundManager smInTrigger;
 
 TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, ParticleEmitter* openEmitter, ParticleEmitter* closeEmitter) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(nullptr), isTimerButton(false), openEmitter(openEmitter), closeEmitter(closeEmitter)
 {
+    smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, bool isTimerButton, ParticleEmitter* openEmitter, ParticleEmitter* closeEmitter) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(nullptr), isTimerButton(isTimerButton), openEmitter(openEmitter), closeEmitter(closeEmitter)
 {
+    smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, Object* movingObject) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(movingObject), openEmitter(openEmitter), closeEmitter(closeEmitter)
 {
+    smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* door_1, ParticleEmitter* openEmitter) : Component(obj), player1(player1), player2(player2), button(button), button1(nullptr), door_1(door_1), door_2(nullptr), movingObject(nullptr), isTimerButton(false), openEmitter(openEmitter), closeEmitter(nullptr)
 {
+    smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 void TriggerButton::Init()
 {
+    smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 void TriggerButton::Update(float dt)
@@ -73,6 +80,7 @@ void TriggerButton::OpenAndCloseDoorsWithOneButton()
                     door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                     closeEmitter->SetShouldReviveParticle(false);
+                    smInTrigger.Play_Sound(DOOR_SOUND);
                 }
                 else
                 {
@@ -86,6 +94,7 @@ void TriggerButton::OpenAndCloseDoorsWithOneButton()
                     door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                     door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                     closeEmitter->SetShouldReviveParticle(true);
+                    smInTrigger.Play_Sound(DOOR_SOUND);
                 }
                 button->SetDirtyFlag(false); // set flag as false to prevent the door keeps opening and closing
             }
@@ -121,6 +130,7 @@ void TriggerButton::OpenOneDoorWithOneButton()
                     door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                     door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
                     openEmitter->SetShouldReviveParticle(true);
+                    smInTrigger.Play_Sound(DOOR_SOUND);
                 }
                 else
                 {
@@ -128,6 +138,7 @@ void TriggerButton::OpenOneDoorWithOneButton()
                     door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                     door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
                     openEmitter->SetShouldReviveParticle(false);
+                    smInTrigger.Play_Sound(DOOR_SOUND);
                 }
                 button->SetDirtyFlag(false);
             }
@@ -172,6 +183,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
                 door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                 door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                 closeEmitter->SetShouldReviveParticle(false);
+                smInTrigger.Play_Sound(DOOR_SOUND);
             }
             else
             {
@@ -184,6 +196,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
                 door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                 door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
                 closeEmitter->SetShouldReviveParticle(true);
+                smInTrigger.Play_Sound(DOOR_SOUND);
             }
             button->SetDirtyFlag(false);
             button1->SetDirtyFlag(false);
@@ -291,6 +304,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
             color2.alpha = 0.2f;
             door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
             door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            smInTrigger.Play_Sound(DOOR_SOUND);
         }
         else
         {
@@ -301,6 +315,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
             color2.alpha = 1.f;
             door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
             door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            smInTrigger.Play_Sound(DOOR_SOUND);
         }
         button->SetIsTimerOn(false);
         button1->SetIsTimerOn(false);

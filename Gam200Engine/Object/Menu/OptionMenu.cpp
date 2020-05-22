@@ -97,6 +97,7 @@ void OptionMenu::UpdateSelection() noexcept
     if (input.IsKeyTriggered(GLFW_KEY_DOWN))
     {
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
+        
     }
     else if (input.IsKeyTriggered(GLFW_KEY_UP))
     {

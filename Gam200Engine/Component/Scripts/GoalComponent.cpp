@@ -20,10 +20,11 @@ Creation Date: 12.13.2019
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
-
+SoundManager smInGoal;
 GoalComponent::GoalComponent(Object* obj, Player* targetPlayer, Graphics::Color4f color)
 	: Component(obj), targetPlayer(targetPlayer), isPlayerOnGoal(false), highlightedColor(color)
 {
+	smInGoal = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 GoalComponent::~GoalComponent()

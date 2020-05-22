@@ -49,8 +49,8 @@ private:
     Object* exitButton;
     Object* selectionHighlight;
     MenuEnum currentSelection;
-
     bool isTransparency;
 
     bool playerPressEnter;
+
 };
