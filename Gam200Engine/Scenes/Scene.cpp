@@ -42,6 +42,7 @@ Creation Date: 12.10.2019
 #include <Graphics/GL.hpp>
 #include <Scenes/SceneManager.hpp>
 
+
 void Scene::GameRestartScene() noexcept
 {
 	player1->SetTranslation(player1SpawnPosition);
@@ -160,6 +161,7 @@ void Scene::LoadScene() noexcept
 	InitRequiredObjects();
 	InitDEBUGObjects();
 	Load(); 
+
 
 	if (player1 != nullptr && player2 != nullptr)
 	{

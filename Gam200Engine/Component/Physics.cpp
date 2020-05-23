@@ -36,7 +36,6 @@ Physics::Physics(Object* obj) : Component(obj)
     isGhost = false;
     isCollide = false;
     sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-    sm.SetVolume(PUSHABLE_BOX_SOUND,1.0f);
 }
 
 Physics::~Physics()

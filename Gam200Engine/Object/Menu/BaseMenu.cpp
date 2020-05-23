@@ -24,7 +24,6 @@ Creation Date: 05.11.2020
 SoundManager smInBaseMenu;
 BaseMenu::BaseMenu()
     : MenuObject(), menuBackground(nullptr), resumeButton(nullptr), optionButton(nullptr), exitButton(nullptr), selectionHighlight(nullptr), currentSelection(Resume), isTransparency(true), playerPressEnter(false)
-    //  smInBaseMenu(SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager())
 {
     menuBackground = new Object();
     menuBackground->GetTransform().SetParent(&GetTransform());
@@ -97,7 +96,6 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
         smInBaseMenu.Play_Sound(UNDO_SOUND);
-        //   smInBaseMenu.Play_Sound(UNDO_SOUND);
         return nullptr;
     }
 

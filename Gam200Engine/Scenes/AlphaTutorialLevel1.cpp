@@ -30,6 +30,7 @@ Creation Date: 05.10.2020
 #include<Component/MessageCapable.hpp>
 #include <Component/Scripts/Hostage.hpp>
 
+
 AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr)
 {
 }
