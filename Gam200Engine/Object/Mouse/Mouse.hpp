@@ -39,7 +39,7 @@ public:
         {}
     };
 public:
-    Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* player1, Player* player2, double waitTime = 0.02f);
+    Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* player1, Player* player2, double waitTime = 0.02f, float speed = 3.f);
     ~Mouse();
 
     void SetMouseName();
@@ -52,10 +52,15 @@ public:
 
     Patrol_Info& GetPatrolInfo() noexcept;
     const PlayerContainer& GetPlayers() const noexcept;
+
+    void SetSpeed(float newSpeed) noexcept;
+    float GetSpeed() noexcept;
 private:
     double waitTime;
     double localTimer;
     Patrol_Info patrol_info;
 
     PlayerContainer players;
+
+    float speed;
 };

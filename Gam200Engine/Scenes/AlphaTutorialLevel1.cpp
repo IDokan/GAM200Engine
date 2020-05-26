@@ -124,6 +124,7 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject->SetDepth(-1.f);
 
 	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1600, 217 }, player1, player2);
+	mouse->SetSpeed(6.f);
 
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 1330.f, -85.f });
@@ -148,19 +149,21 @@ void AlphaTutorialLevel1::InitObject()
 
 	Object* p1Indicator = new Object();
 	p1Indicator->SetObjectName("p1Indicator");
-	p1Indicator->SetTranslation(vector2{ -380, 140 });
-	p1Indicator->SetScale(vector2{ 200.f, 200.f });
+	p1Indicator->SetTranslation(vector2{ -380.f, 440.f });
+	p1Indicator->SetScale(vector2{ 300.f, 300.f });
 	p1Indicator->AddComponent(new Sprite(p1Indicator));
-	p1Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P1.png");
+	p1Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/wasdSign.png");
 	p1Indicator->SetObjectType(Object::ObjectType::TEST);
+	p1Indicator->SetDepth(Depth_Standard::WoodSign);
 
 	Object* p2Indicator = new Object();
 	p2Indicator->SetObjectName("p2Indicator");
-	p2Indicator->SetTranslation(vector2{ -150, 140 });
-	p2Indicator->SetScale(vector2{ 200.f, 200.f });
+	p2Indicator->SetTranslation(vector2{ 0.f, 440.f });
+	p2Indicator->SetScale(vector2{ 300.f, 300.f });
 	p2Indicator->AddComponent(new Sprite(p2Indicator));
-	p2Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P2.png");
+	p2Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/arrowSign.png");
 	p2Indicator->SetObjectType(Object::ObjectType::TEST);
+	p2Indicator->SetDepth(Depth_Standard::WoodSign);
 
 	auto objManager = ObjectManager::GetObjectManager();
 

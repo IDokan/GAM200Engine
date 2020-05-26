@@ -170,8 +170,8 @@ void MenuScene::InitObject()
 {
 	gameTitle = new Object();
 	gameTitle->SetObjectName("gametitle");
-	gameTitle->SetTranslation(vector2{ 0, 300 });
-	gameTitle->SetScale(vector2{ 600, 300 });
+	gameTitle->SetTranslation(vector2{ 0, 200 });
+	gameTitle->SetScale(vector2{ 900, 450 });
 	gameTitle->SetObjectType(Object::ObjectType::TEST);
 	gameTitle->AddComponent(new Sprite(gameTitle));
 	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GAME_NAME.png");

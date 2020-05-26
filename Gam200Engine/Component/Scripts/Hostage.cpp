@@ -16,6 +16,8 @@ Creation Date: 05.04.2020
 #include <Object/Players/Player.h>
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 #include <Component/Sprite/Sprite.hpp>
+#include <Object/DepthStandard.hpp>
+#include <Object/ObjectManager.hpp>
 
 Hostage::Hostage(Object* obj, Player* player1, Player* player2)
 	: Component(obj), player1(player1), player2(player2), isRescued(false)
@@ -28,6 +30,19 @@ Hostage::~Hostage()
 
 void Hostage::Init()
 {
+	owner->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Hostage.png");
+
+	hostageMessage = new Object();
+	Sprite* msgSprite = new Sprite(hostageMessage);
+	hostageMessage->AddComponent(msgSprite);
+	msgSprite->SetImage("../assets/textures/HostageMessage.png");
+	msgSprite->SetColor(Graphics::Color4f{ 1.f, 0.f });
+	
+	hostageMessage->SetTranslation(vector2{ -170.f, 95.f } + owner->GetTranslation());
+	hostageMessage->SetScale(vector2(300.f, 150.f));
+	hostageMessage->SetDepth(Depth_Standard::HUD);
+
+	ObjectManager::GetObjectManager()->FindLayer(Stage)->AddObjectDynamically(hostageMessage);
 }
 
 void Hostage::Update(float dt)
@@ -41,16 +56,18 @@ void Hostage::Update(float dt)
 		{
 			isRescued = true;
 			DispatchMessage(MessageTypes::HostageRescued);
+			hostageMessage->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
 		}
 	}
 	else
 	{
 		Sprite* sprite = owner->GetComponentByTemplate<Sprite>();
 		Graphics::Color4f currentColor = sprite->GetColor();
-		sprite->SetColor(Graphics::Color4f(currentColor.red, currentColor.green, currentColor.blue, currentColor.alpha - ((currentColor.alpha) * 2.5f * dt)));
+		sprite->SetColor(Graphics::Color4f(currentColor.red, currentColor.green, currentColor.blue, currentColor.alpha - (0.5f * dt)));
 		if (sprite->GetColor().alpha <= 0.f)
 		{
 			owner->SetDead(true);
+			hostageMessage->SetDead(true);
 		}
 	}
 }

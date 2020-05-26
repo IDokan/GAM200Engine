@@ -20,7 +20,7 @@ class UpdateAnimation : public State<Player>
 public:
 	constexpr static float maximum_scaling_limit = 125.f;
 	constexpr static float minimum_scaling_limit = 75.f;
-	constexpr static float scaling_constant = 3.f;
+	constexpr static float scaling_constant = 1.5f;
 	constexpr static float collisionBoxOffset = -40.f;
 
 public:

@@ -23,8 +23,8 @@ Creation Date: 03.31.2020
 #include <Object/Players/Player.h>
 #include <Object/DepthStandard.hpp>
 
-Mouse::Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* player1, Player* player2, double waitTime)
-    : waitTime(waitTime), localTimer(0.0), patrol_info(patrol1, patrol2), players(player1, player2)
+Mouse::Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* player1, Player* player2, double waitTime, float speed)
+    : waitTime(waitTime), localTimer(0.0), patrol_info(patrol1, patrol2), players(player1, player2), speed(speed)
 {
     SetObjectType(ObjectType::NUM_OF_OBJECT_TYPE);
     SetTranslation(translation);
@@ -38,7 +38,7 @@ Mouse::Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* play
     animation->SetImage("../assets/textures/Mouse/mouse_sprite.png");
     animation->SetFrame(8);
     animation->SetSpeed(5.f);
-    animation->SetNumOfState(2);
+    animation->SetNumOfState(3);
 
     Physics* physics = new Physics(this);
     AddComponent(physics);
@@ -90,4 +90,14 @@ Mouse::Patrol_Info& Mouse::GetPatrolInfo() noexcept
 const Mouse::PlayerContainer& Mouse::GetPlayers() const noexcept
 {
     return players;
+}
+
+void Mouse::SetSpeed(float newSpeed) noexcept
+{
+    speed = newSpeed;
+}
+
+float Mouse::GetSpeed() noexcept
+{
+    return speed;
 }

@@ -103,7 +103,11 @@ void Application::Input()
     {
         window.ToggleFullscreen();
         input.SetShouldToggleWindow(false);
-    }  
+    }
+    if (window.ShouldClose() == true)
+    {
+        input.SetIsRunning(false);
+    }
 }
 
 

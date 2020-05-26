@@ -28,7 +28,7 @@ BaseMenu::BaseMenu()
     Sprite* menuBackgroundSprite = new Sprite(menuBackground);
     menuBackground->AddComponent(menuBackgroundSprite);
     menuBackgroundSprite->SetImage("../assets/textures/UI/MenuBackground.png");
-    menuBackground->SetScale(vector2{ 1.f, 1.5f });
+    menuBackground->SetScale(vector2{ 1.f, 1.6f });
     menuBackground->SetObjectName("MenuBackground");
     menuBackground->SetDepth(Depth_Standard::HUDBackground);
     menuBackground->SetObjectType(ObjectType::Menu);
@@ -36,7 +36,7 @@ BaseMenu::BaseMenu()
 
     resumeButton = new Object();
     resumeButton->SetTranslation(vector2{ 0.f, 0.1f });
-    resumeButton->SetScale(vector2{ 0.5f, 0.2f });
+    resumeButton->SetScale(vector2{ 0.5f, 0.25f });
     resumeButton->GetTransform().SetParent(&GetTransform());
     Sprite* resumeButtonSprite = new Sprite(resumeButton);
     resumeButton->AddComponent(resumeButtonSprite);
@@ -47,7 +47,7 @@ BaseMenu::BaseMenu()
 
     optionButton = new Object();
     optionButton->SetTranslation(vector2{ 0.f, -0.2f });
-    optionButton->SetScale(vector2{ 0.5f, 0.2f });
+    optionButton->SetScale(vector2{ 0.5f, 0.25f });
     optionButton->GetTransform().SetParent(&GetTransform());
     Sprite* optionButtonSprite = new Sprite(optionButton);
     optionButton->AddComponent(optionButtonSprite);
@@ -58,7 +58,7 @@ BaseMenu::BaseMenu()
 
     exitButton = new Object();
     exitButton->SetTranslation(vector2{ 0.f, -0.5f });
-    exitButton->SetScale(vector2{ 0.5f, 0.2f });
+    exitButton->SetScale(vector2{ 0.5f, 0.25f });
     exitButton->GetTransform().SetParent(&GetTransform());
     Sprite* exitButtonSprite = new Sprite(exitButton);
     exitButton->AddComponent(exitButtonSprite);

@@ -200,11 +200,19 @@ void Scene::Draw() noexcept
 
 	Graphics::GL::begin_drawing();
 
-	for (const auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
+	for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
-		// Before draw it, sort every object in each layer.
-		// TODO: Improve it. Do this when only need
-		element->SortingDepth();
+		obstacleTextureCoordinateScaler.clear();
+		obstacleColors.clear();
+		obstacleMatrices.clear();
+
+		if (element->GetSortingDirtyFlag())
+		{
+			// Before draw it, sort every object in each layer.
+			// TODO: Improve it. Do this when only need
+			element->SortingDepth();
+			element->SetSortingDirtyFlag(false);
+		}
 
 		if (element->GetName() == LayerNames::HUD)
 		{
@@ -221,10 +229,13 @@ void Scene::Draw() noexcept
 				DrawObject(obj.get(), cameraManager.GetWorldToNDCTransform());
 			}
 		}
-	}
 
-	// Obstacle Instancing draw
-	ObstaclesDrawingHelper::Get()->Draw(&obstacleTextureCoordinateScaler, &obstacleColors, &obstacleMatrices);
+		if (obstacleMatrices.empty() == false)
+		{
+			// Obstacle Instancing draw
+			ObstaclesDrawingHelper::Get()->Draw(&obstacleTextureCoordinateScaler, &obstacleColors, &obstacleMatrices);
+		}
+	}
 
 	Graphics::GL::end_drawing();
 }

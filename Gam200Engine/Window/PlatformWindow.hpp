@@ -27,6 +27,8 @@ public:
     bool IsMonitorVerticalSynchronizationOn() noexcept;
      vector2 GetPlatformWindowSize() noexcept;
 
+     bool ShouldClose() noexcept;
+
 	 void ClearWindow() const noexcept;
 
 private:

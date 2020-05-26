@@ -34,11 +34,11 @@ void Patrol::Enter(Mouse* mouse)
 		int y = direction.y;
 		if (x < 0 || y < 0)
 		{
-			mouse->GetComponentByTemplate<Animation>()->SetState(0);
+			mouse->GetComponentByTemplate<Animation>()->SetState(1);
 		}
 		else
 		{
-			mouse->GetComponentByTemplate<Animation>()->SetState(1);
+			mouse->GetComponentByTemplate<Animation>()->SetState(2);
 		}
 	}
 	else
@@ -48,11 +48,11 @@ void Patrol::Enter(Mouse* mouse)
 		int y = direction.y;
 		if (x < 0 || y < 0)
 		{
-			mouse->GetComponentByTemplate<Animation>()->SetState(0);
+			mouse->GetComponentByTemplate<Animation>()->SetState(1);
 		}
 		else
 		{
-			mouse->GetComponentByTemplate<Animation>()->SetState(1);
+			mouse->GetComponentByTemplate<Animation>()->SetState(2);
 		}
 	}
 }
@@ -100,7 +100,7 @@ void Patrol::MoveMouse(Mouse* mouse, vector2 position)
 	targetVector = normalize(targetVector);
 
 
-	targetVector *= 3.f;
+	targetVector *= mouse->GetSpeed();
 
 	physics->SetVelocity(targetVector);
 

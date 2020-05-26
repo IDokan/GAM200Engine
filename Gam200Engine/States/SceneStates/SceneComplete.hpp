@@ -47,6 +47,14 @@ private:
 	void UpdateSelectionHighlightTransformation();
 	void UpdateSelectionHighlightTransparency(float dt);
 
+	void LerpIn(float timer);
+
+
+	float EaseOutBounce(float timer);
+
+	float lerpTimer;
+
+	Transform offset;
 	Object* menuBackground;
 	Object* backToMain;
 	Object* goToNextLevel;

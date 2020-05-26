@@ -20,7 +20,7 @@ Creation Date: 03.20.2020
 
 GoalPoint::GoalPoint(const Transform& transform, Player* ptrToPlayer1, Player* ptrToPlayer2)
 {
-	assert(ptrToPlayer != nullptr);
+	assert(ptrToPlayer1 != nullptr);
 
 	SetTranslation(transform.GetTranslation());
 	SetScale(transform.GetScale());

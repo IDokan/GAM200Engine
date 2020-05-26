@@ -105,3 +105,8 @@ void Animation::SetNumOfState(int numOfState_) noexcept
 	numOfState = numOfState_;
 	material->intUniform[Graphics::SHADER::Uniform_Max_State] = numOfState;
 }
+
+void Animation::SetIndex(float index_) noexcept
+{
+	index = index_;
+}
