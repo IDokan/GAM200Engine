@@ -152,7 +152,7 @@ void MenuScene::Input()
 		}
 		else if ((selection % 5) == ButtonRow::CREDIT)
 		{
-			SceneManager::GetSceneManager()->SetNextScene("OneWayPassLevel");
+			SceneManager::GetSceneManager()->SetNextScene("Credit");
 		}
 		else if ((selection % 5) == ButtonRow::QUIT)
 		{
@@ -226,7 +226,7 @@ void MenuScene::InitObject()
 	creditButton->SetScale(transform.GetScale());
 	creditButton->SetObjectType(Object::ObjectType::BUTTON);
 	creditButton->AddComponent(new Sprite(creditButton));
-	creditButton->AddComponent(new Button(creditButton, Button::Identifier::NextScene, "TutorialLevel", transform));
+	creditButton->AddComponent(new Button(creditButton, Button::Identifier::NextScene, "Credit", transform));
 	creditButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit.png");
 	creditButton->SetDepth(Depth_Standard::Button);
 
