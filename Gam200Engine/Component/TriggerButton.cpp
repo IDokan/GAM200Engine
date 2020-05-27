@@ -19,6 +19,7 @@ TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Obje
 
 void TriggerButton::Init()
 {
+    isTimerReset = false;
 }
 
 void TriggerButton::Update(float dt)
@@ -31,7 +32,14 @@ void TriggerButton::Update(float dt)
 
     if (door_2 == nullptr)
     {
-        OpenOneDoorWithOneButton();
+        if (button1 == nullptr)
+        {
+            OpenOneDoorWithOneButton();
+        }
+        else
+        {
+
+        }
     }
     else if (button1 == nullptr)
     {
@@ -250,8 +258,6 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         }
     }
 
-    IndicateTimerButton(button, button1);
-
     if (button->GetDirtyFlag() == false)  // keep timer 
     {
         button->SetTimer(dt);
@@ -264,33 +270,41 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
 
     if (button->GetIsTImerOn() == true && button1->GetIsTImerOn() == true)
     {
-        Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
-        Graphics::Color4f color2 = door_2->GetComponentByTemplate<Sprite>()->GetColor();
-        if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_2) == false
+            && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_2) == false)
         {
-            color.alpha = 1.f;
-            door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
-            door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+            Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
+            Graphics::Color4f color2 = door_2->GetComponentByTemplate<Sprite>()->GetColor();
+            if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+            {
+                color.alpha = 1.f;
+                door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
 
-            color2.alpha = 0.2f;
-            door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-            door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                color2.alpha = 0.2f;
+                door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            }
+            else
+            {
+                color.alpha = 0.2f;
+                door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+
+                color2.alpha = 1.f;
+                door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            }
+            button->SetIsTimerOn(false);
+            button1->SetIsTimerOn(false);
+            isTimerReset = false;
         }
-        else
+        if (isTimerReset == false)
         {
-            color.alpha = 0.2f;
-            door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-            door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
-
-            color2.alpha = 1.f;
-            door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
-            door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            button->ResetTimer(1.5f);
+            button1->ResetTimer(1.5f);
+            isTimerReset = true;
         }
-        button->SetIsTimerOn(false);
-        button1->SetIsTimerOn(false);
-
-        button->ResetTimer(2.f);
-        button1->ResetTimer(2.f);
     }
 
     if (button->GetTimer() >= 3.f)
@@ -298,13 +312,17 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         button->SetDirtyFlag(true);
         button->SetIsTimerOn(false);
         button->ResetTimer(0.f);
+        isTimerReset = false;
     }
     if (button1->GetTimer() >= 3.f)
     {
         button1->SetDirtyFlag(true);
         button1->SetIsTimerOn(false);
         button1->ResetTimer(0.f);
+        isTimerReset = false;
     }
+
+    IndicateTimerButton(button, button1);
 }
 
 void TriggerButton::IndicateTimerButton(Object* button, Object* button1)
@@ -313,15 +331,11 @@ void TriggerButton::IndicateTimerButton(Object* button, Object* button1)
     {
         button->GetComponentByTemplate<Animation>()->SetState(0);
         button1->GetComponentByTemplate<Animation>()->SetState(0);
-        std::cout << "not trigerred\n";
-        // set redImage
     }
     else if (button->GetDirtyFlag() == false && button1->GetDirtyFlag() == false) // both buttons are triggered.
     {
-        button->GetComponentByTemplate<Animation>()->SetState(1);
-        button1->GetComponentByTemplate<Animation>()->SetState(1);
-        std::cout << "both trigerred\n";
-        //set greenImage
+        button->GetComponentByTemplate<Animation>()->SetState(2);
+        button1->GetComponentByTemplate<Animation>()->SetState(2);
     }
     else // one of two buttons is trigger but others not triggered.
     {
@@ -329,16 +343,11 @@ void TriggerButton::IndicateTimerButton(Object* button, Object* button1)
         {
             button->GetComponentByTemplate<Animation>()->SetState(1);
             button1->GetComponentByTemplate<Animation>()->SetState(0);
-            // set button is triggered image
-            // set button1 is not triggered image
         }
         else
         {
             button->GetComponentByTemplate<Animation>()->SetState(0);
             button1->GetComponentByTemplate<Animation>()->SetState(1);
-            // set button is not triggered image
-            // set button1 is triggered image
         }
-        std::cout << "one of them trigerred\n";
     }
 }

@@ -278,7 +278,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, v
     Animation* buttonAnimation = new Animation(button);
     button->AddComponent(buttonAnimation);
     buttonAnimation->SetImage("../assets/textures/lever.png");
-    buttonAnimation->SetNumOfState(2);
+    buttonAnimation->SetNumOfState(3);
     buttonAnimation->SetSpeed(0.f);
     buttonAnimation->SetState(0);
     button->AddComponent(new Physics(button));
@@ -293,7 +293,7 @@ DoorSystem::DoorSystem(Player* player1, Player* player2, vector2 button_1_Pos, v
     Animation* button1Animation = new Animation(button1);
     button1->AddComponent(button1Animation);
     button1Animation->SetImage("../assets/textures/lever.png");
-    button1Animation->SetNumOfState(2);
+    button1Animation->SetNumOfState(3);
     button1Animation->SetSpeed(0.f);
     button1Animation->SetState(0);
     button1->AddComponent(new Physics(button1));

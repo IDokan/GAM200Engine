@@ -31,8 +31,10 @@ private:
     ParticleEmitter* openEmitter;
     ParticleEmitter* closeEmitter;
     
+
     Player* player1;
     Player* player2;
 
     bool isTimerButton;
+    bool isTimerReset;
 };

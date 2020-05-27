@@ -118,34 +118,70 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject->SetScale(vector2{ 80.f, 80.f });
 	movingObject->AddComponent(new Sprite(movingObject));
 	movingObject->AddComponent(new Physics(movingObject));
-	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::UP_SIDE);
+	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::BOTTOM_SIDE);
 	movingObject->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject, Physics::ObjectType::RECTANGLE);
-	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
+	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_UP.png");
 	movingObject->SetDepth(-1.f);
 
     movingObject1 = new Object();
     movingObject1->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-    movingObject1->SetObjectName("movingObject");
+    movingObject1->SetObjectName("movingObject1");
     movingObject1->SetTranslation(vector2{ 2200.f, 40.f });
     movingObject1->SetScale(vector2{ 80.f, 80.f });
     movingObject1->AddComponent(new Sprite(movingObject1));
     movingObject1->AddComponent(new Physics(movingObject1));
-    movingObject1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::BOTTOM_SIDE);
+    movingObject1->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
     movingObject1->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject1, Physics::ObjectType::RECTANGLE);
-    movingObject1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_DOWN.png");
+    movingObject1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
     movingObject1->SetDepth(-1.f);
 
     movingObject2 = new Object();
     movingObject2->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-    movingObject2->SetObjectName("movingObject");
+    movingObject2->SetObjectName("movingObject2");
     movingObject2->SetTranslation(vector2{ 2200.f, 150.f });
     movingObject2->SetScale(vector2{ 80.f, 80.f });
     movingObject2->AddComponent(new Sprite(movingObject2));
     movingObject2->AddComponent(new Physics(movingObject2));
-    movingObject2->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+    movingObject2->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::UP_SIDE);
     movingObject2->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject2, Physics::ObjectType::RECTANGLE);
-    movingObject2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_UP.png");
+    movingObject2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_DOWN.png");
     movingObject2->SetDepth(-1.f);
+
+    movingObject3 = new Object();
+    movingObject3->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject3->SetObjectName("movingObject3");
+    movingObject3->SetTranslation(vector2{ 2500, -200.f });
+    movingObject3->SetScale(vector2{ 80.f, 80.f });
+    movingObject3->AddComponent(new Sprite(movingObject3));
+    movingObject3->AddComponent(new Physics(movingObject3));
+    movingObject3->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::RIGHT_SIDE);
+    movingObject3->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject3, Physics::ObjectType::RECTANGLE);
+    movingObject3->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_LEFT.png");
+    movingObject3->SetDepth(-1.f);
+
+
+    movingObject4 = new Object();
+    movingObject4->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject4->SetObjectName("movingObject4");
+    movingObject4->SetTranslation(vector2{ 2750.f, -70.f });
+    movingObject4->SetScale(vector2{ 80.f, 80.f });
+    movingObject4->AddComponent(new Sprite(movingObject4));
+    movingObject4->AddComponent(new Physics(movingObject4));
+    movingObject4->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::UP_SIDE);
+    movingObject4->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject4, Physics::ObjectType::RECTANGLE);
+    movingObject4->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_DOWN.png");
+    movingObject4->SetDepth(-1.f);
+
+    movingObject5 = new Object();
+    movingObject5->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+    movingObject5->SetObjectName("movingObject5");
+    movingObject5->SetTranslation(vector2{ 3300.f, 150.f });
+    movingObject5->SetScale(vector2{ 80.f, 80.f });
+    movingObject5->AddComponent(new Sprite(movingObject5));
+    movingObject5->AddComponent(new Physics(movingObject5));
+    movingObject5->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::BOTTOM_SIDE);
+    movingObject5->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject5, Physics::ObjectType::RECTANGLE);
+    movingObject5->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_UP.png");
 
 	Mouse* mouse = new Mouse(vector2{ 950, -100 }, vector2{ 950, 200 }, vector2{ 950, -160 }, player1, player2);
     Mouse* mouse1 = new Mouse(vector2{ 1640, -100 }, vector2{ 1640, 200 }, vector2{ 1640, -160 }, player1, player2);
@@ -194,6 +230,9 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject3);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject4);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject5);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
