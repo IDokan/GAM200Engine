@@ -31,6 +31,8 @@ public:
     void TurnOnMonitorVerticalSynchronization(bool enable) noexcept;
 	void ClearWindow() const noexcept;
 
+    bool ShouldClose() noexcept;
+
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
     Window(Window&&) = delete;

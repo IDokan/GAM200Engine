@@ -28,6 +28,7 @@ MenuScene::MenuScene(): background(nullptr)
 {
 	selection = 0;
 	totalDT = 0.f;
+	isMenu = true;
 }
 
 MenuScene::~MenuScene()
@@ -37,9 +38,9 @@ MenuScene::~MenuScene()
 
 void MenuScene::Load()
 {
+
 	fileIO* fileio = new fileIO;
 	fileio->Input("../assets/fileIO/menuSettings.txt", &player1, &player2, &string);
-
 	MenuScene::InitObject();
 	cameraManager.Init();
 }
@@ -151,7 +152,7 @@ void MenuScene::Input()
 		}
 		else if ((selection % 5) == ButtonRow::CREDIT)
 		{
-			SceneManager::GetSceneManager()->SetNextScene("OneWayPassLevel");
+			SceneManager::GetSceneManager()->SetNextScene("Credit");
 		}
 		else if ((selection % 5) == ButtonRow::QUIT)
 		{
@@ -169,8 +170,8 @@ void MenuScene::InitObject()
 {
 	gameTitle = new Object();
 	gameTitle->SetObjectName("gametitle");
-	gameTitle->SetTranslation(vector2{ 0, 300 });
-	gameTitle->SetScale(vector2{ 600, 300 });
+	gameTitle->SetTranslation(vector2{ 0, 200 });
+	gameTitle->SetScale(vector2{ 900, 450 });
 	gameTitle->SetObjectType(Object::ObjectType::TEST);
 	gameTitle->AddComponent(new Sprite(gameTitle));
 	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GAME_NAME.png");
@@ -225,7 +226,7 @@ void MenuScene::InitObject()
 	creditButton->SetScale(transform.GetScale());
 	creditButton->SetObjectType(Object::ObjectType::BUTTON);
 	creditButton->AddComponent(new Sprite(creditButton));
-	creditButton->AddComponent(new Button(creditButton, Button::Identifier::NextScene, "AlphaTutorialLevel1", transform));
+	creditButton->AddComponent(new Button(creditButton, Button::Identifier::NextScene, "Credit", transform));
 	creditButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit.png");
 	creditButton->SetDepth(Depth_Standard::Button);
 

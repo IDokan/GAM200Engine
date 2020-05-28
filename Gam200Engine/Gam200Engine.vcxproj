@@ -29,15 +29,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -48,9 +48,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -254,6 +254,7 @@
     <ClInclude Include="Object\Strings\StringVertex.hpp" />
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
+    <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="Scenes\MenuScene.hpp" />
     <ClInclude Include="Scenes\Option.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
@@ -379,6 +380,7 @@
     <ClCompile Include="Object\Strings\StringVertex.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Scenes\BasicMovementLevel.cpp" />
+    <ClCompile Include="Scenes\Credit.cpp" />
     <ClCompile Include="Scenes\MenuScene.cpp" />
     <ClCompile Include="Scenes\Option.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />

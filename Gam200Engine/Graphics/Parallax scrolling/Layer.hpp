@@ -42,11 +42,15 @@ public:
 
 	std::vector<std::shared_ptr<Object>> & GetObjContainer();
 	void SortingDepth();
+	void SetSortingDirtyFlag(bool is);
+	bool GetSortingDirtyFlag();
 private:
 	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> willBeAdded;
 	
 	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> layer;
 
 	std::vector<std::shared_ptr<Object>>delete_obj{};
+
+	bool sortingDirtyFlag;
 };
 

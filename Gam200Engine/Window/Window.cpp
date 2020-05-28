@@ -46,6 +46,11 @@ void Window::ClearWindow() const noexcept
 	platformWindow->ClearWindow();
 }
 
+bool Window::ShouldClose() noexcept
+{
+    return platformWindow->ShouldClose();
+}
+
 bool Window::IsMonitorVerticalSynchronizationOn() noexcept
 {
     return platformWindow->IsMonitorVerticalSynchronizationOn();

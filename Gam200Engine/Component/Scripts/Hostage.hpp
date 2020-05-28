@@ -32,4 +32,6 @@ private:
 	Player* player1;
 	Player* player2;
 	bool isRescued;
+
+	Object* hostageMessage;
 };

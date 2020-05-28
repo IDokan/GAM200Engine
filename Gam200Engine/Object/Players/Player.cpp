@@ -105,7 +105,7 @@ void Player::LoadPlayer1Layout()
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::MoveToRelativePosition:
 				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
@@ -132,7 +132,7 @@ void Player::LoadPlayer1Layout()
 				}
 				break;
 			case MessageTypes::SceneComplete:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::GameRestarted:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
@@ -143,6 +143,15 @@ void Player::LoadPlayer1Layout()
 			case MessageTypes::Resume:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
 				break;
+			case MessageTypes::CancelScaling:
+
+				if (GetScale().x > UpdateAnimation::minimum_scaling_limit)
+				{
+					SetScale(GetScale().x + UpdateAnimation::scaling_constant);
+					GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{ UpdateAnimation::collisionBoxOffset });
+				}
+				break;
+
 			default:
 				return false;
 			}
@@ -169,7 +178,7 @@ void Player::LoadPlayer2Layout()
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::PlayerReachedGoal:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::MoveToRelativePosition:
 				SetTranslation(GetTranslation() + *reinterpret_cast<vector2*>(msg.ExtraInfo));
@@ -196,7 +205,7 @@ void Player::LoadPlayer2Layout()
 				}
 				break;
 			case MessageTypes::SceneComplete:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::GameRestarted:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
@@ -206,6 +215,14 @@ void Player::LoadPlayer2Layout()
 				break;
 			case MessageTypes::Resume:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+			case MessageTypes::CancelScaling:
+
+				if (GetScale().x > UpdateAnimation::minimum_scaling_limit)
+				{
+					SetScale(GetScale().x + UpdateAnimation::scaling_constant);
+					GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{ UpdateAnimation::collisionBoxOffset });
+				}
+				break;
 			default:
 				return false;
 			}

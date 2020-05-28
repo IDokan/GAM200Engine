@@ -15,6 +15,8 @@ Creation Date: 10.02.2019
 
 void Layer::Init()
 {
+	sortingDirtyFlag = false;
+
 	layer.second.clear();
 	delete_obj.clear();
 }
@@ -55,11 +57,13 @@ void Layer::Clear()
 void Layer::AddObjectDynamically(Object* obj)
 {
 	willBeAdded.second.push_back(std::shared_ptr<Object>(obj));
+	sortingDirtyFlag = true;
 }
 
 void Layer::AddObject(Object* obj)
 {
 	layer.second.push_back(std::shared_ptr<Object>(obj));
+	sortingDirtyFlag = true;
 }
 
 
@@ -142,4 +146,14 @@ bool operator<(const std::shared_ptr<Object>& x, const std::shared_ptr<Object>& 
 void Layer::SortingDepth()
 {
 	std::sort(layer.second.begin(), layer.second.end());
+}
+
+void Layer::SetSortingDirtyFlag(bool is)
+{
+	sortingDirtyFlag = is;
+}
+
+bool Layer::GetSortingDirtyFlag()
+{
+	return sortingDirtyFlag;
 }

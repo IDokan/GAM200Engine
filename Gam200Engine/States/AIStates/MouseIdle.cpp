@@ -23,6 +23,10 @@ Creation Date: 03.31.2020
 void MouseIdle::Enter(Mouse* mouse)
 {
 	mouse->SetLocalTimer(0.0);
+	Animation* mouseAnimation = mouse->GetComponentByTemplate<Animation>();
+	mouseAnimation->SetState(0);
+	mouseAnimation->SetSpeed(5.f);
+	mouseAnimation->SetIndex(0.f);
 }
 
 void MouseIdle::Execute(Mouse* mouse, float /*dt*/)

@@ -71,8 +71,47 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 	//SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::GOAL_SOUND, 0.4f);
 }
 
+
+
+void SceneComplete::LerpIn(float timer)
+{
+	offset.SetScale(vector2{ EaseOutBounce(timer) });
+}
+
+
+float SceneComplete::EaseOutBounce(float timer)
+{
+	const float n1 = 7.5625f;
+	const float d1 = 2.75f;
+
+	if (timer < (1.f / d1))
+	{
+		return n1 * timer * timer;
+	}
+	else if (timer < (2.f / d1))
+	{
+		return n1 * (timer -= 1.5f / d1) * timer + 0.75f;
+	}
+	else if (timer < (2.5f / d1))
+	{
+		return n1 * (timer -= 2.25f / d1) * timer + 0.9375f;
+	}
+	else
+	{
+		return n1 * (timer -= 2.625f / d1) * timer + 0.984375f;
+	}
+}
+
+
 void SceneComplete::Execute(SceneStateManager* manager, float dt)
 {
+	// Only update lerp when lerpTimer is valid
+	if (lerpTimer >= 0.f && lerpTimer < 1.f)
+	{
+		lerpTimer += dt;
+		LerpIn(lerpTimer);
+	}
+
 	// Mouse input which is not good because our game is typically controlled by key board.
 	vector2 mousePos = input.GetMouseAbsolutePosition();
 	if (IsMousePositionInBox(mousePos, vector2{ -200.f, 0.f }, vector2{ 160.f, 180.f }))
@@ -143,8 +182,9 @@ void SceneComplete::Exit(SceneStateManager* /*manager*/)
 }
 
 SceneComplete::SceneComplete()
-	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr), selectionHighlight(nullptr), currentSelection(Back2Main), isTransparency(true)
+	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr), selectionHighlight(nullptr), currentSelection(Back2Main), isTransparency(true), lerpTimer(0.f)
 {
+	offset.SetScale(vector2{0.f});
 }
 
 void SceneComplete::SetCurrentSelection(SelectionEnum newValue)
@@ -165,11 +205,11 @@ void SceneComplete::SetCurrentSelection(SelectionEnum newValue)
 
 void SceneComplete::UpdateSelection() noexcept
 {
-	if (input.IsKeyTriggered(GLFW_KEY_RIGHT))
+	if (input.IsKeyTriggered(GLFW_KEY_DOWN))
 	{
 		SetCurrentSelection(static_cast<SelectionEnum>(currentSelection + 1));
 	}
-	else if (input.IsKeyTriggered(GLFW_KEY_LEFT)) 
+	else if (input.IsKeyTriggered(GLFW_KEY_UP)) 
 	{
 		SetCurrentSelection(static_cast<SelectionEnum>(currentSelection - 1));
 	}
@@ -244,50 +284,38 @@ void SceneComplete::PrepareAssets() noexcept
 	{
 		menuBackground = new Object();
 		menuBackground->SetObjectName("menuBackground");
-		menuBackground->SetScale(vector2{ 1.f, 0.6f });
+		menuBackground->SetScale(vector2{ 1.f, 1.6f });
 		Sprite* spriteOfBackground = new Sprite(menuBackground);
 		menuBackground->AddComponent(spriteOfBackground);
-		spriteOfBackground->SetColor(Graphics::Color4f{ 1.f, 0.725f, 0.f });
-		spriteOfBackground->SetImage("../assets/textures/rect.png");
+		spriteOfBackground->SetImage("../assets/textures/UI/LevelClearBackground.png");
 		menuBackground->SetDepth(Depth_Standard::HUDBackground);
+		menuBackground->GetTransform().SetParent(&offset);
 	}
 
 	if (backToMain == nullptr)
 	{
-		// When scale is { 0.4f, 0.4f } and translation is { -0.25f, 0.f }
-		//		-360, +90											-40, +90
-		//
-		//									-200, 0
-		//
-		//		-360, -90											-40, -90
-		// Width = 160 & Height = 180
 		backToMain = new Object();
-		backToMain->SetObjectName("BackToMain Button");
-		backToMain->SetScale(vector2{ 0.4f, 0.4f });
-		backToMain->SetTranslation(vector2{ -0.25f, 0.f });
+		backToMain->SetObjectName("Exit Button - SceneComplete");
+		backToMain->SetScale(vector2{ 0.5f, 0.25f });
+		backToMain->SetTranslation(vector2{ 0.f, -0.4f });
 		Sprite* spriteOfBackButton = new Sprite(backToMain);
 		backToMain->AddComponent(spriteOfBackButton);
-		spriteOfBackButton->SetImage("../assets/textures/backToMainmenu.png");
+		spriteOfBackButton->SetImage("../assets/textures/UI/Exit.png");
 		backToMain->SetDepth(Depth_Standard::HUDImage);
+		backToMain->GetTransform().SetParent(&offset);
 	}
 
 	if (goToNextLevel == nullptr)
 	{
-		// When scale is { 0.4f, 0.4f } and translation is { 0.25f, 0.f }
-		//		+40, +90											360, +90
-		//
-		//									200, 0
-		//
-		//		+40, -90											360, -90
-		// Width = 160 & Height = 180
 		goToNextLevel = new Object();
-		goToNextLevel->SetObjectName("GoToNextLevel Button");
-		goToNextLevel->SetScale(vector2{ 0.4f, 0.4f });
-		goToNextLevel->SetTranslation(vector2{ 0.25f, 0.f });
+		goToNextLevel->SetObjectName("NextLevel - SceneComplete");
+		goToNextLevel->SetScale(vector2{ 0.5f, 0.25f });
+		goToNextLevel->SetTranslation(vector2{ 0.f, 0.f });
 		Sprite* spriteOfNextLevelButton = new Sprite(goToNextLevel);
 		goToNextLevel->AddComponent(spriteOfNextLevelButton);
-		spriteOfNextLevelButton->SetImage("../assets/textures/goToNextLevel.png");
+		spriteOfNextLevelButton->SetImage("../assets/textures/UI/NextLevel.png");
 		goToNextLevel->SetDepth(Depth_Standard::HUDImage);
+		goToNextLevel->GetTransform().SetParent(&offset);
 	}
 
 
@@ -332,6 +360,7 @@ void SceneComplete::PrepareAssets() noexcept
 		selectionHighlight->AddComponent(spriteOfSelectionHighlight);
 		selectionHighlight->SetObjectName("Selection Highlight");
 		selectionHighlight->SetDepth(Depth_Standard::HUDBackImage);
+		selectionHighlight->GetTransform().SetParent(&offset);
 		// Update transforms of this object based on currentSelection
 		UpdateSelectionHighlightTransformation();
 		// Transparency and other stuff

@@ -32,6 +32,7 @@ public:
 	void SetSpeed(float speed_) noexcept;
 	void SetState(int state_) noexcept;
 	void SetNumOfState(int numOfState_) noexcept;
+	void SetIndex(float index_) noexcept;
 
 protected:
 	int Clamp(int targetValue, int maxValue, int minValue = 0) const noexcept;

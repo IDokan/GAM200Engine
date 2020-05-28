@@ -140,15 +140,10 @@ void BasicMovementLevel::InitObject() {
     background->SetDepth(Depth_Standard::Background);
 
     Transform g1;
-    g1.SetScale(vector2{ 250.f });
-    g1.SetTranslation(vector2{ 250.f, 500.f });
-    Object* goal1 = new GoalPoint(g1, player1);
-    Transform g2;
-    g2.SetScale(vector2{ 250.f });
-    g2.SetTranslation(vector2{ -250.f, 500.f });
-    Object* goal2 = new GoalPoint(g2, player2);
+    g1.SetScale(vector2{ 500.f });
+    g1.SetTranslation(vector2{ 0.f, 500.f });
+    Object* goal1 = new GoalPoint(g1, player1, player2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goal1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goal2);
 
     startPoint = new Object();
     startPoint->SetObjectType(Object::ObjectType::TEST);

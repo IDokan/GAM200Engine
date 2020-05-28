@@ -30,7 +30,7 @@ class Scene abstract
 {
 public:
 	Scene()
-		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr)
+		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr), isMenu(false)
 	{}
 	virtual ~Scene() = default;
 	void GameRestartScene() noexcept;
@@ -76,6 +76,8 @@ protected:
 	Player* player2{};
 
 	String* string{};
+
+	bool isMenu;
 
 private:
 	std::vector<matrix3> obstacleMatrices;

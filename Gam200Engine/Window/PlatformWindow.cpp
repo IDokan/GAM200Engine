@@ -188,6 +188,11 @@ vector2 PlatformWindow::GetPlatformWindowSize() noexcept
 	return windowSize;
 }
 
+bool PlatformWindow::ShouldClose() noexcept
+{
+	return glfwWindowShouldClose(window);
+}
+
 /**
  * \brief
  * It's kind of clean up function for window

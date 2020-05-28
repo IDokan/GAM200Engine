@@ -189,8 +189,7 @@ void AlphaTutorialLevel1::InitObject()
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 2900, -55 });
 	goalTransform.SetScale(vector2{ 200, 200 });
-	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
-	GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
+	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
 	cheese = new Object();
 	cheese->SetObjectType(Object::ObjectType::SavedCheese);
@@ -210,19 +209,34 @@ void AlphaTutorialLevel1::InitObject()
 
 	Object* p1Indicator = new Object();
 	p1Indicator->SetObjectName("p1Indicator");
-	p1Indicator->SetTranslation(vector2{ -380, 140 });
-	p1Indicator->SetScale(vector2{ 200.f, 200.f });
+	p1Indicator->SetTranslation(vector2{ -380.f, 440.f });
+	p1Indicator->SetScale(vector2{ 300.f, 300.f });
 	p1Indicator->AddComponent(new Sprite(p1Indicator));
-	p1Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P1.png");
+	p1Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/wasdSign.png");
 	p1Indicator->SetObjectType(Object::ObjectType::TEST);
+	p1Indicator->SetDepth(Depth_Standard::WoodSign);
 
 	Object* p2Indicator = new Object();
 	p2Indicator->SetObjectName("p2Indicator");
-	p2Indicator->SetTranslation(vector2{ -150, 140 });
-	p2Indicator->SetScale(vector2{ 200.f, 200.f });
+	p2Indicator->SetTranslation(vector2{ 0.f, 440.f });
+	p2Indicator->SetScale(vector2{ 300.f, 300.f });
 	p2Indicator->AddComponent(new Sprite(p2Indicator));
-	p2Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/movement_P2.png");
+	p2Indicator->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/arrowSign.png");
 	p2Indicator->SetObjectType(Object::ObjectType::TEST);
+	p2Indicator->SetDepth(Depth_Standard::WoodSign);
+
+	Object* sizeSign = new Object();
+	sizeSign->SetObjectName("sizeSign");
+	sizeSign->SetTranslation(vector2{ 500.f, 460.f });
+	sizeSign->SetScale(vector2{ 380.f, 380.f });
+	Animation* animation = new Animation(sizeSign);
+	sizeSign->AddComponent(animation);
+	animation->SetImage("../assets/textures/sizeSign.png");
+	animation->SetNumOfState(1);
+	animation->SetSpeed(2.5f);
+	animation->SetFrame(6);
+	sizeSign->SetObjectType(Object::ObjectType::TEST);
+	sizeSign->SetDepth(Depth_Standard::WoodSign);
 
 	auto objManager = ObjectManager::GetObjectManager();
 
@@ -236,8 +250,8 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p1Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p2Indicator);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(sizeSign);
 }

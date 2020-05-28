@@ -18,42 +18,23 @@ Creation Date: 03.20.2020
 #include <Object/DepthStandard.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
 
-GoalPoint::GoalPoint(const Transform& transform, Player* ptrToPlayer, Graphics::Color4f highlightedColor)
-	: player(ptrToPlayer)
+GoalPoint::GoalPoint(const Transform& transform, Player* ptrToPlayer1, Player* ptrToPlayer2)
 {
-	assert(ptrToPlayer != nullptr);
+	assert(ptrToPlayer1 != nullptr);
 
 	SetTranslation(transform.GetTranslation());
 	SetScale(transform.GetScale());
 	SetDepth(Depth_Standard::GoalPoints);
 
-	AddComponent(new GoalComponent(this, player, highlightedColor));
+	AddComponent(new GoalComponent(this, ptrToPlayer1, ptrToPlayer2));
 
-	AddComponent(new Sprite(this));
+	Animation* animation = new Animation(this);
+	AddComponent(animation);
+	animation->SetNumOfState(3);
+	animation->SetSpeed(0.f);
+	animation->SetState(0);
 
-	switch (ptrToPlayer->GetID())
-	{
-	case Player::Identifier::Player1:
-		LoadGoalPoint1Layout();
-		break;
-	case Player::Identifier::Player2:
-		LoadGoalPoint2Layout();
-		break;
-	default:
-		break;
-	}
-}
 
-void GoalPoint::LoadGoalPoint1Layout() noexcept
-{
-	SetObjectName("GoalPoint - Player1");
-	// Set appropriate image
-	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
-}
-
-void GoalPoint::LoadGoalPoint2Layout() noexcept
-{
-	SetObjectName("GoalPoint - Player2");
-	// Set appropriate image
-	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalPoint.png");
+	SetObjectName("GoalPoint");
+	GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/goalDoor.png");
 }

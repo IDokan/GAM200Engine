@@ -806,6 +806,9 @@
     <Filter Include="Object\Menu">
       <UniqueIdentifier>{0d26df1a-814b-450c-9cad-ea33fa147f25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\HostageStates">
+      <UniqueIdentifier>{62225ef8-4e37-455c-8fcf-b5b695d52d8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\StockShaders.inl">

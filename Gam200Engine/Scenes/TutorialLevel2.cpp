@@ -152,11 +152,8 @@ void TutorialLevel2::InitObject()
 
     Transform goalTransform;
     goalTransform.SetTranslation(vector2{ 3550.f, 0.f });
-    goalTransform.SetScale(vector2{ 150.f });
-    GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
-    GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
-    goalPoint1->SetDepth(Depth_Standard::GoalPoints);
-    goalPoint2->SetDepth(Depth_Standard::GoalPoints);
+    goalTransform.SetScale(vector2{ 400.f });
+    GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
     
     auto objManager = ObjectManager::GetObjectManager();
@@ -171,7 +168,6 @@ void TutorialLevel2::InitObject()
     objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
     //objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jailText);

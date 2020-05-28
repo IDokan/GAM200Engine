@@ -63,8 +63,6 @@ void TutorialLevel1::GameRestart()
 
 void TutorialLevel1::Unload()
 {
-    fileIO* a = 0;
-    a->Output("../assets/fileIO/savedTutorial1.txt");
 }
 
 void TutorialLevel1::Collision()

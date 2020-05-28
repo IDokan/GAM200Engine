@@ -20,6 +20,7 @@ class Depth_Standard
 public:
 	static const Depth_Standard HUDFrontVFX;
 	static const Depth_Standard HUD;
+	static const Depth_Standard WoodSign;
 	static const Depth_Standard String;
 	static const Depth_Standard Player;
 	static const Depth_Standard MouseAI;
