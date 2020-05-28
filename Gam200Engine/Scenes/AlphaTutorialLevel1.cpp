@@ -124,7 +124,6 @@ void AlphaTutorialLevel1::InitObject()
 	movingObject->SetDepth(-1.f);
 
 	Mouse* mouse = new Mouse(vector2{ 652, 217 }, vector2{ 602, 217 }, vector2{ 1600, 217 }, player1, player2);
-	mouse->SetSpeed(6.f);
 
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 1330.f, -85.f });
@@ -165,6 +164,19 @@ void AlphaTutorialLevel1::InitObject()
 	p2Indicator->SetObjectType(Object::ObjectType::TEST);
 	p2Indicator->SetDepth(Depth_Standard::WoodSign);
 
+	Object* sizeSign = new Object();
+	sizeSign->SetObjectName("sizeSign");
+	sizeSign->SetTranslation(vector2{ 500.f, 460.f });
+	sizeSign->SetScale(vector2{ 380.f, 380.f });
+	Animation* animation = new Animation(sizeSign);
+	sizeSign->AddComponent(animation);
+	animation->SetImage("../assets/textures/sizeSign.png");
+	animation->SetNumOfState(1);
+	animation->SetSpeed(2.5f);
+	animation->SetFrame(6);
+	sizeSign->SetObjectType(Object::ObjectType::TEST);
+	sizeSign->SetDepth(Depth_Standard::WoodSign);
+
 	auto objManager = ObjectManager::GetObjectManager();
 
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
@@ -174,4 +186,5 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p1Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p2Indicator);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(sizeSign);
 }
