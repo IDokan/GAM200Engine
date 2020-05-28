@@ -184,7 +184,9 @@ void AlphaTutorialLevel1::InitObject()
     movingObject5->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_UP.png");
 
 	Mouse* mouse = new Mouse(vector2{ 950, -100 }, vector2{ 950, 200 }, vector2{ 950, -160 }, player1, player2);
+    mouse->SetSpeed(1.5f);
     Mouse* mouse1 = new Mouse(vector2{ 1640, -100 }, vector2{ 1640, 200 }, vector2{ 1640, -160 }, player1, player2);
+    mouse1->SetSpeed(1.5f);
 
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 2900, -55 });

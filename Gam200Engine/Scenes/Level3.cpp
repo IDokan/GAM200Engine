@@ -114,6 +114,7 @@ void Level3::InitObject()
     background->SetDepth(Depth_Standard::FurtherBackground);
 
     Mouse* mouse = new Mouse(vector2{ 180, 900 }, vector2{ 180, 1250 }, vector2{ 180, 384 }, player1, player2);
+    mouse->SetSpeed(1.5f);
     Mouse* mouse1 = new Mouse(vector2{ 1800, 1260 }, vector2{ 1300, 1260 }, vector2{ 2457, 1260 }, player1, player2);
     Mouse* mouse2 = new Mouse(vector2{ 1800, 350 }, vector2{ 1300, 350 }, vector2{ 2457, 350 }, player1, player2);
 
@@ -140,8 +141,7 @@ void Level3::InitObject()
     Transform goalTransform;
     goalTransform.SetTranslation(vector2{ 2650, 1810 });
     goalTransform.SetScale(vector2{ 200, 200 });
-    GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
-    GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
+    GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
     button1 = new DoorSystem(player1, player2, vector2{ -790.f, 500.f }, vector2{ 100.f, 100.f }, vector2{ -790.f, 910.f }, vector2{ 100.f, 100.f }, vector2{ -795.f,1655.f }, vector2{ 250.f,100.f }, vector2{ -615.f, 1208.f }, vector2{ 100.f,275.f });
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
@@ -185,7 +185,6 @@ void Level3::InitObject()
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
-    objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail);
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
 }

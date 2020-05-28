@@ -47,7 +47,7 @@ void TutorialLevel2::Load()
     TutorialLevel2::InitObject();
 
     cameraManager.Init(player1, player2);
-    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
+    sceneStateManager->SetNameOfSelectedLevel("Level3");
 }
 
 void TutorialLevel2::Update(float dt)
