@@ -22,7 +22,7 @@ void SoundManager::Load_Sound()
 
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Cartoon_Boing.mp3", FMOD_DEFAULT, nullptr, &sound[COLLISION_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Missive.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/TheFirstBgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);
     ERRCHECK(theResult, "Load Sound");
