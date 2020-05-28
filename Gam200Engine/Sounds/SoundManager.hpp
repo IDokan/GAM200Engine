@@ -46,8 +46,6 @@ enum  SOUNDS
 class SoundManager
 {
 public:
-    SoundManager();
-
     void Load_Sound();
 
     void Play_Sound(SOUNDS sound_name);
