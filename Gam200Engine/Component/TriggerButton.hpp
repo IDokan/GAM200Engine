@@ -21,6 +21,7 @@ public:
     void OpenOneDoorWithOneButton();
     void OpenAndCloseDoorsWithTwoButton();
     void OpenAndCloseDoorsWithTwoButtonOnTime(float dt);
+    void IndicateTimerButton(Object* button, Object* button1);
 private:
     Object* movingObject;
     Object* button;
@@ -30,8 +31,10 @@ private:
     ParticleEmitter* openEmitter;
     ParticleEmitter* closeEmitter;
     
+
     Player* player1;
     Player* player2;
 
     bool isTimerButton;
+    bool isTimerReset;
 };

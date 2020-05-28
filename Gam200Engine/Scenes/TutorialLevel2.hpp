@@ -4,7 +4,7 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   TutorialLevel2.hpp
 Author
-    - Hyerin Jung junghl0621@gmail.com
+    - jaemin.woo wjm9932@gmail.com
 
 Creation Date: 03.15.2020
 

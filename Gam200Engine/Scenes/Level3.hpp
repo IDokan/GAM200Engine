@@ -2,30 +2,30 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:  AlphaTutorialLevel1.hpp
+File Name:   Level3.hpp
 Author
-    - Jiwon.Jung       jjwon6218@gmail.com
-    - Doyoung Lee
+    -  jaemin.woo wjm9932@gmail.com
+Creation Date: 03.13.2020
 
-Creation Date: 05.10.2020
-
-    Header file for level that player learned how to move player
+    Header file for scene which works as Level3
 ******************************************************************************/
 #pragma once
 #include <Scenes/Scene.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
-#include <Object/DepthStandard.hpp>
+#include <Object/DoorSystem.hpp>
 
 class Object;
-class String;
 class Player;
+class String;
 
-class AlphaTutorialLevel1 : public Scene
+class Level3 : public Scene
 {
 public:
-    AlphaTutorialLevel1();
-    virtual ~AlphaTutorialLevel1();
+
+
+    Level3();
+    virtual ~Level3();
 
     void Update(float dt) override;
 
@@ -39,13 +39,11 @@ protected:
 
 private:
     Object* background;
-
-    Object* movingObject;
     Object* movingObject1;
-    Object* movingObject2;
-    Object* movingObject3;
-    Object* movingObject4;
-    Object* movingObject5;
-
+    Object* jail;
     Object* cheese;
+    DoorSystem* button1;
+    DoorSystem* button2;
+    DoorSystem* button3;
+    DoorSystem* button4;
 };

@@ -108,7 +108,7 @@ public:
     void SetDirtyFlag(bool flag);
     void SetTimer(float dt);
     void SetIsTimerOn(bool flag);
-    void ResetTimer();
+    void ResetTimer(float time);
 
     void SetObjectType(ObjectType objType); // test function Woo
 

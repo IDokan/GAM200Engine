@@ -19,6 +19,7 @@ TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Obje
 
 void TriggerButton::Init()
 {
+    isTimerReset = false;
 }
 
 void TriggerButton::Update(float dt)
@@ -31,7 +32,14 @@ void TriggerButton::Update(float dt)
 
     if (door_2 == nullptr)
     {
-        OpenOneDoorWithOneButton();
+        if (button1 == nullptr)
+        {
+            OpenOneDoorWithOneButton();
+        }
+        else
+        {
+
+        }
     }
     else if (button1 == nullptr)
     {
@@ -215,7 +223,8 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
 }
 
 void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
-{    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true) // when player trigger button, timer is started
+{
+    if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button) == true) // when player trigger button, timer is started
     {
         if (button->GetDirtyFlag() == true)
         {
@@ -223,7 +232,6 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
             button->SetIsTimerOn(true);
         }
     }
-    
     else if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(button1) == true) // when player trigger button, timer is started
     {
         if (button1->GetDirtyFlag() == true)
@@ -250,79 +258,96 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         }
     }
 
-    if (button->GetIsTImerOn() == true || button->GetDirtyFlag() == false)  // keep timer 
+    if (button->GetDirtyFlag() == false)  // keep timer 
     {
         button->SetTimer(dt);
     }
 
-    if (button1->GetIsTImerOn() == true || button1->GetDirtyFlag() == false)
+    if (button1->GetDirtyFlag() == false)
     {
         button1->SetTimer(dt);
     }
 
-    if (button->GetIsTImerOn() == true)
-    {
-        button->GetComponentByTemplate<Animation>()->SetState(1);
-    }
-    else if (button->GetIsTImerOn() == false)
-    {
-        button->GetComponentByTemplate<Animation>()->SetState(0);
-    }
-
-    if (button1->GetIsTImerOn() == true)
-    {
-        button1->GetComponentByTemplate<Animation>()->SetState(1);
-    }
-    else if (button1->GetIsTImerOn() == false)
-    {
-        button1->GetComponentByTemplate<Animation>()->SetState(0);
-    }
-
     if (button->GetIsTImerOn() == true && button1->GetIsTImerOn() == true)
     {
-        Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
-        Graphics::Color4f color2 = door_2->GetComponentByTemplate<Sprite>()->GetColor();
-        if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+        if (player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player1->GetComponentByTemplate<Physics>()->IsCollideWith(door_2) == false
+            && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_1) == false && player2->GetComponentByTemplate<Physics>()->IsCollideWith(door_2) == false)
         {
-            color.alpha = 1.f;
-            door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
-            door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
-            openEmitter->SetShouldReviveParticle(true);
+            Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
+            Graphics::Color4f color2 = door_2->GetComponentByTemplate<Sprite>()->GetColor();
+            if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true)
+            {
+                color.alpha = 1.f;
+                door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
 
-            color2.alpha = 0.2f;
-            door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-            door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
-            closeEmitter->SetShouldReviveParticle(false);
+                color2.alpha = 0.2f;
+                door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            }
+            else
+            {
+                color.alpha = 0.2f;
+                door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+                door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+
+                color2.alpha = 1.f;
+                door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+                door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+            }
+            button->SetIsTimerOn(false);
+            button1->SetIsTimerOn(false);
+            isTimerReset = false;
         }
-        else
+        if (isTimerReset == false)
         {
-            color.alpha = 0.2f;
-            door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
-            door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
-            openEmitter->SetShouldReviveParticle(false);
-
-            color2.alpha = 1.f;
-            door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
-            door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
-            closeEmitter->SetShouldReviveParticle(true);
+            button->ResetTimer(1.5f);
+            button1->ResetTimer(1.5f);
+            isTimerReset = true;
         }
-        button->SetIsTimerOn(false);
-        button1->SetIsTimerOn(false);
-
-        button->ResetTimer(); // to be determine delete this line or not.
-        button1->ResetTimer();  // to be determine delete this line or not.
     }
 
     if (button->GetTimer() >= 3.f)
     {
         button->SetDirtyFlag(true);
         button->SetIsTimerOn(false);
-        button->ResetTimer();
+        button->ResetTimer(0.f);
+        isTimerReset = false;
     }
     if (button1->GetTimer() >= 3.f)
     {
         button1->SetDirtyFlag(true);
         button1->SetIsTimerOn(false);
-        button1->ResetTimer();
+        button1->ResetTimer(0.f);
+        isTimerReset = false;
+    }
+
+    IndicateTimerButton(button, button1);
+}
+
+void TriggerButton::IndicateTimerButton(Object* button, Object* button1)
+{
+    if (button->GetDirtyFlag() && button1->GetDirtyFlag()) // both buttons are not set timer 
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(0);
+        button1->GetComponentByTemplate<Animation>()->SetState(0);
+    }
+    else if (button->GetDirtyFlag() == false && button1->GetDirtyFlag() == false) // both buttons are triggered.
+    {
+        button->GetComponentByTemplate<Animation>()->SetState(2);
+        button1->GetComponentByTemplate<Animation>()->SetState(2);
+    }
+    else // one of two buttons is trigger but others not triggered.
+    {
+        if (button->GetDirtyFlag() == false)
+        {
+            button->GetComponentByTemplate<Animation>()->SetState(1);
+            button1->GetComponentByTemplate<Animation>()->SetState(0);
+        }
+        else
+        {
+            button->GetComponentByTemplate<Animation>()->SetState(0);
+            button1->GetComponentByTemplate<Animation>()->SetState(1);
+        }
     }
 }

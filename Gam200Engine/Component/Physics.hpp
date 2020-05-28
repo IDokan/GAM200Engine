@@ -171,6 +171,7 @@ private:
     bool shouldResolveResolution;
     bool dirtyFlag = true;
     ObjectSide objSide;
+    ObjectSide lastCollidingSide;
 
     std::vector<vector2> SAT;
 
