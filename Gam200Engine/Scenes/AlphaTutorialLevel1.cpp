@@ -189,8 +189,7 @@ void AlphaTutorialLevel1::InitObject()
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 2900, -55 });
 	goalTransform.SetScale(vector2{ 200, 200 });
-	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1);
-	GoalPoint* goalPoint2 = new GoalPoint(goalTransform, player2);
+	GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
 	cheese = new Object();
 	cheese->SetObjectType(Object::ObjectType::SavedCheese);

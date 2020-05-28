@@ -17,7 +17,8 @@ Creation Date: 03.08.2020
 
 class UpdateAnimation : public State<Player>
 {
-private:
+public:
+    constexpr static float maximum_scaling_limit = 125.f;
 	constexpr static float minimum_scaling_limit = 75.f;
 	constexpr static float scaling_constant = 1.5f;
 	constexpr static float collisionBoxOffset = -40.f;
@@ -29,7 +30,6 @@ public:
 	void Execute(Player* obj, float dt) override;
 	void Exit(Player* obj) override;
 
-    constexpr static float maximum_scaling_limit = 125.f;
 
 private:
 	void Resizing(Player* player);
