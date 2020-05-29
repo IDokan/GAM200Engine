@@ -31,6 +31,7 @@ Creation Date: 03.16.2020
 #include <Component/Sprite/Sprite.hpp>
 #include <Object/DepthStandard.hpp>
 
+class SoundManager smPlayerDead;
 PlayerIsDead* PlayerIsDead::Get()
 {
 	static PlayerIsDead* state = new PlayerIsDead();
@@ -48,6 +49,8 @@ void PlayerIsDead::Enter(SceneStateManager* /*manager*/)
 	// Display Image that indicate ¡°You are dead.Press ¡®R¡¯ to restart¡±
 	if (playerIsDeadText != nullptr)
 	{
+		smPlayerDead = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+		smPlayerDead.Play_Sound(DIED_BY_MOUSE_SOUND);
 		playerIsDeadText->SetTranslation(vector2{ 0.f });
 	}
 

@@ -37,4 +37,5 @@ private:
 	bool shouldShowing;
 
 	float timer;
+	bool isSoundPlay;
 };

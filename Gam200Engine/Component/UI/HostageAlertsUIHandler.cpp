@@ -4,10 +4,10 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   HostageAlertsUIHandler.cpp
 Author
-		sinil.gang -rtd99062@gmail.com
+        sinil.gang -rtd99062@gmail.com
 Creation Date: 05.05.2020
 
-	Header file for a component that manage HostageAlerts UI
+    Header file for a component that manage HostageAlerts UI
 ******************************************************************************/
 #include <Component/UI/HostageAlertsUIHandler.hpp>
 
@@ -18,26 +18,36 @@ Creation Date: 05.05.2020
 
 
 #include <Angle.hpp>
+#include <Scenes\SceneManager.hpp>
 
+class SoundManager smHosetageAlerts;
 HostageAlertsUIHandler::HostageAlertsUIHandler(HostageAlertsUI* owner)
-	: Component(owner), ui(owner), shouldShowing(false), timer(0.f)
+    : Component(owner), ui(owner), shouldShowing(false), timer(0.f), isSoundPlay(false)
 {
 
 
     ui->AddComponent(new MessageCapable(ui, MessageObjects::HostageAlertsUI,
         [&](const Message& msg)
+    {
+        switch (msg.Msg)
         {
-            switch (msg.Msg)
-            {
-            case MessageTypes::HostageNotRescuedYet:
+        case MessageTypes::HostageNotRescuedYet:
+            if (shouldShowing == false) {
                 shouldShowing = true;
-                return true;
-                break;
-            default:
-                return false;
-                break;
             }
+            if (isSoundPlay == false) {
+                isSoundPlay = true;
+                smHosetageAlerts = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+                smHosetageAlerts.Play_Sound(SOUNDS::NOT_SAVED_SOUND);
+            }
+
+            return true;
+            break;
+        default:
+            return false;
+            break;
         }
+    }
     ));
 }
 
@@ -67,6 +77,7 @@ void HostageAlertsUIHandler::Update(float dt)
         UpdateTimer(-dt);
         // Lerp here and SetTranslation
         ui->SetTranslation(EaseInQuad(timer));
+        isSoundPlay = false;
     }
 }
 
@@ -105,7 +116,7 @@ void HostageAlertsUIHandler::UpdateTimer(float dt)
     {
         timer = 1.f;
     }
-    else if(timer < 0.f)
+    else if (timer < 0.f)
     {
         timer = 0.f;
     }

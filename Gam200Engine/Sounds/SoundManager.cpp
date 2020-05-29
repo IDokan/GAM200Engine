@@ -43,7 +43,7 @@ void SoundManager::Load_Sound()
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
     ERRCHECK(theResult, "Load Sound");
 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_DEFAULT, nullptr, &sound[SIZE_SHARE_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[SIZE_SHARE_SOUND]);
     ERRCHECK(theResult, "Load Sound");    
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageNOTSaved.mp3", FMOD_DEFAULT, nullptr, &sound[NOT_SAVED_SOUND]);
     ERRCHECK(theResult, "Load Sound");

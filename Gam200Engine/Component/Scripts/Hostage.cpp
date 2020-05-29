@@ -16,6 +16,10 @@ Creation Date: 05.04.2020
 #include <Object/Players/Player.h>
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 #include <Component/Sprite/Sprite.hpp>
+#include <Scenes\SceneManager.hpp>
+
+
+class SoundManager smHostage;
 
 Hostage::Hostage(Object* obj, Player* player1, Player* player2)
 	: Component(obj), player1(player1), player2(player2), isRescued(false)
@@ -41,6 +45,8 @@ void Hostage::Update(float dt)
 		{
 			isRescued = true;
 			DispatchMessage(MessageTypes::HostageRescued);
+			smHostage =  SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+			smHostage.Play_Sound(SOUNDS::SAVED_SOUND);
 		}
 	}
 	else
