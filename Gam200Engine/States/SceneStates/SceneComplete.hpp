@@ -55,11 +55,13 @@ private:
 	float lerpTimer;
 
 	Transform offset;
+	Transform nextLevelTransform;
+	Transform exitTransform;
 	Object* menuBackground;
 	Object* backToMain;
 	Object* goToNextLevel;
 	ParticleEmitter* confetti;
-	Object* selectionHighlight;
+	Transform selectionHighlight;
 	SelectionEnum currentSelection;
 
 	bool isTransparency;
