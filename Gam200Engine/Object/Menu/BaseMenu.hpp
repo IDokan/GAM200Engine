@@ -15,6 +15,8 @@ Creation Date: 05.11.2020
 class BaseMenu : public MenuObject
 {
 public:
+    const vector2 buttonInitSize{ 0.5f, 0.25f };
+public:
     enum MenuEnum
     {
         Resume,
@@ -49,6 +51,10 @@ private:
     Object* exitButton;
     Object* selectionHighlight;
     MenuEnum currentSelection;
+
+    Transform resumeTransform;
+    Transform optionTransform;
+    Transform exitTransform;
 
     bool isTransparency;
 

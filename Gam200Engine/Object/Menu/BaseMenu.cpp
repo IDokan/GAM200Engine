@@ -33,10 +33,18 @@ BaseMenu::BaseMenu()
     menuBackground->SetDepth(Depth_Standard::HUDBackground);
     menuBackground->SetObjectType(ObjectType::Menu);
 
+    resumeTransform.SetTranslation(vector2{ 0.f, 0.1f });
+    resumeTransform.SetScale(buttonInitSize);
+    optionTransform.SetTranslation(vector2{ 0.f, -0.2f });
+    optionTransform.SetScale(buttonInitSize);
+    exitTransform.SetTranslation(vector2{ 0.f, -0.5f });
+    exitTransform.SetScale(buttonInitSize);
+    resumeTransform.SetParent(&GetTransform());
+    optionTransform.SetParent(&GetTransform());
+    exitTransform.SetParent(&GetTransform());
+
 
     resumeButton = new Object();
-    resumeButton->SetTranslation(vector2{ 0.f, 0.1f });
-    resumeButton->SetScale(vector2{ 0.5f, 0.25f });
     resumeButton->GetTransform().SetParent(&GetTransform());
     Sprite* resumeButtonSprite = new Sprite(resumeButton);
     resumeButton->AddComponent(resumeButtonSprite);
@@ -46,8 +54,6 @@ BaseMenu::BaseMenu()
     resumeButton->SetObjectType(ObjectType::Menu);
 
     optionButton = new Object();
-    optionButton->SetTranslation(vector2{ 0.f, -0.2f });
-    optionButton->SetScale(vector2{ 0.5f, 0.25f });
     optionButton->GetTransform().SetParent(&GetTransform());
     Sprite* optionButtonSprite = new Sprite(optionButton);
     optionButton->AddComponent(optionButtonSprite);
@@ -57,8 +63,6 @@ BaseMenu::BaseMenu()
     optionButton->SetObjectType(ObjectType::Menu);
 
     exitButton = new Object();
-    exitButton->SetTranslation(vector2{ 0.f, -0.5f });
-    exitButton->SetScale(vector2{ 0.5f, 0.25f });
     exitButton->GetTransform().SetParent(&GetTransform());
     Sprite* exitButtonSprite = new Sprite(exitButton);
     exitButton->AddComponent(exitButtonSprite);
@@ -71,14 +75,11 @@ BaseMenu::BaseMenu()
 
     selectionHighlight = new Object();
     selectionHighlight->GetTransform().SetParent(&GetTransform());
-    Sprite* selectionHighlightSprite = new Sprite(selectionHighlight);
-    selectionHighlight->AddComponent(selectionHighlightSprite);
     selectionHighlight->SetObjectName("Selection Highlight");
-    selectionHighlight->SetDepth(Depth_Standard::HUDBackImage);
+    selectionHighlight->SetDepth(0.f);
     selectionHighlight->SetObjectType(ObjectType::Menu);
-    UpdateSelectionHighlightTransformation();
 
-    
+    UpdateSelectionHighlightTransformation();
 }
 
 BaseMenu::~BaseMenu()
@@ -214,41 +215,43 @@ Object* BaseMenu::GetSelectedObject()
 
 void BaseMenu::UpdateSelectionHighlightTransformation()
 {
+    resumeButton->GetTransform().SetParent(&resumeTransform);
+    optionButton->GetTransform().SetParent(&optionTransform);
+    exitButton->GetTransform().SetParent(&exitTransform);
+
     Object* selectedObject = GetSelectedObject();
-    selectionHighlight->SetTranslation(selectedObject->GetTranslation());
-    selectionHighlight->SetScale(1.2f * selectedObject->GetScale());
+    selectionHighlight->GetTransform().SetParent(selectedObject->GetTransform().GetParent());
+    selectedObject->GetTransform().SetParent(&selectionHighlight->GetTransform());
 }
 
 void BaseMenu::UpdateSelectionHighlightTransparency(float dt)
 {
-    Sprite* selectionSprite = selectionHighlight->GetComponentByTemplate<Sprite>();
-    Graphics::Color4f color = selectionSprite->GetColor();
-
     // When a flag is on, decrease as mush as given dt
     if (isTransparency)
     {
-        color.alpha = color.alpha - dt;
+        vector2 highlightSize = selectionHighlight->GetScale();
+        selectionHighlight->SetScale(highlightSize.x + (dt / 2.f));
 
         // if the alpha value is smaller than minimum capacity
-        if (color.alpha < 0.f)
+        if (highlightSize.x > 1.2f)
         {
-            color.alpha = 0.f;
+            selectionHighlight->SetScale(1.2f);
             isTransparency = !isTransparency;
         }
     }
     // and increase when the flag is off 
     else
     {
-        color.alpha = color.alpha + dt;
+        vector2 highlightSize = selectionHighlight->GetScale();
+        selectionHighlight->SetScale(highlightSize.x - (dt / 2.f));
 
         // if the alpha value is bigger than maximum capacity
-        if (color.alpha > 1.f)
+        if (highlightSize.x < 1.f)
         {
-            color.alpha = 1.f;
+            selectionHighlight->SetScale(1.f);
             isTransparency = !isTransparency;
         }
     }
-    selectionSprite->SetColor(color);
 }
 
 float BaseMenu::EaseInBounce(float timer)

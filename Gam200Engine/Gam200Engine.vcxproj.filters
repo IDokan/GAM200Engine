@@ -334,7 +334,6 @@
     <ClCompile Include="Component\Checkpoint.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Credit.cpp" />
     <ClCompile Include="Scenes\Level3.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -715,7 +714,6 @@
     <ClInclude Include="Component\Checkpoint.hpp">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="Scenes\Level3.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>

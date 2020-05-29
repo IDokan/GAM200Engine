@@ -63,7 +63,6 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(backToMain);
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(goToNextLevel);
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(confetti);
-	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(selectionHighlight);
 
 	// Play "Scene Complete Sound"
 	// TODO:
@@ -175,14 +174,13 @@ void SceneComplete::Exit(SceneStateManager* /*manager*/)
 	goToNextLevel = nullptr;
 	confetti->SetDead(true);
 	confetti = nullptr;
-	selectionHighlight = nullptr;
 	currentSelection = Back2Main;
 	isTransparency = true;
 	// Stop "Scene Complete Sound"
 }
 
 SceneComplete::SceneComplete()
-	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr), selectionHighlight(nullptr), currentSelection(Back2Main), isTransparency(true), lerpTimer(0.f)
+	:menuBackground(nullptr), backToMain(nullptr), goToNextLevel(nullptr), confetti(nullptr), currentSelection(Back2Main), isTransparency(true), lerpTimer(0.f)
 {
 	offset.SetScale(vector2{0.f});
 }
@@ -241,41 +239,42 @@ Object* SceneComplete::GetSelectedObject()
 
 void SceneComplete::UpdateSelectionHighlightTransformation()
 {
+	backToMain->GetTransform().SetParent(&exitTransform);
+	goToNextLevel->GetTransform().SetParent(&nextLevelTransform);
+
 	Object* selectedObject = GetSelectedObject();
-	selectionHighlight->SetTranslation(selectedObject->GetTranslation());
-	selectionHighlight->SetScale(1.2f * selectedObject->GetScale());
+	selectionHighlight.SetParent(selectedObject->GetTransform().GetParent());
+	selectedObject->GetTransform().SetParent(&selectionHighlight);
 }
 
 void SceneComplete::UpdateSelectionHighlightTransparency(float dt)
 {
-	Sprite* selectionSprite = selectionHighlight->GetComponentByTemplate<Sprite>();
-	Graphics::Color4f color = selectionSprite->GetColor();
-
 	// When a flag is on, decrease as mush as given dt
 	if (isTransparency)
 	{
-		color.alpha = color.alpha - dt;
+		vector2 highlightSize = selectionHighlight.GetScale();
+		selectionHighlight.SetScale(vector2{ highlightSize.x + (dt / 2.f) });
 
 		// if the alpha value is smaller than minimum capacity
-		if (color.alpha < 0.f)
+		if (highlightSize.x > 1.2f)
 		{
-			color.alpha = 0.f;
+			selectionHighlight.SetScale(vector2{ 1.2f });
 			isTransparency = !isTransparency;
 		}
 	}
 	// and increase when the flag is off 
 	else
 	{
-		color.alpha = color.alpha + dt;
+		vector2 highlightSize = selectionHighlight.GetScale();
+		selectionHighlight.SetScale(vector2{ highlightSize.x - (dt / 2.f) });
 
 		// if the alpha value is bigger than maximum capacity
-		if (color.alpha > 1.f)
+		if (highlightSize.x < 1.f)
 		{
-			color.alpha = 1.f;
+			selectionHighlight.SetScale(vector2{ 1.f });
 			isTransparency = !isTransparency;
 		}
 	}
-	selectionSprite->SetColor(color);
 }
 
 void SceneComplete::PrepareAssets() noexcept
@@ -294,28 +293,31 @@ void SceneComplete::PrepareAssets() noexcept
 
 	if (backToMain == nullptr)
 	{
+		exitTransform.SetParent(&offset);
+		exitTransform.SetScale(vector2{ 0.5f, 0.25f });
+		exitTransform.SetTranslation(vector2{ 0.f, -0.4f });
+
 		backToMain = new Object();
 		backToMain->SetObjectName("Exit Button - SceneComplete");
-		backToMain->SetScale(vector2{ 0.5f, 0.25f });
-		backToMain->SetTranslation(vector2{ 0.f, -0.4f });
+		backToMain->GetTransform().SetParent(&exitTransform);
 		Sprite* spriteOfBackButton = new Sprite(backToMain);
 		backToMain->AddComponent(spriteOfBackButton);
 		spriteOfBackButton->SetImage("../assets/textures/UI/Exit.png");
 		backToMain->SetDepth(Depth_Standard::HUDImage);
-		backToMain->GetTransform().SetParent(&offset);
 	}
 
 	if (goToNextLevel == nullptr)
 	{
+		nextLevelTransform.SetParent(&offset);
+		nextLevelTransform.SetScale(vector2{ 0.5f, 0.25f });
+
 		goToNextLevel = new Object();
 		goToNextLevel->SetObjectName("NextLevel - SceneComplete");
-		goToNextLevel->SetScale(vector2{ 0.5f, 0.25f });
-		goToNextLevel->SetTranslation(vector2{ 0.f, 0.f });
+		goToNextLevel->GetTransform().SetParent(&nextLevelTransform);
 		Sprite* spriteOfNextLevelButton = new Sprite(goToNextLevel);
 		goToNextLevel->AddComponent(spriteOfNextLevelButton);
 		spriteOfNextLevelButton->SetImage("../assets/textures/UI/NextLevel.png");
 		goToNextLevel->SetDepth(Depth_Standard::HUDImage);
-		goToNextLevel->GetTransform().SetParent(&offset);
 	}
 
 
@@ -353,18 +355,10 @@ void SceneComplete::PrepareAssets() noexcept
 
 	currentSelection = Back2Main;
 
-	if (selectionHighlight == nullptr)
-	{
-		selectionHighlight = new Object();
-		Sprite* spriteOfSelectionHighlight = new Sprite(selectionHighlight);
-		selectionHighlight->AddComponent(spriteOfSelectionHighlight);
-		selectionHighlight->SetObjectName("Selection Highlight");
-		selectionHighlight->SetDepth(Depth_Standard::HUDBackImage);
-		selectionHighlight->GetTransform().SetParent(&offset);
-		// Update transforms of this object based on currentSelection
-		UpdateSelectionHighlightTransformation();
-		// Transparency and other stuff
-	}
+	selectionHighlight.SetTranslation(vector2{ 0.f });
+	selectionHighlight.SetScale(vector2{ 1.f });
+
+	UpdateSelectionHighlightTransformation();
 }
 
 void SceneComplete::CleanAssets() noexcept
@@ -373,7 +367,6 @@ void SceneComplete::CleanAssets() noexcept
 	backToMain = nullptr;
 	goToNextLevel = nullptr;
 	confetti = nullptr;
-	selectionHighlight = nullptr;
 	currentSelection = Back2Main;
 	isTransparency = true;
 }

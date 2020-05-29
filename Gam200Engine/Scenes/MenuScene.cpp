@@ -24,6 +24,9 @@ Creation Date: 03.13.2020
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>
 
+
+#include <States/PlayerStates/PlayerReachesGoal.hpp>
+
 MenuScene::MenuScene(): background(nullptr)
 {
 	selection = 0;
@@ -91,23 +94,23 @@ void MenuScene::Input()
 
 		if ((selection % 5) == ButtonRow::PLAY)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, 100 });
+			selectionArrow->SetTranslation(vector2{ 425, 100 });
 		}
 		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, 0 });
+			selectionArrow->SetTranslation(vector2{ 425, 0 });
 		}
 		else if ((selection % 5) == ButtonRow::SETTINGS)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, -100 });
+			selectionArrow->SetTranslation(vector2{ 425, -100 });
 		}
 		else if ((selection % 5) == ButtonRow::CREDIT)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, -200 });
+			selectionArrow->SetTranslation(vector2{ 425, -200 });
 		}
 		else if ((selection % 5) == ButtonRow::QUIT)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, -300 });
+			selectionArrow->SetTranslation(vector2{ 425, -300 });
 		}
 	}
 	else if (input.IsKeyTriggered(GLFW_KEY_DOWN))
@@ -116,23 +119,23 @@ void MenuScene::Input()
 
 		if ((selection % 5) == ButtonRow::PLAY)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, 100 });
+			selectionArrow->SetTranslation(vector2{ 425, 100 });
 		}
 		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, 0 });
+			selectionArrow->SetTranslation(vector2{ 425, 0 });
 		}
 		else if ((selection % 5) == ButtonRow::SETTINGS)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, -100 });
+			selectionArrow->SetTranslation(vector2{ 425, -100 });
 		}
 		else if ((selection % 5) == ButtonRow::CREDIT)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, -200 });
+			selectionArrow->SetTranslation(vector2{ 425, -200 });
 		}
 		else if ((selection % 5) == ButtonRow::QUIT)
 		{
-			selectionArrow->SetTranslation(vector2{ 450, -300 });
+			selectionArrow->SetTranslation(vector2{ 425, -300 });
 		}
 	}
 
@@ -174,7 +177,7 @@ void MenuScene::InitObject()
 	gameTitle->SetScale(vector2{ 900, 450 });
 	gameTitle->SetObjectType(Object::ObjectType::TEST);
 	gameTitle->AddComponent(new Sprite(gameTitle));
-	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/GAME_NAME.png");
+	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/GAME_TITLE.png");
 	gameTitle->SetDepth(Depth_Standard::Button);
 
 	Transform transform;
@@ -188,7 +191,7 @@ void MenuScene::InitObject()
 	nextLevelButton->SetObjectType(Object::ObjectType::BUTTON);
 	nextLevelButton->AddComponent(new Sprite(nextLevelButton));
 	nextLevelButton->AddComponent(new Button(nextLevelButton, Button::Identifier::NextScene, "AlphaTutorialLevel1", transform));
-	nextLevelButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/play.png");
+	nextLevelButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/Play.png");
 	nextLevelButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, 0));
@@ -214,7 +217,7 @@ void MenuScene::InitObject()
 	settingButton->SetObjectType(Object::ObjectType::BUTTON);
 	settingButton->AddComponent(new Sprite(settingButton));
 	settingButton->AddComponent(new Button(settingButton, Button::Identifier::NextScene, "Option", transform));
-	settingButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/setting.png");
+	settingButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/Option.png");
 	settingButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, -200));
@@ -227,7 +230,7 @@ void MenuScene::InitObject()
 	creditButton->SetObjectType(Object::ObjectType::BUTTON);
 	creditButton->AddComponent(new Sprite(creditButton));
 	creditButton->AddComponent(new Button(creditButton, Button::Identifier::NextScene, "Credit", transform));
-	creditButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit.png");
+	creditButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/Credit.png");
 	creditButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, -300));
@@ -240,17 +243,24 @@ void MenuScene::InitObject()
 	quitButton->SetObjectType(Object::ObjectType::BUTTON);
 	quitButton->AddComponent(new Sprite(quitButton));
 	quitButton->AddComponent(new Button(quitButton, Button::Identifier::Quit, "TutorialLevel", transform));
-	quitButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/quit.png");
+	quitButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/Quit.png");
 	quitButton->SetDepth(Depth_Standard::Button);
 	
 	selectionArrow = new Object();
 	selectionArrow->SetObjectName("selectionBox");
-	selectionArrow->SetTranslation(vector2{ 450, 100 });
-	selectionArrow->SetScale(vector2{50, 50});
+	selectionArrow->SetTranslation(vector2{ 425.f, 100.f });
+	selectionArrow->SetScale(vector2{100.f});
 	selectionArrow->SetObjectType(Object::ObjectType::TEST);
-	selectionArrow->AddComponent(new Sprite(selectionArrow));
-	selectionArrow->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Arrow.png");
+	Animation* selectionAnimation = new Animation(selectionArrow);
+	selectionArrow->AddComponent(selectionAnimation);
+	selectionAnimation->SetImage("../assets/textures/Hostage.png");
+	selectionAnimation->SetState(1);
+	selectionAnimation->SetFrame(6);
+	selectionAnimation->SetSpeed(5.f);
 	selectionArrow->SetDepth(Depth_Standard::Button);
+
+	player1->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
+	player2->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 
 
 	auto objManager = ObjectManager::GetObjectManager();

@@ -255,6 +255,7 @@
     <ClInclude Include="Object\Transform.hpp" />
     <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
     <ClInclude Include="Scenes\Credit.hpp" />
+    <ClInclude Include="Scenes\Level3.hpp" />
     <ClInclude Include="Scenes\MenuScene.hpp" />
     <ClInclude Include="Scenes\Option.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
@@ -381,6 +382,7 @@
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Scenes\BasicMovementLevel.cpp" />
     <ClCompile Include="Scenes\Credit.cpp" />
+    <ClCompile Include="Scenes\Level3.cpp" />
     <ClCompile Include="Scenes\MenuScene.cpp" />
     <ClCompile Include="Scenes\Option.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
