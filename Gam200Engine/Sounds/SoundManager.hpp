@@ -26,13 +26,10 @@ using  namespace  FMOD;
 //The orders are important to set up the Play_Sound function.
 enum  SOUNDS
 {
-    COLLISION_SOUND = 0,
-    BACKGROUND_SOUND,
+    BACKGROUND_SOUND=0,
     CRUSH_SOUND,
-    FALLING_SOUND,
     GOAL_SOUND,
     CURSOR_MOVEMENT_SOUND,
-    //SHAREWEIGHT_SOUND,
     LEVEL_CLEAR_SOUND,
     MOUSE_PATROL_SOUND,
     SELECT_SOUND,
@@ -40,6 +37,11 @@ enum  SOUNDS
     BUTTON_TRIGGERED_SOUND,
     DOOR_SOUND,
     UNDO_SOUND,
+
+    SIZE_SHARE_SOUND,
+    NOT_SAVED_SOUND,
+    SAVED_SOUND,
+    DIED_BY_MOUSE_SOUND,
     NONE
 };
 

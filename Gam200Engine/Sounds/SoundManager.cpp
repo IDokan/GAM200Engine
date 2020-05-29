@@ -20,15 +20,11 @@ void SoundManager::Load_Sound()
     theResult = FMOD_System_Init(fmod_system, MAX_SOUND_TRACK, FMOD_INIT_NORMAL, NULL);
     ERRCHECK(theResult, "System Init");
 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Cartoon_Boing.mp3", FMOD_DEFAULT, nullptr, &sound[COLLISION_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/TheFirstBgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/TheFirstBgm.wav", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Siren_Whistle.mp3", FMOD_DEFAULT, nullptr, &sound[FALLING_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Magic_Chime.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Goal_Sound.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.ogg", FMOD_DEFAULT, nullptr, &sound[CURSOR_MOVEMENT_SOUND]);
     ERRCHECK(theResult, "Load Sound");
@@ -42,12 +38,19 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.ogg", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DoorSound.ogg", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/doorOpen.mp3", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
     ERRCHECK(theResult, "Load Sound");
 
-
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_DEFAULT, nullptr, &sound[SIZE_SHARE_SOUND]);
+    ERRCHECK(theResult, "Load Sound");    
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageNOTSaved.mp3", FMOD_DEFAULT, nullptr, &sound[NOT_SAVED_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.ogg", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/mouseGotCheese.wav", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
     for (int sound = 0; sound < SOUNDS::NONE; sound++) {
         current_ch_volume[sound] = initialVolume;
     }

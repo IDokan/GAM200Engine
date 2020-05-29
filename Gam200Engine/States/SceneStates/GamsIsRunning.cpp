@@ -51,6 +51,7 @@ void GameIsRunning::Execute(SceneStateManager* manager, float /*dt*/)
 		if (isHostageRescued)
 		{
 			manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(SceneComplete::Get());
+			
 		}
 		else
 		{
