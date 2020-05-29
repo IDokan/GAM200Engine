@@ -21,7 +21,7 @@ const Depth_Standard Depth_Standard::HUD(-4000.f);
 const Depth_Standard Depth_Standard::Button(-3000.f);
 const Depth_Standard Depth_Standard::Particles(-500.f);
 const Depth_Standard Depth_Standard::Player(-11.5f);
-const Depth_Standard Depth_Standard::String(-11.5f);
+const Depth_Standard Depth_Standard::String(-11.4f);
 const Depth_Standard Depth_Standard::MouseAI(-10.f);
 const Depth_Standard Depth_Standard::Obstacle(-10.f);
 const Depth_Standard Depth_Standard::Jail(-10.f);
