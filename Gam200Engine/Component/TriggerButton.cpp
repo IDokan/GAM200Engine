@@ -25,11 +25,8 @@ TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Obje
 
 void TriggerButton::Init()
 {
-<<<<<<< HEAD
     isTimerReset = false;
-=======
     smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
->>>>>>> Sounds
 }
 
 void TriggerButton::Update(float dt)
@@ -296,9 +293,11 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
                 color.alpha = 1.f;
                 door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                 door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                openEmitter->SetShouldReviveParticle(true);
                 color2.alpha = 0.2f;
                 door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                 door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                closeEmitter->SetShouldReviveParticle(false);
                 smInTrigger.Play_Sound(DOOR_SOUND);
             }
             else
@@ -306,10 +305,12 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
                 color.alpha = 0.2f;
                 door_1->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
                 door_1->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color));
+                openEmitter->SetShouldReviveParticle(false);
 
                 color2.alpha = 1.f;
                 door_2->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
                 door_2->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(color2));
+                closeEmitter->SetShouldReviveParticle(true);
                 smInTrigger.Play_Sound(DOOR_SOUND);
             }
             button->SetIsTimerOn(false);
