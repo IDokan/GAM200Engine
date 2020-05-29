@@ -38,7 +38,7 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.ogg", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/doorOpen.mp3", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DOOOOR.mp3", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
     ERRCHECK(theResult, "Load Sound");
@@ -49,8 +49,9 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.ogg", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/mouseGotCheese.wav", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/YumYum.mp3", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
     ERRCHECK(theResult, "Load Sound");
+
     for (int sound = 0; sound < SOUNDS::NONE; sound++) {
         current_ch_volume[sound] = initialVolume;
     }
