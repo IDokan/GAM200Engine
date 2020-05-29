@@ -33,11 +33,11 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, objType);
     SetDepth(-0.1f);
 
-  
+  /*
      SoundManager soundManager = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
      soundManager.Load_Sound();
      soundManager.Play_Sound(CRUSH_SOUND);
-     soundManager.SetVolume(CRUSH_SOUND,1);
+     soundManager.SetVolume(CRUSH_SOUND,1);*/
 }
 
 CrushableObject::~CrushableObject()
@@ -63,7 +63,6 @@ void CrushableObject::DoSomethingWhenDetached()
 void CrushableObject::Crushed() noexcept
 {
     SoundManager sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-    sm.Load_Sound();
 	sm.Play_Sound(SOUNDS::CRUSH_SOUND);
 
     SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartShakingCamera(0.6f, 6.f);

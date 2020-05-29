@@ -30,6 +30,7 @@ Creation Date: 05.10.2020
 #include<Component/MessageCapable.hpp>
 #include <Component/Scripts/Hostage.hpp>
 
+
 AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr)
 {
 }
@@ -47,6 +48,10 @@ void AlphaTutorialLevel1::Load()
 
     cameraManager.Init(player1, player2);
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
+
+	//BGM
+	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
+	soundManager.SetVolume(BACKGROUND_SOUND, 0.1f);
 }
 
 void AlphaTutorialLevel1::Update(float dt)

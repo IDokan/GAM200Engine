@@ -19,8 +19,7 @@ Creation Date: 08.15.2019
 #include <Scenes/SceneManager.hpp>
 #include <States/PlayerStates/UpdateAnimation.hpp>
 
-SoundManager soundManager;
-//SoundManger
+SoundManager sm; 
 Physics::Physics(Object* obj) : Component(obj)
 {
     shouldResolveResolution = false;
@@ -37,9 +36,7 @@ Physics::Physics(Object* obj) : Component(obj)
     hasCollisionBox = true;
     isGhost = false;
     isCollide = false;
-
-    soundManager = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-    soundManager.Load_Sound();
+    sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 Physics::~Physics()
@@ -643,6 +640,8 @@ bool Physics::IsCollideWithRotatedObject(Object* object)
 
 void Physics::IsCollideWithMovedObject()
 {
+
+
     const auto ownerVelocity = owner->GetComponentByTemplate<Physics>()->GetVelocity();
     const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
     for (auto object1 : physicsObject)

@@ -112,6 +112,7 @@ void MenuScene::Input()
 		{
 			selectionArrow->SetTranslation(vector2{ 425, -300 });
 		}
+		soundManager.Play_Sound(CURSOR_MOVEMENT_SOUND);
 	}
 	else if (input.IsKeyTriggered(GLFW_KEY_DOWN))
 	{
@@ -137,6 +138,7 @@ void MenuScene::Input()
 		{
 			selectionArrow->SetTranslation(vector2{ 425, -300 });
 		}
+		soundManager.Play_Sound(CURSOR_MOVEMENT_SOUND);
 	}
 
 	if (input.IsKeyPressed(GLFW_KEY_ENTER))
@@ -161,6 +163,7 @@ void MenuScene::Input()
 		{
 			input.SetIsRunning(false);
 		}
+		soundManager.Play_Sound(SELECT_SOUND);
 	}
 
 }

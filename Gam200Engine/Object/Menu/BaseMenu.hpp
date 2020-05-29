@@ -59,4 +59,5 @@ private:
     bool isTransparency;
 
     bool playerPressEnter;
+
 };

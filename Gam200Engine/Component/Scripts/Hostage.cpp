@@ -18,6 +18,10 @@ Creation Date: 05.04.2020
 #include <Component/Sprite/Sprite.hpp>
 #include <Object/DepthStandard.hpp>
 #include <Object/ObjectManager.hpp>
+#include <Scenes/SceneManager.hpp>
+
+
+class SoundManager smHostage;
 
 Hostage::Hostage(Object* obj, Player* player1, Player* player2)
 	: Component(obj), player1(player1), player2(player2), isRescued(false)
@@ -57,6 +61,8 @@ void Hostage::Update(float dt)
 			isRescued = true;
 			DispatchMessage(MessageTypes::HostageRescued);
 			hostageMessage->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 1.f });
+			smHostage =  SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+			smHostage.Play_Sound(SOUNDS::SAVED_SOUND);
 		}
 	}
 	else

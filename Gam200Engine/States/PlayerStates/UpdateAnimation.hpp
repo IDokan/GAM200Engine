@@ -35,9 +35,11 @@ private:
 	void Resizing(Player* player);
 	void ResizingPlayer1(Player* player);
 	void ResizingPlayer2(Player* player);
+	void PlayResizingSound();
+
 	UpdateAnimation();
 
 	void UpdateCollisionBox(Player* player);
 
-
+	bool isSoundPlay;
 };

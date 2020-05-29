@@ -43,6 +43,7 @@ Creation Date: 12.10.2019
 #include <Graphics/GL.hpp>
 #include <Scenes/SceneManager.hpp>
 
+
 void Scene::GameRestartScene() noexcept
 {
 	player1->SetTranslation(player1SpawnPosition);
@@ -157,9 +158,11 @@ void Scene::LoadScene() noexcept
 	glfwMakeContextCurrent(main_context);
 
 	///////////////////////Init(huge work) Working here..
+	soundManager.Load_Sound();
 	InitRequiredObjects();
 	InitDEBUGObjects();
 	Load(); 
+
 
 	if (player1 != nullptr && player2 != nullptr)
 	{
