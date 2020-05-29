@@ -204,7 +204,7 @@ void MenuScene::InitObject()
 	howToPlayButton->SetObjectType(Object::ObjectType::BUTTON);
 	howToPlayButton->AddComponent(new Sprite(howToPlayButton));
 	howToPlayButton->AddComponent(new Button(howToPlayButton, Button::Identifier::NextScene, "HowToPlay", transform));
-	howToPlayButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/how_to_play.png");
+	howToPlayButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/HowToPlay.png");
 	howToPlayButton->SetDepth(Depth_Standard::Button);
 
 	transform.SetTranslation(vector2(600, -100));

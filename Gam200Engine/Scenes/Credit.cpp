@@ -27,7 +27,7 @@ Creation Date: 05.22.2020
 
 Credit::Credit() : background(nullptr)
 {
-
+    isMenu = true;
 }
 
 Credit::~Credit()
@@ -39,17 +39,13 @@ void Credit::Load()
 {
 	//fileIO* fileio = new fileIO;
 	//fileio->Input("../assets/fileIO/Credit.txt", &player1, &player2, &string);
-	sceneStateManager->SetNameOfSelectedLevel("MenuScene");
 	Credit::InitObject();
 	cameraManager.Init(); 
 }
 
 void Credit::Update(float dt)
 {
-	if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
-	{
-		input.SetIsRunning(false);
-	}
+    Credit::Input();
 }
 
 void Credit::GameRestart()
@@ -65,7 +61,10 @@ void Credit::Unload()
 
 void Credit::Input()
 {
-
+    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+    {
+        SceneManager::GetSceneManager()->SetNextScene("MenuScene");
+    }
 }
 
 void Credit::Collision()
@@ -80,7 +79,6 @@ void Credit::InitObject()
 	background->SetTranslation(vector2{ 1.f });
 	background->SetScale(vector2{ 10000.f });
 	background->AddComponent(new Sprite(background));
-	background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(50.f);
 	background->AddComponent(new Physics(background));
 	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
 	background->SetDepth(Depth_Standard::FurtherBackground);

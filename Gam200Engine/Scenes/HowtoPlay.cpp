@@ -27,7 +27,7 @@ Creation Date: 05.29.2020
 
 HowToPlay::HowToPlay() : background(nullptr)
 {
-
+    isMenu = true;
 }
 
 HowToPlay::~HowToPlay()
@@ -37,7 +37,6 @@ HowToPlay::~HowToPlay()
 
 void HowToPlay::Load()
 {
-	sceneStateManager->SetNameOfSelectedLevel("MenuScene");
 	HowToPlay::InitObject();
 	cameraManager.Init();
 }
@@ -69,7 +68,7 @@ void HowToPlay::Input()
 {
 	if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
 	{
-		input.SetIsRunning(false);
+        SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 	}
 }
 
