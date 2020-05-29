@@ -338,6 +338,9 @@
     <ClCompile Include="Scenes\Level3.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\HowtoPlay.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -714,6 +717,9 @@
     </ClInclude>
     <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="Scenes\Level3.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\HowtoPlay.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

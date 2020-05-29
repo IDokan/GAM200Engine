@@ -28,6 +28,7 @@ Creation Date: 08.05.2019
 #include <Scenes/AlphaTutorialLevel1.hpp>
 #include <Scenes/Level3.hpp>
 #include <Scenes/Credit.hpp>
+#include <Scenes/HowtoPlay.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -59,6 +60,7 @@ void Application::Init()
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("Option", dynamic_cast<Scene*>(new OptionLevel()));
     SceneManager::GetSceneManager()->AddScenes("Credit", dynamic_cast<Scene*>(new Credit()));
+    SceneManager::GetSceneManager()->AddScenes("HowToPlay", dynamic_cast<Scene*>(new HowToPlay()));
 
     
 

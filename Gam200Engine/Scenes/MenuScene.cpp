@@ -144,7 +144,7 @@ void MenuScene::Input()
 		}
 		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
 		{
-			SceneManager::GetSceneManager()->SetNextScene("OneWayPassLevel");
+			SceneManager::GetSceneManager()->SetNextScene("HowToPlay");
 		}
 		else if ((selection % 5) == ButtonRow::SETTINGS)
 		{
@@ -200,7 +200,7 @@ void MenuScene::InitObject()
 	howToPlayButton->SetScale(transform.GetScale());
 	howToPlayButton->SetObjectType(Object::ObjectType::BUTTON);
 	howToPlayButton->AddComponent(new Sprite(howToPlayButton));
-	howToPlayButton->AddComponent(new Button(howToPlayButton, Button::Identifier::NextScene, "AlphaTutorialLevel1", transform));
+	howToPlayButton->AddComponent(new Button(howToPlayButton, Button::Identifier::NextScene, "HowToPlay", transform));
 	howToPlayButton->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/how_to_play.png");
 	howToPlayButton->SetDepth(Depth_Standard::Button);
 
