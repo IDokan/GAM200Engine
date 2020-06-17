@@ -27,7 +27,7 @@ Creation Date: 03.13.2020
 
 #include <States/PlayerStates/PlayerReachesGoal.hpp>
 
-MenuScene::MenuScene(): background(nullptr)
+MenuScene::MenuScene(): background(nullptr), movingObject(nullptr)
 {
 	selection = 0;
 	totalDT = 0.f;
@@ -54,16 +54,24 @@ void MenuScene::Update(float dt)
 
 	totalDT += dt;
 	
-	if ((static_cast<int>(totalDT) % 2) == 1)
+	if (static_cast<int>(totalDT) <= 2)
 	{
-		player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
-		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, 3.f);
+		player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f); //0, 3
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
 	}
-	else
+	else if(static_cast<int>(totalDT) > 2)
 	{
-		player1->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
-		player2->GetComponentByTemplate<Physics>()->SetVelocity(0.f, -3.f);
+		/*player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);*/
+		player1->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -400.f, -100.f });
+		player2->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -600.f, -100.f });
+		totalDT = 0.0f;
 	}
+
+	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
+
+	MenuScene::Collision();
 
 	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
 	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
@@ -71,7 +79,7 @@ void MenuScene::Update(float dt)
 	player1->SetTranslation(obj1Position);
 	player2->SetTranslation(obj2Position);
 	
-
+	
 }
 
 void MenuScene::GameRestart()
@@ -145,22 +153,27 @@ void MenuScene::Input()
 	{
 		if ((selection % 5) == ButtonRow::PLAY)
 		{
+			selection = 0;
 			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
 		}
 		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
 		{
+			selection = 0;
 			SceneManager::GetSceneManager()->SetNextScene("HowToPlay");
 		}
 		else if ((selection % 5) == ButtonRow::SETTINGS)
 		{
+			selection = 0;
 			SceneManager::GetSceneManager()->SetNextScene("Option");
 		}
 		else if ((selection % 5) == ButtonRow::CREDIT)
 		{
+			selection = 0;
 			SceneManager::GetSceneManager()->SetNextScene("Credit");
 		}
 		else if ((selection % 5) == ButtonRow::QUIT)
 		{
+			selection = 0;
 			input.SetIsRunning(false);
 		}
 		soundManager.Play_Sound(SELECT_SOUND);
@@ -170,14 +183,15 @@ void MenuScene::Input()
 
 void MenuScene::Collision()
 {
+	player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
 void MenuScene::InitObject()
 {
 	gameTitle = new Object();
 	gameTitle->SetObjectName("gametitle");
-	gameTitle->SetTranslation(vector2{ 0, 200 });
-	gameTitle->SetScale(vector2{ 900, 450 });
+	gameTitle->SetTranslation(vector2{ 0, 250 }); //0, 200
+	gameTitle->SetScale(vector2{ 600, 300 }); //900, 450
 	gameTitle->SetObjectType(Object::ObjectType::TEST);
 	gameTitle->AddComponent(new Sprite(gameTitle));
 	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/GAME_TITLE.png");
@@ -262,6 +276,18 @@ void MenuScene::InitObject()
 	selectionAnimation->SetSpeed(5.f);
 	selectionArrow->SetDepth(Depth_Standard::Button);
 
+	movingObject = new Object();
+	movingObject->SetObjectType(Object::ObjectType::MOVING_OBJECT);
+	movingObject->SetObjectName("movingObject");
+	movingObject->SetTranslation(vector2{ 100.f, -100.f });
+	movingObject->SetScale(vector2{ 100.f, 100.f });
+	movingObject->AddComponent(new Sprite(movingObject));
+	movingObject->AddComponent(new Physics(movingObject));
+	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
+	movingObject->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject, Physics::ObjectType::RECTANGLE);
+	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
+	movingObject->SetDepth(Depth_Standard::Obstacle);
+
 	player1->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 	player2->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 
@@ -275,6 +301,7 @@ void MenuScene::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(creditButton);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(quitButton);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(selectionArrow);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject);
 }
 
 
