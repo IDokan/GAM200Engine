@@ -24,10 +24,9 @@ Creation Date: 03.13.2020
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>
 
-
 #include <States/PlayerStates/PlayerReachesGoal.hpp>
 
-MenuScene::MenuScene(): background(nullptr), movingObject(nullptr)
+MenuScene::MenuScene(): background(nullptr)
 {
 	selection = 0;
 	totalDT = 0.f;
@@ -54,23 +53,18 @@ void MenuScene::Update(float dt)
 
 	totalDT += dt;
 	
-	if (static_cast<int>(totalDT) <= 2)
+	if ((static_cast<int>(totalDT) % 2) == 1)
 	{
 		player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f); //0, 3
 		player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
 	}
-	else if(static_cast<int>(totalDT) > 2)
+	else 
 	{
-		/*player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-		player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);*/
-		player1->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -400.f, -100.f });
-		player2->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -600.f, -100.f });
-		totalDT = 0.0f;
+		player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
+		//player1->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -400.f, -100.f });
+		//player2->GetComponentByTemplate<Physics>()->SetPosition(vector2{ -600.f, -100.f });
 	}
-
-	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
-	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
-
 	MenuScene::Collision();
 
 	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
@@ -276,18 +270,6 @@ void MenuScene::InitObject()
 	selectionAnimation->SetSpeed(5.f);
 	selectionArrow->SetDepth(Depth_Standard::Button);
 
-	movingObject = new Object();
-	movingObject->SetObjectType(Object::ObjectType::MOVING_OBJECT);
-	movingObject->SetObjectName("movingObject");
-	movingObject->SetTranslation(vector2{ 100.f, -100.f });
-	movingObject->SetScale(vector2{ 100.f, 100.f });
-	movingObject->AddComponent(new Sprite(movingObject));
-	movingObject->AddComponent(new Physics(movingObject));
-	movingObject->GetComponentByTemplate<Physics>()->SetObjectCollidingSide(Physics::ObjectSide::LEFT_SIDE);
-	movingObject->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(movingObject, Physics::ObjectType::RECTANGLE);
-	movingObject->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object.png");
-	movingObject->SetDepth(Depth_Standard::Obstacle);
-
 	player1->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 	player2->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
 
@@ -301,7 +283,6 @@ void MenuScene::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(creditButton);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(quitButton);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(selectionArrow);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject);
 }
 
 
