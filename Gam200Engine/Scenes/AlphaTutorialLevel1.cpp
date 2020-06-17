@@ -31,7 +31,8 @@ Creation Date: 05.10.2020
 #include <Component/Scripts/Hostage.hpp>
 
 
-AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr)
+AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr), cheese(nullptr), movingObject(nullptr), movingObject1(nullptr)
+, movingObject2(nullptr), movingObject3(nullptr), movingObject4(nullptr), movingObject5(nullptr)
 {
 }
 
