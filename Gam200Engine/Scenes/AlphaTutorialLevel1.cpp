@@ -56,13 +56,6 @@ void AlphaTutorialLevel1::Load()
 
 void AlphaTutorialLevel1::Update(float dt)
 {
-	if (input.IsKeyTriggered(GLFW_KEY_0))
-	{
-		Physics* player1Physics = player1->GetComponentByTemplate<Physics>();
-		player1Physics->ActiveGhostCollision(!player1Physics->GetIsGhost());
-		Physics* player2Physics = player2->GetComponentByTemplate<Physics>();
-		player2Physics->ActiveGhostCollision(!player2Physics->GetIsGhost());
-	}
 
 	player1->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();
 	player2->GetComponentByTemplate<Physics>()->IsCollideWithMovedObject();

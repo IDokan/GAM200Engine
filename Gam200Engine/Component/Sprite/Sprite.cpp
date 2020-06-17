@@ -19,13 +19,15 @@ Creation Date: 08.14.2019
 #include <Window/Application.hpp>
 #include <Component/Physics.hpp>
 
+#include <Systems/Input.hpp>
+
 #pragma warning (push)
 #pragma warning (disable : 4458)
 
 Sprite::Sprite(Object* obj) noexcept
 	: Component(obj), mesh(std::make_shared<Graphics::Mesh>()), vertices(std::make_shared<Graphics::Vertices>()), 
 		material(std::make_shared<Graphics::material>()), texture(std::make_shared<Graphics::Texture>()),
-		imageFilePath("../assets/textures/rect.png"), isBackground(false), isInstancing(InstanceModes::OFF)
+		imageFilePath("../assets/textures/rect.png"), isBackground(false), isInstancing(InstanceModes::OFF), shouldUpdateVertices (false)
 {
 	mesh->Clear();
 }
@@ -56,8 +58,14 @@ void Sprite::Init()
 	vertices->InitializeWithMeshAndLayout(*mesh.get(), Graphics::SHADER::textured_vertex_layout());
 }
 
-void Sprite::Update(float /*dt*/)
+void Sprite::Update(float dt)
 {
+	if (shouldUpdateVertices == true || input.IsKeyTriggered(GLFW_KEY_9)
+		 /*|| vertices->GetVerticesHandle() > vertices->GetDataBufferHandle()*/)
+	{
+		vertices->InitializeWithMeshAndLayout(*mesh.get(), vertices->GetLayout());
+		shouldUpdateVertices = false;
+	}
 }
 
 void Sprite::Clear()
@@ -124,6 +132,11 @@ void Sprite::UpdateUniforms(const matrix3& toNDC, float depth) noexcept
 {
 	material->matrix3Uniforms[Graphics::SHADER::Uniform_ToNDC] = toNDC;
 	material->floatUniforms[Graphics::SHADER::Uniform_Depth] = depth / 5000.f;
+}
+
+Graphics::Mesh * Sprite::GetMesh() const noexcept
+{
+	return mesh.get();
 }
 
 Graphics::Vertices* Sprite::GetVertices() const noexcept
@@ -244,5 +257,17 @@ void Sprite::UpdateInstancingValues(std::vector<vector2>* textureCoordinates, st
 	default:
 		break;
 	}
+}
+void Sprite::SetShouldUpdateVertices(bool should)
+{
+	shouldUpdateVertices = should;
+}
+void Sprite::DeleteVertices()
+{
+	vertices->DeleteVerticesOnGPU();
+}
+void Sprite::GenerateVertices()
+{
+	vertices->InitializeWithMeshAndLayout(*mesh.get(), vertices->GetLayout());
 }
 #pragma warning (pop)

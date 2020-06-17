@@ -30,11 +30,15 @@ namespace Graphics
 		constexpr int      GetInstanceDataCount() const noexcept { return static_cast<int>(instanceDataCount); }
         static void        SelectNothing();
 
+		VertexLayoutDescription GetLayout() const;
+		unsigned int GetVerticesHandle() const;
+		unsigned int GetDataBufferHandle() const;
+
     public:
         Vertices(const Vertices& other) = delete;
         void operator=(const Vertices& other) = delete;
 
-    private:
+    public:
         void DeleteVerticesOnGPU() noexcept;
         void WriteMeshDataToVertexBuffer(const Mesh& mesh) const noexcept;
 

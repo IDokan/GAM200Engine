@@ -158,6 +158,12 @@ void UpdateAnimation::PlayResizingSound()
 void UpdateAnimation::Execute(Player* obj, float /*dt*/)
 {
 
+	if (input.IsKeyTriggered(GLFW_KEY_0))
+	{
+		Physics* physics = obj->GetComponentByTemplate<Physics>();
+		physics->ActiveGhostCollision(!physics->GetIsGhost());
+	}
+
     // TODO: Change Mechs with Co-developer's feedbacks.
     vector2 playerDistance = obj->GetComponentByTemplate<Physics>()->GetVelocity();
     static constexpr int RIGHT = 0;

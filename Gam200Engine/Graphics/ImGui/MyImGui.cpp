@@ -153,6 +153,37 @@ namespace MyImGui
 			ImGui::SameLine();
 			ImGui::Text("Image Loading Failed.. :(");
 		}
+
+		ImGui::Spacing();
+		const Graphics::Mesh* mesh = sprite->GetMesh();
+		const size_t pointCount = mesh->GetPointCount();
+		char buffer[33];
+		std::string output("PointCount ");
+		for (size_t i = 0; i < pointCount; i++)
+		{
+			std::string output("Point[");
+			output += std::string(itoa(i, buffer, 10));
+			output += std::string("] -> x : ");
+			vector2 point = mesh->GetPoint(i);
+			output += std::string(itoa(static_cast<int>(point.x), buffer, 10));
+			output += std::string(", y : ");
+			output += std::string(itoa(static_cast<int>(point.y), buffer, 10));
+			ImGui::Text(output.c_str());
+		}
+
+		ImGui::Spacing();
+		std::string textureOutput("TextureCoordinates");
+		for (size_t i = 0; i < 4; i++)
+		{
+			std::string textureOutput("TextureCoordinate[");
+			textureOutput += std::string(itoa(i, buffer, 10));
+			textureOutput += std::string("] -> x : ");
+			vector2 point = mesh->GetTextureCoordinate(i);
+			textureOutput += std::string(itoa(point.x, buffer, 10));
+			textureOutput += std::string(", y : ");
+			textureOutput += std::string(itoa(point.y, buffer, 10));
+			ImGui::Text(textureOutput.c_str());
+		}
 	}
 
 	void DrawPhysicsSection(Object* object, Physics* physics)

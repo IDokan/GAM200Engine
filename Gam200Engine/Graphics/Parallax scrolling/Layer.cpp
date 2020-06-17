@@ -13,6 +13,8 @@ Creation Date: 10.02.2019
 #include <algorithm>
 #include "Layer.hpp"
 
+#include <Component/Sprite/Sprite.hpp>
+
 void Layer::Init()
 {
 	sortingDirtyFlag = false;
@@ -57,7 +59,6 @@ void Layer::Clear()
 void Layer::AddObjectDynamically(Object* obj)
 {
 	willBeAdded.second.push_back(std::shared_ptr<Object>(obj));
-	sortingDirtyFlag = true;
 }
 
 void Layer::AddObject(Object* obj)
@@ -156,4 +157,39 @@ void Layer::SetSortingDirtyFlag(bool is)
 bool Layer::GetSortingDirtyFlag()
 {
 	return sortingDirtyFlag;
+}
+void Layer::ToggleShouldUpdateVerticesAllObjects()
+{
+	for (auto& obj : layer.second)
+	{
+		if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>();
+			sprite != nullptr)
+		{
+			sprite->SetShouldUpdateVertices(true);
+		}
+	}
+}
+
+void Layer::DeleteAllVertices()
+{
+	for (auto& obj : layer.second)
+	{
+		if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>();
+			sprite != nullptr)
+		{
+			sprite->DeleteVertices();
+		}
+	}
+}
+
+void Layer::GenerateAllVertices()
+{
+	for (auto& obj : layer.second)
+	{
+		if (Sprite* sprite = obj->GetComponentByTemplate<Sprite>();
+			sprite != nullptr)
+		{
+			sprite->GenerateVertices();
+		}
+	}
 }

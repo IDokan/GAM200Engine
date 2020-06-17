@@ -17,6 +17,8 @@ Creation Date: 08.14.2019
 #include <Graphics/Material.hpp>
 #include <Graphics/Texture.hpp>
 
+
+#include <iostream>
 struct matrix3;
 
 
@@ -37,7 +39,9 @@ public:
 	};
 public:
 	Sprite(Object*) noexcept;
-	virtual ~Sprite() noexcept = default;
+	virtual ~Sprite() noexcept
+	{
+	};
 
 	virtual void Init() override;
 	virtual void Update(float dt) override;
@@ -53,6 +57,7 @@ public:
 	void ExpandTextureCoordinate(float scale) noexcept;
 	void ExpandTextureCoordinate(vector2 scale) noexcept;
 
+	Graphics::Mesh* GetMesh() const noexcept;
 	Graphics::Vertices* GetVertices() const noexcept;
 	Graphics::material* GetMaterial() const noexcept;
 
@@ -67,6 +72,10 @@ public:
 	void UpdateInstancingValues(std::vector<matrix3>* matrices, float depth) const noexcept;
 	void UpdateInstancingValues(std::vector<vector2>* textureCoordinates, std::vector<Graphics::Color4ub>* colors, std::vector<matrix3>* matrices, float depth) const noexcept;
 
+	void SetShouldUpdateVertices(bool should);
+
+	void DeleteVertices();
+	void GenerateVertices();
 
 protected:
 
@@ -79,4 +88,6 @@ protected:
 	// below setting are all false as a default value.
 	bool isBackground;
 	InstanceModes isInstancing;
+
+	bool shouldUpdateVertices;
 };

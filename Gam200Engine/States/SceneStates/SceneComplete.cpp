@@ -366,6 +366,8 @@ void SceneComplete::PrepareAssets() noexcept
 	selectionHighlight.SetScale(vector2{ 1.f });
 
 	UpdateSelectionHighlightTransformation();
+
+	lerpTimer = 0.f;
 }
 
 void SceneComplete::CleanAssets() noexcept

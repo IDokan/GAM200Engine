@@ -27,11 +27,12 @@ public:
 	{
 		Transform transform;
 		vector2 velocity;
+		vector2 textureCoordinateScalar;
 		Graphics::Color4f color;
 		float life;
 
 		ParticleObject()
-			: velocity(0.f), color(1.f), life(0.f)
+			: velocity(0.f), color(1.f), life(0.f), textureCoordinateScalar(1.f)
 		{
 			transform.SetScale(vector2{ 0.f });
 		}
@@ -42,6 +43,7 @@ public:
 			velocity = rhs.velocity;
 			color = rhs.color;
 			life = rhs.life;
+			textureCoordinateScalar = rhs.textureCoordinateScalar;
 
 			return *this;
 		}

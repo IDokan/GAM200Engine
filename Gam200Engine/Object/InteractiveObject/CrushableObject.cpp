@@ -18,6 +18,10 @@ Creation Date: DEC/11st/2019
 #include <Sounds/SoundManager.hpp>
 #include <Component/Scripts/Accumulating.hpp>
 
+#include <Object/Particles/ParticleEmitter.hpp>
+#include <Object/DepthStandard.hpp>
+#include <Object/ObjectManager.hpp>
+
 #include <Scenes/SceneManager.hpp>
 
 CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
@@ -33,6 +37,39 @@ CrushableObject::CrushableObject(vector2 _objPos, vector2 _objScale,
     GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, objType);
     SetDepth(-0.1f);
 
+
+	// From confetti, have to change into dust..
+	destructiveParticle = new ParticleEmitter(12, 5.f, 12, [&]() ->Particle::ParticleObject
+		{
+			Particle::ParticleObject p;
+			p.color = Graphics::Color4f(0.65f);
+			p.transform.SetScale(vector2{ 10.f });
+			float rotation = (rand() % 314) / 100.f;
+			p.transform.SetRotation(rotation);
+			float x = ((rand() % 200) / 100.f) - 1.f;
+			float y = ((rand() % 200) / 100.f) - 1.f;
+
+			p.transform.SetTranslation((vector2{ x * GetScale().x, y * GetScale().y } + GetTranslation()));
+
+			p.velocity = vector2{ 5.f * x, 5.f * y };
+			p.life = rand() % 5;
+
+			float scalar = rand() % 100 / 200.f;
+			p.textureCoordinateScalar = vector2(scalar);
+
+			return p;
+		},
+		[&](Particle::ParticleObject& p, float dt)
+		{
+			p.transform.SetTranslation(p.transform.GetTranslation() + (p.velocity * 50.f * dt));
+		}
+		);
+	destructiveParticle->SetObjectName("Destructive particle Emitter");
+	destructiveParticle->SetParticleImage("../assets/textures/destructedJailSprite.png");
+	destructiveParticle->SetShouldReviveLikeTrigger(true);
+	destructiveParticle->SetDepth(Depth_Standard::Jail);
+
+	ObjectManager::GetObjectManager()->FindLayer(Stage)->AddObject(destructiveParticle);
   /*
      SoundManager soundManager = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
      soundManager.Load_Sound();
@@ -66,6 +103,8 @@ void CrushableObject::Crushed() noexcept
 	sm.Play_Sound(SOUNDS::CRUSH_SOUND);
 
     SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartShakingCamera(0.6f, 6.f);
-	SetDead(true);
 	currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);
+	destructiveParticle->SetTriggerFlag(true);
+	SetDead(true);
+	
 }

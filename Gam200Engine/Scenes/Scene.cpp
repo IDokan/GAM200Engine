@@ -28,12 +28,15 @@ Creation Date: 12.10.2019
 #include <Systems/ObstaclesDrawingHelper.hpp>
 #include <Object/HUD/StringLengthUI.hpp>
 #include <Object/HUD/HostageAlertsUI.hpp>
+#include <Object/HUD/StatusUI.hpp>
 
 // Include Scene States
 #include <States/SceneStates/PlayerIsDead.hpp>
 #include <States/SceneStates/SceneComplete.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
 #include <States/SceneStates/PauseAndMenu.hpp>
+
+#include <Systems/Input.hpp>
 
 
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -42,7 +45,6 @@ Creation Date: 12.10.2019
 #include <GLFW/glfw3native.h>
 #include <Graphics/GL.hpp>
 #include <Scenes/SceneManager.hpp>
-
 
 void Scene::GameRestartScene() noexcept
 {
@@ -116,7 +118,7 @@ void Scene::LoadScene() noexcept
 
 			unsigned int loadingCount = 0;
 
-			while(isLoadingDone == false)
+			while (isLoadingDone == false)
 			{
 
 				// Update loading data
@@ -161,7 +163,7 @@ void Scene::LoadScene() noexcept
 	soundManager.Load_Sound();
 	InitRequiredObjects();
 	InitDEBUGObjects();
-	Load(); 
+	Load();
 
 
 	if (player1 != nullptr && player2 != nullptr)
@@ -201,21 +203,50 @@ void Scene::Draw() noexcept
 	obstacleMatrices.clear();
 
 
+
+
+
+	// Check is there possible to cause bug?
+	bool localFlag = false;
+	for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
+	{
+		localFlag = localFlag || element->GetSortingDirtyFlag();
+	}
+	// Do handle with it
+	if (localFlag)
+	{
+
+		for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
+		{
+			if (element->GetSortingDirtyFlag())
+			{
+				// Before draw it, sort every object in each layer.
+				element->SortingDepth();
+			}
+		}
+		for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
+		{
+			if (element->GetSortingDirtyFlag())
+			{
+				// Delete all vertices
+				element->DeleteAllVertices();
+				// Restore all vertices
+				element->GenerateAllVertices();
+				element->SetSortingDirtyFlag(false);
+			}
+		}
+	}
+
+
+	// Start drawing
 	Graphics::GL::begin_drawing();
 
 	for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
 	{
+
 		obstacleTextureCoordinateScaler.clear();
 		obstacleColors.clear();
 		obstacleMatrices.clear();
-
-		if (element->GetSortingDirtyFlag())
-		{
-			// Before draw it, sort every object in each layer.
-			// TODO: Improve it. Do this when only need
-			element->SortingDepth();
-			element->SetSortingDirtyFlag(false);
-		}
 
 		if (element->GetName() == LayerNames::HUD)
 		{
@@ -310,15 +341,16 @@ void Scene::DrawObject(Object* obj, matrix3 offset) noexcept
 
 		std::vector<matrix3> matrices;
 		std::vector<Graphics::Color4ub> colors;
-		std::vector<vector2> tmp;
+		std::vector<vector2> textureCoordinateScalar;
 		size_t sizeOfParticle = particleObjects.size();
 		matrices.reserve(sizeOfParticle);
 		for (size_t i = 0; i < sizeOfParticle; ++i)
 		{
 			matrices.emplace_back(offset * particleObjects[i].transform.GetModelToWorld());
 			colors.emplace_back(Graphics::to_color4ub(particleObjects[i].color));
+			textureCoordinateScalar.emplace_back(particleObjects[i].textureCoordinateScalar);
 		}
-		particle->UpdateInstancingValues(&tmp, &colors, &matrices, particleEmitter->GetDepth());
+		particle->UpdateInstancingValues(&textureCoordinateScalar, &colors, &matrices, particleEmitter->GetDepth());
 		Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
 	}
 
@@ -388,6 +420,9 @@ void Scene::InitRequiredObjects()
 
 	HostageAlertsUI* haUI = new HostageAlertsUI();
 	hud->AddObject(haUI);
+
+	StatusUI* sUI = new StatusUI();
+	hud->AddObject(sUI);
 }
 
 void Scene::CleanRequiredObjects()

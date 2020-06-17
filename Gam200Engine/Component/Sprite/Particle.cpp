@@ -44,7 +44,7 @@ void Particle::Init()
 void Particle::Update(float dt)
 {
 
-	Sprite::Update(dt);
+	//Sprite::Update(dt);
 
 	if (shouldReviveParticle)
 	{

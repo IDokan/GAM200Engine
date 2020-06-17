@@ -16,6 +16,7 @@ Creation Date: DEC/11st/2019
 #include <Component/StringPhysics.hpp>
 #include <Component/Physics.hpp>
 
+class ParticleEmitter;
 
 class CrushableObject : public InteractiveObject
 {
@@ -35,4 +36,5 @@ private:
     Physics::ObjectType objType;
     String* currentString;
 
+	ParticleEmitter* destructiveParticle;
 };

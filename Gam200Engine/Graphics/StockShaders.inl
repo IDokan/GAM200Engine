@@ -46,8 +46,8 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::solid_color_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats };
-		return layout;
+		static VertexLayoutDescription* layout = new VertexLayoutDescription({ VertexLayoutDescription::FieldType::Position2WithFloats });
+		return *layout;
 	}
 
 	inline Shader& SHADER::interpolated_colors() noexcept
@@ -87,9 +87,9 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::interpolated_colors_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats,
+		static VertexLayoutDescription* layout = new VertexLayoutDescription{ VertexLayoutDescription::FieldType::Position2WithFloats,
 											  VertexLayoutDescription::FieldType::Color4WithUnsignedBytes };
-		return layout;
+		return *layout;
 	}
 
 	inline Shader& SHADER::textured() noexcept
@@ -137,9 +137,9 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::textured_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats,
+		static VertexLayoutDescription* layout = new VertexLayoutDescription{ VertexLayoutDescription::FieldType::Position2WithFloats,
 											  VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats };
-		return layout;
+		return *layout;
 	}
 
 	inline Shader& SHADER::animated() noexcept
@@ -363,9 +363,9 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::StringVertexLayout() noexcept
 	{
-		static VertexLayoutDescription layout{ VertexLayoutDescription::FieldType::Position2WithFloats,
+		static VertexLayoutDescription* layout = new VertexLayoutDescription{ VertexLayoutDescription::FieldType::Position2WithFloats,
 											  VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats };
-		return layout;
+		return *layout;
 	}
 
 	inline Shader& SHADER::Instancing() noexcept
@@ -412,14 +412,14 @@ void main()
 
 	inline const VertexLayoutDescription& SHADER::instancing_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout{
+		static VertexLayoutDescription* layout = new VertexLayoutDescription{
 			VertexLayoutDescription::FieldType::Position2WithFloats,
 		VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats,
 		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats1,
 		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats2,
 		VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats3,
 		};
-		return layout;
+		return *layout;
 	}
 	inline Shader& SHADER::AdvancedInstancing() noexcept
 	{
@@ -474,7 +474,7 @@ void main()
 	}
 	inline const VertexLayoutDescription& SHADER::Advanced_instancing_vertex_layout() noexcept
 	{
-		static VertexLayoutDescription layout
+		static VertexLayoutDescription* layout = new VertexLayoutDescription
 		{
 			VertexLayoutDescription::FieldType::Position2WithFloats,
 			VertexLayoutDescription::FieldType::TextureCoordinates2WithFloats,
@@ -484,6 +484,6 @@ void main()
 			VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats2,
 			VertexLayoutDescription::FieldType::InstancedMatrix9WithFloats3,
 		};
-		return layout;
+		return *layout;
 	}
 }

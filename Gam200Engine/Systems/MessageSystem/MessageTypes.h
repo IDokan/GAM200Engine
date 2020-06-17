@@ -171,6 +171,8 @@ enum class MessageObjects
     StringLengthUI,
     // Object type for HostageAlertsUI
     HostageAlertsUI,
+	// Object type for StatusUI
+	StatusUI,
 
     // Mouse Object! This is a main enemy of player..
     Mouse,

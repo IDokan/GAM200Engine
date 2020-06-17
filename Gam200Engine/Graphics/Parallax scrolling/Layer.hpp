@@ -44,6 +44,11 @@ public:
 	void SortingDepth();
 	void SetSortingDirtyFlag(bool is);
 	bool GetSortingDirtyFlag();
+
+	void ToggleShouldUpdateVerticesAllObjects();
+
+	void DeleteAllVertices();
+	void GenerateAllVertices();
 private:
 	std::pair<LayerNames, std::vector<std::shared_ptr<Object>>> willBeAdded;
 	

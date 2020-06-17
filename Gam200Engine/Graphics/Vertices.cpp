@@ -285,4 +285,16 @@ namespace Graphics
 
 		SelectNothing();
 	}
+	VertexLayoutDescription Vertices::GetLayout() const
+	{
+		return layout;
+	}
+	unsigned int Vertices::GetVerticesHandle() const
+	{
+		return verticesHandle;
+	}
+	unsigned int Vertices::GetDataBufferHandle() const
+	{
+		return dataBufferHandle;
+	}
 }

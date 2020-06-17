@@ -341,6 +341,12 @@
     <ClCompile Include="Scenes\HowtoPlay.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Object\HUD\StatusUI.cpp">
+      <Filter>Object\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\UI\StatusUIHandler.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -721,6 +727,12 @@
     <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="Scenes\HowtoPlay.hpp">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HUD\StatusUI.hpp">
+      <Filter>Object\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\UI\StatusUIHandler.hpp">
+      <Filter>Component\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

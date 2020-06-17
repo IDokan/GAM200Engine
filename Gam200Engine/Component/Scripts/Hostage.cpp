@@ -85,4 +85,5 @@ void Hostage::Clear()
 void Hostage::DispatchMessage(MessageTypes msg)
 {
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Hostage, MessageObjects::SceneStateManager, msg);
+	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Hostage, MessageObjects::StatusUI, msg);
 }
