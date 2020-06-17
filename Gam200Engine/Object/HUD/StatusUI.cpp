@@ -24,19 +24,19 @@ StatusUI::StatusUI()
     SetObjectType(ObjectType::UI);
     SetObjectName("Status UI");
 
-	SetTranslation(vector2{ 0.9, 0.87 });
-    SetScale(vector2{0.3f});
+	SetTranslation(vector2{ 0.88, 0.85 });
+    SetScale(vector2{ 0.175f, 0.3f});
     SetDepth(Depth_Standard::HUDBackground);
 
     Sprite* sprite = new Sprite(this);
     AddComponent(sprite);
-    sprite->SetImage("../assets/textures/rect.png");
+    sprite->SetImage("../assets/textures/UI/StatusUIBackground.png");
 
     AddComponent(new StatusUIHandler(this));
 
 	animation = new Object();
 	animation->SetObjectName("Status Animation");
-	animation->SetTranslation(vector2{ 0.88f, 0.87f });
+	animation->SetTranslation(vector2{ 0.88f, 0.85f });
 	animation->SetScale(vector2{ 0.1f, 0.18f });
 	animation->SetDepth(Depth_Standard::HUDImage);
 	Animation* animationComp = new Animation(animation);

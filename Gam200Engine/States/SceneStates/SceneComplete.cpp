@@ -360,7 +360,7 @@ void SceneComplete::PrepareAssets() noexcept
 		confetti->SetDepth(Depth_Standard::HUDFrontVFX);
 	}
 
-	currentSelection = Back2Main;
+	currentSelection = Go2NextLevel;
 
 	selectionHighlight.SetTranslation(vector2{ 0.f });
 	selectionHighlight.SetScale(vector2{ 1.f });
