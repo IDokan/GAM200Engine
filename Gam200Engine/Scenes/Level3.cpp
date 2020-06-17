@@ -87,7 +87,7 @@ void Level3::InitObject()
 {
     Object* ground = new Object();
     ground->SetObjectName("Ground");
-    ground->SetTranslation(vector2{ 550.f, 1150.f });
+    ground->SetTranslation(vector2{ 950.f, 1150.f });
     ground->SetScale(vector2{ 3900.f, 1800.f });
     Sprite* groundSprite = new Sprite(ground);
     groundSprite->SetImage("../assets/textures/Ground_Background.png");
@@ -136,7 +136,7 @@ void Level3::InitObject()
     goalTransform.SetScale(vector2{ 200, 200 });
     GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
-    button1 = new DoorSystem(player1, player2, vector2{ -790.f, 500.f }, vector2{ 100.f, 100.f }, vector2{ -790.f, 910.f }, vector2{ 100.f, 100.f }, vector2{ -795.f,1655.f }, vector2{ 250.f,100.f }, vector2{ -615.f, 1208.f }, vector2{ 100.f,275.f });
+    button1 = new DoorSystem(player1, player2, vector2{ -790.f, 500.f }, vector2{ 100.f, 100.f }, vector2{ -790.f, 910.f }, vector2{ 100.f, 100.f }, vector2{ -2795.f,1655.f }, vector2{ 250.f,100.f }, vector2{ -615.f, 1208.f }, vector2{ 100.f,275.f });
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "button2,", "door1", "door2");
 

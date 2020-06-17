@@ -352,20 +352,20 @@ void TriggerButton::IndicateTimerButton(Object* button, Object* button1)
     }
     else if (button->GetDirtyFlag() == false && button1->GetDirtyFlag() == false) // both buttons are triggered.
     {
-        button->GetComponentByTemplate<Animation>()->SetState(2);
-        button1->GetComponentByTemplate<Animation>()->SetState(2);
+        button->GetComponentByTemplate<Animation>()->SetState(3);
+        button1->GetComponentByTemplate<Animation>()->SetState(3);
     }
     else // one of two buttons is trigger but others not triggered.
     {
         if (button->GetDirtyFlag() == false)
         {
-            button->GetComponentByTemplate<Animation>()->SetState(1);
-            button1->GetComponentByTemplate<Animation>()->SetState(0);
+            button->GetComponentByTemplate<Animation>()->SetState(2);
+            button1->GetComponentByTemplate<Animation>()->SetState(1);
         }
         else
         {
-            button->GetComponentByTemplate<Animation>()->SetState(0);
-            button1->GetComponentByTemplate<Animation>()->SetState(1);
+            button->GetComponentByTemplate<Animation>()->SetState(1);
+            button1->GetComponentByTemplate<Animation>()->SetState(2);
         }
     }
 }
