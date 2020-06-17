@@ -53,6 +53,8 @@ private:
 
 	Object* gameTitle{};
 
+	Object* movingObject;
+
 	Object* nextLevelButton{};
 	Object* howToPlayButton{};
 	Object* settingButton{};
