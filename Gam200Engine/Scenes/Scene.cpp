@@ -48,9 +48,11 @@ void Scene::GameRestartScene() noexcept
 {
 	player1->SetTranslation(player1SpawnPosition);
 	player1->GetComponentByTemplate<Physics>()->SetPosition(player1SpawnPosition);
+    player1->GetComponentByTemplate<Physics>()->SetOldPosition(player1SpawnPosition);
 	player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
 	player2->SetTranslation(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
+	player2->GetComponentByTemplate<Physics>()->SetOldPosition(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
 	string->InitString();
 
