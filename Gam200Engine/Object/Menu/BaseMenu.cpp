@@ -97,6 +97,9 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
     // When esc key is pressed, return to game
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
+        smInBaseMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+        smInBaseMenu.SetVolumeOnGameRunning();
+
         smInBaseMenu.Play_Sound(UNDO_SOUND);
         return nullptr;
     }
@@ -120,6 +123,8 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
             // return ptr to OptionMenu
             break;
         case BaseMenu::Quit:
+            smInBaseMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
+            smInBaseMenu.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
             SceneManager::GetSceneManager()->SetNextScene("MenuScene");
             break;
         default:

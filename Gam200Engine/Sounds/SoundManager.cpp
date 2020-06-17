@@ -44,7 +44,7 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
 
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[SIZE_SHARE_SOUND]);
-    ERRCHECK(theResult, "Load Sound");    
+    ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageNOTSaved.mp3", FMOD_DEFAULT, nullptr, &sound[NOT_SAVED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.ogg", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
@@ -91,6 +91,19 @@ float SoundManager::GetCurrentChVolume(int sound_name)
 {
     return current_ch_volume[sound_name];
 }
+
+void SoundManager::SetVolumeOnMenu()
+{
+    theResult= FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND)/3);
+    ERRCHECK(theResult, "Set Volume On Menu");
+}
+
+void SoundManager::SetVolumeOnGameRunning()
+{
+    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], 3*GetCurrentChVolume(BACKGROUND_SOUND));
+    ERRCHECK(theResult, "Set Volume On Game Running");
+}
+
 
 void SoundManager::MASTER_VOLUME_DOWN()
 {
