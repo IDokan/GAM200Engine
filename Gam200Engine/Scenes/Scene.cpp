@@ -52,6 +52,7 @@ void Scene::GameRestartScene() noexcept
 	player2->SetTranslation(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+
 	string->InitString();
 
 	GameRestart();

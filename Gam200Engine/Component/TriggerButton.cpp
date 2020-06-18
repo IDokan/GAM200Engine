@@ -25,11 +25,9 @@ TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Obje
 
 void TriggerButton::Init()
 {
-<<<<<<< HEAD
     isTimerReset = false;
-=======
     smInTrigger = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
->>>>>>> Sounds
+
 }
 
 void TriggerButton::Update(float dt)
