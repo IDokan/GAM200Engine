@@ -26,28 +26,28 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Goal_Sound.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.ogg", FMOD_DEFAULT, nullptr, &sound[CURSOR_MOVEMENT_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.mp3", FMOD_DEFAULT, nullptr, &sound[CURSOR_MOVEMENT_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/LevelClearSound.wav", FMOD_DEFAULT, nullptr, &sound[LEVEL_CLEAR_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/LevelClearSound.mp3", FMOD_DEFAULT, nullptr, &sound[LEVEL_CLEAR_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/MousePatrolSound.wav", FMOD_DEFAULT, nullptr, &sound[MOUSE_PATROL_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.ogg", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.mp3", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.ogg", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.ogg", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DOOOOR.mp3", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.ogg", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.mp3", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
     ERRCHECK(theResult, "Load Sound");
 
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[SIZE_SHARE_SOUND]);
-    ERRCHECK(theResult, "Load Sound");    
+    ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageNOTSaved.mp3", FMOD_DEFAULT, nullptr, &sound[NOT_SAVED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.ogg", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.mp3", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/YumYum.mp3", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
     ERRCHECK(theResult, "Load Sound");
@@ -91,6 +91,19 @@ float SoundManager::GetCurrentChVolume(int sound_name)
 {
     return current_ch_volume[sound_name];
 }
+
+void SoundManager::SetVolumeOnMenu()
+{
+    theResult= FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND)/3);
+    ERRCHECK(theResult, "Set Volume On Menu");
+}
+
+void SoundManager::SetVolumeOnGameRunning()
+{
+    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], 3*GetCurrentChVolume(BACKGROUND_SOUND));
+    ERRCHECK(theResult, "Set Volume On Game Running");
+}
+
 
 void SoundManager::MASTER_VOLUME_DOWN()
 {

@@ -64,12 +64,18 @@ public:
 
     void MASTER_VOLUME_UP();
 
+    void SetVolumeOnMenu();
+
+    void SetVolumeOnGameRunning();
+
+
 private:
     FMOD_SYSTEM* fmod_system;
     FMOD_SOUND* sound[MAX_SOUND_TRACK];
     FMOD_CHANNEL* ch[MAX_SOUND_TRACK];
     FMOD_RESULT         theResult;
     float current_ch_volume[MAX_SOUND_TRACK];
-    float initialVolume = 0.2f;
-    float contorolVolumeSize = 0.2f;
+    float initialVolume = 0.1f;
+    float contorolVolumeSize = 0.1f;
+
 };
