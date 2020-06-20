@@ -125,6 +125,7 @@ bool PlatformWindow::CreateWindow() noexcept
 	glfwSetScrollCallback(window, MouseWheelScroll);
 	glfwSetWindowSizeCallback(window, WindowSizeCallback);
 	glfwSwapInterval(true);
+    glEnable(GL_DEPTH_BUFFER);
 
 	MyImGui::InitImGui(window);
 	glewInit();

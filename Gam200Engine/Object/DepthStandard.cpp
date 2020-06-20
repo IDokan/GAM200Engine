@@ -24,7 +24,7 @@ const Depth_Standard Depth_Standard::Player(-11.5f);
 const Depth_Standard Depth_Standard::MouseAI(-10.f);
 const Depth_Standard Depth_Standard::Obstacle(-10.f);
 const Depth_Standard Depth_Standard::Jail(-10.f);
-const Depth_Standard Depth_Standard::String(-9.f);
+const Depth_Standard Depth_Standard::String(-8.5f);
 const Depth_Standard Depth_Standard::SavedCheese(-8.f);
 const Depth_Standard Depth_Standard::GoalPoints(-5.f);
 const Depth_Standard Depth_Standard::DustVFX(-0.01f);
