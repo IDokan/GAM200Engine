@@ -15,7 +15,6 @@ Creation Date: 12.OCT.2019
 
 void SoundManager::Load_Sound()
 {
-    //UnLoad_Sound();
     theResult = FMOD_System_Create(&fmod_system);
     ERRCHECK(theResult, "System Create");
     theResult = FMOD_System_Init(fmod_system, MAX_SOUND_TRACK, FMOD_INIT_NORMAL, NULL);
@@ -56,49 +55,49 @@ void SoundManager::Load_Sound()
     for (int sound = 0; sound < SOUNDS::NONE; sound++) {
         current_ch_volume[sound] = initialVolume;
     }
-    
+
     current_ch_volume[SOUNDS::PUSHABLE_BOX_SOUND] = 0.05f;
     current_ch_volume[SOUNDS::CRUSH_SOUND] = 0.05f;
     current_ch_volume[SOUNDS::DOOR_SOUND] = 0.05f;
 }
 void SoundManager::UnLoad_Sound()
 {
-        theResult = FMOD_Sound_Release(sound[BACKGROUND_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[CRUSH_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[GOAL_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[CURSOR_MOVEMENT_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[LEVEL_CLEAR_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[MOUSE_PATROL_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[SELECT_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[PUSHABLE_BOX_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[BUTTON_TRIGGERED_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[DOOR_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[UNDO_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[BACKGROUND_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[CRUSH_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[GOAL_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[CURSOR_MOVEMENT_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[LEVEL_CLEAR_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[MOUSE_PATROL_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[SELECT_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[PUSHABLE_BOX_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[BUTTON_TRIGGERED_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[DOOR_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[UNDO_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
 
-        theResult = FMOD_Sound_Release(sound[SIZE_SHARE_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[NOT_SAVED_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[SAVED_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
-        theResult = FMOD_Sound_Release(sound[DIED_BY_MOUSE_SOUND]);
-        ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[SIZE_SHARE_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[NOT_SAVED_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[SAVED_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
+    theResult = FMOD_Sound_Release(sound[DIED_BY_MOUSE_SOUND]);
+    ERRCHECK(theResult, "UnLoad Sound");
 }
 
 void SoundManager::Play_Sound(SOUNDS sound_name)
 {
-   
+
     FMOD_System_Update(fmod_system);
     theResult = FMOD_System_PlaySound(fmod_system, sound[sound_name], nullptr, false, &ch[sound_name]);
     ERRCHECK(theResult, "Play Sound");
@@ -134,13 +133,13 @@ float SoundManager::GetCurrentChVolume(int sound_name)
 
 void SoundManager::SetVolumeOnMenu()
 {
-    theResult= FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND)/4);
+    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND) / 4);
     ERRCHECK(theResult, "Set Volume On Menu");
 }
 
 void SoundManager::SetVolumeOnGameRunning()
 {
-    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND)); 
+    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND));
     ERRCHECK(theResult, "Set Volume On Game Running");
 }
 

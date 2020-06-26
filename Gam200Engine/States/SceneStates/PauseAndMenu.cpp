@@ -38,8 +38,6 @@ Creation Date: 05.11.2020
 #include <Component/StateMachine.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
 
-class SoundManager smPauseAndMenu;
-
 PauseAndMenu* PauseAndMenu::Get()
 {
     static PauseAndMenu* state = new PauseAndMenu();
@@ -51,8 +49,7 @@ void PauseAndMenu::Enter(SceneStateManager* /*manager*/)
     MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Pause);
     MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Pause);
 
-    smPauseAndMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-    smPauseAndMenu.SetVolumeOnMenu();
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnMenu();
 
     PrepareAssets();
     menuStack.push(baseMenu);

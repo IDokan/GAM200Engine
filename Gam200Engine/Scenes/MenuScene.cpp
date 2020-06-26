@@ -143,6 +143,9 @@ void MenuScene::Input()
 
 	if (input.IsKeyPressed(GLFW_KEY_ENTER))
 	{
+
+		soundManager.Play_Sound(SELECT_SOUND);
+
 		if ((selection % 5) == ButtonRow::PLAY)
 		{
 			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
@@ -163,7 +166,7 @@ void MenuScene::Input()
 		{
 			input.SetIsRunning(false);
 		}
-		soundManager.Play_Sound(SELECT_SOUND);
+
 	}
 
 }

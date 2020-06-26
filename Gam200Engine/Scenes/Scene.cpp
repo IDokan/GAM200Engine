@@ -4,10 +4,10 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name:   Scene.cpp
 Author
-		rtd99062@gmail.com
+        rtd99062@gmail.com
 Creation Date: 12.10.2019
 
-	Source file for the abstract class for all of Scene
+    Source file for the abstract class for all of Scene
 ******************************************************************************/
 #include <thread>
 #include <Scenes/Scene.hpp>
@@ -46,238 +46,242 @@ Creation Date: 12.10.2019
 
 void Scene::GameRestartScene() noexcept
 {
-	player1->SetTranslation(player1SpawnPosition);
-	player1->GetComponentByTemplate<Physics>()->SetPosition(player1SpawnPosition);
-	player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
-	player2->SetTranslation(player2SpawnPosition);
-	player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
-	player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+    player1->SetTranslation(player1SpawnPosition);
+    player1->GetComponentByTemplate<Physics>()->SetPosition(player1SpawnPosition);
+    player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+    player2->SetTranslation(player2SpawnPosition);
+    player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
+    player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
 
-	string->InitString();
+    string->InitString();
 
-	GameRestart();
-	cameraManager.InitializeCurrentCameraSetting();
+    GameRestart();
+    cameraManager.InitializeCurrentCameraSetting();
 }
 
 //Init LoadingSceneImage
 void Scene::InitLoadingScene()
 {
-	cameraManager.Init();
-	loadingScene = new Object();
-	loadingScene->SetObjectName("loadingScene");
-	loadingScene->SetTranslation(vector2{ 1.f });
-	loadingScene->SetScale(vector2{ 2000.f });
-	loadingScene->AddComponent(new Sprite(loadingScene));
-	loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0));
-	loadingScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
-	loadingScene->SetDepth(-0.f);
+    cameraManager.Init();
+    loadingScene = new Object();
+    loadingScene->SetObjectName("loadingScene");
+    loadingScene->SetTranslation(vector2{ 1.f });
+    loadingScene->SetScale(vector2{ 2000.f });
+    loadingScene->AddComponent(new Sprite(loadingScene));
+    loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0));
+    loadingScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
+    loadingScene->SetDepth(-0.f);
 
-	loadingText = new Object();
-	loadingText->SetObjectName("Loading Text");
-	loadingText->SetTranslation(vector2{ -100.f ,-20.f });
-	loadingText->AddComponent(new TextComponent(loadingText));
-	loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
-	loadingText->SetDepth(-0.9f);
+    loadingText = new Object();
+    loadingText->SetObjectName("Loading Text");
+    loadingText->SetTranslation(vector2{ -100.f ,-20.f });
+    loadingText->AddComponent(new TextComponent(loadingText));
+    loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+    loadingText->SetDepth(-0.9f);
 }
 
 void Scene::SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position)
 {
-	player1SpawnPosition = player1Position;
-	player2SpawnPosition = player2Position;
+    player1SpawnPosition = player1Position;
+    player2SpawnPosition = player2Position;
 }
 
 
 void Scene::LoadScene() noexcept
 {
 
-	///////////////////////Init Loading Scene image & text data...
+    ///////////////////////Init Loading Scene image & text data...
 
-	//Test��...
-	//std::thread performanceTest(&InitLoadingScene);
-	InitLoadingScene();
+    //std::thread performanceTest(&InitLoadingScene);
 
-	//////////////////////Worker Thread here...
-	GLFWwindow* main_context = glfwGetCurrentContext();
-	HDC hdc = GetDC(glfwGetWin32Window(main_context));
-	HGLRC thread_context = wglCreateContext(hdc);
+    InitLoadingScene();
 
-	BOOL error = wglShareLists(glfwGetWGLContext(main_context), thread_context);
+    //////////////////////Worker Thread here...
+    GLFWwindow* main_context = glfwGetCurrentContext();
+    HDC hdc = GetDC(glfwGetWin32Window(main_context));
+    HGLRC thread_context = wglCreateContext(hdc);
 
-	if (error == FALSE)
-	{
-		printf("Something is wrong!");
+    BOOL error = wglShareLists(glfwGetWGLContext(main_context), thread_context);
 
-	}
-	glfwMakeContextCurrent(NULL);
+    if (error == FALSE)
+    {
+        printf("Something is wrong!");
 
-
-	std::thread loading_Thread([&]()
-		{
-			wglMakeCurrent(hdc, thread_context);
-
-			unsigned int loadingCount = 0;
-
-			while(isLoadingDone == false)
-			{
-
-				// Update loading data
-				++loadingCount;
-
-				if (loadingCount % 1500 == 0)
-				{
-					loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
-				}
-				if (loadingCount % 500 == 0)
-				{
-					std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
-					loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");
-				}
-
-				Graphics::GL::begin_drawing();
-
-				// LoadingScene
-				const auto matrix = cameraManager.GetWorldToNDCTransform() * loadingScene->GetTransform().GetModelToWorld();
-				Sprite* sprite = loadingScene->GetComponentByTemplate<Sprite>();
-				sprite->UpdateUniforms(matrix,
-					loadingScene->GetTransform().CalculateWorldDepth());
-				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
-
-				// Loading Text
-				const auto matrix2 = cameraManager.GetWorldToNDCTransform() * loadingText->GetTransform().GetModelToWorld();
-				loadingText->GetComponentByTemplate<TextComponent>()->Draw(matrix2,
-					loadingText->GetTransform().CalculateWorldDepth());
-
-				Graphics::GL::end_drawing();
-
-				SwapBuffers(hdc);
-			}
-
-			wglMakeCurrent(nullptr, nullptr);
-			wglDeleteContext(thread_context);
-		});
-
-	glfwMakeContextCurrent(main_context);
-
-	///////////////////////Init(huge work) Working here..
-	soundManager.Load_Sound();
-	InitRequiredObjects();
-	InitDEBUGObjects();
-	Load(); 
+    }
+    glfwMakeContextCurrent(NULL);
 
 
-	if (player1 != nullptr && player2 != nullptr)
-	{
-		SetPlayerSpawnPosition(player1->GetTranslation(), player2->GetTranslation());
-	}
+    std::thread loading_Thread([&]()
+    {
+        wglMakeCurrent(hdc, thread_context);
 
-	isLoadingDone = true;
+        unsigned int loadingCount = 0;
 
-	if (loading_Thread.joinable()) {
-		loading_Thread.join();
-	}
+        while (isLoadingDone == false)
+        {
+
+            // Update loading data
+            ++loadingCount;
+
+            if (loadingCount % 1500 == 0)
+            {
+                loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+            }
+            if (loadingCount % 500 == 0)
+            {
+                std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
+                loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");
+            }
+
+            Graphics::GL::begin_drawing();
+
+            // LoadingScene
+            const auto matrix = cameraManager.GetWorldToNDCTransform() * loadingScene->GetTransform().GetModelToWorld();
+            Sprite* sprite = loadingScene->GetComponentByTemplate<Sprite>();
+            sprite->UpdateUniforms(matrix,
+                loadingScene->GetTransform().CalculateWorldDepth());
+            Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+
+            // Loading Text
+            const auto matrix2 = cameraManager.GetWorldToNDCTransform() * loadingText->GetTransform().GetModelToWorld();
+            loadingText->GetComponentByTemplate<TextComponent>()->Draw(matrix2,
+                loadingText->GetTransform().CalculateWorldDepth());
+
+            Graphics::GL::end_drawing();
+
+            SwapBuffers(hdc);
+        }
+
+        wglMakeCurrent(nullptr, nullptr);
+        wglDeleteContext(thread_context);
+    });
+
+    glfwMakeContextCurrent(main_context);
+
+    ///////////////////////Init(huge work) Working here..
+
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Load_Sound();
+
+    //soundManager.Load_Sound();
+    InitRequiredObjects();
+    InitDEBUGObjects();
+    Load();
+
+
+    if (player1 != nullptr && player2 != nullptr)
+    {
+        SetPlayerSpawnPosition(player1->GetTranslation(), player2->GetTranslation());
+    }
+
+    isLoadingDone = true;
+
+    if (loading_Thread.joinable()) {
+        loading_Thread.join();
+    }
+
 }
 
 void Scene::UnloadScene() noexcept
 {
-	is_next = false;
+    is_next = false;
 
-	CleanRequiredObjects();
-	Unload();
+    CleanRequiredObjects();
+    Unload();
 
-	ObjectManager* objManager = ObjectManager::GetObjectManager();
-	for (const auto& layers : objManager->GetLayerContainer())
-	{
-		for (const auto& obj : layers->GetObjContainer())
-		{
-			obj->SetDead(true);
-		}
-	}
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
+    for (const auto& layers : objManager->GetLayerContainer())
+    {
+        for (const auto& obj : layers->GetObjContainer())
+        {
+            obj->SetDead(true);
+        }
+    }
 }
 
 void Scene::Draw() noexcept
 {
-	// Clear obstacle matrices buffer for instancing.
-	obstacleTextureCoordinateScaler.clear();
-	obstacleColors.clear();
-	obstacleMatrices.clear();
+    // Clear obstacle matrices buffer for instancing.
+    obstacleTextureCoordinateScaler.clear();
+    obstacleColors.clear();
+    obstacleMatrices.clear();
 
 
-	Graphics::GL::begin_drawing();
+    Graphics::GL::begin_drawing();
 
-	for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
-	{
-		obstacleTextureCoordinateScaler.clear();
-		obstacleColors.clear();
-		obstacleMatrices.clear();
+    for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
+    {
+        obstacleTextureCoordinateScaler.clear();
+        obstacleColors.clear();
+        obstacleMatrices.clear();
 
-		if (element->GetSortingDirtyFlag())
-		{
-			// Before draw it, sort every object in each layer.
-			// TODO: Improve it. Do this when only need
-			element->SortingDepth();
-			element->SetSortingDirtyFlag(false);
-		}
+        if (element->GetSortingDirtyFlag())
+        {
+            // Before draw it, sort every object in each layer.
+            // TODO: Improve it. Do this when only need
+            element->SortingDepth();
+            element->SetSortingDirtyFlag(false);
+        }
 
-		if (element->GetName() == LayerNames::HUD)
-		{
-			for (const auto& obj : element->GetObjContainer())
-			{
-				DrawObject(obj.get());
-			}
+        if (element->GetName() == LayerNames::HUD)
+        {
+            for (const auto& obj : element->GetObjContainer())
+            {
+                DrawObject(obj.get());
+            }
 
-		}
-		else
-		{
-			for (const auto& obj : element->GetObjContainer())
-			{
-				DrawObject(obj.get(), cameraManager.GetWorldToNDCTransform());
-			}
-		}
+        }
+        else
+        {
+            for (const auto& obj : element->GetObjContainer())
+            {
+                DrawObject(obj.get(), cameraManager.GetWorldToNDCTransform());
+            }
+        }
 
-		if (obstacleMatrices.empty() == false)
-		{
-			// Obstacle Instancing draw
-			ObstaclesDrawingHelper::Get()->Draw(&obstacleTextureCoordinateScaler, &obstacleColors, &obstacleMatrices);
-		}
-	}
+        if (obstacleMatrices.empty() == false)
+        {
+            // Obstacle Instancing draw
+            ObstaclesDrawingHelper::Get()->Draw(&obstacleTextureCoordinateScaler, &obstacleColors, &obstacleMatrices);
+        }
+    }
 
-	Graphics::GL::end_drawing();
+    Graphics::GL::end_drawing();
 }
 
 Graphics::CameraManager& Scene::GetCameraManager() noexcept
 {
-	return cameraManager;
+    return cameraManager;
 }
 
 SoundManager& Scene::GetSoundManager() noexcept
 {
-	return soundManager;
+    return soundManager;
 }
 
 SceneStateManager* Scene::GetSceneStateManager() noexcept
 {
-	return sceneStateManager;
+    return sceneStateManager;
 }
 
 void Scene::LevelChangeTo(std::string name)
 {
-	is_next = true;
-	next_level = name;
+    is_next = true;
+    next_level = name;
 }
 
 std::string Scene::GetChangedLevelName()
 {
-	return next_level;
+    return next_level;
 }
 
 bool Scene::isNextLevel()
 {
-	return is_next;
+    return is_next;
 }
 
 GameScenes Scene::GetSceneInfo()
 {
-	return current_scene_info;
+    return current_scene_info;
 
 }
 
@@ -293,108 +297,108 @@ GameScenes Scene::GetSceneInfo()
 // 3. A sort of Text object
 void Scene::DrawObject(Object* obj, matrix3 offset) noexcept
 {
-	if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
-	{
-		const auto matrix = offset * obj->GetTransform().GetModelToWorld();
-		static constexpr float TextureCoordinateScalerAdjustValue = 75.f;
-		obstacleTextureCoordinateScaler.push_back(obj->GetScale() / TextureCoordinateScalerAdjustValue);
-		obstacleColors.push_back(Graphics::to_color4ub(obj->GetComponentByTemplate<Sprite>()->GetColor()));
-		obstacleMatrices.push_back(matrix);
-		return;
-	}
+    if (obj->GetObjectType() == Object::ObjectType::OBSTACLE)
+    {
+        const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+        static constexpr float TextureCoordinateScalerAdjustValue = 75.f;
+        obstacleTextureCoordinateScaler.push_back(obj->GetScale() / TextureCoordinateScalerAdjustValue);
+        obstacleColors.push_back(Graphics::to_color4ub(obj->GetComponentByTemplate<Sprite>()->GetColor()));
+        obstacleMatrices.push_back(matrix);
+        return;
+    }
 
-	// 1. Particle Object
-	if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj))
-	{
-		const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
-		Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
+    // 1. Particle Object
+    if (ParticleEmitter* particleEmitter = dynamic_cast<ParticleEmitter*>(obj))
+    {
+        const std::vector<Particle::ParticleObject>& particleObjects = particleEmitter->GetParticleObjectsContainer();
+        Particle* particle = particleEmitter->GetComponentByTemplate<Particle>();
 
-		std::vector<matrix3> matrices;
-		std::vector<Graphics::Color4ub> colors;
-		std::vector<vector2> tmp;
-		size_t sizeOfParticle = particleObjects.size();
-		matrices.reserve(sizeOfParticle);
-		for (size_t i = 0; i < sizeOfParticle; ++i)
-		{
-			matrices.emplace_back(offset * particleObjects[i].transform.GetModelToWorld());
-			colors.emplace_back(Graphics::to_color4ub(particleObjects[i].color));
-		}
-		particle->UpdateInstancingValues(&tmp, &colors, &matrices, particleEmitter->GetDepth());
-		Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
-	}
+        std::vector<matrix3> matrices;
+        std::vector<Graphics::Color4ub> colors;
+        std::vector<vector2> tmp;
+        size_t sizeOfParticle = particleObjects.size();
+        matrices.reserve(sizeOfParticle);
+        for (size_t i = 0; i < sizeOfParticle; ++i)
+        {
+            matrices.emplace_back(offset * particleObjects[i].transform.GetModelToWorld());
+            colors.emplace_back(Graphics::to_color4ub(particleObjects[i].color));
+        }
+        particle->UpdateInstancingValues(&tmp, &colors, &matrices, particleEmitter->GetDepth());
+        Graphics::GL::drawInstanced(*particle->GetVertices(), *particle->GetMaterial());
+    }
 
-	else if (const auto& sprite = obj->GetComponentByTemplate<Sprite>())
-	{
-		if (sprite->isInstancingMode() == false)
-		{
-			// 2. (Incomplete, need to be improved)
-			// Update model to NDC matrix as Uniform 
-			const auto matrix = offset * obj->GetTransform().GetModelToWorld();
-			sprite->UpdateUniforms(matrix,
-				obj->GetTransform().CalculateWorldDepth());
-			Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
-		}
-		else
-		{
-			// 2-a.
-			// Update model to NDC matrix as instanced array ( Change Mesh )
-			const auto matrix = offset * obj->GetTransform().GetModelToWorld();
-			std::vector<matrix3> matrices;
-			matrices.push_back(matrix);
-			sprite->UpdateInstancingValues(&matrices, obj->GetTransform().CalculateWorldDepth());
-			Graphics::GL::drawInstanced(*sprite->GetVertices(), *sprite->GetMaterial());
-		}
-	}
-	else if (const auto& text = obj->GetComponentByTemplate<TextComponent>())
-	{
-		// 4.
-		// Update model to NDC matrix as Uniform value and Call different draw function.
-		const auto matrix = offset * obj->GetTransform().GetModelToWorld();
-		text->Draw(matrix,
-			obj->GetTransform().CalculateWorldDepth());
-	}
+    else if (const auto& sprite = obj->GetComponentByTemplate<Sprite>())
+    {
+        if (sprite->isInstancingMode() == false)
+        {
+            // 2. (Incomplete, need to be improved)
+            // Update model to NDC matrix as Uniform 
+            const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+            sprite->UpdateUniforms(matrix,
+                obj->GetTransform().CalculateWorldDepth());
+            Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+        }
+        else
+        {
+            // 2-a.
+            // Update model to NDC matrix as instanced array ( Change Mesh )
+            const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+            std::vector<matrix3> matrices;
+            matrices.push_back(matrix);
+            sprite->UpdateInstancingValues(&matrices, obj->GetTransform().CalculateWorldDepth());
+            Graphics::GL::drawInstanced(*sprite->GetVertices(), *sprite->GetMaterial());
+        }
+    }
+    else if (const auto& text = obj->GetComponentByTemplate<TextComponent>())
+    {
+        // 4.
+        // Update model to NDC matrix as Uniform value and Call different draw function.
+        const auto matrix = offset * obj->GetTransform().GetModelToWorld();
+        text->Draw(matrix,
+            obj->GetTransform().CalculateWorldDepth());
+    }
 }
 
 void Scene::InitDEBUGObjects()
 {
 #ifdef _DEBUG
-	ObjectManager* objManager = ObjectManager::GetObjectManager();
+    ObjectManager* objManager = ObjectManager::GetObjectManager();
 
 
-	LevelChangeButton* tmp = new LevelChangeButton();
-	objManager->FindLayer(HUD)->AddObject(tmp);
-	WallSpawner* wallSpawner = new WallSpawner();
-	objManager->FindLayer(HUD)->AddObject(wallSpawner);
+    LevelChangeButton* tmp = new LevelChangeButton();
+    objManager->FindLayer(HUD)->AddObject(tmp);
+    WallSpawner* wallSpawner = new WallSpawner();
+    objManager->FindLayer(HUD)->AddObject(wallSpawner);
 
 #endif
 }
 
 void Scene::InitRequiredObjects()
 {
-	if (isMenu == true)
-	{
-		return;
-	}
+    if (isMenu == true)
+    {
+        return;
+    }
 
-	Layer* hud = ObjectManager::GetObjectManager()->FindLayer(HUD);
-	sceneStateManager = new SceneStateManager();
-	hud->AddObject(sceneStateManager);
+    Layer* hud = ObjectManager::GetObjectManager()->FindLayer(HUD);
+    sceneStateManager = new SceneStateManager();
+    hud->AddObject(sceneStateManager);
 
-	PlayerIsDead::Get()->PrepareAssets();
-	SceneComplete::Get()->PrepareAssets();
-	PauseAndMenu::Get()->PrepareAssets();
+    PlayerIsDead::Get()->PrepareAssets();
+    SceneComplete::Get()->PrepareAssets();
+    PauseAndMenu::Get()->PrepareAssets();
 
-	StringLengthUI* slUI = new StringLengthUI();
-	hud->AddObject(slUI);
+    StringLengthUI* slUI = new StringLengthUI();
+    hud->AddObject(slUI);
 
-	HostageAlertsUI* haUI = new HostageAlertsUI();
-	hud->AddObject(haUI);
+    HostageAlertsUI* haUI = new HostageAlertsUI();
+    hud->AddObject(haUI);
 }
 
 void Scene::CleanRequiredObjects()
 {
-	GameIsRunning::Get()->CleanAssets();
-	SceneComplete::Get()->CleanAssets();
-	PlayerIsDead::Get()->CleanAssets();
-	PauseAndMenu::Get()->CleanAssets();
+    GameIsRunning::Get()->CleanAssets();
+    SceneComplete::Get()->CleanAssets();
+    PlayerIsDead::Get()->CleanAssets();
+    PauseAndMenu::Get()->CleanAssets();
 }

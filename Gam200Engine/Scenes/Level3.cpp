@@ -33,6 +33,7 @@ Creation Date: 03.13.2020
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Component/Scripts/Hostage.hpp>
 #include <Object/Mouse/Mouse.hpp>
+#include <Scenes/SceneManager.hpp>
 
 Level3::Level3() : background(nullptr)
 {
@@ -50,6 +51,8 @@ void Level3::Load()
     Level3::InitObject();
     cameraManager.Init(player1, player2);
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void Level3::Update(float dt)

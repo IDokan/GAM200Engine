@@ -62,8 +62,6 @@ void Application::Init()
     SceneManager::GetSceneManager()->AddScenes("Credit", dynamic_cast<Scene*>(new Credit()));
     SceneManager::GetSceneManager()->AddScenes("HowToPlay", dynamic_cast<Scene*>(new HowToPlay()));
 
-    
-
 	ObstaclesDrawingHelper::Get()->Init();
 }
 

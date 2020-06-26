@@ -20,8 +20,6 @@ Creation Date: 05.11.2020
 #include <Systems/Input.hpp>
 #include <Scenes/SceneManager.hpp>
 
-
-SoundManager smInBaseMenu;
 BaseMenu::BaseMenu()
     : MenuObject(), menuBackground(nullptr), resumeButton(nullptr), optionButton(nullptr), exitButton(nullptr), selectionHighlight(nullptr), currentSelection(Resume), isTransparency(true), playerPressEnter(false)
 {
@@ -82,7 +80,6 @@ BaseMenu::BaseMenu()
     selectionHighlight->SetObjectType(ObjectType::Menu);
 
     UpdateSelectionHighlightTransformation();
-    smInBaseMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 BaseMenu::~BaseMenu()
@@ -97,10 +94,9 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
     // When esc key is pressed, return to game
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
-        smInBaseMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-        smInBaseMenu.SetVolumeOnGameRunning();
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnGameRunning();
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(UNDO_SOUND);
 
-        smInBaseMenu.Play_Sound(UNDO_SOUND);
         return nullptr;
     }
 
@@ -113,18 +109,20 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
-        smInBaseMenu.Play_Sound(BUTTON_TRIGGERED_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_TRIGGERED_SOUND);
+
         switch (currentSelection)
         {
         case BaseMenu::Resume:
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnGameRunning();
             return nullptr;
             break;
         case BaseMenu::Option:
             // return ptr to OptionMenu
             break;
         case BaseMenu::Quit:
-            smInBaseMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-            smInBaseMenu.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
+
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::BACKGROUND_SOUND);
             SceneManager::GetSceneManager()->SetNextScene("MenuScene");
             break;
         default:
@@ -190,12 +188,12 @@ void BaseMenu::UpdateSelection() noexcept
 {
     if (input.IsKeyTriggered(GLFW_KEY_DOWN))
     {
-        smInBaseMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
     }
     else if (input.IsKeyTriggered(GLFW_KEY_UP))
     {
-        smInBaseMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));
     }
     else
