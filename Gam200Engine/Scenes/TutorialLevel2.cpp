@@ -69,6 +69,10 @@ void TutorialLevel2::Update(float dt)
 
 void TutorialLevel2::GameRestart()
 {
+    button1->ReinitializeDoors();
+    button2->ReinitializeDoors();
+    button3->ReinitializeDoors();
+    button4->ReinitializeDoors();
 }
 
 void TutorialLevel2::Unload()

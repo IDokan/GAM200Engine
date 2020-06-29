@@ -21,6 +21,7 @@ public:
     {
         Resume,
         Option,
+        Exit,
         Quit,
     };
 public:
@@ -49,12 +50,14 @@ private:
     Object* resumeButton;
     Object* optionButton;
     Object* exitButton;
+    Object* quitButton;
     Object* selectionHighlight;
     MenuEnum currentSelection;
 
     Transform resumeTransform;
     Transform optionTransform;
     Transform exitTransform;
+    Transform quitTransform;
 
     bool isTransparency;
 

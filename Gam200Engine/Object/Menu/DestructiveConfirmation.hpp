@@ -2,29 +2,30 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   OptionMenu.hpp
+File Name:   DestructiveConfirmation.hpp
 Author
         rtd99062@gmail.com
-Creation Date: 05.11.2020
+Creation Date: 06.19.2020
 
-    Header file for the Option menu
+    Header file for DestructiveConfirmation
 ******************************************************************************/
 #pragma once
 #include <Object/Menu/MenuObject.hpp>
+#include <functional>
 
-class OptionMenu : public MenuObject
+class DestructiveConfirmation : public MenuObject
 {
 public:
-    const vector2 buttonInitSize{ 0.5f, 0.25f };
+    const vector2 buttonInitSize{ 0.45f, 0.245f };
 public:
     enum MenuEnum
     {
-        Volume,
-        ScreenToggle,
+        Sure,
+        No,
     };
 public:
-    OptionMenu();
-    virtual ~OptionMenu();
+    DestructiveConfirmation();
+    virtual ~DestructiveConfirmation();
 
     virtual MenuObject* MenuUpdate(float dt);
     virtual void AddChildObjectsDynamically();
@@ -32,6 +33,8 @@ public:
 
     virtual void LerpIn(float timer);
     virtual void LerpOut(float timer);
+
+    void SetDoThis(std::function<void(void)> newDoThis);
 
 private:
     void SetCurrentSelection(MenuEnum newValue);
@@ -45,16 +48,17 @@ private:
 
 private:
     Object* menuBackground;
-    Object* volumeButton;
-    Object* screenToggleButton;
+    Object* sureButton;
+    Object* noButton;
     Object* selectionHighlight;
     MenuEnum currentSelection;
 
-    Transform volumeTransform;
-    Transform screenToggleTransform;
+    Transform sureTransform;
+    Transform noTransform;
 
     bool isTransparency;
 
     bool playerPressEnter;
 
+    std::function<void(void)> doThis;
 };

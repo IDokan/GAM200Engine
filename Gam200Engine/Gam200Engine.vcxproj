@@ -23,34 +23,34 @@
     <ProjectGuid>{68B5BAB0-908A-4A27-A080-6E50386B66EA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Gam200Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -171,8 +171,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Scripts\CheckPointComponent.hpp" />
     <ClInclude Include="Component\UI\StatusUIHandler.hpp" />
     <ClInclude Include="Object\HUD\StatusUI.hpp" />
+    <ClInclude Include="Object\Menu\DestructiveConfirmation.hpp" />
+    <ClInclude Include="Object\Menu\OptionMenu.hpp" />
+    <ClInclude Include="Object\Points\CheckPoint.hpp" />
     <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp" />
     <ClInclude Include="Component\Button.hpp" />
     <ClInclude Include="Component\Checkpoint.hpp" />
@@ -241,7 +245,6 @@
     <ClInclude Include="Object\KeyLock.hpp" />
     <ClInclude Include="Object\Menu\BaseMenu.hpp" />
     <ClInclude Include="Object\Menu\MenuObject.hpp" />
-    <ClInclude Include="Object\Menu\OptionMenu.hpp" />
     <ClInclude Include="Object\Mouse\Mouse.hpp" />
     <ClInclude Include="Object\Object.hpp" />
     <ClInclude Include="Object\ObjectManager.hpp" />
@@ -302,8 +305,12 @@
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Scripts\CheckPointComponent.cpp" />
     <ClCompile Include="Component\UI\StatusUIHandler.cpp" />
     <ClCompile Include="Object\HUD\StatusUI.cpp" />
+    <ClCompile Include="Object\Menu\DestructiveConfirmation.cpp" />
+    <ClCompile Include="Object\Menu\OptionMenu.cpp" />
+    <ClCompile Include="Object\Points\CheckPoint.cpp" />
     <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp" />
     <ClCompile Include="Component\Button.cpp" />
     <ClCompile Include="Component\Checkpoint.cpp" />
@@ -371,7 +378,6 @@
     <ClCompile Include="Object\KeyLock.cpp" />
     <ClCompile Include="Object\Menu\BaseMenu.cpp" />
     <ClCompile Include="Object\Menu\MenuObject.cpp" />
-    <ClCompile Include="Object\Menu\OptionMenu.cpp" />
     <ClCompile Include="Object\Mouse\Mouse.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />

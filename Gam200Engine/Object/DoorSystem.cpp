@@ -494,6 +494,35 @@ void DoorSystem::SetButtonAndDoorName(std::string buttonName, std::string doorNa
     //particleEmitter->SetObjectName(std::string("ParticleEmitter"));
 }
 
+void DoorSystem::ReinitializeDoors()
+{
+    if (openDoor == nullptr)
+    {
+        return;
+    }
+
+    // Open door init
+    openDoor->GetComponentByTemplate<Physics>()->ActiveGhostCollision(true);
+    Sprite* openDoorSprite = openDoor->GetComponentByTemplate<Sprite>(); 
+    Graphics::Color4f openColor = openDoorSprite->GetColor();
+    openColor.alpha = 0.2f;
+    openDoorSprite->SetColor(openColor);
+    openEmitter->SetShouldReviveParticle(false);
+
+    if (closeDoor == nullptr)
+    {
+        return;
+    }
+    
+    // Close door Init
+    closeDoor->GetComponentByTemplate<Physics>()->ActiveGhostCollision(false);
+    Sprite* closeDoorSprite = closeDoor->GetComponentByTemplate<Sprite>();
+    Graphics::Color4f closeColor = closeDoorSprite->GetColor();
+    closeColor.alpha = 1.f;
+    closeDoorSprite->SetColor(closeColor);
+    closeEmitter->SetShouldReviveParticle(true);
+}
+
 vector2 DoorSystem::FindPositionOfParticle(vector2 velocity, vector2 doorPosition, vector2 doorScale)
 {
     vector2 velocityIn1stSquare{ abs(velocity.x), abs(velocity.y) };

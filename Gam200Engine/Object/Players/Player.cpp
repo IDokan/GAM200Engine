@@ -141,7 +141,7 @@ void Player::LoadPlayer1Layout()
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::Resume:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->RevertToPreviousState();
 				break;
 			case MessageTypes::CancelScaling:
 

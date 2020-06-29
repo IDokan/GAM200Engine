@@ -54,12 +54,13 @@ public:
 	//Thread work for loading
 	void InitLoadingScene();
 
+	bool IsMenu();
 
+	void SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position);
 protected:
 	virtual void GameRestart() = 0;
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
-	void SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position);
     GameScenes current_scene_info;
     std::string next_level;
     bool is_next;

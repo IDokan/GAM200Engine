@@ -62,4 +62,8 @@ private:
 	Object* selectionArrow{};
 	int selection;
 	float totalDT;
+
+
+	bool isSelected = false;
+	bool isMenuPop = false;
 };

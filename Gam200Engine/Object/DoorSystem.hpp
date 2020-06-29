@@ -21,14 +21,16 @@ public:
     void SetButtonAndDoorName(std::string buttonName, std::string openDoorName, std::string closeDoorName);
     void SetButtonAndDoorName(std::string buttonName, std::string doorName);
 
+
+    void ReinitializeDoors();
 private:
     vector2 FindPositionOfParticle(vector2 velocity, vector2 doorPosition, vector2 doorScale);
 private:
 
-    Object* button;
-    Object* button1;
-    Object* openDoor;
-    Object* closeDoor;
-    ParticleEmitter* openEmitter;
-    ParticleEmitter* closeEmitter;
+    Object* button = nullptr;
+    Object* button1 = nullptr;
+    Object* openDoor = nullptr;
+    Object* closeDoor = nullptr;
+    ParticleEmitter* openEmitter = nullptr;
+    ParticleEmitter* closeEmitter = nullptr;
 };

@@ -24,7 +24,7 @@ GoalPoint::GoalPoint(const Transform& transform, Player* ptrToPlayer1, Player* p
 
 	SetTranslation(transform.GetTranslation());
 	SetScale(transform.GetScale());
-	SetDepth(Depth_Standard::GoalPoints);
+	SetDepth(Depth_Standard::Points);
 
 	AddComponent(new GoalComponent(this, ptrToPlayer1, ptrToPlayer2));
 

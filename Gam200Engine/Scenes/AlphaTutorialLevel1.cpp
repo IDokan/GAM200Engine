@@ -29,6 +29,7 @@ Creation Date: 05.10.2020
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
 #include<Component/MessageCapable.hpp>
 #include <Component/Scripts/Hostage.hpp>
+#include <Object/Points/CheckPoint.hpp>
 
 
 AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr), cheese(nullptr), movingObject(nullptr), movingObject1(nullptr)
@@ -74,6 +75,12 @@ void AlphaTutorialLevel1::Update(float dt)
 
 void AlphaTutorialLevel1::GameRestart()
 {
+	movingObject->SetTranslation(vector2{ 2200.f, -70.f });
+	movingObject1->SetTranslation(vector2{ 2200.f, 40.f });
+	movingObject2->SetTranslation(vector2{ 2200.f, 150.f });
+	movingObject3->SetTranslation(vector2{ 2500, -200.f });
+	movingObject4->SetTranslation(vector2{ 2750.f, -70.f });
+	movingObject5->SetTranslation(vector2{ 3300.f, 150.f });
 }
 
 void AlphaTutorialLevel1::Unload()
@@ -187,6 +194,12 @@ void AlphaTutorialLevel1::InitObject()
     Mouse* mouse1 = new Mouse(vector2{ 1640, -100 }, vector2{ 1640, 200 }, vector2{ 1640, -160 }, player1, player2);
     mouse1->SetSpeed(1.5f);
 
+	Transform checkTransform;
+	checkTransform.SetTranslation(vector2{ 850.f,0.f });
+	checkTransform.SetScale(vector2{ 100.f });
+	CheckPoint* checkPoint = new CheckPoint(checkTransform, player1, player2);
+
+
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 2900, -55 });
 	goalTransform.SetScale(vector2{ 200, 200 });
@@ -255,4 +268,5 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p1Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p2Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(sizeSign);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint);
 }

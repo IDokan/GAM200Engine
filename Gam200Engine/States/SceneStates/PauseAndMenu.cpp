@@ -34,7 +34,11 @@ Creation Date: 05.11.2020
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
+// Menu Items
 #include <Object/Menu/BaseMenu.hpp>
+#include <Object/Menu/DestructiveConfirmation.hpp>
+#include <Object/Menu/OptionMenu.hpp>
+
 #include <Component/StateMachine.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
 
@@ -51,8 +55,16 @@ void PauseAndMenu::Enter(SceneStateManager* /*manager*/)
 
 	PrepareAssets();
 
-	menuStack.push(baseMenu);
-	baseMenu->StartLerpIn();
+	if (defaultItem == nullptr)
+	{
+		menuStack.push(baseMenu);
+		baseMenu->StartLerpIn();
+	}
+	else
+	{
+		menuStack.push(defaultItem);
+		defaultItem->StartLerpIn();
+	}
 }
 
 void PauseAndMenu::Execute(SceneStateManager* manager, float dt)
@@ -118,7 +130,7 @@ void PauseAndMenu::Exit(SceneStateManager* /*manager*/)
 }
 
 PauseAndMenu::PauseAndMenu()
-	: baseMenu(nullptr)
+	: defaultItem(nullptr), baseMenu(nullptr), confirmMenu(nullptr), optionMenu(nullptr)
 {
 }
 
@@ -134,6 +146,28 @@ void PauseAndMenu::PrepareAssets() noexcept
 		HUDLayer->AddObjectDynamically(baseMenu);
 		baseMenu->AddChildObjectsDynamically();
 	}
+
+	if (confirmMenu == nullptr)
+	{
+		confirmMenu = new DestructiveConfirmation();
+		confirmMenu->SetObjectName("ConfirmMenu");
+		confirmMenu->SetScale(0.f);
+		confirmMenu->SetDepth(0.f);
+		Layer* HUDLayer = ObjectManager::GetObjectManager()->FindLayer(HUD);
+		HUDLayer->AddObjectDynamically(confirmMenu);
+		confirmMenu->AddChildObjectsDynamically();
+	}
+
+	if (optionMenu == nullptr)
+	{
+		optionMenu = new OptionMenu();
+		optionMenu->SetObjectName("OptionMenu");
+		optionMenu->SetScale(0.f);
+		optionMenu->SetDepth(0.f);
+		Layer* HUDLayer = ObjectManager::GetObjectManager()->FindLayer(HUD);
+		HUDLayer->AddObjectDynamically(optionMenu);
+		optionMenu->AddChildObjectsDynamically();
+	}
 }
 
 void PauseAndMenu::CleanAssets() noexcept
@@ -144,4 +178,21 @@ void PauseAndMenu::CleanAssets() noexcept
 		baseMenu->SetDead(true);
 		baseMenu = nullptr;
 	}
+
+	if (confirmMenu != nullptr)
+	{
+		confirmMenu->CleanChildObjects();
+		confirmMenu->SetDead(true);
+		confirmMenu = nullptr;
+	}
+
+	if (optionMenu != nullptr)
+	{
+		optionMenu->CleanChildObjects();
+		optionMenu->SetDead(true);
+		optionMenu = nullptr;
+	}
+
+
+	defaultItem = nullptr;
 }

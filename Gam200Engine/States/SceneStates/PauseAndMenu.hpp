@@ -19,6 +19,7 @@ Creation Date: 05.11.2020
 
 class Object;
 class MenuObject;
+class DestructiveConfirmation;
 
 class PauseAndMenu : public State<SceneStateManager>
 {
@@ -33,10 +34,13 @@ public:
 	void PrepareAssets() noexcept;
 	void CleanAssets() noexcept;
 
+	MenuObject* defaultItem;
+	MenuObject* baseMenu;
+	MenuObject* confirmMenu;
+	MenuObject* optionMenu;
 private:
 	PauseAndMenu();
 
 	std::stack<MenuObject*> menuStack;
-	MenuObject* baseMenu;
 };
 

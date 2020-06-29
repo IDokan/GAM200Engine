@@ -26,6 +26,10 @@ Creation Date: 03.13.2020
 
 #include <States/PlayerStates/PlayerReachesGoal.hpp>
 
+#include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <States/SceneStates/PauseAndMenu.hpp>
+#include <Object/Menu/DestructiveConfirmation.hpp>
+
 MenuScene::MenuScene(): background(nullptr)
 {
 	selection = 0;
@@ -45,6 +49,10 @@ void MenuScene::Load()
 	fileio->Input("../assets/fileIO/menuSettings.txt", &player1, &player2, &string);
 	MenuScene::InitObject();
 	cameraManager.Init();
+
+	selection = 0;
+	isSelected = false;
+	isMenuPop = false;
 }
 
 void MenuScene::Update(float dt)
@@ -88,6 +96,57 @@ void MenuScene::Unload()
 
 void MenuScene::Input()
 {
+
+	if (input.IsKeyPressed(GLFW_KEY_ENTER))
+	{
+		isSelected = true;
+	}
+	else if (input.IsKeyReleased(GLFW_KEY_ENTER) && input.IsKeyTriggered(GLFW_KEY_ENTER) == false && isSelected == true)
+	{
+		if ((selection % 5) == ButtonRow::PLAY)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
+		}
+		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("HowToPlay");
+		}
+		else if ((selection % 5) == ButtonRow::SETTINGS)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("Option");
+		}
+		else if ((selection % 5) == ButtonRow::CREDIT)
+		{
+			SceneManager::GetSceneManager()->SetNextScene("Credit");
+		}
+		else if ((selection % 5) == ButtonRow::QUIT)
+		{
+			dynamic_cast<DestructiveConfirmation*>(PauseAndMenu::Get()->confirmMenu)->SetDoThis(
+				[&]()
+				{
+					input.SetIsRunning(false);
+				}
+			);
+			PauseAndMenu::Get()->defaultItem = PauseAndMenu::Get()->confirmMenu;
+			sceneStateManager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(PauseAndMenu::Get());
+
+			isMenuPop = true;
+
+			input.TriggeredReset();
+		}
+		soundManager.Play_Sound(SELECT_SOUND);
+		isSelected = false;
+	}
+	if (isMenuPop == true)
+	{
+		if (input.IsKeyTriggered(GLFW_KEY_ENTER))
+		{
+			isMenuPop = false;
+			isSelected = false;
+		}
+		return;
+	}
+
 	if (input.IsKeyTriggered(GLFW_KEY_UP))
 	{
 		--selection;
@@ -141,36 +200,6 @@ void MenuScene::Input()
 			selectionArrow->SetTranslation(vector2{ 425, -300 });
 		}
 		soundManager.Play_Sound(CURSOR_MOVEMENT_SOUND);
-	}
-
-	if (input.IsKeyPressed(GLFW_KEY_ENTER))
-	{
-		if ((selection % 5) == ButtonRow::PLAY)
-		{
-			selection = 0;
-			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
-		}
-		else if ((selection % 5) == ButtonRow::HOWTOPLAY)
-		{
-			selection = 0;
-			SceneManager::GetSceneManager()->SetNextScene("HowToPlay");
-		}
-		else if ((selection % 5) == ButtonRow::SETTINGS)
-		{
-			selection = 0;
-			SceneManager::GetSceneManager()->SetNextScene("Option");
-		}
-		else if ((selection % 5) == ButtonRow::CREDIT)
-		{
-			selection = 0;
-			SceneManager::GetSceneManager()->SetNextScene("Credit");
-		}
-		else if ((selection % 5) == ButtonRow::QUIT)
-		{
-			selection = 0;
-			input.SetIsRunning(false);
-		}
-		soundManager.Play_Sound(SELECT_SOUND);
 	}
 
 }

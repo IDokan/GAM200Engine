@@ -322,9 +322,6 @@
     <ClCompile Include="States\PlayerStates\Pause.cpp">
       <Filter>States\PlayerStates</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Menu\OptionMenu.cpp">
-      <Filter>Object\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="Component\TriggerButton.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -346,6 +343,18 @@
     </ClCompile>
     <ClCompile Include="Component\UI\StatusUIHandler.cpp">
       <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Menu\DestructiveConfirmation.cpp">
+      <Filter>Object\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Menu\OptionMenu.cpp">
+      <Filter>Object\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Points\CheckPoint.cpp">
+      <Filter>Object\Points</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Scripts\CheckPointComponent.cpp">
+      <Filter>Component\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -709,9 +718,6 @@
     <ClInclude Include="States\PlayerStates\Pause.hpp">
       <Filter>States\PlayerStates</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Menu\OptionMenu.hpp">
-      <Filter>Object\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="Component\TriggerButton.hpp">
       <Filter>Component</Filter>
     </ClInclude>
@@ -733,6 +739,18 @@
     </ClInclude>
     <ClInclude Include="Component\UI\StatusUIHandler.hpp">
       <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\DestructiveConfirmation.hpp">
+      <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\OptionMenu.hpp">
+      <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Points\CheckPoint.hpp">
+      <Filter>Object\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Scripts\CheckPointComponent.hpp">
+      <Filter>Component\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

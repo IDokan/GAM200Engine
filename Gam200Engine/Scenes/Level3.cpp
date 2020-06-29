@@ -71,6 +71,11 @@ void Level3::Update(float dt)
 
 void Level3::GameRestart()
 {
+    movingObject1->SetTranslation(vector2{ -790.f, 500.f });
+    button1->ReinitializeDoors();
+    button2->ReinitializeDoors();
+    button3->ReinitializeDoors();
+    button4->ReinitializeDoors();
 }
 
 

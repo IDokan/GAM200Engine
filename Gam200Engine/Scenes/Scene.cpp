@@ -30,6 +30,7 @@ Creation Date: 12.10.2019
 #include <Object/HUD/HostageAlertsUI.hpp>
 #include <Object/HUD/StatusUI.hpp>
 
+#include <States/PlayerStates/UpdateAnimation.hpp>
 // Include Scene States
 #include <States/SceneStates/PlayerIsDead.hpp>
 #include <States/SceneStates/SceneComplete.hpp>
@@ -46,12 +47,17 @@ Creation Date: 12.10.2019
 #include <Graphics/GL.hpp>
 #include <Scenes/SceneManager.hpp>
 
+
+
 void Scene::GameRestartScene() noexcept
 {
+	player1->SetScale(UpdateAnimation::initial_scaling);
 	player1->SetTranslation(player1SpawnPosition);
 	player1->GetComponentByTemplate<Physics>()->SetPosition(player1SpawnPosition);
     player1->GetComponentByTemplate<Physics>()->SetOldPosition(player1SpawnPosition);
 	player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
+
+	player2->SetScale(UpdateAnimation::initial_scaling);
 	player2->SetTranslation(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetOldPosition(player2SpawnPosition);
@@ -81,6 +87,11 @@ void Scene::InitLoadingScene()
 	loadingText->AddComponent(new TextComponent(loadingText));
 	loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
 	loadingText->SetDepth(-0.9f);
+}
+
+bool Scene::IsMenu()
+{
+	return isMenu;
 }
 
 void Scene::SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position)
@@ -404,10 +415,6 @@ void Scene::InitDEBUGObjects()
 
 void Scene::InitRequiredObjects()
 {
-	if (isMenu == true)
-	{
-		return;
-	}
 
 	Layer* hud = ObjectManager::GetObjectManager()->FindLayer(HUD);
 	sceneStateManager = new SceneStateManager();
@@ -416,6 +423,11 @@ void Scene::InitRequiredObjects()
 	PlayerIsDead::Get()->PrepareAssets();
 	SceneComplete::Get()->PrepareAssets();
 	PauseAndMenu::Get()->PrepareAssets();
+
+	if (isMenu == true)
+	{
+		return;
+	}
 
 	StringLengthUI* slUI = new StringLengthUI();
 	hud->AddObject(slUI);

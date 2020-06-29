@@ -29,6 +29,8 @@ Creation Date: 03.16.2020
 #include <States/SceneStates/PauseAndMenu.hpp>
 #include <Systems/Input.hpp>
 
+#include <Scenes/SceneManager.hpp>
+
 GameIsRunning* GameIsRunning::Get()
 {
     static GameIsRunning* state = new GameIsRunning();
@@ -41,7 +43,7 @@ void GameIsRunning::Enter(SceneStateManager* /*manager*/)
 
 void GameIsRunning::Execute(SceneStateManager* manager, float /*dt*/)
 {
-    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE) && SceneManager::GetSceneManager()->GetCurrentScene()->IsMenu() == false)
     {
         manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(PauseAndMenu::Get());
     }

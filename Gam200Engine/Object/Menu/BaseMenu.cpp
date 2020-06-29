@@ -20,6 +20,7 @@ Creation Date: 05.11.2020
 #include <Systems/Input.hpp>
 #include <Scenes/SceneManager.hpp>
 
+#include <Object/Menu/DestructiveConfirmation.hpp>
 
 SoundManager smInBaseMenu;
 BaseMenu::BaseMenu()
@@ -30,20 +31,23 @@ BaseMenu::BaseMenu()
     Sprite* menuBackgroundSprite = new Sprite(menuBackground);
     menuBackground->AddComponent(menuBackgroundSprite);
     menuBackgroundSprite->SetImage("../assets/textures/UI/MenuBackground.png");
-    menuBackground->SetScale(vector2{ 1.f, 1.6f });
+    menuBackground->SetScale(vector2{ 1.f, 1.8f });
     menuBackground->SetObjectName("MenuBackground");
     menuBackground->SetDepth(Depth_Standard::HUDBackground);
     menuBackground->SetObjectType(ObjectType::Menu);
 
-    resumeTransform.SetTranslation(vector2{ 0.f, 0.1f });
+    resumeTransform.SetTranslation(vector2{ 0.f, 0.2f });
     resumeTransform.SetScale(buttonInitSize);
-    optionTransform.SetTranslation(vector2{ 0.f, -0.2f });
+    optionTransform.SetTranslation(vector2{ 0.f, -0.1f });
     optionTransform.SetScale(buttonInitSize);
-    exitTransform.SetTranslation(vector2{ 0.f, -0.5f });
+    exitTransform.SetTranslation(vector2{ 0.f, -0.4f });
     exitTransform.SetScale(buttonInitSize);
+    quitTransform.SetTranslation(vector2{ 0.f, -0.7f });
+    quitTransform.SetScale(buttonInitSize);
     resumeTransform.SetParent(&GetTransform());
     optionTransform.SetParent(&GetTransform());
     exitTransform.SetParent(&GetTransform());
+    quitTransform.SetParent(&GetTransform());
 
 
     resumeButton = new Object();
@@ -69,9 +73,18 @@ BaseMenu::BaseMenu()
     Sprite* exitButtonSprite = new Sprite(exitButton);
     exitButton->AddComponent(exitButtonSprite);
     exitButtonSprite->SetImage("../assets/textures/UI/Exit.png");
-    exitButton->SetObjectName("QuitButton");
+    exitButton->SetObjectName("ExitButton");
     exitButton->SetDepth(Depth_Standard::HUDImage);
     exitButton->SetObjectType(ObjectType::Menu);
+
+    quitButton = new Object();
+    quitButton->GetTransform().SetParent(&GetTransform());
+    Sprite* quitButtonSprite = new Sprite(quitButton);
+    quitButton->AddComponent(quitButtonSprite);
+    quitButtonSprite->SetImage("../assets/textures/UI/Quit.png");
+    quitButton->SetObjectName("ExitButton");
+    quitButton->SetDepth(Depth_Standard::HUDImage);
+    quitButton->SetObjectType(ObjectType::Menu);
 
 
 
@@ -117,10 +130,20 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
             return nullptr;
             break;
         case BaseMenu::Option:
-            // return ptr to OptionMenu
+            return PauseAndMenu::Get()->optionMenu;
             break;
+        case BaseMenu::Exit:
+            dynamic_cast<DestructiveConfirmation*>(PauseAndMenu::Get()->confirmMenu)->SetDoThis([&]()
+                {
+                    SceneManager::GetSceneManager()->SetNextScene("MenuScene");
+                });
+            return PauseAndMenu::Get()->confirmMenu;
         case BaseMenu::Quit:
-            SceneManager::GetSceneManager()->SetNextScene("MenuScene");
+            dynamic_cast<DestructiveConfirmation*>(PauseAndMenu::Get()->confirmMenu)->SetDoThis([&]()
+                {
+                    input.SetIsRunning(false);
+                });
+            return PauseAndMenu::Get()->confirmMenu;
             break;
         default:
             break;
@@ -136,6 +159,7 @@ void BaseMenu::AddChildObjectsDynamically()
     HUDLayer->AddObjectDynamically(resumeButton);
     HUDLayer->AddObjectDynamically(optionButton);
     HUDLayer->AddObjectDynamically(exitButton);
+    HUDLayer->AddObjectDynamically(quitButton);
     HUDLayer->AddObjectDynamically(selectionHighlight);
 }
 
@@ -145,6 +169,7 @@ void BaseMenu::CleanChildObjects()
     resumeButton->SetDead(true);
     optionButton->SetDead(true);
     exitButton->SetDead(true);
+    quitButton->SetDead(true);
     selectionHighlight->SetDead(true);
 }
 
@@ -211,8 +236,11 @@ Object* BaseMenu::GetSelectedObject()
     case BaseMenu::MenuEnum::Option:
         return optionButton;
         break;
-    case BaseMenu::MenuEnum::Quit:
+    case BaseMenu::MenuEnum::Exit:
         return exitButton;
+        break;
+    case BaseMenu::MenuEnum::Quit:
+        return quitButton;
         break;
     default:
         break;
@@ -225,6 +253,7 @@ void BaseMenu::UpdateSelectionHighlightTransformation()
     resumeButton->GetTransform().SetParent(&resumeTransform);
     optionButton->GetTransform().SetParent(&optionTransform);
     exitButton->GetTransform().SetParent(&exitTransform);
+    quitButton->GetTransform().SetParent(&quitTransform);
 
     Object* selectedObject = GetSelectedObject();
     selectionHighlight->GetTransform().SetParent(selectedObject->GetTransform().GetParent());

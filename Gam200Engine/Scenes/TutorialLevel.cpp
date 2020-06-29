@@ -68,6 +68,13 @@ void TutorialLevel::Update(float dt)
 
 void TutorialLevel::GameRestart()
 {
+	movingObject_1->SetTranslation(vector2{ 340.f, 850.f });
+	movingObject_2->SetTranslation(vector2{ 340.f, 1140.f });
+	button1->ReinitializeDoors();
+	button2->ReinitializeDoors();
+	button3->ReinitializeDoors();
+	button4->ReinitializeDoors();
+	button5->ReinitializeDoors();
 }
 
 void TutorialLevel::Unload()

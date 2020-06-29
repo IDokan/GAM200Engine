@@ -24,7 +24,7 @@ public:
 	static const Depth_Standard String;
 	static const Depth_Standard Player;
 	static const Depth_Standard MouseAI;
-	static const Depth_Standard GoalPoints;
+	static const Depth_Standard Points;
 	static const Depth_Standard Obstacle;
 	static const Depth_Standard Jail;
 	static const Depth_Standard SavedCheese;
