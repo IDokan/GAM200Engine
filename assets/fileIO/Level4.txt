@@ -1,0 +1,2 @@
+Player1 -400 150 100 100 -1 player1 ../assets/textures/Cheese/cheese_move.png
+Player2 -140 150 100 100 -1 player2 ../assets/textures/Cheese/cheese_move.png

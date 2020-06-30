@@ -24,5 +24,6 @@ class fileIO
 public:
 	void Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string); //, const std::filesystem::path& texturePath
 	void Output(const std::filesystem::path& outFilePath);
-
+	void LoadGame(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string);
+	void SaveGame(const std::filesystem::path& saveFilePath);
 };

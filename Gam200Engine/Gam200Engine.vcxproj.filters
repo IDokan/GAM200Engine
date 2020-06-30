@@ -337,7 +337,6 @@
     <ClCompile Include="Scenes\Level3.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Credit.cpp" />
     <ClCompile Include="Scenes\HowtoPlay.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -346,6 +345,12 @@
     </ClCompile>
     <ClCompile Include="Component\UI\StatusUIHandler.cpp">
       <Filter>Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Credit.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Level4.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -724,7 +729,6 @@
     <ClInclude Include="Scenes\Level3.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="Scenes\HowtoPlay.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -733,6 +737,12 @@
     </ClInclude>
     <ClInclude Include="Component\UI\StatusUIHandler.hpp">
       <Filter>Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Credit.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Level4.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
