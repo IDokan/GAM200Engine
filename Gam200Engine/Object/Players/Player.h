@@ -31,6 +31,11 @@ public:
         vector2 positionAdj = { 0.f, 0.f }, vector2 scaleAdj = { 0.f, 0.f });
 
 	[[nodiscard]] Identifier GetID() const noexcept;
+    void SetIsBlock(bool flag);
+    bool GetIsBlock();
+
+    void SetCurrentAnimationState(int state);
+    int GetLastAnimationState();
 
 private:
 	void LoadPlayer1Layout();
@@ -38,4 +43,6 @@ private:
 	
 private:
 	Identifier id;
+    bool isBlock;
+    int lastAnimationState;
 };

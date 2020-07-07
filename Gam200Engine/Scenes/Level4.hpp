@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name:  Level4.hpp
 Author
     - Jiwon.Jung       jjwon6218@gmail.com
-    - Jaemin Woo
+    - Jaemin Woo    wjm9932@gmail.com
 
 Creation Date: 06.30.2020
 
@@ -16,6 +16,7 @@ Creation Date: 06.30.2020
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
 #include <Object/DepthStandard.hpp>
+#include <Object/DoorSystem.hpp>
 
 class Object;
 class String;
@@ -38,5 +39,14 @@ protected:
     void InitObject();
 
 private:
+    DoorSystem* button1;
+    DoorSystem* button2;
+    DoorSystem* button3;
+    DoorSystem* button4;
+    Object* cheese;
+    Object* jail1;
+    Object* jail2;
+    Object* jail3;
+    Object* jail4;
     Object* background;
 };

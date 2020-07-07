@@ -169,21 +169,46 @@ void UpdateAnimation::Execute(Player* obj, float /*dt*/)
     static constexpr int RIGHT = 0;
     static constexpr int LEFT = 1;
     static constexpr int UP = 2;
-    if (playerDistance.x > 0)
+    static constexpr int STRUGGLE_RIGHT = 4;
+    static constexpr int STRUGGLE_LEFT = 5;
+
+    if (obj->GetIsBlock() == true)
     {
+        if (obj->GetLastAnimationState() == RIGHT)
+        {
+            obj->GetComponentByTemplate<Animation>()->SetState(STRUGGLE_RIGHT);
+        }
+        else
+        {
+            obj->GetComponentByTemplate<Animation>()->SetState(STRUGGLE_LEFT);
+        }
+    }
+    else if (playerDistance.x > 0)
+    {
+        obj->SetCurrentAnimationState(RIGHT);
         obj->GetComponentByTemplate<Animation>()->SetState(RIGHT);
     }
     else if (playerDistance.x < 0)
     {
+        obj->SetCurrentAnimationState(LEFT);
         obj->GetComponentByTemplate<Animation>()->SetState(LEFT);
     }
     else
     {
+        if (obj->GetLastAnimationState() == RIGHT)
+        {
+            obj->GetComponentByTemplate<Animation>()->SetState(RIGHT);
+        }
+        else
+        {
+            obj->GetComponentByTemplate<Animation>()->SetState(LEFT);
+        }
         // Do nothing
     }
-
+   
     Resizing(obj);
     PlayResizingSound();
+    
 }
 
 void UpdateAnimation::Exit(Player* /*obj*/)

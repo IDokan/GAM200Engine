@@ -170,7 +170,7 @@ private:
     bool isCollide;
     bool shouldResolveResolution;
     bool dirtyFlag = true;
-    bool isPlaySound = false;
+    bool movingObjectFlag = true;
     ObjectSide objSide;
     ObjectSide lastCollidingSide;
 
