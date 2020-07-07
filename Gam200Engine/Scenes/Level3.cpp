@@ -81,6 +81,8 @@ void Level3::GameRestart()
 
 void Level3::Unload()
 {
+    fileIO* fileio = new fileIO;
+    fileio->SaveLevel();
 }
 
 void Level3::Collision()

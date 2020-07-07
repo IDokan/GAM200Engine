@@ -179,7 +179,6 @@
     <ClInclude Include="Object\Points\CheckPoint.hpp" />
     <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp" />
     <ClInclude Include="Component\Button.hpp" />
-    <ClInclude Include="Component\Checkpoint.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\MessageCapable.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
@@ -313,7 +312,6 @@
     <ClCompile Include="Object\Points\CheckPoint.cpp" />
     <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp" />
     <ClCompile Include="Component\Button.cpp" />
-    <ClCompile Include="Component\Checkpoint.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\MessageCapable.cpp" />
     <ClCompile Include="Component\Physics.cpp" />

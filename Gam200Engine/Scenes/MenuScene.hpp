@@ -24,7 +24,8 @@ public:
 
 	enum ButtonRow
 	{
-		PLAY,
+		NEWGAME,
+		LOADGAME,
 		HOWTOPLAY,
 		SETTINGS,
 		CREDIT,
@@ -53,6 +54,7 @@ private:
 
 	Object* gameTitle{};
 
+	Object* loadGameButton{};
 	Object* nextLevelButton{};
 	Object* howToPlayButton{};
 	Object* settingButton{};

@@ -45,7 +45,7 @@ void TutorialLevel::Load()
 	TutorialLevel::InitObject();
 	
 	cameraManager.Init(player1, player2);
-	sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
+	sceneStateManager->SetNameOfSelectedLevel("MenuScene");
 
 }
 
@@ -79,8 +79,8 @@ void TutorialLevel::GameRestart()
 
 void TutorialLevel::Unload()
 {
-	//fileIO* a = 0;
-	//a->Output("../assets/fileIO/savedTutorial.txt");
+	fileIO* fileio = new fileIO;
+	fileio->SaveLevel();
 
 	soundManager.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
 }

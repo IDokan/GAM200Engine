@@ -328,9 +328,6 @@
     <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Checkpoint.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\Level3.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -723,9 +720,6 @@
     </ClInclude>
     <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Checkpoint.hpp">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Level3.hpp">
       <Filter>Scenes</Filter>
