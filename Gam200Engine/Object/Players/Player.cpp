@@ -22,7 +22,7 @@ Creation Date: 23th/Jan/2020
 #include <States/PlayerStates/PlayerReachesGoal.hpp>
 
 Player::Player(Identifier player, const Transform& playerTransformData)
-	:Object(), id(player)
+    :Object(), id(player), isBlock(false), lastAnimationState(0)
 {
 	// Initialize transform data
 	Object::SetTranslation(playerTransformData.GetTranslation());
@@ -38,7 +38,7 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	Animation* playerAnimation = new Animation(this);
 	Object::AddComponent(playerAnimation);
 	playerAnimation->SetFrame(8);
-	playerAnimation->SetNumOfState(3);
+	playerAnimation->SetNumOfState(6);
 	playerAnimation->SetImage("../assets/textures/Cheese/cheese_move.png");
 	playerAnimation->SetSpeed(5.f);
 	
@@ -83,6 +83,26 @@ Player::Player(std::string _playerName, const vector2 playerPos, const vector2 p
 Player::Identifier Player::GetID() const noexcept
 {
 	return id;
+}
+
+void Player::SetIsBlock(bool flag)
+{
+    isBlock = flag;
+}
+
+bool Player::GetIsBlock()
+{
+    return isBlock;
+}
+
+void Player::SetCurrentAnimationState(int state)
+{
+    lastAnimationState = state;
+}
+
+int Player::GetLastAnimationState()
+{
+    return lastAnimationState;
 }
 
 void Player::LoadPlayer1Layout()
@@ -151,7 +171,6 @@ void Player::LoadPlayer1Layout()
 					GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{ UpdateAnimation::collisionBoxOffset });
 				}
 				break;
-
 			default:
 				return false;
 			}

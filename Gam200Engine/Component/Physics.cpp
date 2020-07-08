@@ -18,6 +18,7 @@ Creation Date: 08.15.2019
 #include <iostream>
 #include <Scenes/SceneManager.hpp>
 #include <States/PlayerStates/UpdateAnimation.hpp>
+#include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 SoundManager sm;
 Physics::Physics(Object* obj) : Component(obj)
@@ -669,7 +670,18 @@ void Physics::IsCollideWithMovedObject()
                             }
                             else
                             {
-                                std::cout << "wrong side1\n";
+                                if (movingObjectFlag == true)
+                                {
+         
+                                    if (Player* player = dynamic_cast<Player*>(owner);
+                                        player != nullptr)
+                                    {
+                                        player->SetIsBlock(true);
+                                    }
+                                    
+                                    movingObjectFlag = false;
+                                }
+
                             }
 
                             break;
@@ -690,7 +702,15 @@ void Physics::IsCollideWithMovedObject()
                             }
                             else
                             {
-                                std::cout << "wrong side2\n";
+                                if (movingObjectFlag == true)
+                                {
+                                    if (Player* player = dynamic_cast<Player*>(owner);
+                                        player != nullptr)
+                                    {
+                                        player->SetIsBlock(true);
+                                    }
+                                    movingObjectFlag = false;
+                                }
                             }
                             break;
                         }
@@ -710,7 +730,15 @@ void Physics::IsCollideWithMovedObject()
                             }
                             else
                             {
-                                std::cout << "wrong side3\n";
+                                if (movingObjectFlag == true)
+                                {
+                                    if (Player* player = dynamic_cast<Player*>(owner);
+                                        player != nullptr)
+                                    {
+                                        player->SetIsBlock(true);
+                                    }
+                                    movingObjectFlag = false;
+                                }
                             }
                             break;
                         }
@@ -731,8 +759,16 @@ void Physics::IsCollideWithMovedObject()
                             }
                             else
                             {
-                                std::cout << "wrong side4\n";
-                            }                          
+                                if (movingObjectFlag == true)
+                                {
+                                    if (Player* player = dynamic_cast<Player*>(owner);
+                                        player != nullptr)
+                                    {
+                                        player->SetIsBlock(true);
+                                    }
+                                    movingObjectFlag = false;
+                                }
+                            }
                             break;
                         }
                         default:
@@ -741,11 +777,28 @@ void Physics::IsCollideWithMovedObject()
                     }
                     else
                     {
-                        std::cout << "not enough size\n";
+                    if (movingObjectFlag == true)
+                    {
+                        if (Player* player = dynamic_cast<Player*>(owner);
+                            player != nullptr)
+                        {
+                            player->SetIsBlock(true);
+                        }
+                        movingObjectFlag = false;
+                    }
                     }
                 }
                 else
                 {
+                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && movingObjectFlag == false)
+                    {
+                        if (Player* player = dynamic_cast<Player*>(owner);
+                            player != nullptr)
+                        {
+                            player->SetIsBlock(false);
+                        }
+                        movingObjectFlag = true;
+                    }
                     if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::UP_SIDE)
                     {
                         dirtyFlag = true;
@@ -761,7 +814,7 @@ void Physics::IsCollideWithMovedObject()
                         dirtyFlag = true;
                         sm.Stop_Sound(PUSHABLE_BOX_SOUND);
                     }
-                    else if(owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::LEFT_SIDE)
+                    else if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::LEFT_SIDE)
                     {
                         dirtyFlag = true;
                         sm.Stop_Sound(PUSHABLE_BOX_SOUND);

@@ -330,3 +330,26 @@ void fileIO::SaveLevel(void)
 		saveLoad << "Level4";
 	}
 }
+
+void LoadGame(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
+{
+	std::ifstream inStream;
+	inStream.open(filePath);
+
+	if (inStream.is_open() == false)
+	{
+		std::cout << "fail";
+	}
+
+	while (!inStream.eof()) //Loop continue until .txt file end
+	{
+		int levelNum;
+
+		inStream >> levelNum;
+	}
+}
+
+void SaveGame(const std::filesystem::path& saveFilePath)
+{
+
+}

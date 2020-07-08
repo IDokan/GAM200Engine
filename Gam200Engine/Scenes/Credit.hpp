@@ -40,5 +40,6 @@ private:
 
 	Object* list1{};
 	Object* list2{};
+	Object* list3{};
 	Object* digipenLogo{};
 };

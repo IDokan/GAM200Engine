@@ -49,9 +49,9 @@ void Level3::Load()
 
     Level3::InitObject();
     cameraManager.Init(player1, player2);
-    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
 
     delete fileio;
+    sceneStateManager->SetNameOfSelectedLevel("Level4");
 }
 
 void Level3::Update(float dt)
@@ -110,7 +110,7 @@ void Level3::InitObject()
     background = new Object();
     background->SetObjectName("background1");
     background->SetTranslation(vector2{ 1140.f,1000.f });
-    background->SetScale(vector2{ 7000.f ,4000.f });
+    background->SetScale(vector2{ 10000.f });
     background->AddComponent(new Sprite(background));
     background->GetComponentByTemplate<Sprite>()->ExpandTextureCoordinate(50.f);
     background->AddComponent(new Physics(background));

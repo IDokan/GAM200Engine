@@ -30,6 +30,7 @@ Creation Date: 08.05.2019
 #include <Scenes/Level3.hpp>
 #include <Scenes/Credit.hpp>
 #include <Scenes/HowtoPlay.hpp>
+#include <Scenes/Level4.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
 
@@ -69,6 +70,7 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
     SceneManager::GetSceneManager()->AddScenes("Intro", dynamic_cast<Scene*>(new Intro()));
+    SceneManager::GetSceneManager()->AddScenes("Level4", dynamic_cast<Scene*>(new Level4()));
     SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
     SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
