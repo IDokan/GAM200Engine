@@ -79,10 +79,6 @@ void TutorialLevel2::GameRestart()
 
 void TutorialLevel2::Unload()
 {
-    fileIO* fileio = new fileIO;
-    fileio->SaveLevel();
-
-    delete fileio;
 }
 
 void TutorialLevel2::Collision()

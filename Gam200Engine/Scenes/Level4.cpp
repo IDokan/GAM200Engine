@@ -49,7 +49,7 @@ void Level4::Load()
     fileio->Input("../assets/fileIO/Level4.txt", &player1, &player2, &string);
     Level4::InitObject();
     cameraManager.Init(player1, player2);
-    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel1");
+    sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
 
     //BGM
     soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);

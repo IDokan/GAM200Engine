@@ -38,6 +38,7 @@ Creation Date: 12.10.2019
 #include <States/SceneStates/PauseAndMenu.hpp>
 
 #include <Systems/Input.hpp>
+#include <Systems/FileIO.hpp>
 
 
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -194,6 +195,11 @@ void Scene::LoadScene() noexcept
 void Scene::UnloadScene() noexcept
 {
 	is_next = false;
+
+	fileIO* fileio = new fileIO;
+	fileio->SaveLevel();
+
+	delete fileio;
 
 	CleanRequiredObjects();
 	Unload();
