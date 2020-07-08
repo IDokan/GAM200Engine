@@ -286,7 +286,7 @@ void fileIO::LoadGame(void)
 	{
 		std::string latestLevel;
 
-		inStream >> latestLevel;		   // Object Name
+		inStream >> latestLevel;// Object Name
 
 		if (latestLevel == "Level1")
 		{
@@ -300,7 +300,11 @@ void fileIO::LoadGame(void)
 		{
 			SceneManager::GetSceneManager()->SetNextScene("Level3");
 		}
-		else if(latestLevel == "Level4")
+		else if (latestLevel == "Level4")
+		{
+			SceneManager::GetSceneManager()->SetNextScene("Level4");
+		}
+		else if (latestLevel == "Level5")
 		{
 			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel");
 		}
@@ -320,36 +324,16 @@ void fileIO::SaveLevel(void)
 	{
 		saveLoad << "Level2";
 	}
-	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel")
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level4")
 	{
 		saveLoad << "Level3";
 	}
-	//else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetChangedLevelName() == "MenuScene")
-	else if(SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "MenuScene")
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel")
 	{
 		saveLoad << "Level4";
 	}
-}
-
-void LoadGame(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
-{
-	std::ifstream inStream;
-	inStream.open(filePath);
-
-	if (inStream.is_open() == false)
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "MenuScene")
 	{
-		std::cout << "fail";
+		saveLoad << "Level5";
 	}
-
-	while (!inStream.eof()) //Loop continue until .txt file end
-	{
-		int levelNum;
-
-		inStream >> levelNum;
-	}
-}
-
-void SaveGame(const std::filesystem::path& saveFilePath)
-{
-
 }

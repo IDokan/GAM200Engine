@@ -38,6 +38,7 @@ Creation Date: 12.10.2019
 #include <States/SceneStates/PauseAndMenu.hpp>
 
 #include <Systems/Input.hpp>
+#include <Systems/FileIO.hpp>
 
 
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -200,8 +201,13 @@ void Scene::UnloadScene() noexcept
 {
     is_next = false;
 
-    CleanRequiredObjects();
-    Unload();
+	fileIO* fileio = new fileIO;
+	fileio->SaveLevel();
+
+	delete fileio;
+
+	CleanRequiredObjects();
+	Unload();
 
     ObjectManager* objManager = ObjectManager::GetObjectManager();
     for (const auto& layers : objManager->GetLayerContainer())

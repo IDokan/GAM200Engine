@@ -82,11 +82,6 @@ void TutorialLevel::GameRestart()
 
 void TutorialLevel::Unload()
 {
-	fileIO* fileio = new fileIO;
-	fileio->SaveLevel();
-
-	delete fileio;
-
 	soundManager.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
 }
 
