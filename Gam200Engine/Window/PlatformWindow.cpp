@@ -111,7 +111,9 @@ bool PlatformWindow::CreateWindow() noexcept
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	window = glfwCreateWindow(xSize, ySize, "engine", nullptr, nullptr);
+	GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(pMonitor);
+	window = glfwCreateWindow(mode->width, mode->height, "engine", pMonitor, nullptr);
 	glfwSetWindowPos(window, xPos, yPos);
 
 	if (!window)
@@ -124,6 +126,8 @@ bool PlatformWindow::CreateWindow() noexcept
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetScrollCallback(window, MouseWheelScroll);
 	glfwSetWindowSizeCallback(window, WindowSizeCallback);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetWindowTitle(window, "Cheese Roll");
 	glfwSwapInterval(true);
 
 	MyImGui::InitImGui(window);

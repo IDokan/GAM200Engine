@@ -175,11 +175,11 @@
     <ClInclude Include="Component\UI\StatusUIHandler.hpp" />
     <ClInclude Include="Object\HUD\StatusUI.hpp" />
     <ClInclude Include="Object\Menu\DestructiveConfirmation.hpp" />
+    <ClInclude Include="Object\Menu\MainMenu.hpp" />
     <ClInclude Include="Object\Menu\OptionMenu.hpp" />
     <ClInclude Include="Object\Points\CheckPoint.hpp" />
     <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp" />
     <ClInclude Include="Component\Button.hpp" />
-    <ClInclude Include="Component\Checkpoint.hpp" />
     <ClInclude Include="Component\Component.hpp" />
     <ClInclude Include="Component\MessageCapable.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
@@ -261,6 +261,7 @@
     <ClInclude Include="Scenes\BasicMovementLevel.hpp" />
     <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="Scenes\HowtoPlay.hpp" />
+    <ClInclude Include="Scenes\Intro.hpp" />
     <ClInclude Include="Scenes\Level3.hpp" />
     <ClInclude Include="Scenes\MenuScene.hpp" />
     <ClInclude Include="Scenes\Option.hpp" />
@@ -284,7 +285,6 @@
     <ClInclude Include="States\State.hpp" />
     <ClInclude Include="States\StringStates\StringIdle.hpp" />
     <ClInclude Include="States\StringStates\StringStretched.hpp" />
-    <ClInclude Include="States\Walking.hpp" />
     <ClInclude Include="Systems\Command\Command.hpp" />
     <ClInclude Include="Systems\Command\MoveUp.hpp" />
     <ClInclude Include="Systems\FileIO.hpp" />
@@ -309,11 +309,11 @@
     <ClCompile Include="Component\UI\StatusUIHandler.cpp" />
     <ClCompile Include="Object\HUD\StatusUI.cpp" />
     <ClCompile Include="Object\Menu\DestructiveConfirmation.cpp" />
+    <ClCompile Include="Object\Menu\MainMenu.cpp" />
     <ClCompile Include="Object\Menu\OptionMenu.cpp" />
     <ClCompile Include="Object\Points\CheckPoint.cpp" />
     <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp" />
     <ClCompile Include="Component\Button.cpp" />
-    <ClCompile Include="Component\Checkpoint.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\MessageCapable.cpp" />
     <ClCompile Include="Component\Physics.cpp" />
@@ -394,6 +394,7 @@
     <ClCompile Include="Scenes\BasicMovementLevel.cpp" />
     <ClCompile Include="Scenes\Credit.cpp" />
     <ClCompile Include="Scenes\HowtoPlay.cpp" />
+    <ClCompile Include="Scenes\Intro.cpp" />
     <ClCompile Include="Scenes\Level3.cpp" />
     <ClCompile Include="Scenes\MenuScene.cpp" />
     <ClCompile Include="Scenes\Option.cpp" />
@@ -416,7 +417,6 @@
     <ClCompile Include="States\SceneStates\SceneComplete.cpp" />
     <ClCompile Include="States\StringStates\StringIdle.cpp" />
     <ClCompile Include="States\StringStates\StringStretched.cpp" />
-    <ClCompile Include="States\Walking.cpp" />
     <ClCompile Include="Systems\FileIO.cpp" />
     <ClCompile Include="Systems\Input.cpp" />
     <ClCompile Include="Systems\KeyHelpers.cpp" />

@@ -38,6 +38,7 @@ Creation Date: 05.11.2020
 #include <Object/Menu/BaseMenu.hpp>
 #include <Object/Menu/DestructiveConfirmation.hpp>
 #include <Object/Menu/OptionMenu.hpp>
+#include <Object/Menu/MainMenu.hpp>
 
 #include <Component/StateMachine.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
@@ -130,19 +131,20 @@ void PauseAndMenu::Exit(SceneStateManager* /*manager*/)
 }
 
 PauseAndMenu::PauseAndMenu()
-	: defaultItem(nullptr), baseMenu(nullptr), confirmMenu(nullptr), optionMenu(nullptr)
+	: defaultItem(nullptr), baseMenu(nullptr), confirmMenu(nullptr), optionMenu(nullptr), mainMenu(nullptr)
 {
 }
 
 void PauseAndMenu::PrepareAssets() noexcept
 {
+	Layer* HUDLayer = ObjectManager::GetObjectManager()->FindLayer(HUD);
+
 	if (baseMenu == nullptr)
 	{
 		baseMenu = new BaseMenu();
 		baseMenu->SetObjectName("Base Menu");
 		baseMenu->SetScale(0.f);
 		baseMenu->SetDepth(0.f);
-		Layer* HUDLayer = ObjectManager::GetObjectManager()->FindLayer(HUD);
 		HUDLayer->AddObjectDynamically(baseMenu);
 		baseMenu->AddChildObjectsDynamically();
 	}
@@ -153,7 +155,6 @@ void PauseAndMenu::PrepareAssets() noexcept
 		confirmMenu->SetObjectName("ConfirmMenu");
 		confirmMenu->SetScale(0.f);
 		confirmMenu->SetDepth(0.f);
-		Layer* HUDLayer = ObjectManager::GetObjectManager()->FindLayer(HUD);
 		HUDLayer->AddObjectDynamically(confirmMenu);
 		confirmMenu->AddChildObjectsDynamically();
 	}
@@ -164,9 +165,19 @@ void PauseAndMenu::PrepareAssets() noexcept
 		optionMenu->SetObjectName("OptionMenu");
 		optionMenu->SetScale(0.f);
 		optionMenu->SetDepth(0.f);
-		Layer* HUDLayer = ObjectManager::GetObjectManager()->FindLayer(HUD);
 		HUDLayer->AddObjectDynamically(optionMenu);
 		optionMenu->AddChildObjectsDynamically();
+	}
+
+	if (mainMenu == nullptr)
+	{
+		mainMenu = new MainMenu();
+		mainMenu->SetObjectName("MainMenu Holder");
+		mainMenu->SetTranslation(vector2{0.7f, 0.f});
+		mainMenu->SetScale(0.f);
+		mainMenu->SetDepth(0.f);
+		HUDLayer->AddObjectDynamically(mainMenu);
+		mainMenu->AddChildObjectsDynamically();
 	}
 }
 
@@ -193,6 +204,12 @@ void PauseAndMenu::CleanAssets() noexcept
 		optionMenu = nullptr;
 	}
 
+	if (mainMenu != nullptr)
+	{
+		mainMenu->CleanChildObjects();
+		mainMenu->SetDead(true);
+		mainMenu = nullptr;
+	}
 
 	defaultItem = nullptr;
 }

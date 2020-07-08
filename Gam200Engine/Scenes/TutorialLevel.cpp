@@ -28,6 +28,7 @@ Creation Date: 02.11.2020
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
 #include<Component/MessageCapable.hpp>
 #include <Component/Scripts/Hostage.hpp>
+#include <Object/Points/CheckPoint.hpp>
 
 TutorialLevel::TutorialLevel() : background(nullptr), movingObject_1(nullptr), movingObject_2(nullptr)
 {
@@ -204,8 +205,14 @@ void TutorialLevel::InitObject() {
     goalTransform.SetScale(vector2{ 400.f });
     GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
+	Transform checkTransform;
+	checkTransform.SetTranslation(vector2{190.f, 1150.f});
+	checkTransform.SetScale(vector2{ 100.f });
+	CheckPoint* checkPoint = new CheckPoint(checkTransform, player1, player2);
+
     auto objManager = ObjectManager::GetObjectManager();
 
+	objManager->FindLayer(Stage)->AddObject(checkPoint);
 	objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);

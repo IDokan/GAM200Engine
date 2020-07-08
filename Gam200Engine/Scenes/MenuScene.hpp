@@ -53,17 +53,5 @@ private:
 
 	Object* gameTitle{};
 
-	Object* nextLevelButton{};
-	Object* howToPlayButton{};
-	Object* settingButton{};
-	Object* creditButton{};
-	Object* quitButton{};
-
-	Object* selectionArrow{};
-	int selection;
 	float totalDT;
-
-
-	bool isSelected = false;
-	bool isMenuPop = false;
 };

@@ -35,9 +35,12 @@ public:
 	void CleanAssets() noexcept;
 
 	MenuObject* defaultItem;
+
+
 	MenuObject* baseMenu;
 	MenuObject* confirmMenu;
 	MenuObject* optionMenu;
+	MenuObject* mainMenu;
 private:
 	PauseAndMenu();
 

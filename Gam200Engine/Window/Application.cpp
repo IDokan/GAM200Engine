@@ -20,6 +20,7 @@ Creation Date: 08.05.2019
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 
 // Include States
+#include <Scenes/Intro.hpp>
 #include <Scenes/TutorialLevel.hpp>
 #include <Scenes/TutorialLevel1.hpp>
 #include <Scenes/TutorialLevel2.hpp>
@@ -31,6 +32,21 @@ Creation Date: 08.05.2019
 #include <Scenes/HowtoPlay.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
+
+// SingleTons
+#include <States/AIStates/MouseIdle.hpp>
+#include <States/AIStates/Patrol.hpp>
+#include <States/PlayerStates/Idle.hpp>
+#include <States/PlayerStates/Move.hpp>
+#include <States/PlayerStates/Pause.hpp>
+#include <States/PlayerStates/PlayerReachesGoal.hpp>
+#include <States/PlayerStates/UpdateAnimation.hpp>
+#include <States/SceneStates/GamsIsRunning.hpp>
+#include <States/SceneStates/PauseAndMenu.hpp>
+#include <States/SceneStates/PlayerIsDead.hpp>
+#include <States/SceneStates/SceneComplete.hpp>
+#include <States/StringStates/StringIdle.hpp>
+#include <States/StringStates/StringStretched.hpp>
 
 
 Application* Application::GetApplication()
@@ -52,6 +68,7 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+    SceneManager::GetSceneManager()->AddScenes("Intro", dynamic_cast<Scene*>(new Intro()));
     SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
     SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
 	SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
@@ -116,6 +133,23 @@ void Application::Input()
     }
 }
 
+void Application::ClearSingleTons()
+{
+    delete MouseIdle::Get();
+    delete Patrol::Get();
+    delete Idle::Get();
+    delete Move::Get();
+    delete Pause::Get();
+    delete PlayerReachesGoal::Get();
+    delete UpdateAnimation::Get();
+    delete GameIsRunning::Get();
+    delete PauseAndMenu::Get();
+    delete PlayerIsDead::Get();
+    delete SceneComplete::Get();
+    delete StringIdle::Get();
+    delete StringStretched::Get();
+}
+
 
 void Application::Clear()
 {
@@ -125,7 +159,8 @@ void Application::Clear()
 
 	// ImGui Clear
 	MyImGui::ClearImGui();
-
 	window.ClearWindow();
+
+    ClearSingleTons();
 }
 

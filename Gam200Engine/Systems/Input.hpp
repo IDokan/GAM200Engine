@@ -30,6 +30,8 @@ public:
 	bool IsKeyPressed(int key);
 	bool IsKeyReleased(int key);
 
+	bool IsAnyKeyTriggered();
+
 	[[nodiscard]] vector2 GetPresentMousePosition() const noexcept;
 	void SetPresentMousePosition(const vector2& mousePos) noexcept;
 	[[nodiscard]] vector2 GetMouseAbsolutePosition() const  noexcept;

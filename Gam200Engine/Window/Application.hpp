@@ -24,6 +24,7 @@ public:
      vector2 GetWindowSize;
 
 private:
+    void ClearSingleTons();
     Application() = default;
     float fpsEllapsedTime = 0.f;
     int fpsFrames = 0;

@@ -184,9 +184,6 @@
     <ClCompile Include="Scenes\SceneManager.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="States\Walking.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="Systems\MessageSystem\MessageDispatcher.cpp">
       <Filter>Systems\MessageSystem</Filter>
     </ClCompile>
@@ -328,9 +325,6 @@
     <ClCompile Include="Scenes\AlphaTutorialLevel1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Checkpoint.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\Level3.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -355,6 +349,12 @@
     </ClCompile>
     <ClCompile Include="Component\Scripts\CheckPointComponent.cpp">
       <Filter>Component\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Intro.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Menu\MainMenu.cpp">
+      <Filter>Object\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -568,9 +568,6 @@
     <ClInclude Include="States\State.hpp">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="States\Walking.hpp">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="Systems\MessageSystem\Message.hpp">
       <Filter>Systems\MessageSystem</Filter>
     </ClInclude>
@@ -724,9 +721,6 @@
     <ClInclude Include="Scenes\AlphaTutorialLevel1.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Checkpoint.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\Level3.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -751,6 +745,12 @@
     </ClInclude>
     <ClInclude Include="Component\Scripts\CheckPointComponent.hpp">
       <Filter>Component\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Intro.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\MainMenu.hpp">
+      <Filter>Object\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

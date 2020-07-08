@@ -162,17 +162,6 @@ void Graphics::CameraManager::CameraMove(float dt, const Object* player1, const 
 	}
 }
 
-void Graphics::CameraManager::EditorCameraMoveUp(float distance) noexcept
-{
-	selectedCamera->camera.MoveUp(distance);
-}
-
-void Graphics::CameraManager::EditorCameraMoveLeft(float distance) noexcept
-{
-	float flip = 0.f - distance;
-	selectedCamera->camera.MoveRight(flip);
-}
-
 vector2 Graphics::CameraManager::GetDEBUGCameraRectSize() const noexcept
 {
 	return cameraDetectRectSize;
@@ -243,17 +232,6 @@ void Graphics::CameraManager::DEBUGCameraMove(const float& /*zoomSize*/) noexcep
 			selectedCamera->cameraView.GetZoom() / zoomSize
 			);
 	}
-
-	// Disable camera rotation
-	//// Rotating Camera
-	//if (input.IsKeyPressed(GLFW_KEY_E))
-	//{
-	//	selectedCamera->camera.Rotate(0.05f);
-	//}
-	//if (input.IsKeyPressed(GLFW_KEY_Q))
-	//{
-	//	selectedCamera->camera.Rotate(-0.05f);
-	//}
 #endif
 }
 

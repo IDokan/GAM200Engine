@@ -195,7 +195,7 @@ void AlphaTutorialLevel1::InitObject()
     mouse1->SetSpeed(1.5f);
 
 	Transform checkTransform;
-	checkTransform.SetTranslation(vector2{ 850.f,0.f });
+	checkTransform.SetTranslation(vector2{ 560.f, 240.f });
 	checkTransform.SetScale(vector2{ 100.f });
 	CheckPoint* checkPoint = new CheckPoint(checkTransform, player1, player2);
 

@@ -119,6 +119,11 @@ bool Input::IsKeyReleased(int key)
     return keyReleased[key];
 }
 
+bool Input::IsAnyKeyTriggered()
+{
+    return keyTriggered.any();
+}
+
 vector2 Input::GetPresentMousePosition() const noexcept
 {
 	return presentMousePosition;

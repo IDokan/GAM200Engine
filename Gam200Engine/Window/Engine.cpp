@@ -22,12 +22,6 @@ Application* app_ = nullptr;
 //SoundManager BGM;
 void Engine::Init()
 {
-    ////-----------TEST SOUNDS-------------------------
-    //test.Load_Sound();
-    //test.Play_Sound(SOUNDS::JAMJAMTEST_SOUND);
-    //test.SetVolume(JAMJAMTEST_SOUND, 1);
-    //------------------------------------------------
-
     app_ = Application::GetApplication();
     app_->Init();
 	Timer* timer = Timer::GetTimer();
