@@ -19,7 +19,6 @@ Creation Date: 05.29.2020
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Component/StateMachine.hpp>
-#include <States/Walking.hpp>
 #include "Component/Button.hpp"
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>

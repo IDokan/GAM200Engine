@@ -19,6 +19,7 @@ Creation Date: 05.11.2020
 #include <Object/ObjectManager.hpp>
 #include <Systems/Input.hpp>
 #include <Scenes/SceneManager.hpp>
+#include <Systems/FileIO.hpp>
 
 #include <Object/Menu/DestructiveConfirmation.hpp>
 
@@ -49,7 +50,7 @@ MainMenu::MainMenu()
     newButton->GetTransform().SetParent(&GetTransform());
     Sprite* newButtonSprite = new Sprite(newButton);
     newButton->AddComponent(newButtonSprite);
-    newButtonSprite->SetImage("../assets/textures/UI/New.png");
+    newButtonSprite->SetImage("../assets/textures/UI/NewGame.png");
     newButton->SetObjectName("NewButton");
     newButton->SetDepth(Depth_Standard::HUDImage);
     newButton->SetObjectType(ObjectType::Menu);
@@ -58,7 +59,7 @@ MainMenu::MainMenu()
     loadButton->GetTransform().SetParent(&GetTransform());
     Sprite* loadButtonSprite = new Sprite(loadButton);
     loadButton->AddComponent(loadButtonSprite);
-    loadButtonSprite->SetImage("../assets/textures/UI/Load.png");
+    loadButtonSprite->SetImage("../assets/textures/UI/LoadGame.png");
     loadButton->SetObjectName("LoadButton");
     loadButton->SetDepth(Depth_Standard::HUDImage);
     loadButton->SetObjectType(ObjectType::Menu);
@@ -128,13 +129,16 @@ MenuObject* MainMenu::MenuUpdate(float dt)
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
         smInMainMenu.Play_Sound(BUTTON_TRIGGERED_SOUND);
+        fileIO* loadGame = nullptr;
         switch (currentSelection)
         {
         case MainMenu::NEWGAME:
-            // Not yet implemented
+            SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
             break;
         case MainMenu::LOADGAME:
-            // Not yet implemented
+            loadGame = new fileIO;
+            loadGame->LoadGame();
+            delete loadGame;
             break;
         case MainMenu::HOWTOPLAY:
             SceneManager::GetSceneManager()->SetNextScene("HowToPlay");
@@ -284,7 +288,7 @@ void MainMenu::UpdateSelectionHighlightTransparency(float dt)
             isTransparency = !isTransparency;
         }
     }
-    // and increase when the flag is off 
+    // and increase when the flag is off
     else
     {
         vector2 highlightSize = selectionHighlight->GetScale();

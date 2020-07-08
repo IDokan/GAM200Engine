@@ -23,7 +23,6 @@ Creation Date: 12.10.2019
 #include <Systems/FileIO.hpp>
 #include <Sounds/SoundManager.hpp>
 #include <Component/StateMachine.hpp>
-#include <States/Walking.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Particles/ParticleEmitter.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
@@ -184,16 +183,4 @@ void BasicMovementLevel::InitObject() {
 	emitter->SetObjectName("Particle Emitter");
 	emitter->GetComponentByTemplate<Particle>()->SetImage("../assets/textures/circle.png");
 
-}
-
-void AddStateTestObject()
-{
-	Object* obj = new Object();
-	obj->SetObjectName("FSM test object");
-	obj->SetDepth(-20.f);
-	obj->AddComponent(new Sprite(obj));
-	obj->AddComponent(new StateMachine<Object>(obj));
-	obj->GetComponentByTemplate<StateMachine<Object>>()->SetGlobalState(new Walking());
-	obj->SetScale(100.f);
-	ObjectManager::GetObjectManager()->FindLayer(Stage)->AddObject(obj);
 }
