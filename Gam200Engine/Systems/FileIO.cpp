@@ -14,6 +14,8 @@ Creation Date: 11.23.2019
 #include <iostream>
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Object/DepthStandard.hpp>
+#include <Scenes/SceneManager.hpp>
+#include <Object/SceneStateManager/SceneStateManager.hpp>
 
 void fileIO::Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string)
 {
@@ -268,4 +270,63 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 	}
 
 	saveLoad.close();
+}
+
+void fileIO::LoadGame(void)
+{
+	std::ifstream inStream;
+	inStream.open("../assets/fileIO/LatestLevel.txt");
+
+	if (inStream.is_open() == false)
+	{
+		std::cout << "There is no save file";
+	}
+
+	while (!inStream.eof()) //Loop continue until .txt file end
+	{
+		std::string latestLevel;
+
+		inStream >> latestLevel;		   // Object Name
+
+		if (latestLevel == "Level1")
+		{
+			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
+		}
+		else if (latestLevel == "Level2")
+		{
+			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel2");
+		}
+		else if (latestLevel == "Level3")
+		{
+			SceneManager::GetSceneManager()->SetNextScene("Level3");
+		}
+		else if(latestLevel == "Level4")
+		{
+			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel");
+		}
+
+	}
+}
+
+void fileIO::SaveLevel(void)
+{
+	std::ofstream saveLoad("../assets/fileIO/LatestLevel.txt");
+
+	if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel2")
+	{
+		saveLoad << "Level1";
+	}
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level3")
+	{
+		saveLoad << "Level2";
+	}
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel")
+	{
+		saveLoad << "Level3";
+	}
+	//else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetChangedLevelName() == "MenuScene")
+	else if(SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "MenuScene")
+	{
+		saveLoad << "Level4";
+	}
 }

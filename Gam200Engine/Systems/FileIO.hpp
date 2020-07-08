@@ -18,11 +18,13 @@ Creation Date: 11.23.2019
 #include <string>
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
+#include <Scenes/Scene.hpp>
 
 class fileIO
 {
 public:
 	void Input(const std::filesystem::path& filePath, Player** player1, Player** player2, String** string); //, const std::filesystem::path& texturePath
 	void Output(const std::filesystem::path& outFilePath);
-
+	void LoadGame(void);
+	void SaveLevel(void);
 };

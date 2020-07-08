@@ -24,7 +24,8 @@ public:
 
 	enum ButtonRow
 	{
-		PLAY,
+		NEWGAME,
+		LOADGAME,
 		HOWTOPLAY,
 		SETTINGS,
 		CREDIT,

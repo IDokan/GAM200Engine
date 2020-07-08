@@ -85,7 +85,8 @@ void AlphaTutorialLevel1::GameRestart()
 
 void AlphaTutorialLevel1::Unload()
 {
-
+	fileIO* fileio = new fileIO;
+	fileio->SaveLevel();
 }
 
 void AlphaTutorialLevel1::Collision()

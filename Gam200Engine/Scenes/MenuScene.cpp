@@ -40,7 +40,6 @@ MenuScene::~MenuScene()
 
 void MenuScene::Load()
 {
-
 	fileIO* fileio = new fileIO;
 	fileio->Input("../assets/fileIO/menuSettings.txt", &player1, &player2, &string);
 	MenuScene::InitObject();
