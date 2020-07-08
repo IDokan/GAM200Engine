@@ -15,7 +15,7 @@ Creation Date: 11.04.2019
 #include <Graphics/StockShaders.hpp>
 
 StringSprite::StringSprite(Object* obj) noexcept
-	: Sprite(obj), stringOwner(dynamic_cast<String*>(obj)), stringHeight(5.f)
+	: Sprite(obj), stringOwner(dynamic_cast<String*>(obj)), stringHeight(20.f)
 {
 }
 
