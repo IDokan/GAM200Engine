@@ -108,8 +108,8 @@ void HowToPlay::InitObject()
 
 	movementExplanation = new Object();
 	movementExplanation->SetObjectName("movementExplanation");
-	movementExplanation->SetTranslation(vector2{ -352.f, 176.f });
-	movementExplanation->SetScale(vector2{ 437.f, 100.f });
+	movementExplanation->SetTranslation(vector2{ 252.f, 276.f });
+	movementExplanation->SetScale(vector2{ 500.f, 125.f });
 	movementExplanation->AddComponent(new Sprite(movementExplanation));
 	movementExplanation->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/howtoplay1.png");
 	movementExplanation->SetObjectType(Object::ObjectType::TEST);
@@ -132,7 +132,7 @@ void HowToPlay::InitObject()
 	sizeExplanation = new Object();
 	sizeExplanation->SetObjectName("sizeExplanation");
 	sizeExplanation->SetTranslation(vector2{ -350.f, -157.f });
-	sizeExplanation->SetScale(vector2{ 510.f, 125.f });
+	sizeExplanation->SetScale(vector2{ 500.f, 125.f });
 	sizeExplanation->AddComponent(new Sprite(sizeExplanation));
 	sizeExplanation->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/howtoplay2.png");
 	sizeExplanation->SetObjectType(Object::ObjectType::TEST);
@@ -162,7 +162,7 @@ void HowToPlay::InitObject()
 	movableBoxExplanation = new Object();
 	movableBoxExplanation->SetObjectName("movableBoxExplanation");
 	movableBoxExplanation->SetTranslation(vector2{ -212.f, -301.f });
-	movableBoxExplanation->SetScale(vector2{ 472.f, 170.f });
+	movableBoxExplanation->SetScale(vector2{ 500.f, 125.f });
 	movableBoxExplanation->AddComponent(new Sprite(movableBoxExplanation));
 	movableBoxExplanation->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/howtoplay3.png");
 	movableBoxExplanation->SetObjectType(Object::ObjectType::TEST);

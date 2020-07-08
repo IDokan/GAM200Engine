@@ -54,6 +54,8 @@ void AlphaTutorialLevel1::Load()
 	//BGM
 	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
 	soundManager.SetVolume(BACKGROUND_SOUND, 0.1f);
+	
+	delete fileio;
 }
 
 void AlphaTutorialLevel1::Update(float dt)
@@ -87,6 +89,8 @@ void AlphaTutorialLevel1::Unload()
 {
 	fileIO* fileio = new fileIO;
 	fileio->SaveLevel();
+
+	delete fileio;
 }
 
 void AlphaTutorialLevel1::Collision()
