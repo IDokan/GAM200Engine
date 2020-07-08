@@ -47,6 +47,8 @@ void TutorialLevel::Load()
 	cameraManager.Init(player1, player2);
 	sceneStateManager->SetNameOfSelectedLevel("MenuScene");
 
+	delete fileio;
+
 }
 
 void TutorialLevel::Update(float dt)
@@ -81,6 +83,8 @@ void TutorialLevel::Unload()
 {
 	fileIO* fileio = new fileIO;
 	fileio->SaveLevel();
+
+	delete fileio;
 
 	soundManager.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
 }

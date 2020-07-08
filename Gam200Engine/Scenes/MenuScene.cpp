@@ -52,6 +52,8 @@ void MenuScene::Load()
 	selection = 0;
 	isSelected = false;
 	isMenuPop = false;
+
+	delete fileio;
 }
 
 void MenuScene::Update(float dt)
@@ -89,8 +91,6 @@ void MenuScene::GameRestart()
 
 void MenuScene::Unload()
 {
-	//fileIO* fileio = new fileIO;
-	//fileio->Output("../assets/fileIO/menuSettings.txt");
 }
 
 void MenuScene::Input()

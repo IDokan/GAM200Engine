@@ -65,7 +65,6 @@ private:
 	int selection;
 	float totalDT;
 
-
 	bool isSelected = false;
 	bool isMenuPop = false;
 };

@@ -50,6 +50,8 @@ void Level3::Load()
     Level3::InitObject();
     cameraManager.Init(player1, player2);
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
+
+    delete fileio;
 }
 
 void Level3::Update(float dt)
@@ -83,6 +85,8 @@ void Level3::Unload()
 {
     fileIO* fileio = new fileIO;
     fileio->SaveLevel();
+
+    delete fileio;
 }
 
 void Level3::Collision()
