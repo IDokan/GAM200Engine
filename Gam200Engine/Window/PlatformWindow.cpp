@@ -129,6 +129,7 @@ bool PlatformWindow::CreateWindow() noexcept
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetWindowTitle(window, "Cheese Roll");
 	glfwSwapInterval(true);
+    glEnable(GL_DEPTH_BUFFER);
 
 	MyImGui::InitImGui(window);
 	glewInit();

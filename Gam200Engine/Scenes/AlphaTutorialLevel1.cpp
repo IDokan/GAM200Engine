@@ -53,8 +53,7 @@ void AlphaTutorialLevel1::Load()
 
 	//BGM
 	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-	soundManager.SetVolume(BACKGROUND_SOUND, 0.1f);
-	
+	soundManager.SetVolume(BACKGROUND_SOUND, 0.2f);
 	delete fileio;
 }
 

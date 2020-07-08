@@ -112,6 +112,7 @@ void Physics::SetGravity(float x, float y)
 void Physics::SetWorldForceZero()
 {
     gravity = vector2{ 0.f,0.f };
+    velocity = vector2{ 0.f,0.f };
 }
 
 void Physics::SetPosition(vector2 pos)
