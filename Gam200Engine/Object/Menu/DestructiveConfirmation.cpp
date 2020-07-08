@@ -18,7 +18,6 @@ Creation Date: 06.19.2020
 #include <Scenes/SceneManager.hpp>
 
 
-SoundManager smInDestructiveConfirmation;
 DestructiveConfirmation::DestructiveConfirmation()
     : MenuObject(), menuBackground(nullptr), sureButton(nullptr), noButton(nullptr), selectionHighlight(nullptr), currentSelection(Sure), isTransparency(true), playerPressEnter(false),
     doThis([](){})
@@ -68,7 +67,6 @@ DestructiveConfirmation::DestructiveConfirmation()
     selectionHighlight->SetObjectType(ObjectType::Menu);
 
     UpdateSelectionHighlightTransformation();
-    smInDestructiveConfirmation = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 DestructiveConfirmation::~DestructiveConfirmation()
@@ -83,7 +81,8 @@ MenuObject* DestructiveConfirmation::MenuUpdate(float dt)
     // When esc key is pressed, return to game
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
-        smInDestructiveConfirmation.Play_Sound(UNDO_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnGameRunning();
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(UNDO_SOUND);
         return nullptr;
     }
 
@@ -96,7 +95,7 @@ MenuObject* DestructiveConfirmation::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
-        smInDestructiveConfirmation.Play_Sound(BUTTON_TRIGGERED_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_TRIGGERED_SOUND);
         switch (currentSelection)
         {
         case DestructiveConfirmation::Sure:
@@ -171,12 +170,12 @@ void DestructiveConfirmation::UpdateSelection() noexcept
 {
     if (input.IsKeyTriggered(GLFW_KEY_DOWN))
     {
-        smInDestructiveConfirmation.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
     }
     else if (input.IsKeyTriggered(GLFW_KEY_UP))
     {
-        smInDestructiveConfirmation.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));
     }
     else

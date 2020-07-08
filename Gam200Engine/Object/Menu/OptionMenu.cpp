@@ -20,7 +20,6 @@ Creation Date: 06.20.2020
 
 #include <Object/Menu/DestructiveConfirmation.hpp>
 
-SoundManager smInOptionMenu;
 OptionMenu::OptionMenu()
     : MenuObject(), menuBackground(nullptr), volumeButton(nullptr), screenToggleButton(nullptr), selectionHighlight(nullptr), currentSelection(Volume), isTransparency(true), playerPressEnter(false)
 {
@@ -75,7 +74,6 @@ OptionMenu::OptionMenu()
     selectionHighlight->SetObjectType(ObjectType::Menu);
 
     UpdateSelectionHighlightTransformation();
-    smInOptionMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 OptionMenu::~OptionMenu()
@@ -90,7 +88,8 @@ MenuObject* OptionMenu::MenuUpdate(float dt)
     // When esc key is pressed, return to game
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
-        smInOptionMenu.Play_Sound(UNDO_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnMenu();
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(UNDO_SOUND);
         return nullptr;
     }
 
@@ -103,7 +102,7 @@ MenuObject* OptionMenu::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
-        smInOptionMenu.Play_Sound(BUTTON_TRIGGERED_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_TRIGGERED_SOUND);
 
         Animation* volumeAnimation = volumeButton->GetComponentByTemplate<Animation>();
         Animation* animation = screenToggleButton->GetComponentByTemplate<Animation>();
@@ -114,14 +113,14 @@ MenuObject* OptionMenu::MenuUpdate(float dt)
             volumeAnimation->SetState((volumeAnimation->GetState() + 1) % volumeAnimation->GetNumOfState());
             if (volumeAnimation->GetState() == 0)
             {
-                smInOptionMenu.MASTER_VOLUME_DOWN();
-                smInOptionMenu.MASTER_VOLUME_DOWN();
-                smInOptionMenu.MASTER_VOLUME_DOWN();
-                smInOptionMenu.MASTER_VOLUME_DOWN();
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().MASTER_VOLUME_DOWN();
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().MASTER_VOLUME_DOWN();
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().MASTER_VOLUME_DOWN();
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().MASTER_VOLUME_DOWN();
             }
             else
             {
-                smInOptionMenu.MASTER_VOLUME_UP();
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().MASTER_VOLUME_UP();
             }
             break;
         case OptionMenu::ScreenToggle:
@@ -189,12 +188,12 @@ void OptionMenu::UpdateSelection() noexcept
 {
     if (input.IsKeyTriggered(GLFW_KEY_DOWN))
     {
-        smInOptionMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
     }
     else if (input.IsKeyTriggered(GLFW_KEY_UP))
     {
-        smInOptionMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));
     }
     else

@@ -18,12 +18,10 @@ Creation Date: 12.13.2019
 #include <Sounds/SoundManager.hpp>
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
-SoundManager smInGoal;
 
 GoalComponent::GoalComponent(Object* obj, Player* targetPlayer1, Player* targetPlayer2)
 	: Component(obj), targetPlayer1(targetPlayer1), targetPlayer2(targetPlayer2), isPlayerOnGoal1(false), isPlayerOnGoal2(false)
 {
-	smInGoal = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 GoalComponent::~GoalComponent()

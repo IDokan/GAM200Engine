@@ -50,6 +50,8 @@ class SoundManager
 public:
     void Load_Sound();
 
+    void UnLoad_Sound();
+
     void Play_Sound(SOUNDS sound_name);
 
     void Stop_Sound(int _chNum);

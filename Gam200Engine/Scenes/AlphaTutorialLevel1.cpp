@@ -30,6 +30,7 @@ Creation Date: 05.10.2020
 #include<Component/MessageCapable.hpp>
 #include <Component/Scripts/Hostage.hpp>
 #include <Object/Points/CheckPoint.hpp>
+#include <Scenes/SceneManager.hpp>
 
 
 AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr), cheese(nullptr), movingObject(nullptr), movingObject1(nullptr)
@@ -52,9 +53,9 @@ void AlphaTutorialLevel1::Load()
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
 
 	//BGM
-	soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-	soundManager.SetVolume(BACKGROUND_SOUND, 0.2f);
 	delete fileio;
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void AlphaTutorialLevel1::Update(float dt)

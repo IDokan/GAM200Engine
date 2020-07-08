@@ -48,7 +48,14 @@ void SceneManager::Update(float dt)
         currentScene->Update(dt);
         if (currentScene->isNextLevel()) {
 	        const std::string tmpName = currentScene->GetChangedLevelName();
+            
+            //The next level tmpName should be with OR operator, will be Level4,5,,,
+            if (tmpName == "TutorialLevel2" || tmpName == "Level3") {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::BACKGROUND_SOUND);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
+            }
             currentScene->UnloadScene();
+
             if (const auto & Scene = scenes.find(tmpName);
 				Scene != scenes.end())
             {

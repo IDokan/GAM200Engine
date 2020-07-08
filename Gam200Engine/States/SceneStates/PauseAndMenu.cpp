@@ -43,8 +43,6 @@ Creation Date: 05.11.2020
 #include <Component/StateMachine.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
 
-class SoundManager smPauseAndMenu;
-
 PauseAndMenu* PauseAndMenu::Get()
 {
     static PauseAndMenu* state = new PauseAndMenu();
@@ -56,8 +54,7 @@ void PauseAndMenu::Enter(SceneStateManager* /*manager*/)
     MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Pause);
     MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Pause);
 
-    smPauseAndMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-    smPauseAndMenu.SetVolumeOnMenu();
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnMenu();
 
 	if (defaultItem == nullptr)
 	{
@@ -123,11 +120,7 @@ void PauseAndMenu::Execute(SceneStateManager* manager, float dt)
 
 void PauseAndMenu::Exit(SceneStateManager* /*manager*/)
 {
-    while (!menuStack.empty())
-    {
-        menuStack.top()->SetScale(0.f);
-        menuStack.pop();
-    }
+	ClearStack();
 
     MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Resume);
     MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Resume);
@@ -136,6 +129,15 @@ void PauseAndMenu::Exit(SceneStateManager* /*manager*/)
 PauseAndMenu::PauseAndMenu()
 	: defaultItem(nullptr), baseMenu(nullptr), confirmMenu(nullptr), optionMenu(nullptr), mainMenu(nullptr)
 {
+}
+
+void PauseAndMenu::ClearStack()
+{
+	while (!menuStack.empty())
+	{
+		menuStack.top()->SetScale(0.f);
+		menuStack.pop();
+	}
 }
 
 void PauseAndMenu::PrepareAssets() noexcept
@@ -186,6 +188,8 @@ void PauseAndMenu::PrepareAssets() noexcept
 
 void PauseAndMenu::CleanAssets() noexcept
 {
+	ClearStack();
+
 	if (baseMenu != nullptr)
 	{
 		baseMenu->CleanChildObjects();

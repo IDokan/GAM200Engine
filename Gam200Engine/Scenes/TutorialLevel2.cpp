@@ -31,6 +31,8 @@ Creation Date: 05.06.2020
 #include <Graphics/StockBitmapFonts.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Component/Scripts/Hostage.hpp>
+#include <Scenes/SceneManager.hpp>
+
 TutorialLevel2::TutorialLevel2() : background(nullptr)
 {
 }
@@ -50,6 +52,8 @@ void TutorialLevel2::Load()
     sceneStateManager->SetNameOfSelectedLevel("Level3");
 
     delete fileio;
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void TutorialLevel2::Update(float dt)

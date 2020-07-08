@@ -43,6 +43,7 @@ public:
 	MenuObject* mainMenu;
 private:
 	PauseAndMenu();
+	void ClearStack();
 
 	std::stack<MenuObject*> menuStack;
 };

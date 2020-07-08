@@ -23,7 +23,6 @@ Creation Date: 05.11.2020
 
 #include <Object/Menu/DestructiveConfirmation.hpp>
 
-SoundManager smInMainMenu;
 MainMenu::MainMenu()
     : MenuObject(), newButton(nullptr), loadButton(nullptr), howToPlayButton(nullptr), optionButton(nullptr), creditButton(nullptr), quitButton(nullptr), selectionHighlight(nullptr), currentSelection(NEWGAME), isTransparency(true), playerPressEnter(false)
 {
@@ -107,7 +106,6 @@ MainMenu::MainMenu()
     selectionHighlight->SetObjectType(ObjectType::Menu);
 
     UpdateSelectionHighlightTransformation();
-    smInMainMenu = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
 MainMenu::~MainMenu()
@@ -128,7 +126,7 @@ MenuObject* MainMenu::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
-        smInMainMenu.Play_Sound(BUTTON_TRIGGERED_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_TRIGGERED_SOUND);
         fileIO* loadGame = nullptr;
         switch (currentSelection)
         {
@@ -215,12 +213,12 @@ void MainMenu::UpdateSelection() noexcept
 {
     if (input.IsKeyTriggered(GLFW_KEY_DOWN))
     {
-        smInMainMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
     }
     else if (input.IsKeyTriggered(GLFW_KEY_UP))
     {
-        smInMainMenu.Play_Sound(CURSOR_MOVEMENT_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));
     }
     else
