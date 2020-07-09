@@ -34,6 +34,7 @@ Creation Date: 05.10.2020
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <Component/Scripts/Hostage.hpp>
 #include <Object/Mouse/Mouse.hpp>
+#include <Scenes/SceneManager.hpp>
 
 Level4::Level4() : background(nullptr)
 {
@@ -52,8 +53,8 @@ void Level4::Load()
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
 
     //BGM
-    soundManager.Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    soundManager.SetVolume(BACKGROUND_SOUND, 0.1f);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
 }
 
 void Level4::Update(float dt)
