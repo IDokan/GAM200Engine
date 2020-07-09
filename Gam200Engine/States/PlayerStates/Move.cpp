@@ -25,8 +25,6 @@ Move* Move::Get()
 
 void Move::Enter(Player* /*obj*/)
 {
-	// Do appropriate setting in here
-	printf("Player enter Move State\n");
 }
 
 void Move::Execute(Player* obj, float /*dt*/)
@@ -152,7 +150,6 @@ void Move::Execute(Player* obj, float /*dt*/)
 
 void Move::Exit(Player* /*obj*/)
 {
-	printf("Player exit Move State\n");
 }
 
 void Move::SetPlayerMoveSpeed(float amount)

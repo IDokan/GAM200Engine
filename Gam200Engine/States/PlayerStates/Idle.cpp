@@ -14,7 +14,6 @@ Creation Date: 01.13.2020
 #include <Component/StateMachine.hpp>
 #include <Systems/Input.hpp>
 #include <States/PlayerStates/Move.hpp>
-#include <Systems/Input.hpp>
 
 bool IsPlayer1InputDetected()
 {
@@ -44,8 +43,6 @@ Idle::Idle()
 
 void Idle::Enter(Player* /*obj*/)
 {
-	// Set appropriate sprite
-	printf("Player enter Idle State\n");
 }
 
 void Idle::Execute(Player* obj, float /*dt*/)
@@ -68,5 +65,4 @@ void Idle::Execute(Player* obj, float /*dt*/)
 
 void Idle::Exit(Player* /*obj*/)
 {
-	printf("Player exit Idle State\n");
 }

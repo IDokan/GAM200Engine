@@ -12,6 +12,7 @@ Creation Date: 23th/Jan/2020
 #include  <Object/Players/Player.h>
 #include <Systems/Input.hpp>
 #include <Component/StateMachine.hpp>
+#include <States/PlayerStates/InRefrigerator.hpp>
 #include <States/PlayerStates/Idle.hpp>
 #include <Component/MessageCapable.hpp>
 #include <Systems/MessageSystem/Message.hpp>
@@ -21,6 +22,8 @@ Creation Date: 23th/Jan/2020
 #include <States/PlayerStates/Pause.hpp>
 #include <States/PlayerStates/PlayerReachesGoal.hpp>
 
+#include <Scenes/SceneManager.hpp>
+
 Player::Player(Identifier player, const Transform& playerTransformData)
     :Object(), id(player), isBlock(false), lastAnimationState(0)
 {
@@ -29,11 +32,6 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	SetScale(playerTransformData.GetScale());
 	SetRotation(playerTransformData.GetRotation());
 	SetDepth(Depth_Standard::Player);
-
-	// Add essential components 
-	Object::AddComponent(new StateMachine<Player>(this));
-	GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
-	GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(UpdateAnimation::Get());
 
 	Animation* playerAnimation = new Animation(this);
 	Object::AddComponent(playerAnimation);
@@ -56,6 +54,20 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 		break;
 	default:;
 	}
+
+	// Add essential components 
+	Object::AddComponent(new StateMachine<Player>(this));
+
+	if (SceneManager::GetSceneManager()->GetCurrentScene()->IsMenu() == true)
+	{
+		GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
+	}
+	else
+	{
+		GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(InRefrigerator::Get());
+		InRefrigerator::Get()->Enter(this);
+	}
+	GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(UpdateAnimation::Get());
 }
 
 Player::Player(std::string _playerName, const vector2 playerPos, const vector2 playerScale, Physics::ObjectType _objectType,
@@ -155,7 +167,7 @@ void Player::LoadPlayer1Layout()
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::GameRestarted:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(InRefrigerator::Get());
 				break;
 			case MessageTypes::Pause:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
@@ -227,7 +239,7 @@ void Player::LoadPlayer2Layout()
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::GameRestarted:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(InRefrigerator::Get());
 				break;
 			case MessageTypes::Pause:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());

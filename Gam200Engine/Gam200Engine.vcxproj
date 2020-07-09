@@ -275,6 +275,7 @@
     <ClInclude Include="States\AIStates\MouseIdle.hpp" />
     <ClInclude Include="States\AIStates\Patrol.hpp" />
     <ClInclude Include="States\PlayerStates\Idle.hpp" />
+    <ClInclude Include="States\PlayerStates\InRefrigerator.hpp" />
     <ClInclude Include="States\PlayerStates\Move.hpp" />
     <ClInclude Include="States\PlayerStates\Pause.hpp" />
     <ClInclude Include="States\PlayerStates\PlayerReachesGoal.hpp" />
@@ -409,6 +410,7 @@
     <ClCompile Include="States\AIStates\MouseIdle.cpp" />
     <ClCompile Include="States\AIStates\Patrol.cpp" />
     <ClCompile Include="States\PlayerStates\Idle.cpp" />
+    <ClCompile Include="States\PlayerStates\InRefrigerator.cpp" />
     <ClCompile Include="States\PlayerStates\Move.cpp" />
     <ClCompile Include="States\PlayerStates\Pause.cpp" />
     <ClCompile Include="States\PlayerStates\PlayerReachesGoal.cpp" />

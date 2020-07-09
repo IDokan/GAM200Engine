@@ -20,7 +20,6 @@ Pause* Pause::Get()
 
 void Pause::Enter(Player* obj)
 {
-	printf("Player enter Pause State\n");
 	pausedPosition = obj->GetTranslation();
 }
 
@@ -32,7 +31,6 @@ void Pause::Execute(Player* obj, float /*dt*/)
 
 void Pause::Exit(Player* /*obj*/)
 {
-	printf("Player exit Pause State\n");
 }
 
 Pause::Pause()

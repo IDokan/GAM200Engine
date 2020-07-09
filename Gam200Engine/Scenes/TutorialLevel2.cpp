@@ -21,6 +21,7 @@ Creation Date: 05.06.2020
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Points/GoalPoint.hpp>
+#include <Object/Points/CheckPoint.hpp>
 //lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
@@ -164,18 +165,21 @@ void TutorialLevel2::InitObject()
     goalTransform.SetScale(vector2{ 400.f });
     GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
+    CheckPoint* checkPoint1 = new CheckPoint((player1->GetTranslation() + player2->GetTranslation()) / 2.f, player1, player2);
+    checkPoint1->SetObjectName("CheckPoint1");
+    lastCheckPoint = checkPoint1;
+
     
     auto objManager = ObjectManager::GetObjectManager();
 
 
-
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(outGround);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button3);
     objManager->FindLayer(LayerNames::Stage)->AddObject(button4);
-    //objManager->FindLayer(LayerNames::Stage)->AddObject(movingObject_1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail);

@@ -355,6 +355,13 @@
     <ClCompile Include="Object\Menu\MainMenu.cpp">
       <Filter>Object\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\Credit.cpp" />
+    <ClCompile Include="States\PlayerStates\InRefrigerator.cpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Level4.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -749,6 +756,13 @@
     </ClInclude>
     <ClInclude Include="Object\Menu\MainMenu.hpp">
       <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Credit.hpp" />
+    <ClInclude Include="States\PlayerStates\InRefrigerator.hpp">
+      <Filter>States\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Level4.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

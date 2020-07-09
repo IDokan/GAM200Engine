@@ -36,6 +36,7 @@ Creation Date: 12.10.2019
 #include <States/SceneStates/SceneComplete.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
 #include <States/SceneStates/PauseAndMenu.hpp>
+#include <States/PlayerStates/InRefrigerator.hpp>
 
 #include <Systems/Input.hpp>
 #include <Systems/FileIO.hpp>
@@ -47,24 +48,33 @@ Creation Date: 12.10.2019
 #include <GLFW/glfw3native.h>
 #include <Graphics/GL.hpp>
 #include <Scenes/SceneManager.hpp>
-
+#include <Object/Points/CheckPoint.hpp>
 
 
 void Scene::GameRestartScene() noexcept
 {
+    vector2 checkPosition = lastCheckPoint->GetTranslation();
+
+    vector2 player1SpawnPosition = checkPosition - vector2{ UpdateAnimation::initial_scaling / 2.f, 0.f };
+
 	player1->SetScale(UpdateAnimation::initial_scaling);
-	player1->SetTranslation(player1SpawnPosition);
 	player1->GetComponentByTemplate<Physics>()->SetPosition(player1SpawnPosition);
     player1->GetComponentByTemplate<Physics>()->SetOldPosition(player1SpawnPosition);
+    player1->SetTranslation(player1SpawnPosition);
 	player1->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
 
+    vector2 player2SpawnPosition = checkPosition + vector2{ UpdateAnimation::initial_scaling / 2.f, 0.f };
+
 	player2->SetScale(UpdateAnimation::initial_scaling);
-	player2->SetTranslation(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetPosition(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetOldPosition(player2SpawnPosition);
+    player2->SetTranslation(player2SpawnPosition);
 	player2->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f });
 
     string->InitString();
+
+    player1->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(InRefrigerator::Get());
+    player2->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(InRefrigerator::Get());
 
     GameRestart();
     cameraManager.InitializeCurrentCameraSetting();
@@ -94,12 +104,6 @@ void Scene::InitLoadingScene()
 bool Scene::IsMenu()
 {
 	return isMenu;
-}
-
-void Scene::SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position)
-{
-    player1SpawnPosition = player1Position;
-    player2SpawnPosition = player2Position;
 }
 
 
@@ -184,10 +188,7 @@ void Scene::LoadScene() noexcept
     Load();
 
 
-    if (player1 != nullptr && player2 != nullptr)
-    {
-        SetPlayerSpawnPosition(player1->GetTranslation(), player2->GetTranslation());
-    }
+    // TODO: Add respawn position update
 
     isLoadingDone = true;
 

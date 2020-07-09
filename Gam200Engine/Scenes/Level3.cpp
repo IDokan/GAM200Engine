@@ -22,6 +22,7 @@ Creation Date: 03.13.2020
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Points/GoalPoint.hpp>
+#include <Object/Points/CheckPoint.hpp>
 //lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
@@ -173,6 +174,14 @@ void Level3::InitObject()
     movingObject1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/moving_object_DOWN.png");
     movingObject1->SetDepth(Depth_Standard::Obstacle);
 
+    CheckPoint* checkPoint1 = new CheckPoint((player1->GetTranslation() + player2->GetTranslation()) / 2.f, player1, player2);
+    checkPoint1->SetObjectName("CheckPoint1");
+    lastCheckPoint = checkPoint1;
+
+
+    CheckPoint* checkPoint2 = new CheckPoint(vector2{ 600.f, 1150.f }, player1, player2);
+    checkPoint2->SetObjectName("CheckPoint2");
+
     auto objManager = ObjectManager::GetObjectManager();
 
 
@@ -187,6 +196,8 @@ void Level3::InitObject()
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail);
     objManager->FindLayer(LayerNames::Stage)->AddObject(cheese);
 }

@@ -20,6 +20,7 @@ Creation Date: 08.12.2019
 class SceneStateManager;
 class String;
 class Player;
+class CheckPoint;
 
 enum class GameScenes 
 {
@@ -56,7 +57,7 @@ public:
 
 	bool IsMenu();
 
-	void SetPlayerSpawnPosition(vector2 player1Position, vector2 player2Position);
+	CheckPoint* lastCheckPoint;
 protected:
 	virtual void GameRestart() = 0;
 	virtual void Load() = 0;
@@ -69,9 +70,6 @@ protected:
 	Graphics::CameraManager cameraManager{};
 	SoundManager soundManager{};
 	SceneStateManager* sceneStateManager;
-
-	vector2 player1SpawnPosition{};
-	vector2 player2SpawnPosition{};
 
 	Player* player1{};
 	Player* player2{};

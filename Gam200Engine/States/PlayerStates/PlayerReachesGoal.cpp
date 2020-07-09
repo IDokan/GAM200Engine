@@ -21,16 +21,6 @@ PlayerReachesGoal* PlayerReachesGoal::Get()
 
 void PlayerReachesGoal::Enter(Player* obj)
 {
-	switch (obj->GetID()) {
-	case Player::Identifier::Player1:
-		printf("Player1 reaches goal!\n");
-		break;
-	case Player::Identifier::Player2:
-		printf("Player2 reaches goal!\n");
-		break;
-	default:
-		printf("Undefined behavior!\n");
-	}
 }
 
 void PlayerReachesGoal::Execute(Player* /*obj*/, float /*dt*/)
@@ -40,14 +30,4 @@ void PlayerReachesGoal::Execute(Player* /*obj*/, float /*dt*/)
 
 void PlayerReachesGoal::Exit(Player* obj)
 {
-	switch (obj->GetID()) {
-	case Player::Identifier::Player1:
-		printf("Player1 exit goal!\n");
-		break;
-	case Player::Identifier::Player2:
-		printf("Player2 exit goal!\n");
-		break;
-	default:
-		printf("Undefined behavior!\n");
-	}
 }

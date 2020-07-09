@@ -195,10 +195,12 @@ void AlphaTutorialLevel1::InitObject()
     Mouse* mouse1 = new Mouse(vector2{ 1640, -100 }, vector2{ 1640, 200 }, vector2{ 1640, -160 }, player1, player2);
     mouse1->SetSpeed(1.5f);
 
-	Transform checkTransform;
-	checkTransform.SetTranslation(vector2{ 560.f, 240.f });
-	checkTransform.SetScale(vector2{ 100.f });
-	CheckPoint* checkPoint = new CheckPoint(checkTransform, player1, player2);
+	CheckPoint* checkPoint1 = new CheckPoint((player1->GetTranslation() + player2->GetTranslation()) / 2.f, player1, player2);
+	checkPoint1->SetObjectName("CheckPoint1");
+	lastCheckPoint = checkPoint1;
+
+	CheckPoint* checkPoint2 = new CheckPoint(vector2{ 560.f, 240.f }, player1, player2);
+	checkPoint2->SetObjectName("CheckPoint2");
 
 
 	Transform goalTransform;
@@ -269,5 +271,6 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p1Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(p2Indicator);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(sizeSign);
-	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint2);
 }

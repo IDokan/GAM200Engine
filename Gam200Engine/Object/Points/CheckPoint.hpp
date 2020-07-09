@@ -17,5 +17,5 @@ class Player;
 class CheckPoint : public Object
 {
 public:
-	CheckPoint(const Transform& transform, Player* ptrToPlayer1, Player* ptrToPlayer2);
+	CheckPoint(const vector2& transform, Player* ptrToPlayer1, Player* ptrToPlayer2);
 };

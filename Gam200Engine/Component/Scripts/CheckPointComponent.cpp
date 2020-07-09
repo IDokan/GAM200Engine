@@ -17,6 +17,7 @@ Creation Date: 06.29.2020
 #include <Object/Players/Player.h>
 
 #include <States/PlayerStates/UpdateAnimation.hpp>
+#include <Object/Points/CheckPoint.hpp>
 
 SoundManager smInCheckPoint;
 
@@ -39,11 +40,11 @@ void CheckPointComponent::Update(float /*dt*/)
 	if (CheckPlayerIsInGoal())
 	{
 		vector2 ownerTranslation = owner->GetTranslation();
-		SceneManager::GetSceneManager()->GetCurrentScene()->SetPlayerSpawnPosition
-		(
-			ownerTranslation - vector2{ UpdateAnimation::initial_scaling / 2.f, 0.f }, // player1Spawn
-			ownerTranslation + vector2{ UpdateAnimation::initial_scaling / 2.f, 0.f } // player2Spawn
-		);
+		Scene* currentScene = SceneManager::GetSceneManager()->GetCurrentScene();
+		
+		currentScene->lastCheckPoint->GetComponentByTemplate<Animation>()->SetState(0);
+		currentScene->lastCheckPoint = dynamic_cast<CheckPoint*>(owner);
+		owner->GetComponentByTemplate<Animation>()->SetState(1);
 	}
 }
 

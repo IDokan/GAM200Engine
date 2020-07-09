@@ -23,6 +23,7 @@ Creation Date: 05.10.2020
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
 #include <Object/Points/GoalPoint.hpp>
+#include <Object/Points/CheckPoint.hpp>
 //lock and key
 #include<Systems/MessageSystem/Message.hpp>
 #include<Systems/MessageSystem/MessageDispatcher.hpp>
@@ -257,6 +258,13 @@ void Level4::InitObject()
     Mouse* mouse6 = new Mouse(vector2{ -1120, 1960 }, vector2{ -1120, 1960 }, vector2{ -1120, 1220 }, player1, player2);
     Mouse* mouse7 = new Mouse(vector2{ -1660, 1220 }, vector2{ -1660, 1220 }, vector2{ -1660, 1960 }, player1, player2);
 
+    CheckPoint* checkPoint1 = new CheckPoint((player1->GetTranslation() + player2->GetTranslation()) / 2.f, player1, player2);
+    checkPoint1->SetObjectName("CheckPoint1");
+    lastCheckPoint = checkPoint1;
+
+    CheckPoint* checkPoint2 = new CheckPoint(vector2{ 1000.f }, player1, player2);
+    checkPoint2->SetObjectName("CheckPoint2");
+
     auto objManager = ObjectManager::GetObjectManager();
     objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
     objManager->FindLayer(LayerNames::BackGround)->AddObject(ground);
@@ -284,4 +292,5 @@ void Level4::InitObject()
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse6);
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse7);
     objManager->FindLayer(LayerNames::Stage)->AddObject(goalPoint1);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint1);
 }
