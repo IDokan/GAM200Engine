@@ -204,7 +204,7 @@ void TutorialLevel::InitObject() {
     goalTransform.SetScale(vector2{ 400.f });
     GoalPoint* goalPoint1 = new GoalPoint(goalTransform, player1, player2);
 
-	CheckPoint* checkPoint = new CheckPoint(vector2{ 190.f, 1150.f }, player1, player2);
+	CheckPoint* checkPoint = new CheckPoint(vector2{ 190.f, 230.f }, player1, player2);
 
 	CheckPoint* checkPoint1 = new CheckPoint((player1->GetTranslation() + player2->GetTranslation()) / 2.f, player1, player2);
 	checkPoint1->SetObjectName("CheckPoint1");

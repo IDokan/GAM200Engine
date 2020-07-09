@@ -199,7 +199,7 @@ void AlphaTutorialLevel1::InitObject()
 	checkPoint1->SetObjectName("CheckPoint1");
 	lastCheckPoint = checkPoint1;
 
-	CheckPoint* checkPoint2 = new CheckPoint(vector2{ 560.f, 240.f }, player1, player2);
+	CheckPoint* checkPoint2 = new CheckPoint(vector2{ 6300.f, 180.f }, player1, player2);
 	checkPoint2->SetObjectName("CheckPoint2");
 
 
