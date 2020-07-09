@@ -20,5 +20,10 @@ namespace Graphics
 			static BitmapFont bitmap{ "../assets/fonts/Malgungothic/malgungothic.fnt" };
 			return bitmap;
 		}
+		inline BitmapFont& showcardgothic() noexcept
+		{
+			static BitmapFont bitmap{ "../assets/fonts/ShowCardGothic/showcardgothic.fnt" };
+			return bitmap;
+		}
 	}
 }

@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 
+#include <iostream>
 
 namespace Graphics
 {
@@ -19,7 +20,7 @@ namespace Graphics
 		pageTextures.clear();
 		if (LoadFromFile(filename) == false)
 		{
-			//std::cerr << "Falied to load file!" << std::endl;
+			std::cout << "Falied to load file!" << std::endl;
 		}
 		
 	}

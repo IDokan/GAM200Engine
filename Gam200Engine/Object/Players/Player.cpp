@@ -60,7 +60,7 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 
 	if (SceneManager::GetSceneManager()->GetCurrentScene()->IsMenu() == true)
 	{
-		GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Idle::Get());
+		GetComponentByTemplate<StateMachine<Player>>()->SetCurrentState(Pause::Get());
 	}
 	else
 	{

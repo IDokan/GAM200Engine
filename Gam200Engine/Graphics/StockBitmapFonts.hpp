@@ -20,10 +20,12 @@ namespace Graphics
 		enum class FONTTYPE
 		{
 			MALGUNGOTHIC,
+			SHOWCARDGOTHIC,
 			NUMOFFONTTYPE,
 		};
-		
+
 		BitmapFont& malgungothic() noexcept;
+		BitmapFont& showcardgothic() noexcept;
 	}
 }
 

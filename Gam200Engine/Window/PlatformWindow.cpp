@@ -17,6 +17,8 @@ Creation Date: 08.05.2019
 #include <Graphics/GL.hpp>
 #include <Graphics/ImGui/MyImGui.hpp>
 
+#include <stb_image.h>
+
 namespace
 {
 	struct WindowSizePosition
@@ -116,6 +118,10 @@ bool PlatformWindow::CreateWindow() noexcept
 	window = glfwCreateWindow(mode->width, mode->height, "engine", pMonitor, nullptr);
 	glfwSetWindowPos(window, xPos, yPos);
 
+	GLFWimage icon[1];
+	icon[0].pixels = stbi_load("../assets/textures/Icon/icon.png", &icon[0].width, &icon[0].height, 0, 4);
+	glfwSetWindowIcon(window, 1, &icon[0]);
+
 	if (!window)
 	{
 		return false;
@@ -184,8 +190,12 @@ void PlatformWindow::ToggleFullscreen() noexcept
 		glCheck(glViewport(0, 0, xSize, ySize));
 		windowSize.width = static_cast<float>(xSize);
 		windowSize.height = static_cast<float>(ySize);
+
+		GLFWimage icon[1];
+		icon[0].pixels = stbi_load("../assets/textures/Icon/icon.png", &icon[0].width, &icon[0].height, 0, 4);
+		glfwSetWindowIcon(window, 1, &icon[0]);
+		glCheck(glfwSwapInterval(true));
 	}
-	glCheck(glfwSwapInterval(true));
 }
 
 vector2 PlatformWindow::GetPlatformWindowSize() noexcept

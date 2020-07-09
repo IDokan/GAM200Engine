@@ -15,7 +15,7 @@ Creation Date: 10.28.2019
 #include <Graphics/GL.hpp>
 
 TextComponent::TextComponent(Object* obj) noexcept
-	:Component(obj), textPlatform(std::make_shared<Graphics::TextPlatform>(L"default string", Graphics::BITMAPFONTS::malgungothic())), textMaterial(std::make_shared<Graphics::material>())
+	:Component(obj), textPlatform(std::make_shared<Graphics::TextPlatform>(L"default string", Graphics::BITMAPFONTS::showcardgothic())), textMaterial(std::make_shared<Graphics::material>())
 {
 }
 

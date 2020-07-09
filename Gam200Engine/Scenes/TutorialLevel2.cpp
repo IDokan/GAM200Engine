@@ -96,7 +96,7 @@ void TutorialLevel2::InitObject()
     jailText = new Object();
     jailText->SetObjectName("JailText");
     jailText->SetTranslation(vector2{ 1800.f, -150.f });
-    jailText->SetScale(vector2{1.f,1.f });
+    jailText->SetScale(vector2{1.5f,1.5f });
     jailText->AddComponent(new TextComponent(jailText));
     jailText->GetComponentByTemplate<TextComponent>()->SetString(L"Wrapping up the Jail with string!!");
     jailText->SetDepth(Depth_Standard::SavedCheese);
