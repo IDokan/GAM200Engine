@@ -13,6 +13,8 @@ Creation Date: 12.OCT.2019
 #include <Scenes/SceneManager.hpp>
 
 
+
+
 void SoundManager::Load_Sound()
 {
     theResult = FMOD_System_Create(&fmod_system);
@@ -52,13 +54,11 @@ void SoundManager::Load_Sound()
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/YumYum.mp3", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
     ERRCHECK(theResult, "Load Sound");
 
-    for (int sound = 0; sound < SOUNDS::NONE; sound++) {
-        current_ch_volume[sound] = initialVolume;
-    }
-
-    current_ch_volume[SOUNDS::PUSHABLE_BOX_SOUND] = 0.05f;
-    current_ch_volume[SOUNDS::CRUSH_SOUND] = 0.05f;
-    current_ch_volume[SOUNDS::DOOR_SOUND] = 0.05f;
+     for (int sound = 0; sound < SOUNDS::NONE; sound++) {
+         current_ch_volume[sound] = initialVolume;
+         theResult = FMOD_Channel_SetVolume(ch[sound], initialVolume);
+         ERRCHECK(theResult, "MasterVolume Error");
+     }
 }
 void SoundManager::UnLoad_Sound()
 {
@@ -99,6 +99,7 @@ void SoundManager::Play_Sound(SOUNDS sound_name)
 {
 
     FMOD_System_Update(fmod_system);
+    SetVolume(sound_name, current_ch_volume[sound_name]);
     theResult = FMOD_System_PlaySound(fmod_system, sound[sound_name], nullptr, false, &ch[sound_name]);
     ERRCHECK(theResult, "Play Sound");
 }
@@ -151,15 +152,19 @@ void SoundManager::MASTER_VOLUME_DOWN()
 
     if (static_cast<int>(GetCurrentChVolume(0) * 100) > static_cast<int>(checkVolumeSize * 100)) {
         for (int currentSound = 0; currentSound < SOUNDS::NONE; currentSound++) {
-            newVolume = GetCurrentChVolume(currentSound);
-            newVolume -= newVolume * contorolVolumeSize;
+            if (ch[currentSound] != nullptr) {
+                newVolume = GetCurrentChVolume(currentSound);
+                newVolume -= newVolume * contorolVolumeSize;
 
-            current_ch_volume[currentSound] = newVolume;
-            FMOD_Channel_SetVolume(ch[currentSound], newVolume);
+                if (newVolume > initialVolume) {
+                    current_ch_volume[currentSound] = newVolume;
+                    theResult = FMOD_Channel_SetVolume(ch[currentSound], newVolume);
+                    ERRCHECK(theResult, "MasterVolume Error");
+                }
+            }
         }
     }
 }
-
 
 void SoundManager::MASTER_VOLUME_UP()
 {
@@ -169,11 +174,14 @@ void SoundManager::MASTER_VOLUME_UP()
     if (GetCurrentChVolume(0) + checkVolumeSize < 1.0f)
     {
         for (int currentSound = 0; currentSound < SOUNDS::NONE; currentSound++) {
-            newVolume = GetCurrentChVolume(currentSound);
-            newVolume += newVolume * contorolVolumeSize;
+            if (ch[currentSound] != nullptr) {
+                newVolume = GetCurrentChVolume(currentSound);
+                newVolume += newVolume * contorolVolumeSize;
 
-            current_ch_volume[currentSound] = newVolume;
-            FMOD_Channel_SetVolume(ch[currentSound], newVolume);
+                current_ch_volume[currentSound] = newVolume;
+                theResult = FMOD_Channel_SetVolume(ch[currentSound], newVolume);
+                ERRCHECK(theResult, "MasterVolume Error");
+            }
         }
     }
 }

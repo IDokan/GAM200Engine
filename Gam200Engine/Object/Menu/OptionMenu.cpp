@@ -34,7 +34,7 @@ OptionMenu::OptionMenu()
     menuBackground->SetObjectType(ObjectType::Menu);
 
     volumeTransform.SetTranslation(vector2{ 0.f, 0.2f });
-    volumeTransform.SetScale(vector2{0.2825f, 0.2335f});
+    volumeTransform.SetScale(vector2{ 0.2825f, 0.2335f });
     screenToggleTransform.SetTranslation(vector2{ 0.f, -0.1f });
     screenToggleTransform.SetScale(buttonInitSize);
     volumeTransform.SetParent(&GetTransform());
