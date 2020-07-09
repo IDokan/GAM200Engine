@@ -78,6 +78,6 @@ private:
     FMOD_RESULT         theResult;
     float current_ch_volume[MAX_SOUND_TRACK];
     float initialVolume = 0.1f;
-    float contorolVolumeSize = 0.1f;
+    float contorolVolumeSize = 0.5f;
 
 };
