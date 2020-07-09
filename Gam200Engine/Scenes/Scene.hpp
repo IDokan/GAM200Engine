@@ -24,7 +24,7 @@ class CheckPoint;
 
 enum class GameScenes 
 {
-    Menu, Game, Proto, Test, Credit, None
+    Menu, Game, Proto, Test, Credit, CutScene, None
 };
 
 class Scene abstract

@@ -362,6 +362,7 @@
     <ClCompile Include="Scenes\Level4.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\Ending.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -764,6 +765,7 @@
     <ClInclude Include="Scenes\Level4.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\Ending.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

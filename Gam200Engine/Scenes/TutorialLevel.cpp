@@ -46,7 +46,7 @@ void TutorialLevel::Load()
 	TutorialLevel::InitObject();
 	
 	cameraManager.Init(player1, player2);
-	sceneStateManager->SetNameOfSelectedLevel("MenuScene");
+	sceneStateManager->SetNameOfSelectedLevel("Ending");
 
 	delete fileio;
 
