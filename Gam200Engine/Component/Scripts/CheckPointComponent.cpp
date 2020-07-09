@@ -43,8 +43,10 @@ void CheckPointComponent::Update(float /*dt*/)
 		Scene* currentScene = SceneManager::GetSceneManager()->GetCurrentScene();
 		
 		currentScene->lastCheckPoint->GetComponentByTemplate<Animation>()->SetState(0);
+		currentScene->lastCheckPoint->SetEmitterOn(false);
 		currentScene->lastCheckPoint = dynamic_cast<CheckPoint*>(owner);
-		owner->GetComponentByTemplate<Animation>()->SetState(1);
+		currentScene->lastCheckPoint->SetEmitterOn(true);
+		currentScene->lastCheckPoint->GetComponentByTemplate<Animation>()->SetState(1);
 	}
 }
 
@@ -75,6 +77,6 @@ bool CheckPointComponent::CheckPlayerIsInGoal()
 	vector2 player2Min{ player2Translation - (player2Scale / 2.f) };
 	vector2 player2Max{ player2Translation + (player2Scale / 2.f) };
 
-	return DoesAIntersectB(ownerMin, ownerMax, player1Min, player2Max) || 
+	return DoesAIntersectB(ownerMin, ownerMax, player1Min, player1Max) || 
 		DoesAIntersectB(ownerMin, ownerMax, player2Min, player2Max);
 }

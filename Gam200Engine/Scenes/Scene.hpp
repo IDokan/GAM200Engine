@@ -31,7 +31,7 @@ class Scene abstract
 {
 public:
 	Scene()
-		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr), isMenu(false)
+		:current_scene_info(GameScenes::None), next_level({}), is_next(false), cameraManager({}), soundManager({}), sceneStateManager(nullptr), player1(nullptr), player2(nullptr), string(nullptr), isMenu(false), lastCheckPoint(nullptr)
 	{}
 	virtual ~Scene() = default;
 	void GameRestartScene() noexcept;

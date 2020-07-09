@@ -13,9 +13,14 @@ Creation Date: 06.29.2020
 #include <Graphics/Color4f.hpp>
 
 class Player;
+class ParticleEmitter;
 
 class CheckPoint : public Object
 {
 public:
 	CheckPoint(const vector2& transform, Player* ptrToPlayer1, Player* ptrToPlayer2);
+
+	void SetEmitterOn(bool isOn);
+private:
+	ParticleEmitter* coldEmitter;
 };

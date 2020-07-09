@@ -31,6 +31,7 @@ Creation Date: 05.10.2020
 #include <Component/Scripts/Hostage.hpp>
 #include <Object/Points/CheckPoint.hpp>
 #include <Scenes/SceneManager.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 
 
 AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr), cheese(nullptr), movingObject(nullptr), movingObject1(nullptr)
@@ -202,6 +203,12 @@ void AlphaTutorialLevel1::InitObject()
 	CheckPoint* checkPoint2 = new CheckPoint(vector2{ 630.f, 180.f }, player1, player2);
 	checkPoint2->SetObjectName("CheckPoint2");
 
+	Object* checkPointTutorial = new Object();
+	TextComponent* checkText = new TextComponent(checkPointTutorial);
+	checkPointTutorial->SetTranslation(vector2{505.f, 33.f});
+	checkPointTutorial->AddComponent(checkText);
+	checkText->SetString(L"Refriger is our home!\nYou would wake up opened one!\nPress 'R' to test!");
+	checkPointTutorial->SetObjectName("CheckPointTutorial");
 
 	Transform goalTransform;
 	goalTransform.SetTranslation(vector2{ 2900, -55 });
@@ -273,4 +280,5 @@ void AlphaTutorialLevel1::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(sizeSign);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPoint2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(checkPointTutorial);
 }

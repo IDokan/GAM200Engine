@@ -16,9 +16,12 @@ Creation Date: 07.08.2020
 #include <Object/Players/Player.h>
 #include <Graphics/Color4f.hpp>
 
+class String;
+
 class InRefrigerator : public State<Player>
 {
 public:
+	String* ptrString;
 	static constexpr float EndTime = 2.f;
 public:
 	static InRefrigerator* Get();
@@ -32,6 +35,8 @@ private:
 
 	void SetColor(float scaler, Player* player);
 	void StoreColor(Player* player);
+
+	void SetStringColor(float scaler);
 private:
 	bool wasInputDetected;
 	float timer;

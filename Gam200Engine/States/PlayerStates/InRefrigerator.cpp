@@ -15,6 +15,7 @@ Creation Date: 07.08.2020
 #include <Systems/Input.hpp>
 #include <States/PlayerStates/Move.hpp>
 #include <States/PlayerStates/Idle.hpp>
+#include <Component/Sprite/Sprite.hpp>
 
 InRefrigerator* InRefrigerator::Get()
 {
@@ -23,7 +24,7 @@ InRefrigerator* InRefrigerator::Get()
 }
 
 InRefrigerator::InRefrigerator()
-	: wasInputDetected(false), timer(0.f)
+	: ptrString(nullptr), wasInputDetected(false), timer(0.f)
 {
 }
 
@@ -53,6 +54,16 @@ void InRefrigerator::StoreColor(Player* player)
 	}
 }
 
+void InRefrigerator::SetStringColor(float scaler)
+{
+	if (ptrString == nullptr)
+	{
+		return;
+	}
+
+	ptrString->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ scaler, scaler });
+}
+
 void InRefrigerator::Enter(Player* obj)
 {
 	wasInputDetected = false;
@@ -60,6 +71,7 @@ void InRefrigerator::Enter(Player* obj)
 
 	StoreColor(obj);
 	obj->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f });
+	SetStringColor(0.f);
 }
 
 void InRefrigerator::Execute(Player* obj, float dt)
@@ -79,6 +91,7 @@ void InRefrigerator::Execute(Player* obj, float dt)
 		if (timer <= EndTime)
 		{
 			SetColor(timer / EndTime, obj);
+			SetStringColor(timer / EndTime);
 			obj->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f, -1.5f });
 		}
 		else
@@ -93,4 +106,5 @@ void InRefrigerator::Exit(Player* obj)
 {
 	obj->GetComponentByTemplate<Physics>()->SetVelocity(vector2{ 0.f, 0.f });
 	SetColor(1.f, obj);
+	SetStringColor(1.f);
 }

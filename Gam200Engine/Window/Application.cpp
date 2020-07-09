@@ -69,10 +69,10 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+    SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("Intro", dynamic_cast<Scene*>(new Intro()));
     SceneManager::GetSceneManager()->AddScenes("Level4", dynamic_cast<Scene*>(new Level4()));
     SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
-    SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
     SceneManager::GetSceneManager()->AddScenes("Level3", dynamic_cast<Scene*>(new Level3()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));

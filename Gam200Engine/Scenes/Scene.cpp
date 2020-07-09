@@ -186,9 +186,15 @@ void Scene::LoadScene() noexcept
     InitRequiredObjects();
     InitDEBUGObjects();
     Load();
-
-
-    // TODO: Add respawn position update
+    InRefrigerator::Get()->ptrString = string;
+    if (string != nullptr)
+    {
+        string->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f{ 0.f, 0.f });
+    }
+    if (lastCheckPoint != nullptr)
+    {
+        lastCheckPoint->SetEmitterOn(true);
+    }
 
     isLoadingDone = true;
 
