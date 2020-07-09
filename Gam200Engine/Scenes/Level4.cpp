@@ -196,31 +196,31 @@ void Level4::InitObject()
     groundSprite8->ExpandTextureCoordinate(vector2{ scale.x / 783.f, scale.y / 833.f });
     ground8->SetDepth(Depth_Standard::Background);
 
-    button1 = new DoorSystem(player1, player2, vector2{ 390.f, 1610.f }, vector2{ 100.f, 100.f }, vector2{ 418.f, 1260.f }, vector2{ 50.f, 50.f }, vector2{ 500.f,2175.f }, vector2{ 100.f,145.f }, vector2{ -680.f, 1255.f }, vector2{ 135.f,100.f });
+    button1 = new DoorSystem(player1, player2, vector2{ 390.f, 1610.f }, vector2{ 70.f, 70.f }, vector2{ 418.f, 1260.f }, vector2{ 50.f, 50.f }, vector2{ 500.f,2175.f }, vector2{ 100.f,145.f }, vector2{ -680.f, 1255.f }, vector2{ 135.f,100.f });
     button1->SetButtonAndDoorColor({ 1.0f, 0.f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 0.2f }, { 1.0f, 0.0f, 0.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "button2,", "door1", "door2");
 
-    button2 = new DoorSystem(player1, player2, vector2{ -160.f, 935.f }, vector2{ 100.f,100.f }, vector2{ -680.f, 2300.f }, vector2{ 135.f, 100.f }, false);
+    button2 = new DoorSystem(player1, player2, vector2{ -160.f, 935.f }, vector2{ 70.f,70.f }, vector2{ -680.f, 2300.f }, vector2{ 135.f, 100.f }, false);
     button2->SetButtonAndDoorColor({ 0.54f, 0.f, 1.0f, 1.0f }, { 0.54f, 0.f, 1.0f, 1.0f });
     button2->SetButtonAndDoorName("button3", "door3");
 
-    jail1 = new CrushableObject(vector2{ -160.f, 935.f }, vector2{ 150.f, 150.f }, Physics::ObjectType::RECTANGLE, string);
+    jail1 = new CrushableObject(vector2{ -160.f, 935.f }, vector2{ 100.f, 100.f }, Physics::ObjectType::RECTANGLE, string);
     jail1->SetDepth(Depth_Standard::Jail);
     jail1->SetObjectName("jail1");
 
-    button3 = new DoorSystem(player1, player2, vector2{ -80.f, 3030.f }, vector2{ 100.f,100.f }, vector2{ 1000.f, 1240.f }, vector2{ 110.f, 100.f }, false);
+    button3 = new DoorSystem(player1, player2, vector2{ -80.f, 3030.f }, vector2{ 70.f,70.f }, vector2{ 1000.f, 1240.f }, vector2{ 110.f, 100.f }, false);
     button3->SetButtonAndDoorColor({ 0.f, 1.f, 0.0f, 1.0f }, { 0.f, 1.f, 0.0f, 1.0f });
     button3->SetButtonAndDoorName("button4", "door4");
 
-    jail2 = new CrushableObject(vector2{ -80.f, 3030.f }, vector2{ 150.f, 150.f }, Physics::ObjectType::RECTANGLE, string);
+    jail2 = new CrushableObject(vector2{ -80.f, 3030.f }, vector2{ 100.f, 100.f }, Physics::ObjectType::RECTANGLE, string);
     jail2->SetDepth(Depth_Standard::Jail);
     jail2->SetObjectName("jail2");
 
-    button4 = new DoorSystem(player1, player2, vector2{ -1410.f, 750.f }, vector2{ 100.f,100.f }, vector2{ -1695.f, 2075.f }, vector2{ 100.f, 90.f }, false);
+    button4 = new DoorSystem(player1, player2, vector2{ -1410.f, 750.f }, vector2{ 70.f, 70.f }, vector2{ -1695.f, 2075.f }, vector2{ 100.f, 90.f }, false);
     button4->SetButtonAndDoorColor({ 0.58f, 0.29f, 0.0f, 1.0f }, { 0.58f, 0.29f, 0.0f, 1.0f });
     button4->SetButtonAndDoorName("button5", "door5");
 
-    jail3 = new CrushableObject(vector2{ -1410.f, 750.f }, vector2{ 150.f, 150.f }, Physics::ObjectType::RECTANGLE, string);
+    jail3 = new CrushableObject(vector2{ -1410.f, 750.f }, vector2{ 100.f, 100.f }, Physics::ObjectType::RECTANGLE, string);
     jail3->SetDepth(Depth_Standard::Jail);
     jail3->SetObjectName("jail3");
 
