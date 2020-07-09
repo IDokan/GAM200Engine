@@ -1,0 +1,9 @@
+ButtonTriggered.mp3 	- No
+CursorMove.mp3		- No
+Door			- No
+Glass_Crush		- ?
+Goal_Sound		- ?
+hostageNOTSaved		- Add this comment in Credit Scene “Sound effects obtained from https://www.zapsplat.com“
+hostageSaved		- Creator: javapimp, link to the material: https://freesound.org/people/javapimp/sounds/439190/
+LevelClearSound		- 
+YumYum.mp3		- Add this comment in Credit Scene “Sound effects obtained from https://www.zapsplat.com“
