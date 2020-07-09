@@ -1,5 +1,5 @@
-Player1 -250 1800 100 100 -1 player1 ../assets/textures/Cheese/cheese_move.png
-Player2 -140 1800 100 100 -1 player2 ../assets/textures/Cheese/cheese_move.png
+Player1 -300 1850 100 100 -1 player1 ../assets/textures/Cheese/cheese_move.png
+Player2 -200 1850 100 100 -1 player2 ../assets/textures/Cheese/cheese_move.png
 Block1 -54 1724 100 750 -1 obstacle ../assets/textures/BLOCK_W.png
 Block2 -350 1527 632 355 -1 obstacle ../assets/textures/BLOCK_W.png
 Block3 -614 665 100 800 -1 obstacle ../assets/textures/BLOCK_W.png
