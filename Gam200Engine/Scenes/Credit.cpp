@@ -83,7 +83,7 @@ void Credit::InitObject()
 	list1 = new Object();
 	list1->SetObjectName("credit1");
 	list1->SetTranslation(vector2(-400.f, 83.f));
-	list1->SetScale(vector2(720.f, 720.f));
+	list1->SetScale(vector2(600.f, 600.f));
 	list1->SetObjectType(Object::ObjectType::TEST);
 	list1->AddComponent(new Sprite(list1));
 	list1->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit1.png");
@@ -92,7 +92,7 @@ void Credit::InitObject()
 	list2 = new Object();
 	list2->SetObjectName("credit2");
 	list2->SetTranslation(vector2(100.f, 83.f));
-	list2->SetScale(vector2(720.f, 720.f));
+	list2->SetScale(vector2(600.f, 600.f));
 	list2->SetObjectType(Object::ObjectType::TEST);
 	list2->AddComponent(new Sprite(list2));
 	list2->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit2.png");
@@ -101,7 +101,7 @@ void Credit::InitObject()
 	list3 = new Object();
 	list3->SetObjectName("credit2");
 	list3->SetTranslation(vector2(500.f, 83.f));
-	list3->SetScale(vector2(720.f, 720.f));
+	list3->SetScale(vector2(600.f, 600.f));
 	list3->SetObjectType(Object::ObjectType::TEST);
 	list3->AddComponent(new Sprite(list3));
 	list3->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/credit3.png");

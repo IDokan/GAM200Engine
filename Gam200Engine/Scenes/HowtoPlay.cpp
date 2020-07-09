@@ -109,7 +109,7 @@ void HowToPlay::InitObject()
 	movementExplanation = new Object();
 	movementExplanation->SetObjectName("movementExplanation");
 	movementExplanation->SetTranslation(vector2{ 252.f, 276.f });
-	movementExplanation->SetScale(vector2{ 500.f, 125.f });
+	movementExplanation->SetScale(vector2{ 375.f, 125.f });
 	movementExplanation->AddComponent(new Sprite(movementExplanation));
 	movementExplanation->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/howtoplay1.png");
 	movementExplanation->SetObjectType(Object::ObjectType::TEST);
