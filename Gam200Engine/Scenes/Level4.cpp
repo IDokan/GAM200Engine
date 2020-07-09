@@ -285,6 +285,7 @@ void Level4::InitObject()
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(jail3);
+    objManager->FindLayer(LayerNames::Stage)->AddObject(jail4);
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse1);
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse2);
     objManager->FindLayer(LayerNames::Stage)->AddObject(mouse3);
