@@ -124,7 +124,7 @@ MenuObject* OptionMenu::MenuUpdate(float dt)
             }
             break;
         case OptionMenu::ScreenToggle:
-            input.SetShouldToggleWindow(false);
+            input.SetShouldToggleWindow(true);
             animation->SetState((animation->GetState() + 1) % 2);
             break;
         default:
