@@ -153,6 +153,7 @@ bool PlatformWindow::CreateWindow() noexcept
 	glfwSetWindowSizeCallback(window, WindowSizeCallback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetWindowTitle(window, "Cheese Roll");
+    glfwSetWindowIconifyCallback(window, MinimizeWindowCallback);
 	glfwSwapInterval(true);
     glEnable(GL_DEPTH_BUFFER);
 
