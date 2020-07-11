@@ -15,7 +15,7 @@ Creation Date: 08.12.2019
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include  <Systems/Input.hpp>
 
-SceneManager * SceneManager::GetSceneManager()
+SceneManager* SceneManager::GetSceneManager()
 {
     static SceneManager* Scene_manager = new SceneManager();
     return Scene_manager;
@@ -43,28 +43,23 @@ void SceneManager::Update(float dt)
         SetNextScene(currentScene->GetSceneStateManager()->GetNameOfSelectedLevel());
     }
 
-    if (!is_restart) 
+    if (!is_restart)
     {
         currentScene->Update(dt);
         if (currentScene->isNextLevel()) {
-	        const std::string tmpName = currentScene->GetChangedLevelName();
-            
-            //The next level tmpName should be with OR operator, will be Level4,5,,,
-            if (tmpName == "TutorialLevel2" || tmpName == "Level3") {
-                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::BACKGROUND_SOUND);
-                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
-            }
+            const std::string tmpName = currentScene->GetChangedLevelName();
+
             currentScene->UnloadScene();
 
-            if (const auto & Scene = scenes.find(tmpName);
-				Scene != scenes.end())
+            if (const auto& Scene = scenes.find(tmpName);
+                Scene != scenes.end())
             {
-				currentScene = Scene->second.get();
+                currentScene = Scene->second.get();
             }
             else
             {
-				// Print DEBUG data
-				std::cout << "Change level failed!\n";
+                // Print DEBUG data
+                std::cout << "Change level failed!\n";
             }
             currentScene->LoadScene();
         }
@@ -78,19 +73,19 @@ void SceneManager::Update(float dt)
 
 void SceneManager::Clear()
 {
-	currentScene->UnloadScene();
+    currentScene->UnloadScene();
     currentScene = nullptr;
 
     scenes.clear();
 }
 
-void SceneManager::AddScenes(std::string name, Scene * Scene)
+void SceneManager::AddScenes(std::string name, Scene* Scene)
 {
     auto tmp = std::make_pair(name, Scene);
     if (currentScene == nullptr) {
         // Why does it be right logic? I should double check
-    	// if (Scene->GetSceneInfo() == GameScenes::Menu ) 
-		{
+        // if (Scene->GetSceneInfo() == GameScenes::Menu ) 
+        {
             currentScene = Scene;
             currentScene->LoadScene();
         }
@@ -101,27 +96,27 @@ void SceneManager::AddScenes(std::string name, Scene * Scene)
 // Helper function to get a Draw from each Scene
 void SceneManager::Draw() const noexcept
 {
-	currentScene->Draw();
+    currentScene->Draw();
 }
 
 void SceneManager::SetNextScene(std::string sceneName) noexcept
 {
-	currentScene->LevelChangeTo(sceneName);
+    currentScene->LevelChangeTo(sceneName);
 }
 
 std::vector<std::string> SceneManager::GetSceneNames() const noexcept
 {
-	std::vector<std::string> SceneNames;
-	std::for_each(std::begin(scenes), std::end(scenes), [&](const std::pair< std::string, std::shared_ptr<Scene>>& SceneUnit)
-		{
-			SceneNames.push_back(SceneUnit.first);
-		}
-	);
+    std::vector<std::string> SceneNames;
+    std::for_each(std::begin(scenes), std::end(scenes), [&](const std::pair< std::string, std::shared_ptr<Scene>>& SceneUnit)
+    {
+        SceneNames.push_back(SceneUnit.first);
+    }
+    );
 
-	return SceneNames;
+    return SceneNames;
 }
 
 Scene* SceneManager::GetCurrentScene() noexcept
 {
-	return currentScene;
+    return currentScene;
 }
