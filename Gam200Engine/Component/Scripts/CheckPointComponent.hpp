@@ -33,4 +33,6 @@ private:
 private:
 	Player* targetPlayer1;
 	Player* targetPlayer2;
+
+	float delayTimer;
 };

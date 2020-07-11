@@ -85,6 +85,7 @@ void CrushableObject::DoSomethingWhenAttached()
 {
     if (attachedNum - detachedNum > 4)
     {
+		// Add Play_Sound(JAIL_CRUSHING_SOUND)
 		GetComponentByTemplate<Accumulating>()->SetIsAccumulating(true);
     }
 }
@@ -93,14 +94,14 @@ void CrushableObject::DoSomethingWhenDetached()
 {
 	if (attachedNum - detachedNum <= 4)
 	{
+		// Add Stop_Sound(JAIL_CRUSHING_SOUND))
 		GetComponentByTemplate<Accumulating>()->SetIsAccumulating(false);
 	}
 }
 
 void CrushableObject::Crushed() noexcept
 {
-    SoundManager sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-	sm.Play_Sound(SOUNDS::CRUSH_SOUND);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CRUSH_SOUND);
 
     SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartShakingCamera(0.6f, 6.f);
 	currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);

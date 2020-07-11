@@ -92,10 +92,10 @@
       <Filter>Object\Strings</Filter>
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\TestInteractionObject.cpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
     <ClCompile Include="Window\Application.cpp">
       <Filter>Window</Filter>
@@ -134,10 +134,10 @@
       <Filter>Object\Players</Filter>
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClCompile>
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
@@ -471,10 +471,10 @@
       <Filter>Object\Strings</Filter>
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\TestInteractionObject.hpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Timer</Filter>
@@ -519,10 +519,10 @@
       <Filter>Object\Players</Filter>
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClInclude>
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp">
-      <Filter>Object\Menu\InteractiveObject</Filter>
+      <Filter>Object\InteractiveObject</Filter>
     </ClInclude>
     <ClInclude Include="Component\Component.hpp">
       <Filter>Component</Filter>
@@ -858,7 +858,7 @@
     <Filter Include="States\HostageStates">
       <UniqueIdentifier>{62225ef8-4e37-455c-8fcf-b5b695d52d8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Menu\InteractiveObject">
+    <Filter Include="Object\InteractiveObject">
       <UniqueIdentifier>{bb207cb7-93ee-4df0-a8f0-7b1f7c449a02}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

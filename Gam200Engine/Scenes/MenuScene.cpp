@@ -85,6 +85,30 @@ void MenuScene::Unload()
 
 void MenuScene::Input()
 {
+	if (input.IsKeyTriggered(GLFW_KEY_1)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BUTTON_PRESSED_SOUND);
+	}	
+	if (input.IsKeyTriggered(GLFW_KEY_2)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CHEESE_RESTORED_SOUND);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_3)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::GOAL_DOORTRIGGER_SOUND);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_4)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::JAIL_CRUSHING_SOUND);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_5)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::RESPAWN_SOUND1);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_6)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::RESPAWN_SOUND2);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_7)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::STRUGGLE_SOUND);
+	}
+	if (input.IsKeyTriggered(GLFW_KEY_8)) {
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::REFRIGERATOR_TRIGGERED_SOUND);
+	}
 }
 
 void MenuScene::Collision()

@@ -10,12 +10,13 @@ Creation Date: 08.23.2019
 	Header file for My ImGui Code
 ******************************************************************************/
 
+#include "MyImGui.hpp"
+#ifdef _DEBUG
 #include <array>
 
 #pragma warning(push)
 #pragma warning(disable:26451)
 #pragma warning(disable:26495)
-#include "MyImGui.hpp"
 #include <Graphics/ImGui/imgui.h>
 #include <Graphics/ImGui/imgui_impl_opengl3.h>
 #include <Graphics/ImGui/imgui_impl_glfw.h>
@@ -31,9 +32,12 @@ Creation Date: 08.23.2019
 // Include Components
 #include <Component/Sprite/Sprite.hpp>
 #include <Component/Physics.hpp>
+#endif
+
 
 namespace MyImGui
 {
+#ifdef _DEBUG
 	/* Helper functions */
 	void HelpMarker(const char* description);
 	void MakeBigSpacing();
@@ -533,6 +537,8 @@ namespace MyImGui
 			ImGui::EndMainMenuBar();
 		}
 	}
+#endif
+
 #ifdef _DEBUG
 	void InitImGui(GLFWwindow* window) noexcept
 #else

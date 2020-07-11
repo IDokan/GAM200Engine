@@ -128,6 +128,11 @@ public:
         return isCollide;
     }
 
+    void SetShouldCollisionResolution(bool is)
+    {
+        shouldResolveResolution = is;
+    }
+
     bool GetShouldCollisionResolution() const
     {
         return shouldResolveResolution;
