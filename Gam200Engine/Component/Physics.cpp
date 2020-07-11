@@ -240,6 +240,16 @@ void Physics::collisionHelperFunction(Object* object1, Object* object2)
 void Physics::ManageCollision()
 {
     const auto& physicsObject = ObjectManager::GetObjectManager()->FindLayer(LayerNames::Stage)->GetObjContainer();
+
+    for (const auto& object : physicsObject)
+    {
+        Physics* p = object->GetComponentByTemplate<Physics>(); 
+        if (p != nullptr)
+        {
+            p->isCollide = false;
+        }
+    }
+
     for (const auto& object1 : physicsObject)
     {
         for (const auto& object2 : physicsObject)

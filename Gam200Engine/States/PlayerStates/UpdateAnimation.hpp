@@ -41,6 +41,8 @@ private:
 	UpdateAnimation();
 
 	void UpdateCollisionBox(Player* player);
+	void Push(Player* player, Physics* playerPhysics, vector2 newPosition);
+	bool PushAndGetStillCollided(Player* player, Physics* playerPhysics);
 
 	bool isSoundPlay;
 };

@@ -17,7 +17,6 @@ Creation Date: 03.08.2020
 #include <Scenes\SceneManager.hpp>
 
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
-class SoundManager smAnimation;
 UpdateAnimation* UpdateAnimation::Get()
 {
     static UpdateAnimation* state = new UpdateAnimation();
@@ -67,13 +66,17 @@ void UpdateAnimation::ResizingPlayer1(Player* player)
 		UpdateCollisionBox(player);
 
 
-		player->GetComponentByTemplate<Physics>()->ManageCollision();
+        Physics* playerPhysics = player->GetComponentByTemplate<Physics>();
+        playerPhysics->ManageCollision();
 
-		if (player->GetComponentByTemplate<Physics>()->IsCollided())
+		if (playerPhysics->GetShouldCollisionResolution())
 		{
-			player->SetScale(player->GetScale() - scaling_constant);
-			MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player1, MessageObjects::Player2, MessageTypes::CancelScaling);
-			UpdateCollisionBox(player);
+            if (PushAndGetStillCollided(player, playerPhysics))
+            {
+                player->SetScale(player->GetScale() - scaling_constant);
+                MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player1, MessageObjects::Player2, MessageTypes::CancelScaling);
+                UpdateCollisionBox(player);
+            }
 		}
 	}
 }
@@ -105,15 +108,18 @@ void UpdateAnimation::ResizingPlayer2(Player* player)
 		player->SetScale(player2OldScale + scaling_constant);
 		UpdateCollisionBox(player);
 
+        Physics* playerPhysics = player->GetComponentByTemplate<Physics>();
+		playerPhysics->ManageCollision();
 
-		player->GetComponentByTemplate<Physics>()->ManageCollision();
-
-		if (player->GetComponentByTemplate<Physics>()->IsCollided())
-		{
-			player->SetScale(player->GetScale() - scaling_constant);
-			MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player2, MessageObjects::Player1, MessageTypes::CancelScaling);
-			UpdateCollisionBox(player);
-		}
+        if (playerPhysics->GetShouldCollisionResolution())
+        {
+            if (PushAndGetStillCollided(player, playerPhysics))
+            {
+                player->SetScale(player->GetScale() - scaling_constant);
+                MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Player2, MessageObjects::Player1, MessageTypes::CancelScaling);
+                UpdateCollisionBox(player);
+            }
+        }
 	}
 }
 
@@ -127,6 +133,44 @@ void UpdateAnimation::UpdateCollisionBox(Player* player)
 	player->GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(player, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{ collisionBoxOffset });
 }
 
+void UpdateAnimation::Push(Player* player, Physics* playerPhysics, vector2 newPosition)
+{
+    player->SetTranslation(newPosition);
+    playerPhysics->SetCollisionBoxPosition(newPosition);
+    playerPhysics->ManageCollision();
+    playerPhysics->SetShouldCollisionResolution(false);
+}
+
+bool UpdateAnimation::PushAndGetStillCollided(Player* player, Physics* playerPhysics)
+{
+    vector2 originalPosition = player->GetTranslation();
+    Push(player, playerPhysics, originalPosition + vector2{ scaling_constant, 0.f });
+    if (playerPhysics->IsCollided() == false)
+    {
+        return false;
+    }
+    Push(player, playerPhysics, originalPosition + vector2{ -scaling_constant, 0.f });
+    if (playerPhysics->IsCollided() == false)
+    {
+        return false;
+    }
+    Push(player, playerPhysics, originalPosition + vector2{ 0.f, scaling_constant });
+    if (playerPhysics->IsCollided() == false)
+    {
+        return false;
+    }
+    Push(player, playerPhysics, originalPosition + vector2{ 0.f, -scaling_constant });
+    if (playerPhysics->IsCollided() == false)
+    {
+        return false;
+    }
+
+    player->SetTranslation(originalPosition);
+    playerPhysics->SetCollisionBoxPosition(originalPosition);
+
+    return true;
+}
+
 void UpdateAnimation::Enter(Player* /*obj*/)
 {
     isSoundPlay = false;
@@ -138,9 +182,8 @@ void UpdateAnimation::PlayResizingSound()
     {
         if (input.IsKeyReleased(GLFW_KEY_LEFT_SHIFT) && input.IsKeyReleased(GLFW_KEY_RIGHT_SHIFT)) 
         {
-            isSoundPlay = false;  
-         //   smAnimation = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-            smAnimation.Stop_Sound(SOUNDS::SIZE_SHARE_SOUND);
+            isSoundPlay = false; 
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::SIZE_SHARE_SOUND);
         }
     }
     else 
@@ -148,8 +191,7 @@ void UpdateAnimation::PlayResizingSound()
         if (input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT) || input.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
         {
             isSoundPlay = true;
-            smAnimation = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-            smAnimation.Play_Sound(SOUNDS::SIZE_SHARE_SOUND);
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::SIZE_SHARE_SOUND);
         }
     }
 

@@ -133,6 +133,18 @@ void Application::Input()
     {
         input.SetIsRunning(false);
     }
+
+    if (input.IsKeyTriggered(GLFW_KEY_8))
+    {
+        if (Move::Get()->moveValue < 300.f)
+        {
+            Move::Get()->RecalculateAndSetMoveValue(400.f);
+        }
+        else
+        {
+            Move::Get()->RecalculateAndSetMoveValue(200.f);
+        }
+    }
 }
 
 void Application::ClearSingleTons()

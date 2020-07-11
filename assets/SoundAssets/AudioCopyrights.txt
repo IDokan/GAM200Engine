@@ -5,5 +5,15 @@ Glass_Crush		- ?
 Goal_Sound		- ?
 hostageNOTSaved		- Add this comment in Credit Scene “Sound effects obtained from https://www.zapsplat.com“
 hostageSaved		- Creator: javapimp, link to the material: https://freesound.org/people/javapimp/sounds/439190/
-LevelClearSound		- 
+LevelClearSound		-
 YumYum.mp3		- Add this comment in Credit Scene “Sound effects obtained from https://www.zapsplat.com“
+
+Have to Add
+RefrigeratorTriggered - Creator: amishman35isbricked, link to the material: https://freesound.org/people/amishman35isbricked/sounds/108212/
+GoalDoortriggered - Creator: _stubb, link to the material: https://freesound.org/people/_stubb/sounds/406599/
+cheese stretch - Recorded by JAMJAM
+cheese restored - https://www.zapsplat.com/music/cartoon-character-high-pitched-says-whoopie-1/
+button pressed - Creator: Infernus2, link to the material: https://freesound.org/people/Infernus2/sounds/423957/
+Respawn SFX - zapsplat https://www.zapsplat.com/music/cartoon-character-high-pitched-says-here-we-go-1/https://www.zapsplat.com/music/cartoon-character-high-pitched-says-here-we-go-1/, https://www.zapsplat.com/music/cartoon-character-high-pitched-says-here-we-go-2/
+Struggle SFX - https://www.zapsplat.com/music/cute-cartoon-character-high-pitched-vocalisation-struggle-straining/ (Maybe change)
+Jail crunching SFX - https://www.zapsplat.com/music/bone-being-crushed-1/
