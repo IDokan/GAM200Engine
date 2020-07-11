@@ -99,8 +99,7 @@ void CrushableObject::DoSomethingWhenDetached()
 
 void CrushableObject::Crushed() noexcept
 {
-    SoundManager sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-	sm.Play_Sound(SOUNDS::CRUSH_SOUND);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CRUSH_SOUND);
 
     SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartShakingCamera(0.6f, 6.f);
 	currentString->GetComponentByTemplate<StringPhysics>()->DeletePositionsWithObject(this);

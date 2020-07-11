@@ -13,8 +13,6 @@ Creation Date: 12.OCT.2019
 #include <Scenes/SceneManager.hpp>
 
 
-
-
 void SoundManager::Load_Sound()
 {
     if (fmod_system == nullptr) {
@@ -101,7 +99,6 @@ void SoundManager::UnLoad_Sound()
     ERRCHECK(theResult, "UnLoad Sound");
     theResult = FMOD_Sound_Release(sound[UNDO_SOUND]);
     ERRCHECK(theResult, "UnLoad Sound");
-
     theResult = FMOD_Sound_Release(sound[SIZE_SHARE_SOUND]);
     ERRCHECK(theResult, "UnLoad Sound");
     theResult = FMOD_Sound_Release(sound[NOT_SAVED_SOUND]);
