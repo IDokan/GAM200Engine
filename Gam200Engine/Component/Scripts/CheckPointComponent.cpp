@@ -22,7 +22,7 @@ Creation Date: 06.29.2020
 SoundManager smInCheckPoint;
 
 CheckPointComponent::CheckPointComponent(Object* obj, Player* targetPlayer1, Player* targetPlayer2)
-	: Component(obj), targetPlayer1(targetPlayer1), targetPlayer2(targetPlayer2)
+	: Component(obj), targetPlayer1(targetPlayer1), targetPlayer2(targetPlayer2), delayTimer(-20.f)
 {
 	smInCheckPoint = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
@@ -35,18 +35,33 @@ void CheckPointComponent::Init()
 {
 }
 
-void CheckPointComponent::Update(float /*dt*/)
+void CheckPointComponent::Update(float dt)
 {
+	Scene* currentScene = SceneManager::GetSceneManager()->GetCurrentScene();
+	if (owner == currentScene->lastCheckPoint)
+	{
+		return;
+	}
+
+	if (delayTimer > -10.f && delayTimer < 2.f)
+	{
+		delayTimer += dt;
+		return;
+	}
+
 	if (CheckPlayerIsInGoal())
 	{
 		vector2 ownerTranslation = owner->GetTranslation();
-		Scene* currentScene = SceneManager::GetSceneManager()->GetCurrentScene();
 		
 		currentScene->lastCheckPoint->GetComponentByTemplate<Animation>()->SetState(0);
 		currentScene->lastCheckPoint->SetEmitterOn(false);
 		currentScene->lastCheckPoint = dynamic_cast<CheckPoint*>(owner);
 		currentScene->lastCheckPoint->SetEmitterOn(true);
 		currentScene->lastCheckPoint->GetComponentByTemplate<Animation>()->SetState(1);
+
+		// TODO: Add Play_Sound(REFRIGERATOR_TRIGGERED_SOUND) here
+
+		delayTimer = 0.f;
 	}
 }
 
