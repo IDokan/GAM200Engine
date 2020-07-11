@@ -355,7 +355,6 @@
     <ClCompile Include="Object\Menu\MainMenu.cpp">
       <Filter>Object\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Credit.cpp" />
     <ClCompile Include="States\PlayerStates\InRefrigerator.cpp">
       <Filter>States\PlayerStates</Filter>
     </ClCompile>
@@ -363,6 +362,12 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\Ending.cpp" />
+    <ClCompile Include="Scenes\Level2.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Credit.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -758,7 +763,6 @@
     <ClInclude Include="Object\Menu\MainMenu.hpp">
       <Filter>Object\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Credit.hpp" />
     <ClInclude Include="States\PlayerStates\InRefrigerator.hpp">
       <Filter>States\PlayerStates</Filter>
     </ClInclude>
@@ -766,6 +770,12 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Ending.hpp" />
+    <ClInclude Include="Scenes\Level2.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Credit.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

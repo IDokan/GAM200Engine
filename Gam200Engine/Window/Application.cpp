@@ -27,6 +27,7 @@ Creation Date: 08.05.2019
 #include <Scenes/Option.hpp>
 #include <Scenes/MenuScene.hpp>
 #include <Scenes/AlphaTutorialLevel1.hpp>
+#include <Scenes/Level2.hpp>
 #include <Scenes/Level3.hpp>
 #include <Scenes/Credit.hpp>
 #include <Scenes/HowtoPlay.hpp>
@@ -70,6 +71,7 @@ void Application::Init()
 	SceneManager::GetSceneManager()->Init();
 	ObjectManager::GetObjectManager()->Init();
 
+    SceneManager::GetSceneManager()->AddScenes("Level2", dynamic_cast<Scene*>(new Level2()));
     SceneManager::GetSceneManager()->AddScenes("Intro", dynamic_cast<Scene*>(new Intro()));
     SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
     SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
