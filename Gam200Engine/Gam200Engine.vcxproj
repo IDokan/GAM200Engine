@@ -104,7 +104,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmod_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -122,7 +122,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmod_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -144,7 +144,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmod_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -166,7 +166,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmodL_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)external\glfw\lib\$(PlatformTarget)\glfw3.lib;$(SolutionDir)external\glew\lib\$(PlatformTarget)\glew32.lib;$(SolutionDir)external\fmod\api\core\lib\$(PlatformTarget)\fmod_vc.lib;$(SolutionDir)external\fmod\api\studio\lib\$(PlatformTarget)\fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\fmod\api\core\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
