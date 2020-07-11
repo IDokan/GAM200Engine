@@ -20,7 +20,6 @@ Creation Date: 05.05.2020
 #include <Angle.hpp>
 #include <Scenes\SceneManager.hpp>
 
-class SoundManager smHosetageAlerts;
 HostageAlertsUIHandler::HostageAlertsUIHandler(HostageAlertsUI* owner)
     : Component(owner), ui(owner), shouldShowing(false), timer(0.f), isSoundPlay(false)
 {
@@ -37,8 +36,7 @@ HostageAlertsUIHandler::HostageAlertsUIHandler(HostageAlertsUI* owner)
             }
             if (isSoundPlay == false) {
                 isSoundPlay = true;
-                smHosetageAlerts = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-                smHosetageAlerts.Play_Sound(SOUNDS::NOT_SAVED_SOUND);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::NOT_SAVED_SOUND);
             }
 
             return true;

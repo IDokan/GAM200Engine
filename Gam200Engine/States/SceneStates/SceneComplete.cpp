@@ -32,8 +32,6 @@ Creation Date: 03.16.2020
 #include <Systems/Input.hpp>
 #include <Scenes/SceneManager.hpp>
 
-class SoundManager smInSceneComplete;
-
 bool IsMousePositionInBox(vector2 mousePosition, vector2 boxPosition, vector2 boxScale)
 {
 	vector2 min{ boxPosition - (boxScale / 2.f) };
@@ -55,8 +53,7 @@ SceneComplete* SceneComplete::Get()
 
 void SceneComplete::Enter(SceneStateManager* /*manager*/)
 {
-	smInSceneComplete = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
-	smInSceneComplete.Play_Sound(GOAL_SOUND);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(GOAL_SOUND);
 	// Send message ¡°Players reached goal!¡± to both players.
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::SceneComplete);
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::SceneComplete);
@@ -153,7 +150,7 @@ void SceneComplete::Execute(SceneStateManager* manager, float dt)
 	if (input.IsKeyTriggered(GLFW_KEY_ENTER) || input.IsKeyTriggered(GLFW_KEY_LEFT_SHIFT) || input.IsKeyTriggered(GLFW_KEY_RIGHT_SHIFT))
 	{
 		
-		smInSceneComplete.Play_Sound(SELECT_SOUND);
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SELECT_SOUND);
 		GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0.3f));
 		switch (currentSelection)
 		{
@@ -210,12 +207,12 @@ void SceneComplete::UpdateSelection() noexcept
 {
 	if (input.IsKeyTriggered(GLFW_KEY_DOWN))
 	{
-		smInSceneComplete.Play_Sound(CURSOR_MOVEMENT_SOUND);
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
 		SetCurrentSelection(static_cast<SelectionEnum>(currentSelection + 1));
 	}
 	else if (input.IsKeyTriggered(GLFW_KEY_UP)) 
 	{
-		smInSceneComplete.Play_Sound(CURSOR_MOVEMENT_SOUND);
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
 		SetCurrentSelection(static_cast<SelectionEnum>(currentSelection - 1));
 	}
 	else
