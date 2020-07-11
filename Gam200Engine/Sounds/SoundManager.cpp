@@ -17,10 +17,12 @@ Creation Date: 12.OCT.2019
 
 void SoundManager::Load_Sound()
 {
-    theResult = FMOD_System_Create(&fmod_system);
-    ERRCHECK(theResult, "System Create");
-    theResult = FMOD_System_Init(fmod_system, MAX_SOUND_TRACK, FMOD_INIT_NORMAL, NULL);
-    ERRCHECK(theResult, "System Init");
+    if (fmod_system == nullptr) {
+        theResult = FMOD_System_Create(&fmod_system);
+        ERRCHECK(theResult, "System Create");
+        theResult = FMOD_System_Init(fmod_system, MAX_SOUND_TRACK, FMOD_INIT_NORMAL, NULL);
+        ERRCHECK(theResult, "System Init");
+    }
 
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/TheFirstBgm.wav", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
     ERRCHECK(theResult, "Load Sound");
@@ -54,11 +56,26 @@ void SoundManager::Load_Sound()
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/YumYum.mp3", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
     ERRCHECK(theResult, "Load Sound");
 
-     for (int sound = 0; sound < SOUNDS::NONE; sound++) {
-         current_ch_volume[sound] = initialVolume;
-         theResult = FMOD_Channel_SetVolume(ch[sound], initialVolume);
-         ERRCHECK(theResult, "MasterVolume Error");
-     }
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonPressed.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_PRESSED_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CheeseRestored.mp3", FMOD_DEFAULT, nullptr, &sound[CHEESE_RESTORED_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/GoalDoortriggered.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_DOORTRIGGER_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/JailCrushingSFX.mp3", FMOD_DEFAULT, nullptr, &sound[JAIL_CRUSHING_SOUND]);
+    ERRCHECK(theResult, "Load Sound");  
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX1.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND1]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX2.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND2]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_DEFAULT, nullptr, &sound[STRUGGLE_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RefrigeratorTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[REFRIGERATOR_TRIGGERED_SOUND]);
+    ERRCHECK(theResult, "Load Sound");
+
+    for (int sound = 0; sound < SOUNDS::NONE; sound++) {
+        current_ch_volume[sound] = initialVolume;
+    }
 }
 void SoundManager::UnLoad_Sound()
 {
@@ -99,24 +116,27 @@ void SoundManager::Play_Sound(SOUNDS sound_name)
 {
 
     FMOD_System_Update(fmod_system);
-    SetVolume(sound_name, current_ch_volume[sound_name]);
     theResult = FMOD_System_PlaySound(fmod_system, sound[sound_name], nullptr, false, &ch[sound_name]);
     ERRCHECK(theResult, "Play Sound");
 }
 
 void SoundManager::Stop_Sound(int _chNum)
 {
-    theResult = FMOD_Channel_Stop(ch[_chNum]);
-    ERRCHECK(theResult, "Stop Sound");
+    if (ch[_chNum] != nullptr) {
+        theResult = FMOD_Channel_Stop(ch[_chNum]);
+        ERRCHECK(theResult, "Stop Sound");
+    }
 }
 
 //The volume bound is between 0 ~ 1 
 void SoundManager::SetVolume(int sound_name, float volume)
 {
-    //masterVolume = volume;
-    current_ch_volume[sound_name] = volume;
-    theResult = FMOD_Channel_SetVolume(ch[sound_name], volume);
-    ERRCHECK(theResult, "Set Volume");
+    if (ch[sound_name] != nullptr) {
+        current_ch_volume[sound_name] = volume;
+
+        theResult = FMOD_Channel_SetVolume(ch[sound_name], volume);
+        ERRCHECK(theResult, "Set Volume");
+    }
 }
 
 void SoundManager::ERRCHECK(FMOD_RESULT _theResult, const std::string errorReason)
@@ -134,14 +154,18 @@ float SoundManager::GetCurrentChVolume(int sound_name)
 
 void SoundManager::SetVolumeOnMenu()
 {
-    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND) / 4);
-    ERRCHECK(theResult, "Set Volume On Menu");
+    if (ch[SOUNDS::BACKGROUND_SOUND] != nullptr) {
+        theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND) / 4);
+        ERRCHECK(theResult, "Set Volume On Menu");
+    }
 }
 
 void SoundManager::SetVolumeOnGameRunning()
 {
-    theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND));
-    ERRCHECK(theResult, "Set Volume On Game Running");
+    if (ch[SOUNDS::BACKGROUND_SOUND] != nullptr) {
+        theResult = FMOD_Channel_SetVolume(ch[SOUNDS::BACKGROUND_SOUND], GetCurrentChVolume(BACKGROUND_SOUND));
+        ERRCHECK(theResult, "Set Volume On Game Running");
+    }
 }
 
 

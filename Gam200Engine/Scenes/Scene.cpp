@@ -179,10 +179,8 @@ void Scene::LoadScene() noexcept
     glfwMakeContextCurrent(main_context);
 
     ///////////////////////Init(huge work) Working here..
-
     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Load_Sound();
 
-    //soundManager.Load_Sound();
     InitRequiredObjects();
     InitDEBUGObjects();
     Load();
@@ -234,9 +232,6 @@ void Scene::Draw() noexcept
     obstacleMatrices.clear();
 
 
-
-
-
 	// Check is there possible to cause bug?
 	bool localFlag = false;
 	for (auto& element : ObjectManager::GetObjectManager()->GetLayerContainer())
@@ -322,6 +317,7 @@ SceneStateManager* Scene::GetSceneStateManager() noexcept
 
 void Scene::LevelChangeTo(std::string name)
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::BACKGROUND_SOUND);
     is_next = true;
     next_level = name;
 }

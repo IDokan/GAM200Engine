@@ -136,7 +136,6 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
 		case BaseMenu::Exit:
 			dynamic_cast<DestructiveConfirmation*>(PauseAndMenu::Get()->confirmMenu)->SetDoThis([&]()
 				{
-					SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::BACKGROUND_SOUND);
 					SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 				});
 			return PauseAndMenu::Get()->confirmMenu;
