@@ -37,4 +37,6 @@ private:
 
     bool isTimerButton;
     bool isTimerReset;
+    bool soundFlag1;
+    bool soundFlag2;
 };

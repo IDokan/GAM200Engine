@@ -1,6 +1,7 @@
 #include <Component/TriggerButton.hpp>
 #include <Object/Particles/ParticleEmitter.hpp>
 #include <Scenes/SceneManager.hpp>
+#include <iostream>
 
 
 TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Object* button, Object* button1, Object* door_1, Object* door_2, ParticleEmitter* openEmitter, ParticleEmitter* closeEmitter) : Component(obj), player1(player1), player2(player2), button(button), button1(button1), door_1(door_1), door_2(door_2), movingObject(nullptr), isTimerButton(false), openEmitter(openEmitter), closeEmitter(closeEmitter)
@@ -22,6 +23,8 @@ TriggerButton::TriggerButton(Object* obj, Player* player1, Player* player2, Obje
 void TriggerButton::Init()
 {
     isTimerReset = false;
+    soundFlag1 = true;
+    soundFlag2 = true;
 }
 
 void TriggerButton::Update(float dt)
@@ -72,6 +75,7 @@ void TriggerButton::OpenAndCloseDoorsWithOneButton()
             Graphics::Color4f color2 = door_2->GetComponentByTemplate<Sprite>()->GetColor();
             if (button->GetDirtyFlag() == true) // only the first time when players collide with button, get in this if statement because without this if statement, doors will keep opening and closing 
             {
+                /*TODO: Play Sound*/
                 if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true) // the reason why check the door is ghostCollision or not is that activating ghost collision means that that door is opened. so close the opened door and opend closed door.
                 {
                     color.alpha = 1.f;
@@ -126,6 +130,7 @@ void TriggerButton::OpenOneDoorWithOneButton()
         {
             if (button->GetDirtyFlag())
             {
+                /*TODO: Play Sound*/
                 Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
                 if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true) // rest parts are same as OpenAndCloseDoorsWithOneButton() function.
                 {
@@ -214,18 +219,30 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
     if (isPlayer1OnButton || isPlayer2OnButton)
     {
         button->GetComponentByTemplate<Animation>()->SetState(1);
+        if (soundFlag1 == true)
+        {
+            /*TODO: Play Sound*/
+            soundFlag1 = false;
+        }
+        
     }
     else
     {
+        soundFlag1 = true;
         button->GetComponentByTemplate<Animation>()->SetState(0);
     }
 
     if (isPlayer1OnButton1 || isPlayer2OnButton1)
     {
         button1->GetComponentByTemplate<Animation>()->SetState(1);
+        if (soundFlag2 == true)
+        {
+            /*TODO: Play Sound*/
+        }
     }
     else
     {
+        soundFlag2 = true;
         button1->GetComponentByTemplate<Animation>()->SetState(0);
     }
 }
@@ -236,6 +253,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
     {
         if (button->GetDirtyFlag() == true)
         {
+            /*TODO: Play Sound*/
             button->SetDirtyFlag(false);
             button->SetIsTimerOn(true);
         }
@@ -244,6 +262,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
     {
         if (button1->GetDirtyFlag() == true)
         {
+            /*TODO: Play Sound*/
             button1->SetDirtyFlag(false);
             button1->SetIsTimerOn(true);
         }
@@ -253,6 +272,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
     {
         if (button->GetDirtyFlag() == true)
         {
+            /*TODO: Play Sound*/
             button->SetDirtyFlag(false);
             button->SetIsTimerOn(true);
         }
@@ -261,6 +281,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
     {
         if (button1->GetDirtyFlag() == true)
         {
+            /*TODO: Play Sound*/
             button1->SetDirtyFlag(false);
             button1->SetIsTimerOn(true);
         }
