@@ -36,7 +36,6 @@ Physics::Physics(Object* obj) : Component(obj)
     collisionBox = { vector2{0.f,0.f}, vector2{0.f,0.f} };
     hasCollisionBox = true;
     isGhost = false;
-    isCollide = false;
     sm = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager();
 }
 
@@ -212,28 +211,6 @@ void Physics::collisionHelperFunction(Object* object1, Object* object2)
         object2->GetComponentByTemplate<Physics>()->SetCollisionResolution(true);
         object2->GetComponentByTemplate<Physics>()->SetPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
         object2->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object2->GetComponentByTemplate<Physics>()->GetOldPosition());
-
-        for (const auto& object3 : physicsObject)
-        {
-            if ((object3->GetObjectType() == Object::ObjectType::PLAYER_1 && object1->GetObjectType() == Object::ObjectType::PLAYER_2) || (object3->GetObjectType() == Object::ObjectType::PLAYER_2 && object1->GetObjectType() == Object::ObjectType::PLAYER_1))
-            {
-                if (object1->GetComponentByTemplate<Physics>()->IsCollideWith(&*object3) == true)
-                {
-                    object3->GetComponentByTemplate<Physics>()->SetCollisionResolution(true);
-                    object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
-                    object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
-                }
-            }
-            else if ((object3->GetObjectType() == Object::ObjectType::PLAYER_1 && object2->GetObjectType() == Object::ObjectType::PLAYER_2) || object3->GetObjectType() == Object::ObjectType::PLAYER_2 && object2->GetObjectType() == Object::ObjectType::PLAYER_1)
-            {
-                if (object2->GetComponentByTemplate<Physics>()->IsCollideWith(&*object3) == true)
-                {
-                    object3->GetComponentByTemplate<Physics>()->SetCollisionResolution(true);
-                    object3->GetComponentByTemplate<Physics>()->SetPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
-                    object3->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object3->GetComponentByTemplate<Physics>()->GetOldPosition());
-                }
-            }
-        }
     }
 }
 
@@ -274,6 +251,7 @@ void Physics::ManageCollision()
         }
     }
 }
+
 bool Physics::IsCollideWith(Object* object)
 {
     if (owner->GetComponentByTemplate<Physics>() && object->GetComponentByTemplate<Physics>())
@@ -651,6 +629,7 @@ void Physics::IsCollideWithMovedObject()
             {
                 if (owner->GetComponentByTemplate<Physics>()->IsCollideWith(&*object1))
                 {
+                    count = 0;
                     if (owner->GetScale().x >= UpdateAnimation::maximum_scaling_limit * 0.8f)
                     {
                         switch (object1->GetComponentByTemplate<Physics>()->GetObjectCollidingSide())
@@ -661,6 +640,9 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (dirtyFlag == true)
                                 {
+                                    Player* player = dynamic_cast<Player*>(owner);
+                                    player->SetIsBlock(false);
+                                    movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::UP_SIDE;
                                     sm.Play_Sound(PUSHABLE_BOX_SOUND);
                                 }
@@ -673,13 +655,13 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (movingObjectFlag == true)
                                 {
-         
+
                                     if (Player* player = dynamic_cast<Player*>(owner);
                                         player != nullptr)
                                     {
                                         player->SetIsBlock(true);
                                     }
-                                    
+                                    lastCollideObjName = object1->GetObjectName();
                                     movingObjectFlag = false;
                                 }
 
@@ -693,6 +675,9 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (dirtyFlag == true)
                                 {
+                                    Player* player = dynamic_cast<Player*>(owner);
+                                    player->SetIsBlock(false);
+                                    movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::BOTTOM_SIDE;
                                     sm.Play_Sound(PUSHABLE_BOX_SOUND);
                                 }
@@ -710,6 +695,7 @@ void Physics::IsCollideWithMovedObject()
                                     {
                                         player->SetIsBlock(true);
                                     }
+                                    lastCollideObjName = object1->GetObjectName();
                                     movingObjectFlag = false;
                                 }
                             }
@@ -721,6 +707,9 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (dirtyFlag == true)
                                 {
+                                    Player* player = dynamic_cast<Player*>(owner);
+                                    player->SetIsBlock(false);
+                                    movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::RIGHT_SIDE;
                                     sm.Play_Sound(PUSHABLE_BOX_SOUND);
                                 }
@@ -738,6 +727,7 @@ void Physics::IsCollideWithMovedObject()
                                     {
                                         player->SetIsBlock(true);
                                     }
+                                    lastCollideObjName = object1->GetObjectName();
                                     movingObjectFlag = false;
                                 }
                             }
@@ -749,6 +739,9 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (dirtyFlag == true)
                                 {
+                                    Player* player = dynamic_cast<Player*>(owner);
+                                    player->SetIsBlock(false);
+                                    movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::LEFT_SIDE;
                                     sm.Play_Sound(PUSHABLE_BOX_SOUND);
                                 }
@@ -767,6 +760,7 @@ void Physics::IsCollideWithMovedObject()
                                     {
                                         player->SetIsBlock(true);
                                     }
+                                    lastCollideObjName = object1->GetObjectName();
                                     movingObjectFlag = false;
                                 }
                             }
@@ -778,44 +772,51 @@ void Physics::IsCollideWithMovedObject()
                     }
                     else
                     {
-                    if (movingObjectFlag == true)
-                    {
-                        if (Player* player = dynamic_cast<Player*>(owner);
-                            player != nullptr)
+                        if (movingObjectFlag == true)
                         {
-                            player->SetIsBlock(true);
+                            if (Player* player = dynamic_cast<Player*>(owner);
+                                player != nullptr)
+                            {
+                                player->SetIsBlock(true);
+                            }
+                            lastCollideObjName = object1->GetObjectName();
+                            movingObjectFlag = false;
                         }
-                        movingObjectFlag = false;
-                    }
                     }
                 }
                 else
                 {
-                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && movingObjectFlag == false)
+                    if (movingObjectFlag == false && (lastCollideObjName == object1->GetObjectName()))
                     {
-                        if (Player* player = dynamic_cast<Player*>(owner);
-                            player != nullptr)
+                        count++;
+                        if (count >= 2)
                         {
-                            player->SetIsBlock(false);
+                            if (Player* player = dynamic_cast<Player*>(owner);
+                                player != nullptr)
+                            {
+                                player->SetIsBlock(false);
+                            }
+                            movingObjectFlag = true;
+                            count = 0;
+                            lastCollideObjName = "default";
                         }
-                        movingObjectFlag = true;
                     }
-                    if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::UP_SIDE)
+                    if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().x != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::UP_SIDE)
                     {
                         dirtyFlag = true;
                         sm.Stop_Sound(PUSHABLE_BOX_SOUND);
                     }
-                    else if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::BOTTOM_SIDE)
+                    else if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().x != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::BOTTOM_SIDE)
                     {
                         dirtyFlag = true;
                         sm.Stop_Sound(PUSHABLE_BOX_SOUND);
                     }
-                    else if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::RIGHT_SIDE)
+                    else if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().y != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::RIGHT_SIDE)
                     {
                         dirtyFlag = true;
                         sm.Stop_Sound(PUSHABLE_BOX_SOUND);
                     }
-                    else if (owner->GetComponentByTemplate<Physics>()->GetVelocity() == vector2{ 0.f, 0.f } && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::LEFT_SIDE)
+                    else if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().y != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::LEFT_SIDE)
                     {
                         dirtyFlag = true;
                         sm.Stop_Sound(PUSHABLE_BOX_SOUND);
