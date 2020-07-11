@@ -666,7 +666,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else
+                            else if (ownerVelocity.x != 0.f)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -707,7 +707,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else
+                            else if (ownerVelocity.x != 0.f)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -746,7 +746,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else
+                            else if(ownerVelocity.y != 0.f)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -765,7 +765,7 @@ void Physics::IsCollideWithMovedObject()
                         }
                         case Physics::ObjectSide::LEFT_SIDE:
                         {
-                            if (ownerVelocity.x >= 0.f && ownerVelocity.y == 0.f)
+                            if (ownerVelocity.x > 0.f && ownerVelocity.y == 0.f)
                             {
                                 if (dirtyFlag == true)
                                 {
@@ -786,7 +786,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else
+                            else if (ownerVelocity.y != 0.f)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -832,6 +832,7 @@ void Physics::IsCollideWithMovedObject()
                         {   
                             if (isSoundPlay == true)
                             {
+                                std::cout << "stop\n";
                                 /*TODO: Stop Sound*/
                                 isSoundPlay = false;
                             }
