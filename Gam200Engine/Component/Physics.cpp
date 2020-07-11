@@ -645,7 +645,7 @@ void Physics::IsCollideWithMovedObject()
                         {
                         case Physics::ObjectSide::UP_SIDE:
                         {
-                            if (ownerVelocity.y <= 0.f && ownerVelocity.x == 0.f)
+                            if (ownerVelocity.y < 0.f && ownerVelocity.x == 0.f)
                             {
                                 if (dirtyFlag == true)
                                 {
@@ -666,7 +666,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else if (ownerVelocity.x != 0.f)
+                            else if (ownerVelocity.x != 0.f || ownerVelocity.y > 0)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -687,7 +687,7 @@ void Physics::IsCollideWithMovedObject()
                         }
                         case Physics::ObjectSide::BOTTOM_SIDE:
                         {
-                            if (ownerVelocity.y >= 0.f && ownerVelocity.x == 0.f)
+                            if (ownerVelocity.y > 0.f && ownerVelocity.x == 0.f)
                             {
                                 if (dirtyFlag == true)
                                 {
@@ -707,7 +707,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else if (ownerVelocity.x != 0.f)
+                            else if (ownerVelocity.x != 0.f || ownerVelocity.y < 0)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -726,7 +726,7 @@ void Physics::IsCollideWithMovedObject()
                         }
                         case Physics::ObjectSide::RIGHT_SIDE:
                         {
-                            if (ownerVelocity.x <= 0.f && ownerVelocity.y == 0.f)
+                            if (ownerVelocity.x < 0.f && ownerVelocity.y == 0.f)
                             {
                                 if (dirtyFlag == true)
                                 {
@@ -746,7 +746,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else if(ownerVelocity.y != 0.f)
+                            else if(ownerVelocity.y != 0.f || ownerVelocity.x > 0)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -786,7 +786,7 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else if (ownerVelocity.y != 0.f)
+                            else if (ownerVelocity.y != 0.f || ownerVelocity.x < 0.f)
                             {
                                 if (movingObjectFlag == true)
                                 {
@@ -832,8 +832,8 @@ void Physics::IsCollideWithMovedObject()
                         {   
                             if (isSoundPlay == true)
                             {
-                                std::cout << "stop\n";
                                 /*TODO: Stop Sound*/
+                                std::cout << "stop\n";
                                 isSoundPlay = false;
                             }
                             if (Player* player = dynamic_cast<Player*>(owner);
