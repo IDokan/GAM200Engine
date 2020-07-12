@@ -150,7 +150,7 @@ void Level3::InitObject()
     button1->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button1->SetButtonAndDoorName("button1", "button2,", "door1", "door2");
 
-    button2 = new DoorSystem(player1, player2, vector2{ 180.f, 600.f }, vector2{ 100.f, 100.f }, vector2{ 550.f, 600.f }, vector2{ 100.f, 100.f }, vector2{ 415.f,815.f }, vector2{ 100.f, 260.f }, vector2{ 798.f, 360.f }, vector2{ 100.f, 180.f }, true);
+    button2 = new DoorSystem(player1, player2, vector2{ 250.f, 800.f }, vector2{ 100.f, 100.f }, vector2{ 550.f, 800.f }, vector2{ 100.f, 100.f }, vector2{ 415.f,815.f }, vector2{ 100.f, 260.f }, vector2{ 798.f, 360.f }, vector2{ 100.f, 180.f }, true);
     button2->SetButtonAndDoorColor({ 0.31f, 0.73f, 0.87f, 1.0f }, { 0.31f, 0.73f, 0.87f, 1.0f }, { 0.31f, 0.73f, 0.87f, 0.2f }, { 0.31f, 0.73f, 0.87f, 1.0f });
     button2->SetButtonAndDoorName("button3", "button4", "door3", "door4");
 
