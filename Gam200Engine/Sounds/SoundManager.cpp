@@ -68,7 +68,9 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX2.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND2]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_DEFAULT, nullptr, &sound[STRUGGLE_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND]);
+    ERRCHECK(theResult, "Load Sound"); 
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND2]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RefrigeratorTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[REFRIGERATOR_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
