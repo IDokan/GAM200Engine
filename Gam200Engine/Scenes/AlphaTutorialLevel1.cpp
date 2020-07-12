@@ -207,7 +207,7 @@ void AlphaTutorialLevel1::InitObject()
 	TextComponent* checkText = new TextComponent(checkPointTutorial);
 	checkPointTutorial->SetTranslation(vector2{505.f, 33.f});
 	checkPointTutorial->AddComponent(checkText);
-	checkText->SetString(L"Refriger is our home!\nYou would wake up opened one!\nPress 'R' to test!");
+	checkText->SetString(L"We found new refrigerator as our home\nPress 'R' to test!");
 	checkPointTutorial->SetObjectName("CheckPointTutorial");
 
 	Transform goalTransform;

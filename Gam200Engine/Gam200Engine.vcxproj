@@ -263,6 +263,7 @@
     <ClInclude Include="Scenes\Ending.hpp" />
     <ClInclude Include="Scenes\HowtoPlay.hpp" />
     <ClInclude Include="Scenes\Intro.hpp" />
+    <ClInclude Include="Scenes\Level2.hpp" />
     <ClInclude Include="Scenes\Level3.hpp" />
     <ClInclude Include="Scenes\Level4.hpp" />
     <ClInclude Include="Scenes\MenuScene.hpp" />
@@ -399,6 +400,7 @@
     <ClCompile Include="Scenes\Ending.cpp" />
     <ClCompile Include="Scenes\HowtoPlay.cpp" />
     <ClCompile Include="Scenes\Intro.cpp" />
+    <ClCompile Include="Scenes\Level2.cpp" />
     <ClCompile Include="Scenes\Level3.cpp" />
     <ClCompile Include="Scenes\Level4.cpp" />
     <ClCompile Include="Scenes\MenuScene.cpp" />
