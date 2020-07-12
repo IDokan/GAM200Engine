@@ -16,6 +16,7 @@ Creation Date: 08.15.2019
 #include <Component/Component.hpp>
 #include <Object/Object.hpp>
 #include <Sounds/SoundManager.hpp>
+#include <string>
 
 class Physics : public Component
 {
@@ -176,8 +177,12 @@ private:
     bool shouldResolveResolution;
     bool dirtyFlag = true;
     bool movingObjectFlag = true;
+    bool isSoundPlay = false;
     ObjectSide objSide;
     ObjectSide lastCollidingSide;
+
+    int count = 0;
+    std::string lastCollideObjName;
 
     std::vector<vector2> SAT;
 
