@@ -13,6 +13,7 @@ Creation Date: 07.11.2020
 #include <Object/Players/Player.h>
 #include <Object/Strings/String.hpp>
 #include <Object/DepthStandard.hpp>
+#include <Object/DoorSystem.hpp>
 
 class Object;
 class String;
@@ -35,5 +36,12 @@ protected:
     void InitObject();
 
 private:
-    Object* background;
+    Object* background;    
+    Object* background1;
+    
+
+    DoorSystem* button1;
+    DoorSystem* button2;
+
+    Object* cheese;
 };
