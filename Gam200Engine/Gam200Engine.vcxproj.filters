@@ -368,6 +368,9 @@
     <ClCompile Include="Scenes\Credit.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Menu\LevelComplete.cpp">
+      <Filter>Object\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -775,6 +778,9 @@
     </ClInclude>
     <ClInclude Include="Scenes\Credit.hpp">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Menu\LevelComplete.hpp">
+      <Filter>Object\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

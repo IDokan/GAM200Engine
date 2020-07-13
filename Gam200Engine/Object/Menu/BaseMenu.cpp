@@ -70,7 +70,7 @@ BaseMenu::BaseMenu()
 	exitButton->GetTransform().SetParent(&GetTransform());
 	Sprite* exitButtonSprite = new Sprite(exitButton);
 	exitButton->AddComponent(exitButtonSprite);
-	exitButtonSprite->SetImage("../assets/textures/UI/Exit.png");
+	exitButtonSprite->SetImage("../assets/textures/UI/MainMenu.png");
 	exitButton->SetObjectName("ExitButton");
 	exitButton->SetDepth(Depth_Standard::HUDImage);
 	exitButton->SetObjectType(ObjectType::Menu);

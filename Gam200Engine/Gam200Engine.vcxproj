@@ -175,6 +175,7 @@
     <ClInclude Include="Component\UI\StatusUIHandler.hpp" />
     <ClInclude Include="Object\HUD\StatusUI.hpp" />
     <ClInclude Include="Object\Menu\DestructiveConfirmation.hpp" />
+    <ClInclude Include="Object\Menu\LevelComplete.hpp" />
     <ClInclude Include="Object\Menu\MainMenu.hpp" />
     <ClInclude Include="Object\Menu\OptionMenu.hpp" />
     <ClInclude Include="Object\Points\CheckPoint.hpp" />
@@ -313,6 +314,7 @@
     <ClCompile Include="Component\UI\StatusUIHandler.cpp" />
     <ClCompile Include="Object\HUD\StatusUI.cpp" />
     <ClCompile Include="Object\Menu\DestructiveConfirmation.cpp" />
+    <ClCompile Include="Object\Menu\LevelComplete.cpp" />
     <ClCompile Include="Object\Menu\MainMenu.cpp" />
     <ClCompile Include="Object\Menu\OptionMenu.cpp" />
     <ClCompile Include="Object\Points\CheckPoint.cpp" />

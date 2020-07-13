@@ -52,11 +52,11 @@ void GameIsRunning::Execute(SceneStateManager* manager, float /*dt*/)
     {
         if (isHostageRescued)
         {
-            manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(SceneComplete::Get());
+            PauseAndMenu::Get()->defaultItem = PauseAndMenu::Get()->clearMenu;
+            manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(PauseAndMenu::Get());
         }
         else
         {
-       
             MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::HostageAlertsUI, MessageTypes::HostageNotRescuedYet);
         }
     }

@@ -141,6 +141,20 @@ enum class MessageTypes
          */
         CancelScaling,
 
+         /**
+          * \brief
+          * @Predictable receiver and function
+          *		Player: player will change state of sprite into biten state.
+          */
+         YouDead,
+
+          /**
+           * \brief
+           * @Predictable receiver and function
+           *		Player: player will change state of sprite into frightened state.
+           */
+          ObserveFriendIsDied,
+
        NUM_OF_MESSAGE_TYPES,
 };
 
