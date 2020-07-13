@@ -38,6 +38,10 @@ private:
 	Object* background;
 
 	Object* cutScene;
+	Object* pressS;
 	int cutCount = 0;
 	bool isCutChanged = false;
+
+	float delay;
+	float maxDelay;
 };

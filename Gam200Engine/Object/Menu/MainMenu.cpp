@@ -131,7 +131,7 @@ MenuObject* MainMenu::MenuUpdate(float dt)
         switch (currentSelection)
         {
         case MainMenu::NEWGAME:
-            SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
+            SceneManager::GetSceneManager()->SetNextScene("Prolog");
             break;
         case MainMenu::LOADGAME:
             loadGame = new fileIO;

@@ -1,13 +1,13 @@
 /******************************************************************************
-Copyright (C) 2019 DigiPen Institute of Technology.
+Copyright (C) 2020 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:   MenuScene.hpp
+File Name:   Prolog.hpp
 Author
-	- jiwon.jung jjwon6218@gmail.com
-Creation Date: 03.13.2020
+	- doyoung413@gmail.com
+Creation Date: 07.09.2020
 
-	Header file for scene which works as menu
+	Header file for prolog level
 ******************************************************************************/
 #pragma once
 #include <Scenes/Scene.hpp>
@@ -18,22 +18,11 @@ class Object;
 class Player;
 class String;
 
-class MenuScene : public Scene
+class Prolog : public Scene
 {
 public:
-
-	enum ButtonRow
-	{
-		NEWGAME,
-		LOADGAME,
-		HOWTOPLAY,
-		SETTINGS,
-		CREDIT,
-		QUIT,
-	};
-
-	MenuScene();
-	virtual ~MenuScene();
+	Prolog();
+	virtual ~Prolog();
 
 	void Update(float dt) override;
 
@@ -43,17 +32,16 @@ protected:
 	void Unload() override;
 
 	void Input();
-	void Collision();
 	void InitObject();
 
 private:
 	Object* background;
-	Player* player1{};
-	Player* player2{};
-	String* string{};
 
-	Object* gameTitle{};
-	Object* pressEnter{};
+	Object* cutScene;
+	Object* pressS;
+	int cutCount = 0;
+	bool isCutChanged = false;
 
-	float totalDT;
+	float delay;
+	float maxDelay;
 };

@@ -31,6 +31,7 @@ Creation Date: 08.05.2019
 #include <Scenes/Credit.hpp>
 #include <Scenes/HowtoPlay.hpp>
 #include <Scenes/Level4.hpp>
+#include <Scenes/Prolog.hpp>
 #include <Scenes/Ending.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
@@ -81,6 +82,7 @@ void Application::Init()
     SceneManager::GetSceneManager()->AddScenes("Option", dynamic_cast<Scene*>(new OptionLevel()));
     SceneManager::GetSceneManager()->AddScenes("Credit", dynamic_cast<Scene*>(new Credit()));
     SceneManager::GetSceneManager()->AddScenes("HowToPlay", dynamic_cast<Scene*>(new HowToPlay()));
+    SceneManager::GetSceneManager()->AddScenes("Prolog", dynamic_cast<Scene*>(new Prolog()));
     SceneManager::GetSceneManager()->AddScenes("Ending", dynamic_cast<Scene*>(new Ending()));
 
 	ObstaclesDrawingHelper::Get()->Init();

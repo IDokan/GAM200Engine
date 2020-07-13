@@ -363,6 +363,7 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\Ending.cpp" />
+    <ClCompile Include="Scenes\Prolog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Camera.hpp">
@@ -766,6 +767,7 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Ending.hpp" />
+    <ClInclude Include="Scenes\Prolog.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
