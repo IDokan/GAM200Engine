@@ -59,8 +59,6 @@ void SceneComplete::Enter(SceneStateManager* /*manager*/)
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::SceneComplete);
 
 
-	// Play "Scene Complete Sound"
-
 	// Display menu that congratulate players and give a couple of choice.
 	PrepareAssets();
 	ObjectManager::GetObjectManager()->FindLayer(LayerNames::HUD)->AddObjectDynamically(menuBackground);

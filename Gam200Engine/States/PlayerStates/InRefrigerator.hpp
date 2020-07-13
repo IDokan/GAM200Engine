@@ -42,4 +42,5 @@ private:
 	float timer;
 	Graphics::Color4f p1Color;
 	Graphics::Color4f p2Color;
+	bool randomRespawnSound;
 };

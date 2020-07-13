@@ -59,7 +59,7 @@ void CheckPointComponent::Update(float dt)
 		currentScene->lastCheckPoint->SetEmitterOn(true);
 		currentScene->lastCheckPoint->GetComponentByTemplate<Animation>()->SetState(1);
 
-		// TODO: Add Play_Sound(REFRIGERATOR_TRIGGERED_SOUND) here
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(REFRIGERATOR_TRIGGERED_SOUND);
 
 		delayTimer = 0.f;
 	}

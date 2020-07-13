@@ -13,6 +13,7 @@ Creation Date: 01.29.2020
 #include <Component/StateMachine.hpp>
 #include <States/StringStates/StringIdle.hpp>
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
+#include <Scenes/SceneManager.hpp>
 
 StringStretched* StringStretched::Get()
 {
@@ -61,5 +62,7 @@ void StringStretched::Execute(String* obj, float /*dt*/)
 
 void StringStretched::Exit(String* /*obj*/)
 {
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CHEESE_RESTORED_SOUND);
 	printf("No more stretching\n");
+
 }

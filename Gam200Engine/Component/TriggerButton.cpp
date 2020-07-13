@@ -76,6 +76,8 @@ void TriggerButton::OpenAndCloseDoorsWithOneButton()
             if (button->GetDirtyFlag() == true) // only the first time when players collide with button, get in this if statement because without this if statement, doors will keep opening and closing 
             {
                 /*TODO: Play Sound*/
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
+
                 if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true) // the reason why check the door is ghostCollision or not is that activating ghost collision means that that door is opened. so close the opened door and opend closed door.
                 {
                     color.alpha = 1.f;
@@ -131,6 +133,7 @@ void TriggerButton::OpenOneDoorWithOneButton()
             if (button->GetDirtyFlag())
             {
                 /*TODO: Play Sound*/
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
                 Graphics::Color4f color = door_1->GetComponentByTemplate<Sprite>()->GetColor();
                 if (door_1->GetComponentByTemplate<Physics>()->GetActiveGhostCollision() == true) // rest parts are same as OpenAndCloseDoorsWithOneButton() function.
                 {
@@ -222,6 +225,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
         if (soundFlag1 == true)
         {
             /*TODO: Play Sound*/
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
             soundFlag1 = false;
         }
         
@@ -238,6 +242,8 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButton()
         if (soundFlag2 == true)
         {
             /*TODO: Play Sound*/
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
+            soundFlag2 = false;
         }
     }
     else
@@ -254,6 +260,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         if (button->GetDirtyFlag() == true)
         {
             /*TODO: Play Sound*/
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
             button->SetDirtyFlag(false);
             button->SetIsTimerOn(true);
         }
@@ -263,6 +270,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         if (button1->GetDirtyFlag() == true)
         {
             /*TODO: Play Sound*/
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
             button1->SetDirtyFlag(false);
             button1->SetIsTimerOn(true);
         }
@@ -273,6 +281,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         if (button->GetDirtyFlag() == true)
         {
             /*TODO: Play Sound*/
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
             button->SetDirtyFlag(false);
             button->SetIsTimerOn(true);
         }
@@ -282,6 +291,7 @@ void TriggerButton::OpenAndCloseDoorsWithTwoButtonOnTime(float dt)
         if (button1->GetDirtyFlag() == true)
         {
             /*TODO: Play Sound*/
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_PRESSED_SOUND);
             button1->SetDirtyFlag(false);
             button1->SetIsTimerOn(true);
         }
