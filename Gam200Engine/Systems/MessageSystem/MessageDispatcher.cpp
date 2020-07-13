@@ -12,6 +12,7 @@ Creation Date: 01.14.2020
 		It manages dispatching message
 ******************************************************************************/
 
+#include <iostream>
 #include <cassert>
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
 #include <Systems/MessageSystem/MessageCapableObjectManager.hpp>
@@ -31,6 +32,14 @@ void MessageDispatcher::DispatchMessage(MessageObjects sender, MessageObjects re
 {
 	// Get a pointer to the receiver of the message
 	Object* objReceiver = MessageCapableObjectManager::GetMessageObjectManager()->GetObjectFromID(receiver);
+
+	if (objReceiver == nullptr)
+	{
+#ifdef _DEBUG
+		std::cout << "Receiver object is undefined!\n";
+#endif
+		return;
+	}
 
 	// Create the message
 	Message message(sender, receiver, msg, 0.0, ExtraInfo);

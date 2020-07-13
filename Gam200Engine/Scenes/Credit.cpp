@@ -58,7 +58,7 @@ void Credit::Unload()
 
 void Credit::Input()
 {
-    if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
+    if (input.IsAnyKeyTriggered())
     {
         SceneManager::GetSceneManager()->SetNextScene("MenuScene");
     }

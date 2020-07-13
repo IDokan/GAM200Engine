@@ -38,7 +38,18 @@ public:
     bool is_restart = false;
      
 private:
-    SceneManager(){};
+
+    SceneManager() 
+        : currentScene(nullptr), isTransitioning(false), transitionTimer(0.f), isEnteringTransition(false), transitionImage(nullptr)
+    {};
+
+    Object* CreateTransitionImage(bool isEntering);
+private:
     std::unordered_map < std::string, std::shared_ptr<Scene> > scenes;
     Scene *currentScene = nullptr;
+
+    bool isTransitioning = false;
+    float transitionTimer = 0.f;
+    bool isEnteringTransition = false;
+    Object* transitionImage;
 };

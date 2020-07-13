@@ -35,7 +35,16 @@ void MessageCapableObjectManager::RegisterEntity(Object* object, MessageObjects 
 
 Object* MessageCapableObjectManager::GetObjectFromID(MessageObjects id)
 {
-	return messageObjectMap[id];
+	Object* returnValue;
+	try
+	{
+		returnValue = messageObjectMap.at(id);
+	}
+	catch (const std::exception&)
+	{
+		returnValue = nullptr;
+	}
+	return returnValue;
 }
 
 void MessageCapableObjectManager::RemoveObjectFromList(MessageObjects id)

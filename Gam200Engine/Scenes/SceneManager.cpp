@@ -14,6 +14,23 @@ Creation Date: 08.12.2019
 #include <Scenes/SceneManager.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include  <Systems/Input.hpp>
+#include <Component/Sprite/Sprite.hpp>
+#include <Object/ObjectManager.hpp>
+#include <Object/DepthStandard.hpp>
+
+namespace Lerp
+{
+    float EaseOutCubic(float t)
+    {
+        float reverseT = 1 - t;
+        return 1 - (reverseT * reverseT * reverseT);
+    }
+    float EaseOutQuart(float t)
+    {
+        float reverseT = 1 - t;
+        return 1 - (reverseT * reverseT * reverseT * reverseT);
+    }
+}
 
 SceneManager* SceneManager::GetSceneManager()
 {
@@ -28,6 +45,9 @@ void SceneManager::GameRestart() const
 
 void SceneManager::Init()
 {
+    isTransitioning = false;
+    isEnteringTransition = false;
+    transitionTimer = 0.f;
     currentScene = nullptr;
     scenes.clear();
 }
@@ -45,23 +65,81 @@ void SceneManager::Update(float dt)
 
     if (!is_restart)
     {
-        currentScene->Update(dt);
-        if (currentScene->isNextLevel()) {
-            const std::string tmpName = currentScene->GetChangedLevelName();
-
-            currentScene->UnloadScene();
-
-            if (const auto& Scene = scenes.find(tmpName);
-                Scene != scenes.end())
+        if (isEnteringTransition == true)
+        {
+            // Start to draw entering transition
+            if (isTransitioning == false)
             {
-                currentScene = Scene->second.get();
+                transitionTimer = 0.f;
+
+                isTransitioning = true;
             }
             else
             {
-                // Print DEBUG data
-                std::cout << "Change level failed!\n";
+                // Update entering transition
+                transitionTimer += dt;
+
+                transitionImage->SetTranslation(vector2{ 0.f, - (2.f * Lerp::EaseOutQuart(transitionTimer)) });
+
+                // When entering transition is done.
+                if (transitionTimer > 1.f)
+                {
+                    transitionImage = nullptr;
+                    isEnteringTransition = false;
+                    isTransitioning = false;
+                    transitionTimer = 0.f;
+                }
             }
-            currentScene->LoadScene();
+        }
+
+        // Call Scene Update
+        currentScene->Update(dt);
+
+        if (currentScene->isNextLevel()) 
+        {
+            // Start to drawing end transition
+            if (isTransitioning == false)
+            {
+                transitionTimer = 0.f;
+
+                transitionImage = CreateTransitionImage(true);
+
+                isTransitioning = true;
+            }
+            else
+            {
+                // When end transition is done, Do real Loading
+                if (transitionTimer > 1.f)
+                {
+                    const std::string tmpName = currentScene->GetChangedLevelName();
+
+                    currentScene->UnloadScene();
+
+                    if (const auto& Scene = scenes.find(tmpName);
+                        Scene != scenes.end())
+                    {
+                        currentScene = Scene->second.get();
+                    }
+                    else
+                    {
+                        // Print DEBUG data
+                        std::cout << "Change level failed!\n";
+                    }
+                    currentScene->LoadScene();
+
+                    isTransitioning = false;
+                    isEnteringTransition = true;
+                    transitionTimer = 0.f;
+
+                    transitionImage = CreateTransitionImage(false);
+                }
+                // Update transition
+                else
+                {
+                    transitionTimer += dt;
+                    transitionImage->SetTranslation(vector2{ 0.f, 2.f - (2.f * Lerp::EaseOutCubic(transitionTimer)) });
+                }
+            }
         }
     }
     else
@@ -73,6 +151,10 @@ void SceneManager::Update(float dt)
 
 void SceneManager::Clear()
 {
+    isTransitioning = false;
+    isEnteringTransition = false;
+    transitionTimer = 0.f;
+
     currentScene->UnloadScene();
     currentScene = nullptr;
 
@@ -119,4 +201,27 @@ std::vector<std::string> SceneManager::GetSceneNames() const noexcept
 Scene* SceneManager::GetCurrentScene() noexcept
 {
     return currentScene;
+}
+
+Object* SceneManager::CreateTransitionImage(bool isEntering)
+{
+    Object* newObject;
+    newObject = new Object();
+    if (isEntering)
+    {
+        newObject->SetTranslation(vector2{ -100.f, 0.f });
+    }
+    else
+    {
+        newObject->SetTranslation(vector2{ 0.f });
+    }
+    newObject->SetScale(2.f);
+    newObject->SetObjectName("Transition Name");
+    newObject->SetDepth(Depth_Standard::TransitionHUD);
+    Sprite* image = new Sprite(newObject);
+    newObject->AddComponent(image);
+    image->SetImage("../assets/textures/UI/MenuBackground.png");
+    ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObjectDynamically(newObject);
+
+    return newObject;
 }

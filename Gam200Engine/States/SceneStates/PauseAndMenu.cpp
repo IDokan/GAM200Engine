@@ -49,10 +49,13 @@ PauseAndMenu* PauseAndMenu::Get()
     return state;
 }
 
-void PauseAndMenu::Enter(SceneStateManager* /*manager*/)
+void PauseAndMenu::Enter(SceneStateManager* manager)
 {
-    MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Pause);
-    MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Pause);
+	if (!SceneManager::GetSceneManager()->GetCurrentScene()->IsMenu())
+	{
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Pause);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Pause);
+	}
 
     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnMenu();
 
