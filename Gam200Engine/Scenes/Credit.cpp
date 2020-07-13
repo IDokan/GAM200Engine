@@ -24,7 +24,7 @@ Creation Date: 05.22.2020
 #include <Scenes/SceneManager.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 
-Credit::Credit() //: totalDT(0.0f)
+Credit::Credit() : totalDT(0.0f)
 {
     isMenu = true;
 }
@@ -42,12 +42,22 @@ void Credit::Load()
 
 void Credit::Update(float dt)
 {
-	//totalDT += dt;
+	totalDT += dt;
     Credit::Input();
 	cameraManager.MoveUp(dt, -30);
+	float currYaxis = cameraManager.GetPosition().y;
 
-	/*if(totalDT == 60.f)
-		SceneManager::GetSceneManager()->SetNextScene("MenuScene");*/
+	if (totalDT > 50.f || currYaxis < -1800.f)
+	{
+		SceneManager::GetSceneManager()->SetNextScene("MenuScene");
+		totalDT = 0.0f;
+	}
+
+	if (input.IsKeyTriggered(GLFW_KEY_SPACE))
+	{
+		cameraManager.SetPosition(vector2{ 0.f, currYaxis - 500.f });
+	}
+		
 }
 
 void Credit::GameRestart()
@@ -113,7 +123,7 @@ void Credit::InitObject()
 	digipenLogo = new Object();
 	digipenLogo->SetObjectName("digipenLogo");
 	digipenLogo->SetTranslation(vector2(0.f, -1700));
-	digipenLogo->SetScale(vector2(595.f, 223.f));
+	digipenLogo->SetScale(vector2(700.f, 223.f));
 	digipenLogo->SetObjectType(Object::ObjectType::TEST);
 	digipenLogo->AddComponent(new Sprite(digipenLogo));
 	digipenLogo->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Logos/DigiPenLogo.png");

@@ -37,7 +37,7 @@ protected:
 
 private:
 
-	//float totalDT;
+	float totalDT;
 
 	Object* list1{};
 	Object* list2{};
