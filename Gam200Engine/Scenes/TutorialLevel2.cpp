@@ -8,7 +8,6 @@ Author
 
 Creation Date: 05.06.2020
 ******************************************************************************/
-
 #include <Scenes/TutorialLevel2.hpp>
 #include <Component/Scripts/GoalComponent.hpp>
 #include <Component/Physics.hpp>

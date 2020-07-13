@@ -36,10 +36,12 @@ protected:
 	void InitObject();
 
 private:
-	Object* background;
+
+	//float totalDT;
 
 	Object* list1{};
 	Object* list2{};
 	Object* list3{};
+	Object* list4{};
 	Object* digipenLogo{};
 };
