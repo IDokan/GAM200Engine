@@ -79,7 +79,7 @@ void SceneManager::Update(float dt)
                 // Update entering transition
                 transitionTimer += dt;
 
-                transitionImage->SetTranslation(vector2{ 0.f, - (2.f * Lerp::EaseOutQuart(transitionTimer)) });
+                transitionImage->SetTranslation(vector2{ 0.f, - (3.f * Lerp::EaseOutQuart(transitionTimer)) });
 
                 // When entering transition is done.
                 if (transitionTimer > 1.f)
@@ -137,7 +137,7 @@ void SceneManager::Update(float dt)
                 else
                 {
                     transitionTimer += dt;
-                    transitionImage->SetTranslation(vector2{ 0.f, 2.f - (2.f * Lerp::EaseOutCubic(transitionTimer)) });
+                    transitionImage->SetTranslation(vector2{ 0.f, 3.f - (3.f * Lerp::EaseOutCubic(transitionTimer)) });
                 }
             }
         }
@@ -209,18 +209,18 @@ Object* SceneManager::CreateTransitionImage(bool isEntering)
     newObject = new Object();
     if (isEntering)
     {
-        newObject->SetTranslation(vector2{ -100.f, 0.f });
+        newObject->SetTranslation(vector2{ 0.f, 1000.f });
     }
     else
     {
         newObject->SetTranslation(vector2{ 0.f });
     }
-    newObject->SetScale(2.f);
+    newObject->SetScale(vector2{2.f, 4.f});
     newObject->SetObjectName("Transition Name");
     newObject->SetDepth(Depth_Standard::TransitionHUD);
     Sprite* image = new Sprite(newObject);
     newObject->AddComponent(image);
-    image->SetImage("../assets/textures/UI/MenuBackground.png");
+    image->SetImage("../assets/textures/UI/TransitionCheese.png");
     ObjectManager::GetObjectManager()->FindLayer(HUD)->AddObjectDynamically(newObject);
 
     return newObject;

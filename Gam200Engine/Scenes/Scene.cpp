@@ -117,10 +117,11 @@ void Scene::InitLoadingScene()
 	loadingAnimation = new Object();
 	loadingAnimation->SetObjectName("Loading Animation");
 	loadingAnimation->SetTranslation(vector2{ 0.f });
-	loadingAnimation->SetScale(2.f);
+	loadingAnimation->SetScale(vector2{ 2.f, 4.f });
 	Sprite* ani = new Sprite(loadingAnimation);
 	loadingAnimation->AddComponent(ani);
-	ani->SetImage("../assets/textures/UI/MenuBackground.png");
+	loadingAnimation->SetDepth(0.f);
+	ani->SetImage("../assets/textures/UI/TransitionCheese.png");
 }
 
 bool Scene::IsMenu()
@@ -163,6 +164,11 @@ void Scene::LoadScene() noexcept
 			loadingCheeseBG->GetComponentByTemplate<Sprite>()->DeleteVertices();
 			loadingCheese->GetComponentByTemplate<Sprite>()->DeleteVertices();
 			loadingAnimation->GetComponentByTemplate<Sprite>()->DeleteVertices();
+
+			loadingCheeseBG->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/StatusUIBackground.png");
+			loadingCheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Hostage.png");
+			loadingAnimation->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/TransitionCheese.png");
+
 			loadingCheeseBG->GetComponentByTemplate<Sprite>()->GenerateVertices();
 			loadingCheese->GetComponentByTemplate<Sprite>()->GenerateVertices();
 			loadingAnimation->GetComponentByTemplate<Sprite>()->GenerateVertices();
