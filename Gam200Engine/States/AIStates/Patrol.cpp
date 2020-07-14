@@ -143,13 +143,19 @@ void Patrol::AttackPlayers(Mouse* mouse)
 {
 	Physics* physics = mouse->GetComponentByTemplate<Physics>();
 	const Mouse::PlayerContainer& players = mouse->GetPlayers();
-	if (physics->IsCollideWith(players.player1) == true ||
-		physics->IsCollideWith(players.player2) == true)
+	if (physics->IsCollideWith(players.player1) == true)
 	{
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::Player1, MessageTypes::YouDead);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::Player2, MessageTypes::ObserveFriendIsDied);
 		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::SceneStateManager, MessageTypes::PlayerIsDead);
 		mouse->GetComponentByTemplate<StateMachine<Mouse>>()->ChangeState(MouseIdle::Get());
 	}
-	else
+	else if(
+		physics->IsCollideWith(players.player2) == true)
 	{
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::Player1, MessageTypes::ObserveFriendIsDied);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::Player2, MessageTypes::YouDead);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::Mouse, MessageObjects::SceneStateManager, MessageTypes::PlayerIsDead);
+		mouse->GetComponentByTemplate<StateMachine<Mouse>>()->ChangeState(MouseIdle::Get());
 	}
 }

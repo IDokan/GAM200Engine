@@ -45,7 +45,7 @@ float Transform::CalculateWorldDepth() const noexcept
 	{
 		return GetDepth();
 	}
-	return (GetDepth() + parent->CalculateWorldDepth()) * 5000.f;
+	return (GetDepth() + parent->GetDepth());
 }
 
 float Transform::GetDepth() const noexcept { return depth; }

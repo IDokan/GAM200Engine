@@ -27,6 +27,8 @@ Creation Date: 07.09.2020
 Ending::Ending() : background(nullptr)
 {
 	isMenu = true;
+	delay = 0;
+	maxDelay = 3.0f;
 }
 
 Ending::~Ending()
@@ -47,6 +49,14 @@ void Ending::Load()
 
 void Ending::Update(float dt)
 {
+	delay += dt;
+	if (delay > maxDelay)
+	{
+		delay = 0.0f;
+		isCutChanged = true;
+		cutCount += 1;
+	}
+
 	Ending::Input();
 	if (isCutChanged == true)
 	{
@@ -62,6 +72,7 @@ void Ending::Update(float dt)
 			cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/ending4.png");
 			break;
 		case 4:
+			maxDelay = 1.0f;
 			cutScene->SetTranslation(vector2(0.f, 0.f));
 			cutScene->SetScale(vector2(840.f, 500.f));
 			cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/ending5.png");
@@ -73,6 +84,7 @@ void Ending::Update(float dt)
 			cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/ending7.png");
 			break;
 		case 7:
+			maxDelay = 3.0f;
 			cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/ending8.png");
 			break;
 		case 8:
@@ -108,22 +120,14 @@ void Ending::Input()
 	}
 	else if (input.IsAnyKeyTriggered())
 	{
+		delay = 0.0f;
 		isCutChanged = true;
 		cutCount += 1;
 	}
 }
 
 void Ending::InitObject()
-{/*
-	background = new Object();
-	background->SetObjectName("background1");
-	background->SetTranslation(vector2{ 1.f });
-	background->SetScale(vector2{ 10000.f });
-	background->AddComponent(new Sprite(background));
-	background->AddComponent(new Physics(background));
-	background->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
-	background->SetDepth(Depth_Standard::FurtherBackground);*/
-
+{
 	cutScene = new Object();
 	cutScene->SetObjectName("cutScene");
 	cutScene->SetTranslation(vector2(0.f, 0.f));
@@ -133,8 +137,17 @@ void Ending::InitObject()
 	cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/ending1.png");
 	cutScene->SetDepth(Depth_Standard::Obstacle);
 
+	pressS = new Object();
+	pressS->SetObjectName("pressS");
+	pressS->SetTranslation(vector2(600, -400));
+	pressS->SetScale(vector2(300, 50));
+	pressS->SetObjectType(Object::ObjectType::TEST);
+	pressS->AddComponent(new Sprite(pressS));
+	pressS->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/pressS.png");
+	pressS->SetDepth(Depth_Standard::Obstacle);
+
 	auto objManager = ObjectManager::GetObjectManager();
 
-	//objManager->FindLayer(LayerNames::BackGround)->AddObject(background);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(cutScene);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(pressS);
 }

@@ -36,7 +36,7 @@ Player::Player(Identifier player, const Transform& playerTransformData)
 	Animation* playerAnimation = new Animation(this);
 	Object::AddComponent(playerAnimation);
 	playerAnimation->SetFrame(8);
-	playerAnimation->SetNumOfState(6);
+	playerAnimation->SetNumOfState(7);
 	playerAnimation->SetImage("../assets/textures/Cheese/cheese_move.png");
 	playerAnimation->SetSpeed(5.f);
 	
@@ -168,6 +168,7 @@ void Player::LoadPlayer1Layout()
 				break;
 			case MessageTypes::GameRestarted:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(InRefrigerator::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(UpdateAnimation::Get());
 				break;
 			case MessageTypes::Pause:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
@@ -182,6 +183,14 @@ void Player::LoadPlayer1Layout()
 					SetScale(GetScale().x + UpdateAnimation::scaling_constant);
 					GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{ UpdateAnimation::collisionBoxOffset });
 				}
+				break;
+			case MessageTypes::YouDead:
+				GetComponentByTemplate<Animation>()->SetState(3);
+				GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(nullptr);
+				break;
+			case MessageTypes::ObserveFriendIsDied:
+				GetComponentByTemplate<Animation>()->SetState(6);
+				GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(nullptr);
 				break;
 			default:
 				return false;
@@ -240,6 +249,7 @@ void Player::LoadPlayer2Layout()
 				break;
 			case MessageTypes::GameRestarted:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(InRefrigerator::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(UpdateAnimation::Get());
 				break;
 			case MessageTypes::Pause:
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
@@ -253,6 +263,14 @@ void Player::LoadPlayer2Layout()
 					SetScale(GetScale().x + UpdateAnimation::scaling_constant);
 					GetComponentByTemplate<Physics>()->SetCollisionBoxAndObjectType(this, Physics::ObjectType::RECTANGLE, vector2{ 0.f, 0.f }, vector2{ UpdateAnimation::collisionBoxOffset });
 				}
+				break;
+			case MessageTypes::YouDead:
+				GetComponentByTemplate<Animation>()->SetState(3);
+				GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(nullptr);
+				break;
+			case MessageTypes::ObserveFriendIsDied:
+				GetComponentByTemplate<Animation>()->SetState(6);
+				GetComponentByTemplate<StateMachine<Player>>()->SetGlobalState(nullptr);
 				break;
 			default:
 				return false;

@@ -60,24 +60,7 @@ void MenuScene::Update(float dt)
 {
 	MenuScene::Input();
 
-	
-	if ((static_cast<int>(totalDT) % 2) == 1)
-	{
-		player1->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
-		player2->GetComponentByTemplate<Physics>()->SetVelocity(3.f, 0.f);
-	}
-	else 
-	{
-		player1->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-		player2->GetComponentByTemplate<Physics>()->SetVelocity(-3.f, 0.f);
-	}
 	MenuScene::Collision();
-
-	vector2 obj1Position = player1->GetComponentByTemplate<Physics>()->GetPosition();
-	vector2 obj2Position = player2->GetComponentByTemplate<Physics>()->GetPosition();
-
-	player1->SetTranslation(obj1Position);
-	player2->SetTranslation(obj2Position);
 }
 
 void MenuScene::GameRestart()
@@ -118,7 +101,6 @@ void MenuScene::Input()
 
 void MenuScene::Collision()
 {
-	player1->GetComponentByTemplate<Physics>()->ManageCollision();
 }
 
 void MenuScene::InitObject()
@@ -132,11 +114,18 @@ void MenuScene::InitObject()
 	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/GAME_TITLE.png");
 	gameTitle->SetDepth(Depth_Standard::Button);
 
-	player1->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
-	player2->GetComponentByTemplate<StateMachine<Player>>()->ChangeState(PlayerReachesGoal::Get());
+	pressEnter = new Object();
+	pressEnter->SetObjectName("pressEnter");
+	pressEnter->SetTranslation(vector2{ 0, -380 });
+	pressEnter->SetScale(vector2{ 750, 60 });
+	pressEnter->SetObjectType(Object::ObjectType::TEST);
+	pressEnter->AddComponent(new Sprite(pressEnter));
+	pressEnter->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/pressEnter.png");
+	pressEnter->SetDepth(Depth_Standard::Button);
 
 	auto objManager = ObjectManager::GetObjectManager();
 	objManager->FindLayer(LayerNames::Stage)->AddObject(gameTitle);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(pressEnter);
 }
 
 

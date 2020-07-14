@@ -68,12 +68,12 @@ template <class object_type>
 void StateMachine<object_type>::Update(float dt)
 {
 	// if a global state exists, call its execute method
-	if (globalState)
+	if (globalState != nullptr)
 	{
 		globalState->Execute(originalOwner, dt);
 	}
 
-	if (currentState)
+	if (currentState != nullptr)
 	{
 		currentState->Execute(originalOwner, dt);
 	}

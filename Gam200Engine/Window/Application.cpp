@@ -27,10 +27,12 @@ Creation Date: 08.05.2019
 #include <Scenes/Option.hpp>
 #include <Scenes/MenuScene.hpp>
 #include <Scenes/AlphaTutorialLevel1.hpp>
+#include <Scenes/Level2.hpp>
 #include <Scenes/Level3.hpp>
 #include <Scenes/Credit.hpp>
 #include <Scenes/HowtoPlay.hpp>
 #include <Scenes/Level4.hpp>
+#include <Scenes/Prolog.hpp>
 #include <Scenes/Ending.hpp>
 
 #include <Systems/ObstaclesDrawingHelper.hpp>
@@ -71,16 +73,18 @@ void Application::Init()
 	ObjectManager::GetObjectManager()->Init();
 
     SceneManager::GetSceneManager()->AddScenes("Intro", dynamic_cast<Scene*>(new Intro()));
-    SceneManager::GetSceneManager()->AddScenes("Level4", dynamic_cast<Scene*>(new Level4()));
     SceneManager::GetSceneManager()->AddScenes("MenuScene", dynamic_cast<Scene*>(new MenuScene()));
+    SceneManager::GetSceneManager()->AddScenes("Level2", dynamic_cast<Scene*>(new Level2()));
     SceneManager::GetSceneManager()->AddScenes("AlphaTutorialLevel1", dynamic_cast<Scene*>(new AlphaTutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel2", dynamic_cast<Scene*>(new TutorialLevel2()));
     SceneManager::GetSceneManager()->AddScenes("Level3", dynamic_cast<Scene*>(new Level3()));
+    SceneManager::GetSceneManager()->AddScenes("Level4", dynamic_cast<Scene*>(new Level4()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel", dynamic_cast<Scene*>(new TutorialLevel()));
     SceneManager::GetSceneManager()->AddScenes("TutorialLevel1", dynamic_cast<Scene*>(new TutorialLevel1()));
     SceneManager::GetSceneManager()->AddScenes("Option", dynamic_cast<Scene*>(new OptionLevel()));
     SceneManager::GetSceneManager()->AddScenes("Credit", dynamic_cast<Scene*>(new Credit()));
     SceneManager::GetSceneManager()->AddScenes("HowToPlay", dynamic_cast<Scene*>(new HowToPlay()));
+    SceneManager::GetSceneManager()->AddScenes("Prolog", dynamic_cast<Scene*>(new Prolog()));
     SceneManager::GetSceneManager()->AddScenes("Ending", dynamic_cast<Scene*>(new Ending()));
 
 	ObstaclesDrawingHelper::Get()->Init();

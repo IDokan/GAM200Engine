@@ -175,6 +175,7 @@
     <ClInclude Include="Component\UI\StatusUIHandler.hpp" />
     <ClInclude Include="Object\HUD\StatusUI.hpp" />
     <ClInclude Include="Object\Menu\DestructiveConfirmation.hpp" />
+    <ClInclude Include="Object\Menu\LevelComplete.hpp" />
     <ClInclude Include="Object\Menu\MainMenu.hpp" />
     <ClInclude Include="Object\Menu\OptionMenu.hpp" />
     <ClInclude Include="Object\Points\CheckPoint.hpp" />
@@ -263,10 +264,12 @@
     <ClInclude Include="Scenes\Ending.hpp" />
     <ClInclude Include="Scenes\HowtoPlay.hpp" />
     <ClInclude Include="Scenes\Intro.hpp" />
+    <ClInclude Include="Scenes\Level2.hpp" />
     <ClInclude Include="Scenes\Level3.hpp" />
     <ClInclude Include="Scenes\Level4.hpp" />
     <ClInclude Include="Scenes\MenuScene.hpp" />
     <ClInclude Include="Scenes\Option.hpp" />
+    <ClInclude Include="Scenes\Prolog.hpp" />
     <ClInclude Include="Scenes\Scene.hpp" />
     <ClInclude Include="Scenes\SceneManager.hpp" />
     <ClInclude Include="Scenes\TutorialLevel.hpp" />
@@ -312,6 +315,7 @@
     <ClCompile Include="Component\UI\StatusUIHandler.cpp" />
     <ClCompile Include="Object\HUD\StatusUI.cpp" />
     <ClCompile Include="Object\Menu\DestructiveConfirmation.cpp" />
+    <ClCompile Include="Object\Menu\LevelComplete.cpp" />
     <ClCompile Include="Object\Menu\MainMenu.cpp" />
     <ClCompile Include="Object\Menu\OptionMenu.cpp" />
     <ClCompile Include="Object\Points\CheckPoint.cpp" />
@@ -399,10 +403,12 @@
     <ClCompile Include="Scenes\Ending.cpp" />
     <ClCompile Include="Scenes\HowtoPlay.cpp" />
     <ClCompile Include="Scenes\Intro.cpp" />
+    <ClCompile Include="Scenes\Level2.cpp" />
     <ClCompile Include="Scenes\Level3.cpp" />
     <ClCompile Include="Scenes\Level4.cpp" />
     <ClCompile Include="Scenes\MenuScene.cpp" />
     <ClCompile Include="Scenes\Option.cpp" />
+    <ClCompile Include="Scenes\Prolog.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
     <ClCompile Include="Scenes\TutorialLevel.cpp" />

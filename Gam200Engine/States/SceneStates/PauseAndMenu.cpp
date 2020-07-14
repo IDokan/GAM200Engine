@@ -39,6 +39,7 @@ Creation Date: 05.11.2020
 #include <Object/Menu/DestructiveConfirmation.hpp>
 #include <Object/Menu/OptionMenu.hpp>
 #include <Object/Menu/MainMenu.hpp>
+#include <Object/Menu/LevelComplete.hpp>
 
 #include <Component/StateMachine.hpp>
 #include <States/SceneStates/GamsIsRunning.hpp>
@@ -49,10 +50,13 @@ PauseAndMenu* PauseAndMenu::Get()
     return state;
 }
 
-void PauseAndMenu::Enter(SceneStateManager* /*manager*/)
+void PauseAndMenu::Enter(SceneStateManager* manager)
 {
-    MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Pause);
-    MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Pause);
+	if (!SceneManager::GetSceneManager()->GetCurrentScene()->IsMenu())
+	{
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::Pause);
+		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::Pause);
+	}
 
     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolumeOnMenu();
 
@@ -127,7 +131,7 @@ void PauseAndMenu::Exit(SceneStateManager* /*manager*/)
 }
 
 PauseAndMenu::PauseAndMenu()
-	: defaultItem(nullptr), baseMenu(nullptr), confirmMenu(nullptr), optionMenu(nullptr), mainMenu(nullptr)
+	: defaultItem(nullptr), baseMenu(nullptr), confirmMenu(nullptr), optionMenu(nullptr), mainMenu(nullptr), clearMenu(nullptr)
 {
 }
 
@@ -184,6 +188,16 @@ void PauseAndMenu::PrepareAssets() noexcept
 		HUDLayer->AddObjectDynamically(mainMenu);
 		mainMenu->AddChildObjectsDynamically();
 	}
+
+	if (clearMenu == nullptr)
+	{
+		clearMenu = new LevelComplete();
+		clearMenu->SetObjectName("Level Complete Holder");
+		clearMenu->SetScale(0.f);
+		clearMenu->SetDepth(0.f);
+		HUDLayer->AddObjectDynamically(clearMenu);
+		clearMenu->AddChildObjectsDynamically();
+	}
 }
 
 void PauseAndMenu::CleanAssets() noexcept
@@ -216,6 +230,13 @@ void PauseAndMenu::CleanAssets() noexcept
 		mainMenu->CleanChildObjects();
 		mainMenu->SetDead(true);
 		mainMenu = nullptr;
+	}
+
+	if (clearMenu != nullptr)
+	{
+		clearMenu->CleanChildObjects();
+		clearMenu->SetDead(true);
+		clearMenu = nullptr;
 	}
 
 	defaultItem = nullptr;

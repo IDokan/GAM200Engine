@@ -53,6 +53,7 @@ private:
 	String* string{};
 
 	Object* gameTitle{};
+	Object* pressEnter{};
 
 	float totalDT;
 };

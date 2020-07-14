@@ -117,7 +117,7 @@ MenuObject* MainMenu::MenuUpdate(float dt)
     UpdateSelection();
     UpdateSelectionHighlightTransparency(dt);
 
-    if (input.IsKeyPressed(GLFW_KEY_ENTER))
+    if (input.IsKeyPressed(GLFW_KEY_ENTER) || input.IsKeyTriggered(GLFW_KEY_SPACE))
     {
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0.3f));
         playerPressEnter = true;
@@ -131,7 +131,7 @@ MenuObject* MainMenu::MenuUpdate(float dt)
         switch (currentSelection)
         {
         case MainMenu::NEWGAME:
-            SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
+            SceneManager::GetSceneManager()->SetNextScene("Prolog");
             break;
         case MainMenu::LOADGAME:
             loadGame = new fileIO;
@@ -212,12 +212,12 @@ void MainMenu::SetCurrentSelection(MenuEnum newValue)
 
 void MainMenu::UpdateSelection() noexcept
 {
-    if (input.IsKeyTriggered(GLFW_KEY_DOWN))
+    if (input.IsKeyTriggered(GLFW_KEY_DOWN) || input.IsKeyTriggered(GLFW_KEY_S))
     {
         SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
     }
-    else if (input.IsKeyTriggered(GLFW_KEY_UP))
+    else if (input.IsKeyTriggered(GLFW_KEY_UP) || input.IsKeyTriggered(GLFW_KEY_W))
     {
         SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
         SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));

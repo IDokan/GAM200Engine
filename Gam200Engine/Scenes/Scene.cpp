@@ -53,7 +53,9 @@ Creation Date: 12.10.2019
 
 void Scene::GameRestartScene() noexcept
 {
-    vector2 checkPosition = lastCheckPoint->GetTranslation();
+	input.TriggeredReset();
+
+	vector2 checkPosition = lastCheckPoint->GetTranslation();
 
     vector2 player1SpawnPosition = checkPosition - vector2{ UpdateAnimation::initial_scaling / 2.f, 0.f };
 
@@ -83,22 +85,43 @@ void Scene::GameRestartScene() noexcept
 //Init LoadingSceneImage
 void Scene::InitLoadingScene()
 {
-    cameraManager.Init();
-    loadingScene = new Object();
-    loadingScene->SetObjectName("loadingScene");
-    loadingScene->SetTranslation(vector2{ 1.f });
-    loadingScene->SetScale(vector2{ 2000.f });
-    loadingScene->AddComponent(new Sprite(loadingScene));
-    loadingScene->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0));
-    loadingScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/table.png");
-    loadingScene->SetDepth(-0.f);
+	cameraManager.Init();
 
-    loadingText = new Object();
-    loadingText->SetObjectName("Loading Text");
-    loadingText->SetTranslation(vector2{ -100.f ,-20.f });
-    loadingText->AddComponent(new TextComponent(loadingText));
-    loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
-    loadingText->SetDepth(-0.9f);
+	loadingCheeseBG = new Object();
+	loadingCheeseBG->SetObjectName("Loading Cheese Background");
+	loadingCheeseBG->SetScale(vector2{ 150.f });
+	loadingCheeseBG->SetTranslation(vector2{ 0.f, 100.f });
+	Sprite* cheeseBgSprite = new Sprite(loadingCheeseBG);
+	cheeseBgSprite->SetImage("../assets/textures/UI/StatusUIBackground.png");
+	loadingCheeseBG->AddComponent(cheeseBgSprite);
+	loadingCheeseBG->SetDepth(-0.5f);
+
+	loadingCheese = new Object();
+	loadingCheese->SetObjectName("loadingCheese");
+	loadingCheese->SetTranslation(vector2{ 0.f, 100.f });
+	loadingCheese->SetScale(vector2{ 100.f });
+	Animation* cheeseAni = new Animation(loadingCheese);
+	loadingCheese->AddComponent(cheeseAni);
+	cheeseAni->SetFrame(6);
+	cheeseAni->SetSpeed(1.f);
+	loadingCheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Hostage.png");
+	loadingCheese->SetDepth(-0.9f);
+
+	loadingText = new Object();
+	loadingText->SetObjectName("Loading Text");
+	loadingText->SetTranslation(vector2{ -70.f ,-20.f });
+	loadingText->AddComponent(new TextComponent(loadingText));
+	loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+	loadingText->SetDepth(-0.9f);
+
+	loadingAnimation = new Object();
+	loadingAnimation->SetObjectName("Loading Animation");
+	loadingAnimation->SetTranslation(vector2{ 0.f });
+	loadingAnimation->SetScale(vector2{ 2.f, 4.f });
+	Sprite* ani = new Sprite(loadingAnimation);
+	loadingAnimation->AddComponent(ani);
+	loadingAnimation->SetDepth(0.f);
+	ani->SetImage("../assets/textures/UI/TransitionCheese.png");
 }
 
 bool Scene::IsMenu()
@@ -138,30 +161,57 @@ void Scene::LoadScene() noexcept
 
         unsigned int loadingCount = 0;
 
-        while (isLoadingDone == false)
-        {
+			loadingCheeseBG->GetComponentByTemplate<Sprite>()->DeleteVertices();
+			loadingCheese->GetComponentByTemplate<Sprite>()->DeleteVertices();
+			loadingAnimation->GetComponentByTemplate<Sprite>()->DeleteVertices();
+
+			loadingCheeseBG->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/StatusUIBackground.png");
+			loadingCheese->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Hostage.png");
+			loadingAnimation->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/TransitionCheese.png");
+
+			loadingCheeseBG->GetComponentByTemplate<Sprite>()->GenerateVertices();
+			loadingCheese->GetComponentByTemplate<Sprite>()->GenerateVertices();
+			loadingAnimation->GetComponentByTemplate<Sprite>()->GenerateVertices();
+
+			while (isLoadingDone == false)
+			{
 
             // Update loading data
             ++loadingCount;
 
-            if (loadingCount % 1500 == 0)
-            {
-                loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
-            }
-            if (loadingCount % 500 == 0)
-            {
-                std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
-                loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");
-            }
+				if (loadingCount % 45 == 0)
+				{
+					loadingText->GetComponentByTemplate<TextComponent>()->SetString(L"Loading");
+				}
+				if (loadingCount % 15 == 0)
+				{
+					std::wstring string = loadingText->GetComponentByTemplate<TextComponent>()->GetString();
+					loadingText->GetComponentByTemplate<TextComponent>()->SetString(string + L"...");
+				}
 
-            Graphics::GL::begin_drawing();
+				loadingCheese->GetComponentByTemplate<Animation>()->Update(0.1f);
 
-            // LoadingScene
-            const auto matrix = cameraManager.GetWorldToNDCTransform() * loadingScene->GetTransform().GetModelToWorld();
-            Sprite* sprite = loadingScene->GetComponentByTemplate<Sprite>();
-            sprite->UpdateUniforms(matrix,
-                loadingScene->GetTransform().CalculateWorldDepth());
-            Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
+				Graphics::GL::begin_drawing();
+
+				// Loading Animation
+				const auto matrix3 = loadingAnimation->GetTransform().GetModelToWorld();
+				Sprite* ani = loadingAnimation->GetComponentByTemplate<Sprite>();
+				ani->UpdateUniforms(matrix3, loadingAnimation->GetTransform().CalculateWorldDepth());
+				Graphics::GL::draw(*ani->GetVertices(), *ani->GetMaterial());
+
+				// LoadingScene
+				const auto matrix4 = cameraManager.GetWorldToNDCTransform() * loadingCheeseBG->GetTransform().GetModelToWorld();
+				Sprite* BGsprite = loadingCheeseBG->GetComponentByTemplate<Sprite>();
+				BGsprite->UpdateUniforms(matrix4,
+					loadingCheeseBG->GetTransform().CalculateWorldDepth());
+				Graphics::GL::draw(*BGsprite->GetVertices(), *BGsprite->GetMaterial());
+
+				// LoadingScene
+				const auto matrix = cameraManager.GetWorldToNDCTransform() * loadingCheese->GetTransform().GetModelToWorld();
+				Sprite* sprite = loadingCheese->GetComponentByTemplate<Sprite>();
+				sprite->UpdateUniforms(matrix,
+					loadingCheese->GetTransform().CalculateWorldDepth());
+				Graphics::GL::draw(*sprite->GetVertices(), *sprite->GetMaterial());
 
             // Loading Text
             const auto matrix2 = cameraManager.GetWorldToNDCTransform() * loadingText->GetTransform().GetModelToWorld();
@@ -173,9 +223,13 @@ void Scene::LoadScene() noexcept
             SwapBuffers(hdc);
         }
 
-        wglMakeCurrent(nullptr, nullptr);
-        wglDeleteContext(thread_context);
-    });
+			loadingCheeseBG->GetComponentByTemplate<Sprite>()->DeleteVertices();
+			loadingCheese->GetComponentByTemplate<Sprite>()->DeleteVertices();
+			loadingAnimation->GetComponentByTemplate<Sprite>()->DeleteVertices();
+
+			wglMakeCurrent(nullptr, nullptr);
+			wglDeleteContext(thread_context);
+		});
 
     glfwMakeContextCurrent(main_context);
 

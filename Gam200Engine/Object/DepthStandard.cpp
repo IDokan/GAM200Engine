@@ -12,12 +12,13 @@ Creation Date: 8th/March/2020
 ******************************************************************************/
 #include <Object/DepthStandard.hpp>
 
-const Depth_Standard Depth_Standard::HUDFrontVFX(-4600.f);
-const Depth_Standard Depth_Standard::HUDText(-4500.f);
-const Depth_Standard Depth_Standard::HUDImage(-4450.f);
-const Depth_Standard Depth_Standard::HUDBackImage(-4425.f);
-const Depth_Standard Depth_Standard::HUDBackground(-4400.f);
-const Depth_Standard Depth_Standard::HUD(-4000.f);
+const Depth_Standard Depth_Standard::TransitionHUD(-4900.f);
+const Depth_Standard Depth_Standard::HUDFrontVFX(-4100.f);
+const Depth_Standard Depth_Standard::HUDText(-4000.f);
+const Depth_Standard Depth_Standard::HUDImage(-3950.f);
+const Depth_Standard Depth_Standard::HUDBackImage(-3925.f);
+const Depth_Standard Depth_Standard::HUDBackground(-3900.f);
+const Depth_Standard Depth_Standard::HUD(-3500.f);
 const Depth_Standard Depth_Standard::Button(-3000.f);
 const Depth_Standard Depth_Standard::Particles(-500.f);
 const Depth_Standard Depth_Standard::Player(-800.f);

@@ -89,7 +89,8 @@ private:
 	void CleanRequiredObjects();
 
 	//Loading...
-	Object* loadingScene{};
+	Object* loadingCheeseBG{};
+	Object* loadingCheese{};
 	Object* loadingText{};
 	Object* loadingAnimation{};
 	bool isLoadingDone = false;

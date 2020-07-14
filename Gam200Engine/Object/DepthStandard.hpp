@@ -18,6 +18,7 @@ class Depth_Standard
 	float value;
 	Depth_Standard(float arg) : value(arg) {}
 public:
+	static const Depth_Standard TransitionHUD;
 	static const Depth_Standard HUDFrontVFX;
 	static const Depth_Standard HUD;
 	static const Depth_Standard WoodSign;

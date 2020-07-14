@@ -41,6 +41,7 @@ public:
 	MenuObject* confirmMenu;
 	MenuObject* optionMenu;
 	MenuObject* mainMenu;
+	MenuObject* clearMenu;
 private:
 	PauseAndMenu();
 	void ClearStack();

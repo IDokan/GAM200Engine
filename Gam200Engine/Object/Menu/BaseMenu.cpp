@@ -70,7 +70,7 @@ BaseMenu::BaseMenu()
 	exitButton->GetTransform().SetParent(&GetTransform());
 	Sprite* exitButtonSprite = new Sprite(exitButton);
 	exitButton->AddComponent(exitButtonSprite);
-	exitButtonSprite->SetImage("../assets/textures/UI/Exit.png");
+	exitButtonSprite->SetImage("../assets/textures/UI/MainMenu.png");
 	exitButton->SetObjectName("ExitButton");
 	exitButton->SetDepth(Depth_Standard::HUDImage);
 	exitButton->SetObjectType(ObjectType::Menu);
@@ -113,7 +113,7 @@ MenuObject* BaseMenu::MenuUpdate(float dt)
         return nullptr;
     }
 
-	if (input.IsKeyPressed(GLFW_KEY_ENTER))
+	if (input.IsKeyPressed(GLFW_KEY_ENTER) || input.IsKeyTriggered(GLFW_KEY_SPACE))
 	{
 		GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0.3f));
 		playerPressEnter = true;
@@ -210,12 +210,12 @@ void BaseMenu::SetCurrentSelection(MenuEnum newValue)
 
 void BaseMenu::UpdateSelection() noexcept
 {
-	if (input.IsKeyTriggered(GLFW_KEY_DOWN))
+	if (input.IsKeyTriggered(GLFW_KEY_DOWN) || input.IsKeyTriggered(GLFW_KEY_S))
 	{
         SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
 		SetCurrentSelection(static_cast<MenuEnum>(currentSelection + 1));
 	}
-	else if (input.IsKeyTriggered(GLFW_KEY_UP))
+	else if (input.IsKeyTriggered(GLFW_KEY_UP) || input.IsKeyTriggered(GLFW_KEY_W))
 	{
         SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CURSOR_MOVEMENT_SOUND);
 		SetCurrentSelection(static_cast<MenuEnum>(currentSelection - 1));
