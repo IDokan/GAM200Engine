@@ -26,7 +26,7 @@ Creation Date: 05.22.2020
 
 Credit::Credit() : background(nullptr)
 {
-    isMenu = true;
+	 isMenu = true;
 }
 
 Credit::~Credit()
@@ -38,11 +38,14 @@ void Credit::Load()
 {
 	Credit::InitObject();
 	cameraManager.Init(); 
+
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CREADIT_BGM);
+
 }
 
 void Credit::Update(float dt)
 {
-    Credit::Input();
+	 Credit::Input();
 }
 
 void Credit::GameRestart()
@@ -60,7 +63,8 @@ void Credit::Input()
 {
     if (input.IsKeyTriggered(GLFW_KEY_ESCAPE))
     {
-        SceneManager::GetSceneManager()->SetNextScene("MenuScene");
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::UNDO_SOUND);
+		SceneManager::GetSceneManager()->SetNextScene("MenuScene");
     }
 }
 

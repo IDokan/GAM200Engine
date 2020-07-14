@@ -27,6 +27,11 @@ using  namespace  FMOD;
 enum  SOUNDS
 {
     BACKGROUND_SOUND = 0,
+    BACKGROUND_SOUND2,
+    CREADIT_BGM,
+    HOWTOPLAY_MAIN_BGM,
+
+
     CRUSH_SOUND,
     GOAL_SOUND,
     CURSOR_MOVEMENT_SOUND,
@@ -44,15 +49,17 @@ enum  SOUNDS
     SAVED_SOUND,
     DIED_BY_MOUSE_SOUND,
 
-    BUTTON_PRESSED_SOUND,//!
-    CHEESE_RESTORED_SOUND,//! -> 많이 늘어났을때 sound가 play 되도록 조정이 필요할꺼같음
+    BUTTON_PRESSED_SOUND,
+    CHEESE_RESTORED_SOUND,
     GOAL_DOORTRIGGER_SOUND,
-    JAIL_CRUSHING_SOUND,//!
-    RESPAWN_SOUND1,//!
-    RESPAWN_SOUND2,//!
-    STRUGGLE_SOUND,//!
-    STRUGGLE_SOUND2,//!
-    REFRIGERATOR_TRIGGERED_SOUND,//!
+    JAIL_CRUSHING_SOUND,
+    RESPAWN_SOUND1,
+    RESPAWN_SOUND2,
+    STRUGGLE_SOUND,
+    STRUGGLE_SOUND2,
+    REFRIGERATOR_TRIGGERED_SOUND,
+
+
     NONE
 };
 
@@ -80,6 +87,8 @@ public:
     void SetVolumeOnMenu();
 
     void SetVolumeOnGameRunning();
+
+    void StopCurrentBGM();
 
 
 private:

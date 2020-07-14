@@ -146,6 +146,7 @@ MenuObject* MainMenu::MenuUpdate(float dt)
             break;
         case MainMenu::CREDIT:
             SceneManager::GetSceneManager()->SetNextScene("Credit");
+            break;
         case MainMenu::QUIT:
             dynamic_cast<DestructiveConfirmation*>(PauseAndMenu::Get()->confirmMenu)->SetDoThis([&]()
                 {
