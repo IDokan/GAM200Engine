@@ -53,6 +53,10 @@ void Level2::Load()
 
     cameraManager.Init(player1, player2);
     sceneStateManager->SetNameOfSelectedLevel("Level3");
+
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::BACKGROUND_SOUND, 0.2f);
+    current_scene_info = GameScenes::Level2;
 }
 
 void Level2::Update(float dt)

@@ -52,6 +52,7 @@ void GameIsRunning::Execute(SceneStateManager* manager, float /*dt*/)
     {
         if (isHostageRescued)
         {
+            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(GOAL_SOUND);
             PauseAndMenu::Get()->defaultItem = PauseAndMenu::Get()->clearMenu;
             manager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(PauseAndMenu::Get());
         }

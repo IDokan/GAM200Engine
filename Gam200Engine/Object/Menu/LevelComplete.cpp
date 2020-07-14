@@ -119,7 +119,7 @@ MenuObject* LevelComplete::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
-        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(BUTTON_TRIGGERED_SOUND);
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SELECT_SOUND);
 
         switch (currentSelection)
         {

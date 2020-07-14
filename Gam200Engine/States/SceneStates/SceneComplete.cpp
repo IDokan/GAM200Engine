@@ -53,7 +53,7 @@ SceneComplete* SceneComplete::Get()
 
 void SceneComplete::Enter(SceneStateManager* /*manager*/)
 {
-	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(GOAL_SOUND);
+
 	// Send message ¡°Players reached goal!¡± to both players.
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player1, MessageTypes::SceneComplete);
 	MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::SceneStateManager, MessageObjects::Player2, MessageTypes::SceneComplete);
