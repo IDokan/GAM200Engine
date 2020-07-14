@@ -118,7 +118,6 @@ void Level3::InitObject()
     background->SetDepth(Depth_Standard::FurtherBackground);
 
     Mouse* mouse = new Mouse(vector2{ 180, 900 }, vector2{ 180, 1250 }, vector2{ 180, 384 }, player1, player2);
-    mouse->SetSpeed(1.5f);
     Mouse* mouse1 = new Mouse(vector2{ 1800, 1260 }, vector2{ 1300, 1260 }, vector2{ 2457, 1260 }, player1, player2);
     Mouse* mouse2 = new Mouse(vector2{ 1800, 350 }, vector2{ 1300, 350 }, vector2{ 2457, 350 }, player1, player2);
 

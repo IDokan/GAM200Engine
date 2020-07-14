@@ -39,7 +39,7 @@ public:
         {}
     };
 public:
-    Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* player1, Player* player2, double waitTime = 0.02f, float speed = 3.f);
+    Mouse(vector2 translation, vector2 patrol1, vector2 patrol2, Player* player1, Player* player2, double waitTime = 2.f, float speed = 180.f);
     ~Mouse();
 
     void SetMouseName();

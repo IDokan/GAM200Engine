@@ -26,7 +26,7 @@ public:
 	static Patrol* Get();
 
 private:
-	void MoveMouse(Mouse* mouse, vector2 position);
+	void MoveMouse(Mouse* mouse, vector2 position, float dt);
 	bool canMouseSeePlayer(Mouse* mouse);
 	void AttackPlayers(Mouse* mouse);
 	Patrol() = default;
