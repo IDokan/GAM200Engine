@@ -290,7 +290,6 @@ void PlatformWindow::ToggleFullscreen() noexcept
 		GLFWimage icon[1];
 		icon[0].pixels = stbi_load("../assets/textures/Icon/icon.png", &icon[0].width, &icon[0].height, 0, 4);
 		glfwSetWindowIcon(window, 1, &icon[0]);
-		glCheck(glfwSwapInterval(true));
 	}
 }
 

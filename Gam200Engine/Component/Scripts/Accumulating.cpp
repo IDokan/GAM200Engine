@@ -29,16 +29,14 @@ void Accumulating::Update(float dt)
 		return;
 	}
 
-	if (isAccumulating == true)
+	if (isAccumulating == false)
 	{
-		accumulation += dt;
-		SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartZoomFromOutside(true, accumulation / maximum);
-	}
-	else
-	{
-		SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartZoomFromOutside(false, 1.f);
 		accumulation = 0.f;
+		return;
 	}
+
+	accumulation += dt;
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartZoomFromOutside(true, accumulation / maximum);
 }
 
 void Accumulating::Clear()

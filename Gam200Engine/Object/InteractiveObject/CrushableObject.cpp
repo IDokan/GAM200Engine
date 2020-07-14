@@ -103,6 +103,7 @@ void CrushableObject::DoSomethingWhenDetached()
 
 void CrushableObject::Crushed() noexcept
 {
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetCameraManager().StartZoomFromOutside(false, 1.f);
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CRUSH_SOUND);
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(SOUNDS::JAIL_CRUSHING_SOUND);
 
