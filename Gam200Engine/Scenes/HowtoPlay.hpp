@@ -36,22 +36,23 @@ protected:
 	void InitObject();
 
 private:
-	Object* background;
 
 	Object* movementIndicator1{};
 	Object* movementIndicator2{};
 	Object* movementExplanation{};
+	Object* rightArrow{};
 
 	Object* sizeIndicator{};
 	Object* sizeExplanation{};
-
-	/*Object* button{};
-	Object* coButton{};
-	Object* threeSecButton{};
-	Object* buttonExplanation{};*/
+	Object* arrows1{};
 	
 	Object* movableBox{};
     Object* movableBox1{};
 	Object* movableBoxExplanation{};
+	Object* arrows2{};
 
+	Object* checkpoint{};
+	Object* checkpoint1{};
+	Object* checkpointExplanation{};
+	Object* leftArrow{};
 };
