@@ -55,4 +55,9 @@ private:
 	Object* checkpoint1{};
 	Object* checkpointExplanation{};
 	Object* leftArrow{};
+
+	Object* press;
+	Object* press1;
+	Object* press2;
+	Object* press3;
 };

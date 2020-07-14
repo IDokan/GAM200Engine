@@ -23,11 +23,13 @@ Creation Date: 07.09.2020
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 
 Ending::Ending() : background(nullptr)
 {
 	isMenu = true;
-	delay = 0;
+	cutCount = 0;
+	delay = 0.f;
 	maxDelay = 3.0f;
 }
 
@@ -96,6 +98,7 @@ void Ending::Update(float dt)
 			cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/ending10.png");
 			break;
 		case 10:
+			cutCount = 0;
 			SceneManager::GetSceneManager()->SetNextScene("Credit");
 			break;
 		}
@@ -116,6 +119,8 @@ void Ending::Input()
 {
 	if (input.IsKeyTriggered(GLFW_KEY_S))
 	{
+		delay = 0.0f;
+		cutCount = 0;
 		SceneManager::GetSceneManager()->SetNextScene("Credit");
 	}
 	else if (input.IsAnyKeyTriggered())
@@ -139,12 +144,11 @@ void Ending::InitObject()
 
 	pressS = new Object();
 	pressS->SetObjectName("pressS");
-	pressS->SetTranslation(vector2(600, -400));
-	pressS->SetScale(vector2(300, 50));
-	pressS->SetObjectType(Object::ObjectType::TEST);
-	pressS->AddComponent(new Sprite(pressS));
-	pressS->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/pressS.png");
-	pressS->SetDepth(Depth_Standard::Obstacle);
+	pressS->SetTranslation(vector2(400, -400));
+	TextComponent* text = new TextComponent(pressS);
+	pressS->AddComponent(text);
+	text->SetString(L"press \"S\" to Skip");
+	pressS->SetObjectName("pressS");
 
 	auto objManager = ObjectManager::GetObjectManager();
 
