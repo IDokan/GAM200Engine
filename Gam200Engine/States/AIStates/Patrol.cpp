@@ -57,16 +57,16 @@ void Patrol::Enter(Mouse* mouse)
 	}
 }
 
-void Patrol::Execute(Mouse* mouse, float /*dt*/)
+void Patrol::Execute(Mouse* mouse, float dt)
 {
 	Mouse::Patrol_Info& patrol_info = mouse->GetPatrolInfo();
 	if (patrol_info.isGoingTOA == true)
 	{
-		MoveMouse(mouse, patrol_info.positionA);
+		MoveMouse(mouse, patrol_info.positionA, dt);
 	}
 	else
 	{
-		MoveMouse(mouse, patrol_info.positionB);
+		MoveMouse(mouse, patrol_info.positionB, dt);
 	}
 
 	AttackPlayers(mouse);
@@ -83,7 +83,7 @@ Patrol* Patrol::Get()
 	return state;
 }
 
-void Patrol::MoveMouse(Mouse* mouse, vector2 position)
+void Patrol::MoveMouse(Mouse* mouse, vector2 position, float dt)
 {
 	vector2 mousePosition = mouse->GetTranslation();
 	Physics* physics = mouse->GetComponentByTemplate<Physics>();
@@ -91,7 +91,7 @@ void Patrol::MoveMouse(Mouse* mouse, vector2 position)
 
 	vector2 targetVector = position - mousePosition;
 
-	if (magnitude_squared(targetVector) < 6.f)
+	if (magnitude_squared(targetVector) < 12.f)
 	{
 		mouse->GetComponentByTemplate<StateMachine<Mouse>>()->ChangeState(MouseIdle::Get());
 		return;
@@ -100,14 +100,14 @@ void Patrol::MoveMouse(Mouse* mouse, vector2 position)
 	targetVector = normalize(targetVector);
 
 
-	targetVector *= mouse->GetSpeed();
+	targetVector *= dt * mouse->GetSpeed();
 
 	physics->SetVelocity(targetVector);
 
 	if (canMouseSeePlayer(mouse) == true)
 	{
 		mouse->GetComponentByTemplate<Animation>()->SetSpeed(10.f);
-		physics->SetVelocity(targetVector * 2.f);
+		physics->SetVelocity(targetVector * 1.5f);
 	}
 	else
 	{

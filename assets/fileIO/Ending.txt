@@ -1,1 +1,0 @@
-Scene1 0 0 840 650 -1 obstacle ../assets/textures/cutscenes/ending1.png

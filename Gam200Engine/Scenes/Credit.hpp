@@ -39,9 +39,12 @@ private:
 
 	float totalDT;
 
+	Object* gamelogo{};
+	Object* teamlogo{};
 	Object* list1{};
 	Object* list2{};
 	Object* list3{};
 	Object* list4{};
 	Object* digipenLogo{};
+	Object* press;
 };

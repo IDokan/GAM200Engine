@@ -40,7 +40,7 @@ public:
 private:
 
     SceneManager() 
-        : currentScene(nullptr), isTransitioning(false), transitionTimer(0.f), isEnteringTransition(false), transitionImage(nullptr)
+        : currentScene(nullptr), isTransitioning(false), transitionTimer(0.f), enteringTransitionTimer(0.f), isEnteringTransition(false), transitionImage(nullptr)
     {};
 
     Object* CreateTransitionImage(bool isEntering);
@@ -50,6 +50,7 @@ private:
 
     bool isTransitioning = false;
     float transitionTimer = 0.f;
+    float enteringTransitionTimer = 0.f;
     bool isEnteringTransition = false;
     Object* transitionImage;
 };

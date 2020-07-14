@@ -262,10 +262,13 @@ void Scene::UnloadScene() noexcept
 {
     is_next = false;
 
-    fileIO* fileio = new fileIO;
-    fileio->SaveLevel();
+    if (IsMenu() == false)
+    {
+        fileIO* fileio = new fileIO;
+        fileio->SaveLevel();
 
-    delete fileio;
+        delete fileio;
+    }
 
     CleanRequiredObjects();
     Unload();

@@ -29,9 +29,9 @@ void MouseIdle::Enter(Mouse* mouse)
 	mouseAnimation->SetIndex(0.f);
 }
 
-void MouseIdle::Execute(Mouse* mouse, float /*dt*/)
+void MouseIdle::Execute(Mouse* mouse, float dt)
 {
-	mouse->SetLocalTimer(mouse->GetLocalTimer() + Timer::GetTimer()->GetElapsedSeconds());
+	mouse->SetLocalTimer(mouse->GetLocalTimer() + dt);
 	
 	if (mouse->GetLocalTimer() > mouse->GetWaitTime())
 	{

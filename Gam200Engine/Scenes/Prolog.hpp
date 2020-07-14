@@ -39,7 +39,7 @@ private:
 
 	Object* cutScene;
 	Object* pressS;
-	int cutCount = 0;
+	int cutCount;
 	bool isCutChanged = false;
 
 	float delay;

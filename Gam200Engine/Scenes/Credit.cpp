@@ -23,6 +23,7 @@ Creation Date: 05.22.2020
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 
 Credit::Credit() : totalDT(0.0f)
 {
@@ -50,7 +51,11 @@ void Credit::Update(float dt)
 {
 	if (input.IsKeyPressed(GLFW_KEY_SPACE) || input.IsKeyPressed(GLFW_KEY_ENTER))
 	{
-		dt = 10.f * dt;
+		cameraManager.MoveUp(dt, -300);
+	}
+	else
+	{
+		cameraManager.MoveUp(dt, -30);
 	}
 
 	totalDT += dt;
@@ -58,7 +63,7 @@ void Credit::Update(float dt)
 	cameraManager.MoveUp(dt, -30);
 	float currYaxis = cameraManager.GetPosition().y;
 
-	if (totalDT > 50.f || currYaxis < -1800.f)
+	if (totalDT > 70.f || currYaxis < -2800.f)
 	{
 		SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 		totalDT = 0.0f;
@@ -90,9 +95,27 @@ void Credit::Collision()
 
 void Credit::InitObject()
 {
+	gamelogo = new Object();
+	gamelogo->SetObjectName("gamelogo");
+	gamelogo->SetTranslation(vector2(0.f, 0.f));
+	gamelogo->SetScale(vector2(500.f, 280.f));
+	gamelogo->SetObjectType(Object::ObjectType::TEST);
+	gamelogo->AddComponent(new Sprite(gamelogo));
+	gamelogo->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/GAME_TITLE.png");
+	gamelogo->SetDepth(Depth_Standard::Obstacle);
+
+	teamlogo = new Object();
+	teamlogo->SetObjectName("teamlogo");
+	teamlogo->SetTranslation(vector2(0.f, -450.f));
+	teamlogo->SetScale(vector2(560.f, 120.f));
+	teamlogo->SetObjectType(Object::ObjectType::TEST);
+	teamlogo->AddComponent(new Sprite(teamlogo));
+	teamlogo->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/TeamLogo.png");
+	teamlogo->SetDepth(Depth_Standard::Obstacle);
+
 	list1 = new Object();
 	list1->SetObjectName("credit1");
-	list1->SetTranslation(vector2(0.f, 0.f));
+	list1->SetTranslation(vector2(0.f, -1000.f));
 	list1->SetScale(vector2(600.f, 600.f));
 	list1->SetObjectType(Object::ObjectType::TEST);
 	list1->AddComponent(new Sprite(list1));
@@ -101,7 +124,7 @@ void Credit::InitObject()
 
 	list2 = new Object();
 	list2->SetObjectName("credit2");
-	list2->SetTranslation(vector2(0.f, -450.f));
+	list2->SetTranslation(vector2(0.f, -1450.f));
 	list2->SetScale(vector2(600.f, 300.f));
 	list2->SetObjectType(Object::ObjectType::TEST);
 	list2->AddComponent(new Sprite(list2));
@@ -110,7 +133,7 @@ void Credit::InitObject()
 
 	list3 = new Object();
 	list3->SetObjectName("credit3");
-	list3->SetTranslation(vector2(0.f, -750.f));
+	list3->SetTranslation(vector2(0.f, -1750.f));
 	list3->SetScale(vector2(600.f, 300.f));
 	list3->SetObjectType(Object::ObjectType::TEST);
 	list3->AddComponent(new Sprite(list3));
@@ -119,7 +142,7 @@ void Credit::InitObject()
 
 	list4 = new Object();
 	list4->SetObjectName("credit4");
-	list4->SetTranslation(vector2(0.f, -1250.f));
+	list4->SetTranslation(vector2(0.f, -2250.f));
 	list4->SetScale(vector2(600.f, 600.f));
 	list4->SetObjectType(Object::ObjectType::TEST);
 	list4->AddComponent(new Sprite(list4));
@@ -128,18 +151,30 @@ void Credit::InitObject()
 
 	digipenLogo = new Object();
 	digipenLogo->SetObjectName("digipenLogo");
-	digipenLogo->SetTranslation(vector2(0.f, -1700));
+	digipenLogo->SetTranslation(vector2(0.f, -2700));
 	digipenLogo->SetScale(vector2(700.f, 223.f));
 	digipenLogo->SetObjectType(Object::ObjectType::TEST);
 	digipenLogo->AddComponent(new Sprite(digipenLogo));
 	digipenLogo->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Logos/DigiPenLogo.png");
 	digipenLogo->SetDepth(Depth_Standard::Obstacle);
 
+	press = new Object();
+	press->SetObjectName("press");
+	press->SetTranslation(vector2(0.4f, -0.90f));
+	press->SetScale(vector2(0.001f, 0.002f));
+	TextComponent* text = new TextComponent(press);
+	press->AddComponent(text);
+	text->SetString(L"Press Spacebar or Enter to Fast Foward\n Press Other Keys to Main Menu");
+	press->SetObjectName("press");
+
 	auto objManager = ObjectManager::GetObjectManager();
 
+	objManager->FindLayer(LayerNames::Stage)->AddObject(gamelogo);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(teamlogo);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list1);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list2);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list3);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list4);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(digipenLogo);
+	objManager->FindLayer(LayerNames::HUD)->AddObject(press); 
 }

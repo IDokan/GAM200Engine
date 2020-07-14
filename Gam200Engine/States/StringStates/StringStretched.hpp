@@ -25,4 +25,7 @@ public:
 	void Exit(String* obj) override;
 private:
 	StringStretched() = default;
+
+	float lastT;
+	bool DidPlaySound;
 };

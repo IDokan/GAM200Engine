@@ -23,7 +23,8 @@ StringStretched* StringStretched::Get()
 
 void StringStretched::Enter(String* /*obj*/)
 {
-	printf("String is began to stretched!\n");
+	lastT = 0.f;
+	DidPlaySound = false;
 }
 
 void StringStretched::Execute(String* obj, float /*dt*/)
@@ -57,12 +58,26 @@ void StringStretched::Execute(String* obj, float /*dt*/)
 
 		float currentStringLength = obj->GetStringLength();
 		MessageDispatcher::GetDispatcher()->DispatchMessage(MessageObjects::String_Object, MessageObjects::StringLengthUI, MessageTypes::StringIsStreching, 0, &currentStringLength);
+
+		if (lastT > t)
+		{
+			if (!DidPlaySound)
+			{
+				SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CHEESE_RESTORED_SOUND);
+				DidPlaySound = true;
+			}
+		}
+		else
+		{
+			DidPlaySound = false;
+		}
+
+		lastT = t;
 	}
 }
 
 void StringStretched::Exit(String* /*obj*/)
 {
-	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(CHEESE_RESTORED_SOUND);
 	printf("No more stretching\n");
 
 }
