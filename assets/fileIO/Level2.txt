@@ -1,2 +1,17 @@
 Player1 -1500 0 100 100 -1 player1 ../assets/textures/Cheese/cheese_move.png
 Player2 -1300 0 100 100 -1 player2 ../assets/textures/Cheese/cheese_move.png
+Block1 -1590 0 100 800 -1 obstacle ../assets/textures/BLOCK_W.png
+Block2 -660 230 100 330 -1 obstacle ../assets/textures/BLOCK_W.png
+Block3 -660 -230 100 330 -1 obstacle ../assets/textures/BLOCK_W.png
+Block5 200 230 100 330 -1 obstacle ../assets/textures/BLOCK_W.png
+Block6 200 -230 100 330 -1 obstacle ../assets/textures/BLOCK_W.png
+Block7 1100 0 100 800 -1 obstacle ../assets/textures/BLOCK_W.png
+Block8 900 0 300 100 -1 obstacle ../assets/textures/BLOCK_W.png
+Block9 -590 440 2100 100 -1 obstacle ../assets/textures/BLOCK_W.png
+Block10 -245 -440 2790 100 -1 obstacle ../assets/textures/BLOCK_W.png
+Block11 925 440 450 100 -1 obstacle ../assets/textures/BLOCK_W.png
+Block12 200 650 100 350 -1 obstacle ../assets/textures/BLOCK_W.png
+Block13 200 1050 100 350 -1 obstacle ../assets/textures/BLOCK_W.png
+Block14 -660 850 100 760 -1 obstacle ../assets/textures/BLOCK_W.png
+Block15 220 1180 1860 100 -1 obstacle ../assets/textures/BLOCK_W.png
+Block16 1100 810 100 650 -1 obstacle ../assets/textures/BLOCK_W.png
