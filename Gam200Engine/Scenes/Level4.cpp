@@ -78,6 +78,10 @@ void Level4::Update(float dt)
 
 void Level4::GameRestart()
 {
+    button1->ReinitializeDoors();
+    button2->ReinitializeDoors();
+    button3->ReinitializeDoors();
+    button4->ReinitializeDoors();
 }
 
 void Level4::Unload()

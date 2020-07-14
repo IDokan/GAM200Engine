@@ -298,13 +298,17 @@ void fileIO::LoadGame(void)
 		}
 		else if (latestLevel == "Level3")
 		{
-			SceneManager::GetSceneManager()->SetNextScene("Level3");
+			SceneManager::GetSceneManager()->SetNextScene("Level2");
 		}
 		else if (latestLevel == "Level4")
 		{
-			SceneManager::GetSceneManager()->SetNextScene("Level4");
+			SceneManager::GetSceneManager()->SetNextScene("Level3");
 		}
 		else if (latestLevel == "Level5")
+		{
+			SceneManager::GetSceneManager()->SetNextScene("Level4");
+		}
+		else if (latestLevel == "Level6")
 		{
 			SceneManager::GetSceneManager()->SetNextScene("TutorialLevel");
 		}
@@ -320,20 +324,24 @@ void fileIO::SaveLevel(void)
 	{
 		saveLoad << "Level1";
 	}
-	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level3")
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level2")
 	{
 		saveLoad << "Level2";
 	}
-	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level4")
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level3")
 	{
 		saveLoad << "Level3";
 	}
-	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel")
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Level4")
 	{
 		saveLoad << "Level4";
 	}
-	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "MenuScene")
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel")
 	{
 		saveLoad << "Level5";
+	}
+	else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "Ending")
+	{
+		saveLoad << "Level6";
 	}
 }
