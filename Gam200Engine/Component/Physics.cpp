@@ -219,7 +219,7 @@ void Physics::ManageCollision()
 
     for (const auto& object : physicsObject)
     {
-        Physics* p = object->GetComponentByTemplate<Physics>(); 
+        Physics* p = object->GetComponentByTemplate<Physics>();
         if (p != nullptr)
         {
             p->isCollide = false;
@@ -653,13 +653,30 @@ void Physics::IsCollideWithMovedObject()
                                     player->SetIsBlock(false);
                                     movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::UP_SIDE;
-                                    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND);
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND1);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND2);
+                                    }
+
+
                                     if (isSoundPlay == true)
                                     {
-                                        /*TODO: Stop Sound*/
+                                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND);
+                                        }
+                                        else
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND2);
+
+                                        }
                                         isSoundPlay = false;
                                     }
-                                
+
                                 }
                                 object1->GetComponentByTemplate<Physics>()->SetPosition(object1->GetComponentByTemplate<Physics>()->GetPosition() + vector2{ 0.f, ownerVelocity.y });
                                 object1->SetTranslation(object1->GetComponentByTemplate<Physics>()->GetPosition());
@@ -670,7 +687,14 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (movingObjectFlag == true)
                                 {
-                                    /*TODO: Play Sound*/
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND2);
+                                    }
                                     if (Player* player = dynamic_cast<Player*>(owner);
                                         player != nullptr)
                                     {
@@ -695,10 +719,26 @@ void Physics::IsCollideWithMovedObject()
                                     player->SetIsBlock(false);
                                     movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::BOTTOM_SIDE;
-                                    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND);
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND1);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND2);
+                                    }
                                     if (isSoundPlay == true)
                                     {
-                                        /*TODO: Stop Sound*/
+
+                                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND);
+                                        }
+                                        else
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND2);
+
+                                        }
                                         isSoundPlay = false;
                                     }
                                 }
@@ -711,7 +751,14 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (movingObjectFlag == true)
                                 {
-                                    /*TODO: Play Sound*/
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND2);
+                                    }
                                     if (Player* player = dynamic_cast<Player*>(owner);
                                         player != nullptr)
                                     {
@@ -734,10 +781,25 @@ void Physics::IsCollideWithMovedObject()
                                     player->SetIsBlock(false);
                                     movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::RIGHT_SIDE;
-                                    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND);
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND1);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND2);
+                                    }
                                     if (isSoundPlay == true)
                                     {
-                                        /*TODO: Stop Sound*/
+                                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND);
+                                        }
+                                        else
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND2);
+
+                                        }
                                         isSoundPlay = false;
                                     }
                                 }
@@ -746,11 +808,18 @@ void Physics::IsCollideWithMovedObject()
                                 object1->GetComponentByTemplate<Physics>()->SetCollisionBoxPosition(object1->GetComponentByTemplate<Physics>()->GetPosition());
                                 dirtyFlag = false;
                             }
-                            else if(ownerVelocity.y != 0.f || ownerVelocity.x > 0)
+                            else if (ownerVelocity.y != 0.f || ownerVelocity.x > 0)
                             {
                                 if (movingObjectFlag == true)
                                 {
-                                    /*TODO: Play Sound*/
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND2);
+                                    }
                                     if (Player* player = dynamic_cast<Player*>(owner);
                                         player != nullptr)
                                     {
@@ -773,10 +842,26 @@ void Physics::IsCollideWithMovedObject()
                                     player->SetIsBlock(false);
                                     movingObjectFlag = true;
                                     lastCollidingSide = Physics::ObjectSide::LEFT_SIDE;
-                                    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND);
+
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND1);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(PUSHABLE_BOX_SOUND2);
+                                    }
                                     if (isSoundPlay == true)
                                     {
-                                        /*TODO: Stop Sound*/
+                                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND);
+                                        }
+                                        else
+                                        {
+                                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND2);
+
+                                        }
                                         isSoundPlay = false;
                                     }
                                 }
@@ -790,7 +875,14 @@ void Physics::IsCollideWithMovedObject()
                             {
                                 if (movingObjectFlag == true)
                                 {
-                                    /*TODO: Play Sound*/
+                                    if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND);
+                                    }
+                                    else
+                                    {
+                                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND2);
+                                    }
                                     if (Player* player = dynamic_cast<Player*>(owner);
                                         player != nullptr)
                                     {
@@ -811,7 +903,14 @@ void Physics::IsCollideWithMovedObject()
                     {
                         if (movingObjectFlag == true)
                         {
-                            /*TODO: Play Sound*/
+                            if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                            {
+                                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND);
+                            }
+                            else
+                            {
+                                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(STRUGGLE_SOUND2);
+                            }
                             if (Player* player = dynamic_cast<Player*>(owner);
                                 player != nullptr)
                             {
@@ -829,10 +928,18 @@ void Physics::IsCollideWithMovedObject()
                     {
                         count++;
                         if (count >= 2)
-                        {   
+                        {
                             if (isSoundPlay == true)
                             {
-                                /*TODO: Stop Sound*/
+                                if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                                {
+                                    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND);
+                                }
+                                else
+                                {
+                                    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND2);
+
+                                }
                                 std::cout << "stop\n";
                                 isSoundPlay = false;
                             }
@@ -849,22 +956,54 @@ void Physics::IsCollideWithMovedObject()
                     if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().x != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::UP_SIDE)
                     {
                         dirtyFlag = true;
-                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND);
+                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND1);
+                        }
+                        else
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND2);
+
+                        }
                     }
                     else if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().y == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().x != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::BOTTOM_SIDE)
                     {
                         dirtyFlag = true;
-                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND);
+                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND1);
+                        }
+                        else
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND2);
+
+                        }
                     }
                     else if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().y != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::RIGHT_SIDE)
                     {
                         dirtyFlag = true;
-                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND);
+                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND1);
+                        }
+                        else
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND2);
+
+                        }
                     }
                     else if ((owner->GetComponentByTemplate<Physics>()->GetVelocity().x == 0 || owner->GetComponentByTemplate<Physics>()->GetVelocity().y != 0) && dirtyFlag == false && lastCollidingSide == Physics::ObjectSide::LEFT_SIDE)
                     {
                         dirtyFlag = true;
-                        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND);
+                        if (owner->GetObjectType() == Object::ObjectType::PLAYER_1)
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND1);
+                        }
+                        else
+                        {
+                            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(PUSHABLE_BOX_SOUND2);
+
+                        }
                     }
                 }
             }

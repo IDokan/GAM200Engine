@@ -36,7 +36,9 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.mp3", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND1]);
+    ERRCHECK(theResult, "Load Sound");
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND2]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
@@ -66,7 +68,9 @@ void SoundManager::Load_Sound()
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX2.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND2]);
     ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_DEFAULT, nullptr, &sound[STRUGGLE_SOUND]);
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND]);
+    ERRCHECK(theResult, "Load Sound"); 
+    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND2]);
     ERRCHECK(theResult, "Load Sound");
     theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RefrigeratorTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[REFRIGERATOR_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "Load Sound");
@@ -91,7 +95,7 @@ void SoundManager::UnLoad_Sound()
     ERRCHECK(theResult, "UnLoad Sound");
     theResult = FMOD_Sound_Release(sound[SELECT_SOUND]);
     ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[PUSHABLE_BOX_SOUND]);
+    theResult = FMOD_Sound_Release(sound[PUSHABLE_BOX_SOUND1]);
     ERRCHECK(theResult, "UnLoad Sound");
     theResult = FMOD_Sound_Release(sound[BUTTON_TRIGGERED_SOUND]);
     ERRCHECK(theResult, "UnLoad Sound");
