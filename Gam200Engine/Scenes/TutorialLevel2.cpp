@@ -49,7 +49,7 @@ void TutorialLevel2::Load()
     TutorialLevel2::InitObject();
 
     cameraManager.Init(player1, player2);
-    sceneStateManager->SetNameOfSelectedLevel("Level3");
+    sceneStateManager->SetNameOfSelectedLevel("Level2");
 
     delete fileio;
     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
