@@ -42,6 +42,11 @@ void Credit::Load()
 
 void Credit::Update(float dt)
 {
+	if (input.IsKeyPressed(GLFW_KEY_SPACE) || input.IsKeyPressed(GLFW_KEY_ENTER))
+	{
+		dt = 10.f * dt;
+	}
+
 	totalDT += dt;
     Credit::Input();
 	cameraManager.MoveUp(dt, -30);
@@ -52,12 +57,6 @@ void Credit::Update(float dt)
 		SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 		totalDT = 0.0f;
 	}
-
-	if (input.IsKeyTriggered(GLFW_KEY_SPACE))
-	{
-		cameraManager.SetPosition(vector2{ 0.f, currYaxis - 500.f });
-	}
-		
 }
 
 void Credit::GameRestart()
@@ -71,7 +70,7 @@ void Credit::Unload()
 
 void Credit::Input()
 {
-    if (input.IsAnyKeyTriggered())
+    if (input.IsAnyKeyTriggered() && !input.IsKeyTriggered(GLFW_KEY_SPACE) && !input.IsKeyPressed(GLFW_KEY_ENTER))
     {
         SceneManager::GetSceneManager()->SetNextScene("MenuScene");
     }

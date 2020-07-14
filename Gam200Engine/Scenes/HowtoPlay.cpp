@@ -44,11 +44,11 @@ void HowToPlay::Load()
 void HowToPlay::Update(float dt)
 {
 	float currXaxis = cameraManager.GetPosition().x;
-	if (input.IsKeyTriggered(GLFW_KEY_LEFT) && cameraManager.GetPosition().x > 0.0f)
+	if ((input.IsKeyTriggered(GLFW_KEY_LEFT) || input.IsKeyTriggered(GLFW_KEY_A)) && cameraManager.GetPosition().x > 0.0f)
 	{
 		cameraManager.SetPosition(vector2{ currXaxis - 1500.f, 0.f });
 	}
-	if (input.IsKeyTriggered(GLFW_KEY_RIGHT) && cameraManager.GetPosition().x < 4500.0f)
+	if ((input.IsKeyTriggered(GLFW_KEY_RIGHT) || input.IsKeyTriggered(GLFW_KEY_D)) && cameraManager.GetPosition().x < 4500.0f)
 	{
 		cameraManager.SetPosition(vector2{ currXaxis + 1500.f, 0.f });
 	}
@@ -67,7 +67,7 @@ void HowToPlay::Unload()
 
 void HowToPlay::Input()
 {
-	if (input.IsAnyKeyTriggered())
+	if (input.IsAnyKeyTriggered() && !input.IsKeyTriggered(GLFW_KEY_LEFT) && !input.IsKeyTriggered(GLFW_KEY_RIGHT) && !input.IsKeyTriggered(GLFW_KEY_A) && !input.IsKeyTriggered(GLFW_KEY_D))
 	{
         SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 	}

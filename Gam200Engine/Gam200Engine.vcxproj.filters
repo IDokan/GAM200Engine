@@ -361,7 +361,6 @@
     <ClCompile Include="Scenes\Level4.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Ending.cpp" />
     <ClCompile Include="Scenes\Level2.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -370,6 +369,12 @@
     </ClCompile>
     <ClCompile Include="Object\Menu\LevelComplete.cpp">
       <Filter>Object\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Ending.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Prolog.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -772,7 +777,6 @@
     <ClInclude Include="Scenes\Level4.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Ending.hpp" />
     <ClInclude Include="Scenes\Level2.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -781,6 +785,12 @@
     </ClInclude>
     <ClInclude Include="Object\Menu\LevelComplete.hpp">
       <Filter>Object\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Prolog.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Ending.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
