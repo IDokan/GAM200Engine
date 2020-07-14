@@ -83,6 +83,7 @@ void Level2::GameRestart()
 
 void Level2::Unload()
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void Level2::Collision()

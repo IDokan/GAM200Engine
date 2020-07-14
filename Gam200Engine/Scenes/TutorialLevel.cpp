@@ -49,13 +49,11 @@ void TutorialLevel::Load()
 	cameraManager.Init(player1, player2);
 	sceneStateManager->SetNameOfSelectedLevel("Ending");
 
-
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::BACKGROUND_SOUND2, 0.7f);
 	current_scene_info = GameScenes::Level6;
 
 	delete fileio;
-
 }
 
 void TutorialLevel::Update(float dt)
@@ -88,7 +86,7 @@ void TutorialLevel::GameRestart()
 
 void TutorialLevel::Unload()
 {
-	soundManager.Stop_Sound(SOUNDS::BACKGROUND_SOUND);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void TutorialLevel::Collision()

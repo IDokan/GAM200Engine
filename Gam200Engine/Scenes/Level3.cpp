@@ -87,6 +87,7 @@ void Level3::GameRestart()
 
 void Level3::Unload()
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void Level3::Collision()

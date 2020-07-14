@@ -41,6 +41,7 @@ AlphaTutorialLevel1::AlphaTutorialLevel1() : background(nullptr), cheese(nullptr
 
 AlphaTutorialLevel1::~AlphaTutorialLevel1()
 {
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void AlphaTutorialLevel1::Load()
@@ -89,6 +90,7 @@ void AlphaTutorialLevel1::GameRestart()
 
 void AlphaTutorialLevel1::Unload()
 {
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void AlphaTutorialLevel1::Collision()

@@ -14,7 +14,7 @@ Creation Date: 12.OCT.2019
 #include "fmod_errors.h"
 #include <iostream>
 
-const int MAX_SOUND_TRACK = 30;
+const int MAX_SOUND_TRACK = 35;
 using  namespace  FMOD;
 
 //!!!USAGE OF SETVOLUME!!!//(It must be after the Play_Sound function.)

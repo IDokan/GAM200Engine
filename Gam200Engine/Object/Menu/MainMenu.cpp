@@ -119,6 +119,7 @@ MenuObject* MainMenu::MenuUpdate(float dt)
 
     if (input.IsKeyPressed(GLFW_KEY_ENTER) || input.IsKeyTriggered(GLFW_KEY_SPACE))
     {
+        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::SELECT_SOUND);
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(0.3f));
         playerPressEnter = true;
     }
@@ -126,7 +127,6 @@ MenuObject* MainMenu::MenuUpdate(float dt)
     {
         playerPressEnter = false;
         GetSelectedObject()->GetComponentByTemplate<Sprite>()->SetColor(Graphics::Color4f(1.f));
-        SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::SELECT_SOUND);
         fileIO* loadGame = nullptr;
         switch (currentSelection)
         {

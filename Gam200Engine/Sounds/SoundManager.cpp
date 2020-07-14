@@ -15,136 +15,88 @@ Creation Date: 12.OCT.2019
 
 void SoundManager::Load_Sound()
 {
-    if (fmod_system == nullptr) {
-        theResult = FMOD_System_Create(&fmod_system);
-        ERRCHECK(theResult, "System Create");
+    theResult = FMOD_System_Create(&fmod_system);
+    ERRCHECK(theResult, "System Create");
+
+    if (theResult == FMOD_OK) {
         theResult = FMOD_System_Init(fmod_system, MAX_SOUND_TRACK, FMOD_INIT_NORMAL, NULL);
         ERRCHECK(theResult, "System Init");
-    }
 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/TheFirstBgm.wav", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/SecondBgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND2]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Credit.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[CREADIT_BGM]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/main_howtoplay_bgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[HOWTOPLAY_MAIN_BGM]);
-    ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/TheFirstBgm.wav", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/SecondBgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[BACKGROUND_SOUND2]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Credit.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[CREADIT_BGM]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/main_howtoplay_bgm.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[HOWTOPLAY_MAIN_BGM]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Goal_Sound.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.mp3", FMOD_DEFAULT, nullptr, &sound[CURSOR_MOVEMENT_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/LevelClearSound.mp3", FMOD_DEFAULT, nullptr, &sound[LEVEL_CLEAR_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/MousePatrolSound.wav", FMOD_DEFAULT, nullptr, &sound[MOUSE_PATROL_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.mp3", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND1]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND2]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DOOOOR.mp3", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.mp3", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Glass_Crush.mp3", FMOD_DEFAULT, nullptr, &sound[CRUSH_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Goal_Sound.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CursorMove.mp3", FMOD_DEFAULT, nullptr, &sound[CURSOR_MOVEMENT_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/LevelClearSound.mp3", FMOD_DEFAULT, nullptr, &sound[LEVEL_CLEAR_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/MousePatrolSound.wav", FMOD_DEFAULT, nullptr, &sound[MOUSE_PATROL_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Select.mp3", FMOD_DEFAULT, nullptr, &sound[SELECT_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND1]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/PushableBox.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[PUSHABLE_BOX_SOUND2]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_TRIGGERED_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/DOOOOR.mp3", FMOD_DEFAULT, nullptr, &sound[DOOR_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/Undo.mp3", FMOD_DEFAULT, nullptr, &sound[UNDO_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[SIZE_SHARE_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageNOTSaved.mp3", FMOD_DEFAULT, nullptr, &sound[NOT_SAVED_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.mp3", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/YumYum.mp3", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/sizeSharing.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[SIZE_SHARE_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageNOTSaved.mp3", FMOD_DEFAULT, nullptr, &sound[NOT_SAVED_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/hostageSaved.mp3", FMOD_DEFAULT, nullptr, &sound[SAVED_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/YumYum.mp3", FMOD_DEFAULT, nullptr, &sound[DIED_BY_MOUSE_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonPressed.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_PRESSED_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CheeseRestored.mp3", FMOD_DEFAULT, nullptr, &sound[CHEESE_RESTORED_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/GoalDoortriggered.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_DOORTRIGGER_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/JailCrushingSFX.mp3", FMOD_DEFAULT, nullptr, &sound[JAIL_CRUSHING_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX1.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND1]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX2.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND2]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND2]);
+        ERRCHECK(theResult, "Load Sound");
+        theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RefrigeratorTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[REFRIGERATOR_TRIGGERED_SOUND]);
+        ERRCHECK(theResult, "Load Sound");
 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/ButtonPressed.mp3", FMOD_DEFAULT, nullptr, &sound[BUTTON_PRESSED_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/CheeseRestored.mp3", FMOD_DEFAULT, nullptr, &sound[CHEESE_RESTORED_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/GoalDoortriggered.mp3", FMOD_DEFAULT, nullptr, &sound[GOAL_DOORTRIGGER_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/JailCrushingSFX.mp3", FMOD_DEFAULT, nullptr, &sound[JAIL_CRUSHING_SOUND]);
-    ERRCHECK(theResult, "Load Sound");  
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX1.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND1]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RespawnSFX2.mp3", FMOD_DEFAULT, nullptr, &sound[RESPAWN_SOUND2]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND]);
-    ERRCHECK(theResult, "Load Sound"); 
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/StruggleSFX.mp3", FMOD_LOOP_NORMAL, nullptr, &sound[STRUGGLE_SOUND2]);
-    ERRCHECK(theResult, "Load Sound");
-    theResult = FMOD_System_CreateSound(fmod_system, "../assets/SoundAssets/RefrigeratorTriggered.mp3", FMOD_DEFAULT, nullptr, &sound[REFRIGERATOR_TRIGGERED_SOUND]);
-    ERRCHECK(theResult, "Load Sound");
-
-    for (int sound = 0; sound < SOUNDS::NONE; sound++) {
-        current_ch_volume[sound] = initialVolume;
+        for (int sound = 0; sound < SOUNDS::NONE; sound++) {
+            current_ch_volume[sound] = initialVolume;
+        }
     }
 }
 void SoundManager::UnLoad_Sound()
 {
-    theResult = FMOD_Sound_Release(sound[BACKGROUND_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[BACKGROUND_SOUND2]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[CREADIT_BGM]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[HOWTOPLAY_MAIN_BGM]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[CRUSH_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[GOAL_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[CURSOR_MOVEMENT_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[LEVEL_CLEAR_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[MOUSE_PATROL_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[SELECT_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[PUSHABLE_BOX_SOUND1]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[BUTTON_TRIGGERED_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[DOOR_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[UNDO_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[SIZE_SHARE_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[NOT_SAVED_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[SAVED_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[DIED_BY_MOUSE_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
+    for (int currentSound = 0; currentSound < SOUNDS::NONE; currentSound++) {
+        if (sound[currentSound] != nullptr) {
+            theResult = FMOD_Sound_Release(sound[currentSound]);
+            ERRCHECK(theResult, "UnLoad Sound");
+        }
+    }
+    FMOD_System_Release(fmod_system);
+    FMOD_System_Close(fmod_system);
 
-    theResult = FMOD_Sound_Release(sound[BUTTON_PRESSED_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");   
-    theResult = FMOD_Sound_Release(sound[CHEESE_RESTORED_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");   
-    theResult = FMOD_Sound_Release(sound[GOAL_DOORTRIGGER_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-
-    theResult = FMOD_Sound_Release(sound[JAIL_CRUSHING_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[RESPAWN_SOUND1]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[RESPAWN_SOUND2]);
-    ERRCHECK(theResult, "UnLoad Sound");
-
-    theResult = FMOD_Sound_Release(sound[STRUGGLE_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[STRUGGLE_SOUND2]);
-    ERRCHECK(theResult, "UnLoad Sound");
-    theResult = FMOD_Sound_Release(sound[REFRIGERATOR_TRIGGERED_SOUND]);
-    ERRCHECK(theResult, "UnLoad Sound");
 }
 
 void SoundManager::Play_Sound(SOUNDS sound_name)
@@ -162,9 +114,9 @@ void SoundManager::Stop_Sound(int _chNum)
     }
 }
 
-void SoundManager::StopCurrentBGM() 
+void SoundManager::StopCurrentBGM()
 {
-    for (int currentBGM = 0; currentBGM < 4; currentBGM++) 
+    for (int currentBGM = 0; currentBGM < 4; currentBGM++)
     {
         if (ch[currentBGM] != nullptr) {
             theResult = FMOD_Channel_Stop(ch[currentBGM]);

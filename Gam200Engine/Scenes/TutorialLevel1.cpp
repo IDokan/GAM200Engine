@@ -21,6 +21,7 @@ Creation Date: 03.15.2020
 #include <Sounds/SoundManager.hpp>
 #include <Object/Players/Player.h>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Scenes/SceneManager.hpp>
 
 TutorialLevel1::TutorialLevel1() : background(nullptr)
 {
@@ -39,6 +40,7 @@ void TutorialLevel1::Load()
 
     cameraManager.Init(player1, player2);
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel2");
+
 }
 
 void TutorialLevel1::Update(float dt)

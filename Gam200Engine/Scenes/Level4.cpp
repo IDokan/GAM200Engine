@@ -43,6 +43,7 @@ Level4::Level4() : background(nullptr)
 
 Level4::~Level4()
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void Level4::Load()
@@ -82,6 +83,7 @@ void Level4::GameRestart()
 
 void Level4::Unload()
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void Level4::Collision()

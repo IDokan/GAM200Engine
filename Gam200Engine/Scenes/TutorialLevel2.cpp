@@ -39,6 +39,7 @@ TutorialLevel2::TutorialLevel2() : background(nullptr)
 
 TutorialLevel2::~TutorialLevel2()
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void TutorialLevel2::Load()
@@ -85,6 +86,7 @@ void TutorialLevel2::GameRestart()
 
 void TutorialLevel2::Unload()
 {
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void TutorialLevel2::Collision()

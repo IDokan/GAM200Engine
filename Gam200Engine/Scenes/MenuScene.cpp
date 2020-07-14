@@ -37,7 +37,6 @@ MenuScene::MenuScene(): background(nullptr)
 
 MenuScene::~MenuScene()
 {
-
 }
 
 void MenuScene::Load()
@@ -69,6 +68,7 @@ void MenuScene::GameRestart()
 
 void MenuScene::Unload()
 {
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void MenuScene::Input()
