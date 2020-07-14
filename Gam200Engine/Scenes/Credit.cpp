@@ -23,6 +23,7 @@ Creation Date: 05.22.2020
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 
 Credit::Credit() : totalDT(0.0f)
 {
@@ -132,6 +133,15 @@ void Credit::InitObject()
 	digipenLogo->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/Logos/DigiPenLogo.png");
 	digipenLogo->SetDepth(Depth_Standard::Obstacle);
 
+	press = new Object();
+	press->SetObjectName("press");
+	press->SetTranslation(vector2(0.4f, -0.90f));
+	press->SetScale(vector2(0.001f, 0.002f));
+	TextComponent* text = new TextComponent(press);
+	press->AddComponent(text);
+	text->SetString(L"Press Spacebar or Enter to Fast Foward\n Press Other Keys to Main Menu");
+	press->SetObjectName("press");
+
 	auto objManager = ObjectManager::GetObjectManager();
 
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list1);
@@ -139,4 +149,5 @@ void Credit::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list3);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(list4);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(digipenLogo);
+	objManager->FindLayer(LayerNames::HUD)->AddObject(press); 
 }

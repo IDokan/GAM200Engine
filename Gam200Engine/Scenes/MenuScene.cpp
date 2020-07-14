@@ -113,8 +113,8 @@ void MenuScene::InitObject()
 
 	pressEnter = new Object();
 	pressEnter->SetObjectName("pressEnter");
-	pressEnter->SetTranslation(vector2{ 0, -380 });
-	pressEnter->SetScale(vector2{ 750, 60 });
+	pressEnter->SetTranslation(vector2{ 0, -340 });
+	pressEnter->SetScale(vector2{ 750, 200 });
 	pressEnter->SetObjectType(Object::ObjectType::TEST);
 	pressEnter->AddComponent(new Sprite(pressEnter));
 	pressEnter->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/pressEnter.png");

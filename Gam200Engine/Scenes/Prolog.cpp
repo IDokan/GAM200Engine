@@ -23,11 +23,13 @@ Creation Date: 07.09.2020
 #include "Object/DepthStandard.hpp"
 #include <Scenes/SceneManager.hpp>
 #include <Object/SceneStateManager/SceneStateManager.hpp>
+#include <Component/Sprite/TextComponent.hpp>
 
 Prolog::Prolog() : background(nullptr)
 {
 	isMenu = true;
-	delay = 0;
+	cutCount = 0;
+	delay = 0.f;
 	maxDelay = 3.0f;
 }
 
@@ -56,7 +58,7 @@ void Prolog::Update(float dt)
 		isCutChanged = true;
 		cutCount += 1;
 	}
-
+	
 	Prolog::Input();
 	if (isCutChanged == true)
 	{
@@ -81,6 +83,8 @@ void Prolog::Update(float dt)
 			cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/prolog7.png");
 			break;
 		case 7:
+			delay = 0.0f;
+			cutCount = 0;
 			SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
 			break;
 		}
@@ -101,6 +105,8 @@ void Prolog::Input()
 {
 	if (input.IsKeyTriggered(GLFW_KEY_S))
 	{
+		cutCount = 0;
+		delay = 0.0f;
 		SceneManager::GetSceneManager()->SetNextScene("AlphaTutorialLevel1");
 	}
 	else if (input.IsAnyKeyTriggered())
@@ -113,6 +119,7 @@ void Prolog::Input()
 
 void Prolog::InitObject()
 {
+	
 	cutScene = new Object();
 	cutScene->SetObjectName("cutScene");
 	cutScene->SetTranslation(vector2(0.f, 0.f));
@@ -121,15 +128,14 @@ void Prolog::InitObject()
 	cutScene->AddComponent(new Sprite(cutScene));
 	cutScene->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/cutscenes/prolog1.png");
 	cutScene->SetDepth(Depth_Standard::Obstacle);
-
+	
 	pressS = new Object();
 	pressS->SetObjectName("pressS");
-	pressS->SetTranslation(vector2(600, -400));
-	pressS->SetScale(vector2(300, 50));
-	pressS->SetObjectType(Object::ObjectType::TEST);
-	pressS->AddComponent(new Sprite(pressS));
-	pressS->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/pressS.png");
-	pressS->SetDepth(Depth_Standard::Obstacle);
+	pressS->SetTranslation(vector2(400, -400));
+	TextComponent* text = new TextComponent(pressS);
+	pressS->AddComponent(text);
+	text->SetString(L"press \"S\" to Skip");
+	pressS->SetObjectName("pressS");
 
 	auto objManager = ObjectManager::GetObjectManager();
 

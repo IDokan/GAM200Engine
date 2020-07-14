@@ -44,4 +44,5 @@ private:
 	Object* list3{};
 	Object* list4{};
 	Object* digipenLogo{};
+	Object* press;
 };

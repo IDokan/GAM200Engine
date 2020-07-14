@@ -252,6 +252,37 @@ void HowToPlay::InitObject()
 	fourquarterText->SetString(L"4/4");
 	fourquarter->SetObjectName("fourquarter");
 
+	press = new Object();
+	press->SetObjectName("press");
+	press->SetTranslation(vector2(200, -400));
+	TextComponent* text = new TextComponent(press);
+	press->AddComponent(text);
+	text->SetString(L"Press Left or Right to Move Page \n Press Other Keys to Main Menu");
+	press->SetObjectName("press");
+
+	press1 = new Object();
+	press1->SetObjectName("press1");
+	press1->SetTranslation(vector2(1700, -400));
+	TextComponent* text1 = new TextComponent(press1);
+	press1->AddComponent(text1);
+	text1->SetString(L"Press Left or Right to Move Page \n Press Other Keys to Main Menu");
+	press1->SetObjectName("press1");
+
+	press2 = new Object();
+	press2->SetObjectName("press2");
+	press2->SetTranslation(vector2(3200, -400));
+	TextComponent* text2 = new TextComponent(press2);
+	press2->AddComponent(text2);
+	text2->SetString(L"Press Left or Right to Move Page \n Press Other Keys to Main Menu");
+	press2->SetObjectName("press2");
+
+	press3 = new Object();
+	press3->SetObjectName("press3");
+	press3->SetTranslation(vector2(4700, -400));
+	TextComponent* text3 = new TextComponent(press3);
+	press3->AddComponent(text3);
+	text3->SetString(L"Press Left or Right to Move Page \n Press Other Keys to Main Menu");
+	press3->SetObjectName("press3");
 	////Object manager part
 	auto objManager = ObjectManager::GetObjectManager();
 
@@ -277,4 +308,9 @@ void HowToPlay::InitObject()
 	objManager->FindLayer(LayerNames::Stage)->AddObject(checkpointExplanation);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(leftArrow);
 	objManager->FindLayer(LayerNames::Stage)->AddObject(fourquarter);
+
+	objManager->FindLayer(LayerNames::Stage)->AddObject(press);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(press1);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(press2);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(press3);
 }
