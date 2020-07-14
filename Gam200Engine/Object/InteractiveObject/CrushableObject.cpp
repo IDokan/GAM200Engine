@@ -83,7 +83,7 @@ CrushableObject::~CrushableObject()
 
 void CrushableObject::DoSomethingWhenAttached()
 {
-    if (attachedNum - detachedNum == 4)
+    if (attachedNum - detachedNum > 4)
     {
 		// Add Play_Sound(JAIL_CRUSHING_SOUND)
 		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(JAIL_CRUSHING_SOUND);

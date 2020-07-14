@@ -255,7 +255,8 @@ void Player::LoadPlayer2Layout()
 				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Pause::Get());
 				break;
 			case MessageTypes::Resume:
-				GetComponentByTemplate<StateMachine<Player>>()->ChangeState(Idle::Get());
+				GetComponentByTemplate<StateMachine<Player>>()->RevertToPreviousState();
+				break;
 			case MessageTypes::CancelScaling:
 
 				if (GetScale().x > UpdateAnimation::minimum_scaling_limit)
