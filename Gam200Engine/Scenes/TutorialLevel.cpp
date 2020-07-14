@@ -51,6 +51,8 @@ void TutorialLevel::Load()
 
 
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::BACKGROUND_SOUND2, 0.7f);
+	current_scene_info = GameScenes::Level6;
 
 	delete fileio;
 

@@ -54,6 +54,8 @@ void Level3::Load()
     delete fileio;
     sceneStateManager->SetNameOfSelectedLevel("Level4");
     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::BACKGROUND_SOUND2,0.7f);
+    current_scene_info = GameScenes::Level4;
 }
 
 void Level3::Update(float dt)

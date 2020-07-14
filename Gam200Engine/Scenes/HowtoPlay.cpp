@@ -39,6 +39,8 @@ void HowToPlay::Load()
 	HowToPlay::InitObject();
 	cameraManager.Init();
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::HOWTOPLAY_MAIN_BGM);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::HOWTOPLAY_MAIN_BGM,1.f);
+	current_scene_info = GameScenes::HowToPlay;
 }
 
 void HowToPlay::Update(float dt)

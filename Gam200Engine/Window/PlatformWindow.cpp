@@ -82,13 +82,88 @@ namespace
         const int minimized = glfwGetWindowAttrib(window, GLFW_ICONIFIED);
        
         if (minimized) {
-            originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND);
-            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND,0.f);
+            if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::MainMenu) {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::HOWTOPLAY_MAIN_BGM);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(HOWTOPLAY_MAIN_BGM, 0.f);
+            }
+            else if(SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::HowToPlay)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::HOWTOPLAY_MAIN_BGM);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(HOWTOPLAY_MAIN_BGM, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Credit)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::CREADIT_BGM);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(CREADIT_BGM, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level1)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level2)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level3)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level4)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND2);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND2, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level5)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND2);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND2, 0.f);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level6)
+            {
+                originalBgmVolume = SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().GetCurrentChVolume(SOUNDS::BACKGROUND_SOUND2);
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND2, 0.f);
+            }
             glfwWaitEvents();
-
         }
         else {
-            SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, originalBgmVolume);
+            if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::MainMenu) {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(HOWTOPLAY_MAIN_BGM, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::HowToPlay)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(HOWTOPLAY_MAIN_BGM, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Credit)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(CREADIT_BGM, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level1)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level2)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level3)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level4)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND2, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level5)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND2, originalBgmVolume);
+            }
+            else if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneInfo() == GameScenes::Level6)
+            {
+                SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND2, originalBgmVolume);
+            }
         }
 
     }

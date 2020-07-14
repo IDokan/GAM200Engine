@@ -40,6 +40,9 @@ void Credit::Load()
 	cameraManager.Init(); 
 
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CREADIT_BGM);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::CREADIT_BGM, 1.f);
+
+	current_scene_info = GameScenes::Credit;
 
 }
 

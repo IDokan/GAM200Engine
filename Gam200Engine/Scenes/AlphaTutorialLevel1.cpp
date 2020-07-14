@@ -57,6 +57,7 @@ void AlphaTutorialLevel1::Load()
 	delete fileio;
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
+	current_scene_info = GameScenes::Level1;
 }
 
 void AlphaTutorialLevel1::Update(float dt)

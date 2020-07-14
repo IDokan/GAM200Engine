@@ -55,6 +55,9 @@ void Level4::Load()
 
     //BGM
     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::BACKGROUND_SOUND2, 0.7f);
+
+    current_scene_info = GameScenes::Level5;
 }
 
 void Level4::Update(float dt)

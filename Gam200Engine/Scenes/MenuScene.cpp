@@ -26,6 +26,7 @@ Creation Date: 03.13.2020
 #include <Object/SceneStateManager/SceneStateManager.hpp>
 #include <States/SceneStates/PauseAndMenu.hpp>
 #include <Object/Menu/DestructiveConfirmation.hpp>
+#include <Scenes/Scene.hpp>
 
 MenuScene::MenuScene(): background(nullptr)
 {
@@ -49,8 +50,10 @@ void MenuScene::Load()
 	PauseAndMenu* pam = PauseAndMenu::Get();
 	pam->defaultItem = pam->mainMenu;
 	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::HOWTOPLAY_MAIN_BGM);
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(SOUNDS::HOWTOPLAY_MAIN_BGM,1.f);
 
 	sceneStateManager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(pam);
+	current_scene_info = GameScenes::MainMenu;
 }
 
 void MenuScene::Update(float dt)

@@ -178,7 +178,6 @@ void SoundManager::SetVolume(int sound_name, float volume)
 {
     if (ch[sound_name] != nullptr) {
         current_ch_volume[sound_name] = volume;
-
         theResult = FMOD_Channel_SetVolume(ch[sound_name], volume);
         ERRCHECK(theResult, "Set Volume");
     }
