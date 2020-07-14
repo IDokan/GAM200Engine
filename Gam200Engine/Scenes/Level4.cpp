@@ -54,8 +54,7 @@ void Level4::Load()
     sceneStateManager->SetNameOfSelectedLevel("TutorialLevel");
 
     //BGM
-    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
 }
 
 void Level4::Update(float dt)

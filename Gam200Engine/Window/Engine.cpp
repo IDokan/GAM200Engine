@@ -19,7 +19,6 @@ Creation Date: 08.05.2019
 #include <Systems/Timer.hpp>
 
 Application* app_ = nullptr;
-//SoundManager BGM;
 void Engine::Init()
 {
     app_ = Application::GetApplication();

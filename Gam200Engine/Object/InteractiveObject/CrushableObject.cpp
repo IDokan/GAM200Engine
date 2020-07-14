@@ -86,6 +86,7 @@ void CrushableObject::DoSomethingWhenAttached()
     if (attachedNum - detachedNum > 4)
     {
 		// Add Play_Sound(JAIL_CRUSHING_SOUND)
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(JAIL_CRUSHING_SOUND);
 		GetComponentByTemplate<Accumulating>()->SetIsAccumulating(true);
     }
 }
@@ -95,6 +96,7 @@ void CrushableObject::DoSomethingWhenDetached()
 	if (attachedNum - detachedNum <= 4)
 	{
 		// Add Stop_Sound(JAIL_CRUSHING_SOUND))
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(JAIL_CRUSHING_SOUND);
 		GetComponentByTemplate<Accumulating>()->SetIsAccumulating(false);
 	}
 }

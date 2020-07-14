@@ -940,7 +940,6 @@ void Physics::IsCollideWithMovedObject()
                                     SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Stop_Sound(STRUGGLE_SOUND2);
 
                                 }
-                                std::cout << "stop\n";
                                 isSoundPlay = false;
                             }
                             if (Player* player = dynamic_cast<Player*>(owner);

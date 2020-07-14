@@ -53,8 +53,7 @@ void Level3::Load()
     cameraManager.Init(player1, player2);
     delete fileio;
     sceneStateManager->SetNameOfSelectedLevel("Level4");
-    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND);
-    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().SetVolume(BACKGROUND_SOUND, 0.2f);
+    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
 }
 
 void Level3::Update(float dt)

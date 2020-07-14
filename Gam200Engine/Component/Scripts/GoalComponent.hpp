@@ -39,4 +39,5 @@ private:
 	Player* targetPlayer2;
 	bool isPlayerOnGoal1;
 	bool isPlayerOnGoal2;
+	bool doorSoundTriggerd;
 };

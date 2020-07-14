@@ -26,7 +26,12 @@ using  namespace  FMOD;
 //The orders are important to set up the Play_Sound function.
 enum  SOUNDS
 {
-    BACKGROUND_SOUND=0,
+    BACKGROUND_SOUND = 0,
+    BACKGROUND_SOUND2,
+    CREADIT_BGM,
+    HOWTOPLAY_MAIN_BGM,
+
+
     CRUSH_SOUND,
     GOAL_SOUND,
     CURSOR_MOVEMENT_SOUND,
@@ -53,6 +58,8 @@ enum  SOUNDS
     STRUGGLE_SOUND,
     STRUGGLE_SOUND2,
     REFRIGERATOR_TRIGGERED_SOUND,
+
+
     NONE
 };
 
@@ -80,6 +87,8 @@ public:
     void SetVolumeOnMenu();
 
     void SetVolumeOnGameRunning();
+
+    void StopCurrentBGM();
 
 
 private:

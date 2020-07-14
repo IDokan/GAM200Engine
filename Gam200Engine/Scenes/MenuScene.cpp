@@ -31,6 +31,7 @@ MenuScene::MenuScene(): background(nullptr)
 {
 	totalDT = 0.f;
 	isMenu = true;
+
 }
 
 MenuScene::~MenuScene()
@@ -47,8 +48,9 @@ void MenuScene::Load()
 
 	PauseAndMenu* pam = PauseAndMenu::Get();
 	pam->defaultItem = pam->mainMenu;
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::HOWTOPLAY_MAIN_BGM);
+
 	sceneStateManager->GetComponentByTemplate<StateMachine<SceneStateManager>>()->ChangeState(pam);
-	
 }
 
 void MenuScene::Update(float dt)
@@ -69,13 +71,13 @@ void MenuScene::Unload()
 void MenuScene::Input()
 {
 	if (input.IsKeyTriggered(GLFW_KEY_1)) {
-		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BUTTON_PRESSED_SOUND);
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
 	}	
 	if (input.IsKeyTriggered(GLFW_KEY_2)) {
-		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CHEESE_RESTORED_SOUND);
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::CREADIT_BGM);
 	}
 	if (input.IsKeyTriggered(GLFW_KEY_3)) {
-		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::GOAL_DOORTRIGGER_SOUND);
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::HOWTOPLAY_MAIN_BGM);
 	}
 	if (input.IsKeyTriggered(GLFW_KEY_4)) {
 		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::JAIL_CRUSHING_SOUND);

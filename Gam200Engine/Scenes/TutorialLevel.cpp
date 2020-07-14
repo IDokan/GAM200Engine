@@ -29,6 +29,7 @@ Creation Date: 02.11.2020
 #include<Component/MessageCapable.hpp>
 #include <Component/Scripts/Hostage.hpp>
 #include <Object/Points/CheckPoint.hpp>
+#include <Scenes/SceneManager.hpp>
 
 TutorialLevel::TutorialLevel() : background(nullptr), movingObject_1(nullptr), movingObject_2(nullptr)
 {
@@ -47,6 +48,9 @@ void TutorialLevel::Load()
 	
 	cameraManager.Init(player1, player2);
 	sceneStateManager->SetNameOfSelectedLevel("Ending");
+
+
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::BACKGROUND_SOUND2);
 
 	delete fileio;
 

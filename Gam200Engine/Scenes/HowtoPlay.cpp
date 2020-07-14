@@ -39,6 +39,7 @@ void HowToPlay::Load()
 {
 	HowToPlay::InitObject();
 	cameraManager.Init();
+	SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::HOWTOPLAY_MAIN_BGM);
 }
 
 void HowToPlay::Update(float dt)
@@ -69,6 +70,7 @@ void HowToPlay::Input()
 {
 	if (input.IsAnyKeyTriggered() && !input.IsKeyTriggered(GLFW_KEY_LEFT) && !input.IsKeyTriggered(GLFW_KEY_RIGHT) && !input.IsKeyTriggered(GLFW_KEY_A) && !input.IsKeyTriggered(GLFW_KEY_D))
 	{
+		SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().Play_Sound(SOUNDS::UNDO_SOUND);
         SceneManager::GetSceneManager()->SetNextScene("MenuScene");
 	}
 }
