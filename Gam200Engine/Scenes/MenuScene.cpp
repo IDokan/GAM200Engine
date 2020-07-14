@@ -109,8 +109,18 @@ void MenuScene::InitObject()
 	gameTitle->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/UI/GAME_TITLE.png");
 	gameTitle->SetDepth(Depth_Standard::Button);
 
+	pressEnter = new Object();
+	pressEnter->SetObjectName("pressEnter");
+	pressEnter->SetTranslation(vector2{ 0, -380 });
+	pressEnter->SetScale(vector2{ 750, 60 });
+	pressEnter->SetObjectType(Object::ObjectType::TEST);
+	pressEnter->AddComponent(new Sprite(pressEnter));
+	pressEnter->GetComponentByTemplate<Sprite>()->SetImage("../assets/textures/pressEnter.png");
+	pressEnter->SetDepth(Depth_Standard::Button);
+
 	auto objManager = ObjectManager::GetObjectManager();
 	objManager->FindLayer(LayerNames::Stage)->AddObject(gameTitle);
+	objManager->FindLayer(LayerNames::Stage)->AddObject(pressEnter);
 }
 
 

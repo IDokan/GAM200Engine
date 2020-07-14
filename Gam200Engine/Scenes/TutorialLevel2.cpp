@@ -153,10 +153,12 @@ void TutorialLevel2::InitObject()
     button3 = new DoorSystem(player1, player2, vector2{ 2850.f, 260.f }, vector2{ 100.f, 100.f }, vector2{ 3050.f, 0.f }, vector2{ 100.f, 180.f }, false);
     button3->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, {1.0f, 1.0f, 1.0f, 1.0f });
     button3->SetButtonAndDoorName("button4", "door_5");
-    
+    button3->SetButtonAndDoorColor({ 0.f, 1.f ,0.f,1.0f }, { 0.f,1.f ,0.f,1.0f });
+
     button4 = new DoorSystem(player1, player2, vector2{ -155.f, -230.f }, vector2{ 100.f, 100.f }, vector2{ 310.f, 230.f }, vector2{ 100.f, 100.f }, vector2{ -300, 0.f }, vector2{ 100.f, 180.f }, vector2{ 450.f, 0.f }, vector2{ 100.f, 180.f });
     button4->SetButtonAndDoorColor({ 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f });
     button4->SetButtonAndDoorName("button5", "button6", "door_6", "door_7");
+    button4->SetButtonAndDoorColor({ 1.f, 0.f ,0.f,1.0f }, { 1.f, 0.f ,0.f,1.0f }, { 1.f, 0.f ,0.f,1.0f }, { 1.f, 0.f ,0.f,1.0f });
 
 
     Transform goalTransform;
