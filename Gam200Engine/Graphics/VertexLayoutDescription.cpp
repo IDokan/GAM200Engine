@@ -1,6 +1,14 @@
-/*  sinil.gang
- *  CS230 && GAM200
- */
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   VertexLayoutDescription.cpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+Creation Date: 08.10.2019
+
+	Source file for VertexLayoutDescription functions
+******************************************************************************/
 #include <cassert>
 #include <cstdint>
 #include <Graphics/Mesh.hpp>

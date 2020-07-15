@@ -7,7 +7,7 @@ Author
 	- Sinil.Kang rtd99062@gmail.com
 Creation Date: 08.10.2019
 
-	Source file for GL functions
+	Source file for Texture functions
 ******************************************************************************/
 #include <Graphics/Image.hpp>
 #include <Graphics/Texture.hpp>

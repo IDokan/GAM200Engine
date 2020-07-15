@@ -1,8 +1,14 @@
-/*
- * Rudy Castan
- * Graphics Library
- * CS230
- */
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   Vertices.hpp
+Author
+    - Sinil.Kang rtd99062@gmail.com
+Creation Date: 08.10.2019
+
+    Header file for Vertex functions
+******************************************************************************/
 #pragma once
 #include <Graphics/VertexLayoutDescription.hpp>
 

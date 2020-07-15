@@ -238,7 +238,6 @@
     <ClInclude Include="Object\HUD\SelectableObject.hpp" />
     <ClInclude Include="Object\HUD\StringLengthUI.hpp" />
     <ClInclude Include="Object\HUD\VolumeSettingBarUI.hpp" />
-    <ClInclude Include="Object\InstancedObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\CrushableObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\InteractiveObject.hpp" />
     <ClInclude Include="Object\InteractiveObject\ObstacleObject.hpp" />
@@ -354,12 +353,6 @@
     <ClCompile Include="Graphics\ImGui\imgui_impl_glfw.cpp" />
     <ClCompile Include="Graphics\ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Graphics\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="Graphics\ImGui\main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Graphics\ImGui\MyImGui.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\Parallax scrolling\Layer.cpp" />
@@ -377,7 +370,6 @@
     <ClCompile Include="Object\HUD\SelectableObject.cpp" />
     <ClCompile Include="Object\HUD\StringLengthUI.cpp" />
     <ClCompile Include="Object\HUD\VolumeSettingBarUI.cpp" />
-    <ClCompile Include="Object\InstancedObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\CrushableObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\InteractiveObject.cpp" />
     <ClCompile Include="Object\InteractiveObject\ObstacleObject.cpp" />

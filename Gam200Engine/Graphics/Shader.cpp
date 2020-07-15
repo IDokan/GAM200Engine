@@ -1,3 +1,14 @@
+/******************************************************************************
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:   Shader.hpp
+Author
+	- Sinil.Kang rtd99062@gmail.com
+Creation Date: 08.10.2019
+
+	Source file for Shader
+******************************************************************************/
 #include "Shader.hpp"
 #include <Graphics/glCheck.hpp>
 #include <Graphics/Color4f.hpp>

@@ -58,9 +58,6 @@
     <ClCompile Include="Graphics\ImGui\imgui_impl_opengl3.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\ImGui\main.cpp">
-      <Filter>Graphics\ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\ImGui\imgui_impl_glfw.cpp">
       <Filter>Graphics\ImGui</Filter>
     </ClCompile>
@@ -210,9 +207,6 @@
     </ClCompile>
     <ClCompile Include="States\StringStates\StringIdle.cpp">
       <Filter>States\StringStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\InstancedObject.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\TutorialLevel.cpp">
       <Filter>Scenes</Filter>
@@ -629,9 +623,6 @@
     </ClInclude>
     <ClInclude Include="States\StringStates\StringIdle.hpp">
       <Filter>States\StringStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\InstancedObject.hpp">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\TutorialLevel.hpp">
       <Filter>Scenes</Filter>
