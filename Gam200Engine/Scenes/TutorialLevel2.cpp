@@ -39,7 +39,6 @@ TutorialLevel2::TutorialLevel2() : background(nullptr)
 
 TutorialLevel2::~TutorialLevel2()
 {
-    SceneManager::GetSceneManager()->GetCurrentScene()->GetSoundManager().UnLoad_Sound();
 }
 
 void TutorialLevel2::Load()
