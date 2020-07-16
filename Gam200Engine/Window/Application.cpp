@@ -15,6 +15,8 @@ Creation Date: 08.05.2019
 #include "Graphics/GL.hpp"
 #include "Scenes/SceneManager.hpp"
 #include "Object/ObjectManager.hpp"
+#include <fstream>
+#include <direct.h>
 
 #include <Graphics/ImGui/MyImGui.hpp>
 #include <Systems/MessageSystem/MessageDispatcher.hpp>
@@ -88,6 +90,26 @@ void Application::Init()
     SceneManager::GetSceneManager()->AddScenes("Ending", dynamic_cast<Scene*>(new Ending()));
 
 	ObstaclesDrawingHelper::Get()->Init();
+
+    char* userpath = getenv("USERPROFILE");
+    std::string dir;
+    std::string path;
+
+    dir = std::string(userpath) + "\\Documents\\DigiPen";///DigiPen/CheeseRoll/fileIO";
+    _mkdir(dir.c_str());
+    dir = std::string(userpath) + "\\Documents\\DigiPen\\CheeseRoll";
+    _mkdir(dir.c_str());
+    dir = std::string(userpath) + "\\Documents\\DigiPen\\CheeseRoll\\fileIO";
+    _mkdir(dir.c_str());
+
+    if (userpath != nullptr)
+        path = std::string(userpath) + "\\Documents\\DigiPen\\CheeseRoll\\fileIO\\LatestLevel.txt";
+    else
+        std::cout << "No user path";
+
+    std::ofstream makeLevelSave(path);
+
+    makeLevelSave << "Level1";
 }
 
 void Application::Update(float dt)

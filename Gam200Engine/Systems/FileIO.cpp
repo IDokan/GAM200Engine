@@ -274,8 +274,15 @@ void fileIO::Output(const std::filesystem::path& outFilePath)
 
 void fileIO::LoadGame(void)
 {
+	char* userpath = getenv("USERPROFILE");
+	std::string path;
+	if (userpath != nullptr)
+		path = std::string(userpath) + "\\Documents\\DigiPen\\CheeseRoll\\fileIO\\LatestLevel.txt";
+	else
+		std::cout << "No user path";
+
 	std::ifstream inStream;
-	inStream.open("../assets/fileIO/LatestLevel.txt");
+	inStream.open(path);
 
 	if (inStream.is_open() == false)
 	{
@@ -318,7 +325,16 @@ void fileIO::LoadGame(void)
 
 void fileIO::SaveLevel(void)
 {
-	std::ofstream saveLoad("../assets/fileIO/LatestLevel.txt");
+	char* userpath = getenv("USERPROFILE");
+	std::string path;
+	if (userpath != nullptr)
+		path = std::string(userpath) + "\\Documents\\DigiPen\\CheeseRoll\\fileIO\\LatestLevel.txt";
+	else
+		std::cout << "No user path";
+
+	//std::ofstream saveLoad("../assets/fileIO/LatestLevel.txt");
+	//std::ofstream saveLoad("C:\\Users/%USERPROFILE%/Documents/DigiPen/CheeseRoll/assets/fileIO/LatestLevel.txt");
+	std::ofstream saveLoad(path);
 
 	if (SceneManager::GetSceneManager()->GetCurrentScene()->GetSceneStateManager()->GetNameOfSelectedLevel() == "TutorialLevel2")
 	{
